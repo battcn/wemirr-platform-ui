@@ -68,6 +68,9 @@ function createService () {
         case 505: error.message = 'HTTP版本不受支持'; break
         default: break
       }
+      if (error.message === 'Network Error') {
+        error.message = '网络连接失败,请稍后再试'
+      }
       errorLog(error)
       return Promise.reject(error)
     }

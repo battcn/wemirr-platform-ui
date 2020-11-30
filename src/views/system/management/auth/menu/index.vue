@@ -34,7 +34,7 @@
 
       <el-col :sm="8" :xs="24">
         <el-card class="box-card">
-          <el-form :model="menu" :rules="rules" label-position="right" label-width="60px" ref="form">
+          <el-form :model="menu" :rules="rules" label-position="right" label-width="60px" ref="form" readonly>
             <el-form-item label="上级ID" prop="parentId">
               <el-tooltip content="值为0时表示顶节点" class="item" effect="dark" placement="right">
                 <el-input readonly v-model="menu.parentId"/>
@@ -43,13 +43,38 @@
             <el-form-item label="名称" prop="label">
               <el-input v-model="menu.label"/>
             </el-form-item>
-            <el-form-item label="路由" prop="path">
-              <el-input @keyup.native="menuPath" v-model="menu.path"/>
-            </el-form-item>
-            <el-form-item label="组件" prop="component">
-              <el-input v-model="menu.component"/>
-              <span>{{ menuComponent }}</span>
-            </el-form-item>
+            <div v-if="menu.parentId !== 0">
+              <el-form-item label="类型">
+                <el-radio-group v-model="menu.type" size="medium" @change="changeType">
+                  <el-radio-button label='1'>菜单</el-radio-button>
+                  <el-radio-button label='3'>路由</el-radio-button>
+                  <el-radio-button label='5'>一键发布</el-radio-button>
+                </el-radio-group>
+              </el-form-item>
+              <div v-if="menu.type != 5">
+                <el-form-item label="路由" prop="path" >
+                  <el-input @keyup.native="menuPath" v-model="menu.path"/>
+                </el-form-item>
+                <el-form-item label="组件" prop="component">
+                  <el-input v-model="menu.component"/>
+                  <span>{{ menuComponent }}</span>
+                </el-form-item>
+              </div>
+              <div v-else>
+                <el-form-item label="模板" prop="model" >
+                <el-select v-model="menu.model" filterable clearable placeholder="请选择" >
+                  <el-option
+                    v-for="item in buildStandardList"
+                    :key="item.model"
+                    :label="item.label"
+                    :value="item.model">
+                    <span style="float: left">{{ item.label }}</span>
+                    <span style="float: right; color: #8492a6; font-size: 13px">{{ item.model }}</span>
+                  </el-option>
+                </el-select>
+                </el-form-item>
+              </div>
+            </div>
             <el-form-item label="图标" prop="icon">
               <e-icon-picker v-model="menu.icon" :options="options" :disabled="disabled" :readonly="readonly"
                              :placement="placement" :styles="style" :width="width"/>
@@ -116,6 +141,8 @@ export default {
   components: { commonTree },
   data () {
     return {
+      buildStandardList: [],
+      value: '',
       icon: '',
       options: { FontAwesome: false, ElementUI: true, addIconList: [], removeIconList: [] },
       disabled: false,
@@ -146,6 +173,9 @@ export default {
         label: [
           { required: true, message: '不能为空', trigger: 'blur' },
           { min: 1, max: 255, message: '2到10个字符', trigger: 'blur' }
+        ],
+        model: [
+          { required: true, message: '模板不能为空' }
         ],
         path: [{ max: 255, message: '不能超过100', trigger: 'blur' },
           { required: true, message: '不能为空', trigger: 'blur' },
@@ -188,8 +218,15 @@ export default {
   },
   mounted () {
     this.initMenuTree()
+    this.initBuildStandardList()
   },
   methods: {
+    initBuildStandardList () {
+      api.GetBuildStandardList({ size: 9999 }).then(res => {
+        console.log('res', res)
+        this.buildStandardList = res.data.records
+      })
+    },
     getCrudOptions () {
       return crudOptions(this)
     },
@@ -276,8 +313,10 @@ export default {
       return {
         id: '',
         label: '',
+        type: 1,
         description: '',
         code: '',
+        model: '',
         global: false,
         path: '',
         component: '',
@@ -396,6 +435,9 @@ export default {
       this.$refs.form.clearValidate()
       this.$refs.form.resetFields()
       this.menu = this.initMenu()
+    },
+    changeType (row) {
+      console.log('changeType', this.menu.type, this.menu.type !== 5)
     }
   }
 }

@@ -59,6 +59,7 @@
                 console.log(event)
                 const  setting = JSON.parse(event.row.setting)
                 const dragId = event.row.id;
+                console.log('setting',setting)
                 this.$router.push({name: 'system_development_build_setting', params: { dragId,setting }})
             }
         }

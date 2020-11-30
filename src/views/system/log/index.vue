@@ -9,17 +9,17 @@
       <!-- 时间 -->
       <el-table-column
         prop="time"
-        label="Time"
+        label="时间"
         width="140">
       </el-table-column>
       <!-- 信息 -->
       <el-table-column
         prop="message"
-        label="Message">
+        label="消息">
       </el-table-column>
       <!-- 触发页面 -->
       <el-table-column
-        label="Url"
+        label="触发页面"
         align="center"
         min-width="200">
         <template slot-scope="scope">
@@ -28,7 +28,7 @@
       </el-table-column>
       <!-- 触发组件 -->
       <el-table-column
-        label="Tag"
+        label="触发组件"
         align="center"
         min-width="120">
         <template slot-scope="scope">
@@ -44,7 +44,7 @@
       <el-table-column
         fixed="right"
         align="center"
-        label="More"
+        label="查看详情"
         width="100">
         <template slot-scope="scope">
           <el-button

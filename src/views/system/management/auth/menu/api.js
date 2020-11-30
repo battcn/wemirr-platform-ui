@@ -73,3 +73,11 @@ export function DelResourceById (id) {
     data: { id }
   })
 }
+
+export function GetBuildStandardList (query) {
+  return request({
+    url: '/tools/dynamic_release_drag',
+    method: 'get',
+    params: query
+  })
+}

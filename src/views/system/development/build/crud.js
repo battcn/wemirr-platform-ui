@@ -45,6 +45,14 @@ export const crudOptions = (vm) => {
         disabled: true // 是否隐藏列
       },
       {
+        title: '名称',
+        key: 'label',
+        search: {disabled: false}, // 表单配置
+        form: {
+          rules: [{required: true, message: '请输入模板名称'}]
+        }
+      },
+      {
         title: '模型',
         key: 'model',
         search: {disabled: false}, // 表单配置

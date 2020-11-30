@@ -52,10 +52,17 @@ Vue.use(d2CrudPlus, {
         }
       },
       pageOptions: {
-        compact: true
+        compact: false
       },
       options: {
+        border: true,
+        stripe: true,
         size: 'small'
+        // height: '100%' // 表格高度100%
+      },
+      pagination: {
+        pageSize: 10,
+        pageSizes: [10, 20, 30, 40, 50, 100]
       },
       formOptions: {
         nullToBlankStr: true, // 提交修改表单时，将undefinded的数据修改为空字符串''，可以解决无法清空字段的问题
