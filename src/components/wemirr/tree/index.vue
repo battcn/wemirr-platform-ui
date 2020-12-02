@@ -19,6 +19,7 @@
         slot-scope="{ data, node }"
         class="custom-tree-node"
       >
+<!--        <d2p-icon :value="data.icon"></d2p-icon>-->
         <span style="margin-right: 15px;">{{ data.title }}</span>
         <slot
           :data="data"

@@ -4,11 +4,11 @@ import i18n from './i18n'
 import App from './App'
 // 核心插件
 import d2Admin from '@/plugin/d2admin'
-import iconPicker from 'e-icon-picker'
-import 'e-icon-picker/dist/symbol.js' // 基本彩色图标库
-import 'e-icon-picker/dist/index.css' // 基本样式，包含基本图标
+// import iconPicker from 'e-icon-picker'
+// import 'e-icon-picker/dist/symbol.js' // 基本彩色图标库
+// import 'e-icon-picker/dist/index.css' // 基本样式，包含基本图标
 // import 'font-awesome/css/font-awesome.min.css' // font-awesome 图标库
-import 'element-ui/lib/theme-chalk/icon.css' // element-ui 图标库
+// import 'element-ui/lib/theme-chalk/icon.css' // element-ui 图标库
 // store
 import store from '@/store/index'
 
@@ -25,7 +25,7 @@ import pluginExport from '@d2-projects/vue-table-export'
 import '@/styles/index.scss'
 import '@/icons'
 import Tinymce from '@/components/tinymce/index.vue'
-import * as monaco from 'monaco-editor'
+// import * as monaco from 'monaco-editor'
 // 滚动条监控警告处理
 import 'default-passive-events'
 
@@ -34,9 +34,9 @@ import './install'
 import './business/modules/permission'
 // 核心插件
 Vue.use(d2Admin)
-Vue.use(iconPicker)// 使用e-icon-picker
+// Vue.use(iconPicker)// 使用e-icon-picker
 Vue.use(pluginExport)
-Vue.use(monaco)
+// Vue.use(monaco)
 Vue.component('tinymce', Tinymce)
 // Vue.component('link-button', () => import('@/business/components/link-button/index.vue'))
 // Vue.component('example-helper', () => import('@/business/components/example-helper/index.vue'))

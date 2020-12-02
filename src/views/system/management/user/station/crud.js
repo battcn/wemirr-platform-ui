@@ -10,6 +10,12 @@ export const crudOptions = (vm) => {
     options: {
       height: '100%' // 表格高度100%, 使用toolbar必须设置
     },
+    formOptions: {
+      type: 'dialog',
+      draggable: false,
+      nullToBlankStr: true, // 提交修改表单时，将undefinded的数据修改为空字符串''，可以解决无法清空字段的问题
+      defaultSpan: 12 // 默认的表单 span
+    },
     rowHandle: {
       // columnHeader: '操作',
       width: 180,

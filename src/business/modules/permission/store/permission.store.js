@@ -84,7 +84,8 @@ function formatMenu (menuTree) {
   }
   let menus = []
   menuTree.forEach((item) => {
-    if (item.type !== 1) { // 只有菜单类型才加入
+    //  if (item.type !== 1)  兼容 一键发布出来的菜单
+    if (item.type !== 1 && item.type !== 5) { // 只有菜单类型才加入
       return
     }
     let children

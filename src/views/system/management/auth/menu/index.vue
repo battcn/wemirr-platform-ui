@@ -22,9 +22,6 @@
           <common-tree :tree-data="menuTree" @nodeClick="nodeClick" ref="menuTree">
             <template slot-scope="treeNode">
               <span class="tree-icon">
-                <i :class="treeNode.data.icon ? treeNode.data.icon : 'el-icon-document'"></i>
-              </span>
-              <span class="tree-icon">
                 <el-badge :type="treeNode.data.locked ? 'danger' :'success'" class="status-item" is-dot/>
               </span>
             </template>
@@ -46,12 +43,12 @@
             <div v-if="menu.parentId !== 0">
               <el-form-item label="类型">
                 <el-radio-group v-model="menu.type" size="medium" @change="changeType">
-                  <el-radio-button label='1'>菜单</el-radio-button>
-                  <el-radio-button label='3'>路由</el-radio-button>
-                  <el-radio-button label='5'>一键发布</el-radio-button>
+                  <el-radio-button label="1">菜单</el-radio-button>
+                  <el-radio-button label="3">路由</el-radio-button>
+                  <el-radio-button label="5">一键发布</el-radio-button>
                 </el-radio-group>
               </el-form-item>
-              <div v-if="menu.type != 5">
+              <div v-if="menu.type !== 5">
                 <el-form-item label="路由" prop="path" >
                   <el-input @keyup.native="menuPath" v-model="menu.path"/>
                 </el-form-item>
@@ -76,8 +73,9 @@
               </div>
             </div>
             <el-form-item label="图标" prop="icon">
-              <e-icon-picker v-model="menu.icon" :options="options" :disabled="disabled" :readonly="readonly"
-                             :placement="placement" :styles="style" :width="width"/>
+              <d2p-icon-select v-model="menu.icon" ></d2p-icon-select>
+<!--              <e-icon-picker v-model="menu.icon" :options="options" :disabled="disabled" :readonly="readonly"
+                             :placement="placement" :styles="style" :width="width"/>-->
             </el-form-item>
             <el-row>
               <el-col :span="12">
@@ -313,7 +311,7 @@ export default {
       return {
         id: '',
         label: '',
-        type: 1,
+        type: null,
         description: '',
         code: '',
         model: '',
@@ -437,7 +435,7 @@ export default {
       this.menu = this.initMenu()
     },
     changeType (row) {
-      console.log('changeType', this.menu.type, this.menu.type !== 5)
+      this.menu.type = parseInt(row)
     }
   }
 }

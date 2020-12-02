@@ -49,13 +49,12 @@
           <el-button ref="search" size="small" type="primary" @click="doSearch"><i class="el-icon-search"></i>查询</el-button>
           <el-button size="small" type="primary" @click="addRow"><i class="el-icon-plus"></i> 新增</el-button>
           <el-button size="small" type="danger" @click="batchDelete" :disabled="!multipleSelection || multipleSelection.length === 0" ><i class="el-icon-delete"></i> 批量删除</el-button>
-
-          <!--<el-button size="small" type="primary" @click="exportExcel"><i class="el-icon-delete"></i> 导出</el-button>-->
         </el-row>
-        <crud-toolbar :search.sync="crud.searchOptions.show"
+
+        <crud-toolbar
+          :refresh="null" :search="null"
                       :compact.sync="crud.pageOptions.compact"
                       :columns="crud.columns"
-                      @refresh="doRefresh()"
                       v-bind="_crudToolbarProps" v-on="_crudToolbarListeners"
                       @columns-filter-changed="columnsFilterChanged"/>
 

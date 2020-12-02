@@ -46,7 +46,7 @@
       <div class="action-bar">
         <!--<el-button icon="el-icon-video-play" type="text" @click="run">
           运行
-        </el-button>-->
+        </el-button>
         <el-button icon="el-icon-view" type="text" @click="showJson">
           查看json
         </el-button>
@@ -56,6 +56,7 @@
         <el-button class="copy-btn-main" icon="el-icon-document-copy" type="text" @click="copy">
           复制代码
         </el-button>
+        -->
         <el-button class="delete-btn" icon="el-icon-delete" type="text" @click="empty">
           清空
         </el-button>
@@ -125,37 +126,29 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
-import { debounce } from 'throttle-debounce'
-import { saveAs } from 'file-saver'
-import ClipboardJS from 'clipboard'
-import render from '@/components/render/render'
-import FormDrawer from './FormDrawer'
-import JsonDrawer from './JsonDrawer'
-import RightPanel from './RightPanel'
-import {
-  inputComponents, selectComponents, layoutComponents, formConf
-} from '@/components/generator/config'
-import {
-  exportDefault, beautifierConf, isNumberStr, titleCase, deepClone
-} from '@/utils/index'
-import {
-  makeUpHtml, vueTemplate, vueScript, cssStyle
-} from '@/components/generator/html'
-import { makeUpJs } from '@/components/generator/js'
-import { makeUpCss } from '@/components/generator/css'
-import drawingDefalut from '@/components/generator/drawingDefalut'
-import logo from '@/assets/logo.png'
-import CodeTypeDialog from './CodeTypeDialog'
-import DraggableItem from './DraggableItem'
-import {
-  saveDrawingList, getIdGlobal, saveIdGlobal
-} from '@/utils/db'
-import loadBeautifier from '@/utils/loadBeautifier'
+    import draggable from 'vuedraggable'
+    import {debounce} from 'throttle-debounce'
+    import {saveAs} from 'file-saver'
+    import ClipboardJS from 'clipboard'
+    import render from '@/components/render/render'
+    import FormDrawer from './FormDrawer'
+    import JsonDrawer from './JsonDrawer'
+    import RightPanel from './RightPanel'
+    import {formConf, inputComponents, layoutComponents, selectComponents} from '@/components/generator/config'
+    import {beautifierConf, deepClone, titleCase} from '@/utils/index'
+    import {cssStyle, makeUpHtml, vueScript, vueTemplate} from '@/components/generator/html'
+    import {makeUpJs} from '@/components/generator/js'
+    import {makeUpCss} from '@/components/generator/css'
+    import drawingDefalut from '@/components/generator/drawingDefalut'
+    import logo from '@/assets/logo.png'
+    import CodeTypeDialog from './CodeTypeDialog'
+    import DraggableItem from './DraggableItem'
+    import {getIdGlobal, saveDrawingList, saveIdGlobal} from '@/utils/db'
+    import loadBeautifier from '@/utils/loadBeautifier'
 
-import * as api from './api'
+    import * as api from './api'
 
-let beautifier
+    let beautifier
 const emptyActiveData = { style: {}, autosize: {} }
 let oldActiveId
 let tempActiveData
@@ -259,17 +252,6 @@ export default {
         this.drawingList = []
         this.idGlobal = 100
     }
-    // console.log('this.drawingList', this.drawingList)
-    console.log('this.drawingList ',this.drawingList)
-    // if (Array.isArray(drawingListInDB) && drawingListInDB.length > 0) {
-    //   this.drawingList = drawingListInDB
-    // } else {
-    //   this.drawingList = drawingDefalut
-    // }
-    // this.activeFormItem(this.drawingList[0])
-    // if (formConfInDB) {
-    //   this.formConf = formConfInDB
-    // }
     loadBeautifier(btf => {
       beautifier = btf
     })
@@ -292,8 +274,8 @@ export default {
       onSubmit() {
           this.formData = {
               dragId: this.dragId,
-              fields: deepClone(this.drawingList),
-            ...this.formConf
+              ...this.formConf,
+              fields: deepClone(this.drawingList)
             }
           api.AddObj(this.formData).then(res=>{
               console.log('res', res)

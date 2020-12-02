@@ -65,6 +65,9 @@ Vue.use(d2CrudPlus, {
         pageSizes: [10, 20, 30, 40, 50, 100]
       },
       formOptions: {
+        type: 'drawer',
+        draggable: false,
+        size: '50%',
         nullToBlankStr: true, // 提交修改表单时，将undefinded的数据修改为空字符串''，可以解决无法清空字段的问题
         defaultSpan: 12 // 默认的表单 span
       },
