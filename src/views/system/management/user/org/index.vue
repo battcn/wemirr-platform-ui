@@ -19,6 +19,7 @@
               :filter-node-method="filterNode"
               highlight-current
               node-key="id"
+              @node-click="nodeClick"
               ref="orgTree"
               show-checkbox>
            <span class="custom-tree-node" slot-scope="{ node }">
@@ -180,6 +181,7 @@ export default {
       this.org.parentLabel = node.data.label
     },
     nodeClick (data) {
+      console.log('data', data)
       this.org = { ...data }
       const parent = this.$refs.orgTree.getNode(data.parentId)
       if (parent) {
