@@ -16,15 +16,15 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       custom: [
-        // paper-plane
-        {
-          thin: true,
-          text: null,
-          type: 'warning',
-          size: 'small',
-          emit: 'config',
-          icon: 'el-icon-s-tools'
-        }],
+        // {
+        //   thin: true,
+        //   text: null,
+        //   type: 'warning',
+        //   size: 'small',
+        //   emit: 'config',
+        //   icon: 'el-icon-s-tools'
+        // }
+        ],
       view: {
         thin: true,
         text: null
@@ -46,34 +46,33 @@ export const crudOptions = (vm) => {
         disabled: true // 是否隐藏列
       },
       {
-        title: '名称',
-        key: 'label',
+        title: '请求方式',
+        key: 'method',
+        type: 'select',
         search: {disabled: false}, // 表单配置
+        dict: {
+          data: [
+            { value: 'PUT', label: 'PUT', color: 'warning' },
+            { value: 'POST', label: 'POST', color: 'danger' }
+          ]
+        },
         form: {
-          rules: [{required: true, message: '请输入模板名称'}]
+          rules: [{required: true, message: '请选择请求方式'}]
         }
       },
       {
-        title: '模型',
-        key: 'model',
-        search: {disabled: false}, // 表单配置
-        form: {
-          rules: [{required: true, message: '请输入模型(唯一)'}]
-        }
-      },
-      {
-        title: '表名',
-        key: 'tableName',
-        form: {
-          disabled: true
-        }
-      },
-      {
-        title: '描述',
-        key: 'description',
+        title: '请求地址',
+        key: 'url',
         type: 'text-area',
         form: {
-          rules: [{required: true, message: '请输入描述信息'}]
+          rules: [{required: true, message: '请输入请求地址'}, {type: 'url',message: "请输入正确的URL"}]
+        }
+      },
+      {
+        title: '秘钥',
+        key: 'secret',
+        form: {
+          rules: [{required: true, message: '请输入加密秘钥'}]
         }
       },
       {
@@ -84,6 +83,19 @@ export const crudOptions = (vm) => {
         dict: {
           data: [
             {value: false, label: '启用'}, {value: true, label: '禁用', color: 'danger'}
+          ]
+        }
+      },
+      {
+        title: '触发事件',
+        key: 'opt',
+        type: 'checkbox',
+        align: 'center',
+        dict: {
+          data: [
+            {value: 'DELETE', label: '删除', color: 'danger'},
+            {value: 'INSERT', label: '添加'},
+            {value: 'UPDATE', label: '修改', color: 'warning'}
           ]
         }
       },

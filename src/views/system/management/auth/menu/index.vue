@@ -77,19 +77,13 @@
 <!--              <e-icon-picker v-model="menu.icon" :options="options" :disabled="disabled" :readonly="readonly"
                              :placement="placement" :styles="style" :width="width"/>-->
             </el-form-item>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="状态" prop="locked">
-                  <el-switch inactive-text="启用" active-text="禁用" v-model="menu.locked"/>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="公有" prop="global">
-                  <el-switch active-text="是" inactive-text="否"
-                             v-model="menu.global"/>
-                </el-form-item>
-              </el-col>
-            </el-row>
+            <el-form-item label="状态" prop="locked">
+              <el-switch active-text="禁用" inactive-text="启用"  v-model="menu.locked"/>
+            </el-form-item>
+            <el-form-item label="范围" prop="global">
+              <el-switch active-text="公有" inactive-text="私有"
+                         v-model="menu.global"/>
+            </el-form-item>
             <el-form-item label="排序" prop="sequence">
               <el-input-number :max="100" :min="0" @change="handleNumChange" v-model="menu.sequence"/>
             </el-form-item>

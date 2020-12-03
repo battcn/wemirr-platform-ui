@@ -8,11 +8,11 @@ export default {
      * @param {Object} state state
      */
     versionShow () {
-      util.log.capsule('D2Admin', `v${process.env.VUE_APP_VERSION}`)
-      console.log('D2 Admin  https://github.com/d2-projects/d2-admin')
-      console.log('D2 Crud Plus   https://github.com/greper/d2-crud-plus')
-      console.log('Document  http://greper.gitee.io/d2-crud-plus/')
-      console.log('请不要吝啬您的 star，谢谢 ~')
+      util.log.capsule('鏖战云', `v${process.env.VUE_APP_VERSION}`)
+      // console.log('D2 Admin  https://github.com/d2-projects/d2-admin')
+      // console.log('D2 Crud Plus   https://github.com/greper/d2-crud-plus')
+      // console.log('Document  http://greper.gitee.io/d2-crud-plus/')
+      // console.log('请不要吝啬您的 star，谢谢 ~')
     }
   }
 }
