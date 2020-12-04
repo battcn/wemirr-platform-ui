@@ -8,7 +8,7 @@
               <div class="user-wrapper">
                 <div class="user-header">
                   <el-avatar :size="60"
-                             src="http://tangyh.top:10000/zuihou-ui/static/img/cnrhVkzwxjPwAaCfPbdc.1b71a9dc.png"
+                             :src="logo"
                              fit="fill">
                     <el-avatar :size="60">{{ user.name }}</el-avatar>
                   </el-avatar>
@@ -77,13 +77,14 @@
 import Vue from 'vue'
 import VCharts from 'v-charts'
 import * as api from './api'
-
+import logo from '@/assets/logo.png'
 Vue.use(VCharts)
 export default {
   mixins: [
   ],
   data () {
     return {
+      logo,
       pubSetting: {
         height: '100%'
       },
@@ -124,40 +125,40 @@ export default {
 
 <style lang="scss" scoped>
 
-  .user-wrapper {
-    .user-header {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .user-info {
-      display: inline-block;
-      vertical-align: middle;
-      margin-left: 20px;
-
-      .random-message {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .user-dept,
-      .user-login-info {
-        color: rgba(0, 0, 0, 0.45);
-        margin-bottom: 0.5rem;
-        font-size: 0.8rem;
-        line-height: 1.1rem;
-      }
-    }
-  }
-
-  .user-visits {
-    text-align: center;
-    padding-right: 2rem;
-    margin-top: 1rem;
+.user-wrapper {
+  .user-header {
+    display: inline-block;
     vertical-align: middle;
+  }
 
-    .num {
-      font-weight: 600;
+  .user-info {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+
+    .random-message {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .user-dept,
+    .user-login-info {
+      color: rgba(0, 0, 0, 0.45);
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      line-height: 1.1rem;
     }
   }
+}
+
+.user-visits {
+  text-align: center;
+  padding-right: 2rem;
+  margin-top: 1rem;
+  vertical-align: middle;
+
+  .num {
+    font-weight: 600;
+  }
+}
 </style>

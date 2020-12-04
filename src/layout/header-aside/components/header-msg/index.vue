@@ -85,9 +85,9 @@ export default {
     ]),
     initWebSocket () {
       // 连接网关的 ws
-      // const wsUri = baseWsURL + 'authority/station_messages/1'
+      const wsUri = baseWsURL + 'authority/station_messages/1'
       // const wsUri = 'ws://cloud-api.battcn.com/authority/station_messages/1'
-      const wsUri = 'ws://139.224.230.72:9000/authority/station_messages/1'
+      // const wsUri = 'ws://139.224.230.72:9000/authority/station_messages/1'
       console.log('wsUri', wsUri)
       this.websock = new WebSocket(wsUri)
       this.websock.onmessage = e => {
