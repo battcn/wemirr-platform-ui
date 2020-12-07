@@ -16,14 +16,14 @@ export const crudOptions = (vm) => {
     },
     rowHandle: {
       custom: [
-        // {
-        //   thin: true,
-        //   text: null,
-        //   type: 'warning',
-        //   size: 'small',
-        //   emit: 'config',
-        //   icon: 'el-icon-s-tools'
-        // }
+        {
+          thin: true,
+          text: null,
+          type: 'warning',
+          size: 'small',
+          emit: 'config',
+          icon: 'el-icon-s-tools'
+        }
         ],
       view: {
         thin: true,
@@ -86,6 +86,19 @@ export const crudOptions = (vm) => {
           ]
         }
       },
+/*      {
+        title: '关联模板',
+        key: 'model',
+        type: 'select',
+        align: 'center',
+        dict: {
+          data: [
+            {value: 'DELETE', label: '删除', color: 'danger'},
+            {value: 'INSERT', label: '添加'},
+            {value: 'UPDATE', label: '修改', color: 'warning'}
+          ]
+        }
+      },*/
       {
         title: '触发事件',
         key: 'opt',
