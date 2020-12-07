@@ -67,6 +67,7 @@ Vue.use(d2CrudPlus, {
       },
       formOptions: {
         type: 'drawer',
+        fullscreen: null,
         draggable: false,
         size: '50%',
         nullToBlankStr: true, // 提交修改表单时，将undefinded的数据修改为空字符串''，可以解决无法清空字段的问题
