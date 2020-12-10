@@ -5,6 +5,7 @@
       v-bind="_crudProps"
       v-on="_crudListeners"
       @log-track="logTrackHandler"
+      @push-track="pushTrackHandler"
       :options="crud.options">
       <div slot="header">
         <el-form ref="form">
@@ -70,14 +71,20 @@
 
     <el-dialog title="推送记录" :visible.sync="dialogLogTrackVisible">
       <el-timeline>
-        <el-timeline-item
-          v-for="(item, index) in logTrack"
-          :key="index"
-          icon="el-icon-more"
-          color="#0bbd87"
-          type="primary"
-          :timestamp="item.createdTime">
-          {{ item.createdName }}
+        <el-timeline-item v-for="item in logTrack"
+                          :key="item.id"
+                          icon="el-icon-position"
+                          color="#0bbd87"
+                          :timestamp="item.createdTime"
+                          placement="top">
+          <el-card>
+            <json-viewer v-if="item.result" :value="JSON.parse(item.result)"
+                         :copyable="copyable" sort
+                         expanded
+                         :expand-depth=0></json-viewer>
+            <span style="font-size: 14px;font-family: Consolas, Menlo, Courier, monospace;">
+              {{item.createdName}} 推送于 {{item.createdTime}} </span>
+          </el-card>
         </el-timeline-item>
       </el-timeline>
     </el-dialog>
@@ -87,12 +94,18 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import {d2CrudPlus} from 'd2-crud-plus'
 import * as api from './api'
+import JsonViewer from 'vue-json-viewer'
 
+Vue.use(JsonViewer)
 export default {
   name: 'developmentBuildStandard',
   mixins: [d2CrudPlus.crud],
+  comments: {
+    JsonViewer
+  },
   watch: {
     $route: {
       handler(router) {
@@ -106,6 +119,10 @@ export default {
   data() {
     return {
       dialogLogTrackVisible: false,
+      copyable: {
+        copyText: '复制',
+        copiedText: '复制成功'
+      },
       logTrack: [{
         id: '',
         createdName: '',
@@ -137,8 +154,16 @@ export default {
   methods: {
     logTrackHandler(event) {
       this.dialogLogTrackVisible = true
-      api.LogTrackHandler(this.model, event.row._id).then(res => {
+      api.LogTrack(this.model, event.row._id).then(res => {
         this.logTrack = res.data
+      })
+    },
+    pushTrackHandler(event) {
+      api.PushTrack(this.model, event.row._id).then(res => {
+        this.$message({
+          message: '推送成功',
+          type: 'success'
+        })
       })
     },
     columnsFilterChanged() {
@@ -243,3 +268,20 @@ export default {
   }
 }
 </script>
+
+<style>
+.el-card__body {
+  padding: 10px 20px 10px 20px;
+}
+
+.jv-container .jv-code {
+  padding: 10px 20px 10px 0px;
+}
+
+.jv-container .jv-code.open {
+  max-height: initial !important;
+  overflow: visible;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+</style>

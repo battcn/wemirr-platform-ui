@@ -13,10 +13,18 @@ export function PageList(model, query) {
 }
 
 
-export function LogTrackHandler(model, id) {
+export function LogTrack(model, id) {
   return request({
     url: `/tools/dynamic_release_drag/${model}/${id}/log_tracks`,
     method: 'get',
+    data: id
+  })
+}
+
+export function PushTrack(model, id) {
+  return request({
+    url: `/tools/dynamic_release_drag/${model}/${id}/push_tracks`,
+    method: 'patch',
     data: id
   })
 }
