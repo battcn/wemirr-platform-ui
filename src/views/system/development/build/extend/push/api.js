@@ -12,11 +12,11 @@ export function GetList(query) {
   })
 }
 
-export function GetDragList(query) {
+export function GetDragList(id) {
   return request({
-    url: '/tools/dynamic_release_drag',
+    url: `/tools/dynamic_release_drag_push_servers/${id}/drag_models_and_check_ids`,
     method: 'get',
-    params: query
+    params: id
   })
 }
 

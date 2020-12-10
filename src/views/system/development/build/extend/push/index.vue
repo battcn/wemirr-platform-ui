@@ -20,8 +20,7 @@
       </div>
     </d2-crud-x>
 
-    <el-dialog title="授予角色" :visible.sync="dialogPermissionVisible">
-
+    <el-dialog title="模板选择" :visible.sync="dialogPermissionVisible">
       <el-checkbox-group v-model="checkedModels">
         <el-checkbox class="d2-mb-10" v-for="option in modelList" :key="option.id" :label="option.id">
           {{ option.label }}
@@ -76,19 +75,16 @@ export default {
     bindBuildModel(pushId) {
       console.log(pushId)
       api.BindBuildModel(pushId, {ids: this.checkedModels}).then(ret => {
-        this.dialogPermissionVisible = falseRightPanel
+        this.dialogPermissionVisible = false
         this.doRefresh()
       })
     },
     configHandler(event) {
-      api.GetDragList({size: 9999}).then(ret => {
-        let models = event.row.models
-        if (models == null) {
-          models = []
-        }
-        const checkedModels = ret.data.records.map(item => item.id).filter(item => models.indexOf(item) >= 0)
+      api.GetDragList(event.row.id).then(ret => {
+        let models = ret.data.checkedModels
+        const checkedModels = ret.data.modelList.map(item => item.id).filter(item => models.indexOf(item) >= 0)
         this.$set(this, 'checkedModels', checkedModels)
-        this.$set(this, 'modelList', ret.data.records)
+        this.$set(this, 'modelList', ret.data.modelList)
         this.pushId = event.row.id
         this.dialogPermissionVisible = true
       })
