@@ -83,7 +83,7 @@
                          expanded
                          :expand-depth=0></json-viewer>
             <span style="font-size: 14px;font-family: Consolas, Menlo, Courier, monospace;">
-              {{item.createdName}} 推送于 {{item.createdTime}} </span>
+              {{ item.createdName }} 推送于 {{ item.createdTime }} </span>
           </el-card>
         </el-timeline-item>
       </el-timeline>
@@ -211,14 +211,9 @@ export default {
       query.queries = this.dataItem
       this.handleSearch(query)
     },
-    _OnCreated() {
-      api.GetCrudOptions(this.gridCode).then(res => {
-        this.crudOptions = res.data
-        this._doStart()
-      })
-    },
-    getCrudOptions() {
-      return this.crudOptions
+    async getCrudOptions() {
+      const ret = await api.GetCrudOptions(this.gridCode) // 异步从后台获取crud
+      return ret.data
     },
     pageRequest(query) {
       return api.PageList(this.model, query)
