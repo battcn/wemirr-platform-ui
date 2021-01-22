@@ -1,26 +1,84 @@
-[D2Admin](https://github.com/d2-projects/d2-admin) 是一个完全 **开源免费** 的企业中后台产品前端集成方案，使用最新的前端技术栈，小于 60kb 的本地首屏 js 加载，已经做好大部分项目前期准备工作，并且带有大量示例代码，助力管理系统敏捷开发。
+# wemirr-platform
 
-**中文** | [English](https://github.com/d2-projects/d2-admin-start-kit)
+## 介绍
 
-## 预览
+一个业余时间写的开源项目、欢迎使用和提建议、包括低码平台、常见 中台 、SAAS 、 多租户功能、最最少的代码实现功能
 
-![Deploy preview](https://github.com/d2-projects/d2-admin-start-kit/workflows/Deploy%20preview/badge.svg)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/08ff8c93-f0a8-497a-a081-440b31fb3aa4/deploy-status)](https://app.netlify.com/sites/d2-admin-start-kit/deploys)
+[演示地址](https://cloud.battcn.com/) 在线演示地址，尽量别删数据。没有做一键回滚数据
+[配套前端](https://gitee.com/battcn/wemirr-platform-ui) 配套的 UI
 
-下列访问地址均由最新的 master 分支代码同时构建部署，访问效果完全一致，请根据自身网络情况选择合适的访问链接。
+[Nepxion-Discovery](https://github.com/Nepxion/Discovery) 蓝绿、灰度、流量保护
 
-| 位置 | 链接 | 部署位置 |
-| --- | --- | --- |
-| d2.pub | [preview](https://d2.pub/d2-admin-start-kit/preview) | 中国服务器 |
-| cdn.d2.pub | [preview](https://cdn.d2.pub/d2-admin-start-kit/preview) | 七牛云 CDN |
-| github | [preview](https://d2-projects.github.io/d2-admin-start-kit) | GitHub pages |
-| netlify | [preview](https://d2-admin-start-kit.netlify.com) | Netlify CDN |
+[d2-curd-plus](http://greper.gitee.io/d2-crud-plus) 前端的 CRUD
 
-## 其它同步仓库
+[OpenAPi3](https://springdoc.org/) Swagger 标准版
 
-| 位置 | 链接 |
-| --- | --- |
-| 码云 | [https://gitee.com/d2-projects/d2-admin-start-kit](https://gitee.com/d2-projects/d2-admin-start-kit) |
-| coding | [https://d2-projects.coding.net/p/d2-projects/d/d2-admin-start-kit/git](https://d2-projects.coding.net/p/d2-projects/d/d2-admin-start-kit/git) |
+#### 软件架构
 
-> 如果您在 github 仓库下载很慢，可以尝试使用我们的码云仓库克隆代码
+Vue、Spring Cloud Alibaba 2.2.4.RELEASE、Spring Cloud Hoxton.SR9、Nacos、Sentinel、
+Nepxion、Mybatis-Plus、多租户、灰度、Oauth2.0、Spring Security、Redis、Mysql、MongoDB、
+ShardingJdbc、ShardingSphere
+
+
+
+
+
+`wemirr-platform-bury` 是一个用 `shardingsphere` 做分表分库收集日志的，常见埋点日志手段
+- **`记录日志文件,EFK/ELK采集日志`**
+- **`日志量小的话可以写到库`**
+- **`日志量大可以分表分库记录埋点日志，定期清理`**
+
+
+
+#### 注意事项
+
+**如果需要使用低码平台，需要安装 MongoDB 的支持**
+
+
+### 环境安装
+
+一般安装 `latest` 版本即可，也可以自行指定版本 `docker search` 或者自己上 `docker hub` 看版本
+
+**如果需要体验低码平台一键发布需要安装 `MongoDB` 除此之外其它中间件是必须的**
+
+
+``` shell script
+docker pull redis:latest
+docker run -itd --name redis -p 6379:6379 redis
+
+安装 Mysql 
+docker pull mysql:latest
+docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
+
+
+安装 Sentinel-Dashboard
+docker pull bladex/sentinel-dashboard
+docker run -i -t -d -p 8858:8858 -p 8719:8719  bladex/sentinel-dashboard
+
+安装 Nacos
+docker pull nacos/nacos-server
+docker  run --name nacos -d-p 8848:8848 --restart=always -e MODE=standalone
+
+
+安装 MongoDB
+docker pull mongo:latest
+docker run -itd --name mongo -p 27017:27017 mongo
+```
+
+
+### 关于埋点日志
+
+``` java
+@Bean
+public SysLogListener sysLogListener(OptLogService optLogService) {
+    return new SysLogListener(optLogService::save);
+}
+
+// 如果操作量大又想记录到数据库，请用该组件
+@Bean
+@ConditionalOnExpression
+public SysLogListener sysLogListener(BuryPointClient buryPointClient) {
+    return new SysLogListener(buryPointClient::buryPoint);
+}
+```
+
