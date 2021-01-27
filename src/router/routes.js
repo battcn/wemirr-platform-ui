@@ -40,6 +40,16 @@ const frameIn = [
         },
         component: _import('system/log')
       },
+      // 系统 个人信息
+      {
+        path: 'info',
+        name: 'info',
+        meta: {
+          title: '个人信息',
+          auth: true
+        },
+        component: _import('system/info')
+      },
       // 刷新页面 必须保留
       {
         path: 'refresh',

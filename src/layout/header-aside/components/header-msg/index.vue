@@ -11,14 +11,7 @@
       class="right-menu-item hover-effect"
       v-model="visible"
       trigger="manual">
-      <div class="avue-notice">
-        <!--<div class="message-title-content">
-          <div class="message-title">自动刷新</div>
-          <div class="message-title-icon">
-            <el-switch v-model="messageRefresh" @change="messageRefreshChange" title="是否自动刷新消息" active-color="#13ce66"
-                       inactive-color="#ff4949"></el-switch>
-          </div>
-        </div>-->
+      <div class="el-notice">
         <el-tabs v-model="activeName" @tab-click="handleClick" style="padding: 0 23px 0 23px">
             <div v-for="item in messageList" :key="item.id">
               <div class="transition-box">
@@ -86,8 +79,6 @@ export default {
     initWebSocket () {
       // 连接网关的 ws
       const wsUri = baseWsURL + 'authority/station_messages/1'
-      // const wsUri = 'ws://cloud-api.battcn.com/authority/station_messages/1'
-      // const wsUri = 'ws://139.224.230.72:9000/authority/station_messages/1'
       console.log('wsUri', wsUri)
       this.websock = new WebSocket(wsUri)
       this.websock.onmessage = e => {
@@ -132,18 +123,6 @@ export default {
     handleClickNotice () {
       this.visible = !this.visible
     }
-    // messageRefreshChange (val) {
-    //   // db.save('message_REFRESH', val)
-    //   if (val) {
-    //     this.messageRefreshTimer = setInterval(() => {
-    //       this.loadMyMessage()
-    //     }, 15000)
-    //   } else {
-    //     clearInterval(this.messageRefreshTimer)
-    //     console.log('定时拉取消息停止了！')
-    //     this.messageRefreshTimer = null
-    //   }
-    // }
   }
 }
 </script>
@@ -151,7 +130,7 @@ export default {
 
   .el-popover {
     top: 62px;
-    right: 80px;
+    right: 22px;
     position: absolute;
     padding: 12px;
     z-index: 2000;

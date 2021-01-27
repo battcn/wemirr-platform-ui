@@ -26,7 +26,7 @@ export default {
       util.cookies.set('uuid', res.access_token)
       util.cookies.set('token', res.access_token)
       // 设置 vuex 用户信息
-      await dispatch('d2admin/user/set', { name: res.data.nickName }, { root: true })
+      await dispatch('d2admin/user/set', res.data, { root: true })
       // res = res.data
       // util.cookies.set('uuid', res.uuid)
       // util.cookies.set('token', res.token)
@@ -57,6 +57,7 @@ export default {
         // 跳转路由
         router.push({ name: 'login' })
       }
+
       // 判断是否需要确认
       if (confirm) {
         commit('d2admin/gray/set', true, { root: true })
