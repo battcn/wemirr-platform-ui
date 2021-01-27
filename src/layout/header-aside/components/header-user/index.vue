@@ -4,11 +4,9 @@
       <span class="btn-text">{{ info.nickName ? `你好 ${info.nickName}` : '未登录' }}</span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item @click.native="routerUserInfo">个人信息</el-dropdown-item>
-        <el-dropdown-item>项目地址</el-dropdown-item>
+        <el-dropdown-item @click.native="jumpGit">项目地址</el-dropdown-item>
         <el-dropdown-item>文档中心</el-dropdown-item>
-
         <el-dropdown-item divided @click.native="dialogVisible = true">主题设置</el-dropdown-item>
-
         <el-dropdown-item divided>清除缓存</el-dropdown-item>
         <el-dropdown-item @click.native="logOff" divided>退出登录</el-dropdown-item>
       </el-dropdown-menu>
@@ -53,6 +51,9 @@ export default {
       this.logout({
         confirm: true
       })
+    },
+    jumpGit () {
+      window.open('https://gitee.com/battcn/wemirr-platform')
     }
   },
   data () {
