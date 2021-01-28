@@ -126,7 +126,7 @@ export default {
       codeUrl: '',
       formLogin: {
         username: 'admin',
-        password: '000000',
+        password: '123456',
         key: uuidv4(),
         code: ''
       },
