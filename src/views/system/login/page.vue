@@ -55,11 +55,7 @@
                     v-model="formLogin.code"
                     placeholder="验证码">
                     <template slot="append">
-                      <el-image class="login-code" :src="codeUrl" @click="refreshUuid" alt="加载失败" >
-                        <div slot="placeholder" class="image-slot">
-                          <i class="el-icon-loading"></i>
-                        </div>
-                      </el-image>
+                      <img class="login-code" :src="codeUrl" @click="refreshUuid" alt="加载失败">
                     </template>
                   </el-input>
                 </el-form-item>
@@ -123,13 +119,13 @@ export default {
       // 快速选择用户
       dialogVisible: false,
       // 表单
-      codeUrl: '',
       formLogin: {
         username: 'admin',
         password: '123456',
         key: uuidv4(),
         code: ''
       },
+      codeUrl: '',
       // 表单校验
       rules: {
         username: [
@@ -156,11 +152,14 @@ export default {
       }
     }
   },
+  // created () {
+  //   this.getCodeUrl()
+  // },
   mounted () {
+    this.getCodeUrl()
     this.timeInterval = setInterval(() => {
       this.refreshTime()
     }, 1000)
-    this.getCodeUrl()
   },
   beforeDestroy () {
     clearInterval(this.timeInterval)
@@ -177,6 +176,7 @@ export default {
       this.codeUrl = baseURL + 'authority/captcha?key=' + this.formLogin.key
     },
     getCodeUrl () {
+      this.formLogin.key = uuidv4()
       this.codeUrl = baseURL + 'authority/captcha?key=' + this.formLogin.key
     },
     /**
