@@ -44,7 +44,9 @@ function createService () {
     error => {
       const status = get(error, 'response.status')
       switch (status) {
-        case 400: error.message = '请求错误'; break
+        case 400:
+          error.message = '请求错误'
+          break
         case 401:
           error.message = '未授权，请登录'
           // 删除cookie
@@ -57,16 +59,35 @@ function createService () {
           // that.$router.push({ name: 'Home' })
           // this.dispatch()
           break
-        case 403: error.message = '拒绝访问'; break
-        case 404: error.message = `请求地址出错: ${error.response.config.url}`; break
-        case 408: error.message = '请求超时'; break
-        case 500: error.message = '服务器内部错误'; break
-        case 501: error.message = '服务未实现'; break
-        case 502: error.message = '网关错误'; break
-        case 503: error.message = '服务不可用'; break
-        case 504: error.message = '网关超时'; break
-        case 505: error.message = 'HTTP版本不受支持'; break
-        default: break
+        case 403:
+          error.message = '拒绝访问'
+          break
+        case 404:
+          error.message = `请求地址出错: ${error.response.config.url}`
+          break
+        case 408:
+          error.message = '请求超时'
+          break
+        case 500:
+          error.message = '服务器内部错误'
+          break
+        case 501:
+          error.message = '服务未实现'
+          break
+        case 502:
+          error.message = '网关错误'
+          break
+        case 503:
+          error.message = '服务不可用'
+          break
+        case 504:
+          error.message = '网关超时'
+          break
+        case 505:
+          error.message = 'HTTP版本不受支持'
+          break
+        default:
+          break
       }
       if (error.message === 'Network Error') {
         error.message = '网络连接失败,请稍后再试'
@@ -89,10 +110,15 @@ function getWebSocket (wsUri) {
 function createRequestFunction (service) {
   return function (config) {
     const token = util.cookies.get('token')
+    let headers = {}
+    if (token !== null && token !== undefined) {
+      headers = {
+        Authorization: 'Bearer ' + token
+      }
+    }
     const configDefault = {
       headers: {
-        // Authorization: 'eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwicm9sZXMiOlsxLDNdLCJpc3MiOiJncmVwZXIiLCJpYXQiOjE2MDMyNjExNzYsImV4cCI6MTYwMzM0NzU3Nn0.gV7e_hT4Y2wQeL-Y87Hi5mKtb6Bd-wFWDIHx_qSkn91C-o4Z_7oAhfM6HkQ7Nqw7r5dOlqwWvJMw-v-iID_A-w',
-        Authorization: 'Bearer ' + token,
+        ...headers,
         'Content-Type': get(config, 'headers.Content-Type', 'application/json')
       },
       // 超时时间 5 分钟
