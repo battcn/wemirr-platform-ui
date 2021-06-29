@@ -23,13 +23,18 @@ if (import.meta.env.DEV) {
   import('ant-design-vue/dist/antd.less');
 }
 
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
+import setupFastCrud from './setup-fast-crud';
+import './setup-fast-crud.less';
+
 async function bootstrap() {
   const app = createApp(App);
 
   // Configure store
   setupStore(app);
 
-  // Initialize internal system configuration
+  // Initialize internal wemirr configuration
   initAppConfigStore();
 
   // Register global components
@@ -37,6 +42,14 @@ async function bootstrap() {
 
   // Multilingual configuration
   await setupI18n(app);
+
+  // Multilingual configuration
+  const i18n = await setupI18n(app);
+
+  //----------- 安装fast-crud--------------
+  setupFastCrud(app, i18n);
+  app.use(Antd);
+  //--------------------------------------
 
   // Configure routing
   setupRouter(app);

@@ -28,6 +28,7 @@ cd vue-vben-admin
 
 yarn install
 
+yarn run lint:eslint
 ```
 
 - 运行

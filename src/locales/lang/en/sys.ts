@@ -2,7 +2,7 @@ export default {
   api: {
     operationFailed: 'Operation failed',
     errorTip: 'Error Tip',
-    errorMessage: 'The operation failed, the system is abnormal!',
+    errorMessage: 'The operation failed, the wemirr is abnormal!',
     timeoutMessage: 'Login timed out, please log in again!',
     apiTimeoutMessage: 'The interface request timed out, please refresh the page and try again!',
     apiRequestFailed: 'The interface request failed, please try again later!',
@@ -24,7 +24,7 @@ export default {
   },
   app: {
     logoutTip: 'Reminder',
-    logoutMessage: 'Confirm to exit the system?',
+    logoutMessage: 'Confirm to exit the wemirr?',
     menuLoading: 'Menu loading...',
   },
   errorLog: {
@@ -60,7 +60,7 @@ export default {
     unlock: 'Click to unlock',
     alert: 'Lock screen password error',
     backToLogin: 'Back to login',
-    entry: 'Enter the system',
+    entry: 'Enter the wemirr',
     placeholder: 'Please enter the lock screen password or user password',
   },
   login: {
@@ -71,7 +71,7 @@ export default {
     signUpFormTitle: 'Sign up',
     forgetFormTitle: 'Reset password',
 
-    signInTitle: 'Backstage management system',
+    signInTitle: 'Backstage management wemirr',
     signInDesc: 'Enter your personal details and get started!',
     policy: 'I agree to the xxx Privacy Policy',
     scanSign: `scanning the code to complete the login`,

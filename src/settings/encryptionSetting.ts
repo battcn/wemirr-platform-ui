@@ -9,5 +9,5 @@ export const cacheCipher = {
   iv: '@11111000001111_',
 };
 
-// Whether the system cache is encrypted using aes
+// Whether the wemirr cache is encrypted using aes
 export const enableStorageEncryption = !isDevMode();

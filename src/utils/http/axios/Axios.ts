@@ -190,6 +190,7 @@ export class VAxios {
   }
 
   request<T = any>(config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+    console.log('config', config);
     let conf: CreateAxiosOptions = cloneDeep(config);
     const transform = this.getTransform();
 

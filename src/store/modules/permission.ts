@@ -125,7 +125,6 @@ export const usePermissionStore = defineStore({
         } catch (error) {
           console.error(error);
         }
-
         // 动态引入组件
         routeList = transformObjToRoute(routeList);
 
