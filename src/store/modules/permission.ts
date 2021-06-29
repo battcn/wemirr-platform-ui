@@ -16,6 +16,8 @@ import { PermissionModeEnum } from '/@/enums/appEnum';
 import { asyncRoutes } from '/@/router/routes';
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
+import { ConstRouter } from '/@/router/routes';
+
 import { filter } from '/@/utils/helper/treeHelper';
 
 import { getMenuList } from '/@/api/sys/menu';
@@ -93,6 +95,7 @@ export const usePermissionStore = defineStore({
       let routes: AppRouteRecordRaw[] = [];
       const roleList = toRaw(userStore.getRoleList) || [];
       const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig;
+      console.log('permissionMode', permissionMode);
       // role permissions
       if (permissionMode === PermissionModeEnum.ROLE) {
         const routeFilter = (route: AppRouteRecordRaw) => {
@@ -114,25 +117,24 @@ export const usePermissionStore = defineStore({
           duration: 1,
         });
 
-        // !Simulate to obtain permission codes from the background,
-        // this function may only need to be executed once, and the actual project can be put at the right time by itself
+        // 如果确定不需要做后台动态权限,请将下面整个判断注释
         let routeList: AppRouteRecordRaw[] = [];
         try {
-          this.changePermissionCode();
+          // this.changePermissionCode();
           routeList = (await getMenuList()) as AppRouteRecordRaw[];
         } catch (error) {
           console.error(error);
         }
 
-        // Dynamically introduce components
+        // 动态引入组件
         routeList = transformObjToRoute(routeList);
 
-        //  Background routing to menu structure
+        //  后台路由转菜单结构
         const backMenuList = transformRouteToMenu(routeList);
         this.setBackMenuList(backMenuList);
 
         routeList = flatMultiLevelRoutes(routeList);
-        routes = [PAGE_NOT_FOUND_ROUTE, ...routeList];
+        routes = [PAGE_NOT_FOUND_ROUTE, ...ConstRouter, ...routeList];
       }
       routes.push(ERROR_LOG_ROUTE);
       return routes;

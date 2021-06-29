@@ -145,7 +145,7 @@ export const useUserStore = defineStore({
       const userInfo = await getUserInfo();
       // const { roles } = userInfo;
       // const roleList = roles.map((item) => item.value) as RoleEnum[];
-      // this.setUserInfo(userInfo);
+      this.setUserInfo(userInfo);
       // this.setRoleList(roleList);
       return userInfo;
     },

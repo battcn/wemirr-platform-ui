@@ -65,6 +65,7 @@ function dynamicImport(
 
 // Turn background objects into routing objects
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
+  console.log('routeList', routeList);
   routeList.forEach((route) => {
     if (route.component) {
       if ((route.component as string).toUpperCase() === 'LAYOUT') {
