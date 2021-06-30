@@ -29,6 +29,14 @@ export default function ({ expose }) {
         editRequest,
         delRequest,
       },
+      table: {
+        size: 'small',
+        scroll: {
+          //需要设置它，否则滚动条拖动时，表头不会动
+          fixed: true,
+        },
+        pagination: false,
+      },
       columns: {
         id: {
           title: 'ID',
@@ -206,6 +214,7 @@ export default function ({ expose }) {
         },
       },
       form: {
+        display: 'flex',
         group: {
           type: 'collapse', // tab
           accordion: false, //手风琴模式

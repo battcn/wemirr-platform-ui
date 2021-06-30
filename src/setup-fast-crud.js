@@ -28,7 +28,7 @@ export default function (app, i18n) {
           // align: 'center',
           // center: true,
           //固定右侧
-          fixed: 'right',
+          // fixed: 'right',
           buttons: {
             view: { size: 'small' },
             edit: { size: 'small' },
@@ -37,10 +37,10 @@ export default function (app, i18n) {
         },
         table: {
           size: 'small',
-          scroll: {
-            //需要设置它，否则滚动条拖动时，表头不会动
-            fixed: true,
-          },
+          // scroll: {
+          //   //需要设置它，否则滚动条拖动时，表头不会动
+          //   fixed: true,
+          // },
           pagination: false,
         },
         request: {
@@ -53,8 +53,7 @@ export default function (app, i18n) {
           },
         },
         form: {
-          // width: 500,
-          display: 'flex',
+          // display: 'flex',
           wrapper: {
             is: 'a-drawer',
           },
