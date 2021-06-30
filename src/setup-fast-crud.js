@@ -18,7 +18,17 @@ export default function (app, i18n) {
     },
     commonOptions() {
       return {
+        toolbar: {
+          compact: false,
+        },
+        // toolbar.buttons.export.show:false 显示隐藏
+        // toolbar.compact:false 默认选择
         rowHandle: {
+          width: 200,
+          // align: 'center',
+          // center: true,
+          //固定右侧
+          fixed: 'right',
           buttons: {
             view: { size: 'small' },
             edit: { size: 'small' },
@@ -27,6 +37,10 @@ export default function (app, i18n) {
         },
         table: {
           size: 'small',
+          scroll: {
+            //需要设置它，否则滚动条拖动时，表头不会动
+            fixed: true,
+          },
           pagination: false,
         },
         request: {
@@ -39,7 +53,11 @@ export default function (app, i18n) {
           },
         },
         form: {
+          // width: 500,
           display: 'flex',
+          wrapper: {
+            is: 'a-drawer',
+          },
         },
       };
     },

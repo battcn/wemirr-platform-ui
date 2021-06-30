@@ -1,4 +1,5 @@
 import * as api from './api';
+import { request } from '/src/api/service';
 import { dict } from '@fast-crud/fast-crud';
 
 export default function ({ expose }) {
@@ -28,22 +29,18 @@ export default function ({ expose }) {
         editRequest,
         delRequest,
       },
-      form: {
-        wrapper: {
-          is: 'a-drawer',
-        },
-      },
       columns: {
         id: {
           title: 'ID',
           type: 'text',
           form: { show: false },
-          column: { show: false, width: 55, align: 'center' },
+          column: { show: false },
         },
         username: {
           title: '账号',
           type: 'text',
-          search: { show: true },
+          column: { width: 155 },
+          search: { show: true, fixed: 'left' },
         },
         password: {
           title: '密码',
@@ -65,6 +62,8 @@ export default function ({ expose }) {
         nickName: {
           title: '昵称',
           type: 'text',
+          column: { width: 155 },
+          search: { show: true, fixed: 'left' },
           form: {
             rules: [
               { required: true, message: '请输入昵称' },
@@ -86,62 +85,151 @@ export default function ({ expose }) {
         sex: {
           title: '性别',
           type: 'dict-radio',
-          column: { width: 50, align: 'center', filterable: true, sorter: true },
-          search: { show: true }, // 开启查询
+          search: { show: true },
           dict: dict({
             url: '/authority/dictionaries/sex/list',
+            label: 'name',
             onReady: ({ dict }) => {
               dict.data.forEach((item) => {
-                item.label = item.name;
                 item.color = item.value === '1' ? 'warning' : 'error';
               });
             },
           }),
+          column: {
+            width: 100,
+            align: 'center',
+            filterable: true,
+            filters: [
+              { text: '男', value: 1 },
+              { text: '女', value: 2 },
+            ],
+            onFilter: (value, record) => {
+              return record.sex === value;
+            },
+            sortDirections: ['descend'],
+          },
         },
         email: {
           title: '邮箱',
           type: 'email',
+          column: { width: 180 },
         },
-        avatar: {
-          title: '头像',
-          type: 'image-uploader',
-        },
+        // avatar: {
+        //   title: '头像',
+        //   type: 'image-uploader',
+        //   column: { width: 70, align: 'center' },
+        // },
         orgId: {
           title: '组织',
-          type: 'text',
+          search: { show: true },
+          type: 'dict-tree',
+          column: { width: 90 },
+          dict: dict({
+            isTree: true,
+            url: '/authority/org/trees',
+            value: 'id',
+            label: 'name',
+            onReady: ({ dict }) => {
+              dict.data.forEach((item) => {
+                item.color =
+                  item.id % 2 === 0 ? 'warning' : item.id % 3 === 0 ? 'success' : 'error';
+              });
+            },
+          }),
+          form: {
+            component: {
+              replaceFields: { children: 'children', title: 'name', key: 'id', value: 'id' },
+            },
+          },
+        },
+        stationId: {
+          title: '岗位',
+          type: 'dict-select',
+          column: { width: 90 },
+          dict: dict({
+            value: 'id',
+            label: 'name',
+            url: '/authority/stations',
+            onReady: ({ dict }) => {
+              dict.data.forEach((item) => {
+                item.color =
+                  item.id % 5 === 0 ? 'success' : item.id % 3 === 0 ? 'warning' : 'error';
+              });
+            },
+            getData: (dict) => {
+              return request({ url: dict.dict.url }).then((ret) => {
+                return ret.data.records;
+              });
+            },
+          }),
+        },
+        positionStatus: {
+          title: '职位状态',
+          type: 'dict-select',
+          column: { width: 90 },
+          dict: dict({
+            data: [
+              { value: 'WORKING', label: '在职', color: 'success' },
+              { value: 'QUIT', label: '离职', color: 'error' },
+              { value: 'LEAVE', label: '请假', color: 'warning' },
+            ],
+          }),
+        },
+        nation: {
+          title: '民族',
+          type: 'dict-select',
+          column: { width: 90 },
+          dict: dict({
+            url: '/authority/dictionaries/NATION/list',
+            label: 'name',
+          }),
+        },
+        education: {
+          title: '学历',
+          type: 'dict-select',
+          column: { width: 90 },
+          dict: dict({
+            url: '/authority/dictionaries/EDUCATION/list',
+            label: 'name',
+          }),
+        },
+        createdTime: {
+          title: '创建时间',
+          type: 'datetime',
+          column: { width: 180, sortable: true },
+          addForm: {
+            show: false,
+          },
+          editForm: {
+            show: false,
+          },
         },
       },
-      // form: {
-      //   group: {
-      //     type: 'collapse', // tab
-      //     accordion: false, //手风琴模式
-      //     groups: {
-      //       base: {
-      //         slots: {
-      //           //自定义header
-      //           header: () => {
-      //             return (
-      //               <span style={'color:green'}>
-      //                 商品基础
-      //                 <CheckOutlined style={'margin-left:10px;'} />
-      //               </span>
-      //             );
-      //           },
-      //         },
-      //         columns: ['code', 'title', 'images'],
-      //       },
-      //       price: {
-      //         header: '库存价格',
-      //         columns: ['store', 'price'],
-      //       },
-      //       info: {
-      //         header: '详情',
-      //         collapsed: true, //默认折叠
-      //         columns: ['intro', 'content'],
-      //       },
-      //     },
-      //   },
-      // },
+      form: {
+        group: {
+          type: 'collapse', // tab
+          accordion: false, //手风琴模式
+          groups: {
+            baseInfo: {
+              header: '基础信息',
+              columns: ['username', 'password', 'nickName', 'sex'],
+            },
+            orgInfo: {
+              header: '职位信息',
+              columns: ['orgId', 'stationId', 'positionStatus'],
+            },
+            linkInfo: {
+              header: '联系方式',
+              columns: ['email', 'mobile'],
+            },
+            otherInfo: {
+              header: '其它信息',
+              collapsed: false, //默认折叠
+              columns: ['nation', 'education'],
+            },
+          },
+        },
+      },
     },
   };
 }
