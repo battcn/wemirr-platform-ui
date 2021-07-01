@@ -31,6 +31,11 @@ export default function ({ expose, props, ctx }) {
           };
         },
       },
+      // form: {
+      //   wrapper: {
+      //     is: 'a-dialog',
+      //   },
+      // },
       request: {
         pageRequest,
         addRequest,

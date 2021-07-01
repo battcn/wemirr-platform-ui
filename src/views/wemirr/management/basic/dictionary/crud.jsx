@@ -1,6 +1,7 @@
 import * as api from './api';
 import { ref, shallowRef } from 'vue';
 import SubTable from './sub-table/index.vue';
+import { dict } from '@fast-crud/fast-crud';
 export default function ({ expose, asideTableRef }) {
   const pageRequest = async (query) => {
     return await api.GetList(query).then((ret) => {
@@ -51,6 +52,11 @@ export default function ({ expose, asideTableRef }) {
           remove: { size: 'small' },
         },
       },
+      // form: {
+      //   wrapper: {
+      //     is: 'a-dialog',
+      //   },
+      // },
       columns: {
         name: {
           title: '名称',
@@ -62,19 +68,34 @@ export default function ({ expose, asideTableRef }) {
           search: { show: true },
           type: 'text',
         },
+        status: {
+          title: '状态',
+          type: 'dict-radio',
+          search: { show: true },
+          dict: dict({
+            data: [
+              { value: true, label: '启用', color: 'success' },
+              { value: false, label: '禁用', color: 'error' },
+            ],
+          }),
+        },
         createdTime: {
           title: '创建时间',
           type: 'datetime',
           column: { width: 180, sortable: true },
           form: {
             show: false,
-          }
+          },
         },
         id: {
           title: '字典信息',
           column: { show: false },
-          type: ['number', 'colspan'],
+          type: ['text-area', 'colspan'],
+          form: {
+            show: false,
+          },
           viewForm: {
+            show: true,
             // 嵌套表格字段
             rules: [{ required: true, message: '请选择用户' }],
             component: {

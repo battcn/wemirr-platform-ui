@@ -48,8 +48,8 @@ export default function ({ expose }) {
           search: { show: true },
           dict: dict({
             data: [
-              { value: true, label: '启用', color: 'error' },
-              { value: false, label: '禁用', color: 'danger' },
+              { value: true, label: '启用', color: 'success' },
+              { value: false, label: '禁用', color: 'error' },
             ],
           }),
         },
