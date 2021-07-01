@@ -37,7 +37,7 @@ export default function (app, i18n) {
             //   size: 'small',
             //   icon: 'el-icon-user'
             // },
-            view: { size: 'small' /*, icon: 'bi-info-circle' */ },
+            view: { size: 'small' /*circle: true, text: '' */ /*, icon: 'bi-info-circle' */ },
             edit: { size: 'small' },
             remove: { size: 'small' },
           },
