@@ -52,11 +52,11 @@ export default function ({ expose, asideTableRef }) {
           remove: { size: 'small' },
         },
       },
-      // form: {
-      //   wrapper: {
-      //     is: 'a-dialog',
-      //   },
-      // },
+      form: {
+        wrapper: {
+          is: 'a-dialog',
+        },
+      },
       columns: {
         name: {
           title: '名称',

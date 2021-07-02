@@ -6,10 +6,8 @@
   import { defineComponent, ref, onMounted } from 'vue';
   import createCrudOptions from './crud';
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
-  import { request } from '/src/api/service';
-
   export default defineComponent({
-    name: 'FormGroup',
+    name: 'FeatureExpand',
     setup() {
       // crud组件的ref
       const crudRef = ref();
@@ -24,27 +22,11 @@
       const { resetCrudOptions } = useCrud({ expose, crudOptions });
       // 你可以调用此方法，重新初始化crud配置
       // resetCrudOptions(options)
-
-      let treeData = [];
-      function initOrgList() {
-        request({
-          url: '/authority/org/trees',
-          method: 'get',
-          params: { status: true },
-        }).then((response) => {
-          treeData = response.data;
-          console.log('treeData', treeData);
-        });
-      }
-
       // 页面打开后获取列表数据
       onMounted(() => {
-        initOrgList();
         expose.doRefresh();
       });
-
       return {
-        treeData,
         crudBinding,
         crudRef,
       };

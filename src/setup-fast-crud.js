@@ -25,18 +25,10 @@ export default function (app, i18n) {
         // toolbar.compact:false 默认选择
         rowHandle: {
           width: 200,
-          // align: 'center',
-          // center: true,
+          align: 'center',
           //固定右侧
           fixed: 'right',
           buttons: {
-            // {
-            //   thin: true,
-            //     type: 'success',
-            //   emit: 'distribution-user',
-            //   size: 'small',
-            //   icon: 'el-icon-user'
-            // },
             view: { size: 'small' /*circle: true, text: '' */ /*, icon: 'bi-info-circle' */ },
             edit: { size: 'small' },
             remove: { size: 'small' },
