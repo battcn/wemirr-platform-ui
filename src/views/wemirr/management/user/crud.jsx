@@ -49,6 +49,12 @@ export default function ({ expose }) {
           type: 'text',
           column: { width: 155 },
           search: { show: true, fixed: 'left' },
+          form: {
+            rules: [
+              { required: true, message: '请输入账号名' },
+              { min: 6, max: 30, message: '长度在 6 到 30 个字符' },
+            ],
+          },
         },
         password: {
           title: '密码',
@@ -63,7 +69,7 @@ export default function ({ expose }) {
           form: {
             rules: [
               { required: true, message: '请输入密码' },
-              { min: 2, max: 30, message: '长度在 2 到 30 个字符' },
+              { min: 6, max: 30, message: '长度在 6 到 30 个字符' },
             ],
           },
         },
@@ -75,7 +81,7 @@ export default function ({ expose }) {
           form: {
             rules: [
               { required: true, message: '请输入昵称' },
-              { min: 2, max: 30, message: '长度在 2 到 30 个字符' },
+              { min: 6, max: 30, message: '长度在 6 到 30 个字符' },
             ],
           },
         },
@@ -229,7 +235,7 @@ export default function ({ expose }) {
             },
             linkInfo: {
               header: '联系方式',
-              columns: ['email', 'mobile'],
+              columns: ['mobile', 'email'],
             },
             otherInfo: {
               header: '其它信息',

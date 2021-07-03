@@ -8,8 +8,7 @@ export default function ({ expose, asideTableRef }) {
       return ret.data;
     });
   };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
+  const editRequest = async ({ form }) => {
     return await api.UpdateObj(form);
   };
   const delRequest = async ({ row }) => {
@@ -21,8 +20,8 @@ export default function ({ expose, asideTableRef }) {
   const currentRow = ref();
   const onCurrentRowChange = (id) => {
     currentRow.value = id;
-    asideTableRef.value.setSearchFormData({ form: { id: id } });
-    asideTableRef.value.doRefresh();
+    // asideTableRef.value.setSearchFormData({ form: { id: id } });
+    // asideTableRef.value.doRefresh();
   };
   return {
     crudOptions: {
@@ -53,9 +52,9 @@ export default function ({ expose, asideTableRef }) {
         },
       },
       form: {
-        wrapper: {
-          is: 'a-dialog',
-        },
+        // wrapper: {
+        //   is: 'a-dialog',
+        // },
       },
       columns: {
         name: {

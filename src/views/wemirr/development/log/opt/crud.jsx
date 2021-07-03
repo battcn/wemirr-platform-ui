@@ -1,4 +1,5 @@
 import { request } from '/src/api/service';
+import {compute} from "@fast-crud/fast-crud";
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -40,6 +41,7 @@ export default function ({ expose }) {
           title: 'ID',
           type: 'text',
           column: { show: false },
+          viewForm: { show: false },
         },
         ip: {
           title: 'IP',
@@ -118,6 +120,41 @@ export default function ({ expose }) {
           title: '描述信息',
           type: 'textarea',
           column: { width: 200 },
+          form: {
+            show: compute((context) => {
+              // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
+              return context.form.display !== 'grid';
+            }),
+            col: { span: 24 }, // flex模式跨列配置
+            labelCol: { span: 2 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol
+            wrapperCol: { span: 21 },
+          },
+        },
+      },
+      form: {
+        display: 'flex',
+        group: {
+          type: 'collapse', // tab
+          accordion: false, //手风琴模式
+          groups: {
+            baseInfo: {
+              header: '基础信息',
+              columns: ['ip', 'location'],
+            },
+            reqInfo: {
+              header: '请求信息',
+              columns: ['actionMethod', 'httpMethod', 'platform', 'os', 'engine', 'browser'],
+            },
+            version: {
+              header: '版号信息',
+              columns: ['engineVersion', 'browserVersion'],
+            },
+            otherInfo: {
+              header: '其它信息',
+              collapsed: false, //默认折叠
+              columns: ['startTime', 'finishTime', 'consumingTime', 'createdName', 'description'],
+            },
+          },
         },
       },
     },

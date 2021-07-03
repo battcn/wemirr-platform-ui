@@ -175,9 +175,6 @@
           loading.value = true;
           const userInfo = await userStore.login(
             toRaw({
-              // /api/authority/oauth/token?username=admin&password=123456&key=53102d08-c161-4f8c-9084-da283e88d40c&code=10&grant_type=password&client_id=client&client_secret=client&scope=server&auth_type=vc&vc_token=53102d08-c161-4f8c-9084-da283e88d40c&vc_code=10
-              // password: data.password,
-              // username: data.account,
               username: 'admin',
               password: '123456',
               grant_type: 'password',

@@ -1,15 +1,12 @@
 import * as api from './api';
 export default function ({ expose, props, ctx }) {
   const pageRequest = async (query) => {
-    console.log('props', props);
-    console.log('ctx', ctx);
     return await api.GetItemList({ ...query, id: props.modelValue }).then((ret) => {
       return ret.data;
     });
   };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.UpdateItemObj(form);
+  const editRequest = async ({ form }) => {
+    return await api.UpdateItemObj(form.form, form);
   };
   const delRequest = async ({ row }) => {
     return await api.DelItemObj(row.id);
@@ -52,6 +49,18 @@ export default function ({ expose, props, ctx }) {
         },
       },
       columns: {
+        id: {
+          title: 'ID',
+          type: 'text',
+          form: { show: false },
+          column: { show: false },
+        },
+        dictionaryId: {
+          title: '字典ID',
+          type: 'text',
+          form: { show: false },
+          column: { show: false },
+        },
         name: {
           title: '名称',
           search: { show: true },

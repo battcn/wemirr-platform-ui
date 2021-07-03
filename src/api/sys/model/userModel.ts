@@ -26,13 +26,7 @@ export interface LoginResultModel {
   avatar: string | number;
   role: RoleInfo;
 }
-
-/**
- * @description: Get user information return value
- */
-export interface GetUserInfoModel {
-  roles: RoleInfo[];
-  // 用户id
+export interface LoginPrincipalInfoModel {
   userId: string | number;
   // 用户名
   username: string;
@@ -40,6 +34,32 @@ export interface GetUserInfoModel {
   realName: string;
   // 头像
   avatar: string;
-  // 介绍
-  desc?: string;
+  // 头像
+  description: string;
+  // 邮箱
+  email?: string;
+  // 资源权限
+  permissions?: [];
+
+  roles: RoleInfo[];
+}
+/**
+ * @description: Get user information return value
+ */
+export interface GetUserInfoModel {
+  userId: string | number;
+  // 用户名
+  username: string;
+  // 真实名字
+  realName: string;
+  // 头像
+  avatar: string;
+  // 头像
+  description: string;
+  // 邮箱
+  email?: string;
+  // 资源权限
+  permissions?: [];
+
+  roles: RoleInfo[];
 }

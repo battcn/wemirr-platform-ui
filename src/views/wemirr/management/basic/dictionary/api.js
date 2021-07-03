@@ -1,5 +1,4 @@
 import { request } from '/src/api/service';
-const apiPrefix = '/AdvancedNest';
 export function GetList(query) {
   return request({
     url: '/authority/dictionaries',
@@ -7,10 +6,9 @@ export function GetList(query) {
     params: query,
   });
 }
-
 export function AddObj(obj) {
   return request({
-    url: apiPrefix + '/add',
+    url: '/authority/dictionaries',
     method: 'post',
     data: obj,
   });
@@ -18,32 +16,16 @@ export function AddObj(obj) {
 
 export function UpdateObj(obj) {
   return request({
-    url: apiPrefix + '/update',
-    method: 'post',
+    url: `/authority/dictionaries/${obj.id}`,
+    method: 'put',
     data: obj,
   });
 }
 
 export function DelObj(id) {
   return request({
-    url: apiPrefix + '/delete',
-    method: 'post',
+    url: `/authority/dictionaries/${id}`,
+    method: 'delete',
     params: { id },
-  });
-}
-
-export function GetObj(id) {
-  return request({
-    url: apiPrefix + '/info',
-    method: 'get',
-    params: { id },
-  });
-}
-
-export function BatchDelete(ids) {
-  return request({
-    url: apiPrefix + '/batchDelete',
-    method: 'post',
-    data: { ids },
   });
 }

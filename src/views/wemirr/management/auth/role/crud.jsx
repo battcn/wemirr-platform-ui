@@ -64,11 +64,16 @@ export default function ({ expose }) {
           type: 'dict-radio',
           search: { show: true },
           column: { width: 90, align: 'center' },
-          form: { disabled: true },
+          addForm: { show: false },
+          editForm: {
+            component: {
+              disabled: true,
+            },
+          },
           dict: dict({
             data: [
               { value: true, label: '是', color: 'success' },
-              { value: false, label: '否', color: 'danger' },
+              { value: false, label: '否', color: 'error' },
             ],
           }),
         },
@@ -80,13 +85,14 @@ export default function ({ expose }) {
           dict: dict({
             data: [
               { value: false, label: '启用', color: 'success' },
-              { value: true, label: '禁用', color: 'danger' },
+              { value: true, label: '禁用', color: 'error' },
             ],
           }),
         },
         description: {
           title: '描述',
           column: { width: 100 },
+          search: { show: false },
           type: 'textarea',
           form: {
             show: compute((context) => {
@@ -100,7 +106,7 @@ export default function ({ expose }) {
         },
         scopeType: {
           title: '权限范围',
-          type: 'dict-radio',
+          type: 'dict-select',
           column: { width: 100 },
           dict: dict({
             data: [
@@ -112,32 +118,21 @@ export default function ({ expose }) {
             ],
           }),
           form: {
-            component: { radioName: 'a-radio-button', buttonStyle: 'solid' },
-            col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 21 },
-            valueChange: ({ value, form, ...aaa }) => {
-              console.log('value', value);
-              console.log('form', form);
-              console.log('...aaa', aaa);
-              form.stationId = null;
-              if (value === 20) {
-                // 执行 stationId 的select组件的reloadDict()方法，触发“stationId”重新加载字典
-                // getComponent('stationId').reloadDict();
-              }
+            valueChange: ({ value, form, ...content }) => {
+              console.log('value', value, 'form', form, 'content', content);
             },
           },
+        },
+        orgList: {
+          search: { show: false },
+          column: { show: false },
         },
         createdTime: {
           title: '创建时间',
           type: 'datetime',
           column: { width: 180, sortable: true },
-          addForm: {
-            show: false,
-          },
-          editForm: {
-            show: false,
-          },
+          addForm: { show: false },
+          editForm: { show: false },
         },
       },
     },

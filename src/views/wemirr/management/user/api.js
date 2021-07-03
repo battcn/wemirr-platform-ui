@@ -26,7 +26,7 @@ export function UpdateObj(obj) {
 
 export function DelObj(id) {
   return request({
-    url: `/authority/users/${obj.id}`,
+    url: `/authority/users/${id}`,
     method: 'delete',
     params: { id },
   });

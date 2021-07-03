@@ -15,6 +15,9 @@ export default function ({ expose }) {
       request: {
         pageRequest,
       },
+      table: {
+        scroll: { fixed: true },
+      },
       rowHandle: {
         width: 70,
         //固定右侧
@@ -29,26 +32,29 @@ export default function ({ expose }) {
         id: {
           title: 'ID',
           type: 'text',
+          viewForm: { show: false },
           column: { show: false },
         },
         principal: {
           title: '登录账号',
           type: 'text',
           search: { show: true },
+          column: { width: 180 },
         },
         name: {
           title: '名称',
-          column: { show: false },
+          type: 'text',
+          column: { width: 160 },
         },
         ip: {
           title: 'IP',
           type: 'text',
-          column: { show: false, width: 160 },
+          column: { width: 160 },
         },
         location: {
           title: '登录地点',
           type: 'text',
-          column: { width: 100 },
+          column: { width: 180 },
         },
         clientId: {
           title: '应用标识',
@@ -85,11 +91,35 @@ export default function ({ expose }) {
           type: 'text',
           column: { width: 160 },
         },
-
         createdTime: {
           title: '创建时间',
           type: 'datetime',
-          addForm: { show: false },
+        },
+      },
+      form: {
+        display: 'flex',
+        group: {
+          type: 'collapse', // tab
+          accordion: false, //手风琴模式
+          groups: {
+            baseInfo: {
+              header: '基础信息',
+              columns: ['principal', 'name', 'ip', 'location'],
+            },
+            reqInfo: {
+              header: '请求信息',
+              columns: ['clientId', 'platform', 'os', 'engine', 'browser'],
+            },
+            version: {
+              header: '版号信息',
+              columns: ['engineVersion', 'browserVersion'],
+            },
+            otherInfo: {
+              header: '其它信息',
+              collapsed: false, //默认折叠
+              columns: ['createdTime'],
+            },
+          },
         },
       },
     },
