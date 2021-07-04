@@ -31,3 +31,19 @@ export function DelObj(id) {
     params: { id },
   });
 }
+
+export function GetUserByRoleId(roleId) {
+  return request({
+    url: `/authority/roles/${roleId}/users`,
+    method: 'get',
+    params: roleId,
+  });
+}
+
+export function DistributionUser(obj) {
+  return request({
+    url: `/authority/roles/${obj.roleId}/users`,
+    method: 'post',
+    data: obj,
+  });
+}

@@ -19,17 +19,26 @@ export default function (app, i18n) {
     commonOptions() {
       return {
         toolbar: {
+          // toolbar.buttons.export.show:false 显示隐藏
+          // toolbar.compact:false 默认选择
           compact: false,
         },
-        // toolbar.buttons.export.show:false 显示隐藏
-        // toolbar.compact:false 默认选择
+        buttons: {
+          view: {
+            icon: 'InfoCircleOutlined',
+          },
+        },
         rowHandle: {
           width: 200,
           align: 'center',
           //固定右侧
           fixed: 'right',
           buttons: {
-            view: { size: 'small' /*circle: true, text: '' */ /*, icon: 'bi-info-circle' */ },
+            view: {
+              size: 'small',
+              icon: 'InfoCircleOutlined',
+              /*circle: true, text: '' */
+            },
             edit: { size: 'small' },
             remove: { size: 'small' },
           },

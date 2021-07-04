@@ -27,7 +27,8 @@ export default function ({ expose }) {
         editRequest,
         delRequest,
       },
-      table: {},
+      table: {
+      },
       columns: {
         id: {
           title: '国标码',
@@ -87,6 +88,14 @@ export default function ({ expose }) {
         source: {
           title: '来源',
           type: 'textarea',
+          form: {
+            component: {
+              ellipsis: true,
+            },
+          },
+          column: {
+            ellipsis: true,
+          },
         },
         createdTime: {
           title: '创建时间',

@@ -34,6 +34,7 @@ export default function ({ expose }) {
         scroll: {
           //需要设置它，否则滚动条拖动时，表头不会动
           fixed: true,
+          x: 1400,
         },
         pagination: false,
       },
@@ -52,7 +53,7 @@ export default function ({ expose }) {
           form: {
             rules: [
               { required: true, message: '请输入账号名' },
-              { min: 6, max: 30, message: '长度在 6 到 30 个字符' },
+              { min: 4, max: 30, message: '长度在 4 到 30 个字符' },
             ],
           },
         },
@@ -81,7 +82,7 @@ export default function ({ expose }) {
           form: {
             rules: [
               { required: true, message: '请输入昵称' },
-              { min: 6, max: 30, message: '长度在 6 到 30 个字符' },
+              { min: 2, max: 30, message: '长度在 2 到 30 个字符' },
             ],
           },
         },
@@ -128,11 +129,12 @@ export default function ({ expose }) {
           type: 'email',
           column: { width: 180 },
         },
-        // avatar: {
-        //   title: '头像',
-        //   type: 'image-uploader',
-        //   column: { width: 70, align: 'center' },
-        // },
+        avatar: {
+          title: '头像',
+          type: 'image-uploader',
+          style: { height: 70 },
+          column: { width: 70, align: 'center' },
+        },
         orgId: {
           title: '组织',
           search: { show: true },
@@ -153,6 +155,10 @@ export default function ({ expose }) {
           form: {
             component: {
               replaceFields: { children: 'children', title: 'name', key: 'id', value: 'id' },
+              showSearch: true,
+              filterTreeNode: (val, treeNode) => {
+                return treeNode.props.title.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+              },
             },
           },
         },
@@ -176,6 +182,14 @@ export default function ({ expose }) {
               });
             },
           }),
+          form: {
+            component: {
+              showSearch: true,
+              filterOption: (val, form) => {
+                return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+              },
+            },
+          },
         },
         positionStatus: {
           title: '职位状态',
@@ -197,6 +211,14 @@ export default function ({ expose }) {
             url: '/authority/dictionaries/NATION/list',
             label: 'name',
           }),
+          form: {
+            component: {
+              showSearch: true,
+              filterOption: (val, form) => {
+                return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+              },
+            },
+          },
         },
         education: {
           title: '学历',
@@ -206,12 +228,20 @@ export default function ({ expose }) {
             url: '/authority/dictionaries/EDUCATION/list',
             label: 'name',
           }),
+          form: {
+            component: {
+              showSearch: true,
+              filterOption: (val, form) => {
+                return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+              },
+            },
+          },
         },
         createdTime: {
           title: '创建时间',
           type: 'datetime',
           column: { width: 180, sortable: true },
-          addForm: {
+          form: {
             show: false,
           },
           editForm: {
@@ -240,7 +270,7 @@ export default function ({ expose }) {
             otherInfo: {
               header: '其它信息',
               collapsed: false, //默认折叠
-              columns: ['nation', 'education'],
+              columns: ['nation', 'education', 'avatar', 'createdTime'],
             },
           },
         },

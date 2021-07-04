@@ -27,6 +27,7 @@ import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 import setupFastCrud from './setup-fast-crud';
 import './setup-fast-crud.less';
+import 'default-passive-events';
 
 async function bootstrap() {
   const app = createApp(App);
@@ -39,9 +40,6 @@ async function bootstrap() {
 
   // Register global components
   registerGlobComp(app);
-
-  // Multilingual configuration
-  await setupI18n(app);
 
   // Multilingual configuration
   const i18n = await setupI18n(app);

@@ -95,7 +95,6 @@ export const usePermissionStore = defineStore({
       let routes: AppRouteRecordRaw[] = [];
       const roleList = toRaw(userStore.getRoleList) || [];
       const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig;
-      console.log('permissionMode', permissionMode);
       // role permissions
       if (permissionMode === PermissionModeEnum.ROLE) {
         const routeFilter = (route: AppRouteRecordRaw) => {

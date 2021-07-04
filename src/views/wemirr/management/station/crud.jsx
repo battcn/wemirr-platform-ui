@@ -72,6 +72,10 @@ export default function ({ expose }) {
           form: {
             component: {
               replaceFields: { children: 'children', title: 'name', key: 'id', value: 'id' },
+              showSearch: true,
+              filterTreeNode: (val, treeNode) => {
+                return treeNode.props.title.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+              },
             },
           },
         },

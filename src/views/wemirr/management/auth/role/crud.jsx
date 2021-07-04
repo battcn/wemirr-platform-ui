@@ -1,7 +1,7 @@
 import * as api from './api';
 import { dict, compute } from '@fast-crud/fast-crud';
 
-export default function ({ expose }) {
+export default function ({ expose, distribution }) {
   const pageRequest = async (query) => {
     return await api.GetList(query).then((ret) => {
       return ret.data;
@@ -33,6 +33,35 @@ export default function ({ expose }) {
         scroll: {
           //需要设置它，否则滚动条拖动时，表头不会动
           fixed: true,
+        },
+      },
+      rowHandle: {
+        show: true,
+        width: 350,
+        dropdown: {
+          // 操作列折叠
+          atLeast: 3,
+          more: { size: 'small', text: 'more' },
+        },
+        buttons: {
+          distribution: {
+            text: '分配用户',
+            size: 'small',
+            order: 4,
+            show: true,
+            async click(context) {
+              await distribution.distributionModal(context.record.id);
+            },
+          },
+          bindResource: {
+            text: '分配用户',
+            size: 'small',
+            order: 5,
+            show: true,
+            async click(context) {
+              // await distribution.distributionModal(context.record.id);
+            },
+          },
         },
       },
       columns: {

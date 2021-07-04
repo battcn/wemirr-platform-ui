@@ -1,5 +1,5 @@
 import { request } from '/src/api/service';
-import {compute} from "@fast-crud/fast-crud";
+import { compute } from '@fast-crud/fast-crud';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -11,29 +11,22 @@ export default function ({ expose }) {
       return ret.data;
     });
   };
-  const delRequest = async ({ row }) => {
-    return await request({
-      url: `/authority/opt_logs/${row.id}`,
-      method: 'delete',
-    });
-  };
   return {
     crudOptions: {
       request: {
         pageRequest,
-        delRequest,
       },
       table: {
         scroll: { fixed: true },
       },
       rowHandle: {
-        width: 150,
+        width: 80,
         //固定右侧
         fixed: 'right',
         buttons: {
           view: { size: 'small' },
           edit: { show: false },
-          remove: { size: 'small' },
+          remove: { size: 'small', show: false },
         },
       },
       columns: {

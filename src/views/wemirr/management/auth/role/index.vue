@@ -1,17 +1,20 @@
 <template>
-  <fs-crud ref="crudRef" v-bind="crudBinding">
-    <template #form_orgList="scope">
-      <BasicTree
-        v-model:value="scope.form.orgList"
-        :treeData="treeData"
-        :replaceFields="{ title: 'name', key: 'id' }"
-        checkable
-        toolbar
-        v-if="scope.form.scopeType === 20"
-        title="组织架构"
-      />
-    </template>
-  </fs-crud>
+  <div>
+    <fs-crud ref="crudRef" v-bind="crudBinding">
+      <template #form_orgList="scope">
+        <BasicTree
+          v-model:value="scope.form.orgList"
+          :treeData="treeData"
+          :replaceFields="{ title: 'name', key: 'id' }"
+          checkable
+          toolbar
+          v-if="scope.form.scopeType === 20"
+          title="组织架构"
+        />
+      </template>
+    </fs-crud>
+    <distribution-user @register="registerBindUser" />
+  </div>
 </template>
 
 <script>
@@ -20,29 +23,49 @@
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
   import { request } from '/src/api/service';
   import { BasicTree } from '/@/components/Tree';
+  import { useModal } from '/@/components/Modal';
+  import DistributionUser from './DistributionUser.vue';
+  import * as api from './api';
+
+  function useDistribution() {
+    const checkedKeys = ref();
+    const permissionTreeData = ref();
+    const permissionTreeRef = ref();
+
+    function distributionModal(roleId) {
+      api.GetUserByRoleId(roleId).then((ret) => {
+        openBindUser(true, ret.data);
+      });
+    }
+    const [registerBindUser, { openModal: openBindUser }] = useModal();
+
+    return {
+      registerBindUser,
+      permissionTreeData,
+      checkedKeys,
+      permissionTreeRef,
+      distributionModal,
+    };
+  }
 
   export default defineComponent({
     name: 'SlotsForm',
-    components: { BasicTree },
-
+    components: { DistributionUser, BasicTree },
     setup() {
       // crud组件的ref
       const crudRef = ref();
       // crud 配置的ref
       const crudBinding = ref();
+
+      const distribution = useDistribution();
       // 暴露的方法
       const { expose } = useExpose({ crudRef, crudBinding });
       // 你的crud配置
-      const { crudOptions } = createCrudOptions({ expose });
+      const { crudOptions } = createCrudOptions({ expose, distribution });
       // 初始化crud配置
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-      const { resetCrudOptions } = useCrud({ expose, crudOptions });
-      // 你可以调用此方法，重新初始化crud配置
-      // resetCrudOptions(options)
+      useCrud({ expose, crudOptions });
 
-      // let treeData = [];
       const treeData = ref([]);
-
       function initOrgList() {
         request({
           url: '/authority/org/trees',
@@ -50,7 +73,6 @@
           params: { status: true },
         }).then((response) => {
           treeData.value = response.data;
-          console.log('treeData', treeData);
         });
       }
       // 页面打开后获取列表数据
@@ -63,6 +85,7 @@
         treeData,
         crudBinding,
         crudRef,
+        ...distribution,
       };
     },
   });

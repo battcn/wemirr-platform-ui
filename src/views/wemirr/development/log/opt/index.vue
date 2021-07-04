@@ -1,14 +1,34 @@
 <template>
-  <fs-crud ref="crudRef" v-bind="crudBinding" />
+  <fs-crud ref="crudRef" v-bind="crudBinding">
+    <template #actionbar-right>
+      <a-dropdown type="primary" class="ml-1">
+        <template #overlay>
+          <a-menu @click="handleMenuClick">
+            <a-menu-item key="1">一天前</a-menu-item>
+            <a-menu-item key="7">七天前</a-menu-item>
+            <a-menu-item key="15">十五天前</a-menu-item>
+            <a-menu-item key="30">三十天前</a-menu-item>
+          </a-menu>
+        </template>
+        <a-button>
+          批量删除
+          <DownOutlined />
+        </a-button>
+      </a-dropdown>
+    </template>
+  </fs-crud>
 </template>
 
 <script>
   import { defineComponent, ref, onMounted } from 'vue';
   import createCrudOptions from './crud';
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
+  import { useMessage } from '/@/hooks/web/useMessage';
+  import { request } from '/src/api/service';
   export default defineComponent({
-    name: 'FeatureExpand',
+    name: 'OptLogForm',
     setup() {
+      const { createConfirm } = useMessage();
       // crud组件的ref
       const crudRef = ref();
       // crud 配置的ref
@@ -26,7 +46,21 @@
       onMounted(() => {
         expose.doRefresh();
       });
+
+      const handleMenuClick = (e) => {
+        console.log('click', e);
+        createConfirm({
+          iconType: 'warning',
+          title: '提示',
+          content: '是否批量删除',
+          onOk: async () => {
+            request({ url: `/authority/opt_logs/${e.key}`, method: 'delete' });
+            await expose.doRefresh();
+          },
+        });
+      };
       return {
+        handleMenuClick,
         crudBinding,
         crudRef,
       };
