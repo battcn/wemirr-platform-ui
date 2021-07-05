@@ -1,7 +1,7 @@
 import * as api from './api';
 import { dict, compute } from '@fast-crud/fast-crud';
 
-export default function ({ expose, distribution }) {
+export default function ({ expose, distribution, go }) {
   const pageRequest = async (query) => {
     return await api.GetList(query).then((ret) => {
       return ret.data;
@@ -53,13 +53,13 @@ export default function ({ expose, distribution }) {
               await distribution.distributionModal(context.record.id);
             },
           },
-          bindResource: {
-            text: '分配用户',
+          resource: {
+            text: '分配权限',
             size: 'small',
             order: 5,
             show: true,
             async click(context) {
-              // await distribution.distributionModal(context.record.id);
+              go('/system/distribution/resource');
             },
           },
         },

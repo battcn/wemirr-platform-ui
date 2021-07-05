@@ -25,6 +25,7 @@
   import { BasicTree } from '/@/components/Tree';
   import { useModal } from '/@/components/Modal';
   import DistributionUser from './DistributionUser.vue';
+  import { useGo } from '/@/hooks/web/usePage';
   import * as api from './api';
 
   function useDistribution() {
@@ -60,8 +61,10 @@
       const distribution = useDistribution();
       // 暴露的方法
       const { expose } = useExpose({ crudRef, crudBinding });
+
+      const go = useGo();
       // 你的crud配置
-      const { crudOptions } = createCrudOptions({ expose, distribution });
+      const { crudOptions } = createCrudOptions({ expose, distribution, go });
       // 初始化crud配置
       useCrud({ expose, crudOptions });
 

@@ -1,5 +1,4 @@
 import * as api from './api';
-import { ref } from 'vue';
 import { compute, dict } from '@fast-crud/fast-crud';
 
 export default function ({ expose }) {
@@ -46,6 +45,10 @@ export default function ({ expose }) {
               { value: false, label: '禁用', color: 'error' },
             ],
           }),
+        },
+        path: {
+          title: '路径',
+          type: 'text',
         },
         startTime: {
           title: '限制开始时间',

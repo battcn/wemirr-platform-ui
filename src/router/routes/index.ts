@@ -66,6 +66,27 @@ export const ConstRouter: AppRouteRecordRaw[] = [
     ],
   },
   {
+    path: '/system/distribution',
+    name: '系统分配',
+    component: LAYOUT,
+    redirect: '/system/distribution/resource',
+    meta: {
+      title: '系统分配',
+      icon: 'bx:bx-home',
+    },
+    children: [
+      {
+        path: 'resource',
+        name: '分配权限',
+        component: () => import('/@/views/wemirr/management/auth/role/DistributionResource.vue'),
+        meta: {
+          title: '分配权限',
+          icon: 'bx:bx-home',
+        },
+      },
+    ],
+  },
+  {
     path: '/dashboard',
     name: 'Dashboard',
     component: LAYOUT,
