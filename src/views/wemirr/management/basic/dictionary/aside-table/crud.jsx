@@ -45,7 +45,7 @@ export default function ({ expose }) {
           column: {
             width: 80,
             align: 'center',
-            sortable: true,
+            sorter: true,
           },
         },
         value: {
@@ -53,7 +53,7 @@ export default function ({ expose }) {
           search: { show: false },
           type: 'text',
           column: {
-            sortable: true,
+            sorter: true,
           },
         },
       },

@@ -222,7 +222,7 @@ export class VAxios {
         })
         .catch((e: Error) => {
           console.log(e);
-          debugger;
+          // debugger;
           if (requestCatchHook && isFunction(requestCatchHook)) {
             reject(requestCatchHook(e, opt));
             return;

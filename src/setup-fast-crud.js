@@ -25,7 +25,7 @@ export default function (app, i18n) {
         },
         buttons: {
           view: {
-            icon: 'InfoCircleOutlined',
+            icon: 'akar-icons:info',
           },
         },
         rowHandle: {
@@ -36,7 +36,8 @@ export default function (app, i18n) {
           buttons: {
             view: {
               size: 'small',
-              icon: 'InfoCircleOutlined',
+              icon: 'akar-icons:info',
+              // icon: 'ion:apps-sharp',
               /*circle: true, text: '' */
             },
             edit: { size: 'small' },

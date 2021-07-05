@@ -31,7 +31,7 @@ export enum SessionTimeoutProcessingEnum {
 export enum PermissionModeEnum {
   // role
   ROLE = 'ROLE',
-  // black
+  // blacklist
   BACK = 'BACK',
 }
 

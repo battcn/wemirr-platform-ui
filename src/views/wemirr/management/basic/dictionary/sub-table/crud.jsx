@@ -28,11 +28,11 @@ export default function ({ expose, props, ctx }) {
           };
         },
       },
-      // form: {
-      //   wrapper: {
-      //     is: 'a-dialog',
-      //   },
-      // },
+      form: {
+        wrapper: {
+          is: 'a-modal',
+        },
+      },
       request: {
         pageRequest,
         addRequest,
@@ -68,7 +68,7 @@ export default function ({ expose, props, ctx }) {
           column: {
             width: 80,
             align: 'center',
-            sortable: true,
+            sorter: true,
           },
         },
         value: {
@@ -76,13 +76,13 @@ export default function ({ expose, props, ctx }) {
           search: { show: false },
           type: 'text',
           column: {
-            sortable: true,
+            sorter: true,
           },
         },
         createdTime: {
           title: '创建时间',
           type: 'datetime',
-          column: { width: 180, sortable: true },
+          column: { width: 180, sorter: true },
           form: { show: false },
         },
       },

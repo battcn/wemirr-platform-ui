@@ -35,6 +35,8 @@ function createService() {
       }
     },
     (error) => {
+      console.log('error', error);
+      const message = get(error, 'response.data.message');
       const status = get(error, 'response.status');
       switch (status) {
         case 400:
@@ -42,10 +44,6 @@ function createService() {
           break;
         case 401:
           error.message = '未授权，请登录';
-          // 删除cookie
-          // util.cookies.remove('token');
-          // util.cookies.remove('uuid');
-          // router.push({ name: 'login' })
           break;
         case 403:
           error.message = '拒绝访问';
@@ -80,6 +78,9 @@ function createService() {
       if (error.message === 'Network Error') {
         error.message = '网络连接失败,请稍后再试';
       }
+      if (message) {
+        error.message = message;
+      }
       errorLog(error);
       return Promise.reject(error);
     }
@@ -109,8 +110,8 @@ function createRequestFunction(service) {
         ...headers,
         'Content-Type': get(config, 'headers.Content-Type', 'application/json'),
       },
-      // 超时时间 5 分钟
-      timeout: 6000 * 50,
+      // 超时时间 10 秒
+      timeout: 1000 * 10,
       baseURL: globSetting.apiUrl,
       data: {},
     };

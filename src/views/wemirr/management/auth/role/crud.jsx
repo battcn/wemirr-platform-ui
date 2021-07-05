@@ -147,6 +147,7 @@ export default function ({ expose, distribution }) {
             ],
           }),
           form: {
+            component: { radioName: 'a-radio-button' },
             valueChange: ({ value, form, ...content }) => {
               console.log('value', value, 'form', form, 'content', content);
             },
@@ -155,11 +156,15 @@ export default function ({ expose, distribution }) {
         orgList: {
           search: { show: false },
           column: { show: false },
+          form: {
+            // labelCol: { span: 10 },
+            // wrapperCol: { span: 10 },
+          },
         },
         createdTime: {
           title: '创建时间',
           type: 'datetime',
-          column: { width: 180, sortable: true },
+          column: { width: 180, sorter: true },
           addForm: { show: false },
           editForm: { show: false },
         },

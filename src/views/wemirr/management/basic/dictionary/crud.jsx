@@ -81,7 +81,7 @@ export default function ({ expose, asideTableRef }) {
         createdTime: {
           title: '创建时间',
           type: 'datetime',
-          column: { width: 180, sortable: true },
+          column: { width: 180, sorter: true },
           form: {
             show: false,
           },

@@ -50,7 +50,7 @@ export function configThemePlugin(isBuild: boolean): Plugin[] {
         'text-color': '#c9d1d9',
         'text-color-base': '#c9d1d9',
         'component-background': '#151515',
-        // black: '#0e1117',
+        // blacklist: '#0e1117',
         // #8b949e
         'text-color-secondary': '#8b949e',
         'border-color-base': '#303030',
