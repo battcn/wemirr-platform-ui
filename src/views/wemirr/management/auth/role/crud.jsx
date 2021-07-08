@@ -1,7 +1,7 @@
 import * as api from './api';
 import { dict, compute } from '@fast-crud/fast-crud';
 
-export default function ({ expose, distribution, go }) {
+export default function ({ expose, distribution }) {
   const pageRequest = async (query) => {
     return await api.GetList(query).then((ret) => {
       return ret.data;
@@ -50,7 +50,7 @@ export default function ({ expose, distribution, go }) {
             order: 4,
             show: true,
             async click(context) {
-              await distribution.distributionModal(context.record.id);
+              await distribution.userModal(context.record.id);
             },
           },
           resource: {
@@ -59,7 +59,7 @@ export default function ({ expose, distribution, go }) {
             order: 5,
             show: true,
             async click(context) {
-              go('/system/distribution/resource');
+              await distribution.resourceModal(context.record.id);
             },
           },
         },

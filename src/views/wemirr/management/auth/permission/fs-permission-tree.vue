@@ -6,7 +6,7 @@
       search
       checkable
       toolbar
-      :clickRowToExpand="false"
+      :clickRowToExpand="true"
       :treeData="treeData"
       :replaceFields="{ key: 'id', title: 'name' }"
       @select="handleSelect"
@@ -26,7 +26,7 @@
     setup(_, { emit }) {
       const treeData = ref<TreeItem[]>([]);
       async function fetch() {
-        treeData.value = (await getMenuList()) as unknown as TreeItem[];
+        treeData.value = (await getMenuList(true)) as unknown as TreeItem[];
       }
       function handleSelect(keys: string, e) {
         emit('select', keys[0]);
@@ -42,29 +42,26 @@
 
 <style lang="less">
   .fs-permission-tree {
-    width: 1400px;
-    ul > .ant-tree-child-tree-open {
-      display: flex;
-      //flex-wrap: wrap;
+    .ant-tree-child-tree {
+      .ant-tree-treenode-switcher-open > ul .ant-tree-child-tree-open {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        .ant-tree-treenode-switcher-open{
+          width: 140px;
+          padding-right: 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .ant-tree-treenode-switcher-close {
+          width: 140px;
+          padding-right: 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
     }
   }
-
-  //.ant-tree-child-tree .ant-tree-child-tree-open {
-  //  display: flex;
-  //  flex-wrap: wrap;
-  //}
-  //.ant-tree-title {
-  //  &:hover {
-  //    .node-suffix {
-  //      visibility: visible;
-  //    }
-  //  }
-  //}
-  //
-  //.node-suffix {
-  //  visibility: hidden;
-  //  > * {
-  //    margin-left: 3px;
-  //  }
-  //}
 </style>

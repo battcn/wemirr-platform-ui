@@ -1,14 +1,14 @@
 <template>
-  <div class="bg-white m-4 mr-0 overflow-hidden">
-    <BasicTree
-      title="角色列表"
-      search
-      :clickRowToExpand="false"
-      :treeData="treeData"
-      :replaceFields="{ key: 'id', title: 'name' }"
-      @select="handleSelect"
-    />
-  </div>
+  <BasicTree
+    title="角色列表"
+    search
+    :clickRowToExpand="false"
+    :treeData="treeData"
+    :replaceFields="{ key: 'id', title: 'name' }"
+    @select="handleSelect"
+  />
+  <!--  <div class="bg-white m-4 mr-0 overflow-hidden">-->
+  <!--  </div>-->
 </template>
 <script lang="ts">
   import { defineComponent, onMounted, ref } from 'vue';

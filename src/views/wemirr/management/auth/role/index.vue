@@ -14,6 +14,7 @@
       </template>
     </fs-crud>
     <distribution-user @register="registerBindUser" />
+    <distribution-resource @register="registerBindResource" />
   </div>
 </template>
 
@@ -25,33 +26,36 @@
   import { BasicTree } from '/@/components/Tree';
   import { useModal } from '/@/components/Modal';
   import DistributionUser from './DistributionUser.vue';
-  import { useGo } from '/@/hooks/web/usePage';
+  import DistributionResource from './DistributionResource.vue';
   import * as api from './api';
 
   function useDistribution() {
     const checkedKeys = ref();
-    const permissionTreeData = ref();
-    const permissionTreeRef = ref();
 
-    function distributionModal(roleId) {
+    function userModal(roleId) {
       api.GetUserByRoleId(roleId).then((ret) => {
         openBindUser(true, ret.data);
       });
     }
     const [registerBindUser, { openModal: openBindUser }] = useModal();
 
+    function resourceModal(roleId) {
+      openBindResource(true, roleId);
+    }
+    const [registerBindResource, { openModal: openBindResource }] = useModal();
+
     return {
-      registerBindUser,
-      permissionTreeData,
       checkedKeys,
-      permissionTreeRef,
-      distributionModal,
+      userModal,
+      registerBindUser,
+      resourceModal,
+      registerBindResource,
     };
   }
 
   export default defineComponent({
     name: 'SlotsForm',
-    components: { DistributionUser, BasicTree },
+    components: { DistributionUser, DistributionResource, BasicTree },
     setup() {
       // crud组件的ref
       const crudRef = ref();
@@ -62,9 +66,9 @@
       // 暴露的方法
       const { expose } = useExpose({ crudRef, crudBinding });
 
-      const go = useGo();
+      // const go = useGo();
       // 你的crud配置
-      const { crudOptions } = createCrudOptions({ expose, distribution, go });
+      const { crudOptions } = createCrudOptions({ expose, distribution });
       // 初始化crud配置
       useCrud({ expose, crudOptions });
 

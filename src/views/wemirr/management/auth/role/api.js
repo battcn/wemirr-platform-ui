@@ -47,3 +47,19 @@ export function DistributionUser(obj) {
     data: obj,
   });
 }
+
+export function GetPermissionList(roleId) {
+  return request({
+    url: `/authority/roles/${roleId}/resources/permissions`,
+    method: 'get',
+    params: roleId,
+  });
+}
+
+export function DistributionRoleAuthority(obj) {
+  return request({
+    url: `/authority/roles/${obj.roleId}/authority`,
+    method: 'post',
+    data: obj,
+  });
+}
