@@ -1,8 +1,8 @@
 import { defHttp } from '/@/utils/http/axios';
 import { FastCrud } from '@fast-crud/fast-crud';
 import '@fast-crud/fast-crud/dist/style.css';
-import FsUploader from '@fast-crud/extends-uploader';
-import '@fast-crud/extends-uploader/dist/style.css';
+import { FsExtendsUploader, FsExtendsEditor } from '@fast-crud/fast-extends';
+import '@fast-crud/fast-extends/dist/style.css';
 import UiAntdv from '@fast-crud/ui-antdv';
 
 // 导出 setupFastCrud
@@ -23,25 +23,30 @@ export default function (app, i18n) {
           // toolbar.compact:false 默认选择
           compact: false,
         },
-        buttons: {
-          view: {
-            icon: 'akar-icons:info',
-          },
-        },
         rowHandle: {
-          width: 200,
+          width: 150,
           align: 'center',
           //固定右侧
           fixed: 'right',
           buttons: {
-            view: {
-              size: 'small',
-              icon: 'akar-icons:info',
-              // icon: 'ion:apps-sharp',
-              /*circle: true, text: '' */
+            // view: { size: 'small', type: 'link', text: null, icon: 'ion:akar-icons:search' },
+            // edit: { size: 'small', type: 'link', text: null, icon: 'ion:akar-icons:search' },
+            // remove: {
+            //   size: 'small',
+            //   type: 'link',
+            //   style: { color: 'red' },
+            //   text: null,
+            //   icon: 'ion:trash-outline',
+            // },
+            // view: { icon: 'ion:eye-outline' },
+            view: { size: 'small', type: 'link', text: null, icon: 'akar-icons:search' },
+            edit: { size: 'small', type: 'link', text: null, icon: 'ion:create-outline' },
+            remove: { size: 'small', type: 'link', text: null, icon: 'ion:trash-outline' },
+          },
+          dropdown: {
+            more: {
+              type: 'link',
             },
-            edit: { size: 'small' },
-            remove: { size: 'small' },
           },
         },
         table: {
@@ -71,9 +76,9 @@ export default function (app, i18n) {
     },
   });
 
+  app.use(FsExtendsEditor);
   //配置uploader 公共参数
-
-  app.use(FsUploader, {
+  app.use(FsExtendsUploader, {
     defaultType: 'cos',
     cos: {
       domain: 'https://d2p-demo-1251260344.cos.ap-guangzhou.myqcloud.com',

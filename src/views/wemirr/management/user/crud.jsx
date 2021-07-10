@@ -137,7 +137,7 @@ export default function ({ expose }) {
         },
         orgId: {
           title: '组织',
-          search: { show: true },
+          search: { show: true, component: { style: { width: '150px' } } },
           type: 'dict-tree',
           column: { width: 90 },
           dict: dict({

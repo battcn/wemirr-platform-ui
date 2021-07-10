@@ -42,15 +42,6 @@ export default function ({ expose, asideTableRef }) {
         editRequest,
         delRequest,
       },
-      rowHandle: {
-        width: 200,
-        center: true,
-        buttons: {
-          view: { size: 'small', show: true },
-          edit: { size: 'small' },
-          remove: { size: 'small' },
-        },
-      },
       form: {
         // wrapper: {
         //   is: 'a-dialog',

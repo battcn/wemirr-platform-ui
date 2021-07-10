@@ -34,13 +34,14 @@
   import { getMenuList, GetPermissionList } from '/@/api/sys/menu';
   import { BasicTable, useTable } from '/@/components/Table';
   import { getBasicColumns } from './tableData';
-  const { createSuccessModal, createMessage } = useMessage();
-  import * as api from './api';
   import { useMessage } from '/@/hooks/web/useMessage';
+
+  import * as api from './api';
   export default defineComponent({
     name: 'DistributionUser',
     components: { BasicModal, BasicTree, BasicTable },
     setup() {
+      const { notification } = useMessage();
       const tableButtons = ref();
       const resIdList = ref([...new Set()] as unknown as any[]);
       const modelRef = ref({});
@@ -51,6 +52,7 @@
       const dataSource = ref();
 
       const [register, { closeModal }] = useModalInner(async (roleId) => {
+        checkedKeys.value = [];
         roleIdRef.value = roleId;
         await getMenuList().then((ret) => {
           permissionTreeData.value = ret;
@@ -102,7 +104,10 @@
       async function handleSubmit() {
         const data = [...new Set(resIdList.value.concat(checkedKeys.value))];
         api.DistributionRoleAuthority({ roleId: roleIdRef.value, resIds: data }).then(() => {
-          createMessage.success('权限分配成功');
+          notification.success({
+            message: '权限分配成功',
+            duration: 3,
+          });
           closeModal();
         });
       }

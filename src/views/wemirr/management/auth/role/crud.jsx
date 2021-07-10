@@ -37,7 +37,7 @@ export default function ({ expose, distribution }) {
       },
       rowHandle: {
         show: true,
-        width: 350,
+        width: 200,
         dropdown: {
           // 操作列折叠
           atLeast: 3,
@@ -74,13 +74,13 @@ export default function ({ expose, distribution }) {
         name: {
           title: '名称',
           type: 'text',
-          column: { width: 155 },
+          column: { width: 180 },
           search: { show: true },
         },
         code: {
           title: '编码',
           type: 'text',
-          column: { width: 150 },
+          column: { width: 180 },
           form: {
             rules: [
               { required: true, message: '请输入编码' },
@@ -109,7 +109,7 @@ export default function ({ expose, distribution }) {
         locked: {
           title: '状态',
           type: 'dict-radio',
-          column: { width: 90, align: 'center' },
+          column: { width: 100, align: 'center' },
           form: { disabled: true },
           dict: dict({
             data: [
@@ -118,25 +118,10 @@ export default function ({ expose, distribution }) {
             ],
           }),
         },
-        description: {
-          title: '描述',
-          column: { width: 100 },
-          search: { show: false },
-          type: 'textarea',
-          form: {
-            show: compute((context) => {
-              // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
-              return context.form.display !== 'grid';
-            }),
-            col: { span: 24 }, // flex模式跨列配置
-            labelCol: { span: 2 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol
-            wrapperCol: { span: 21 },
-          },
-        },
         scopeType: {
           title: '权限范围',
           type: 'dict-select',
-          column: { width: 100 },
+          column: { width: 150 },
           dict: dict({
             data: [
               { value: 10, label: '个人', color: 'warning' },
@@ -151,6 +136,20 @@ export default function ({ expose, distribution }) {
             valueChange: ({ value, form, ...content }) => {
               console.log('value', value, 'form', form, 'content', content);
             },
+          },
+        },
+        description: {
+          title: '描述',
+          search: { show: false },
+          type: 'textarea',
+          form: {
+            show: compute((context) => {
+              // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
+              return context.form.display !== 'grid';
+            }),
+            col: { span: 24 }, // flex模式跨列配置
+            labelCol: { span: 2 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol
+            wrapperCol: { span: 21 },
           },
         },
         orgList: {

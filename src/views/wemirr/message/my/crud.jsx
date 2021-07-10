@@ -17,6 +17,20 @@ export default function ({ expose }) {
         pageRequest,
         delRequest,
       },
+      toolbar: {},
+      actionbar: {
+        show: true,
+        buttons: {
+          add: {
+            show: false,
+          },
+        },
+      },
+      rowHandle: {
+        buttons: {
+          edit: { show: false },
+        },
+      },
       columns: {
         id: {
           title: 'ID',
@@ -29,9 +43,10 @@ export default function ({ expose }) {
           type: 'text',
           search: { show: true },
         },
-        code: {
-          title: '类型',
+        level: {
+          title: '级别',
           type: 'dict-select',
+          search: { show: true },
           column: { show: true, align: 'center' }, // 表单配置
           dict: dict({
             url: '/authority/dictionaries/NOTICE/list',
@@ -45,6 +60,7 @@ export default function ({ expose }) {
         },
         mark: {
           title: '状态',
+          search: { show: true },
           column: { show: true, align: 'center' }, // 表单配置
           type: 'dict-radio',
           dict: dict({
@@ -56,10 +72,18 @@ export default function ({ expose }) {
         },
         content: {
           title: '消息内容',
-          type: 'textarea',
+          type: 'editor-quill',
+          column: {
+            ellipsis: true,
+          },
+          form: {
+            col: { span: 24 },
+            labelCol: { span: 2 },
+            wrapperCol: { span: 21 },
+          },
         },
         createdTime: {
-          title: '创建时间',
+          title: '通知时间',
           type: 'datetime',
           form: { show: false },
         },

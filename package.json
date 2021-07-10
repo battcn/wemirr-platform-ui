@@ -34,9 +34,9 @@
     "postinstall": "npm run install:husky"
   },
   "dependencies": {
-    "@fast-crud/extends-uploader": "^0.13.0",
-    "@fast-crud/fast-crud": "^0.13.0",
-    "@fast-crud/ui-antdv": "^0.13.0",
+    "@fast-crud/fast-extends": "^0.15.0",
+    "@fast-crud/fast-crud": "^0.15.0",
+    "@fast-crud/ui-antdv": "^0.15.0",
     "@iconify/iconify": "^2.0.2",
     "@vueuse/core": "^5.0.3",
     "@zxcvbn-ts/core": "^0.3.0",

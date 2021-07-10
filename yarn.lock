@@ -913,6 +913,14 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime-corejs3@^7.11.2":
+  version "7.14.7"
+  resolved "https://registry.nlark.com/@babel/runtime-corejs3/download/@babel/runtime-corejs3-7.14.7.tgz#0ef292bbce40ca00f874c9724ef175a12476465c"
+  integrity sha1-DvKSu85AygD4dMlyTvF1oSR2Rlw=
+  dependencies:
+    core-js-pure "^3.15.0"
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.8.4":
   version "7.14.6"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.14.6.tgz"
@@ -1138,10 +1146,23 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fast-crud/extends-uploader@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.nlark.com/@fast-crud/extends-uploader/download/@fast-crud/extends-uploader-0.13.0.tgz#1b0830a745d16d8e9fd22acebcaf0a00334088b9"
-  integrity sha1-Gwgwp0XRbY6f0irOvK8KADNAiLk=
+"@fast-crud/fast-crud@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.nlark.com/@fast-crud/fast-crud/download/@fast-crud/fast-crud-0.15.0.tgz#0f20ac936059bb393fd060e52afe301292649780"
+  integrity sha1-DyCsk2BZuzk/0GDlKv4wEpJkl4A=
+  dependencies:
+    "@fast-crud/ui-interface" "^0.15.0"
+    dayjs "^1.10.4"
+    deepdash-es "5.3.5"
+    lodash-es "^4.17.15"
+    lru-cache "^6.0.0"
+    vue "^3.0.7"
+    vuedraggable "^4.0.1"
+
+"@fast-crud/fast-extends@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.nlark.com/@fast-crud/fast-extends/download/@fast-crud/fast-extends-0.15.0.tgz#89c1801aa0f9677eda38f70a411d34c4d00aab0d"
+  integrity sha1-icGAGqD5Z37aOPcKQR00xNAKqw0=
   dependencies:
     ali-oss "^6.13.2"
     cos-js-sdk-v5 "^1.2.9"
@@ -1150,36 +1171,25 @@
     lodash-es "^4.17.20"
     object-assign "^4.1.1"
     qiniu-js "3.1.2"
+    quill "^1.3.7"
     vue "^3.0.7"
     vue-cropperjs "^5.0.0"
+    wangeditor "^4.7.5"
 
-"@fast-crud/fast-crud@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.nlark.com/@fast-crud/fast-crud/download/@fast-crud/fast-crud-0.13.0.tgz#a4712d81e52e43a2bbcce9565b9f2ca45a5dc12b"
-  integrity sha1-pHEtgeUuQ6K7zOlWW58spFpdwSs=
-  dependencies:
-    "@fast-crud/ui-interface" "^0.13.0"
-    dayjs "^1.10.4"
-    deepdash-es "5.3.5"
-    lodash-es "^4.17.15"
-    lru-cache "^6.0.0"
-    vue "^3.0.7"
-    vuedraggable "^4.0.1"
-
-"@fast-crud/ui-antdv@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.nlark.com/@fast-crud/ui-antdv/download/@fast-crud/ui-antdv-0.13.0.tgz#74044398c7c4fe2877fbfbfbb422d1f14c583acc"
-  integrity sha1-dARDmMfE/ih3+/v7tCLR8UxYOsw=
+"@fast-crud/ui-antdv@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.nlark.com/@fast-crud/ui-antdv/download/@fast-crud/ui-antdv-0.15.0.tgz#54fffd19f48ac3cf5319756217ed07db878c4029"
+  integrity sha1-VP/9GfSKw89TGXViF+0H24eMQCk=
   dependencies:
     "@ant-design/icons-vue" "^6.0.1"
-    "@fast-crud/ui-interface" "^0.13.0"
+    "@fast-crud/ui-interface" "^0.15.0"
     ant-design-vue "^2.1.4"
     vue "^3.0.7"
 
-"@fast-crud/ui-interface@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.nlark.com/@fast-crud/ui-interface/download/@fast-crud/ui-interface-0.13.0.tgz#652ae7f66aa33aa725a9f5d518b139cd69639099"
-  integrity sha1-ZSrn9mqjOqclqfXVGLE5zWljkJk=
+"@fast-crud/ui-interface@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.nlark.com/@fast-crud/ui-interface/download/@fast-crud/ui-interface-0.15.0.tgz#a91ca63fc7b49aefc628ddcdb607800b833435c4"
+  integrity sha1-qRymP8e0mu/GKN3NtgeAC4M0NcQ=
   dependencies:
     vue "^3.0.7"
 
@@ -4111,6 +4121,11 @@ core-js-compat@^3.14.0:
     browserslist "^4.16.6"
     semver "7.0.0"
 
+core-js-pure@^3.15.0:
+  version "3.15.2"
+  resolved "https://registry.nlark.com/core-js-pure/download/core-js-pure-3.15.2.tgz#c8e0874822705f3385d3197af9348f7c9ae2e3ce"
+  integrity sha1-yOCHSCJwXzOF0xl6+TSPfJri484=
+
 core-js@^2.6.5:
   version "2.6.12"
   resolved "https://registry.npmjs.org/core-js/-/core-js-2.6.12.tgz"
@@ -4507,6 +4522,18 @@ dedent@0.7.0, dedent@^0.7.0:
   version "0.7.0"
   resolved "https://registry.npmjs.org/dedent/-/dedent-0.7.0.tgz"
   integrity sha1-JJXduvbrh0q7Dhvp3yLS5aVEMmw=
+
+deep-equal@^1.0.1:
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/deep-equal/download/deep-equal-1.1.1.tgz?cache=0&sync_timestamp=1606860754950&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdeep-equal%2Fdownload%2Fdeep-equal-1.1.1.tgz#b5c98c942ceffaf7cb051e24e1434a25a2e6076a"
+  integrity sha1-tcmMlCzv+vfLBR4k4UNKJaLmB2o=
+  dependencies:
+    is-arguments "^1.0.4"
+    is-date-object "^1.0.1"
+    is-regex "^1.0.4"
+    object-is "^1.0.1"
+    object-keys "^1.1.1"
+    regexp.prototype.flags "^1.2.0"
 
 deep-extend@^0.6.0:
   version "0.6.0"
@@ -5270,6 +5297,11 @@ etag@^1.8.1:
   resolved "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
+eventemitter3@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.nlark.com/eventemitter3/download/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
+  integrity sha1-teEHm1n7XhuidxwKmTvgYKWMmbo=
+
 eventemitter3@^4.0.0:
   version "4.0.7"
   resolved "https://registry.npmjs.org/eventemitter3/-/eventemitter3-4.0.7.tgz"
@@ -5428,10 +5460,10 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
 
-extend@^3.0.0:
+extend@^3.0.0, extend@^3.0.2:
   version "3.0.2"
-  resolved "https://registry.npmjs.org/extend/-/extend-3.0.2.tgz"
-  integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
+  resolved "https://registry.nlark.com/extend/download/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
+  integrity sha1-+LETa0Bx+9jrFAr/hYsQGewpFfo=
 
 external-editor@^3.0.3:
   version "3.1.0"
@@ -5460,6 +5492,11 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
+
+fast-diff@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/fast-diff/download/fast-diff-1.1.2.tgz#4b62c42b8e03de3f848460b639079920695d0154"
+  integrity sha1-S2LEK44D3j+EhGC2OQeZIGldAVQ=
 
 fast-diff@^1.1.2:
   version "1.2.0"
@@ -6827,6 +6864,13 @@ is-alphanumerical@^1.0.0:
     is-alphabetical "^1.0.0"
     is-decimal "^1.0.0"
 
+is-arguments@^1.0.4:
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/is-arguments/download/is-arguments-1.1.0.tgz#62353031dfbee07ceb34656a6bde59efecae8dd9"
+  integrity sha1-YjUwMd++4HzrNGVqa95Z7+yujdk=
+  dependencies:
+    call-bind "^1.0.0"
+
 is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/is-arrayish/-/is-arrayish-0.2.1.tgz"
@@ -7139,10 +7183,10 @@ is-promise@^2.0.0:
   resolved "https://registry.npmjs.org/is-promise/-/is-promise-2.2.2.tgz"
   integrity sha512-+lP4/6lKUBfQjZ2pdxThZvLUAafmZb8OAxFb8XXtiQmS35INgr85hdOGoEs124ez1FCnZJt6jau/T+alh58QFQ==
 
-is-regex@^1.0.3, is-regex@^1.1.3:
+is-regex@^1.0.3, is-regex@^1.0.4, is-regex@^1.1.3:
   version "1.1.3"
-  resolved "https://registry.npmjs.org/is-regex/-/is-regex-1.1.3.tgz"
-  integrity sha512-qSVXFz28HM7y+IWX6vLCsexdlvzT1PJNFSBuaQLQ5o0IEw8UDYW6/2+eCMVyIsbM8CNLX2a/QWmSpyxYEHY7CQ==
+  resolved "https://registry.nlark.com/is-regex/download/is-regex-1.1.3.tgz?cache=0&sync_timestamp=1620452285370&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fis-regex%2Fdownload%2Fis-regex-1.1.3.tgz#d029f9aff6448b93ebbe3f33dac71511fdcbef9f"
+  integrity sha1-0Cn5r/ZEi5Prvj8z2scVEf3L758=
   dependencies:
     call-bind "^1.0.2"
     has-symbols "^1.0.2"
@@ -8997,6 +9041,14 @@ object-inspect@^1.10.3, object-inspect@^1.9.0:
   resolved "https://registry.npmjs.org/object-inspect/-/object-inspect-1.10.3.tgz"
   integrity sha512-e5mCJlSH7poANfC8z8S9s9S2IN5/4Zb3aZ33f5s8YqoazCFzNLloLU8r5VCG+G7WoqLvAAZoVMcy3tp/3X0Plw==
 
+object-is@^1.0.1:
+  version "1.1.5"
+  resolved "https://registry.nlark.com/object-is/download/object-is-1.1.5.tgz#b9deeaa5fc7f1846a0faecdceec138e5778f53ac"
+  integrity sha1-ud7qpfx/GEag+uzc7sE45XePU6w=
+  dependencies:
+    call-bind "^1.0.2"
+    define-properties "^1.1.3"
+
 object-keys@^1.0.12, object-keys@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/object-keys/-/object-keys-1.1.1.tgz"
@@ -9359,6 +9411,11 @@ param-case@^3.0.3, param-case@^3.0.4:
   dependencies:
     dot-case "^3.0.4"
     tslib "^2.0.3"
+
+parchment@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.npm.taobao.org/parchment/download/parchment-1.1.4.tgz#aeded7ab938fe921d4c34bc339ce1168bc2ffde5"
+  integrity sha1-rt7Xq5OP6SHUw0vDOc4RaLwv/eU=
 
 parent-module@^1.0.0:
   version "1.0.1"
@@ -10197,6 +10254,27 @@ quick-lru@^5.1.1:
   resolved "https://registry.npmjs.org/quick-lru/-/quick-lru-5.1.1.tgz"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
+quill-delta@^3.6.2:
+  version "3.6.3"
+  resolved "https://registry.npm.taobao.org/quill-delta/download/quill-delta-3.6.3.tgz#b19fd2b89412301c60e1ff213d8d860eac0f1032"
+  integrity sha1-sZ/SuJQSMBxg4f8hPY2GDqwPEDI=
+  dependencies:
+    deep-equal "^1.0.1"
+    extend "^3.0.2"
+    fast-diff "1.1.2"
+
+quill@^1.3.7:
+  version "1.3.7"
+  resolved "https://registry.npm.taobao.org/quill/download/quill-1.3.7.tgz#da5b2f3a2c470e932340cdbf3668c9f21f9286e8"
+  integrity sha1-2lsvOixHDpMjQM2/NmjJ8h+Shug=
+  dependencies:
+    clone "^2.1.1"
+    deep-equal "^1.0.1"
+    eventemitter3 "^2.0.3"
+    extend "^3.0.2"
+    parchment "^1.1.4"
+    quill-delta "^3.6.2"
+
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz"
@@ -10391,6 +10469,14 @@ regex-not@^1.0.0, regex-not@^1.0.2:
   dependencies:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
+
+regexp.prototype.flags@^1.2.0:
+  version "1.3.1"
+  resolved "https://registry.nlark.com/regexp.prototype.flags/download/regexp.prototype.flags-1.3.1.tgz#7ef352ae8d159e758c0eadca6f8fcb4eef07be26"
+  integrity sha1-fvNSro0VnnWMDq3Kb4/LTu8HviY=
+  dependencies:
+    call-bind "^1.0.2"
+    define-properties "^1.1.3"
 
 regexpp@^3.1.0:
   version "3.2.0"
@@ -12007,7 +12093,7 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.1, tslib@^2.0.3:
+tslib@^2.0.1, tslib@^2.0.3, tslib@^2.1.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.3.0.tgz"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
@@ -12985,6 +13071,15 @@ walker@^1.0.7:
   integrity sha1-L3+bj9ENZ3JisYqITijRlhjgKPs=
   dependencies:
     makeerror "1.0.x"
+
+wangeditor@^4.7.5:
+  version "4.7.5"
+  resolved "https://registry.nlark.com/wangeditor/download/wangeditor-4.7.5.tgz?cache=0&sync_timestamp=1625190725869&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fwangeditor%2Fdownload%2Fwangeditor-4.7.5.tgz#51de4d32a837f5b500c1bca7a317fd2600a39062"
+  integrity sha1-Ud5NMqg39bUAwbynoxf9JgCjkGI=
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    "@babel/runtime-corejs3" "^7.11.2"
+    tslib "^2.1.0"
 
 warning@^4.0.0:
   version "4.0.3"
