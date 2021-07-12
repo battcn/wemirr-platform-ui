@@ -73,11 +73,6 @@ export default function ({ expose, searchRemote }) {
           dict: dict({
             url: '/authority/dictionaries/NOTICE/list',
             label: 'name',
-            onReady: ({ dict }) => {
-              dict.data.forEach((item) => {
-                item.color = item.value === '1' ? 'warning' : 'success';
-              });
-            },
           }),
         },
         type: {

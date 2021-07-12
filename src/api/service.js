@@ -88,10 +88,6 @@ function createService() {
   return service;
 }
 
-// function getWebSocket(wsUri) {
-//   return new WebSocket(wsUri);
-// }
-
 /**
  * @description 创建请求方法
  * @param {Object} service axios 实例

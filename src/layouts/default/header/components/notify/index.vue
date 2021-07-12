@@ -32,6 +32,8 @@
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
     setup() {
       const { prefixCls } = useDesign('header-notify');
+      // ws://localhost:9000/authority/message/111
+      const ws = new WebSocket('ws://localhost:9000/authority/message/111');
 
       let count = 0;
 
