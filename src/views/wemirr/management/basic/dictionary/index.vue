@@ -1,7 +1,5 @@
 <template>
-  <a-row class="demo-nest" :gutter="0">
-    <fs-crud ref="crudRef" v-bind="crudBinding" />
-  </a-row>
+  <fs-crud ref="crudRef" v-bind="crudBinding" />
 </template>
 
 <script>

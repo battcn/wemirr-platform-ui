@@ -32,7 +32,7 @@
         console.log('state.data.value ', state.data.value);
         state.fetching.value = false;
       });
-    }, 500);
+    }, 1000);
 
     return {
       fetchReceiver,
@@ -41,7 +41,7 @@
   }
 
   export default defineComponent({
-    name: 'MyMessage',
+    name: 'PublishMessage',
     setup() {
       // crud组件的ref
       const crudRef = ref();

@@ -1,4 +1,5 @@
 import * as api from './api';
+import { useMessage } from '/@/hooks/web/useMessage';
 import { compute, dict } from '@fast-crud/fast-crud';
 
 export default function ({ expose, searchRemote }) {
@@ -19,6 +20,7 @@ export default function ({ expose, searchRemote }) {
     return await api.AddObj(form);
   };
 
+  const { notification } = useMessage();
   const { fetchReceiver, searchState } = searchRemote;
 
   return {
@@ -30,6 +32,26 @@ export default function ({ expose, searchRemote }) {
         delRequest,
       },
       toolbar: {},
+      rowHandle: {
+        width: 200,
+        buttons: {
+          publish: {
+            icon: 'codicon:repo-force-push',
+            type: 'link',
+            text: null,
+            size: 'small',
+            order: 4,
+            async click(context) {
+              console.log(context);
+              await api.PublishMessage(context.row.id);
+              notification.success({
+                message: '消息通知成功',
+                duration: 3,
+              });
+            },
+          },
+        },
+      },
       columns: {
         id: {
           title: 'ID',
@@ -134,6 +156,12 @@ export default function ({ expose, searchRemote }) {
             labelCol: { span: 2 },
             wrapperCol: { span: 21 },
           },
+        },
+        createdName: {
+          title: '发布人',
+          type: 'text',
+          column: { show: false },
+          form: { show: false },
         },
         createdTime: {
           title: '通知时间',

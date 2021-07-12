@@ -37,3 +37,11 @@ export function SearchReceiver(type, value) {
     params: { search: value },
   });
 }
+
+export function PublishMessage(id) {
+  return request({
+    url: `/authority/station_messages_publish/${id}/publish`,
+    method: 'patch',
+    data: { id },
+  });
+}
