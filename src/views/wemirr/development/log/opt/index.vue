@@ -28,7 +28,7 @@
   export default defineComponent({
     name: 'OptLogForm',
     setup() {
-      const { createConfirm } = useMessage();
+      const { notification, createConfirm } = useMessage();
       // crud组件的ref
       const crudRef = ref();
       // crud 配置的ref
@@ -54,8 +54,13 @@
           title: '提示',
           content: '是否批量删除',
           onOk: async () => {
-            request({ url: `/authority/opt_logs/${e.key}`, method: 'delete' });
-            await expose.doRefresh();
+            request({ url: `/authority/opt_logs/${e.key}`, method: 'delete' }).then((ret) => {
+              notification.success({
+                message: '批量删除成功',
+                duration: 3,
+              });
+              expose.doRefresh();
+            });
           },
         });
       };

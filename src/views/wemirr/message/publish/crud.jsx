@@ -43,10 +43,11 @@ export default function ({ expose, searchRemote }) {
             order: 4,
             async click(context) {
               console.log(context);
-              await api.PublishMessage(context.row.id);
-              notification.success({
-                message: '消息通知成功',
-                duration: 3,
+              await api.PublishMessage(context.row.id).then((ret) => {
+                notification.success({
+                  message: '消息通知成功',
+                  duration: 3,
+                });
               });
             },
           },
