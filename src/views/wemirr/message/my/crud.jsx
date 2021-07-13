@@ -49,12 +49,6 @@ export default function ({ expose }) {
           column: { show: true, align: 'center' }, // 表单配置
           dict: dict({
             url: '/authority/dictionaries/NOTICE/list',
-            label: 'name',
-            onReady: ({ dict }) => {
-              dict.data.forEach((item) => {
-                item.color = item.value === '1' ? 'warning' : 'success';
-              });
-            },
           }),
         },
         mark: {

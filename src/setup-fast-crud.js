@@ -27,7 +27,7 @@ export default function (app, i18n) {
           width: 150,
           align: 'center',
           //固定右侧
-          fixed: 'right',
+          // fixed: 'right',
           buttons: {
             // view: { size: 'small', type: 'link', text: null, icon: 'ion:akar-icons:search' },
             // edit: { size: 'small', type: 'link', text: null, icon: 'ion:akar-icons:search' },

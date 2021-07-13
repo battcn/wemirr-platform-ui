@@ -72,7 +72,6 @@ export default function ({ expose, searchRemote }) {
           column: { show: true, align: 'center' }, // 表单配置
           dict: dict({
             url: '/authority/dictionaries/NOTICE/list',
-            label: 'name',
           }),
         },
         type: {

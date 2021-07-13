@@ -42,11 +42,6 @@ export default function ({ expose, asideTableRef }) {
         editRequest,
         delRequest,
       },
-      form: {
-        // wrapper: {
-        //   is: 'a-dialog',
-        // },
-      },
       columns: {
         name: {
           title: '名称',
@@ -72,7 +67,7 @@ export default function ({ expose, asideTableRef }) {
         createdTime: {
           title: '创建时间',
           type: 'datetime',
-          column: { width: 180, sorter: true },
+          // column: { width: 180, sorter: true },
           form: {
             show: false,
           },
@@ -81,9 +76,7 @@ export default function ({ expose, asideTableRef }) {
           title: '字典信息',
           column: { show: false },
           type: ['text-area', 'colspan'],
-          form: {
-            show: false,
-          },
+          form: { show: false },
           viewForm: {
             show: true,
             // 嵌套表格字段

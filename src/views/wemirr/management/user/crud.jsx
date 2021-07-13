@@ -1,7 +1,7 @@
 import * as api from './api';
 import { request } from '/src/api/service';
-import { dict } from '@fast-crud/fast-crud';
-
+import { dict, useCompute } from '@fast-crud/fast-crud';
+const { compute, asyncCompute } = useCompute();
 export default function ({ expose }) {
   const pageRequest = async (query) => {
     return await api.GetList(query).then((ret) => {
@@ -28,6 +28,9 @@ export default function ({ expose }) {
         addRequest,
         editRequest,
         delRequest,
+      },
+      rowHandle: {
+        fixed: 'right',
       },
       table: {
         size: 'small',
@@ -103,13 +106,12 @@ export default function ({ expose }) {
           search: { show: true },
           dict: dict({
             url: '/authority/dictionaries/sex/list',
-            label: 'name',
-            onReady: ({ dict }) => {
-              dict.data.forEach((item) => {
-                item.color = item.value === '1' ? 'warning' : 'error';
-              });
-            },
           }),
+          form: {
+            valueBuilder(context) {
+              context.form.sex = context.row.sex.toString();
+            },
+          },
           column: {
             width: 100,
             align: 'center',
@@ -122,6 +124,9 @@ export default function ({ expose }) {
               return record.sex === value;
             },
             sortDirections: ['descend'],
+          },
+          addForm: {
+            value: '1',
           },
         },
         email: {
@@ -209,7 +214,6 @@ export default function ({ expose }) {
           column: { width: 90 },
           dict: dict({
             url: '/authority/dictionaries/NATION/list',
-            label: 'name',
           }),
           form: {
             component: {
@@ -226,7 +230,6 @@ export default function ({ expose }) {
           column: { width: 90 },
           dict: dict({
             url: '/authority/dictionaries/EDUCATION/list',
-            label: 'name',
           }),
           form: {
             component: {

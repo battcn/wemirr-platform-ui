@@ -61,7 +61,7 @@ export default function ({ expose, props, ctx }) {
           form: { show: false },
           column: { show: false },
         },
-        name: {
+        label: {
           title: '名称',
           search: { show: true },
           type: 'text',
@@ -78,6 +78,10 @@ export default function ({ expose, props, ctx }) {
           column: {
             sorter: true,
           },
+        },
+        color: {
+          title: '颜色',
+          type: 'text',
         },
         createdTime: {
           title: '创建时间',

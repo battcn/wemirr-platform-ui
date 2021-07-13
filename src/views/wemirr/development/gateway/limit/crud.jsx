@@ -28,10 +28,47 @@ export default function ({ expose }) {
         delRequest,
       },
       columns: {
-        ip: {
-          title: 'IP',
+        id: {
+          title: 'ID',
           type: 'text',
+          form: { show: false },
+          column: { show: false },
+        },
+        type: {
+          title: '类型',
+          type: 'dict-select',
           search: { show: true },
+          dict: dict({
+            data: [
+              { label: '秒', value: '1', color: 'success' },
+              { label: '分', value: '2', color: 'success' },
+              { label: '时', value: '3', color: 'success' },
+              { label: '天', value: '4', color: 'success' },
+            ],
+          }),
+          form: {
+            value: '1',
+            rules: [{ required: true, message: '限流类型不能为空' }],
+          },
+        },
+        total: {
+          title: '数量',
+          type: 'number',
+          column: { show: true },
+          form: {
+            value: 10,
+            component: {
+              min: 10,
+              max: 9999999,
+            },
+            rules: [{ required: true, message: '限流数量不能为空' }],
+          },
+        },
+        visits: {
+          title: '访问量',
+          type: 'number',
+          column: { show: true },
+          form: { show: false },
         },
         status: {
           title: '状态',
@@ -47,16 +84,24 @@ export default function ({ expose }) {
             ],
           }),
         },
-        path: {
-          title: '路径',
-          type: 'text',
-          form: {
-            helper: '如果为空默认拦截所有',
+        blacklist: {
+          title: '进黑名单',
+          type: 'dict-radio',
+          addForm: {
+            value: true,
           },
+          search: { show: true },
+          dict: dict({
+            data: [
+              { value: true, label: '是', color: 'success' },
+              { value: false, label: '否', color: 'error' },
+            ],
+          }),
         },
         method: {
           title: '方法',
           type: 'dict-select',
+          search: { show: true },
           dict: dict({
             data: [
               { label: 'ALL', value: 'ALL', color: 'success' },
@@ -68,11 +113,17 @@ export default function ({ expose }) {
             ],
           }),
           form: {
-            value: 'ALL',
             rules: [{ required: true, message: '请选择拦截方法' }],
           },
         },
-        datetimerange: {
+        path: {
+          title: '路径',
+          type: 'text',
+          form: {
+            helper: '如果为空默认拦截所有',
+          },
+        },
+        dateTimeRange: {
           title: '限时范围',
           type: 'datetimerange',
           valueBuilder({ row, key }) {
@@ -90,33 +141,17 @@ export default function ({ expose }) {
               row.endTime = null;
             }
           },
+          form: {
+            col: { span: 24 },
+            labelCol: { span: 2 },
+            wrapperCol: { span: 21 },
+          },
         },
-        // startTime: {
-        //   title: '开始时间',
-        //   type: 'time',
-        //   form: {
-        //     col: { span: 12 },
-        //     labelCol: { span: 4 },
-        //     wrapperCol: { span: 5 },
-        //   },
-        // },
-        // endTime: {
-        //   title: '结束时间',
-        //   type: 'time',
-        //   form: {
-        //     labelCol: { span: 4 },
-        //     wrapperCol: { span: 9 },
-        //   },
-        // },
         description: {
           title: '描述',
           type: 'textarea',
           search: { show: false, labelCol: { span: 4 } },
           form: {
-            show: compute((context) => {
-              // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
-              return context.form.display !== 'grid';
-            }),
             col: { span: 24 },
             labelCol: { span: 2 },
             wrapperCol: { span: 21 },
