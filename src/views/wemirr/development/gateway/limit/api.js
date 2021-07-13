@@ -19,7 +19,7 @@ export function AddObj(obj) {
 export function UpdateObj(obj) {
   return request({
     url: `/gateway/rules/limits/${obj.id}`,
-    method: 'post',
+    method: 'put',
     data: obj,
   });
 }

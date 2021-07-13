@@ -53,6 +53,9 @@ export default function ({ expose }) {
           form: {
             helper: '如果为空默认拦截所有',
           },
+          column: {
+            ellipsis: true,
+          },
         },
         method: {
           title: '方法',
@@ -120,6 +123,9 @@ export default function ({ expose }) {
             col: { span: 24 },
             labelCol: { span: 2 },
             wrapperCol: { span: 21 },
+          },
+          column: {
+            ellipsis: true,
           },
         },
         createdTime: {
