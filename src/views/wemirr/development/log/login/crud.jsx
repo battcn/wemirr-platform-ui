@@ -18,6 +18,14 @@ export default function ({ expose }) {
       table: {
         scroll: { fixed: true },
       },
+      actionbar: {
+        show: true,
+        buttons: {
+          add: {
+            show: false,
+          },
+        },
+      },
       rowHandle: {
         width: 70,
         //固定右侧

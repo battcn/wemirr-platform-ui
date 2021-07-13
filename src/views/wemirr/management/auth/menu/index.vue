@@ -113,14 +113,15 @@
           return;
         }
         nodeRef.value = event.selectedNodes[0].props;
-        expose.doRefresh();
-        console.log('event', event.selectedNodes[0].props);
+        console.log('checkedKeys event', checkedKeys, event.selectedNodes[0].props);
+        crudBinding.value.actionbar.buttons.add.show = true;
         setFieldsValue({
           ...event.selectedNodes[0].props,
         });
+        expose.doRefresh();
       }
       function onTreeNodeCheck(keys, event) {
-        console.log('event', event);
+        console.log('keys event', keys, event);
         if (!event.checked) {
         } else {
         }

@@ -1,5 +1,6 @@
 import * as api from './api';
-import { compute, dict } from '@fast-crud/fast-crud';
+import { compute, dict, utils } from '@fast-crud/fast-crud';
+import moment from 'moment';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -49,20 +50,48 @@ export default function ({ expose }) {
         path: {
           title: '路径',
           type: 'text',
+          form: {
+            col: { span: 24 },
+            labelCol: { span: 2 },
+            wrapperCol: { span: 9 },
+          },
         },
-        startTime: {
-          title: '限制开始时间',
-          type: 'time',
+        datetimerange: {
+          title: '限时范围',
+          type: 'datetimerange',
+          valueBuilder({ row, key }) {
+            if (!utils.strings.hasEmpty(row.datetimerangeStart, row.datetimerangeEnd)) {
+              row[key] = [moment(row.datetimerangeStart), moment(row.datetimerangeEnd)];
+            }
+          },
+          valueResolve({ form, key }) {
+            const row = form;
+            if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
+              row.datetimerangeStart = row[key][0];
+              row.datetimerangeEnd = row[key][1];
+            } else {
+              row.datetimerangeStart = null;
+              row.datetimerangeEnd = null;
+            }
+          },
         },
-        endTime: {
-          title: '限制结束时间',
-          type: 'time',
-          // form: {
-          //   col: { span: 24 }, // flex模式跨列配置
-          //   labelCol: { span: 3 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol
-          //   wrapperCol: { span: 10 },
-          // },
-        },
+        // startTime: {
+        //   title: '开始时间',
+        //   type: 'time',
+        //   form: {
+        //     col: { span: 12 },
+        //     labelCol: { span: 4 },
+        //     wrapperCol: { span: 5 },
+        //   },
+        // },
+        // endTime: {
+        //   title: '结束时间',
+        //   type: 'time',
+        //   form: {
+        //     labelCol: { span: 4 },
+        //     wrapperCol: { span: 9 },
+        //   },
+        // },
         description: {
           title: '描述',
           type: 'textarea',

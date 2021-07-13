@@ -6,14 +6,13 @@
       </Badge>
       <template #content>
         <Tabs>
-          <template v-for="item in listData" :key="item.key">
+          <template v-for="item in state.tabListData" :key="item.key">
             <TabPane>
               <template #tab>
                 {{ item.name }}
                 <span v-if="item.list.length !== 0">({{ item.list.length }})</span>
               </template>
-              <!-- 绑定title-click事件的通知列表中标题是“可点击”的-->
-              <NoticeList :list="item.list" @title-click="onNoticeClick" />
+              <NoticeList :list="item.list" />
             </TabPane>
           </template>
         </Tabs>
@@ -22,40 +21,37 @@
   </div>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, reactive, ref, watchEffect } from 'vue';
+  import { defineComponent, reactive, toRefs, watchEffect, onMounted } from 'vue';
   import { Popover, Tabs, Badge } from 'ant-design-vue';
   import { BellOutlined } from '@ant-design/icons-vue';
-  import { ListItem, TabItem } from './data';
+  import { TabItem, ListItem } from './data';
   import NoticeList from './NoticeList.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useMessage } from '/@/hooks/web/useMessage';
   import { useWebSocket } from '@vueuse/core';
   import { formatToDateTime } from '/@/utils/dateUtil';
-  import * as api from './api';
+
+  export const tabListData: TabItem[] = [
+    {
+      key: '1',
+      name: '通知',
+      list: [],
+    },
+    {
+      key: '2',
+      name: '消息',
+      list: [],
+    },
+    {
+      key: '3',
+      name: '待办',
+      list: [],
+    },
+  ];
 
   export default defineComponent({
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
     setup() {
       const { prefixCls } = useDesign('header-notify');
-      const { createMessage } = useMessage();
-
-      const tabListData: TabItem[] = [
-        {
-          key: '1',
-          name: '通知',
-          list: [],
-        },
-        {
-          key: '2',
-          name: '消息',
-          list: [],
-        },
-        {
-          key: '3',
-          name: '待办',
-          list: [],
-        },
-      ];
       const state = reactive({
         server: 'ws://localhost:9000/authority/message/1',
         sendValue: '',
@@ -79,7 +75,7 @@
               title: res.title,
               description: res.description,
               datetime: formatToDateTime(res.createdTime),
-              type: res.level,
+              type: '2',
               clickClose: true,
             });
           } catch (error) {
@@ -87,32 +83,21 @@
           }
         }
       });
+      // const getIsOpen = computed(() => status.value === 'OPEN');
+      // const getTagColor = computed(() => (getIsOpen.value ? 'success' : 'red'));
 
-      const listData = ref(tabListData);
-
-      const count = computed(() => {
-        let count = 0;
-        for (let i = 0; i < tabListData.length; i++) {
-          count += tabListData[i].list.length;
-        }
-        return count;
-      });
-
-      function onNoticeClick(record: ListItem) {
-        api.MarkMessage(record.id).then((ret) => {
-          listData.value[record.type].list.splice(
-            listData.value[record.type].list.findIndex((item) => item.id === record.id),
-            1
-          );
-        });
+      let count = 0;
+      for (let i = 0; i < tabListData.length; i++) {
+        count += tabListData[i].list.length;
       }
 
       return {
+        status,
         state,
+        ...toRefs(state),
         prefixCls,
-        listData,
+        tabListData,
         count,
-        onNoticeClick,
         numberStyle: {},
       };
     },

@@ -1,5 +1,4 @@
 import * as api from './api';
-import { request } from '/src/api/service';
 import { dict } from '@fast-crud/fast-crud';
 
 export default function ({ expose }) {

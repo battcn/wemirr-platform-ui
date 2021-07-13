@@ -19,6 +19,14 @@ export default function ({ expose }) {
       table: {
         scroll: { fixed: true },
       },
+      actionbar: {
+        show: true,
+        buttons: {
+          add: {
+            show: false,
+          },
+        },
+      },
       rowHandle: {
         width: 80,
         //固定右侧
@@ -112,6 +120,7 @@ export default function ({ expose }) {
         description: {
           title: '描述信息',
           type: 'textarea',
+          search: { show: false },
           column: { width: 200 },
           form: {
             show: compute((context) => {

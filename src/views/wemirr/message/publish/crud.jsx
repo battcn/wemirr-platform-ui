@@ -33,7 +33,7 @@ export default function ({ expose, searchRemote }) {
       },
       toolbar: {},
       rowHandle: {
-        width: 200,
+        width: 220,
         buttons: {
           publish: {
             icon: 'codicon:repo-force-push',

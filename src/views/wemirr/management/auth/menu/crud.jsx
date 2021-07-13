@@ -36,15 +36,20 @@ export default function ({ expose, nodeRef }) {
           },
         },
       },
+      actionbar: {
+        buttons: {
+          add: {
+            show: false,
+          },
+        },
+      },
       table: {
         size: 'small',
         scroll: {
           //需要设置它，否则滚动条拖动时，表头不会动
           fixed: true,
         },
-        // pagination: false,
       },
-      // pagination: false,
       rowHandle: {
         show: true,
         width: 130,
@@ -68,6 +73,7 @@ export default function ({ expose, nodeRef }) {
           title: '父ID',
           column: { show: false },
           form: {
+            value: null,
             component: {
               disabled: true,
               // value: asyncCompute({
@@ -136,8 +142,8 @@ export default function ({ expose, nodeRef }) {
           column: { width: 50, align: 'center' },
           type: 'number',
           form: {
+            value: 0,
             component: {
-              value: 0,
               min: 0,
               max: 100,
             },
