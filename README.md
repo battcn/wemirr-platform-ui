@@ -1,3 +1,24 @@
+## 演示图
+
+![分配用户](./images/binding_user.png)
+
+![分配权限](./images/binding_res.png)
+
+![黑白名单](./images/blacklist.png)
+
+![限流配置](./images/limit.png)
+
+![菜单管理](./images/menu.png)
+
+![监控管理](./images/monitor.png)
+
+![操作日志](./images/opt_log.png)
+
+![发布消息](./images/publish_message.png)
+
+![用户列表](./images/users.png)
+
+
 ## 文档
 
 [文档地址](https://vvbin.cn/doc-next/)
@@ -42,7 +63,3 @@ yarn serve
 ```bash
 yarn build
 ```
-
-## 更新日志
-
-[CHANGELOG](./CHANGELOG.zh_CN.md)
