@@ -1,6 +1,7 @@
 import * as api from './api';
 import { request } from '/src/api/service';
 import { dict } from '@fast-crud/fast-crud';
+import moment from "moment";
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -93,6 +94,11 @@ export default function ({ expose }) {
           },
           editForm: {
             show: false,
+          },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
           },
         },
       },

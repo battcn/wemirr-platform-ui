@@ -1,5 +1,6 @@
 import * as api from './api';
 import { dict, compute } from '@fast-crud/fast-crud';
+import moment from "moment";
 
 export default function ({ expose, distribution }) {
   const pageRequest = async (query) => {
@@ -141,16 +142,16 @@ export default function ({ expose, distribution }) {
         description: {
           title: '描述',
           search: { show: false },
-          type: 'textarea',
-          form: {
-            show: compute((context) => {
-              // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
-              return context.form.display !== 'grid';
-            }),
-            col: { span: 24 }, // flex模式跨列配置
-            labelCol: { span: 2 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol
-            wrapperCol: { span: 21 },
-          },
+          type: ['textarea', 'colspan'],
+          // form: {
+          //   show: compute((context) => {
+          //     // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
+          //     return context.form.display !== 'grid';
+          //   }),
+          //   col: { span: 24 }, // flex模式跨列配置
+          //   labelCol: { span: 2 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol
+          //   wrapperCol: { span: 21 },
+          // },
         },
         orgList: {
           search: { show: false },
@@ -166,6 +167,11 @@ export default function ({ expose, distribution }) {
           column: { width: 180, sorter: true },
           addForm: { show: false },
           editForm: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

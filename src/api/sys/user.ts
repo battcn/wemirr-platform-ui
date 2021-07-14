@@ -4,6 +4,7 @@ import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userMod
 import { ErrorMessageMode } from '/#/axios';
 
 enum Api {
+  Logout = '/logout',
   Login = '/authority/oauth/token',
   GetUserInfo = '/authority/oauth/info',
   GetPermCode = '/getPermCode',
@@ -24,20 +25,7 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
     }
   );
 }
-/**C
- * @description: 加载验证码
- */
-export function loadCaptcha(key: String) {
-  return defHttp.request(
-    {
-      url: Api.LoadCaptcha,
-      method: 'GET',
-      // responseType: 'arraybuffer',
-      params: { key: key },
-    },
-    { isTransformRequestResult: false }
-  );
-}
+
 /**
  * @description: getUserInfo
  */
@@ -46,5 +34,9 @@ export function getUserInfo() {
 }
 
 export function getPermCode() {
-  return defHttp.get<string[]>({ url: Api.GetPermCode });
+  // return defHttp.get<string[]>({ url: Api.GetPermCode });
+}
+
+export function doLogout() {
+  // return defHttp.get({ url: Api.Logout });
 }

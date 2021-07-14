@@ -3,6 +3,7 @@ import { request } from '/src/api/service';
 import { compute, dict } from '@fast-crud/fast-crud';
 import { ref } from 'vue';
 import _ from 'lodash-es';
+import moment from "moment";
 
 function useSearchRemote() {
   let lastFetchId = 0;
@@ -163,6 +164,11 @@ export default function ({ expose }) {
           title: '通知时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

@@ -1,6 +1,7 @@
 import * as api from './api';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { compute, dict } from '@fast-crud/fast-crud';
+import moment from "moment";
 
 export default function ({ expose, searchRemote }) {
   const pageRequest = async (query) => {
@@ -162,6 +163,11 @@ export default function ({ expose, searchRemote }) {
           title: '通知时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

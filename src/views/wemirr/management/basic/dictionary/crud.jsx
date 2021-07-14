@@ -2,6 +2,7 @@ import * as api from './api';
 import { ref, shallowRef } from 'vue';
 import SubTable from './sub-table/index.vue';
 import { dict } from '@fast-crud/fast-crud';
+import moment from "moment";
 export default function ({ expose, asideTableRef }) {
   const pageRequest = async (query) => {
     return await api.GetList(query).then((ret) => {
@@ -67,9 +68,13 @@ export default function ({ expose, asideTableRef }) {
         createdTime: {
           title: '创建时间',
           type: 'datetime',
-          // column: { width: 180, sorter: true },
           form: {
             show: false,
+          },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
           },
         },
         id: {

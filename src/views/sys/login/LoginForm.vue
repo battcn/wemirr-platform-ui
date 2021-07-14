@@ -89,8 +89,6 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive, ref, toRaw, unref, computed, onMounted } from 'vue';
-  // import { computed, defineComponent, onMounted, reactive, ref, toRaw, unref } from 'vue';
-
   import { useGlobSetting } from '/@/hooks/setting';
 
   import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
@@ -156,8 +154,9 @@
       const formState = reactive({
         loading: false,
         captchaSrc: '',
-        isMultiTenant: globSetting.multiTenantType !== 'NONE',
-        showCaptcha: globSetting.showCaptcha === undefined || globSetting.showCaptcha === 'true',
+        showCaptcha: true,
+        // isMultiTenant: globSetting.multiTenantType !== 'NONE',
+        // showCaptcha: globSetting.showCaptcha === undefined || globSetting.showCaptcha === 'true',
       });
       const { validForm } = useFormValid(formRef);
 

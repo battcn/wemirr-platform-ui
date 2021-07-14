@@ -1,4 +1,5 @@
 import * as api from './api';
+import moment from "moment";
 export default function ({ expose, props, ctx }) {
   const pageRequest = async (query) => {
     return await api.GetItemList({ ...query, id: props.modelValue }).then((ret) => {
@@ -88,6 +89,11 @@ export default function ({ expose, props, ctx }) {
           type: 'datetime',
           column: { width: 180, sorter: true },
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

@@ -98,7 +98,6 @@
 
       onMounted(() => {
         getMenuList();
-        // expose.doRefresh({ test: '1000' });
       });
 
       getMenuList().then((ret) => {
@@ -118,7 +117,8 @@
         setFieldsValue({
           ...event.selectedNodes[0].props,
         });
-        expose.doRefresh();
+        console.log('.......');
+        // expose.doRefresh();
       }
       function onTreeNodeCheck(keys, event) {
         console.log('keys event', keys, event);

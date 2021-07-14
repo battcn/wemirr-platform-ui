@@ -7,16 +7,10 @@ import { PageEnum } from '/@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
 import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel';
+import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { router } from '/@/router';
-
-import {
-  loginApi,
-  // logout,
-  getUserInfo,
-  // getPermCodeByUserId,
-} from '/@/api/sys/user';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -85,7 +79,6 @@ export const useUserStore = defineStore({
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const data = await loginApi(loginParams, mode);
-        // debugger;
         const { access_token } = data;
 
         // save token
@@ -101,7 +94,6 @@ export const useUserStore = defineStore({
         return Promise.reject(error);
       }
     },
-
     async getUserInfoAction() {
       const userInfo = await getUserInfo();
       const { roles } = userInfo;
@@ -113,7 +105,14 @@ export const useUserStore = defineStore({
     /**
      * @description: logout
      */
-    logout(goLogin = false) {
+    async logout(goLogin = false) {
+      try {
+        await doLogout();
+      } catch {
+        console.log('注销Token失败');
+      }
+      this.setToken(undefined);
+      this.setSessionTimeout(false);
       goLogin && router.push(PageEnum.BASE_LOGIN);
     },
 
@@ -136,6 +135,6 @@ export const useUserStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useUserStoreWidthOut() {
+export function useUserStoreWithOut() {
   return useUserStore(store);
 }

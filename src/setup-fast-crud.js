@@ -26,19 +26,9 @@ export default function (app, i18n) {
         rowHandle: {
           width: 150,
           align: 'center',
-          //固定右侧
+          // 固定右侧 不建议设置成全局
           // fixed: 'right',
           buttons: {
-            // view: { size: 'small', type: 'link', text: null, icon: 'ion:akar-icons:search' },
-            // edit: { size: 'small', type: 'link', text: null, icon: 'ion:akar-icons:search' },
-            // remove: {
-            //   size: 'small',
-            //   type: 'link',
-            //   style: { color: 'red' },
-            //   text: null,
-            //   icon: 'ion:trash-outline',
-            // },
-            // view: { icon: 'ion:eye-outline' },
             view: { size: 'small', type: 'link', text: null, icon: 'akar-icons:search' },
             edit: { size: 'small', type: 'link', text: null, icon: 'ion:create-outline' },
             remove: { size: 'small', type: 'link', text: null, icon: 'ion:trash-outline' },

@@ -29,7 +29,6 @@
           label: data.name,
           value: data.id,
         }));
-        console.log('state.data.value ', state.data.value);
         state.fetching.value = false;
       });
     }, 1000);

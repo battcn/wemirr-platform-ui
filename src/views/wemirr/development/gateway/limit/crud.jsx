@@ -183,6 +183,11 @@ export default function ({ expose }) {
           title: '创建时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

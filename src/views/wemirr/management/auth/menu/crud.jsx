@@ -1,6 +1,5 @@
 import * as api from './api';
-import { useCompute, dict } from '@fast-crud/fast-crud';
-const { compute, asyncCompute } = useCompute();
+import { dict } from '@fast-crud/fast-crud';
 
 export default function ({ expose, nodeRef }) {
   const pageRequest = async (query) => {
@@ -76,25 +75,6 @@ export default function ({ expose, nodeRef }) {
             value: null,
             component: {
               disabled: true,
-              // value: asyncCompute({
-              //   watch(content) {
-              //     console.log('form', content);
-              //     return content.compute;
-              //   },
-              //   async asyncFn(watchValue) {
-              //     console.log('监听switch,触发远程获取options', watchValue);
-              //   },
-              // }),
-              // value: compute((context) => {
-              //   console.log('context', context);
-              //   return 1000;
-              // }),
-              // value: asyncCompute({
-              //   //监听form.grade的值
-              //   watch((context)={
-              //
-              // }),
-              // }),
             },
             rules: [{ required: true, message: '请选择菜单后操作' }],
           },
@@ -153,8 +133,6 @@ export default function ({ expose, nodeRef }) {
           title: '描述',
           column: { show: false },
           type: 'textarea',
-          // type: 'editor-wang',
-          // type: 'editor-quill',
           form: {
             col: { span: 24 }, // flex模式跨列配置
             labelCol: { span: 2 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol

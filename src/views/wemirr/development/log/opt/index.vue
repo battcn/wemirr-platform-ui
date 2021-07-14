@@ -48,7 +48,6 @@
       });
 
       const handleMenuClick = (e) => {
-        console.log('click', e);
         createConfirm({
           iconType: 'warning',
           title: '提示',

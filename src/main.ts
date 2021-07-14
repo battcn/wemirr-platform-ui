@@ -3,7 +3,6 @@ import '/@/design/tailwind.css';
 
 // Register icon sprite
 import 'virtual:svg-icons-register';
-
 import App from './App.vue';
 import { createApp } from 'vue';
 import { initAppConfigStore } from '/@/logics/initAppConfig';
@@ -14,7 +13,9 @@ import { setupStore } from '/@/store';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
-
+import Antd from 'ant-design-vue';
+import setupFastCrud from './setup-fast-crud';
+import './setup-fast-crud.less';
 // Do not introduce on-demand in local development?
 // In the local development for introduce on-demand, the number of browser requests will increase by about 20%.
 // Which may slow down the browser refresh.
@@ -23,19 +24,13 @@ if (import.meta.env.DEV) {
   import('ant-design-vue/dist/antd.less');
 }
 
-import Antd from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.css';
-import setupFastCrud from './setup-fast-crud';
-import './setup-fast-crud.less';
-import 'default-passive-events';
-
 async function bootstrap() {
   const app = createApp(App);
 
   // Configure store
   setupStore(app);
 
-  // Initialize internal wemirr configuration
+  // Initialize internal system configuration
   initAppConfigStore();
 
   // Register global components
@@ -43,7 +38,6 @@ async function bootstrap() {
 
   // Multilingual configuration
   const i18n = await setupI18n(app);
-
   //----------- 安装fast-crud--------------
   setupFastCrud(app, i18n);
   app.use(Antd);
@@ -53,7 +47,7 @@ async function bootstrap() {
   setupRouter(app);
 
   // router-guard
-  setupRouterGuard();
+  setupRouterGuard(router);
 
   // Register global directive
   setupGlobDirectives(app);

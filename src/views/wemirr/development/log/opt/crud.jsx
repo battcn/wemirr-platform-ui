@@ -69,13 +69,13 @@ export default function ({ expose }) {
         platform: {
           title: '操作平台',
           type: 'text',
-          column: { width: 100 },
+          column: { width: 100, ellipsis: true },
           search: { show: true },
         },
         os: {
           title: '操作系统',
           type: 'text',
-          column: { width: 100 },
+          column: { width: 100, ellipsis: true },
         },
         engine: {
           title: '引擎类型',
@@ -119,18 +119,9 @@ export default function ({ expose }) {
         },
         description: {
           title: '描述信息',
-          type: 'textarea',
+          type: ['textarea', 'colspan'],
           search: { show: false },
           column: { width: 200 },
-          form: {
-            show: compute((context) => {
-              // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
-              return context.form.display !== 'grid';
-            }),
-            col: { span: 24 }, // flex模式跨列配置
-            labelCol: { span: 2 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol
-            wrapperCol: { span: 21 },
-          },
         },
       },
       form: {

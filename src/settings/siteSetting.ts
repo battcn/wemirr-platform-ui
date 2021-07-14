@@ -2,7 +2,7 @@
 export const GITHUB_URL = 'https://github.com/anncwb/vue-vben-admin';
 
 // vue-vben-admin-next-doc
-export const DOC_URL = 'https://gitee.com/battcn/wemirr-platform-ui';
+export const DOC_URL = 'https://vvbin.cn/doc-next/';
 
 // site url
-export const SITE_URL = 'https://cloud.battcn.com/';
+export const SITE_URL = 'https://vvbin.cn/next/';

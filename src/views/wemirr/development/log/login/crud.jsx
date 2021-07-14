@@ -1,4 +1,5 @@
 import { request } from '/src/api/service';
+import moment from 'moment';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -77,7 +78,7 @@ export default function ({ expose }) {
         os: {
           title: '操作系统',
           type: 'text',
-          column: { width: 100 },
+          column: { width: 100, ellipsis: true },
         },
         engine: {
           title: '引擎类型',
@@ -102,6 +103,11 @@ export default function ({ expose }) {
         createdTime: {
           title: '创建时间',
           type: 'datetime',
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
       form: {

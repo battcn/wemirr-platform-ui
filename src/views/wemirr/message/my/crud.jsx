@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import * as api from './api';
 import { dict } from '@fast-crud/fast-crud';
+import moment from "moment";
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -94,6 +95,11 @@ export default function ({ expose }) {
           title: '通知时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },
