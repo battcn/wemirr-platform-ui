@@ -40,15 +40,31 @@ export default function ({ expose }) {
           search: { show: true },
           dict: dict({
             data: [
-              { label: '秒', value: '1', color: 'success' },
-              { label: '分', value: '2', color: 'success' },
-              { label: '时', value: '3', color: 'success' },
-              { label: '天', value: '4', color: 'success' },
+              { label: '秒', value: 1, color: 'success' },
+              { label: '分', value: 2, color: 'success' },
+              { label: '时', value: 3, color: 'success' },
+              { label: '天', value: 4, color: 'success' },
             ],
           }),
           form: {
-            value: '1',
+            value: 1,
             rules: [{ required: true, message: '限流类型不能为空' }],
+          },
+        },
+        range: {
+          title: '范围',
+          type: 'dict-select',
+          search: { show: true },
+          dict: dict({
+            data: [
+              { label: '全局', value: 0, color: 'success' },
+              { label: 'IP', value: 1, color: 'success' },
+            ],
+          }),
+          form: {
+            value: 0,
+            rules: [{ required: true, message: '限流类型不能为空' }],
+            helper: '全局表示所有IP访问,IP表示每隔间断访问',
           },
         },
         total: {

@@ -47,11 +47,20 @@ export default function ({ expose }) {
             ],
           }),
         },
+        visits: {
+          title: '访问量',
+          type: 'text',
+          form: { show: false },
+        },
         path: {
           title: '路径',
           type: 'text',
           form: {
-            helper: '如果为空默认拦截所有',
+            helper:
+              '（1）? 匹配一个字符（除过操作系统默认的文件分隔符）' +
+              '（2）* 匹配0个或多个字符' +
+              '（3）**匹配0个或多个目录' +
+              '（4）{spring:[a-z]+} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring 的路径变量.(PS:必须是完全匹配才行,在SpringMVC中只有完全匹配才会进入controller层的方法)',
           },
           column: {
             ellipsis: true,
@@ -94,32 +103,11 @@ export default function ({ expose }) {
             }
           },
         },
-        // startTime: {
-        //   title: '开始时间',
-        //   type: 'time',
-        //   form: {
-        //     col: { span: 12 },
-        //     labelCol: { span: 4 },
-        //     wrapperCol: { span: 5 },
-        //   },
-        // },
-        // endTime: {
-        //   title: '结束时间',
-        //   type: 'time',
-        //   form: {
-        //     labelCol: { span: 4 },
-        //     wrapperCol: { span: 9 },
-        //   },
-        // },
         description: {
           title: '描述',
           type: 'textarea',
           search: { show: false, labelCol: { span: 4 } },
           form: {
-            show: compute((context) => {
-              // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
-              return context.form.display !== 'grid';
-            }),
             col: { span: 24 },
             labelCol: { span: 2 },
             wrapperCol: { span: 21 },
