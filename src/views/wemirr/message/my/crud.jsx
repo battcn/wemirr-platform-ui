@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import * as api from './api';
 import { dict } from '@fast-crud/fast-crud';
 
@@ -10,8 +11,22 @@ export default function ({ expose }) {
   const delRequest = async ({ row }) => {
     return await api.DelObj(row.id);
   };
+
+  const selectedRowKeys = ref([]);
+
+  const onSelectChange = (changed) => {
+    selectedRowKeys.value = changed;
+  };
+
   return {
+    selectedRowKeys,
     crudOptions: {
+      table: {
+        rowSelection: {
+          selectedRowKeys: selectedRowKeys,
+          onChange: onSelectChange,
+        },
+      },
       request: {
         pageRequest,
         delRequest,
