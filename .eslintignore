@@ -1,14 +1,15 @@
-# 忽略目录
-build/
-tests/
-node_modules/
 
-# D2CRUD 演示
-src/views/demo/d2-crud/
-
-# node 覆盖率文件
-coverage/
-
-# 忽略文件
-**/*-min.js
-**/*.min.js
+*.sh
+node_modules
+*.md
+*.woff
+*.ttf
+.vscode
+.idea
+dist
+/public
+/docs
+.husky
+.local
+/bin
+Dockerfile

@@ -1,0 +1,39 @@
+<template>
+  <BasicTree
+    title="角色列表"
+    search
+    :clickRowToExpand="false"
+    :treeData="treeData"
+    :replaceFields="{ key: 'id', title: 'name' }"
+    @select="handleSelect"
+  />
+  <!--  <div class="bg-white m-4 mr-0 overflow-hidden">-->
+  <!--  </div>-->
+</template>
+<script lang="ts">
+  import { defineComponent, onMounted, ref } from 'vue';
+
+  import { BasicTree, TreeItem } from '/@/components/Tree';
+  import { getAllRoleList } from '/@/api/sys/org';
+
+  export default defineComponent({
+    name: 'RoleList',
+    components: { BasicTree },
+
+    emits: ['select'],
+    setup(_, { emit }) {
+      const treeData = ref<TreeItem[]>([]);
+      async function fetch() {
+        treeData.value = (await getAllRoleList()) as unknown as TreeItem[];
+      }
+      function handleSelect(keys: string, e) {
+        emit('select', keys[0]);
+        console.log(keys, e);
+      }
+      onMounted(() => {
+        fetch();
+      });
+      return { treeData, handleSelect };
+    },
+  });
+</script>

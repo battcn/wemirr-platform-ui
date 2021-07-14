@@ -1,28 +1,29 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <ConfigProvider :locale="getAntdLocale">
+    <AppProvider>
+      <RouterView />
+    </AppProvider>
+  </ConfigProvider>
 </template>
 
-<script>
-import util from '@/libs/util'
-export default {
-  name: 'app',
-  watch: {
-    '$i18n.locale': 'i18nHandle'
-  },
-  created () {
-    this.i18nHandle(this.$i18n.locale)
-  },
-  methods: {
-    i18nHandle (val, oldVal) {
-      util.cookies.set('lang', val)
-      document.querySelector('html').setAttribute('lang', val)
-    }
-  }
-}
-</script>
+<script lang="ts">
+  import { defineComponent } from 'vue';
+  import { ConfigProvider } from 'ant-design-vue';
+  import { AppProvider } from '/@/components/Application';
 
-<style lang="scss">
-@import '~@/assets/style/public-class.scss';
-</style>
+  import { useTitle } from '/@/hooks/web/useTitle';
+  import { useLocale } from '/@/locales/useLocale';
+
+  export default defineComponent({
+    name: 'App',
+    components: { ConfigProvider, AppProvider },
+    setup() {
+      useTitle();
+
+      // support Multi-language
+      const { getAntdLocale } = useLocale();
+
+      return { getAntdLocale };
+    },
+  });
+</script>
