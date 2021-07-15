@@ -1,6 +1,6 @@
 import * as api from './api';
 import { dict, compute } from '@fast-crud/fast-crud';
-import moment from "moment";
+import moment from 'moment';
 
 export default function ({ expose, distribution }) {
   const pageRequest = async (query) => {
@@ -92,7 +92,6 @@ export default function ({ expose, distribution }) {
         readonly: {
           title: '内置角色',
           type: 'dict-radio',
-          search: { show: true },
           column: { width: 90, align: 'center' },
           addForm: { show: false },
           editForm: {
@@ -110,6 +109,7 @@ export default function ({ expose, distribution }) {
         locked: {
           title: '状态',
           type: 'dict-radio',
+          search: { show: true },
           column: { width: 100, align: 'center' },
           form: { disabled: true },
           dict: dict({
@@ -121,6 +121,7 @@ export default function ({ expose, distribution }) {
         },
         scopeType: {
           title: '权限范围',
+          search: { show: true },
           type: 'dict-select',
           column: { width: 150 },
           dict: dict({
@@ -142,24 +143,12 @@ export default function ({ expose, distribution }) {
         description: {
           title: '描述',
           search: { show: false },
+          column: { width: 150 },
           type: ['textarea', 'colspan'],
-          // form: {
-          //   show: compute((context) => {
-          //     // grid跨列模式下使用flex模式的设置会显示异常，为了演示效果，在grid模式下隐藏
-          //     return context.form.display !== 'grid';
-          //   }),
-          //   col: { span: 24 }, // flex模式跨列配置
-          //   labelCol: { span: 2 }, // antdv 跨列时，需要同时修改labelCol和wrapperCol
-          //   wrapperCol: { span: 21 },
-          // },
         },
         orgList: {
           search: { show: false },
           column: { show: false },
-          form: {
-            // labelCol: { span: 10 },
-            // wrapperCol: { span: 10 },
-          },
         },
         createdTime: {
           title: '创建时间',

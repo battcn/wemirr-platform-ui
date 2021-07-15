@@ -93,6 +93,7 @@ export default function ({ expose }) {
         mobile: {
           title: '手机号',
           type: 'text',
+          search: { show: true },
           column: { width: 155, align: 'center' },
           form: {
             rules: [
@@ -108,7 +109,12 @@ export default function ({ expose }) {
           dict: dict({
             url: '/authority/dictionaries/sex/list',
           }),
-          form: {
+          viewForm: {
+            valueBuilder(context) {
+              context.form.sex = context.row.sex.toString();
+            },
+          },
+          editForm: {
             valueBuilder(context) {
               context.form.sex = context.row.sex.toString();
             },
@@ -133,6 +139,7 @@ export default function ({ expose }) {
         email: {
           title: '邮箱',
           type: 'email',
+          search: { show: true },
           column: { width: 180 },
         },
         avatar: {
@@ -155,18 +162,19 @@ export default function ({ expose }) {
           title: '组织',
           search: { show: true, component: { style: { width: '150px' } } },
           type: 'dict-tree',
-          column: { width: 90 },
+          column: {
+            width: 180,
+            component: {
+              style: {
+                color: 'red',
+              },
+            },
+          },
           dict: dict({
             isTree: true,
             url: '/authority/org/trees',
             value: 'id',
             label: 'name',
-            onReady: ({ dict }) => {
-              dict.data.forEach((item) => {
-                item.color =
-                  item.id % 2 === 0 ? 'warning' : item.id % 3 === 0 ? 'success' : 'error';
-              });
-            },
           }),
           form: {
             component: {
@@ -181,15 +189,14 @@ export default function ({ expose }) {
         stationId: {
           title: '岗位',
           type: 'dict-select',
-          column: { width: 90 },
+          column: { width: 150 },
           dict: dict({
             value: 'id',
             label: 'name',
             url: '/authority/stations',
             onReady: ({ dict }) => {
               dict.data.forEach((item) => {
-                item.color =
-                  item.id % 5 === 0 ? 'success' : item.id % 3 === 0 ? 'warning' : 'error';
+                item.color = 'warning';
               });
             },
             getData: (dict) => {
