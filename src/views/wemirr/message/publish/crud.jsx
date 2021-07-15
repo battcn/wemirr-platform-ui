@@ -1,7 +1,7 @@
 import * as api from './api';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { compute, dict } from '@fast-crud/fast-crud';
-import moment from "moment";
+import moment from 'moment';
 
 export default function ({ expose, searchRemote }) {
   const pageRequest = async (query) => {
@@ -131,14 +131,28 @@ export default function ({ expose, searchRemote }) {
         },
         content: {
           title: '消息内容',
-          type: 'editor-quill',
+          type: ['editor-wang', 'colspan'],
           column: {
             ellipsis: true,
           },
+          viewForm: {
+            disabled: true,
+          },
           form: {
-            col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 21 },
+            component: {
+              // disabled: true,
+              uploader: {
+                type: 'form', // 上传后端类型【cos,aliyun,oss,form】
+                buildUrl(res) {
+                  return 'http://www.docmirror.cn:7070' + res.url;
+                },
+              },
+              on: {
+                'text-change': (event) => {
+                  console.log('text-change:', event);
+                },
+              },
+            },
           },
         },
         description: {

@@ -81,7 +81,7 @@ export default function ({ expose }) {
         },
         content: {
           title: '消息内容',
-          type: 'editor-quill',
+          type: 'editor-wang',
           column: {
             ellipsis: true,
           },

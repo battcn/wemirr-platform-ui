@@ -142,11 +142,14 @@ export default function (app, i18n) {
       name: 'file',
       withCredentials: false,
       successHandle(ret) {
+        console.log('ret ==> ', ret);
         // 上传完成后的结果处理， 此处后台返回的结果应该为 ret = {code:0,msg:'',data:fileUrl}
         if (!ret.data) {
           throw new Error('上传失败');
         }
-        return { url: ret.data };
+        return {
+          url: ret.data,
+        };
       },
     },
   });

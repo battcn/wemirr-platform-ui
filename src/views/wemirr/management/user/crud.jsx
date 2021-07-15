@@ -1,7 +1,7 @@
 import * as api from './api';
 import { request } from '/src/api/service';
 import { dict, useCompute } from '@fast-crud/fast-crud';
-import moment from "moment";
+import moment from 'moment';
 const { compute, asyncCompute } = useCompute();
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -137,9 +137,19 @@ export default function ({ expose }) {
         },
         avatar: {
           title: '头像',
-          type: 'image-uploader',
+          type: 'cropper-uploader',
           style: { height: 70 },
           column: { width: 70, align: 'center' },
+          form: {
+            component: {
+              uploader: {
+                type: 'form', // 上传后端类型【cos,aliyun,oss,form】
+                buildUrl(res) {
+                  return 'http://www.docmirror.cn:7070' + res.url;
+                },
+              },
+            },
+          },
         },
         orgId: {
           title: '组织',
