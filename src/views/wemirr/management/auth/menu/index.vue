@@ -117,8 +117,7 @@
         setFieldsValue({
           ...event.selectedNodes[0].props,
         });
-        console.log('.......');
-        // expose.doRefresh();
+        expose.doRefresh();
       }
       function onTreeNodeCheck(keys, event) {
         console.log('keys event', keys, event);

@@ -34,23 +34,6 @@ export default function ({ expose }) {
           form: { show: false },
           column: { show: false },
         },
-        type: {
-          title: '类型',
-          type: 'dict-select',
-          search: { show: true },
-          dict: dict({
-            data: [
-              { label: '秒', value: 1, color: 'success' },
-              { label: '分', value: 2, color: 'success' },
-              { label: '时', value: 3, color: 'success' },
-              { label: '天', value: 4, color: 'success' },
-            ],
-          }),
-          form: {
-            value: 1,
-            rules: [{ required: true, message: '限流类型不能为空' }],
-          },
-        },
         range: {
           title: '范围',
           type: 'dict-select',
