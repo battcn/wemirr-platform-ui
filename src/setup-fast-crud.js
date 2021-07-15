@@ -1,5 +1,5 @@
 import { defHttp } from '/@/utils/http/axios';
-import { FastCrud } from '@fast-crud/fast-crud';
+import { setLogger, FastCrud } from '@fast-crud/fast-crud';
 import '@fast-crud/fast-crud/dist/style.css';
 import { FsExtendsUploader, FsExtendsEditor } from '@fast-crud/fast-extends';
 import '@fast-crud/fast-extends/dist/style.css';
@@ -10,6 +10,7 @@ import UiAntdv from '@fast-crud/ui-antdv';
 export default function (app, i18n) {
   //先安装ui
   app.use(UiAntdv);
+  setLogger({ level: 'warn' });
   //再安装fast-crud
   app.use(FastCrud, {
     i18n,

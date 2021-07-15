@@ -1,7 +1,7 @@
 import * as api from './api';
 import { request } from '/src/api/service';
 import { dict } from '@fast-crud/fast-crud';
-import moment from "moment";
+import moment from 'moment';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -38,7 +38,7 @@ export default function ({ expose }) {
           column: { show: false },
         },
         name: {
-          title: '岗位名称',
+          title: '名称',
           type: 'text',
           search: { show: true },
         },
@@ -47,6 +47,9 @@ export default function ({ expose }) {
           type: 'dict-radio',
           column: { align: 'center' },
           search: { show: true },
+          form: {
+            value: true,
+          },
           dict: dict({
             data: [
               { value: true, label: '启用', color: 'success' },
@@ -78,12 +81,15 @@ export default function ({ expose }) {
                 return treeNode.props.title.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
+            col: { span: 24 },
+            labelCol: { span: 2 },
+            wrapperCol: { span: 9 },
           },
         },
         description: {
           title: '描述',
-          key: 'description',
-          type: 'textarea',
+          search: { show: false },
+          type: ['textarea', 'colspan'],
         },
         createdTime: {
           title: '创建时间',

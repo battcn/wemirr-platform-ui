@@ -147,12 +147,17 @@ export default function ({ expose }) {
           type: 'cropper-uploader',
           style: { height: 70 },
           column: { width: 70, align: 'center' },
+          valueBuilder({ value, row, key }) {
+            if (value != null && value.indexOf('http')) {
+              row[key] = 'http://www.docmirror.cn:7070' + value;
+            }
+          },
           form: {
             component: {
               uploader: {
                 type: 'form', // 上传后端类型【cos,aliyun,oss,form】
                 buildUrl(res) {
-                  return 'http://www.docmirror.cn:7070' + res.url;
+                  return 'http://www.docmirror.cn:7070/' + res.url;
                 },
               },
             },
