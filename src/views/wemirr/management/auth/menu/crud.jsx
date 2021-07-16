@@ -90,10 +90,10 @@ export default function ({ expose, nodeRef }) {
           type: 'text',
           form: {
             component: {
-              placeholder: 'menu:view',
+              placeholder: '资源权限编码',
             },
             rules: [{ required: true, message: '请填写资源权限编码' }],
-            helper: '资源权限编码,如（user:management:add user:management:edit）',
+            helper: '如（user:management:add user:management:edit）',
           },
           column: { width: 250, ellipsis: true },
         },

@@ -1,31 +1,23 @@
 <template>
-  <PageWrapper>
-    <a-row class="row-res">
-      <a-col :span="5">
-        <a-card :bordered="false" style="min-height: 800px">
-          <BasicTree
-            search
-            checkable
-            checkStrictly
-            @check="onTreeNodeCheck"
-            ref="permissionTreeRef"
-            :treeData="permissionTreeData"
-            :replaceFields="{ key: 'id', title: 'name' }"
-            @select="handleSelect"
-          />
-        </a-card>
-      </a-col>
-      <a-col :span="9">
-        <a-card title="资源信息" :bordered="false" style="margin-left: 10px; min-height: 800px">
-          <BasicForm @register="register" class="bg-white m-10 overflow-hidden" />
-        </a-card>
-      </a-col>
-      <a-col :span="10">
-        <a-card title="资源信息" :bordered="false" style="margin-left: 10px; min-height: 800px">
-          <fs-crud ref="crudRef" v-bind="crudBinding" />
-        </a-card>
-      </a-col>
-    </a-row>
+  <PageWrapper contentClass="flex" class="bg-white m-4 mr-0 overflow-hidden">
+    <a-card :bordered="false" class="w-1/3 xl:w-1/4">
+      <BasicTree
+        search
+        checkable
+        checkStrictly
+        @check="onTreeNodeCheck"
+        ref="permissionTreeRef"
+        :treeData="permissionTreeData"
+        :replaceFields="{ key: 'id', title: 'name' }"
+        @select="handleSelect"
+      />
+    </a-card>
+    <a-card title="菜单信息" :bordered="false" class="w-1/2 xl:w-1/2" style="margin-left: 10px">
+      <BasicForm @register="register" class="bg-white m-10 overflow-hidden" />
+    </a-card>
+    <a-card :bordered="false" title="资源信息" class="w-1/2 xl:w-1/2" style="margin-left: 10px">
+      <fs-crud ref="crudRef" v-bind="crudBinding" />
+    </a-card>
   </PageWrapper>
 </template>
 
@@ -144,18 +136,3 @@
     },
   });
 </script>
-
-<style lang="less">
-  .row-res {
-    height: 100%;
-    width: 100%;
-  }
-  .ant-card {
-    .fs-crud-container {
-      .box {
-        margin-left: -20px;
-        margin-top: -20px;
-      }
-    }
-  }
-</style>

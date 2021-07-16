@@ -1,6 +1,8 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <DeptTree class="w-1/4 xl:w-1/5" @select="handleSelect" />
+    <a-card :bordered="false" class="w-1/2 xl:w-1/4" style="margin-left: 10px; margin-top: 16px" />
+    <a-card :bordered="false" class="w-1/2 xl:w-1/4" style="margin-left: 10px; margin-top: 16px" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -9,7 +11,7 @@
   import DeptTree from './DeptTree.vue';
   import { useGo } from '/@/hooks/web/usePage';
   export default defineComponent({
-    name: 'AccountManagement',
+    name: 'OrgForm',
     components: { PageWrapper, DeptTree },
     setup() {
       const go = useGo();

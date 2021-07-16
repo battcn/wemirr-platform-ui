@@ -2,9 +2,9 @@ import * as api from './api';
 import { dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
-export default function ({ expose }) {
+export default function ({ expose, nodeRef }) {
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
+    return await api.GetList({ orgId: nodeRef.value?.id, ...query }).then((ret) => {
       return ret.data;
     });
   };
@@ -29,6 +29,10 @@ export default function ({ expose }) {
         editRequest,
         delRequest,
       },
+      table: {
+        size: 'small',
+        scroll: { fixed: true },
+      },
       columns: {
         id: {
           title: 'ID',
@@ -39,13 +43,16 @@ export default function ({ expose }) {
         name: {
           title: '名称',
           type: 'text',
+          column: { width: 150 },
           search: { show: true },
         },
         code: {
           title: '编码',
           type: 'text',
+          column: { width: 80 },
         },
         type: {
+          column: { width: 80 },
           title: '类型',
           type: 'dict-select',
           search: { show: true },
@@ -71,7 +78,7 @@ export default function ({ expose }) {
         status: {
           title: '状态',
           type: 'dict-radio',
-          column: { align: 'center' },
+          column: { width: 60, align: 'center' },
           search: { show: true },
           addForm: {
             value: true,
@@ -85,7 +92,12 @@ export default function ({ expose }) {
         },
         orgId: {
           title: '组织',
-          search: { show: true, labelCol: { span: 6 }, component: { style: { width: '150px' } } },
+          column: { show: false },
+          search: {
+            show: true,
+            labelCol: { span: null },
+            component: { style: { width: '150px' } },
+          },
           type: 'dict-tree',
           dict: dict({
             isTree: true,
@@ -115,13 +127,9 @@ export default function ({ expose }) {
         createdTime: {
           title: '创建时间',
           type: 'datetime',
-          column: { width: 180, sorter: true },
-          addForm: {
-            show: false,
-          },
-          editForm: {
-            show: false,
-          },
+          column: { width: 170, sorter: true, align: 'center' },
+          addForm: { show: false },
+          editForm: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
               row[key] = moment(value);
