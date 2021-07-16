@@ -116,6 +116,7 @@ export default function ({ expose }) {
           title: '描述',
           search: { show: false },
           type: ['textarea', 'colspan'],
+          column: { width: 180, ellipsis: true },
         },
         createdTime: {
           title: '创建时间',
