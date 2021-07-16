@@ -1,5 +1,4 @@
 import * as api from './api';
-import { request } from '/src/api/service';
 import { dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
@@ -42,12 +41,39 @@ export default function ({ expose }) {
           type: 'text',
           search: { show: true },
         },
+        code: {
+          title: '编码',
+          type: 'text',
+        },
+        type: {
+          title: '类型',
+          type: 'dict-select',
+          search: { show: true },
+          dict: dict({
+            url: '/authority/dictionaries/STATION_TYPE/list',
+          }),
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = value.toString();
+            }
+          },
+        },
+        sequence: {
+          title: '排序',
+          column: { width: 50, align: 'center' },
+          type: 'number',
+          addForm: {
+            value: 0,
+            component: { min: 0, max: 100 },
+          },
+          editForm: { component: { min: 0, max: 100 } },
+        },
         status: {
           title: '状态',
           type: 'dict-radio',
           column: { align: 'center' },
           search: { show: true },
-          form: {
+          addForm: {
             value: true,
           },
           dict: dict({

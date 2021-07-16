@@ -64,7 +64,8 @@ export default function ({ expose }) {
                     <li>（2）* 匹配0个或多个字符 </li>
                     <li>（3）**匹配0个或多个目录 </li>
                     <li>
-                      （4）{'{spring:[a-z]+}'} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring 的路径变量
+                      （4）{'{spring:[a-z]+}'} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring
+                      的路径变量
                     </li>
                   </ul>
                 );
@@ -88,8 +89,10 @@ export default function ({ expose }) {
               { label: 'PATCH', value: 'PATCH', color: 'success' },
             ],
           }),
-          form: {
+          addForm: {
             value: 'ALL',
+          },
+          form: {
             rules: [{ required: true, message: '请选择拦截方法' }],
           },
         },

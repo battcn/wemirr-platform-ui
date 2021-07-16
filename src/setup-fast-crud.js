@@ -50,7 +50,7 @@ export default function (app, i18n) {
         },
         request: {
           transformQuery: ({ page, form, sort }) => {
-            const order = sort == null ? {} : { column: sort.prop, desc: sort.asc };
+            const order = sort == null ? {} : { column: sort.prop, asc: sort.asc };
             return { current: page.currentPage, size: page.pageSize, ...form, ...order };
           },
           transformRes: ({ res }) => {

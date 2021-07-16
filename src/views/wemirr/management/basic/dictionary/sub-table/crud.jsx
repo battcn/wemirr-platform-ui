@@ -1,39 +1,31 @@
 import * as api from './api';
-import moment from "moment";
+import moment from 'moment';
+import { dict } from '@fast-crud/fast-crud';
 export default function ({ expose, props, ctx }) {
+  console.log('props', props, ctx);
   const pageRequest = async (query) => {
     return await api.GetItemList({ ...query, id: props.modelValue }).then((ret) => {
       return ret.data;
     });
   };
   const editRequest = async ({ form }) => {
-    return await api.UpdateItemObj(form.form, form);
+    return await api.UpdateItemObj(props.modelValue, form);
   };
   const delRequest = async ({ row }) => {
-    return await api.DelItemObj(row.id);
+    return await api.DelItemObj(props.modelValue, row.id);
   };
   const addRequest = async ({ form }) => {
-    return await api.AddItemObj(form);
+    console.log('form', form);
+    return await api.AddItemObj(props.modelValue, form);
   };
 
   return {
     crudOptions: {
-      table: {
-        customRow(record, index) {
-          const clazz = record.id === props.modelValue ? 'fs-current-row' : '';
-          return {
-            onClick() {
-              ctx.emit('update:modelValue', record.id);
-            },
-            class: clazz,
-          };
-        },
-      },
-      form: {
-        wrapper: {
-          is: 'a-modal',
-        },
-      },
+      // form: {
+      //   wrapper: {
+      //     is: 'a-modal',
+      //   },
+      // },
       request: {
         pageRequest,
         addRequest,
@@ -82,7 +74,34 @@ export default function ({ expose, props, ctx }) {
         },
         color: {
           title: '颜色',
-          type: 'text',
+          type: 'dict-select',
+          column: { width: 100 },
+          dict: dict({
+            url: '/authority/dictionaries/COLOR/list',
+          }),
+        },
+        status: {
+          title: '状态',
+          type: 'dict-radio',
+          search: { show: true },
+          dict: dict({
+            data: [
+              { value: true, label: '启用', color: 'success' },
+              { value: false, label: '禁用', color: 'error' },
+            ],
+          }),
+        },
+        sequence: {
+          title: '排序',
+          column: { width: 50, align: 'center' },
+          type: 'number',
+          addForm: { value: 0 },
+          form: { component: { min: 0, max: 100 } },
+        },
+        description: {
+          title: '描述',
+          column: { show: false },
+          type: ['textarea', 'colspan'],
         },
         createdTime: {
           title: '创建时间',

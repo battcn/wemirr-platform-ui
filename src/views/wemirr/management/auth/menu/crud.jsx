@@ -71,8 +71,10 @@ export default function ({ expose, nodeRef }) {
         parentId: {
           title: '父ID',
           column: { show: false },
-          form: {
+          addForm: {
             value: null,
+          },
+          form: {
             component: {
               disabled: true,
             },
@@ -121,13 +123,8 @@ export default function ({ expose, nodeRef }) {
           title: '排序',
           column: { width: 50, align: 'center' },
           type: 'number',
-          form: {
-            value: 0,
-            component: {
-              min: 0,
-              max: 100,
-            },
-          },
+          addForm: { value: 0 },
+          form: { component: { min: 0, max: 100 } },
         },
         description: {
           title: '描述',

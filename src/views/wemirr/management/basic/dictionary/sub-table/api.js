@@ -19,16 +19,16 @@ export function AddItemObj(dictionaryId, obj) {
   });
 }
 
-export function UpdateItemObj(dictionaryItemId, obj) {
+export function UpdateItemObj(dictionaryId, obj) {
   return request({
-    url: `/authority/dictionaries/${dictionaryItemId}/items/${obj.id}`,
+    url: `/authority/dictionaries/${dictionaryId}/items/${obj.id}`,
     method: 'put',
     data: obj,
   });
 }
 export function DelItemObj(dictionaryId, dictionaryItemId) {
   return request({
-    url: `/authority/dictionaries/${dictionaryItemId}/items/${dictionaryItemId}`,
+    url: `/authority/dictionaries/${dictionaryId}/items/${dictionaryItemId}`,
     method: 'delete',
   });
 }

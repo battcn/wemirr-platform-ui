@@ -44,8 +44,10 @@ export default function ({ expose }) {
               { label: 'IP', value: 1, color: 'success' },
             ],
           }),
-          form: {
+          addForm: {
             value: 0,
+          },
+          form: {
             rules: [{ required: true, message: '限流类型不能为空' }],
             helper: '全局表示所有IP访问,IP表示每隔间断访问',
           },
@@ -54,8 +56,8 @@ export default function ({ expose }) {
           title: '数量',
           type: 'number',
           column: { show: true },
+          addForm: { value: 10 },
           form: {
-            value: 10,
             component: {
               min: 10,
               max: 9999999,

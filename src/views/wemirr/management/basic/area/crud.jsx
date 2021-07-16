@@ -71,6 +71,9 @@ export default function ({ expose }) {
           title: '排序',
           type: 'number',
           column: { show: false },
+          addForm: {
+            value: 0,
+          },
         },
         level: {
           title: '级别',
@@ -89,11 +92,6 @@ export default function ({ expose }) {
         source: {
           title: '来源',
           type: 'textarea',
-          form: {
-            component: {
-              ellipsis: true,
-            },
-          },
           column: {
             ellipsis: true,
           },
