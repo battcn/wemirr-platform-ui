@@ -35,8 +35,9 @@
   import { BasicTree } from '/@/components/Tree';
   import { PageWrapper } from '/@/components/Page';
   import { getMenuList } from '/@/api/sys/menu';
-  // import { useMessage } from '/@/hooks/web/useMessage';
+  import { useMessage } from '/@/hooks/web/useMessage';
   import { schemas } from './data';
+  import * as api from './api';
 
   import createCrudOptions from './crud';
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
@@ -45,6 +46,8 @@
     name: 'AccountManagement',
     components: { BasicForm, BasicTree, PageWrapper },
     setup() {
+      const { notification } = useMessage();
+
       const permissionTreeRef = ref({});
       const permissionTreeData = ref();
       const nodeRef = ref();
@@ -80,21 +83,16 @@
       async function customSubmitFunc() {
         try {
           await validate();
-          await setProps({
-            submitButtonOptions: {
-              loading: true,
-            },
+          await setProps({ submitButtonOptions: { loading: true } });
+          console.log('getFieldsValue()', getFieldsValue());
+          await api.UpdateObj(getFieldsValue()).then(() => {
+            notification.success({ message: '修改成功', duration: 3 });
+            setProps({ submitButtonOptions: { loading: false } });
+            getMenuList();
           });
-          console.log('测试提交成功', getFieldsValue());
-          setTimeout(() => {
-            setProps({
-              submitButtonOptions: {
-                loading: false,
-              },
-            });
-            // createMessage.success('提交成功！');
-          }, 2000);
-        } catch (error) {}
+        } catch (error) {
+          setProps({ submitButtonOptions: { loading: false } });
+        }
       }
 
       onMounted(() => {

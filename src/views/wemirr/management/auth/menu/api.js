@@ -16,22 +16,7 @@ export function AddObj(obj) {
   });
 }
 
-export function AddResourceObj(obj) {
-  return request({
-    url: '/authority/resources',
-    method: 'post',
-    data: obj,
-  });
-}
-
 export function UpdateObj(obj) {
-  return request({
-    url: `/authority/resources/${obj.id}`,
-    method: 'put',
-    data: obj,
-  });
-}
-export function UpdateResourceObj(obj) {
   return request({
     url: `/authority/resources/${obj.id}`,
     method: 'put',
@@ -40,13 +25,6 @@ export function UpdateResourceObj(obj) {
 }
 
 export function DelObj(id) {
-  return request({
-    url: `/authority/resources/${id}`,
-    method: 'delete',
-    data: { id },
-  });
-}
-export function DelResourceById(id) {
   return request({
     url: `/authority/resources/${id}`,
     method: 'delete',

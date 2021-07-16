@@ -2,6 +2,12 @@ import { FormSchema } from '/@/components/Form';
 
 export const schemas: FormSchema[] = [
   {
+    field: 'id',
+    component: 'Input',
+    label: 'ID',
+    show: false,
+  },
+  {
     field: 'parentId',
     component: 'Input',
     label: '上级ID',
