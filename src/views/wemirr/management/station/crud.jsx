@@ -85,19 +85,13 @@ export default function ({ expose }) {
         },
         orgId: {
           title: '组织',
-          search: { show: true, component: { style: { width: '150px' } } },
+          search: { show: true, labelCol: { span: 6 }, component: { style: { width: '150px' } } },
           type: 'dict-tree',
           dict: dict({
             isTree: true,
             url: '/authority/org/trees',
             value: 'id',
             label: 'name',
-            onReady: ({ dict }) => {
-              dict.data.forEach((item) => {
-                item.color =
-                  item.id % 2 === 0 ? 'warning' : item.id % 3 === 0 ? 'success' : 'error';
-              });
-            },
           }),
           form: {
             component: {

@@ -28,10 +28,11 @@
     </a-row>
   </PageWrapper>
 </template>
-<script lang="ts">
+
+<script>
   import { defineComponent, onMounted, ref, unref } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form';
-  import { BasicTree, TreeActionType } from '/@/components/Tree';
+  import { BasicTree } from '/@/components/Tree';
   import { PageWrapper } from '/@/components/Page';
   import { getMenuList } from '/@/api/sys/menu';
   // import { useMessage } from '/@/hooks/web/useMessage';
@@ -44,7 +45,7 @@
     name: 'AccountManagement',
     components: { BasicForm, BasicTree, PageWrapper },
     setup() {
-      const permissionTreeRef = ref<Nullable<TreeActionType>>(null);
+      const permissionTreeRef = ref({});
       const permissionTreeData = ref();
       const nodeRef = ref();
       // crud组件的ref
@@ -56,10 +57,9 @@
       // 你的crud配置
       const { crudOptions } = createCrudOptions({ expose, nodeRef });
       // 初始化crud配置
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
       const { resetCrudOptions } = useCrud({ expose, crudOptions });
 
-      const [register, { setFieldsValue, validate, setProps }] = useForm({
+      const [register, { getFieldsValue, setFieldsValue, validate, setProps }] = useForm({
         labelCol: {
           span: 4,
         },
@@ -85,6 +85,7 @@
               loading: true,
             },
           });
+          console.log('测试提交成功', getFieldsValue());
           setTimeout(() => {
             setProps({
               submitButtonOptions: {
@@ -112,7 +113,6 @@
           return;
         }
         nodeRef.value = event.selectedNodes[0].props;
-        console.log('checkedKeys event', checkedKeys, event.selectedNodes[0].props);
         crudBinding.value.actionbar.buttons.add.show = true;
         setFieldsValue({
           ...event.selectedNodes[0].props,

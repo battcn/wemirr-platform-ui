@@ -1136,52 +1136,52 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fast-crud/fast-crud@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.nlark.com/@fast-crud/fast-crud/download/@fast-crud/fast-crud-0.16.0.tgz#8ab2a71c99d4f3a70cf2bee4e9c088ff8e10f84e"
-  integrity sha1-irKnHJnU86cM8r7k6cCI/44Q+E4=
+"@fast-crud/fast-crud@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.nlark.com/@fast-crud/fast-crud/download/@fast-crud/fast-crud-0.17.0.tgz#9cdf392a163ab56b9882e42913c5b8cf2b9a6821"
+  integrity sha1-nN85KhY6tWuYguQpE8W4zyuaaCE=
   dependencies:
-    "@fast-crud/ui-interface" "^0.16.0"
+    "@fast-crud/ui-interface" "^0.17.0"
     dayjs "^1.10.4"
     deepdash-es "5.3.5"
     lodash-es "^4.17.15"
     lru-cache "^6.0.0"
-    vue "^3.0.7"
-    vuedraggable "^4.0.1"
+    vue "^3.1.4"
+    vuedraggable "^4.0.3"
 
-"@fast-crud/fast-extends@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.nlark.com/@fast-crud/fast-extends/download/@fast-crud/fast-extends-0.16.0.tgz#196610013760a2b2521ed99998329461214e8313"
-  integrity sha1-GWYQATdgorJSHtmZmDKUYSFOgxM=
+"@fast-crud/fast-extends@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.nlark.com/@fast-crud/fast-extends/download/@fast-crud/fast-extends-0.17.0.tgz#9bcda8c800a47705417325f7860090dc3f0545c3"
+  integrity sha1-m82oyACkdwVBcyX3hgCQ3D8FRcM=
   dependencies:
-    ali-oss "^6.13.2"
+    ali-oss "^6.16.0"
     cos-js-sdk-v5 "^1.2.9"
     dayjs "^1.10.4"
     glob "^7.1.6"
     lodash-es "^4.17.20"
     object-assign "^4.1.1"
-    qiniu-js "3.1.2"
+    qiniu-js "3.3.1"
     quill "^1.3.7"
-    vue "^3.0.7"
+    vue "^3.1.4"
     vue-cropperjs "^5.0.0"
     wangeditor "^4.7.5"
 
-"@fast-crud/ui-antdv@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.nlark.com/@fast-crud/ui-antdv/download/@fast-crud/ui-antdv-0.16.0.tgz#4cc591f70f04ab06c8bf17eed2e7a48a65fd3579"
-  integrity sha1-TMWR9w8EqwbIvxfu0uekimX9NXk=
+"@fast-crud/ui-antdv@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.nlark.com/@fast-crud/ui-antdv/download/@fast-crud/ui-antdv-0.17.0.tgz#da3c3d8dbb170fcd58f0205670c201e49977cc26"
+  integrity sha1-2jw9jbsXD81Y8CBWcMIB5Jl3zCY=
   dependencies:
     "@ant-design/icons-vue" "^6.0.1"
-    "@fast-crud/ui-interface" "^0.16.0"
-    ant-design-vue "^2.1.4"
-    vue "^3.0.7"
+    "@fast-crud/ui-interface" "^0.17.0"
+    ant-design-vue "^2.2.2"
+    vue "^3.1.4"
 
-"@fast-crud/ui-interface@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.nlark.com/@fast-crud/ui-interface/download/@fast-crud/ui-interface-0.16.0.tgz#45d6c93fa6ce1a3d66e2ba1a6c45eb4d05aa9933"
-  integrity sha1-RdbJP6bOGj1m4roabEXrTQWqmTM=
+"@fast-crud/ui-interface@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.nlark.com/@fast-crud/ui-interface/download/@fast-crud/ui-interface-0.17.0.tgz#156927ea731e7819b09836d6695e2d00ace42749"
+  integrity sha1-FWkn6nMeeBmwmDbWaV4tAKzkJ0k=
   dependencies:
-    vue "^3.0.7"
+    vue "^3.1.4"
 
 "@fullhuman/postcss-purgecss@^4.0.3":
   version "4.0.3"
@@ -2675,9 +2675,9 @@ ajv@^8.0.1:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-ali-oss@^6.13.2:
+ali-oss@^6.16.0:
   version "6.16.0"
-  resolved "https://registry.nlark.com/ali-oss/download/ali-oss-6.16.0.tgz?cache=0&sync_timestamp=1626077014328&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fali-oss%2Fdownload%2Fali-oss-6.16.0.tgz"
+  resolved "https://registry.nlark.com/ali-oss/download/ali-oss-6.16.0.tgz#3b7fbe10f13fbd535478fc31c7d05aaf4280269b"
   integrity sha1-O3++EPE/vVNUePwxx9Bar0KAJps=
   dependencies:
     address "^1.0.0"
@@ -2795,9 +2795,9 @@ ant-design-vue@2.2.0-rc.1:
     vue-types "^3.0.0"
     warning "^4.0.0"
 
-ant-design-vue@^2.1.4:
+ant-design-vue@^2.2.2:
   version "2.2.2"
-  resolved "https://registry.nlark.com/ant-design-vue/download/ant-design-vue-2.2.2.tgz?cache=0&sync_timestamp=1626009722210&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fant-design-vue%2Fdownload%2Fant-design-vue-2.2.2.tgz"
+  resolved "https://registry.nlark.com/ant-design-vue/download/ant-design-vue-2.2.2.tgz?cache=0&sync_timestamp=1626010259272&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fant-design-vue%2Fdownload%2Fant-design-vue-2.2.2.tgz#197388583c4e0b8ccd9c50ed19831ede27c2b919"
   integrity sha1-GXOIWDxOC4zNnFDtGYMe3ifCuRk=
   dependencies:
     "@ant-design/icons-vue" "^6.0.0"
@@ -8811,15 +8811,10 @@ modify-values@^1.0.0:
   resolved "https://registry.npmjs.org/modify-values/-/modify-values-1.0.1.tgz"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-moment@^2.27.0:
+moment@^2.27.0, moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
-
-moment@^2.29.1:
-  version "2.29.1"
-  resolved "https://registry.npm.taobao.org/moment/download/moment-2.29.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmoment%2Fdownload%2Fmoment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
-  integrity sha1-sr52n6MZQL6e7qZGnAdeNQBvo9M=
 
 mousetrap@^1.6.5:
   version "1.6.5"
@@ -10287,13 +10282,14 @@ q@^1.1.2, q@^1.5.1:
   resolved "https://registry.npmjs.org/q/-/q-1.5.1.tgz"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qiniu-js@3.1.2:
-  version "3.1.2"
-  resolved "https://registry.nlark.com/qiniu-js/download/qiniu-js-3.1.2.tgz"
-  integrity sha1-tG5eHtgG11eoG1QqwTQuBEIdHUU=
+qiniu-js@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.nlark.com/qiniu-js/download/qiniu-js-3.3.1.tgz#1ba589ac53d1437d63a814b8d32cc61c4ee58801"
+  integrity sha1-G6WJrFPRQ31jqBS40yzGHE7liAE=
   dependencies:
     "@babel/runtime-corejs2" "^7.10.2"
     exif-js "^2.3.0"
+    querystring "^0.2.1"
     spark-md5 "^3.0.0"
 
 qrcode@^1.4.4:
@@ -10332,6 +10328,11 @@ query-string@^5.0.1:
     decode-uri-component "^0.2.0"
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
+
+querystring@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.nlark.com/querystring/download/querystring-0.2.1.tgz?cache=0&sync_timestamp=1626179435543&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fquerystring%2Fdownload%2Fquerystring-0.2.1.tgz#40d77615bb09d16902a85c3e38aa8b5ed761c2dd"
+  integrity sha1-QNd2FbsJ0WkCqFw+OKqLXtdhwt0=
 
 queue-microtask@^1.2.2:
   version "1.2.3"
@@ -13149,18 +13150,18 @@ vue-types@^4.0.0:
   dependencies:
     is-plain-object "5.0.0"
 
-vue@3.1.4, vue@^3.0.7:
+vue@3.1.4, vue@^3.1.4:
   version "3.1.4"
-  resolved "https://registry.nlark.com/vue/download/vue-3.1.4.tgz"
+  resolved "https://registry.nlark.com/vue/download/vue-3.1.4.tgz#120d6818c51eaa35d0879e5bc1cff60135bc69fd"
   integrity sha1-Eg1oGMUeqjXQh55bwc/2ATW8af0=
   dependencies:
     "@vue/compiler-dom" "3.1.4"
     "@vue/runtime-dom" "3.1.4"
     "@vue/shared" "3.1.4"
 
-vuedraggable@^4.0.1:
+vuedraggable@^4.0.3:
   version "4.0.3"
-  resolved "https://registry.nlark.com/vuedraggable/download/vuedraggable-4.0.3.tgz?cache=0&sync_timestamp=1623379001749&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvuedraggable%2Fdownload%2Fvuedraggable-4.0.3.tgz"
+  resolved "https://registry.nlark.com/vuedraggable/download/vuedraggable-4.0.3.tgz?cache=0&sync_timestamp=1623379032456&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvuedraggable%2Fdownload%2Fvuedraggable-4.0.3.tgz#98832a3562d44c73bbe4e205cc2dafce07b6ca14"
   integrity sha1-mIMqNWLUTHO75OIFzC2vzge2yhQ=
   dependencies:
     sortablejs "1.10.2"

@@ -33,9 +33,9 @@
     "gen:icon": "esno ./build/generate/icon/index.ts"
   },
   "dependencies": {
-    "@fast-crud/fast-crud": "^0.16.0",
-    "@fast-crud/fast-extends": "^0.16.0",
-    "@fast-crud/ui-antdv": "^0.16.0",
+    "@fast-crud/fast-crud": "^0.17.0",
+    "@fast-crud/fast-extends": "^0.17.0",
+    "@fast-crud/ui-antdv": "^0.17.0",
     "@iconify/iconify": "^2.0.3",
     "@logicflow/core": "^0.5.0",
     "@logicflow/extension": "^0.5.0",

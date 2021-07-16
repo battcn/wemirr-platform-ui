@@ -20,6 +20,14 @@ export const schemas: FormSchema[] = [
     required: true,
   },
   {
+    field: 'icon',
+    component: 'IconPicker',
+    label: '图标',
+    componentProps: {
+      placeholder: '请选择图标',
+    },
+  },
+  {
     field: 'type',
     component: 'RadioGroup',
     label: '类型',
@@ -62,7 +70,7 @@ export const schemas: FormSchema[] = [
     componentProps: {
       placeholder: '请填写组件',
     },
-    required: true,
+    required: false,
   },
   {
     field: 'status',
@@ -78,7 +86,7 @@ export const schemas: FormSchema[] = [
     label: '是否全局',
   },
   {
-    field: 'weights',
+    field: 'sequence',
     component: 'InputNumber',
     label: '排序',
     componentProps: {
