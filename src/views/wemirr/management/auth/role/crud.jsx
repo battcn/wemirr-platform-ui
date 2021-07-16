@@ -38,11 +38,11 @@ export default function ({ expose, distribution }) {
       },
       rowHandle: {
         show: true,
-        width: 200,
+        width: 170,
         dropdown: {
           // 操作列折叠
           atLeast: 3,
-          more: { size: 'small', text: 'more' },
+          more: { size: 'small', text: '', icon: 'gg:more-o' },
         },
         buttons: {
           distribution: {
@@ -143,7 +143,7 @@ export default function ({ expose, distribution }) {
         description: {
           title: '描述',
           search: { show: false },
-          column: { width: 150 },
+          column: { width: 170, ellipsis: true },
           type: ['textarea', 'colspan'],
         },
         orgList: {

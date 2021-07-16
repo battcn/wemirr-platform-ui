@@ -58,6 +58,9 @@ export const schemas: FormSchema[] = [
     componentProps: {
       placeholder: '请填写路径',
     },
+    itemProps: {
+      extra: '路径内容填写 http 地址则为外链网页',
+    },
     required: true,
   },
   {
@@ -69,6 +72,9 @@ export const schemas: FormSchema[] = [
     },
     componentProps: {
       placeholder: '请填写组件',
+    },
+    itemProps: {
+      extra: '组件内容填写 http 地址则为内嵌网页',
     },
     required: false,
   },
