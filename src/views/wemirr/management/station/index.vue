@@ -3,7 +3,6 @@
     <a-card :bordered="false" class="w-1/3 xl:w-1/4">
       <BasicTree
         search
-        checkable
         checkStrictly
         @check="onTreeNodeCheck"
         ref="terrDataRef"
@@ -91,11 +90,17 @@
 <style lang="less">
   .station {
     margin-left: 10px;
-    min-height: 1050px;
+    min-height: 1020px;
     .footer {
       .fs-crud-footer {
-        padding: 30px 0;
+        padding: 20px 0;
       }
+    }
+    .fs-toolbar {
+      margin-right: 10px;
+    }
+    .ant-card-body {
+      margin-top: -12px;
     }
   }
 </style>

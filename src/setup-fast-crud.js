@@ -25,7 +25,7 @@ export default function (app, i18n) {
           compact: false,
         },
         rowHandle: {
-          width: 150,
+          width: 130,
           align: 'center',
           // 固定右侧 不建议设置成全局
           // fixed: 'right',

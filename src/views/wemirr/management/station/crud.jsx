@@ -4,7 +4,8 @@ import moment from 'moment';
 
 export default function ({ expose, nodeRef }) {
   const pageRequest = async (query) => {
-    return await api.GetList({ orgId: nodeRef.value?.id, ...query }).then((ret) => {
+    query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
+    return await api.GetList(query).then((ret) => {
       return ret.data;
     });
   };
@@ -29,9 +30,19 @@ export default function ({ expose, nodeRef }) {
         editRequest,
         delRequest,
       },
+      toolbar: {
+        // toolbar.buttons.export.show:false 显示隐藏
+        // toolbar.compact:false 默认选择
+        compact: true,
+        buttons: { compact: { show: false } },
+      },
+      search: {
+        onReset() {
+          nodeRef.value = null;
+        },
+      },
       table: {
         size: 'small',
-        scroll: { fixed: true },
       },
       columns: {
         id: {
@@ -49,10 +60,10 @@ export default function ({ expose, nodeRef }) {
         code: {
           title: '编码',
           type: 'text',
-          column: { width: 80 },
+          column: { width: 70 },
         },
         type: {
-          column: { width: 80 },
+          column: { width: 70 },
           title: '类型',
           type: 'dict-select',
           search: { show: true },
@@ -67,7 +78,7 @@ export default function ({ expose, nodeRef }) {
         },
         sequence: {
           title: '排序',
-          column: { width: 50, align: 'center' },
+          column: { width: 60, align: 'center' },
           type: 'number',
           addForm: {
             value: 0,
@@ -122,7 +133,7 @@ export default function ({ expose, nodeRef }) {
           title: '描述',
           search: { show: false },
           type: ['textarea', 'colspan'],
-          column: { width: 180, ellipsis: true },
+          column: { width: 150, ellipsis: true },
         },
         createdTime: {
           title: '创建时间',
