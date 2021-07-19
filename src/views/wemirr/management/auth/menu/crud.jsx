@@ -38,7 +38,10 @@ export default function ({ expose, nodeRef }) {
           more: { size: 'small', text: '', icon: 'gg:more-o' },
         },
       },
-      toolbar: { buttons: { search: { show: false } } },
+      toolbar: {
+        compact: true,
+        buttons: { search: { show: false } },
+      },
       actionbar: { buttons: { add: { show: false } } },
       table: { size: 'small', scroll: { fixed: true } },
       search: { show: false },

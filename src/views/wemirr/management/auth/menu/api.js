@@ -7,7 +7,13 @@ export function GetResourceList(query) {
     params: query,
   });
 }
-
+export function SaveOrUpdate(obj) {
+  if (obj.id) {
+    return UpdateObj(obj);
+  } else {
+    return AddObj(obj);
+  }
+}
 export function AddObj(obj) {
   return request({
     url: '/authority/resources',

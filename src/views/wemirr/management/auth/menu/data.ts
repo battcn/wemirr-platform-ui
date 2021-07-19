@@ -11,8 +11,12 @@ export const schemas: FormSchema[] = [
     field: 'parentId',
     component: 'Input',
     label: '上级ID',
+    defaultValue: 0,
     componentProps: {
       placeholder: '请填写上级ID',
+    },
+    dynamicDisabled: ({ values }) => {
+      return values.id != null;
     },
     required: true,
   },
@@ -21,7 +25,7 @@ export const schemas: FormSchema[] = [
     component: 'Input',
     label: '名称',
     componentProps: {
-      placeholder: '请填写名称',
+      placeholder: '请输入名称',
     },
     required: true,
   },
@@ -32,15 +36,16 @@ export const schemas: FormSchema[] = [
     componentProps: {
       placeholder: '请选择图标',
     },
-    required: true,
   },
   {
     field: 'type',
     component: 'RadioGroup',
     label: '类型',
+    helpMessage: ['一键发布则需在开发平台中提前配置一键发布模板'],
     itemProps: {
-      extra: '如选择一键发布则需在开发平台中提前配置一键发布模板',
+      extra: '一键发布则需在开发平台中提前配置一键发布模板',
     },
+    defaultValue: 1,
     componentProps: {
       options: [
         {
@@ -74,36 +79,54 @@ export const schemas: FormSchema[] = [
     field: 'component',
     component: 'Input',
     label: '组件',
+    helpMessage: ['填写 Layout 则为页面布局', '填写 http 地址则为内嵌网页'],
     show: ({ model }) => {
       return model.type === 1;
     },
     componentProps: {
       placeholder: '请填写组件',
     },
+    defaultValue: 'Layout',
     itemProps: {
-      extra: '组件内容填写 http 地址则为内嵌网页',
+      extra: '填写 http 地址则为内嵌网页',
     },
     required: false,
   },
   {
     field: 'status',
-    component: 'Switch',
+    component: 'RadioButtonGroup',
     label: '状态',
+    defaultValue: true,
     componentProps: {
       placeholder: '请选择状态',
+      options: [
+        { label: '启用', value: true },
+        { label: '禁用', value: false },
+      ],
     },
   },
   {
     field: 'global',
-    component: 'Switch',
-    label: '是否全局',
+    component: 'RadioButtonGroup',
+    label: '全局',
+    helpMessage: ['所有人都能看到该菜单'],
+    defaultValue: false,
+    componentProps: {
+      options: [
+        { label: '否', value: false },
+        { label: '是', value: true },
+      ],
+    },
   },
   {
     field: 'sequence',
     component: 'InputNumber',
     label: '排序',
+    defaultValue: 0,
     componentProps: {
       placeholder: '请填写排序',
+      min: 0,
+      max: 100,
     },
     itemProps: {
       extra: '数值越小优先级越高',

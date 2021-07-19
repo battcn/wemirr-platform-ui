@@ -33,6 +33,15 @@ export default function ({ expose, searchRemote }) {
         delRequest,
       },
       toolbar: {},
+      actionbar: {
+        show: true,
+        buttons: {
+          add: {
+            icon: 'codicon:repo-force-push',
+            text: '发布消息',
+          },
+        },
+      },
       rowHandle: {
         width: 220,
         buttons: {
@@ -41,6 +50,7 @@ export default function ({ expose, searchRemote }) {
             type: 'link',
             text: null,
             size: 'small',
+            title: '通知',
             order: 4,
             async click(context) {
               console.log(context);

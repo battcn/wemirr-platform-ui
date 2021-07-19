@@ -24,6 +24,13 @@ export default function (app, i18n) {
           // toolbar.compact:false 默认选择
           compact: false,
         },
+        actionbar: {
+          buttons: {
+            add: {
+              icon: 'akar-icons:circle-plus',
+            },
+          },
+        },
         rowHandle: {
           width: 130,
           align: 'center',
