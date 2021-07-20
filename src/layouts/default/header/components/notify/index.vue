@@ -31,6 +31,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { useWebSocket } from '@vueuse/core';
   import { formatToDateTime } from '/@/utils/dateUtil';
+  import { getUserInfo } from '/@/utils/auth';
   import * as api from './api';
 
   export default defineComponent({
@@ -56,8 +57,12 @@
           list: [],
         },
       ];
+
+      const userInfo = getUserInfo();
       const state = reactive({
-        server: 'ws://localhost:9000/authority/message/1',
+        server: import.meta.env.DEV
+          ? `ws://localhost:9000/authority/message/${userInfo.userId}`
+          : `wss://cloud.battcn.com/authority/message/${userInfo.userId}`,
         sendValue: '',
         recordList: [] as ListItem[],
         tabListData: tabListData,

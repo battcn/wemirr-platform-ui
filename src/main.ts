@@ -20,9 +20,9 @@ import './setup-fast-crud.less';
 // In the local development for introduce on-demand, the number of browser requests will increase by about 20%.
 // Which may slow down the browser refresh.
 // Therefore, all are introduced in local development, and only introduced on demand in the production environment
-if (import.meta.env.DEV) {
-  import('ant-design-vue/dist/antd.less');
-}
+// if (import.meta.env.DEV) {
+import('ant-design-vue/dist/antd.less');
+// }
 
 async function bootstrap() {
   const app = createApp(App);
