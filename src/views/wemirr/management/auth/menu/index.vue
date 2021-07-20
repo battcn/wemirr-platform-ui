@@ -6,8 +6,8 @@
         search
         checkStrictly
         @check="onTreeNodeCheck"
-        ref="permissionTreeRef"
-        :treeData="permissionTreeData"
+        ref="treeRef"
+        :treeData="treeData"
         :replaceFields="{ key: 'id', title: 'name' }"
         @select="handleSelect"
         :actionList="actionList"
@@ -42,8 +42,8 @@
     setup() {
       const { notification, createConfirm } = useMessage();
       const actionList = ref([]);
-      const permissionTreeRef = ref({});
-      const permissionTreeData = ref();
+      const treeRef = ref({});
+      const treeData = ref();
       const nodeRef = ref();
       // crud组件的ref
       const crudRef = ref();
@@ -117,7 +117,7 @@
 
       function loadMenu() {
         getMenuList().then((ret) => {
-          permissionTreeData.value = ret;
+          treeData.value = ret;
           setTimeout(() => {
             getTree().filterByLevel(2);
             actionList.value = [
@@ -168,7 +168,7 @@
       }
 
       function getTree() {
-        const tree = unref(permissionTreeRef);
+        const tree = unref(treeRef);
         if (!tree) {
           throw new Error('tree is null!');
         }
@@ -180,8 +180,8 @@
         crudBinding,
         crudRef,
         register,
-        permissionTreeData,
-        permissionTreeRef,
+        treeData,
+        treeRef,
         actionList,
         resetFields,
         handleSelect,
