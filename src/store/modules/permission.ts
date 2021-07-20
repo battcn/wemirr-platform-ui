@@ -92,8 +92,8 @@ export const usePermissionStore = defineStore({
       this.lastBuildMenuTime = 0;
     },
     async changePermissionCode() {
-      const codeList = await getPermCode();
-      this.setPermCodeList(codeList);
+      // const codeList = await getPermCode();
+      // this.setPermCodeList(codeList);
     },
     async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
       const { t } = useI18n();
@@ -160,7 +160,11 @@ export const usePermissionStore = defineStore({
           }
 
           // Dynamically introduce components
-          routeList = transformObjToRoute(routeList);
+          if (routeList) {
+            routeList = transformObjToRoute(routeList);
+          } else {
+            routeList = [];
+          }
 
           //  Background routing to menu structure
           const backMenuList = transformRouteToMenu(routeList);

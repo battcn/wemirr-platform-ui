@@ -174,8 +174,8 @@
           loading.value = true;
           const userInfo = await userStore.login(
             toRaw({
-              username: 'admin',
-              password: '123456',
+              username: data.account,
+              password: data.password,
               grant_type: 'password',
               client_id: 'client',
               client_secret: 'client',
@@ -200,6 +200,7 @@
             content: error.message || t('sys.api.networkExceptionMsg'),
             getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
           });
+          await loadCaptcha();
         } finally {
           loading.value = false;
         }
