@@ -45,6 +45,7 @@
     "ant-design-vue": "2.2.0-rc.1",
     "axios": "^0.21.1",
     "crypto-js": "^4.0.0",
+    "default-passive-events": "^2.0.0",
     "echarts": "^5.1.2",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",

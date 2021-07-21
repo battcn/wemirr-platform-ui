@@ -10,6 +10,8 @@ export default {
     tooltipLock: '锁定屏幕',
     tooltipNotify: '消息通知',
 
+    tooltipAccountCenter: '个人中心',
+
     tooltipEntryFull: '全屏',
     tooltipExitFull: '退出全屏',
 

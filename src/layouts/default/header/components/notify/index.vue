@@ -62,7 +62,7 @@
       const state = reactive({
         server: import.meta.env.DEV
           ? `ws://localhost:9000/authority/message/${userInfo.userId}`
-          : `wss://cloud.battcn.com/authority/message/${userInfo.userId}`,
+          : `wss://cloud.battcn.com/api/authority/message/${userInfo.userId}`,
         sendValue: '',
         recordList: [] as ListItem[],
         tabListData: tabListData,

@@ -1,14 +1,15 @@
 import { defHttp } from '/@/utils/http/axios';
-import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
+import { LoginParams, LoginResultModel, GetUserInfoModel, ChangePassword } from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
 
 enum Api {
-  Logout = '/logout',
+  Logout = '/authority/oauth/logout',
   Login = '/authority/oauth/token',
   GetUserInfo = '/authority/oauth/info',
   GetPermCode = '/getPermCode',
   LoadCaptcha = '/authority/captcha',
+  ChangePassword = '/authority/oauth/change_password',
 }
 
 /**
@@ -38,5 +39,9 @@ export function getPermCode() {
 }
 
 export function doLogout() {
-  // return defHttp.get({ url: Api.Logout });
+  return defHttp.delete({ url: Api.Logout });
+}
+
+export function changePassword(params: ChangePassword) {
+  return defHttp.put({ url: Api.ChangePassword, data: params });
 }

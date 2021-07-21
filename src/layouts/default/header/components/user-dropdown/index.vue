@@ -19,6 +19,11 @@
         />
         <MenuDivider v-if="getShowDoc" />
         <MenuItem
+          key="center"
+          :text="t('layout.header.tooltipAccountCenter')"
+          icon="ant-design:user-outlined"
+        />
+        <MenuItem
           v-if="getUseLockPage"
           key="lock"
           :text="t('layout.header.tooltipLock')"
@@ -53,8 +58,9 @@
   import { openWindow } from '/@/utils';
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import { useGo } from '/@/hooks/web/usePage';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock';
+  type MenuEvent = 'center' | 'logout' | 'doc' | 'lock';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -73,6 +79,8 @@
       const { t } = useI18n();
       const { getShowDoc, getUseLockPage } = useHeaderSetting();
       const userStore = useUserStore();
+
+      const go = useGo();
 
       const getUserInfo = computed(() => {
         const { realName = '', avatar, desc } = userStore.getUserInfo || {};
@@ -105,6 +113,9 @@
             break;
           case 'lock':
             handleLock();
+            break;
+          case 'center':
+            go('/sys/account/center');
             break;
         }
       }

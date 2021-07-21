@@ -12,6 +12,15 @@ export interface RoleInfo {
 }
 
 /**
+ * 修改密码
+ */
+export interface ChangePassword {
+  originalPassword: string;
+  password: string;
+  confirmPassword: string;
+}
+
+/**
  * @description: Login interface return value
  */
 export interface LoginResultModel {

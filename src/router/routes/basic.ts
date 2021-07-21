@@ -33,6 +33,24 @@ export const ConstRouter: AppRouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/sys',
+    name: 'System',
+    component: LAYOUT,
+    meta: {
+      title: t('layout.header.tooltipUserInfo'),
+    },
+    children: [
+      {
+        path: 'account/center',
+        name: 'UserInfo',
+        component: () => import('/@/views/sys/account-center/index.vue'),
+        meta: {
+          title: t('layout.header.tooltipAccountCenter'),
+        },
+      },
+    ],
+  },
 ];
 // 404 on a page
 export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {
