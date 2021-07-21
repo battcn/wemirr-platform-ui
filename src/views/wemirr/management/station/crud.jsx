@@ -56,6 +56,12 @@ export default function ({ expose, nodeRef }) {
           type: 'text',
           column: { width: 150 },
           search: { show: true },
+          form: {
+            rules: [
+              { required: true, message: '岗位名称不能为空' },
+              { min: 1, max: 30, message: '长度在 1 到 30 个字符' },
+            ],
+          },
         },
         code: {
           title: '编码',
@@ -74,6 +80,9 @@ export default function ({ expose, nodeRef }) {
             if (value != null) {
               row[key] = value.toString();
             }
+          },
+          form: {
+            rules: [{ required: true, message: '岗位类型不能为空' }],
           },
         },
         sequence: {
@@ -127,6 +136,9 @@ export default function ({ expose, nodeRef }) {
             col: { span: 24 },
             labelCol: { span: 2 },
             wrapperCol: { span: 9 },
+            rules: [
+              { required: true, message: '组织名称不能为空' },
+            ],
           },
         },
         description: {
