@@ -52,7 +52,7 @@ export default function ({ expose }) {
         location: {
           title: '登录地点',
           type: 'text',
-          column: { width: 150 },
+          column: { width: 200 },
         },
         actionMethod: {
           title: '请求方法',
