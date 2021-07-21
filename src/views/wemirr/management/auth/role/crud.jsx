@@ -1,6 +1,7 @@
 import * as api from './api';
 import { dict, compute } from '@fast-crud/fast-crud';
 import moment from 'moment';
+import { usePermission } from '/@/hooks/web/usePermission';
 
 export default function ({ expose, distribution }) {
   const pageRequest = async (query) => {
@@ -19,7 +20,7 @@ export default function ({ expose, distribution }) {
   const addRequest = async ({ form }) => {
     return await api.AddObj(form);
   };
-
+  const { hasPermission } = usePermission();
   console.log('expose', expose);
   return {
     crudOptions: {
@@ -42,14 +43,21 @@ export default function ({ expose, distribution }) {
         dropdown: {
           // 操作列折叠
           atLeast: 3,
-          more: { size: 'small', text: '', icon: 'gg:more-o' },
+          more: {
+            size: 'small',
+            text: '',
+            icon: 'gg:more-o',
+            show:
+              hasPermission('role:management:distribution_user') ||
+              hasPermission('role:management:distribution_res'),
+          },
         },
         buttons: {
           distribution: {
             text: '分配用户',
             size: 'small',
             order: 4,
-            show: true,
+            show: hasPermission('role:management:distribution_user'),
             async click(context) {
               await distribution.userModal(context.record.id);
             },
@@ -58,7 +66,7 @@ export default function ({ expose, distribution }) {
             text: '分配权限',
             size: 'small',
             order: 5,
-            show: true,
+            show: hasPermission('role:management:distribution_res'),
             async click(context) {
               await distribution.resourceModal(context.record.id);
             },

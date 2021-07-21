@@ -1,9 +1,10 @@
 import { defHttp } from '/@/utils/http/axios';
-import { setLogger, FastCrud } from '@fast-crud/fast-crud';
+import { FastCrud, setLogger } from '@fast-crud/fast-crud';
 import '@fast-crud/fast-crud/dist/style.css';
-import { FsExtendsUploader, FsExtendsEditor } from '@fast-crud/fast-extends';
+import { FsExtendsEditor, FsExtendsUploader } from '@fast-crud/fast-extends';
 import '@fast-crud/fast-extends/dist/style.css';
 import UiAntdv from '@fast-crud/ui-antdv';
+import { useCrudPermission } from '/@/plugin/permission/use-crud-permission';
 
 // 导出 setupFastCrud
 // 国际化配置见 /src/locales/en  or zh_CN
@@ -17,8 +18,8 @@ export default function (app, i18n) {
     async dictRequest({ url }) {
       return await defHttp.request({ url });
     },
-    commonOptions() {
-      return {
+    commonOptions(context) {
+      const opts = {
         toolbar: {
           // toolbar.buttons.export.show:false 显示隐藏
           // toolbar.compact:false 默认选择
@@ -65,12 +66,14 @@ export default function (app, i18n) {
           },
         },
         form: {
-          // display: 'flex',
+          display: 'flex',
           wrapper: {
             is: 'a-drawer',
           },
         },
       };
+      const crudPermission = useCrudPermission(context);
+      return crudPermission.merge(opts);
     },
   });
 

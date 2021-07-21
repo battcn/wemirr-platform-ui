@@ -39,7 +39,6 @@ async function bootstrap() {
 
   // Register global components
   registerGlobComp(app);
-
   // Multilingual configuration
   const i18n = await setupI18n(app);
   //----------- 安装fast-crud--------------

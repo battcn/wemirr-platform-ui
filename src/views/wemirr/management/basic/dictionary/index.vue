@@ -18,8 +18,7 @@
       // 你的crud配置
       const { crudOptions } = createCrudOptions({ expose });
       // 初始化crud配置
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-      const { resetCrudOptions } = useCrud({ expose, crudOptions });
+      useCrud({ expose, crudOptions, permission: 'dict:management' });
       // 页面打开后获取列表数据
       onMounted(() => {
         expose.doRefresh();

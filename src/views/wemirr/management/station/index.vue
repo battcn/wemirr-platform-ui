@@ -32,16 +32,12 @@
       const terrDataRef = ref({});
       const terrData = ref();
       const nodeRef = ref();
-      // crud组件的ref
+
       const crudRef = ref();
-      // crud 配置的ref
       const crudBinding = ref();
-      // 暴露的方法
       const { expose } = useExpose({ crudRef, crudBinding });
-      // 你的crud配置
       const { crudOptions } = createCrudOptions({ expose, nodeRef });
-      // 初始化crud配置
-      useCrud({ expose, crudOptions });
+      useCrud({ expose, crudOptions, permission: 'station:management' });
 
       // 页面打开后获取列表数据
       onMounted(() => {
