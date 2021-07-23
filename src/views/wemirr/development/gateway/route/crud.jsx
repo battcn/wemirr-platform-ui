@@ -32,9 +32,24 @@ export default function ({ expose }) {
         editRequest,
         delRequest,
       },
+      table: {
+        scroll: { fixed: true },
+      },
       rowHandle: {
-        width: 200,
+        fixed: 'right',
+        width: 170,
         buttons: {
+          edit: {
+            show: compute(({ row }) => {
+              console.log('row.dynamic', row.dynamic);
+              return row.dynamic;
+            }),
+          },
+          remove: {
+            show: compute(({ row }) => {
+              return row.dynamic;
+            }),
+          },
           up: {
             type: 'link',
             text: null,
@@ -43,7 +58,7 @@ export default function ({ expose }) {
             size: 'small',
             order: 4,
             show: compute(({ row }) => {
-              return !row.status;
+              return row.dynamic && !row.status;
             }),
             async click(context) {
               await api.ServiceStatus(context.record.id, true).then((ret) => {
@@ -60,7 +75,7 @@ export default function ({ expose }) {
             size: 'small',
             order: 5,
             show: compute(({ row }) => {
-              return row.status;
+              return row.dynamic && row.status;
             }),
             async click(context) {
               await api.ServiceStatus(context.record.id, false).then((ret) => {
@@ -77,6 +92,7 @@ export default function ({ expose }) {
         id: {
           title: '路由ID',
           type: 'text',
+          column: { ellipsis: true, width: 280 },
           // dict: dict({
           //   url: '/gateway/discoveries/dict',
           //   label: 'serviceId',
@@ -95,6 +111,7 @@ export default function ({ expose }) {
         name: {
           title: '服务名',
           type: 'text',
+          column: { ellipsis: true, width: 240 },
           form: {
             rules: [{ required: true, message: '路由名称不能为空' }],
             helper: '请填写正确的ServiceId,否则影响路由',
@@ -103,7 +120,7 @@ export default function ({ expose }) {
         status: {
           title: '状态',
           type: 'dict-radio',
-          column: { width: 60, align: 'center' },
+          column: { width: 70, align: 'center' },
           search: { show: true },
           dict: dict({
             data: [
@@ -116,14 +133,27 @@ export default function ({ expose }) {
             helper: '如果服务未注册成功,上线会失败',
           },
         },
+        dynamic: {
+          title: '路由类型',
+          type: 'dict-radio',
+          column: { width: 90, align: 'center' },
+          dict: dict({
+            data: [
+              { value: true, label: '动态路由', color: 'warning' },
+              { value: false, label: '初始路由', color: 'success' },
+            ],
+          }),
+          form: { show: false },
+        },
         order: {
-          title: '顺序',
+          title: '拦截顺序',
           type: ['number'],
-          column: { width: 60 },
+          column: { width: 90 },
           addForm: { value: 0 },
         },
         uri: {
           title: 'URI',
+          column: { ellipsis: true, width: 280 },
           type: 'text',
           form: {
             rules: [{ required: true, message: '路由URI不能为空' }],
@@ -131,8 +161,8 @@ export default function ({ expose }) {
         },
         description: {
           title: '描述',
+          column: { ellipsis: true, width: 200 },
           type: ['textarea', 'colspan'],
-          column: { ellipsis: true },
         },
         predicates: {
           title: '条件过滤',

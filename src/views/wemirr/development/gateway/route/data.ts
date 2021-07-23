@@ -40,16 +40,11 @@ export const filters: any[] = [
     args: [
       { key: 'retries', value: '1' },
       { key: 'statuses', value: 'BAD_GATEWAY' },
-      {
-        key: 'backoff',
-        value: {
-          firstBackoff: '200ms',
-          maxBackoff: '200ms',
-          factor: 1,
-          basedOnPreviousValue: false,
-          exceptions: 'TimeoutException',
-        },
-      },
+      { key: 'backoff.firstBackoff', value: '200ms' },
+      { key: 'backoff.maxBackoff', value: '200ms' },
+      { key: 'backoff.factor', value: 1 },
+      { key: 'backoff.basedOnPreviousValue', value: false },
+      { key: 'backoff.exceptions', value: 'TimeoutException' },
     ],
   },
 ];

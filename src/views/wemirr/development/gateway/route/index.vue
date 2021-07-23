@@ -1,5 +1,8 @@
 <template>
   <fs-crud ref="crudRef" v-bind="crudBinding">
+    <template #actionbar-right>
+      <a-alert class="ml-1" type="info" message="非专业人士,请勿随便乱动" />
+    </template>
     <template #form_predicates="scope">
       <div v-for="(scopeItem, scopeIndex) in scope.form.predicates" :key="scopeIndex">
         <a-divider
@@ -77,18 +80,24 @@
         </a-divider>
         <div v-for="(tag, index) in scopeItem.args" :key="tag.key" style="margin-bottom: 10px">
           <a-input
+            :disabled="scope.mode === 'view'"
             v-model:value="tag.key"
             placeholder="参数键"
             style="width: 45%; margin-right: 8px"
           />
           <a-input
+            :disabled="scope.mode === 'view'"
             v-model:value="tag.value"
             placeholder="参数值"
             style="width: 40%; margin-right: 8px"
           />
-          <DeleteOutlined @click="removeFilterParams(scopeItem, index)" />
+          <DeleteOutlined
+            @click="removeFilterParams(scopeItem, index)"
+            v-show="scope.mode !== 'view'"
+          />
         </div>
         <a-button
+          v-show="scope.mode !== 'view'"
           type="dashed"
           style="margin-left: 28%; width: 30%"
           size="small"
@@ -228,7 +237,7 @@
       }
       function addFilterParams(scopeForm) {
         scopeForm.args.push({
-          key: 'key' + (scopeForm.args.length + 1),
+          key: '_genkey_' + (scopeForm.args.length + 1),
           value: '',
         });
       }
