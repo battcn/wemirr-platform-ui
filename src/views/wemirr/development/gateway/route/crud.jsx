@@ -124,8 +124,8 @@ export default function ({ expose }) {
           search: { show: true },
           dict: dict({
             data: [
-              { value: true, label: '上线', color: 'success' },
-              { value: false, label: '下线', color: 'error' },
+              { value: true, label: '运行中', color: 'success' },
+              { value: false, label: '已停止', color: 'error' },
             ],
           }),
           form: {
