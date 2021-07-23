@@ -47,9 +47,9 @@ export default function ({ expose, distribution }) {
             size: 'small',
             text: '',
             icon: 'gg:more-o',
-            show:
-              hasPermission('role:management:distribution_user') ||
-              hasPermission('role:management:distribution_res'),
+            // show:
+            //   hasPermission('role:management:distribution_user') ||
+            //   hasPermission('role:management:distribution_res'),
           },
         },
         buttons: {

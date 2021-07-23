@@ -136,9 +136,7 @@ export default function ({ expose, nodeRef }) {
             col: { span: 24 },
             labelCol: { span: 2 },
             wrapperCol: { span: 9 },
-            rules: [
-              { required: true, message: '组织名称不能为空' },
-            ],
+            rules: [{ required: true, message: '组织名称不能为空' }],
           },
         },
         description: {
