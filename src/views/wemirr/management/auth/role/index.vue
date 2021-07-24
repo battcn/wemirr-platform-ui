@@ -34,7 +34,7 @@
 
     function userModal(roleId) {
       api.GetUserByRoleId(roleId).then((ret) => {
-        openBindUser(true, ret.data);
+        openBindUser(true, { roleId, ...ret.data });
       });
     }
     const [registerBindUser, { openModal: openBindUser }] = useModal();

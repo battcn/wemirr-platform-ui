@@ -55,6 +55,7 @@
 
       const [register, { closeModal }] = useModalInner((data) => {
         modelRef.value = {
+          roleId: data.roleId,
           userRoleDetails: data.userRoleDetails,
           originTargetKeys: data.originTargetKeys,
         };
@@ -82,10 +83,7 @@
         };
       };
       async function handleSubmit() {
-        api.DistributionUser({ roleId: 1, userIdList: targetKeys.value });
-        // console.log('leftColumns', leftColumns.value);
-        // console.log('rightColumns', rightColumns.value);
-        // console.log('targetKeys', targetKeys.value);
+        api.DistributionUser({ roleId: modelRef.value.roleId, userIdList: targetKeys.value });
         closeModal();
       }
 
