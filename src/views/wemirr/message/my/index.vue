@@ -5,6 +5,11 @@
         <fs-button icon="DeleteOutlined" @click="handleBatchDelete" />
       </a-tooltip>
     </template>
+    <template #cell_content="scope">
+      <a-tooltip placement="top" :title="scope.row.content">
+        {{ scope.row.content }}
+      </a-tooltip>
+    </template>
   </fs-crud>
 </template>
 

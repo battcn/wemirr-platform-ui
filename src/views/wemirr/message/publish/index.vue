@@ -1,5 +1,11 @@
 <template>
-  <fs-crud ref="crudRef" v-bind="crudBinding" />
+  <fs-crud ref="crudRef" v-bind="crudBinding">
+    <template #cell_description="scope">
+      <a-tooltip placement="topLeft" :title="scope.row.description">
+        {{ scope.row.description }}
+      </a-tooltip>
+    </template>
+  </fs-crud>
 </template>
 
 <script>

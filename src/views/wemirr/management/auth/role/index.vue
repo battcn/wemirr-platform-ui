@@ -12,6 +12,11 @@
           title="组织架构"
         />
       </template>
+      <template #cell_description="scope">
+        <a-tooltip placement="top" :title="scope.row.description">
+          {{ scope.row.description }}
+        </a-tooltip>
+      </template>
     </fs-crud>
     <distribution-user @register="registerBindUser" />
     <distribution-resource @register="registerBindResource" />

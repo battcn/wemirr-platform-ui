@@ -168,9 +168,7 @@ export default function ({ expose, searchRemote }) {
         description: {
           title: '描述信息',
           type: 'textarea',
-          column: {
-            ellipsis: true,
-          },
+          column: { ellipsis: true },
           form: {
             col: { span: 24 },
             labelCol: { span: 2 },
