@@ -3,7 +3,7 @@ import type { AppRouteModule } from '/@/router/types';
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
 
-const dashboard: AppRouteModule = {
+export const dashboard: AppRouteModule = {
   path: '/dashboard',
   name: 'Dashboard',
   component: LAYOUT,
@@ -15,11 +15,10 @@ const dashboard: AppRouteModule = {
   },
   children: [
     {
-      path: 'analysis',
+      path: 'home',
       name: 'Analysis',
       component: () => import('/@/views/dashboard/home/index.vue'),
       meta: {
-        affix: true,
         title: t('routes.dashboard.home'),
       },
     },
@@ -33,5 +32,3 @@ const dashboard: AppRouteModule = {
     },
   ],
 };
-
-export default dashboard;

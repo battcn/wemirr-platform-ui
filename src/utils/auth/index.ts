@@ -3,13 +3,13 @@ import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import projectSetting from '/@/settings/projectSetting';
 import { TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { UserInfo } from '/#/store';
-
 const { permissionCacheType } = projectSetting;
 const isLocal = permissionCacheType === CacheTypeEnum.LOCAL;
 
 export function getToken() {
   return getAuthCache(TOKEN_KEY);
 }
+
 export function getUserInfo() {
   return getAuthCache<UserInfo>(USER_INFO_KEY);
 }

@@ -1,10 +1,10 @@
 {
-  "name": "vben-admin",
-  "version": "2.6.0",
+  "name": "wemirr-platform-ui",
+  "version": "2.6.1",
   "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
+    "name": "wemirr-platform",
+    "email": "1837307557@qq.com",
+    "url": "https://gitee.com/battcn/wemirr-platform-ui"
   },
   "scripts": {
     "bootstrap": "yarn install",

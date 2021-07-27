@@ -3,7 +3,6 @@ import 'ant-design-vue/dist/antd.less';
 
 import '/@/design/index.less';
 import '/@/design/tailwind.css';
-// Register icon sprite
 import 'virtual:svg-icons-register';
 import App from './App.vue';
 import { createApp } from 'vue';
@@ -15,7 +14,6 @@ import { setupStore } from '/@/store';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
-// import 'default-passive-events';
 
 // Do not introduce on-demand in local development?
 // In the local development for introduce on-demand, the number of browser requests will increase by about 20%.

@@ -19,7 +19,6 @@ export interface ChangePassword {
   password: string;
   confirmPassword: string;
 }
-
 /**
  * @description: Login interface return value
  */
