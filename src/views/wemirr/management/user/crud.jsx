@@ -20,8 +20,6 @@ export default function ({ expose }) {
   const addRequest = async ({ form }) => {
     return await api.AddObj(form);
   };
-
-  console.log('expose', expose);
   return {
     crudOptions: {
       request: {
@@ -81,7 +79,7 @@ export default function ({ expose }) {
         nickName: {
           title: '昵称',
           type: 'text',
-          column: { width: 155 },
+          column: { width: 155, ellipsis: true },
           search: { show: true, fixed: 'left' },
           form: {
             rules: [
@@ -138,7 +136,7 @@ export default function ({ expose }) {
         },
         email: {
           title: '邮箱',
-          type: 'email',
+          type: 'text',
           search: { show: true },
           column: { width: 180 },
         },

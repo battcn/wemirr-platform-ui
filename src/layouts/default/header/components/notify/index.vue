@@ -28,7 +28,7 @@
   import { ListItem, TabItem } from './data';
   import NoticeList from './NoticeList.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  // import { useMessage } from '/@/hooks/web/useMessage';
   import { useWebSocket } from '@vueuse/core';
   import { formatToDateTime } from '/@/utils/dateUtil';
   import { getUserInfo } from '/@/utils/auth';
@@ -38,7 +38,7 @@
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
     setup() {
       const { prefixCls } = useDesign('header-notify');
-      const { createMessage } = useMessage();
+      // const { createMessage } = useMessage();
 
       const tabListData: TabItem[] = [
         {
@@ -97,8 +97,8 @@
 
       const count = computed(() => {
         let count = 0;
-        for (let i = 0; i < tabListData.length; i++) {
-          count += tabListData[i].list.length;
+        for (let i = 0; i < state.tabListData.length; i++) {
+          count += state.tabListData[i].list.length;
         }
         return count;
       });
