@@ -111,10 +111,10 @@ export default function ({ expose, searchRemote }) {
           column: { show: false },
           form: {
             component: {
-              mode: 'multiple',
               name: 'a-select',
               vModel: 'value',
               filterOption: false,
+              mode: 'multiple',
               showSearch: true,
               allowClear: true,
               placeholder: '请输入搜索内容',
@@ -123,7 +123,6 @@ export default function ({ expose, searchRemote }) {
                 if (!form.type) {
                   return '暂无记录';
                 }
-                console.log('form', form.type);
                 return function (value) {
                   fetchReceiver(form.type, value);
                 };

@@ -31,7 +31,7 @@
   </BasicModal>
 </template>
 
-<script>
+<script lang="js">
   import { difference } from 'lodash-es';
   import { defineComponent, ref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';

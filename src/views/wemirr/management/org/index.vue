@@ -5,7 +5,6 @@
       <BasicTree
         search
         checkStrictly
-        @check="onTreeNodeCheck"
         ref="treeRef"
         :treeData="treeData"
         :replaceFields="{ key: 'id', title: 'name' }"
@@ -135,19 +134,10 @@
         if (!event.selected) {
           return;
         }
-        console.log('event', event);
         setFieldsValue({
           ...event.selectedNodes[0].props,
         });
-        expose.doRefresh();
       }
-      function onTreeNodeCheck(keys, event) {
-        console.log('keys event', keys, event);
-        if (!event.checked) {
-        } else {
-        }
-      }
-
       function getTree() {
         const tree = unref(treeRef);
         if (!tree) {
@@ -163,7 +153,6 @@
         actionList,
         resetFields,
         handleSelect,
-        onTreeNodeCheck,
         handlePlus,
       };
     },

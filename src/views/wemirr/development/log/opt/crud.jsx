@@ -1,5 +1,6 @@
 import { request } from '/src/api/service';
 import { compute } from '@fast-crud/fast-crud';
+import moment from "moment";
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -106,11 +107,21 @@ export default function ({ expose }) {
           title: '开始时间',
           type: 'datetime',
           column: { width: 180 },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
         finishTime: {
           title: '结束时间',
           type: 'datetime',
           column: { width: 180 },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
         consumingTime: {
           title: '消耗时间',
