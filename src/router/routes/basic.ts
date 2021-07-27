@@ -9,26 +9,26 @@ export const ConstRouter: AppRouteRecordRaw[] = [
     path: '/dashboard',
     name: 'Dashboard',
     component: LAYOUT,
-    redirect: '/dashboard/workbench',
+    redirect: '/dashboard/home',
     meta: {
       icon: 'bx:bx-home',
-      title: t('routes.dashboard.dashboard'),
+      title: t('routes.dashboard.home'),
     },
     children: [
+      // {
+      //   path: 'workbench',
+      //   name: 'Workbench',
+      //   component: () => import('/@/views/dashboard/workbench/index.vue'),
+      //   meta: {
+      //     title: t('routes.dashboard.workbench'),
+      //   },
+      // },
       {
-        path: 'workbench',
-        name: 'Workbench',
-        component: () => import('/@/views/dashboard/workbench/index.vue'),
+        path: 'home',
+        name: 'Home',
+        component: () => import('/@/views/dashboard/home/index.vue'),
         meta: {
-          title: t('routes.dashboard.workbench'),
-        },
-      },
-      {
-        path: 'analysis',
-        name: 'Analysis',
-        component: () => import('/@/views/dashboard/analysis/index.vue'),
-        meta: {
-          title: t('routes.dashboard.analysis'),
+          title: t('routes.dashboard.home'),
         },
       },
     ],

@@ -6,9 +6,9 @@ import { createFakeUserList } from './user';
 const dashboardRoute = {
   path: '/dashboard',
   name: 'Welcome',
-  component: '/dashboard/analysis/index',
+  component: '/dashboard/home/index',
   meta: {
-    title: 'routes.dashboard.analysis',
+    title: 'routes.dashboard.home',
     affix: true,
     icon: 'bx:bx-home',
   },

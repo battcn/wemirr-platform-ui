@@ -111,8 +111,8 @@ export const schemas: FormSchema[] = [
     defaultValue: false,
     componentProps: {
       options: [
-        { label: '否', value: false },
         { label: '是', value: true },
+        { label: '否', value: false },
       ],
     },
   },
