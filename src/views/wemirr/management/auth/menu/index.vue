@@ -155,6 +155,7 @@
         nodeRef.value = event.selectedNodes[0].props;
         crudBinding.value.actionbar.buttons.add.show = true;
         setFieldsValue({ ...event.selectedNodes[0].props });
+        expose.doRefresh();
       }
 
       function onTreeNodeCheck(keys, event) {

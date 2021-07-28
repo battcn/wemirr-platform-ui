@@ -112,9 +112,9 @@ export default function ({ expose, nodeRef }) {
         },
         orgId: {
           title: '组织',
-          column: { show: false },
+          column: { show: true },
           search: {
-            show: true,
+            show: false,
             labelCol: { span: null },
             component: { style: { width: '150px' } },
           },

@@ -59,8 +59,10 @@
           userRoleDetails: data.userRoleDetails,
           originTargetKeys: data.originTargetKeys,
         };
-        userRoleDetails.value = data.userRoleDetails;
-        targetKeys.value = data.originTargetKeys;
+        userRoleDetails.value = data.userRoleDetails?.map(item=>{
+          return {key:String(item.id),title:item.nickName,...item}
+        });
+        targetKeys.value = data.originTargetKeys?.map(key => key.toString())
       });
 
       const onChange = (nextTargetKeys) => {
