@@ -31,7 +31,7 @@
   </BasicModal>
 </template>
 
-<script lang="js">
+<script>
   import { difference } from 'lodash-es';
   import { defineComponent, ref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
@@ -59,10 +59,10 @@
           userRoleDetails: data.userRoleDetails,
           originTargetKeys: data.originTargetKeys,
         };
-        userRoleDetails.value = data.userRoleDetails?.map(item=>{
-          return {key:String(item.id),title:item.nickName,...item}
+        userRoleDetails.value = data.userRoleDetails?.map((item) => {
+          return { key: String(item.id), title: item.nickName, ...item };
         });
-        targetKeys.value = data.originTargetKeys?.map(key => key.toString())
+        targetKeys.value = data.originTargetKeys?.map((key) => key.toString());
       });
 
       const onChange = (nextTargetKeys) => {
