@@ -3,6 +3,7 @@ import 'ant-design-vue/dist/antd.less';
 
 import '/@/design/index.less';
 import '/@/design/tailwind.css';
+// Register icon sprite
 import 'virtual:svg-icons-register';
 import App from './App.vue';
 import { createApp } from 'vue';
@@ -37,13 +38,14 @@ async function bootstrap() {
 
   // Register global components
   registerGlobComp(app);
+
   // Multilingual configuration
   const i18n = await setupI18n(app);
+
   //----------- 安装fast-crud--------------
   setupFastCrud(app, i18n);
   app.use(Antd);
   //--------------------------------------
-
   // Configure routing
   setupRouter(app);
 

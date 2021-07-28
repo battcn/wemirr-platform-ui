@@ -54,7 +54,7 @@
       // 你的crud配置
       const { crudOptions } = createCrudOptions({ expose, nodeRef });
       // 初始化crud配置
-      const { resetCrudOptions } = useCrud({ expose, crudOptions });
+      useCrud({ expose, crudOptions });
 
       const [register, { getFieldsValue, setFieldsValue, resetFields, validate, setProps }] =
         useForm({
@@ -152,14 +152,11 @@
         if (!event.selected) {
           return;
         }
-        console.log('event', event);
         nodeRef.value = event.selectedNodes[0].props;
         crudBinding.value.actionbar.buttons.add.show = true;
-        setFieldsValue({
-          ...event.selectedNodes[0].props,
-        });
-        expose.doRefresh();
+        setFieldsValue({ ...event.selectedNodes[0].props });
       }
+
       function onTreeNodeCheck(keys, event) {
         console.log('keys event', keys, event);
         if (!event.checked) {
