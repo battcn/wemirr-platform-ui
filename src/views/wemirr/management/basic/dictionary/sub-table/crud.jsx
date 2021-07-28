@@ -90,6 +90,7 @@ export default function ({ expose, props, ctx }) {
               { value: false, label: '禁用', color: 'error' },
             ],
           }),
+          addForm: { value: true },
         },
         sequence: {
           title: '排序',

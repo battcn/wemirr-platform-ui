@@ -92,7 +92,7 @@ export default function ({ expose, asideTableRef }) {
           title: '字典信息',
           column: { show: false },
           type: ['text-area', 'colspan'],
-          // form: { show: false },
+          form: { show: false },
           viewForm: {
             show: true,
             // 嵌套表格字段

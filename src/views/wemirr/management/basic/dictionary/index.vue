@@ -31,9 +31,3 @@
     },
   });
 </script>
-<style lang="less">
-  .demo-nest {
-    height: 100%;
-    width: 100%;
-  }
-</style>
