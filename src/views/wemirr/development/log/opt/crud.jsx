@@ -1,15 +1,9 @@
-import { request } from '/src/api/service';
-import { compute } from '@fast-crud/fast-crud';
-import moment from "moment";
+import { GET } from '/src/api/service';
+// import { compute } from '@fast-crud/fast-crud';
+import moment from 'moment';
 
 export default function ({ expose }) {
-  const pageRequest = async (query) => {
-    return await request({
-      url: '/authority/opt_logs',
-      method: 'get',
-      params: query,
-    });
-  };
+  const pageRequest = async (query) => await GET('/authority/opt_logs', query);
   return {
     crudOptions: {
       request: {

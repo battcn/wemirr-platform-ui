@@ -1,34 +1,21 @@
-import * as api from './api';
 import moment from 'moment';
 import { dict } from '@fast-crud/fast-crud';
+import { GET, POST, PUT, DELETE } from '/src/api/service';
 export default function ({ expose, props, ctx }) {
-  console.log('props', props, ctx);
-  const pageRequest = async (query) => {
-    return await api.GetItemList({ ...query, id: props.modelValue });
-  };
-  const editRequest = async ({ form }) => {
-    return await api.UpdateItemObj(props.modelValue, form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelItemObj(props.modelValue, row.id);
-  };
-  const addRequest = async ({ form }) => {
-    console.log('form', form);
-    return await api.AddItemObj(props.modelValue, form);
-  };
-
+  console.log('expose,ctx', expose, ctx);
+  let dictionaryId = props.modelValue;
   return {
     crudOptions: {
-      // form: {
-      //   wrapper: {
-      //     is: 'a-modal',
-      //   },
-      // },
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query) => {
+          return await GET(`/authority/dictionaries/${dictionaryId ?? 0}/items`, query);
+        },
+        addRequest: async ({ form }) =>
+          await POST(`/authority/dictionaries/${dictionaryId}/items`, form),
+        editRequest: async ({ form }) =>
+          await PUT(`/authority/dictionaries/${dictionaryId}/items/${form.id}`, form),
+        delRequest: async ({ row }) =>
+          await DELETE(`/authority/dictionaries/${dictionaryId}/items/${row.id}`),
       },
       rowHandle: {
         width: 150,

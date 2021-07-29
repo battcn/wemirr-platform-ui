@@ -5,24 +5,13 @@ export default function ({ expose, nodeRef }) {
   const pageRequest = async (query) => {
     return await api.GetResourceList({ parentId: nodeRef.value.id, type: '2', size: query.size });
   };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
-  const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
-  };
   return {
     crudOptions: {
       request: {
         pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        addRequest: async ({ form }) => await api.AddObj(form),
+        editRequest: async ({ form }) => await api.UpdateObj(form),
+        delRequest: async ({ row }) => await api.DelObj(row.id),
       },
       rowHandle: {
         show: true,

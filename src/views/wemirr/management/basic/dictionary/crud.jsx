@@ -1,28 +1,17 @@
-import * as api from './api';
-import { ref, shallowRef } from 'vue';
+import { shallowRef } from 'vue';
 import SubTable from './sub-table/index.vue';
 import { dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
-export default function ({ expose, asideTableRef }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query);
-  };
-  const editRequest = async ({ form }) => {
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-  const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
-  };
+import { GET, POST, PUT, DELETE } from '/src/api/service';
+
+export default function () {
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query) => await GET(`/authority/dictionaries`, query),
+        addRequest: async ({ form }) => await POST(`/authority/dictionaries`, form),
+        editRequest: async ({ form }) => await PUT(`/authority/dictionaries/${form.id}`, form),
+        delRequest: async ({ row }) => await DELETE(`/authority/dictionaries/${row.id}`),
       },
       columns: {
         name: {

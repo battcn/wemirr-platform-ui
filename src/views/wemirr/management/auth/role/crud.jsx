@@ -1,32 +1,17 @@
-import * as api from './api';
 import { dict, compute } from '@fast-crud/fast-crud';
 import moment from 'moment';
 import { usePermission } from '/@/hooks/web/usePermission';
+import { GET, POST, PUT, DELETE } from '/src/api/service';
 
 export default function ({ expose, distribution }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query);
-  };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
-  const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
-  };
   const { hasPermission } = usePermission();
-  console.log('expose', expose);
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query) => await GET(`/authority/roles`, query),
+        addRequest: async ({ form }) => await POST(`/authority/roles`, form),
+        editRequest: async ({ form }) => await PUT(`/authority/roles/${form.id}`, form),
+        delRequest: async ({ row }) => await DELETE(`/authority/roles/${row.id}`),
       },
       table: {
         size: 'small',

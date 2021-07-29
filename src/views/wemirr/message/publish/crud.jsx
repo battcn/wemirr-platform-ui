@@ -4,31 +4,15 @@ import { compute, dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
 export default function ({ expose, searchRemote }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query);
-  };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
-  const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
-  };
-
   const { notification } = useMessage();
   const { fetchReceiver, searchState } = searchRemote;
-
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query) => await api.GetList(query),
+        addRequest: async ({ form }) => await api.AddObj(form),
+        editRequest: async ({ form }) => await api.UpdateObj(form),
+        delRequest: async ({ row }) => await api.DelObj(row.id),
       },
       toolbar: {},
       actionbar: {

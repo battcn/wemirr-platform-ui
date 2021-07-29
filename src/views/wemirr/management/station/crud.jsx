@@ -1,36 +1,26 @@
-import * as api from './api';
+import { GET, POST, PUT, DELETE } from '/src/api/service';
 import { dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
 export default function ({ expose, nodeRef }) {
-  const pageRequest = async (query) => {
-    query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
-    return await api.GetList(query);
-  };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
-  const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
-  };
-
-  console.log('expose', expose);
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query) => {
+          query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
+          return await GET(`/authority/stations`, query);
+        },
+        addRequest: async ({ form }) => {
+          return await POST(`/authority/stations`, form);
+        },
+        editRequest: async ({ form }) => {
+          return await PUT(`/authority/stations/${form.id}`, form);
+        },
+        delRequest: async ({ row }) => {
+          return await DELETE(`/authority/stations/${row.id}`);
+        },
       },
       toolbar: {
-        // toolbar.buttons.export.show:false 显示隐藏
-        // toolbar.compact:false 默认选择
         compact: true,
         buttons: { compact: { show: false } },
       },
@@ -40,6 +30,7 @@ export default function ({ expose, nodeRef }) {
         },
       },
       table: {
+        scroll: { fixed: true },
         size: 'small',
       },
       columns: {

@@ -1,42 +1,23 @@
-import * as api from './api';
-import { request } from '/src/api/service';
+import { GET, POST, PUT, DELETE } from '/src/api/service';
 import { dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
 export default function ({ expose }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query);
-  };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
-  const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
-  };
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query) => await GET(`/authority/users`, query),
+        addRequest: async ({ form }) => await POST(`/authority/users`, form),
+        editRequest: async ({ form }) => await PUT(`/authority/users/${form.id}`, form),
+        delRequest: async ({ row }) => await DELETE(`/authority/users/${row.id}`),
       },
-      rowHandle: {
-        fixed: 'right',
-      },
+      rowHandle: { fixed: 'right' },
       table: {
-        size: 'small',
         scroll: {
           //需要设置它，否则滚动条拖动时，表头不会动
           fixed: true,
           x: 1400,
         },
-        pagination: false,
       },
       columns: {
         id: {
@@ -201,7 +182,7 @@ export default function ({ expose }) {
               });
             },
             getData: (dict) => {
-              return request({ url: dict.dict.url }).then((ret) => {
+              return GET(dict.dict.url).then((ret) => {
                 return ret.data.records;
               });
             },

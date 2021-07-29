@@ -1,11 +1,7 @@
-import { request } from '/src/api/service';
+import { GET, request } from '/src/api/service';
 
 export function GetList(query) {
-  return request({
-    url: '/authority/stations',
-    method: 'get',
-    params: query,
-  });
+  return GET('/authority/stations', query);
 }
 
 export function AddObj(obj) {

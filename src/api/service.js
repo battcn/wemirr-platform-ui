@@ -118,5 +118,19 @@ function createRequestFunction(service) {
 // 用于真实网络请求的实例和请求方法
 export const service = createService();
 export const request = createRequestFunction(service);
-// export const baseURL = process.env.VUE_APP_API;
-// export const baseWsURL = process.env.VUE_APP_WS_API;
+
+export const GET = async (url, query) => {
+  return await request({ url: url, method: 'GET', params: query });
+};
+
+export const POST = async (url, obj) => {
+  return await request({ url: url, method: 'POST', data: obj });
+};
+
+export const PUT = async (url, obj) => {
+  return await request({ url: url, method: 'PUT', data: obj });
+};
+
+export const DELETE = async (url, obj) => {
+  return await request({ url: url, method: 'DELETE', data: obj });
+};

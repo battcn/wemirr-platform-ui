@@ -1,16 +1,9 @@
 import { ref } from 'vue';
-import * as api from './api';
 import { dict } from '@fast-crud/fast-crud';
-import moment from "moment";
+import moment from 'moment';
+import { GET, DELETE } from '/src/api/service';
 
 export default function ({ expose }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
   const selectedRowKeys = ref([]);
 
   const onSelectChange = (changed) => {
@@ -27,8 +20,8 @@ export default function ({ expose }) {
         },
       },
       request: {
-        pageRequest,
-        delRequest,
+        pageRequest: async (query) => await GET(`/authority/station_messages/my`, query),
+        delRequest: async ({ row }) => await DELETE(`/authority/station_messages/my/${row.id}`),
       },
       toolbar: {},
       actionbar: {

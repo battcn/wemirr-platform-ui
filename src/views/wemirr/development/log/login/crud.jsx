@@ -1,14 +1,8 @@
-import { request } from '/src/api/service';
+import { GET } from '/src/api/service';
 import moment from 'moment';
 
 export default function ({ expose }) {
-  const pageRequest = async (query) => {
-    return await request({
-      url: '/authority/login_logs',
-      method: 'get',
-      params: query,
-    });
-  };
+  const pageRequest = async (query) => await GET('/authority/login_logs', query);
   return {
     crudOptions: {
       request: {
