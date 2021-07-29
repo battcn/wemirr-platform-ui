@@ -7,8 +7,6 @@ export default function ({ expose }) {
       url: '/authority/login_logs',
       method: 'get',
       params: query,
-    }).then((ret) => {
-      return ret.data;
     });
   };
   return {

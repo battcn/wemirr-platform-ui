@@ -5,9 +5,7 @@ import { dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 export default function ({ expose, asideTableRef }) {
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetList(query);
   };
   const editRequest = async ({ form }) => {
     return await api.UpdateObj(form);

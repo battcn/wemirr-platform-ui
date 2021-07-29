@@ -70,19 +70,8 @@ export default function (app, i18n) {
               ...order,
             };
           },
-          // transformQuery: ({ page, form, sort }) => {
-          //   const order = sort == null ? {} : { column: sort.prop, asc: sort.asc };
-          //   const currentPage = page.currentPage ?? 1;
-          //   const limit = page.pageSize ?? 20;
-          //   const offset = limit * (currentPage - 1);
-          //   return {
-          //     page: { offset, limit, current: page.currentPage, size: page.pageSize },
-          //     query: form,
-          //     sort: order,
-          //   };
-          // },
           transformRes: ({ res }) => {
-            return { currentPage: res.current, pageSize: res.size, ...res };
+            return { currentPage: res.data.current, pageSize: res.data.size, ...res.data };
           },
         },
         form: {

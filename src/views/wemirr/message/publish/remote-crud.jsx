@@ -41,9 +41,7 @@ function useSearchRemote() {
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetList(query);
   };
   const editRequest = async ({ form, row }) => {
     form.id = row.id;

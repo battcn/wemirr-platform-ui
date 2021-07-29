@@ -1,13 +1,11 @@
 import * as api from './api';
 import { request } from '/src/api/service';
-import { dict, useCompute } from '@fast-crud/fast-crud';
+import { dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
-const { compute, asyncCompute } = useCompute();
+
 export default function ({ expose }) {
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetList(query);
   };
   const editRequest = async ({ form, row }) => {
     form.id = row.id;

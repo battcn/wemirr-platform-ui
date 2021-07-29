@@ -5,9 +5,7 @@ import moment from 'moment';
 export default function ({ expose, nodeRef }) {
   const pageRequest = async (query) => {
     query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetList(query);
   };
   const editRequest = async ({ form, row }) => {
     form.id = row.id;
@@ -112,7 +110,7 @@ export default function ({ expose, nodeRef }) {
         },
         orgId: {
           title: '组织',
-          column: { show: true },
+          column: { show: true, width: 200 },
           search: {
             show: false,
             labelCol: { span: null },

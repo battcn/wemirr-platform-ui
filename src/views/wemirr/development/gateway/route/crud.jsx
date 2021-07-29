@@ -6,9 +6,7 @@ import { useMessage } from '/@/hooks/web/useMessage';
 export default function ({ expose }) {
   console.log('router', expose);
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetList(query);
   };
   const editRequest = async ({ form, row }) => {
     form.id = row.id;

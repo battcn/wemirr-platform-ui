@@ -5,9 +5,7 @@ import moment from "moment";
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetList(query);
   };
   const delRequest = async ({ row }) => {
     return await api.DelObj(row.id);

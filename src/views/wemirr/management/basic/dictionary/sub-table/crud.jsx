@@ -4,9 +4,7 @@ import { dict } from '@fast-crud/fast-crud';
 export default function ({ expose, props, ctx }) {
   console.log('props', props, ctx);
   const pageRequest = async (query) => {
-    return await api.GetItemList({ ...query, id: props.modelValue }).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetItemList({ ...query, id: props.modelValue });
   };
   const editRequest = async ({ form }) => {
     return await api.UpdateItemObj(props.modelValue, form);

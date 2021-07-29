@@ -3,11 +3,7 @@ import { dict } from '@fast-crud/fast-crud';
 
 export default function ({ expose, nodeRef }) {
   const pageRequest = async (query) => {
-    return await api
-      .GetResourceList({ parentId: nodeRef.value.id, type: '2', size: query.size })
-      .then((ret) => {
-        return ret.data;
-      });
+    return await api.GetResourceList({ parentId: nodeRef.value.id, type: '2', size: query.size });
   };
   const editRequest = async ({ form, row }) => {
     form.id = row.id;

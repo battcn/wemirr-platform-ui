@@ -8,8 +8,6 @@ export default function ({ expose }) {
       url: '/authority/opt_logs',
       method: 'get',
       params: query,
-    }).then((ret) => {
-      return ret.data;
     });
   };
   return {
