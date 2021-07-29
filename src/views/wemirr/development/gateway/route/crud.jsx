@@ -167,7 +167,6 @@ export default function ({ expose }) {
         predicates: {
           title: '条件过滤',
           type: ['text', 'colspan'],
-          search: { show: true },
           column: { show: false },
         },
         filters: {
