@@ -90,14 +90,19 @@ export default function ({ expose, nodeRef }) {
           column: { width: 60, align: 'center' },
           search: { show: true },
           addForm: {
-            value: true,
+            value: 1,
           },
           dict: dict({
             data: [
-              { value: true, label: '启用', color: 'success' },
-              { value: false, label: '禁用', color: 'error' },
+              { value: 1, label: '启用', color: 'success' },
+              { value: 0, label: '禁用', color: 'error' },
             ],
           }),
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = value === true ? 1 : 0;
+            }
+          },
         },
         orgId: {
           title: '组织',

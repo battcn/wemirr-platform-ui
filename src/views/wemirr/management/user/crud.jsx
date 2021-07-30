@@ -1,5 +1,5 @@
 import { GET, POST, PUT, DELETE } from '/src/api/service';
-import { dict } from '@fast-crud/fast-crud';
+import { compute, dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
 export default function ({ expose }) {
@@ -100,13 +100,24 @@ export default function ({ expose }) {
             width: 100,
             align: 'center',
             filterable: true,
+            filterMultiple: false,
             filters: [
               { text: '男', value: 1 },
               { text: '女', value: 2 },
             ],
             onFilter: (value, record) => {
+              // expose.doRefresh();
+              // console.log('query', search);
               return record.sex === value;
             },
+            // component: {
+            //   onSearch: ({ form }) => {
+            //     return function (value) {
+            //       console.log('form', form);
+            //       // fetchReceiver(form.type, value);
+            //     };
+            //   },
+            // },
             sortDirections: ['descend'],
           },
           addForm: {

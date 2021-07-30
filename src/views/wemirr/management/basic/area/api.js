@@ -21,22 +21,20 @@ export function GetListTree(query) {
   });
 }
 
-export function AddObj(obj) {
+export function SaveOrUpdate(obj) {
   return request({
     url: '/authority/areas',
     method: 'post',
     data: obj,
   });
 }
-
-export function UpdateObj(obj) {
+export function BatchDelete(ids) {
   return request({
-    url: `/authority/areas/${obj.id}`,
-    method: 'put',
-    data: obj,
+    url: `/authority/areas`,
+    method: 'delete',
+    data: ids,
   });
 }
-
 export function DelObj(id) {
   return request({
     url: `/authority/areas/${id}`,

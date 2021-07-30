@@ -31,11 +31,16 @@ export default function () {
           column: { show: true, width: 100, align: 'center' },
           dict: dict({
             data: [
-              { value: true, label: '启用', color: 'success' },
-              { value: false, label: '禁用', color: 'error' },
+              { value: 1, label: '启用', color: 'success' },
+              { value: 0, label: '禁用', color: 'error' },
             ],
           }),
-          addForm: { value: true },
+          addForm: { value: 1 },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = value === true ? 1 : 0;
+            }
+          },
         },
         readonly: {
           title: '内置',

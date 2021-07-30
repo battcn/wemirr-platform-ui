@@ -60,6 +60,18 @@ export interface RoleListItem {
   createTime: string;
 }
 
+export interface AreaTreeItem {
+  id: number;
+  parentId: number;
+  level?: number;
+  longitude?: number;
+  latitude?: number;
+  name?: string;
+  source?: string;
+  sequence?: number;
+  children?: AreaTreeItem[];
+}
+
 /**
  * @description: Request list return value
  */
@@ -72,3 +84,5 @@ export type MenuListGetResultModel = BasicFetchResult<MenuListItem>;
 export type RolePageListGetResultModel = BasicFetchResult<RoleListItem>;
 
 export type RoleListGetResultModel = RoleListItem[];
+
+export type AreaTreeGetResultModel = BasicFetchResult<AreaTreeItem>;

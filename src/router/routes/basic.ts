@@ -18,7 +18,7 @@ export const ConstRouter: AppRouteRecordRaw[] = [
       // {
       //   path: 'workbench',
       //   name: 'Workbench',
-      //   component: () => import('/@/views/dashboard/workbench/index.vue'),
+      //   component: () => import('/@/views/dashboard/workbench/index_bak.vue'),
       //   meta: {
       //     title: t('routes.dashboard.workbench'),
       //   },

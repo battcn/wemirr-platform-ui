@@ -102,13 +102,18 @@ export default function ({ expose, distribution }) {
           type: 'dict-radio',
           search: { show: true },
           column: { width: 100, align: 'center' },
-          form: { disabled: true },
+          form: { disabled: 1 },
           dict: dict({
             data: [
-              { value: false, label: '启用', color: 'success' },
-              { value: true, label: '禁用', color: 'error' },
+              { value: 0, label: '启用', color: 'success' },
+              { value: 1, label: '禁用', color: 'error' },
             ],
           }),
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = value === true ? 1 : 0;
+            }
+          },
         },
         scopeType: {
           title: '权限范围',
