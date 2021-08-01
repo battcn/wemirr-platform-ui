@@ -61,9 +61,25 @@ export default function ({ expose }) {
         },
         status: {
           title: '应用状态',
-          type: 'dict-radio',
+          type: 'dict-switch',
           addForm: { value: true },
-          column: { width: 80, align: 'center' },
+          column: {
+            width: 80,
+            align: 'center',
+            component: {
+              // name: 'fs-dict-switch',
+              // vModel: 'checked',
+              change: (event) => {
+                console.log('text-change:', event);
+              },
+              click: (event) => {
+                console.log('text-change:', event);
+              },
+            },
+          },
+          click: (event) => {
+            console.log('text-change:', event);
+          },
           dict: dict({
             data: [
               { value: true, label: '启用', color: 'success' },
@@ -71,9 +87,6 @@ export default function ({ expose }) {
             ],
           }),
           form: {
-            component: {
-              radioName: 'a-radio-button',
-            },
             rules: [{ required: true, message: '应用状态不能为空' }],
           },
         },

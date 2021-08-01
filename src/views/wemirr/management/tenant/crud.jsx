@@ -86,25 +86,19 @@ export default function ({ expose }) {
               { value: 1, label: '企业', color: 'success' },
             ],
           }),
-          form: {
-            rules: [{ required: true, message: '请选择租户类型' }],
-          },
         },
         status: {
           title: '认证状态',
           search: { show: true },
           addForm: { value: 0 },
           column: { show: true, align: 'center', width: 80 }, // 表单配置
-          type: 'dict-radio',
+          type: ['dict-radio'],
           dict: dict({
             data: [
               { value: 0, label: '未认证', color: 'warning' },
               { value: 1, label: '已认证', color: 'success' },
             ],
           }),
-          form: {
-            rules: [{ required: true, message: '请选择认证状态' }],
-          },
         },
         locked: {
           title: '使用状态',
@@ -117,9 +111,6 @@ export default function ({ expose }) {
               { value: true, label: '禁用', color: 'error' },
             ],
           }),
-          form: {
-            rules: [{ required: true, message: '请选择使用状态' }],
-          },
         },
         email: {
           title: '邮箱',
@@ -289,7 +280,7 @@ export default function ({ expose }) {
           groups: {
             baseInfo: {
               header: '基本信息',
-              columns: ['name', 'alias', 'code', 'type', 'industry', 'status', 'locked'],
+              columns: ['name', 'alias', 'code', 'industry', 'type', 'status', 'locked'],
             },
             linkInfo: {
               header: '联系方式',
