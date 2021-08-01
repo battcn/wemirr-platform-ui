@@ -27,6 +27,7 @@ import { registerGlobComp } from '/@/components/registerGlobComp';
 import setupFastCrud from './setup-fast-crud';
 import './setup-fast-crud.less';
 
+
 async function bootstrap() {
   const app = createApp(App);
 
