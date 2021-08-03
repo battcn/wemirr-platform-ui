@@ -90,7 +90,7 @@ export default {
   },
   upload: {
     save: '保存',
-    upload: '上传',
+    upload: '文件上传',
     imgUpload: '图片上传',
     uploaded: '已上传',
 

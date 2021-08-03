@@ -18,6 +18,7 @@ export default function ({ expose }) {
         show: true,
         buttons: {
           add: {
+            show: false,
             icon: 'codicon:repo-force-push',
             text: '文件上传',
             async click(context) {

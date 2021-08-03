@@ -1,5 +1,13 @@
 <template>
   <fs-crud ref="crudRef" v-bind="crudBinding">
+    <template #actionbar-right>
+      <BasicUpload
+        :maxSize="20"
+        :maxNumber="10"
+        @change="handleChange"
+        :api="uploadApi"
+      />
+    </template>
     <template #cell_originName="scope">
       <a-tooltip placement="topLeft" :title="scope.row.originName">
         {{ scope.row.originName }}
@@ -27,10 +35,15 @@
   import { defineComponent, ref, onMounted } from 'vue';
   import createCrudOptions from './crud';
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
+  import { useMessage } from '/@/hooks/web/useMessage';
+  import { BasicUpload } from '/@/components/Upload';
+  import { uploadApi } from '/@/api/sys/upload';
 
   export default defineComponent({
     name: 'FileForm',
+    components: { BasicUpload },
     setup() {
+      const { notification } = useMessage();
       const crudRef = ref();
       const crudBinding = ref();
       const { expose } = useExpose({ crudRef, crudBinding });
@@ -39,7 +52,15 @@
       onMounted(() => {
         expose.doRefresh();
       });
+
+      function handleChange() {
+        notification.success({ message: '上传成功', duration: 2 });
+        expose.doRefresh();
+      }
+
       return {
+        handleChange,
+        uploadApi,
         crudBinding,
         crudRef,
       };
