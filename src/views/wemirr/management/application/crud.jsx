@@ -1,7 +1,9 @@
-import { dict, utils } from '@fast-crud/fast-crud';
+import { compute, dict, utils } from '@fast-crud/fast-crud';
 import { GET, DELETE, POST, PUT } from '/src/api/service';
+import { useMessage } from '/@/hooks/web/useMessage';
 
 export default function ({ expose }) {
+  const { notification, createConfirm } = useMessage();
   return {
     crudOptions: {
       request: {
@@ -67,18 +69,26 @@ export default function ({ expose }) {
             width: 80,
             align: 'center',
             component: {
-              // name: 'fs-dict-switch',
-              // vModel: 'checked',
-              change: (event) => {
-                console.log('text-change:', event);
-              },
-              click: (event) => {
-                console.log('text-change:', event);
-              },
+              name: 'fs-dict-switch',
+              vModel: 'checked',
+              onChange: compute((event) => {
+                // console.log('event', event);
+                // const row = event.row;
+                // createConfirm({
+                //   iconType: 'warning',
+                //   title: '提示',
+                //   content: `确定${row.status ? '启用' : '禁用'}吗`,
+                //   onOk: async () => {
+                //     await PUT(`/authority/applications/${row.clientId}/${row.status}`).then(() => {
+                //       notification.success({
+                //         message: row.status ? '启用成功' : '禁用',
+                //         duration: 2,
+                //       });
+                //     });
+                //   },
+                // });
+              }),
             },
-          },
-          click: (event) => {
-            console.log('text-change:', event);
           },
           dict: dict({
             data: [
