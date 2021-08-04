@@ -139,23 +139,17 @@ export default function (app, i18n) {
       },
     },
     qiniu: {
-      bucket: 'd2p-demo',
+      bucket: 'battcn',
       async getToken() {
-        // return  {token:xxx,expires:xxx}
-        return defHttp.request(
-          {
-            url: '/upload/qiniu/getToken',
-            method: 'get',
-          },
-          { apiUrl: 'http://www.docmirror.cn:7070/api' }
-        );
+        return defHttp.request({ url: '/tools/files/token', method: 'get' });
       },
       successHandle(ret) {
         // 上传完成后可以在此处处理结果，修改url什么的
         console.log('success handle:', ret);
         return ret;
       },
-      domain: 'http://d2p.file.veryreader.com',
+      // 不配置 domain 那么就自己在 valueBuilder 构建地址即可
+      domain: 'http://qiniu.battcn.com',
     },
     form: {
       action: 'http://www.docmirror.cn:7070/api/upload/form/upload',

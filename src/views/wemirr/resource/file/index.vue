@@ -4,6 +4,7 @@
       <BasicUpload
         :maxSize="20"
         :maxNumber="10"
+        okText="确定"
         @change="handleChange"
         :api="uploadApi"
       />
@@ -52,12 +53,10 @@
       onMounted(() => {
         expose.doRefresh();
       });
-
       function handleChange() {
         notification.success({ message: '上传成功', duration: 2 });
         expose.doRefresh();
       }
-
       return {
         handleChange,
         uploadApi,

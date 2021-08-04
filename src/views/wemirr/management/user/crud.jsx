@@ -143,7 +143,7 @@ export default function ({ expose }) {
           form: {
             component: {
               uploader: {
-                type: 'form', // 上传后端类型【cos,aliyun,oss,form】
+                type: 'qiniu', // 上传后端类型【cos,aliyun,oss,form】
                 buildUrl(res) {
                   return 'http://www.docmirror.cn:7070/' + res.url;
                 },

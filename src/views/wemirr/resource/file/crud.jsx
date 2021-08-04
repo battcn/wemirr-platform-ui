@@ -1,6 +1,6 @@
 import * as api from './api';
 import { useMessage } from '/@/hooks/web/useMessage';
-import { compute, dict } from '@fast-crud/fast-crud';
+// import { compute, dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
 export default function ({ expose }) {
