@@ -12,13 +12,7 @@ export default function ({ expose }) {
         delRequest: async ({ row }) => await DELETE(`/authority/users/${row.id}`),
       },
       rowHandle: { fixed: 'right' },
-      table: {
-        scroll: {
-          //需要设置它，否则滚动条拖动时，表头不会动
-          fixed: true,
-          x: 1400,
-        },
-      },
+      table: { scroll: { fixed: true } },
       columns: {
         id: {
           title: 'ID',
