@@ -149,7 +149,7 @@ export default function (app, i18n) {
         return ret;
       },
       // 不配置 domain 那么就自己在 valueBuilder 构建地址即可
-      domain: 'http://qiniu.battcn.com',
+      domain: 'https://qiniu.battcn.com',
     },
     form: {
       action: 'http://www.docmirror.cn:7070/api/upload/form/upload',
