@@ -177,6 +177,13 @@ export default function ({ expose }) {
                 return treeNode.props.title.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
+            valueChange({ form, value, getComponentRef }) {
+              form.stationId = undefined; // 将“stationId”的值置空
+              if (value) {
+                // 执行 stationId 的select组件的reloadDict()方法，触发“stationId”重新加载字典
+                getComponentRef('stationId').reloadDict();
+              }
+            },
           },
         },
         stationId: {
@@ -184,18 +191,25 @@ export default function ({ expose }) {
           type: 'dict-select',
           column: { width: 150 },
           dict: dict({
+            // cache: true,
+            prototype: true,
             value: 'id',
             label: 'name',
-            url: '/authority/stations',
-            onReady: ({ dict }) => {
-              dict.data.forEach((item) => {
-                item.color = 'warning';
-              });
+            url({ form }) {
+              if (form && form.orgId != null) {
+                // 本数据字典的url是通过前一个select的选项决定的
+                return `/authority/stations?status=1&orgId=${form.orgId}`;
+              }
+              return undefined;
             },
-            getData: (dict) => {
-              return GET(dict.dict.url).then((ret) => {
-                return ret.data.records;
-              });
+            getData: ({ form }) => {
+              if (form.orgId) {
+                return GET(`/authority/stations?status=1&orgId=${form.orgId}`).then((ret) => {
+                  return ret.data.records.map((item) => {
+                    return { color: 'warning', ...item };
+                  });
+                });
+              }
             },
           }),
           form: {
