@@ -130,16 +130,11 @@ export default function ({ expose }) {
         },
         area: {
           title: '地区',
-          column: {
-            show: false,
-            component: { name: 'fs-values-format' },
-          },
-          // type: 'dict-cascader',
-          // column: { show: false },
+          type: 'dict-cascader',
           // dict: dict({
           //   isTree: true,
-          //   url: '/authority/areas/0/children',
-          //   // url: '/authority/org/trees',
+          //   // url: '/authority/areas/0/children',
+          //   url: '/authority/org/trees',
           //   value: 'id',
           //   label: 'name',
           // }),
@@ -193,16 +188,19 @@ export default function ({ expose }) {
         provinceId: {
           title: '省',
           type: 'text',
+          form: { show: false },
           column: { ellipsis: true, show: false },
         },
         cityId: {
           title: '市',
           type: 'text',
+          form: { show: false },
           column: { ellipsis: true, show: false },
         },
         districtId: {
           title: '区',
           type: 'text',
+          form: { show: false },
           column: { ellipsis: true, show: false },
         },
         address: {
@@ -273,7 +271,6 @@ export default function ({ expose }) {
         },
       },
       form: {
-        display: 'flex',
         group: {
           type: 'collapse',
           accordion: false,
@@ -288,7 +285,7 @@ export default function ({ expose }) {
             },
             areaInfo: {
               header: '区域信息',
-              columns: ['provinceId', 'cityId', 'districtId', 'address'],
+              columns: ['area', 'address'],
             },
             otherInfo: {
               header: '其它信息',

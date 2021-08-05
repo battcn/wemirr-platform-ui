@@ -128,18 +128,13 @@ export default function ({ expose }) {
           title: '头像',
           type: 'cropper-uploader',
           style: { height: 70 },
-          column: { width: 70, align: 'center' },
-          valueBuilder({ value, row, key }) {
-            if (value != null && value.indexOf('http')) {
-              row[key] = 'http://www.docmirror.cn:7070' + value;
-            }
-          },
+          column: { width: 70, align: 'center', show: false },
           form: {
             component: {
               uploader: {
                 type: 'qiniu', // 上传后端类型【cos,aliyun,oss,form】
                 buildUrl(res) {
-                  return 'http://www.docmirror.cn:7070/' + res.url;
+                  return res.url;
                 },
               },
             },

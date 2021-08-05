@@ -16,7 +16,6 @@ export default function ({ expose }) {
       rowHandle: { fixed: 'right' },
       table: {
         rowKey: 'clientId',
-        // scroll: { fixed: true },
       },
       columns: {
         clientId: {
@@ -71,23 +70,24 @@ export default function ({ expose }) {
             component: {
               name: 'fs-dict-switch',
               vModel: 'checked',
-              onChange: compute((event) => {
-                // console.log('event', event);
-                // const row = event.row;
-                // createConfirm({
-                //   iconType: 'warning',
-                //   title: '提示',
-                //   content: `确定${row.status ? '启用' : '禁用'}吗`,
-                //   onOk: async () => {
-                //     await PUT(`/authority/applications/${row.clientId}/${row.status}`).then(() => {
-                //       notification.success({
-                //         message: row.status ? '启用成功' : '禁用',
-                //         duration: 2,
-                //       });
-                //     });
-                //   },
-                // });
-              }),
+            },
+            valueChange: ({ value, row, record }) => {
+              createConfirm({
+                iconType: 'warning',
+                title: '提示',
+                content: `确定${row.status ? '启用' : '禁用'}吗`,
+                onOk: () => {
+                  PUT(`/authority/applications/${row.clientId}/${row.status}`).then(() => {
+                    notification.success({
+                      message: row.status ? '启用成功' : '禁用成功',
+                      duration: 2,
+                    });
+                  });
+                },
+                onCancel: () => {
+                  record.status = !value;
+                },
+              });
             },
           },
           dict: dict({
