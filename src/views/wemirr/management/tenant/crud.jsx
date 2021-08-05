@@ -195,6 +195,13 @@ export default function ({ expose }) {
                   return await getAreaTree();
                 },
               }),
+              showSearch: {
+                filter: (inputValue, path) => {
+                  return path.some(
+                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+                  );
+                },
+              },
             },
           },
         },
@@ -229,7 +236,7 @@ export default function ({ expose }) {
           column: { ellipsis: true, show: false },
         },
         description: {
-          title: '消息内容',
+          title: '描述信息',
           type: ['textarea', 'colspan'],
           column: { ellipsis: true, show: false },
         },
