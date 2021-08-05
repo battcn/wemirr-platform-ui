@@ -181,7 +181,7 @@ export default function ({ expose }) {
           type: 'dict-select',
           column: { width: 150 },
           dict: dict({
-            // cache: true,
+            cache: true,
             prototype: true,
             value: 'id',
             label: 'name',
@@ -192,9 +192,9 @@ export default function ({ expose }) {
               }
               return undefined;
             },
-            getData: ({ form }) => {
+            getData: ({ form, url }) => {
               if (form.orgId) {
-                return GET(`/authority/stations?status=1&orgId=${form.orgId}`).then((ret) => {
+                return GET(url).then((ret) => {
                   return ret.data.records.map((item) => {
                     return { color: 'warning', ...item };
                   });
@@ -209,6 +209,7 @@ export default function ({ expose }) {
                 return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
+            helper: '选择组织后才可以选择岗位哟~~~',
           },
         },
         positionStatus: {
