@@ -131,13 +131,13 @@ export default function ({ expose }) {
         area: {
           title: '地区',
           type: 'dict-cascader',
-          // dict: dict({
-          //   isTree: true,
-          //   // url: '/authority/areas/0/children',
-          //   url: '/authority/org/trees',
-          //   value: 'id',
-          //   label: 'name',
-          // }),
+          dict: dict({
+            isTree: true,
+            // url: '/authority/areas/0/children',
+            url: '/authority/org/trees',
+            value: 'id',
+            label: 'name',
+          }),
           // dict: dict({
           //   url: `/authority/areas/0/children`,
           //   value: 'id',

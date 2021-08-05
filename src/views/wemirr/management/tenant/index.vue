@@ -5,7 +5,7 @@
         {{ scope.row.name }}
       </a-tooltip>
     </template>
-    <template #form_area="scope">
+<!--    <template #form_area="scope">
       <a-cascader
         v-model:value="scope.form.area"
         :options="areaTree"
@@ -13,7 +13,7 @@
         placeholder="请选择地址"
         change-on-select
       />
-    </template>
+    </template>-->
   </fs-crud>
 </template>
 

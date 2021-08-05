@@ -100,8 +100,6 @@ export default function ({ expose }) {
               { text: '女', value: 2 },
             ],
             onFilter: (value, record) => {
-              // expose.doRefresh();
-              // console.log('query', search);
               return record.sex === value;
             },
             // component: {
@@ -127,8 +125,11 @@ export default function ({ expose }) {
         avatar: {
           title: '头像',
           type: 'cropper-uploader',
-          style: { height: 70 },
-          column: { width: 70, align: 'center', show: false },
+          column: {
+            width: 70,
+            align: 'center',
+            show: false,
+          },
           form: {
             component: {
               uploader: {
