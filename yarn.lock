@@ -1136,12 +1136,12 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fast-crud/fast-crud@^0.17.1":
-  version "0.17.1"
-  resolved "https://registry.nlark.com/@fast-crud/fast-crud/download/@fast-crud/fast-crud-0.17.1.tgz#96b704acac36cb4a0a63d85f6442a0aceaeaebf3"
-  integrity sha1-lrcErKw2y0oKY9hfZEKgrOrq6/M=
+"@fast-crud/fast-crud@^0.17.2":
+  version "0.17.2"
+  resolved "https://registry.nlark.com/@fast-crud/fast-crud/download/@fast-crud/fast-crud-0.17.2.tgz#9a702af37bfcf4996efb68433f50a56f360531b2"
+  integrity sha1-mnAq83v89Jlu+2hDP1ClbzYFMbI=
   dependencies:
-    "@fast-crud/ui-interface" "^0.17.1"
+    "@fast-crud/ui-interface" "^0.17.2"
     dayjs "^1.10.4"
     deepdash-es "5.3.5"
     lodash-es "^4.17.15"
@@ -1149,10 +1149,10 @@
     vue "^3.1.4"
     vuedraggable "^4.0.3"
 
-"@fast-crud/fast-extends@^0.17.1":
+"@fast-crud/fast-extends@^0.17.2":
   version "0.17.1"
-  resolved "https://registry.nlark.com/@fast-crud/fast-extends/download/@fast-crud/fast-extends-0.17.1.tgz#a553d95c28e78867d7b3912668e9cfb7777a1695"
-  integrity sha1-pVPZXCjniGfXs5EmaOnPt3d6FpU=
+  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.17.1.tgz#a553d95c28e78867d7b3912668e9cfb7777a1695"
+  integrity sha512-ZIddUH3CCoAxINfu1xIxzwAS4nwmHschytbyoCL7122tKLKXuqdmX3Q6ta3hTNTNyVNFdwDao7TxvqlFh1kRJg==
   dependencies:
     ali-oss "^6.16.0"
     cos-js-sdk-v5 "^1.2.9"
@@ -1166,20 +1166,20 @@
     vue-cropperjs "^5.0.0"
     wangeditor "^4.7.5"
 
-"@fast-crud/ui-antdv@^0.17.1":
-  version "0.17.1"
-  resolved "https://registry.nlark.com/@fast-crud/ui-antdv/download/@fast-crud/ui-antdv-0.17.1.tgz#0914193d20c5d1c205d24deea202084efb53bd68"
-  integrity sha1-CRQZPSDF0cIF0k3uogIITvtTvWg=
+"@fast-crud/ui-antdv@^0.17.2":
+  version "0.17.2"
+  resolved "https://registry.nlark.com/@fast-crud/ui-antdv/download/@fast-crud/ui-antdv-0.17.2.tgz#19b3d2f44abd8bfe4048c979d779663501eaaa30"
+  integrity sha1-GbPS9Eq9i/5ASMl513lmNQHqqjA=
   dependencies:
     "@ant-design/icons-vue" "^6.0.1"
-    "@fast-crud/ui-interface" "^0.17.1"
+    "@fast-crud/ui-interface" "^0.17.2"
     ant-design-vue "^2.2.2"
     vue "^3.1.4"
 
-"@fast-crud/ui-interface@^0.17.1":
-  version "0.17.1"
-  resolved "https://registry.nlark.com/@fast-crud/ui-interface/download/@fast-crud/ui-interface-0.17.1.tgz#be2f74f316f0a2b4c4c2b34916e10ebbbf8a90df"
-  integrity sha1-vi908xbworTEwrNJFuEOu7+KkN8=
+"@fast-crud/ui-interface@^0.17.2":
+  version "0.17.2"
+  resolved "https://registry.nlark.com/@fast-crud/ui-interface/download/@fast-crud/ui-interface-0.17.2.tgz#5be84ea66d6ea3f13e1e526e6e828ed638293dc7"
+  integrity sha1-W+hOpm1uo/E+HlJuboKO1jgpPcc=
   dependencies:
     vue "^3.1.4"
 

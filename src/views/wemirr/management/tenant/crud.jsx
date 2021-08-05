@@ -1,13 +1,21 @@
-import { compute, dict, utils } from '@fast-crud/fast-crud';
+import { compute, dict, utils, asyncCompute } from '@fast-crud/fast-crud';
 import moment from 'moment';
-import { ref } from 'vue';
 import { GET, DELETE, POST, PUT } from '/src/api/service';
+
+import { getAreaTree } from '/@/api/sys/area';
 
 export default function ({ expose }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/tenants`, query),
+        pageRequest: async (query) => {
+          if (query.area) {
+            query.provinceId = query?.area[0];
+            query.cityId = query?.area[1];
+            query.districtId = query?.area[2];
+          }
+          return await GET(`/authority/tenants`, query);
+        },
         addRequest: async ({ form }) => await POST(`/authority/tenants`, form),
         editRequest: async ({ form }) => await PUT(`/authority/tenants/${form.id}`, form),
         delRequest: async ({ row }) => await DELETE(`/authority/tenants/${row.id}`),
@@ -129,102 +137,66 @@ export default function ({ expose }) {
             url: '/authority/dictionaries/INDUSTRY/list',
           }),
         },
+        // 目的是为了用户体验更好,打开弹窗和进入页面更快速
+        areaText: {
+          title: '地区',
+          column: { width: 200 },
+          form: { show: false },
+          type: 'text',
+          valueBuilder({ row, key }) {
+            if (!utils.strings.hasEmpty(row.provinceName)) {
+              row[key] = row.provinceName;
+            }
+            if (!utils.strings.hasEmpty(row.cityName)) {
+              row[key] = row.provinceName + ' / ' + row.cityName;
+            }
+            if (!utils.strings.hasEmpty(row.districtName)) {
+              row[key] = row.provinceName + ' / ' + row.cityName + ' / ' + row.districtName;
+            }
+          },
+        },
         area: {
           title: '地区',
-          column: { show: false },
+          column: { width: 200, show: false },
+          search: { show: true },
           type: 'dict-cascader',
-          // valueBuilder({ row, key }) {
-          //   if (!utils.strings.hasEmpty(row.provinceId)) {
-          //     row[key] = [row.provinceId, row.cityId, row.districtId];
-          //   }
-          // },
-          // valueResolve({ form, key }) {
-          //   const row = form;
-          //   if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
-          //     row.provinceId = row[key][0];
-          //     row.cityId = row[key][1];
-          //     row.districtId = row[key][2];
-          //   } else {
-          //     row.provinceId = null;
-          //     row.cityId = null;
-          //     row.districtId = null;
-          //   }
-          // },
-
-          // 字典问题
+          valueBuilder({ row, key }) {
+            if (!utils.strings.hasEmpty(row.provinceId)) {
+              row[key] = [row.provinceId, row.cityId, row.districtId];
+            }
+          },
+          valueResolve({ form, key }) {
+            const row = form;
+            if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
+              row.provinceId = row[key][0];
+              row.cityId = row[key][1];
+              row.districtId = row[key][2];
+            } else {
+              row.provinceId = null;
+              row.cityId = null;
+              row.districtId = null;
+            }
+          },
           // dict: dict({
+          //   cache: true,
           //   isTree: true,
-          //   // url: '/authority/areas/0/children',
-          //   url: '/authority/org/trees',
+          //   url: '/authority/areas/trees',
           //   value: 'id',
           //   label: 'name',
           // }),
-
-          // 懒加载问题
-          dict: dict({
-            url: `/authority/areas/0/children`,
-            value: 'id',
-            label: 'name',
-            isTree: true,
-            getNodes(values) {
-              console.log('values', values);
-              if (values == null) {
-                return [];
-              }
-              return GET(`/authority/areas/${values}/children`);
-            },
-          }),
           form: {
             component: {
-              vModel: 'value',
-              options: ref([
-                {
-                  value: 110000,
-                  label: '北京',
-                  isLeaf: false,
-                },
-                {
-                  value: 120000,
-                  label: '天津',
-                  isLeaf: false,
-                },
-              ]),
-              loadData: async (selectedOptions) => {
-                console.log('lazyLoad', selectedOptions);
-                const targetOption = selectedOptions[selectedOptions.length - 1];
-                console.log('targetOption', targetOption);
-                targetOption.loading = true;
-                const ret = await GET(`/authority/areas/${targetOption.value}/children`);
-                // .then((ret) => {});
-                console.log('ret=>>>', ret);
-                targetOption.loading = false;
-                targetOption.children = ret.data.map((item) => {
-                  return { value: item.id, label: item.name, isLeaf: false };
-                });
-                console.log('targetOption.children', targetOption.children);
-                // options.value = [...options.value];
-              },
               changeOnSelect: true,
+              placeholder: '请选择地址',
+              vModel: 'value',
+              // 这种异步方式比用 dict 打开页面要快，体验要好点 但是存在的问题就是 column 没值
+              options: asyncCompute({
+                asyncFn: async () => {
+                  return await getAreaTree();
+                },
+              }),
             },
           },
-        },
-        provinceId: {
-          title: '省',
-          type: 'text',
-          form: { show: false },
-          column: { ellipsis: true, show: false },
-        },
-        cityId: {
-          title: '市',
-          type: 'text',
-          form: { show: false },
-          column: { ellipsis: true, show: false },
-        },
-        districtId: {
-          title: '区',
-          type: 'text',
-          form: { show: false },
-          column: { ellipsis: true, show: false },
         },
         address: {
           title: '地址',

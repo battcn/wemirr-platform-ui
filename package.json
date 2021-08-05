@@ -35,9 +35,9 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
-    "@fast-crud/fast-crud": "^0.17.1",
+    "@fast-crud/fast-crud": "^0.17.2",
     "@fast-crud/fast-extends": "^0.17.1",
-    "@fast-crud/ui-antdv": "^0.17.1",
+    "@fast-crud/ui-antdv": "^0.17.2",
     "@iconify/iconify": "^2.0.3",
     "@logicflow/core": "^0.5.0",
     "@logicflow/extension": "^0.5.0",
