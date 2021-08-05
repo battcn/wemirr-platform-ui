@@ -1,5 +1,6 @@
-import { compute, dict } from '@fast-crud/fast-crud';
+import { compute, dict, utils } from '@fast-crud/fast-crud';
 import moment from 'moment';
+import { ref } from 'vue';
 import { GET, DELETE, POST, PUT } from '/src/api/service';
 
 export default function ({ expose }) {
@@ -130,60 +131,82 @@ export default function ({ expose }) {
         },
         area: {
           title: '地区',
+          column: { show: false },
           type: 'dict-cascader',
-          dict: dict({
-            isTree: true,
-            // url: '/authority/areas/0/children',
-            url: '/authority/org/trees',
-            value: 'id',
-            label: 'name',
-          }),
+          // valueBuilder({ row, key }) {
+          //   if (!utils.strings.hasEmpty(row.provinceId)) {
+          //     row[key] = [row.provinceId, row.cityId, row.districtId];
+          //   }
+          // },
+          // valueResolve({ form, key }) {
+          //   const row = form;
+          //   if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
+          //     row.provinceId = row[key][0];
+          //     row.cityId = row[key][1];
+          //     row.districtId = row[key][2];
+          //   } else {
+          //     row.provinceId = null;
+          //     row.cityId = null;
+          //     row.districtId = null;
+          //   }
+          // },
+
+          // 字典问题
           // dict: dict({
-          //   url: `/authority/areas/0/children`,
+          //   isTree: true,
+          //   // url: '/authority/areas/0/children',
+          //   url: '/authority/org/trees',
           //   value: 'id',
           //   label: 'name',
-          //   isTree: true,
-          //   getNodes(values) {
-          //     console.log('values', values);
-          //     if (values == null) {
-          //       return [];
-          //     }
-          //     return GET(`/authority/areas/${values}/children`);
-          //   },
           // }),
-          // form: {
-          //   component: {
-          //     vModel: 'value',
-          //     options: ref([
-          //       {
-          //         value: 110000,
-          //         label: '北京',
-          //         isLeaf: false,
-          //       },
-          //       {
-          //         value: 120000,
-          //         label: '天津',
-          //         isLeaf: false,
-          //       },
-          //     ]),
-          //     loadData: async (selectedOptions) => {
-          //       console.log('lazyLoad', selectedOptions);
-          //       const targetOption = selectedOptions[selectedOptions.length - 1];
-          //       console.log('targetOption', targetOption);
-          //       targetOption.loading = true;
-          //       const ret = await GET(`/authority/areas/${targetOption.value}/children`);
-          //       // .then((ret) => {});
-          //       console.log('ret=>>>', ret);
-          //       targetOption.loading = false;
-          //       targetOption.children = ret.data.map((item) => {
-          //         return { value: item.id, label: item.name, isLeaf: false };
-          //       });
-          //       console.log('targetOption.children', targetOption.children);
-          //       options.value = [...options.value];
-          //     },
-          //     changeOnSelect: true,
-          //   },
-          // },
+
+          // 懒加载问题
+          dict: dict({
+            url: `/authority/areas/0/children`,
+            value: 'id',
+            label: 'name',
+            isTree: true,
+            getNodes(values) {
+              console.log('values', values);
+              if (values == null) {
+                return [];
+              }
+              return GET(`/authority/areas/${values}/children`);
+            },
+          }),
+          form: {
+            component: {
+              vModel: 'value',
+              options: ref([
+                {
+                  value: 110000,
+                  label: '北京',
+                  isLeaf: false,
+                },
+                {
+                  value: 120000,
+                  label: '天津',
+                  isLeaf: false,
+                },
+              ]),
+              loadData: async (selectedOptions) => {
+                console.log('lazyLoad', selectedOptions);
+                const targetOption = selectedOptions[selectedOptions.length - 1];
+                console.log('targetOption', targetOption);
+                targetOption.loading = true;
+                const ret = await GET(`/authority/areas/${targetOption.value}/children`);
+                // .then((ret) => {});
+                console.log('ret=>>>', ret);
+                targetOption.loading = false;
+                targetOption.children = ret.data.map((item) => {
+                  return { value: item.id, label: item.name, isLeaf: false };
+                });
+                console.log('targetOption.children', targetOption.children);
+                // options.value = [...options.value];
+              },
+              changeOnSelect: true,
+            },
+          },
         },
         provinceId: {
           title: '省',
