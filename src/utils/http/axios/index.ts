@@ -46,7 +46,6 @@ const transform: AxiosTransform = {
       // return '[HTTP] Request has no return value';
       throw new Error(t('sys.api.apiRequestFailed'));
     }
-    console.log('请求日志 =>', data);
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     const { code, message } = data;
 
@@ -62,6 +61,7 @@ const transform: AxiosTransform = {
     switch (code) {
       case ResultEnum.TIMEOUT:
         timeoutMsg = t('sys.api.timeoutMessage');
+        break;
       default:
         if (message) {
           timeoutMsg = message;
@@ -91,6 +91,8 @@ const transform: AxiosTransform = {
       config.url = `${apiUrl}${config.url}`;
     }
     const params = config.params || {};
+    const data = config.data || false;
+    formatDate && data && !isString(data) && formatRequestDate(data);
     if (config.method?.toUpperCase() === RequestEnum.GET) {
       if (!isString(params)) {
         // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
@@ -103,10 +105,19 @@ const transform: AxiosTransform = {
     } else {
       if (!isString(params)) {
         formatDate && formatRequestDate(params);
-        config.data = params;
-        config.params = undefined;
+        if (Reflect.has(config, 'data') && config.data && Object.keys(config.data).length > 0) {
+          config.data = data;
+          config.params = params;
+        } else {
+          // 非GET请求如果没有提供data，则将params视为data
+          config.data = params;
+          config.params = undefined;
+        }
         if (joinParamsToUrl) {
-          config.url = setObjToUrlParams(config.url as string, config.data);
+          config.url = setObjToUrlParams(
+            config.url as string,
+            Object.assign({}, config.params, config.data)
+          );
         }
       } else {
         // 兼容restful风格
@@ -123,8 +134,8 @@ const transform: AxiosTransform = {
   requestInterceptors: (config, options) => {
     // 请求之前处理config
     const token = getToken();
-    if (token) {
-      // token
+    if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
+      // jwt token
       options.authenticationScheme = 'Bearer';
       config.headers.Authorization = options.authenticationScheme
         ? `${options.authenticationScheme} ${token}`
@@ -152,7 +163,6 @@ const transform: AxiosTransform = {
     const msg: string = response?.data?.message ?? '';
     const err: string = error?.toString?.() ?? '';
     let errMessage = '';
-
     try {
       if (code === 'ECONNABORTED' && message.indexOf('timeout') !== -1) {
         errMessage = t('sys.api.apiTimeoutMessage');
@@ -172,8 +182,7 @@ const transform: AxiosTransform = {
     } catch (error) {
       throw new Error(error);
     }
-    // console.log('response', response?.data?.error?.message);
-    // console.log('response?.data?.error?.message', response?.data?.message);
+
     checkStatus(error?.response?.status, msg, errorMessageMode);
     return Promise.reject(error);
   },
@@ -217,6 +226,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           joinTime: true,
           // 忽略重复请求
           ignoreCancelToken: true,
+          // 是否携带token
+          withToken: true,
         },
       },
       opt || {}

@@ -4,9 +4,7 @@ import moment from 'moment';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetList(query);
   };
   const editRequest = async ({ form, row }) => {
     form.id = row.id;
@@ -34,23 +32,6 @@ export default function ({ expose }) {
           form: { show: false },
           column: { show: false },
         },
-        type: {
-          title: '类型',
-          type: 'dict-select',
-          search: { show: true },
-          dict: dict({
-            data: [
-              { label: '秒', value: 1, color: 'success' },
-              { label: '分', value: 2, color: 'success' },
-              { label: '时', value: 3, color: 'success' },
-              { label: '天', value: 4, color: 'success' },
-            ],
-          }),
-          form: {
-            value: 1,
-            rules: [{ required: true, message: '限流类型不能为空' }],
-          },
-        },
         range: {
           title: '范围',
           type: 'dict-select',
@@ -61,8 +42,10 @@ export default function ({ expose }) {
               { label: 'IP', value: 1, color: 'success' },
             ],
           }),
-          form: {
+          addForm: {
             value: 0,
+          },
+          form: {
             rules: [{ required: true, message: '限流类型不能为空' }],
             helper: '全局表示所有IP访问,IP表示每隔间断访问',
           },
@@ -71,8 +54,8 @@ export default function ({ expose }) {
           title: '数量',
           type: 'number',
           column: { show: true },
+          addForm: { value: 10 },
           form: {
-            value: 10,
             component: {
               min: 10,
               max: 9999999,
@@ -183,6 +166,11 @@ export default function ({ expose }) {
           title: '创建时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

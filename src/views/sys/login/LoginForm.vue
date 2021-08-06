@@ -89,8 +89,6 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive, ref, toRaw, unref, computed, onMounted } from 'vue';
-  // import { computed, defineComponent, onMounted, reactive, ref, toRaw, unref } from 'vue';
-
   import { useGlobSetting } from '/@/hooks/setting';
 
   import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
@@ -156,8 +154,9 @@
       const formState = reactive({
         loading: false,
         captchaSrc: '',
-        isMultiTenant: globSetting.multiTenantType !== 'NONE',
-        showCaptcha: globSetting.showCaptcha === undefined || globSetting.showCaptcha === 'true',
+        showCaptcha: true,
+        // isMultiTenant: globSetting.multiTenantType !== 'NONE',
+        // showCaptcha: globSetting.showCaptcha === undefined || globSetting.showCaptcha === 'true',
       });
       const { validForm } = useFormValid(formRef);
 
@@ -175,12 +174,13 @@
           loading.value = true;
           const userInfo = await userStore.login(
             toRaw({
-              username: 'admin',
-              password: '123456',
+              username: data.account,
+              password: data.password,
               grant_type: 'password',
               client_id: 'client',
               client_secret: 'client',
               scope: 'server',
+              tenant_code: '8888',
               auth_type: 'vc',
               vc_code: data.code,
               vc_token: formData.key,
@@ -196,11 +196,14 @@
             });
           }
         } catch (error) {
+          console.log('error', error);
           createErrorModal({
             title: t('sys.api.errorTip'),
-            content: error.message || t('sys.api.networkExceptionMsg'),
+            content:
+              error.response?.data.message || error.message || t('sys.api.networkExceptionMsg'),
             getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
           });
+          await loadCaptcha();
         } finally {
           loading.value = false;
         }

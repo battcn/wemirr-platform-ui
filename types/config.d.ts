@@ -146,10 +146,6 @@ export interface GlobConfig {
   urlPrefix?: string;
   // Project abbreviation
   shortName: string;
-  clientId: string;
-  clientSecret: string;
-  multiTenantType?: string;
-  showCaptcha?: stirng;
 }
 export interface GlobEnvConfig {
   // Site title

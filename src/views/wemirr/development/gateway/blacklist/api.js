@@ -7,7 +7,13 @@ export function GetList(query) {
     params: query,
   });
 }
-
+export function SaveOrUpdate(obj) {
+  return request({
+    url: '/gateway/rules/blacklist',
+    method: 'post',
+    data: obj,
+  });
+}
 export function AddObj(obj) {
   return request({
     url: '/gateway/rules/blacklist',

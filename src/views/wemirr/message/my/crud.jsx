@@ -1,20 +1,27 @@
-import * as api from './api';
+import { ref } from 'vue';
 import { dict } from '@fast-crud/fast-crud';
+import moment from 'moment';
+import { GET, DELETE } from '/src/api/service';
 
 export default function ({ expose }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+  const selectedRowKeys = ref([]);
+
+  const onSelectChange = (changed) => {
+    selectedRowKeys.value = changed;
   };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
+
   return {
+    selectedRowKeys,
     crudOptions: {
+      table: {
+        rowSelection: {
+          selectedRowKeys: selectedRowKeys,
+          onChange: onSelectChange,
+        },
+      },
       request: {
-        pageRequest,
-        delRequest,
+        pageRequest: async (query) => await GET(`/authority/station_messages/my`, query),
+        delRequest: async ({ row }) => await DELETE(`/authority/station_messages/my/${row.id}`),
       },
       toolbar: {},
       actionbar: {
@@ -65,7 +72,7 @@ export default function ({ expose }) {
         },
         content: {
           title: '消息内容',
-          type: 'editor-quill',
+          type: 'editor-wang',
           column: {
             ellipsis: true,
           },
@@ -79,6 +86,11 @@ export default function ({ expose }) {
           title: '通知时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

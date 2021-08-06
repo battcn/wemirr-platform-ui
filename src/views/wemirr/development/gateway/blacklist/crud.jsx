@@ -1,24 +1,81 @@
+import _ from 'lodash-es';
 import * as api from './api';
-import { compute, dict, utils } from '@fast-crud/fast-crud';
+import { dict, utils } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
-export default function ({ expose }) {
+export default function ({ expose, localDataRef }) {
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
+    //总数据
+    let data = localDataRef.value;
+    let current = query.current;
+    let offset = query.offset;
+    let size = query.size;
+    data = data.filter((item) => {
+      if (query.status && item.status !== query.status) {
+        return false;
+      }
+      if (query.ip && item.ip.indexOf(query.ip) === -1) {
+        return false;
+      }
+      if (query.method && item.method.indexOf(query.method) === -1) {
+        return false;
+      }
+      if (query.path && item.path.indexOf(query.path) === -1) {
+        return false;
+      }
+      return true;
     });
+
+    // 本地分页
+    const start = offset;
+    let end = offset + size;
+    if (data.length < end) {
+      end = data.length;
+    }
+    const records = data.slice(start, end);
+
+    // 构造返回结果
+    return {
+      current,
+      offset,
+      size,
+      total: localDataRef.value.length,
+      records,
+    };
   };
   const editRequest = async ({ form, row }) => {
     form.id = row.id;
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
+    await api.UpdateObj(form);
+    //更新本地数据
+    const tableData = localDataRef.value;
+    for (const item of tableData) {
+      if (item.id === form.id) {
+        _.merge(item, form);
+      }
+    }
   };
 
   const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
+    const id = await api.AddObj(form);
+    //本地添加
+    form.id = id;
+    localDataRef.value.unshift(form);
+    return id;
   };
+
+  const delRequest = async ({ row }) => {
+    await api.DelObj(row.id);
+    //本地删除那一条记录
+    const tableData = localDataRef.value;
+    let index = 0;
+    for (const item of tableData) {
+      if (item.id === row.id) {
+        localDataRef.value.splice(index, 1);
+      }
+      index++;
+    }
+  };
+
   return {
     crudOptions: {
       request: {
@@ -55,12 +112,23 @@ export default function ({ expose }) {
         path: {
           title: '路径',
           type: 'text',
+          search: { show: true },
           form: {
-            helper:
-              '（1）? 匹配一个字符（除过操作系统默认的文件分隔符）' +
-              '（2）* 匹配0个或多个字符' +
-              '（3）**匹配0个或多个目录' +
-              '（4）{spring:[a-z]+} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring 的路径变量.(PS:必须是完全匹配才行,在SpringMVC中只有完全匹配才会进入controller层的方法)',
+            helper: {
+              render() {
+                return (
+                  <ul>
+                    <li>（1）? 匹配一个字符（除过操作系统默认的文件分隔符）</li>
+                    <li>（2）* 匹配0个或多个字符 </li>
+                    <li>（3）**匹配0个或多个目录 </li>
+                    <li>
+                      （4）{'{spring:[a-z]+}'} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring
+                      的路径变量
+                    </li>
+                  </ul>
+                );
+              },
+            },
           },
           column: {
             ellipsis: true,
@@ -69,6 +137,7 @@ export default function ({ expose }) {
         method: {
           title: '方法',
           type: 'dict-select',
+          search: { show: true },
           dict: dict({
             data: [
               { label: 'ALL', value: 'ALL', color: 'success' },
@@ -79,8 +148,10 @@ export default function ({ expose }) {
               { label: 'PATCH', value: 'PATCH', color: 'success' },
             ],
           }),
-          form: {
+          addForm: {
             value: 'ALL',
+          },
+          form: {
             rules: [{ required: true, message: '请选择拦截方法' }],
           },
         },
@@ -120,6 +191,11 @@ export default function ({ expose }) {
           title: '创建时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

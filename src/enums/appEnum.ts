@@ -31,8 +31,10 @@ export enum SessionTimeoutProcessingEnum {
 export enum PermissionModeEnum {
   // role
   ROLE = 'ROLE',
-  // blacklist
+  // black
   BACK = 'BACK',
+  // route mapping
+  ROUTE_MAPPING = 'ROUTE_MAPPING',
 }
 
 //  Route switching animation

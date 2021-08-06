@@ -1,46 +1,18 @@
-import * as api from './api';
-import { request } from '/src/api/service';
-import { dict, useCompute } from '@fast-crud/fast-crud';
-const { compute, asyncCompute } = useCompute();
+import { GET, POST, PUT, DELETE } from '/src/api/service';
+import { compute, dict } from '@fast-crud/fast-crud';
+import moment from 'moment';
+
 export default function ({ expose }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
-  };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
-  const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
-  };
-
-  console.log('expose', expose);
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query) => await GET(`/authority/users`, query),
+        addRequest: async ({ form }) => await POST(`/authority/users`, form),
+        editRequest: async ({ form }) => await PUT(`/authority/users/${form.id}`, form),
+        delRequest: async ({ row }) => await DELETE(`/authority/users/${row.id}`),
       },
-      rowHandle: {
-        fixed: 'right',
-      },
-      table: {
-        size: 'small',
-        scroll: {
-          //需要设置它，否则滚动条拖动时，表头不会动
-          fixed: true,
-          x: 1400,
-        },
-        pagination: false,
-      },
+      rowHandle: { fixed: 'right' },
+      table: { scroll: { fixed: true } },
       columns: {
         id: {
           title: 'ID',
@@ -80,7 +52,7 @@ export default function ({ expose }) {
         nickName: {
           title: '昵称',
           type: 'text',
-          column: { width: 155 },
+          column: { width: 155, ellipsis: true },
           search: { show: true, fixed: 'left' },
           form: {
             rules: [
@@ -92,6 +64,7 @@ export default function ({ expose }) {
         mobile: {
           title: '手机号',
           type: 'text',
+          search: { show: true },
           column: { width: 155, align: 'center' },
           form: {
             rules: [
@@ -107,7 +80,12 @@ export default function ({ expose }) {
           dict: dict({
             url: '/authority/dictionaries/sex/list',
           }),
-          form: {
+          viewForm: {
+            valueBuilder(context) {
+              context.form.sex = context.row.sex.toString();
+            },
+          },
+          editForm: {
             valueBuilder(context) {
               context.form.sex = context.row.sex.toString();
             },
@@ -116,6 +94,7 @@ export default function ({ expose }) {
             width: 100,
             align: 'center',
             filterable: true,
+            filterMultiple: false,
             filters: [
               { text: '男', value: 1 },
               { text: '女', value: 2 },
@@ -123,6 +102,14 @@ export default function ({ expose }) {
             onFilter: (value, record) => {
               return record.sex === value;
             },
+            // component: {
+            //   onSearch: ({ form }) => {
+            //     return function (value) {
+            //       console.log('form', form);
+            //       // fetchReceiver(form.type, value);
+            //     };
+            //   },
+            // },
             sortDirections: ['descend'],
           },
           addForm: {
@@ -131,31 +118,46 @@ export default function ({ expose }) {
         },
         email: {
           title: '邮箱',
-          type: 'email',
+          type: 'text',
+          search: { show: true },
           column: { width: 180 },
         },
         avatar: {
           title: '头像',
-          type: 'image-uploader',
-          style: { height: 70 },
-          column: { width: 70, align: 'center' },
+          type: 'cropper-uploader',
+          column: {
+            width: 70,
+            align: 'center',
+            show: false,
+          },
+          form: {
+            component: {
+              uploader: {
+                type: 'qiniu', // 上传后端类型【cos,aliyun,oss,form】
+                buildUrl(res) {
+                  return res.url;
+                },
+              },
+            },
+          },
         },
         orgId: {
           title: '组织',
           search: { show: true, component: { style: { width: '150px' } } },
           type: 'dict-tree',
-          column: { width: 90 },
+          column: {
+            width: 180,
+            component: {
+              style: {
+                color: 'red',
+              },
+            },
+          },
           dict: dict({
             isTree: true,
             url: '/authority/org/trees',
             value: 'id',
             label: 'name',
-            onReady: ({ dict }) => {
-              dict.data.forEach((item) => {
-                item.color =
-                  item.id % 2 === 0 ? 'warning' : item.id % 3 === 0 ? 'success' : 'error';
-              });
-            },
           }),
           form: {
             component: {
@@ -165,26 +167,39 @@ export default function ({ expose }) {
                 return treeNode.props.title.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
+            valueChange({ form, value, getComponentRef }) {
+              form.stationId = undefined; // 将“stationId”的值置空
+              if (value) {
+                // 执行 stationId 的select组件的reloadDict()方法，触发“stationId”重新加载字典
+                getComponentRef('stationId').reloadDict();
+              }
+            },
           },
         },
         stationId: {
           title: '岗位',
           type: 'dict-select',
-          column: { width: 90 },
+          column: { width: 150 },
           dict: dict({
+            cache: true,
+            prototype: true,
             value: 'id',
             label: 'name',
-            url: '/authority/stations',
-            onReady: ({ dict }) => {
-              dict.data.forEach((item) => {
-                item.color =
-                  item.id % 5 === 0 ? 'success' : item.id % 3 === 0 ? 'warning' : 'error';
-              });
+            url({ form }) {
+              if (form && form.orgId != null) {
+                // 本数据字典的url是通过前一个select的选项决定的
+                return `/authority/stations?status=1&orgId=${form.orgId}`;
+              }
+              return undefined;
             },
-            getData: (dict) => {
-              return request({ url: dict.dict.url }).then((ret) => {
-                return ret.data.records;
-              });
+            getData: ({ form, url }) => {
+              if (form.orgId) {
+                return GET(url).then((ret) => {
+                  return ret.data.records.map((item) => {
+                    return { color: 'warning', ...item };
+                  });
+                });
+              }
             },
           }),
           form: {
@@ -194,6 +209,7 @@ export default function ({ expose }) {
                 return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
+            helper: '选择组织后才可以选择岗位哟~~~',
           },
         },
         positionStatus: {
@@ -249,6 +265,11 @@ export default function ({ expose }) {
           },
           editForm: {
             show: false,
+          },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
           },
         },
       },

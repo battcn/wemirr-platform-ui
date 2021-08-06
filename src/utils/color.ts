@@ -128,7 +128,7 @@ function contrast(rgb1: string[], rgb2: number[]) {
 }
 
 /**
- * Determines what the best text color is (blacklist or white) based con the contrast with the background
+ * Determines what the best text color is (black or white) based con the contrast with the background
  * @param hexColor - Last selected color by the user
  */
 export function calculateBestTextColor(hexColor: string) {

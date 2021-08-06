@@ -12,6 +12,11 @@
           title="组织架构"
         />
       </template>
+      <template #cell_description="scope">
+        <a-tooltip placement="top" :title="scope.row.description">
+          {{ scope.row.description }}
+        </a-tooltip>
+      </template>
     </fs-crud>
     <distribution-user @register="registerBindUser" />
     <distribution-resource @register="registerBindResource" />
@@ -34,7 +39,7 @@
 
     function userModal(roleId) {
       api.GetUserByRoleId(roleId).then((ret) => {
-        openBindUser(true, ret.data);
+        openBindUser(true, { roleId, ...ret.data });
       });
     }
     const [registerBindUser, { openModal: openBindUser }] = useModal();
@@ -70,7 +75,7 @@
       // 你的crud配置
       const { crudOptions } = createCrudOptions({ expose, distribution });
       // 初始化crud配置
-      useCrud({ expose, crudOptions });
+      useCrud({ expose, crudOptions, permission: 'role:management' });
 
       const treeData = ref([]);
       function initOrgList() {

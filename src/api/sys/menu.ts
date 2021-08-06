@@ -4,20 +4,15 @@ import { GetPermissionListModel } from './model/roleModel';
 
 enum Api {
   GetMenuList = '/authority/resources/router',
-  GetPermissionList = '/authority/resources/router',
 }
 
 /**
  * @description: Get user menu based on id
  */
 
-export const getMenuList = (all?: boolean) => {
-  return defHttp.get<getMenuListResultModel>({
-    url: Api.GetMenuList,
-    params: { all: all },
-  });
+export const getMenuList = () => {
+  return defHttp.get<getMenuListResultModel>({ url: Api.GetMenuList });
 };
-
 export const GetPermissionList = (roleId: number) => {
   return defHttp.get<GetPermissionListModel>({
     url: `/authority/roles/${roleId}/resources/permissions`,

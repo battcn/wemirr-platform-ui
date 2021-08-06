@@ -3,6 +3,7 @@ import { request } from '/src/api/service';
 import { compute, dict } from '@fast-crud/fast-crud';
 import { ref } from 'vue';
 import _ from 'lodash-es';
+import moment from "moment";
 
 function useSearchRemote() {
   let lastFetchId = 0;
@@ -40,9 +41,7 @@ function useSearchRemote() {
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
+    return await api.GetList(query);
   };
   const editRequest = async ({ form, row }) => {
     form.id = row.id;
@@ -137,7 +136,7 @@ export default function ({ expose }) {
         },
         content: {
           title: '消息内容',
-          type: 'editor-quill',
+          type: 'editor-wang',
           column: {
             ellipsis: true,
           },
@@ -163,6 +162,11 @@ export default function ({ expose }) {
           title: '通知时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

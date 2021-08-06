@@ -55,11 +55,14 @@
 
       const [register, { closeModal }] = useModalInner((data) => {
         modelRef.value = {
+          roleId: data.roleId,
           userRoleDetails: data.userRoleDetails,
           originTargetKeys: data.originTargetKeys,
         };
-        userRoleDetails.value = data.userRoleDetails;
-        targetKeys.value = data.originTargetKeys;
+        userRoleDetails.value = data.userRoleDetails?.map((item) => {
+          return { key: String(item.id), title: item.nickName, ...item };
+        });
+        targetKeys.value = data.originTargetKeys?.map((key) => key.toString());
       });
 
       const onChange = (nextTargetKeys) => {
@@ -82,10 +85,7 @@
         };
       };
       async function handleSubmit() {
-        api.DistributionUser({ roleId: 1, userIdList: targetKeys.value });
-        // console.log('leftColumns', leftColumns.value);
-        // console.log('rightColumns', rightColumns.value);
-        // console.log('targetKeys', targetKeys.value);
+        api.DistributionUser({ roleId: modelRef.value.roleId, userIdList: targetKeys.value });
         closeModal();
       }
 

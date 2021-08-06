@@ -1,9 +1,10 @@
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.less';
+
 import '/@/design/index.less';
 import '/@/design/tailwind.css';
-
 // Register icon sprite
 import 'virtual:svg-icons-register';
-
 import App from './App.vue';
 import { createApp } from 'vue';
 import { initAppConfigStore } from '/@/logics/initAppConfig';
@@ -19,15 +20,13 @@ import { registerGlobComp } from '/@/components/registerGlobComp';
 // In the local development for introduce on-demand, the number of browser requests will increase by about 20%.
 // Which may slow down the browser refresh.
 // Therefore, all are introduced in local development, and only introduced on demand in the production environment
-if (import.meta.env.DEV) {
-  import('ant-design-vue/dist/antd.less');
-}
+// if (import.meta.env.DEV) {
+//   import('ant-design-vue/dist/antd.less');
+// }
 
-import Antd from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.css';
 import setupFastCrud from './setup-fast-crud';
 import './setup-fast-crud.less';
-import 'default-passive-events';
+
 
 async function bootstrap() {
   const app = createApp(App);
@@ -35,7 +34,7 @@ async function bootstrap() {
   // Configure store
   setupStore(app);
 
-  // Initialize internal wemirr configuration
+  // Initialize internal system configuration
   initAppConfigStore();
 
   // Register global components
@@ -48,12 +47,11 @@ async function bootstrap() {
   setupFastCrud(app, i18n);
   app.use(Antd);
   //--------------------------------------
-
   // Configure routing
   setupRouter(app);
 
   // router-guard
-  setupRouterGuard();
+  setupRouterGuard(router);
 
   // Register global directive
   setupGlobDirectives(app);

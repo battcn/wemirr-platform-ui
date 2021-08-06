@@ -28,16 +28,17 @@
   import { ListItem, TabItem } from './data';
   import NoticeList from './NoticeList.vue';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  // import { useMessage } from '/@/hooks/web/useMessage';
   import { useWebSocket } from '@vueuse/core';
   import { formatToDateTime } from '/@/utils/dateUtil';
+  import { getUserInfo } from '/@/utils/auth';
   import * as api from './api';
 
   export default defineComponent({
     components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
     setup() {
       const { prefixCls } = useDesign('header-notify');
-      const { createMessage } = useMessage();
+      // const { createMessage } = useMessage();
 
       const tabListData: TabItem[] = [
         {
@@ -56,8 +57,12 @@
           list: [],
         },
       ];
+
+      const userInfo = getUserInfo();
       const state = reactive({
-        server: 'ws://localhost:9000/authority/message/1',
+        server: import.meta.env.DEV
+          ? `ws://localhost:9000/authority/message/${userInfo.userId}`
+          : `wss://cloud.battcn.com/api/authority/message/${userInfo.userId}`,
         sendValue: '',
         recordList: [] as ListItem[],
         tabListData: tabListData,
@@ -92,8 +97,8 @@
 
       const count = computed(() => {
         let count = 0;
-        for (let i = 0; i < tabListData.length; i++) {
-          count += tabListData[i].list.length;
+        for (let i = 0; i < state.tabListData.length; i++) {
+          count += state.tabListData[i].list.length;
         }
         return count;
       });

@@ -63,3 +63,8 @@ yarn serve
 ```bash
 yarn build
 ```
+
+## 更新日志
+
+[CHANGELOG](./CHANGELOG.zh_CN.md)
+

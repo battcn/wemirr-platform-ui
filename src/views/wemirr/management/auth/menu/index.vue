@@ -1,41 +1,37 @@
 <template>
-  <PageWrapper>
-    <a-row class="row-res">
-      <a-col :span="5">
-        <a-card :bordered="false" style="min-height: 800px">
-          <BasicTree
-            search
-            checkable
-            checkStrictly
-            @check="onTreeNodeCheck"
-            ref="permissionTreeRef"
-            :treeData="permissionTreeData"
-            :replaceFields="{ key: 'id', title: 'name' }"
-            @select="handleSelect"
-          />
-        </a-card>
-      </a-col>
-      <a-col :span="9">
-        <a-card title="资源信息" :bordered="false" style="margin-left: 10px; min-height: 800px">
-          <BasicForm @register="register" class="bg-white m-10 overflow-hidden" />
-        </a-card>
-      </a-col>
-      <a-col :span="10">
-        <a-card title="资源信息" :bordered="false" style="margin-left: 10px; min-height: 800px">
-          <fs-crud ref="crudRef" v-bind="crudBinding" />
-        </a-card>
-      </a-col>
-    </a-row>
+  <PageWrapper contentClass="flex">
+    <a-card :bordered="false" class="w-1/3 menu">
+      <a-button color="success" @click="resetFields">新增根节点</a-button>
+      <BasicTree
+        search
+        checkStrictly
+        @check="onTreeNodeCheck"
+        ref="treeRef"
+        :treeData="treeData"
+        :replaceFields="{ key: 'id', title: 'name' }"
+        @select="handleSelect"
+        :actionList="actionList"
+      />
+    </a-card>
+    <a-card title="菜单信息" :bordered="false" class="w-1/2 menu" style="margin-left: 10px">
+      <BasicForm @register="register" />
+    </a-card>
+    <a-card :bordered="false" title="资源信息" class="w-1/2 menu-button-table">
+      <fs-crud ref="crudRef" v-bind="crudBinding" />
+    </a-card>
   </PageWrapper>
 </template>
-<script lang="ts">
-  import { defineComponent, onMounted, ref, unref } from 'vue';
+
+<script>
+  import { defineComponent, onMounted, ref, unref, h } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form';
-  import { BasicTree, TreeActionType } from '/@/components/Tree';
+  import { BasicTree } from '/@/components/Tree/index';
   import { PageWrapper } from '/@/components/Page';
   import { getMenuList } from '/@/api/sys/menu';
-  // import { useMessage } from '/@/hooks/web/useMessage';
+  import { useMessage } from '/@/hooks/web/useMessage';
   import { schemas } from './data';
+  import * as api from './api';
+  import { PlusOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 
   import createCrudOptions from './crud';
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
@@ -44,8 +40,10 @@
     name: 'AccountManagement',
     components: { BasicForm, BasicTree, PageWrapper },
     setup() {
-      const permissionTreeRef = ref<Nullable<TreeActionType>>(null);
-      const permissionTreeData = ref();
+      const { notification, createConfirm } = useMessage();
+      const actionList = ref([]);
+      const treeRef = ref({});
+      const treeData = ref();
       const nodeRef = ref();
       // crud组件的ref
       const crudRef = ref();
@@ -56,70 +54,110 @@
       // 你的crud配置
       const { crudOptions } = createCrudOptions({ expose, nodeRef });
       // 初始化crud配置
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-      const { resetCrudOptions } = useCrud({ expose, crudOptions });
+      useCrud({ expose, crudOptions });
 
-      const [register, { setFieldsValue, validate, setProps }] = useForm({
-        labelCol: {
-          span: 4,
-        },
-        wrapperCol: {
-          span: 19,
-        },
-        schemas: schemas,
-        actionColOptions: {
-          offset: 20,
-        },
-        showResetButton: false,
-        submitButtonOptions: {
-          text: '提交',
-        },
-        submitFunc: customSubmitFunc,
-      });
+      const [register, { getFieldsValue, setFieldsValue, resetFields, validate, setProps }] =
+        useForm({
+          labelCol: {
+            span: 4,
+          },
+          wrapperCol: {
+            span: 19,
+          },
+          schemas: schemas,
+          actionColOptions: {
+            offset: 20,
+          },
+          showResetButton: false,
+          submitButtonOptions: {
+            text: '提交',
+          },
+          submitFunc: customSubmitFunc,
+        });
 
       async function customSubmitFunc() {
         try {
           await validate();
-          await setProps({
-            submitButtonOptions: {
-              loading: true,
-            },
+          await setProps({ submitButtonOptions: { loading: true } });
+          await api.SaveOrUpdate(getFieldsValue()).then(() => {
+            notification.success({ message: '操作成功', duration: 3 });
+            setProps({ submitButtonOptions: { loading: false } });
+            resetFields();
+            loadMenu();
           });
-          setTimeout(() => {
-            setProps({
-              submitButtonOptions: {
-                loading: false,
-              },
-            });
-            // createMessage.success('提交成功！');
-          }, 2000);
-        } catch (error) {}
+        } catch (error) {
+          setProps({ submitButtonOptions: { loading: false } });
+        }
       }
 
       onMounted(() => {
-        getMenuList();
-        // expose.doRefresh({ test: '1000' });
+        loadMenu();
       });
 
-      getMenuList().then((ret) => {
-        permissionTreeData.value = ret;
-        setTimeout(() => {
-          getTree().filterByLevel(2);
-        }, 0);
-      });
+      function handlePlus(node) {
+        resetFields();
+        setFieldsValue({ parentId: node.id });
+      }
+      function handleDelete(node) {
+        createConfirm({
+          iconType: 'warning',
+          title: '确认',
+          content: `确定删除 ${node.label} ？ 同时会级联删除子节点以及相关资源数据`,
+          onOk: async () => {
+            await api.DelObj(node.id).then((ret) => {
+              notification.success({
+                message: '删除成功',
+                duration: 3,
+              });
+              loadMenu();
+            });
+          },
+        });
+      }
+
+      function loadMenu() {
+        getMenuList().then((ret) => {
+          treeData.value = ret;
+          setTimeout(() => {
+            getTree().filterByLevel(2);
+            actionList.value = [
+              {
+                render: (node) => {
+                  return h(PlusOutlined, {
+                    class: 'ml-2',
+                    onClick: (e) => {
+                      handlePlus(node);
+                      e.stopPropagation();
+                    },
+                  });
+                },
+              },
+              {
+                render: (node) => {
+                  return h(DeleteOutlined, {
+                    class: 'ml-2',
+                    onClick: (e) => {
+                      handleDelete(node);
+                      e.stopPropagation();
+                    },
+                  });
+                },
+              },
+            ];
+          }, 0);
+        });
+      }
 
       function handleSelect(checkedKeys, event) {
         if (!event.selected) {
           return;
         }
         nodeRef.value = event.selectedNodes[0].props;
-        console.log('checkedKeys event', checkedKeys, event.selectedNodes[0].props);
         crudBinding.value.actionbar.buttons.add.show = true;
-        setFieldsValue({
-          ...event.selectedNodes[0].props,
-        });
+        setFieldsValue({ ...event.selectedNodes[0].props });
         expose.doRefresh();
       }
+
       function onTreeNodeCheck(keys, event) {
         console.log('keys event', keys, event);
         if (!event.checked) {
@@ -128,37 +166,43 @@
       }
 
       function getTree() {
-        const tree = unref(permissionTreeRef);
+        const tree = unref(treeRef);
         if (!tree) {
           throw new Error('tree is null!');
         }
         return tree;
       }
+
       return {
         nodeRef,
         crudBinding,
         crudRef,
         register,
-        permissionTreeData,
-        permissionTreeRef,
+        treeData,
+        treeRef,
+        actionList,
+        resetFields,
         handleSelect,
         onTreeNodeCheck,
+        handlePlus,
       };
     },
   });
 </script>
 
 <style lang="less">
-  .row-res {
-    height: 100%;
-    width: 100%;
+  .menu {
+    .ant-card-body {
+      padding: 10px;
+    }
   }
-  .ant-card {
-    .fs-crud-container {
-      .box {
-        margin-left: -20px;
-        margin-top: -20px;
-      }
+  .menu-button-table {
+    margin-left: 10px;
+    .fs-container {
+      padding-right: 5px;
+    }
+    .ant-card-body {
+      padding: 10px;
     }
   }
 </style>

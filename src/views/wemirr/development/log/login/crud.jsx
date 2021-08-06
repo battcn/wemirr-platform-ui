@@ -1,15 +1,8 @@
-import { request } from '/src/api/service';
+import { GET } from '/src/api/service';
+import moment from 'moment';
 
 export default function ({ expose }) {
-  const pageRequest = async (query) => {
-    return await request({
-      url: '/authority/login_logs',
-      method: 'get',
-      params: query,
-    }).then((ret) => {
-      return ret.data;
-    });
-  };
+  const pageRequest = async (query) => await GET('/authority/login_logs', query);
   return {
     crudOptions: {
       request: {
@@ -77,7 +70,7 @@ export default function ({ expose }) {
         os: {
           title: '操作系统',
           type: 'text',
-          column: { width: 100 },
+          column: { width: 100, ellipsis: true },
         },
         engine: {
           title: '引擎类型',
@@ -102,6 +95,11 @@ export default function ({ expose }) {
         createdTime: {
           title: '创建时间',
           type: 'datetime',
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
       form: {

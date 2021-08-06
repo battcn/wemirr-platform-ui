@@ -1,10 +1,14 @@
 <template>
   <PageWrapper>
-    <template #headerContent>
-      <WorkbenchHeader />
-    </template>
+    <template #headerContent> <WorkbenchHeader /> </template>
     <div class="lg:flex">
       <div class="lg:w-7/10 w-full !mr-4 enter-y">
+        <ProjectCard :loading="loading" class="enter-y" />
+        <DynamicInfo :loading="loading" class="!my-4 enter-y" />
+      </div>
+      <div class="lg:w-3/10 w-full enter-y">
+        <QuickNav :loading="loading" class="enter-y" />
+
         <Card class="!my-4 enter-y" :loading="loading">
           <img
             style="height: 216px"
@@ -12,11 +16,7 @@
             src="../../../assets/svg/illustration.svg"
           />
         </Card>
-        <QuickNav :loading="loading" class="enter-y" />
-        <!--        <ProjectCard :loading="loading" class="enter-y" />
-                <DynamicInfo :loading="loading" class="!my-4 enter-y" />-->
-      </div>
-      <div class="lg:w-3/10 w-full enter-y">
+
         <SaleRadar :loading="loading" class="enter-y" />
       </div>
     </div>
@@ -28,18 +28,18 @@
   import { Card } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
   import WorkbenchHeader from './components/WorkbenchHeader.vue';
-  // import ProjectCard from './components/ProjectCard.vue';
+  import ProjectCard from './components/ProjectCard.vue';
   import QuickNav from './components/QuickNav.vue';
-  // import DynamicInfo from './components/DynamicInfo.vue';
+  import DynamicInfo from './components/DynamicInfo.vue';
   import SaleRadar from './components/SaleRadar.vue';
 
   export default defineComponent({
     components: {
       PageWrapper,
       WorkbenchHeader,
-      /*ProjectCard, //项目*/
+      ProjectCard,
       QuickNav,
-      /*DynamicInfo,//最新动态*/
+      DynamicInfo,
       SaleRadar,
       Card,
     },

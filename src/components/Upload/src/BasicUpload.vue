@@ -1,7 +1,8 @@
 <template>
   <div>
     <a-button-group>
-      <a-button type="primary" @click="openUploadModal" preIcon="carbon:cloud-upload">
+      <a-button type="primary" @click="openUploadModal">
+        <icon icon="carbon:cloud-upload" />
         {{ t('component.upload.upload') }}
       </a-button>
       <Tooltip placement="bottom" v-if="showPreview">
@@ -11,12 +12,6 @@
             {{ fileList.length }}
           </template>
         </template>
-        <a-button @click="openPreviewModal">
-          <Icon icon="bi:eye" />
-          <template v-if="fileList.length && showPreviewNumber">
-            {{ fileList.length }}
-          </template>
-        </a-button>
       </Tooltip>
     </a-button-group>
 
@@ -32,6 +27,7 @@
       :value="fileList"
       @register="registerPreviewModal"
       @list-change="handlePreviewChange"
+      @delete="handlePreviewDelete"
     />
   </div>
 </template>
@@ -45,12 +41,13 @@
   import { uploadContainerProps } from './props';
   import { omit } from 'lodash-es';
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { isArray } from '/@/utils/is';
 
   export default defineComponent({
     name: 'BasicUpload',
     components: { UploadModal, UploadPreviewModal, Icon, Tooltip },
     props: uploadContainerProps,
-    emits: ['change', 'delete'],
+    emits: ['change', 'delete', 'preview-delete', 'update:value'],
 
     setup(props, { emit, attrs }) {
       const { t } = useI18n();
@@ -76,7 +73,7 @@
       watch(
         () => props.value,
         (value = []) => {
-          fileList.value = value;
+          fileList.value = isArray(value) ? value : [];
         },
         { immediate: true }
       );
@@ -84,17 +81,23 @@
       // 上传modal保存操作
       function handleChange(urls: string[]) {
         fileList.value = [...unref(fileList), ...(urls || [])];
+        emit('update:value', fileList.value);
         emit('change', fileList.value);
       }
 
       // 预览modal保存操作
       function handlePreviewChange(urls: string[]) {
         fileList.value = [...(urls || [])];
+        emit('update:value', fileList.value);
         emit('change', fileList.value);
       }
 
       function handleDelete(record: Recordable) {
         emit('delete', record);
+      }
+
+      function handlePreviewDelete(url: string) {
+        emit('preview-delete', url);
       }
 
       return {
@@ -108,6 +111,7 @@
         showPreview,
         bindValue,
         handleDelete,
+        handlePreviewDelete,
         t,
       };
     },

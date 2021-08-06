@@ -221,8 +221,6 @@ export class VAxios {
           resolve(res as unknown as Promise<T>);
         })
         .catch((e: Error) => {
-          console.log(e);
-          // debugger;
           if (requestCatchHook && isFunction(requestCatchHook)) {
             reject(requestCatchHook(e, opt));
             return;

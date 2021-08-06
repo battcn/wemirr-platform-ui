@@ -1,37 +1,29 @@
 import * as api from './api';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { compute, dict } from '@fast-crud/fast-crud';
+import moment from 'moment';
 
 export default function ({ expose, searchRemote }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query).then((ret) => {
-      return ret.data;
-    });
-  };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.UpdateObj(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
-  const addRequest = async ({ form }) => {
-    return await api.AddObj(form);
-  };
-
   const { notification } = useMessage();
   const { fetchReceiver, searchState } = searchRemote;
-
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query) => await api.GetList(query),
+        addRequest: async ({ form }) => await api.AddObj(form),
+        editRequest: async ({ form }) => await api.UpdateObj(form),
+        delRequest: async ({ row }) => await api.DelObj(row.id),
       },
       toolbar: {},
+      actionbar: {
+        show: true,
+        buttons: {
+          add: {
+            icon: 'codicon:repo-force-push',
+            text: '发布消息',
+          },
+        },
+      },
       rowHandle: {
         width: 220,
         buttons: {
@@ -40,6 +32,7 @@ export default function ({ expose, searchRemote }) {
             type: 'link',
             text: null,
             size: 'small',
+            title: '通知',
             order: 4,
             async click(context) {
               console.log(context);
@@ -100,10 +93,10 @@ export default function ({ expose, searchRemote }) {
           column: { show: false },
           form: {
             component: {
-              mode: 'multiple',
               name: 'a-select',
               vModel: 'value',
               filterOption: false,
+              mode: 'multiple',
               showSearch: true,
               allowClear: true,
               placeholder: '请输入搜索内容',
@@ -112,7 +105,6 @@ export default function ({ expose, searchRemote }) {
                 if (!form.type) {
                   return '暂无记录';
                 }
-                console.log('form', form.type);
                 return function (value) {
                   fetchReceiver(form.type, value);
                 };
@@ -130,22 +122,34 @@ export default function ({ expose, searchRemote }) {
         },
         content: {
           title: '消息内容',
-          type: 'editor-quill',
+          type: ['editor-wang', 'colspan'],
           column: {
             ellipsis: true,
           },
+          viewForm: {
+            disabled: true,
+          },
           form: {
-            col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 21 },
+            component: {
+              // disabled: true,
+              uploader: {
+                type: 'form', // 上传后端类型【cos,aliyun,oss,form】
+                buildUrl(res) {
+                  return 'http://www.docmirror.cn:7070' + res.url;
+                },
+              },
+              on: {
+                'text-change': (event) => {
+                  console.log('text-change:', event);
+                },
+              },
+            },
           },
         },
         description: {
           title: '描述信息',
           type: 'textarea',
-          column: {
-            ellipsis: true,
-          },
+          column: { ellipsis: true },
           form: {
             col: { span: 24 },
             labelCol: { span: 2 },
@@ -162,6 +166,11 @@ export default function ({ expose, searchRemote }) {
           title: '通知时间',
           type: 'datetime',
           form: { show: false },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = moment(value);
+            }
+          },
         },
       },
     },

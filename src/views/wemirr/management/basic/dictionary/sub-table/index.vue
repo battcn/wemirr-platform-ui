@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>{{ modelValue }}</div>
+    <div style="margin-top: 6px">{{ modelValue }}</div>
     <div style="height: 400px">
       <fs-crud ref="crudRef" v-bind="crudBinding" />
     </div>
