@@ -3,6 +3,7 @@ import { get } from 'lodash-es';
 import { getToken } from '/@/utils/auth';
 import { errorLog, errorCreate } from './tools';
 import { useGlobSetting } from '../hooks/setting';
+import {getUserInfo} from "../utils/auth";
 const globSetting = useGlobSetting();
 /**
  * @description 创建请求实例
@@ -95,10 +96,12 @@ function createService() {
 function createRequestFunction(service) {
   return function (config) {
     const token = getToken();
+    const userInfo = getUserInfo();
     let headers = {};
     if (token !== null && token !== undefined) {
       headers = {
         Authorization: 'Bearer ' + token,
+        tenant_code: userInfo?.tenantCode,
       };
     }
     const configDefault = {

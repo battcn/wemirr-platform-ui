@@ -5,27 +5,6 @@
         {{ scope.row.name }}
       </a-tooltip>
     </template>
-    <!--    <template #search_area="scope">
-      <a-cascader
-        :disabled="scope.mode === 'view'"
-        v-model:value="scope.form.area"
-        :options="areaTree"
-        :show-search="{ filter }"
-        placeholder="请选择地址"
-        change-on-select
-      />
-    </template>-->
-    <!--
-      <template #form_area="scope">
-        <a-cascader
-          :disabled="scope.mode === 'view'"
-          v-model:value="scope.form.area"
-          :options="areaTree"
-          :show-search="{ filter }"
-          placeholder="请选择地址"
-          change-on-select
-        />
-      </template>-->
   </fs-crud>
 </template>
 
@@ -35,7 +14,7 @@
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
 
   export default defineComponent({
-    name: 'TenantForm',
+    name: 'DatabaseForm',
     setup() {
       const crudRef = ref();
       const crudBinding = ref();

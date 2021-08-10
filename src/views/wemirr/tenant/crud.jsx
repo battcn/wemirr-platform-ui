@@ -1,10 +1,34 @@
 import { compute, dict, utils, asyncCompute } from '@fast-crud/fast-crud';
 import moment from 'moment';
+import _ from 'lodash-es';
+import { useMessage } from '/@/hooks/web/useMessage';
 import { GET, DELETE, POST, PUT } from '/src/api/service';
 
 import { getAreaTree } from '/@/api/sys/area';
 
-export default function ({ expose }) {
+export default function ({ expose, customForm }) {
+  const { notification, createConfirm } = useMessage();
+
+  // const formOptions = _.merge(_.cloneDeep(), {
+  //   wrapper: { title: '自定义表单' },
+  //   columns: {
+  //     customField: {
+  //       title: '新表单字段',
+  //       component: {
+  //         name: 'a-input',
+  //         vModel: 'value',
+  //         allowClear: true,
+  //       },
+  //     },
+  //   },
+  //   doSubmit({ form }) {
+  //     console.log('form submit:', form);
+  //     message.info('自定义表单提交:' + JSON.stringify(form));
+  //     message.warn('抛出异常可以阻止表单关闭');
+  //     throw new Error('抛出异常可以阻止表单关闭');
+  //   },
+  // });
+
   return {
     crudOptions: {
       request: {
@@ -20,14 +44,62 @@ export default function ({ expose }) {
         editRequest: async ({ form }) => await PUT(`/authority/tenants/${form.id}`, form),
         delRequest: async ({ row }) => await DELETE(`/authority/tenants/${row.id}`),
       },
-      rowHandle: { fixed: 'right' },
-      table: {
-        scroll: {
-          //需要设置它，否则滚动条拖动时，表头不会动
-          fixed: true,
-          x: 1400,
+      rowHandle: {
+        width: 180,
+        fixed: 'right',
+        dropdown: {
+          // 操作列折叠
+          atLeast: 2,
+          more: {
+            size: 'small',
+            text: '',
+            icon: 'gg:more-o',
+          },
+        },
+        buttons: {
+          edit: { order: 2 },
+          config: {
+            type: 'link',
+            title: '数据源配置',
+            icon: 'icomoon-free:infinite',
+            size: 'small',
+            order: 1,
+            async click({ row }) {
+              if (row.locked) {
+                await notification.error({ message: '租户已被禁用,无法进行租户配置', duration: 2 });
+                return;
+              }
+              await PUT(`/authority/tenants/${row.id}/config`).then((ret) => {
+                console.log('ret=>>>', ret);
+                notification.success({ message: '租户数据源配置成功', duration: 2 });
+              });
+              // console.log('formOptions', formOptions);
+              // await expose.getFormWrapperRef().open(formOptions);
+              // await customForm.openCustomForm();
+              // await notification.success({ message: '配置租户成功', duration: 2 });
+              // expose.doRefresh();
+            },
+          },
+          init: {
+            type: 'link',
+            title: '初始化数据',
+            icon: 'icomoon-free:infinite',
+            size: 'small',
+            click({ row }) {
+              createConfirm({
+                iconType: 'warning',
+                title: '风险提示',
+                content: `确定初始化 [${row.name}] 数据吗?`,
+                onOk: () => {
+                  // notification.success({ message: '租户数据初始化成功', duration: 2 });
+                  notification.error({ message: '暂未实现', duration: 2 });
+                },
+              });
+            },
+          },
         },
       },
+      table: { scroll: { fixed: true } },
       columns: {
         id: {
           title: 'ID',

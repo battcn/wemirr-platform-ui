@@ -12,7 +12,20 @@ export default function ({ expose }) {
         delRequest: async ({ row }) => await DELETE(`/authority/users/${row.id}`),
       },
       rowHandle: { fixed: 'right' },
-      table: { scroll: { fixed: true } },
+      table: {
+        scroll: { fixed: true },
+        onFilterChange: (content) => {
+          // const form = expose.getSearchFormData();
+          // expose.setSearchFormData({ form, mergeForm: { sex: content.sex[0], ...form } });
+          // await expose.setSearchFormData({ sex: content.sex[0], ...form });
+          // console.log(expose.getSearchFormData());
+          // console.log('expose', expose.getSearchFormData());
+          // const ops = { form, mergeForm: { sex: content.sex[0], ...form } };
+          // console.log('expose', ops);
+          // expose.doSearch(ops);
+          // expose.doSearch({ sex: content.sex[0], ...form });
+        },
+      },
       columns: {
         id: {
           title: 'ID',
@@ -76,7 +89,7 @@ export default function ({ expose }) {
         sex: {
           title: '性别',
           type: 'dict-radio',
-          search: { show: true },
+          // search: { show: true },
           dict: dict({
             url: '/authority/dictionaries/sex/list',
           }),
@@ -99,9 +112,9 @@ export default function ({ expose }) {
               { text: '男', value: 1 },
               { text: '女', value: 2 },
             ],
-            onFilter: (value, record) => {
-              return record.sex === value;
-            },
+            // onFilter: (value, record) => {
+            //   return record.sex === value;
+            // },
             // component: {
             //   onSearch: ({ form }) => {
             //     return function (value) {

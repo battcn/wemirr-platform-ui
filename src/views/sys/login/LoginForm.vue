@@ -8,6 +8,10 @@
     v-show="getShow"
     @keypress.enter="handleLogin"
   >
+    <a-alert message="0000=平台; 8888=演示租户" type="success" closable />
+    <FormItem name="tenantCode" class="enter-x">
+      <Input size="large" v-model:value="formData.tenantCode" placeholder="租户编码" />
+    </FormItem>
     <FormItem name="account" class="enter-x">
       <Input size="large" v-model:value="formData.account" :placeholder="t('sys.login.userName')" />
     </FormItem>
@@ -146,6 +150,7 @@
         loadCaptcha();
       });
       const formData = reactive({
+        tenantCode: '8888',
         account: 'admin',
         password: '123456',
         key: buildUUID(),
@@ -180,7 +185,7 @@
               client_id: 'client',
               client_secret: 'client',
               scope: 'server',
-              tenant_code: '8888',
+              tenant_code: data.tenantCode,
               auth_type: 'vc',
               vc_code: data.code,
               vc_token: formData.key,
