@@ -1,33 +1,12 @@
 import { compute, dict, utils, asyncCompute } from '@fast-crud/fast-crud';
 import moment from 'moment';
-import _ from 'lodash-es';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { GET, DELETE, POST, PUT } from '/src/api/service';
 
 import { getAreaTree } from '/@/api/sys/area';
 
-export default function ({ expose, customForm }) {
+export default function ({ expose, wrapperRow, formWrapper }) {
   const { notification, createConfirm } = useMessage();
-
-  // const formOptions = _.merge(_.cloneDeep(), {
-  //   wrapper: { title: '自定义表单' },
-  //   columns: {
-  //     customField: {
-  //       title: '新表单字段',
-  //       component: {
-  //         name: 'a-input',
-  //         vModel: 'value',
-  //         allowClear: true,
-  //       },
-  //     },
-  //   },
-  //   doSubmit({ form }) {
-  //     console.log('form submit:', form);
-  //     message.info('自定义表单提交:' + JSON.stringify(form));
-  //     message.warn('抛出异常可以阻止表单关闭');
-  //     throw new Error('抛出异常可以阻止表单关闭');
-  //   },
-  // });
 
   return {
     crudOptions: {
@@ -45,11 +24,11 @@ export default function ({ expose, customForm }) {
         delRequest: async ({ row }) => await DELETE(`/authority/tenants/${row.id}`),
       },
       rowHandle: {
-        width: 180,
+        width: 210,
         fixed: 'right',
         dropdown: {
           // 操作列折叠
-          atLeast: 2,
+          // atLeast: 2,
           more: {
             size: 'small',
             text: '',
@@ -57,42 +36,37 @@ export default function ({ expose, customForm }) {
           },
         },
         buttons: {
-          edit: { order: 2 },
+          remove: { order: 5 },
           config: {
             type: 'link',
             title: '数据源配置',
             icon: 'icomoon-free:infinite',
             size: 'small',
-            order: 1,
+            order: 3,
             async click({ row }) {
               if (row.locked) {
                 await notification.error({ message: '租户已被禁用,无法进行租户配置', duration: 2 });
                 return;
               }
-              await PUT(`/authority/tenants/${row.id}/config`).then((ret) => {
-                console.log('ret=>>>', ret);
-                notification.success({ message: '租户数据源配置成功', duration: 2 });
-              });
-              // console.log('formOptions', formOptions);
-              // await expose.getFormWrapperRef().open(formOptions);
-              // await customForm.openCustomForm();
-              // await notification.success({ message: '配置租户成功', duration: 2 });
-              // expose.doRefresh();
+              wrapperRow.value = row;
+              await formWrapper.openFormWrapper();
             },
           },
           init: {
             type: 'link',
             title: '初始化数据',
-            icon: 'icomoon-free:infinite',
+            icon: 'bx:bx-refresh',
             size: 'small',
+            order: 4,
             click({ row }) {
               createConfirm({
                 iconType: 'warning',
                 title: '风险提示',
                 content: `确定初始化 [${row.name}] 数据吗?`,
                 onOk: () => {
-                  // notification.success({ message: '租户数据初始化成功', duration: 2 });
-                  notification.error({ message: '暂未实现', duration: 2 });
+                  PUT(`/authority/tenants/${row.id}/init_sql_script`).then(() => {
+                    notification.success({ message: '租户数据初始化成功', duration: 2 });
+                  });
                 },
               });
             },
@@ -287,8 +261,8 @@ export default function ({ expose, customForm }) {
           type: 'text',
           column: { ellipsis: true, show: false },
           form: {
-            show: compute(({ row }) => {
-              return row?.type === 1;
+            show: compute(({ form }) => {
+              return form?.type === 1;
             }),
           },
         },
@@ -297,8 +271,8 @@ export default function ({ expose, customForm }) {
           type: 'text',
           column: { ellipsis: true, show: false },
           form: {
-            show: compute(({ row }) => {
-              return row?.type === 1;
+            show: compute(({ form }) => {
+              return form?.type === 1;
             }),
           },
         },
@@ -313,7 +287,7 @@ export default function ({ expose, customForm }) {
           column: { ellipsis: true, show: false },
         },
         logo: {
-          title: '头像',
+          title: 'LOGO',
           type: 'cropper-uploader',
           style: { height: 70 },
           column: { width: 70, align: 'center', show: false },

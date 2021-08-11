@@ -5,40 +5,76 @@
         {{ scope.row.name }}
       </a-tooltip>
     </template>
+    <fs-form-wrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
   </fs-crud>
 </template>
 
 <script>
   import { defineComponent, ref, onMounted } from 'vue';
-  import _ from 'lodash-es';
   import createCrudOptions from './crud';
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
+  import { GET, PUT } from '/src/api/service';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
-  function useCustomForm(expose, crudBinding) {
-    const openCustomForm = () => {
-      const baseFormOptions = _.omit(crudBinding?.value.form, ['columns']);
-      const formOptions = _.merge(_.cloneDeep(baseFormOptions), {
-        wrapper: { title: '自定义表单' },
-        columns: {
-          customField: {
-            title: '新表单字段',
-            component: {
-              name: 'a-input',
-              vModel: 'value',
-              allowClear: true,
-            },
+  function useFormWrapper(wrapperRow, activeDataSourceList) {
+    const { notification } = useMessage();
+    const formWrapperRef = ref();
+    console.log('activeDataSourceList', activeDataSourceList);
+
+    const formWrapperOptions = ref({
+      labelPosition: 'right',
+      labelWidth: '80px',
+      col: {
+        span: 12,
+      },
+      labelAlign: 'right',
+      labelCol: {
+        span: 6,
+      },
+      wrapperCol: {
+        span: 16,
+      },
+      wrapper: {
+        is: 'a-modal',
+        width: '960px',
+        destroyOnClose: true,
+        footer: null,
+        title: '租户配置',
+      },
+      display: 'flex',
+      columns: {
+        dynamicDatasourceId: {
+          title: '数据源',
+          helper: '暂时没想到有太好的UI实现，先简单点来吧',
+          component: {
+            name: 'a-select',
+            vModel: 'value',
+            showSearch: true,
+            allowClear: true,
+            placeholder: '请输入搜索内容',
+            options: activeDataSourceList,
           },
+          rules: [{ required: true, message: '请选择数据源' }],
         },
-        doSubmit({ form }) {
-          console.log('form submit:', form);
-          message.info('自定义表单提交:' + JSON.stringify(form));
-          message.warn('抛出异常可以阻止表单关闭');
-          throw new Error('抛出异常可以阻止表单关闭');
-        },
-      });
-      expose.getFormWrapperRef().open(formOptions);
+      },
+      doSubmit({ form }) {
+        PUT(`/authority/tenants/${wrapperRow.value.id}/config`, form)
+          .then(() => {
+            notification.success({ message: '租户配置成功', duration: 2 });
+          })
+          .catch((e) => {
+            throw new Error(e);
+          });
+      },
+    });
+    function openFormWrapper() {
+      formWrapperRef.value.open(formWrapperOptions.value);
+    }
+    return {
+      formWrapperRef,
+      openFormWrapper,
+      formWrapperOptions,
     };
-    return { openCustomForm };
   }
 
   export default defineComponent({
@@ -47,12 +83,19 @@
       const crudRef = ref();
       const crudBinding = ref();
       const areaTree = ref([]);
+      const wrapperRow = ref({});
+      const activeDataSourceList = ref([]);
+      const formWrapper = useFormWrapper(wrapperRow, activeDataSourceList);
       const { expose } = useExpose({ crudRef, crudBinding });
-      const customForm = useCustomForm(expose, crudBinding);
-      const { crudOptions } = createCrudOptions({ expose, customForm });
+      const { crudOptions } = createCrudOptions({ expose, wrapperRow, formWrapper });
       useCrud({ expose, crudOptions });
 
       onMounted(() => {
+        GET('/authority/databases/active').then((ret) => {
+          activeDataSourceList.value = ret.data.map((item) => {
+            return { value: item.id, label: item.poolName };
+          });
+        });
         expose.doRefresh();
       });
 
@@ -63,6 +106,7 @@
       };
       return {
         filter,
+        ...formWrapper,
         areaTree,
         crudBinding,
         crudRef,
