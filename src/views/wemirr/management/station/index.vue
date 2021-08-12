@@ -5,6 +5,7 @@
         search
         checkStrictly
         @check="onTreeNodeCheck"
+        :clickRowToExpand="false"
         ref="terrDataRef"
         :treeData="terrData"
         :replaceFields="{ key: 'id', title: 'name' }"

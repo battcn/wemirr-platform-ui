@@ -8,7 +8,7 @@
     v-show="getShow"
     @keypress.enter="handleLogin"
   >
-    <a-alert message="0000=平台; 8888=演示租户" type="success" closable />
+    <a-alert message="0000=平台(全部权限); 8888=演示租户(租户权限)" type="success" closable />
     <FormItem name="tenantCode" class="enter-x">
       <Input size="large" v-model:value="formData.tenantCode" placeholder="租户编码" />
     </FormItem>

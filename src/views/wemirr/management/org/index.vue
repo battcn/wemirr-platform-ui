@@ -6,6 +6,7 @@
         search
         checkStrictly
         ref="treeRef"
+        :clickRowToExpand="false"
         :treeData="treeData"
         :replaceFields="{ key: 'id', title: 'name' }"
         @select="handleSelect"
