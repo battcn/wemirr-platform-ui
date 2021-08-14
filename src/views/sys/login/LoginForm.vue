@@ -150,7 +150,7 @@
         loadCaptcha();
       });
       const formData = reactive({
-        tenantCode: '8888',
+        tenantCode: '0000',
         account: 'admin',
         password: '123456',
         key: buildUUID(),
