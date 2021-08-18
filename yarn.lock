@@ -1136,10 +1136,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fast-crud/fast-crud@^0.17.3":
-  version "0.17.3"
-  resolved "https://registry.npmjs.org/@fast-crud/fast-crud/-/fast-crud-0.17.3.tgz#be72eab16104756edae86cad652401818755f883"
-  integrity sha512-xK6xC791SdZR45oVxrGnFRsvUN4HS3ZPSxNBtTAnL4quxp9qtBPwzlW5tsCUX9xn+gLF+iHjkW00Kjpp7ZN/AA==
+"@fast-crud/fast-crud@^0.17.4":
+  version "0.17.4"
+  resolved "https://registry.npmjs.org/@fast-crud/fast-crud/-/fast-crud-0.17.4.tgz#31243869754b06d1c5fc95282a6b3fb4c162c293"
+  integrity sha512-Ly+M0VA17bx3ssN5USTTZE0/ntwCA96LyYBbg5b3VCRnDMobi4gsIYzdzNd06HymvOi9o2YxiRFK9Mwi9DT3qg==
   dependencies:
     "@fast-crud/ui-interface" "^0.17.2"
     dayjs "^1.10.4"
@@ -1149,10 +1149,10 @@
     vue "^3.1.4"
     vuedraggable "^4.0.3"
 
-"@fast-crud/fast-extends@^0.17.1":
-  version "0.17.1"
-  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.17.1.tgz#a553d95c28e78867d7b3912668e9cfb7777a1695"
-  integrity sha512-ZIddUH3CCoAxINfu1xIxzwAS4nwmHschytbyoCL7122tKLKXuqdmX3Q6ta3hTNTNyVNFdwDao7TxvqlFh1kRJg==
+"@fast-crud/fast-extends@^0.17.4":
+  version "0.17.4"
+  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.17.4.tgz#47a989b8a8707d18fe10a64f179b9d42357aa4ed"
+  integrity sha512-BUWN7NJOh1OgfBb8jzfPtpGElSUrDkj30Bmp3tQbQuoATeexG2tF+z+SPuWDQ2xwW1YYLxPOXdLLWTx8x6vNZQ==
   dependencies:
     ali-oss "^6.16.0"
     cos-js-sdk-v5 "^1.2.9"
@@ -1166,7 +1166,7 @@
     vue-cropperjs "^5.0.0"
     wangeditor "^4.7.5"
 
-"@fast-crud/ui-antdv@^0.17.3":
+"@fast-crud/ui-antdv@^0.17.2":
   version "0.17.2"
   resolved "https://registry.npmjs.org/@fast-crud/ui-antdv/-/ui-antdv-0.17.2.tgz#19b3d2f44abd8bfe4048c979d779663501eaaa30"
   integrity sha512-sZ2GDTR0IRzm2uXkhkhWyUjfFgblPMs5dgg9i6UrAt70fAeg3zU/9XKx2/y2td2MEI18+ndU66yf/JQnHCfVHg==

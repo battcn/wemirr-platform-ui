@@ -1,5 +1,5 @@
 import { GET, POST, PUT, DELETE } from '/src/api/service';
-import { compute, dict } from '@fast-crud/fast-crud';
+import { dict } from '@fast-crud/fast-crud';
 import moment from 'moment';
 
 export default function ({ expose }) {
@@ -15,15 +15,8 @@ export default function ({ expose }) {
       table: {
         scroll: { fixed: true },
         onFilterChange: (content) => {
-          // const form = expose.getSearchFormData();
-          // expose.setSearchFormData({ form, mergeForm: { sex: content.sex[0], ...form } });
-          // await expose.setSearchFormData({ sex: content.sex[0], ...form });
-          // console.log(expose.getSearchFormData());
-          // console.log('expose', expose.getSearchFormData());
-          // const ops = { form, mergeForm: { sex: content.sex[0], ...form } };
-          // console.log('expose', ops);
-          // expose.doSearch(ops);
-          // expose.doSearch({ sex: content.sex[0], ...form });
+          const form = expose.getSearchFormData();
+          form.sex = content.sex[0];
         },
       },
       columns: {
