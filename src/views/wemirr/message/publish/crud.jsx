@@ -57,6 +57,9 @@ export default function ({ expose, searchRemote }) {
           title: '标题',
           type: 'text',
           search: { show: true },
+          form: {
+            rules: [{ required: true, message: '标题不能为空' }],
+          },
         },
         level: {
           title: '级别',
@@ -66,6 +69,9 @@ export default function ({ expose, searchRemote }) {
           dict: dict({
             url: '/authority/dictionaries/NOTICE/list',
           }),
+          form: {
+            rules: [{ required: true, message: '消息类型不能为空' }],
+          },
         },
         type: {
           title: '接收类型',
@@ -92,6 +98,7 @@ export default function ({ expose, searchRemote }) {
           title: '接收者',
           column: { show: false },
           form: {
+            rules: [{ required: true, message: '接收者不能为空' }],
             component: {
               name: 'a-select',
               vModel: 'value',
@@ -130,8 +137,8 @@ export default function ({ expose, searchRemote }) {
             disabled: true,
           },
           form: {
+            rules: [{ required: true, message: '消息内容不能为空' }],
             component: {
-              // disabled: true,
               uploader: {
                 type: 'form', // 上传后端类型【cos,aliyun,oss,form】
                 buildUrl(res) {
