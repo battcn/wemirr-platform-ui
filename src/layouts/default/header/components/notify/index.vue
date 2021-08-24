@@ -68,8 +68,9 @@
         tabListData: tabListData,
       });
       const { status, data, send, close, open } = useWebSocket(state.server, {
-        autoReconnect: true,
+        autoReconnect: { retries: 10, delay: 30000 },
         heartbeat: false,
+        // heartbeat: { interval: 30000, message: 'ping...' },
       });
 
       watchEffect(() => {
