@@ -1136,10 +1136,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fast-crud/fast-crud@^0.17.4":
-  version "0.17.4"
-  resolved "https://registry.npmjs.org/@fast-crud/fast-crud/-/fast-crud-0.17.4.tgz#31243869754b06d1c5fc95282a6b3fb4c162c293"
-  integrity sha512-Ly+M0VA17bx3ssN5USTTZE0/ntwCA96LyYBbg5b3VCRnDMobi4gsIYzdzNd06HymvOi9o2YxiRFK9Mwi9DT3qg==
+"@fast-crud/fast-crud@^0.17.5":
+  version "0.17.5"
+  resolved "https://registry.npmjs.org/@fast-crud/fast-crud/-/fast-crud-0.17.5.tgz#fdb6614a318b3e6d96c1509acf9852d2dc734cd4"
+  integrity sha512-xXc1s7Z+F8qq+KQ2xTOU0YarC6oYw8jmVz9t6jOi9ne6jr1PAuPRoflKUfxetMHakUpX3uoGg19K9XuXLOxMzQ==
   dependencies:
     "@fast-crud/ui-interface" "^0.17.2"
     dayjs "^1.10.4"
@@ -1149,10 +1149,10 @@
     vue "^3.1.4"
     vuedraggable "^4.0.3"
 
-"@fast-crud/fast-extends@^0.17.4":
-  version "0.17.4"
-  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.17.4.tgz#47a989b8a8707d18fe10a64f179b9d42357aa4ed"
-  integrity sha512-BUWN7NJOh1OgfBb8jzfPtpGElSUrDkj30Bmp3tQbQuoATeexG2tF+z+SPuWDQ2xwW1YYLxPOXdLLWTx8x6vNZQ==
+"@fast-crud/fast-extends@^0.17.5":
+  version "0.17.5"
+  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.17.5.tgz#7750fa78668926fae7ff33d96ece1f3b49c7fbf4"
+  integrity sha512-Q8w6tY5NY0Koa/knWs92UDFGDrQXcDvQO14+bRmGe2+Noq50CJBOC6N884jaK6z4QcZ0okCVCiwAwesuMJ4Qtw==
   dependencies:
     ali-oss "^6.16.0"
     cos-js-sdk-v5 "^1.2.9"
