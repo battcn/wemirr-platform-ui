@@ -1136,23 +1136,22 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fast-crud/fast-crud@^0.17.5":
-  version "0.17.5"
-  resolved "https://registry.npmjs.org/@fast-crud/fast-crud/-/fast-crud-0.17.5.tgz#fdb6614a318b3e6d96c1509acf9852d2dc734cd4"
-  integrity sha512-xXc1s7Z+F8qq+KQ2xTOU0YarC6oYw8jmVz9t6jOi9ne6jr1PAuPRoflKUfxetMHakUpX3uoGg19K9XuXLOxMzQ==
+"@fast-crud/fast-crud@^0.17.6":
+  version "0.17.6"
+  resolved "https://registry.npmjs.org/@fast-crud/fast-crud/-/fast-crud-0.17.6.tgz#1b2e09085359c8a5faaf2f3f300e4b4e03f9d6f5"
+  integrity sha512-Sy+cBvFN2ocybvRrmfKuJorfk1FaxI0gfZg5L8fnXDARdrf3jM3Qj1vn6U05WZZ8j/cbhhF93sSmoCxdLFHhyQ==
   dependencies:
-    "@fast-crud/ui-interface" "^0.17.2"
+    "@fast-crud/ui-interface" "^0.17.6"
     dayjs "^1.10.4"
     deepdash-es "5.3.5"
     lodash-es "^4.17.15"
     lru-cache "^6.0.0"
-    vue "^3.1.4"
     vuedraggable "^4.0.3"
 
-"@fast-crud/fast-extends@^0.17.5":
-  version "0.17.5"
-  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.17.5.tgz#7750fa78668926fae7ff33d96ece1f3b49c7fbf4"
-  integrity sha512-Q8w6tY5NY0Koa/knWs92UDFGDrQXcDvQO14+bRmGe2+Noq50CJBOC6N884jaK6z4QcZ0okCVCiwAwesuMJ4Qtw==
+"@fast-crud/fast-extends@^0.17.6":
+  version "0.17.6"
+  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.17.6.tgz#4e960ecf8a99c12bc71546a1c843f474974df5bd"
+  integrity sha512-tA4AXY/PzV4Yljjb1gcW1I7E3kCli1FmfIM9o8bd2duoMkg0dl4Iwlaxj+dpsoaZZ9EFBXo24Xc80ZvfzOQ6Vw==
   dependencies:
     ali-oss "^6.16.0"
     cos-js-sdk-v5 "^1.2.9"
@@ -1162,7 +1161,6 @@
     object-assign "^4.1.1"
     qiniu-js "3.3.1"
     quill "^1.3.7"
-    vue "^3.1.4"
     vue-cropperjs "^5.0.0"
     wangeditor "^4.7.5"
 
@@ -1182,6 +1180,11 @@
   integrity sha1-W+hOpm1uo/E+HlJuboKO1jgpPcc=
   dependencies:
     vue "^3.1.4"
+
+"@fast-crud/ui-interface@^0.17.6":
+  version "0.17.6"
+  resolved "https://registry.npmjs.org/@fast-crud/ui-interface/-/ui-interface-0.17.6.tgz#9eebd56ef995c01d02cca7e8d0a973dfdb5ded2f"
+  integrity sha512-Wd5TxB8kbMvl5XpuIEz/cGeLgCpcRdch8lUcFYGw9uyqBfHOSWcjmsTZ8Vdo8KhC1JUT/jlYJeUX9davHJ2GdA==
 
 "@fullhuman/postcss-purgecss@^4.0.3":
   version "4.0.3"
