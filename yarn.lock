@@ -1136,22 +1136,22 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fast-crud/fast-crud@^0.21.0":
-  version "0.21.0"
-  resolved "https://registry.npmjs.org/@fast-crud/fast-crud/-/fast-crud-0.21.0.tgz#07fd3ff362c8ccb5d0eeb2d19707262e2267b195"
-  integrity sha512-FDmUPGDk1akwMNNpiFDg8snL0JMa7bHZ59JnQWn8S6psxpqD6cIfzTBFDa3Hv6ppHy3Aap+Tyq/1E6hTcGaFuQ==
+"@fast-crud/fast-crud@^0.22.0":
+  version "0.22.0"
+  resolved "https://registry.npmjs.org/@fast-crud/fast-crud/-/fast-crud-0.22.0.tgz#850c6cb5b4471e1bd710fdae7f0ce7640d6fe383"
+  integrity sha512-Qb9it+TDurkuiDjgfi+8tUptEMrclSnZRSZsWjkgu3sTSdx/bMDRfHLlaF6OACUNHU0ZSMvDQEhR5HFcPRJE4g==
   dependencies:
-    "@fast-crud/ui-interface" "^0.21.0"
+    "@fast-crud/ui-interface" "^0.22.0"
     dayjs "^1.10.4"
     deepdash-es "5.3.5"
     lodash-es "^4.17.15"
     lru-cache "^6.0.0"
     vuedraggable "^4.0.3"
 
-"@fast-crud/fast-extends@^0.21.0":
-  version "0.21.0"
-  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.21.0.tgz#bf14f52fca3160f47b762a646bc53b2917b4af53"
-  integrity sha512-8JOH4CcjrItnrc2y+8mGDL1yOUniR43YUjjOlXG5muFIn78/mZ1KRFgyzvTW2S8c+RqNc1tiiudacnbxnago3A==
+"@fast-crud/fast-extends@^0.22.0":
+  version "0.22.0"
+  resolved "https://registry.npmjs.org/@fast-crud/fast-extends/-/fast-extends-0.22.0.tgz#a29fdacf0df920fecb95c34fdbf045a92f989da5"
+  integrity sha512-hOVLbhu+lrBEFDtjg10YQEZcMXIqYZOiZSDlSdt2980jL31Ssp/8BTFRfJDkH5RInJ+FLKZVfcOS5ayA7LQGYw==
   dependencies:
     ali-oss "^6.16.0"
     cos-js-sdk-v5 "^1.2.9"
@@ -1166,17 +1166,17 @@
     vue-cropperjs "^5.0.0"
     wangeditor "^4.7.5"
 
-"@fast-crud/ui-antdv@^0.21.0":
-  version "0.21.0"
-  resolved "https://registry.npmjs.org/@fast-crud/ui-antdv/-/ui-antdv-0.21.0.tgz#62d6e6422d8029306305a75aa127b570fdb158eb"
-  integrity sha512-Vq1xqy86leSzzRSfz6Ie6r/TovuCeJxhxsrV8NCUoi/iZvlIxhMsLif7pbLv2FO5l3RagmTFZLXemlRgXRSIsg==
+"@fast-crud/ui-antdv@^0.22.0":
+  version "0.22.0"
+  resolved "https://registry.npmjs.org/@fast-crud/ui-antdv/-/ui-antdv-0.22.0.tgz#f8858ec93ae63050ab7ce615d701fdc8e8b4683f"
+  integrity sha512-TpDPkgUrotLCvkuRtBLj6EvoGSXlQBqQkjuG8YyT9azWIIiJf19mwnfyRdStFs0DAR/mI5ULnifogQdr2g4kPQ==
   dependencies:
-    "@fast-crud/ui-interface" "^0.21.0"
+    "@fast-crud/ui-interface" "^0.22.0"
 
-"@fast-crud/ui-interface@^0.21.0":
-  version "0.21.0"
-  resolved "https://registry.npmjs.org/@fast-crud/ui-interface/-/ui-interface-0.21.0.tgz#c6af21c7008048f26a2be4f1bd262c41b2b1b3b6"
-  integrity sha512-rsyZGwy53KR8vWYgoGqrPNGinywORLlgk+3WhgX00fALIKHzBW8TJCKQ52i4CSTsGDimtpz6xihXAYrTvX6mnw==
+"@fast-crud/ui-interface@^0.22.0":
+  version "0.22.0"
+  resolved "https://registry.npmjs.org/@fast-crud/ui-interface/-/ui-interface-0.22.0.tgz#7937b668b566803f3dc49cea0accf686dcfca68c"
+  integrity sha512-u+D81LzUbTsyl6b8j7KaqTgJ84bsiB1QltB3A5gCLgYNpcP15KjEnQVeb1CRzfCWJEanVRHlCKIAGYlgsY9+ow==
 
 "@fullhuman/postcss-purgecss@^4.0.3":
   version "4.0.3"
