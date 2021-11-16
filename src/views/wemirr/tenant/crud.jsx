@@ -1,13 +1,46 @@
-import { compute, dict, utils, asyncCompute } from '@fast-crud/fast-crud';
+import { compute, dict, utils, asyncCompute, useColumns } from '@fast-crud/fast-crud';
 import moment from 'moment';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { GET, DELETE, POST, PUT } from '/src/api/service';
-
 import { getAreaTree } from '/@/api/sys/area';
+import { ref } from 'vue';
+const tenantRow = ref();
+const { buildFormOptions } = useColumns();
+const { notification, createConfirm } = useMessage();
+const customOptions = {
+  columns: {
+    dynamicDatasourceId: {
+      title: '数据源',
+      type: 'dict-select',
+      dict: dict({
+        url: '/authority/databases/active',
+        value: 'id',
+        label: 'database',
+      }),
+      form: {
+        rules: [{ required: true, message: '限流类型不能为空' }],
+        helper: '选择数据源后,会将租户初始化到指定的数据库中',
+      },
+    },
+  },
+  form: {
+    wrapper: { title: '租户配置' },
+    doSubmit({ form }) {
+      console.log('form', form);
+      PUT(`/authority/tenants/${tenantRow.value.id}/config`, form)
+        .then(() => {
+          notification.success({ message: '租户配置成功', duration: 2 });
+        })
+        .catch((e) => {
+          throw new Error(e);
+        });
+    },
+  },
+};
+//使用crudOptions结构来构建自定义表单配置
+const formOptions = buildFormOptions(customOptions);
 
-export default function ({ expose, wrapperRow, formWrapper }) {
-  const { notification, createConfirm } = useMessage();
-
+export default function ({ expose }) {
   return {
     crudOptions: {
       request: {
@@ -48,8 +81,9 @@ export default function ({ expose, wrapperRow, formWrapper }) {
                 await notification.error({ message: '租户已被禁用,无法进行租户配置', duration: 2 });
                 return;
               }
-              wrapperRow.value = row;
-              await formWrapper.openFormWrapper();
+              tenantRow.value = row;
+              console.log('formOptions', formOptions);
+              await expose.getFormWrapperRef().open(formOptions);
             },
           },
           init: {
