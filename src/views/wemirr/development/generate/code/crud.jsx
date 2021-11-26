@@ -1,6 +1,7 @@
-import { GET } from '/src/api/service';
+import { GET, request } from '/src/api/service';
 import moment from 'moment';
 import { dict } from '@fast-crud/fast-crud';
+import { downloadByData } from '/src/utils/file/download';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => await GET('/tools/generates', query);
@@ -13,9 +14,28 @@ export default function ({ expose }) {
         scroll: { fixed: true },
       },
       rowHandle: {
-        width: 120,
-        //固定右侧
+        width: 200,
         fixed: 'right',
+        buttons: {
+          download: {
+            icon: 'ant-design:cloud-download-outlined',
+            type: 'link',
+            text: null,
+            size: 'small',
+            title: '文件下载',
+            async click(context) {
+              console.log('context', context);
+              await request({
+                url: `/tools/generates/${context.row.id}/download`,
+                method: 'POST',
+                responseType: 'blob',
+              }).then((res) => {
+                downloadByData(res, `${context.row.moduleName}.zip`);
+              });
+            },
+          },
+          remove: { order: 2 },
+        },
       },
       columns: {
         id: {
