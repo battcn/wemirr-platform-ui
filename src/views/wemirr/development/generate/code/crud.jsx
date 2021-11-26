@@ -1,5 +1,6 @@
 import { GET } from '/src/api/service';
 import moment from 'moment';
+import { dict } from '@fast-crud/fast-crud';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => await GET('/tools/generates', query);
@@ -50,13 +51,20 @@ export default function ({ expose }) {
           column: { width: 250 },
         },
         apiUrlPrefix: {
-          title: 'API地址前缀',
+          title: 'API前缀',
           type: 'text',
           column: { width: 180 },
         },
-        swagger: {
+        swagger2: {
           title: 'Swagger',
-          type: 'text',
+          type: 'dict-radio',
+          form: { value: true },
+          dict: dict({
+            data: [
+              { value: true, label: '是', color: 'success' },
+              { value: false, label: '否', color: 'error' },
+            ],
+          }),
           column: { width: 100 },
         },
         rootDir: {
