@@ -34,6 +34,7 @@ export const schemas: FormSchema[] = [
     componentProps: {
       placeholder: '请选择图标',
     },
+    required: true,
   },
   {
     field: 'type',

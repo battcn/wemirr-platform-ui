@@ -25,7 +25,7 @@ export default function ({ expose, distribution }) {
         width: 170,
         dropdown: {
           // 操作列折叠
-          atLeast: 3,
+          atLeast: 2,
           more: {
             size: 'small',
             text: '',

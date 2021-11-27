@@ -223,15 +223,15 @@ export default function ({ expose }) {
           column: { width: 200 },
           form: { show: false },
           type: 'text',
-          valueBuilder({ row, key }) {
+          valueBuilder({ row }) {
             if (!utils.strings.hasEmpty(row.provinceName)) {
-              row[key] = row.provinceName;
+              row.areaText = row.provinceName;
             }
             if (!utils.strings.hasEmpty(row.cityName)) {
-              row[key] = row.provinceName + ' / ' + row.cityName;
+              row.areaText = row.provinceName + ' / ' + row.cityName;
             }
             if (!utils.strings.hasEmpty(row.districtName)) {
-              row[key] = row.provinceName + ' / ' + row.cityName + ' / ' + row.districtName;
+              row.areaText = row.provinceName + ' / ' + row.cityName + ' / ' + row.districtName;
             }
           },
         },
