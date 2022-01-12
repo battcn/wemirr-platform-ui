@@ -82,7 +82,6 @@ export default function ({ expose }) {
         sex: {
           title: '性别',
           type: 'dict-radio',
-          // search: { show: true },
           dict: dict({
             url: '/authority/dictionaries/sex/list',
           }),
@@ -105,22 +104,22 @@ export default function ({ expose }) {
               { text: '男', value: 1 },
               { text: '女', value: 2 },
             ],
-            // onFilter: (value, record) => {
-            //   return record.sex === value;
-            // },
-            // component: {
-            //   onSearch: ({ form }) => {
-            //     return function (value) {
-            //       console.log('form', form);
-            //       // fetchReceiver(form.type, value);
-            //     };
-            //   },
-            // },
             sortDirections: ['descend'],
           },
           addForm: {
             value: '1',
           },
+        },
+        status: {
+          title: '状态',
+          type: 'dict-radio',
+          dict: dict({
+            data: [
+              { value: true, label: '启用', color: 'success' },
+              { value: false, label: '禁用', color: 'error' },
+            ],
+          }),
+          column: { width: 80 },
         },
         email: {
           title: '邮箱',
@@ -287,7 +286,7 @@ export default function ({ expose }) {
           groups: {
             baseInfo: {
               header: '基础信息',
-              columns: ['username', 'password', 'nickName', 'sex'],
+              columns: ['username', 'password', 'nickName', 'sex', 'status'],
             },
             orgInfo: {
               header: '职位信息',
