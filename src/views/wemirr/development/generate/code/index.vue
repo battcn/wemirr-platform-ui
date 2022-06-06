@@ -3,9 +3,10 @@
 </template>
 
 <script>
-  import { defineComponent, ref, onMounted } from 'vue';
+  import { defineComponent, ref, onMounted, computed } from 'vue';
   import createCrudOptions from './crud';
   import { useExpose, useCrud } from '@fast-crud/fast-crud';
+  import { useUserStore } from '/@/store/modules/user';
   export default defineComponent({
     name: 'FeatureExpand',
     setup() {
@@ -15,8 +16,9 @@
       const crudBinding = ref();
       // 暴露的方法
       const { expose } = useExpose({ crudRef, crudBinding });
+      const userStore = useUserStore();
       // 你的crud配置
-      const { crudOptions } = createCrudOptions({ expose });
+      const { crudOptions } = createCrudOptions({ expose, userStore });
       // 初始化crud配置
       // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
       const { resetCrudOptions } = useCrud({ expose, crudOptions });

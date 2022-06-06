@@ -1,14 +1,20 @@
-import { GET, request } from '/src/api/service';
+import { GET, POST, DELETE, PUT, request } from '/src/api/service';
 import moment from 'moment';
 import { dict } from '@fast-crud/fast-crud';
 import { downloadByData } from '/src/utils/file/download';
 
-export default function ({ expose }) {
+export default function ({ expose, userStore }) {
   const pageRequest = async (query) => await GET('/tools/generates', query);
+  const editRequest = async ({ form }) => await PUT(`/tools/generates/${form.id}`, form);
+  const delRequest = async ({ row }) => await DELETE(`/tools/generates/${row.id}`);
+  const addRequest = async ({ form }) => await POST('/tools/generates', form);
   return {
     crudOptions: {
       request: {
         pageRequest,
+        editRequest,
+        delRequest,
+        addRequest,
       },
       table: {
         scroll: { fixed: true },
@@ -37,6 +43,18 @@ export default function ({ expose }) {
           remove: { order: 2 },
         },
       },
+      // actionbar: {
+      //   show: true,
+      //   buttons: {
+      //     add: {
+      //       show: true,
+      //       async click(context) {
+      //         // const getRealName = computed(() => userStore.getUserInfo?.realName);
+      //         console.log('context', userStore.getUserInfo);
+      //       },
+      //     },
+      //   },
+      // },
       columns: {
         id: {
           title: 'ID',
@@ -49,16 +67,35 @@ export default function ({ expose }) {
           type: 'text',
           search: { show: true },
           column: { width: 180 },
+          addForm: {
+            value: userStore.getUserInfo?.realName,
+          },
+        },
+        tableName: {
+          title: '表名',
+          type: 'dict-select',
+          dict: dict({
+            url: '/tools/generates/tables',
+          }),
+          column: { width: 120 },
+          form: {
+            component: {
+              showSearch: true,
+              filterOption(inputValue, option) {
+                return (
+                  option.label.indexOf(inputValue) >= 0 || option.value.indexOf(inputValue) >= 0
+                );
+              },
+            },
+          },
         },
         tablePrefix: {
           title: '表前缀',
           type: 'text',
           column: { width: 80 },
-        },
-        tableName: {
-          title: '表名',
-          type: 'text',
-          column: { width: 120 },
+          form: {
+            helper: '文件前缀擦除(t_ => t_user => User)',
+          },
         },
         moduleName: {
           title: '模块名',

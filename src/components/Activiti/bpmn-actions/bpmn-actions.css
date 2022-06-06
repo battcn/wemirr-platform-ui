@@ -1,0 +1,56 @@
+.bpmn-actions {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+}
+
+.bpmn-actions button {
+  margin: 0 20px;
+}
+
+.render-icon {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.render-icon .icon {
+  margin: 0 10px;
+  font-size: 30px;
+  padding: 3px;
+}
+
+.render-icon .icon:hover {
+  position: relative;
+  bottom: 6px;
+}
+
+.render-icon-tooltip {
+  margin-bottom: 5px;
+}
+
+.el-drawer__body {
+  height: 100%;
+}
+
+.CodeMirror {
+  height: 100%;
+  font-family: Monaco, Menlo, Consolas, 'COURIER NEW', monospace;
+  font-size: 12px;
+}
+
+.CodeMirror-scroll {
+  overflow: auto;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+/* stylelint-disable-next-line rule-empty-line-before */
+.ant-drawer-body {
+  height: 100%;
+  padding: 0;
+}
