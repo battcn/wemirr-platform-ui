@@ -102,11 +102,11 @@ export default function ({ expose, distribution }) {
           type: 'dict-radio',
           search: { show: true },
           column: { width: 100, align: 'center' },
-          form: { disabled: 1 },
+          form: { disabled: true },
           dict: dict({
             data: [
-              { value: 0, label: '启用', color: 'success' },
-              { value: 1, label: '禁用', color: 'error' },
+              { value: false, label: '启用', color: 'success' },
+              { value: true, label: '禁用', color: 'error' },
             ],
           }),
           valueBuilder({ value, row, key }) {
