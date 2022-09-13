@@ -146,6 +146,14 @@ export interface GlobConfig {
   urlPrefix?: string;
   // Project abbreviation
   shortName: string;
+  // request timeout
+  timeout?: number;
+  // 关闭websocket
+  openSocket: boolean;
+  // socket 地址
+  socketApi: string;
+  // 系统编码
+  systemCode: string;
 }
 export interface GlobEnvConfig {
   // Site title
@@ -158,4 +166,22 @@ export interface GlobEnvConfig {
   VITE_GLOB_APP_SHORT_NAME: string;
   // Upload url
   VITE_GLOB_UPLOAD_URL?: string;
+  // request timeout
+  VITE_REQUEST_TIMEOUT?: number;
+  // 是否开启数据传输加密
+  VITE_GLOB_DATA_ENCRYPTION: boolean;
+  // 是否开启数据传输加密密钥刷新
+  VITE_GLOB_DATA_ENCRYPTION_REFRESH: boolean;
+  // 数据传输加密密钥刷新时间(单位s)
+  VITE_GLOB_DATA_ENCRYPTION_REFRESH_TIME: number;
+  // 灰度开关
+  VITE_GLOB_ENABLE_GRAY: boolean;
+  // 灰度信息地址读取开关(灰度开关打开时有效)
+  VITE_GLOB_ADDRESS_GRAY: boolean;
+  // open websocket
+  VITE_GLOB_OPEN_SOCKET: boolean;
+  // socket地址
+  VITE_GLOB_SOCKET_URL: string;
+  // 系统编码
+  VITE_GLOB_SYSTEM_CODE: string;
 }

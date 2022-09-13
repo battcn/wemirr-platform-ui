@@ -1,9 +1,12 @@
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
 import type { App, Plugin } from 'vue';
-
+import { useGlobSetting } from '/@/hooks/setting';
+const globSetting = useGlobSetting();
 import { unref } from 'vue';
 import { isObject } from '/@/utils/is';
-
+import { SysUrlPrefix } from '/@/api/sysPrefix';
+import { Base64 } from 'js-base64';
+import { getTokenInfo } from '/@/utils/auth';
 export const noop = () => {};
 
 /**
@@ -42,7 +45,7 @@ export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
 
 export function openWindow(
   url: string,
-  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean }
+  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean },
 ) {
   const { target = '__blank', noopener = true, noreferrer = true } = opt || {};
   const feature: string[] = [];
@@ -89,3 +92,86 @@ export const withInstall = <T>(component: T, alias?: string) => {
   };
   return component as T & Plugin;
 };
+
+export function getUrlPrefix() {
+  return globSetting.urlPrefix;
+}
+
+export function getAttachmentUrl(url: string) {
+  // 不是https、http以及base64图片
+  if (
+    url &&
+    url.indexOf('https') < 0 &&
+    url.indexOf('http') < 0 &&
+    url.indexOf('data:image/') < 0
+  ) {
+    const token = getTokenInfo();
+    const params = urlParamsToJson(url);
+    url = globSetting.urlPrefix + globSetting.apiUrl + SysUrlPrefix.STORAGE + url;
+    if (token && Object.keys(token).length > 0) {
+      params[token['token_query_name']] = token['access_token'];
+      url = setObjToUrlParams(url.split('?')[0], params);
+    }
+  }
+  return url;
+}
+
+export function getAttachmentDomainUrl(url: string) {
+  // 不是https、http以及base64图片
+  if (
+    url &&
+    url.indexOf('https') < 0 &&
+    url.indexOf('http') < 0 &&
+    url.indexOf('data:image/') < 0
+  ) {
+    const token = getTokenInfo();
+    const params = urlParamsToJson(url);
+    url = globSetting.urlPrefix + globSetting.apiUrl + SysUrlPrefix.STORAGE + url;
+    if (token && Object.keys(token).length > 0) {
+      params[token['token_query_name']] = token['access_token'];
+      url = setObjToUrlParams(window.location.origin + url.split('?')[0], params);
+    }
+  }
+  return url;
+}
+
+export function getAuthHeader() {
+  const token = getTokenInfo();
+  const headers = {};
+  if (token && Object.keys(token).length > 0) {
+    headers[token['bearer_token_header_name']] = 'Bearer ' + token['access_token'];
+  }
+  return headers;
+}
+
+function urlParamsToJson(urlInfo: string) {
+  const obj = {};
+  const p = urlInfo.split('?');
+  if (p.length > 1) {
+    const params = p[1];
+    const keyValue = params.split('&');
+    for (let i = 0; i < keyValue.length; i++) {
+      const item = keyValue[i].split('=');
+      const key = item[0];
+      const value = item[1];
+      obj[key] = value;
+    }
+  }
+  return obj;
+}
+
+/**
+ * 字符串转base64
+ * @param {*} str
+ */
+export function strToBase64(str: string) {
+  return Base64.encode(str);
+}
+
+/**
+ * base64转str
+ * @param {*} base64
+ */
+export function base64ToStr(base64: string) {
+  return Base64.decode(base64);
+}

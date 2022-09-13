@@ -8,7 +8,7 @@
         :clickRowToExpand="false"
         ref="terrDataRef"
         :treeData="terrData"
-        :replaceFields="{ key: 'id', title: 'name' }"
+        :fieldNames="{ key: 'id', title: 'name' }"
         @select="handleSelect"
       />
     </a-card>

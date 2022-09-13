@@ -1,6 +1,8 @@
 // token key
 export const TOKEN_KEY = 'TOKEN__';
 
+export const SECURITY_KEY = 'SECURITY__';
+
 export const LOCALE_KEY = 'LOCALE__';
 
 // user info key

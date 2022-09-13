@@ -1,5 +1,5 @@
-export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
-
+export type ErrorMessageMode = 'none' | 'modal' | 'message' | 'notification' | undefined;
+export type SuccessMessageMode = 'none' | 'modal' | 'message' | 'notification' | undefined;
 export interface RequestOptions {
   // Splicing request parameters to url
   joinParamsToUrl?: boolean;
@@ -16,6 +16,7 @@ export interface RequestOptions {
   apiUrl?: string;
   // Error message prompt type
   errorMessageMode?: ErrorMessageMode;
+  successMessageMode?: SuccessMessageMode;
   // Whether to add a timestamp
   joinTime?: boolean;
   ignoreCancelToken?: boolean;
@@ -25,9 +26,10 @@ export interface RequestOptions {
 
 export interface Result<T = any> {
   code: number;
-  type: 'success' | 'error' | 'warning';
+  success: boolean;
   message: string;
-  data: T;
+  data?: T;
+  timestamp: number;
 }
 
 // multipart/form-data: upload file

@@ -18,15 +18,26 @@ import {
   TreeSelect,
   Slider,
   Rate,
+  Divider,
 } from 'ant-design-vue';
 
+import ApiRadioGroup from './components/ApiRadioGroup.vue';
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
 import ApiSelect from './components/ApiSelect.vue';
+import ApiTree from './components/ApiTree.vue';
 import ApiTreeSelect from './components/ApiTreeSelect.vue';
+import ApiCascader from './components/ApiCascader.vue';
+
+import SkillfullCategorySelect from './components/SkillfullCategorySelect.vue';
+import SkillfullConstantDictSelect from './components/SkillfullConstantDictSelect.vue';
+import SkillfullDictSelect from './components/SkillfullDictSelect.vue';
+
 import { BasicUpload } from '/@/components/Upload';
 import { StrengthMeter } from '/@/components/StrengthMeter';
 import { IconPicker } from '/@/components/Icon';
 import { CountdownInput } from '/@/components/CountDown';
+
+import { SkillfullCropperAvatar } from '/@/components/SkillfullCropper';
 
 const componentMap = new Map<ComponentType, Component>();
 
@@ -38,15 +49,24 @@ componentMap.set('InputTextArea', Input.TextArea);
 componentMap.set('InputNumber', InputNumber);
 componentMap.set('AutoComplete', AutoComplete);
 
+componentMap.set('SkillfullCropperAvatar', SkillfullCropperAvatar);
+
 componentMap.set('Select', Select);
 componentMap.set('ApiSelect', ApiSelect);
+componentMap.set('ApiTree', ApiTree);
 componentMap.set('TreeSelect', TreeSelect);
+componentMap.set('SkillfullDictSelect', SkillfullDictSelect);
 componentMap.set('ApiTreeSelect', ApiTreeSelect);
+componentMap.set('SkillfullCategorySelect', SkillfullCategorySelect);
+componentMap.set('SkillfullConstantDictSelect', SkillfullConstantDictSelect);
+
+componentMap.set('ApiRadioGroup', ApiRadioGroup);
 componentMap.set('Switch', Switch);
 componentMap.set('RadioButtonGroup', RadioButtonGroup);
 componentMap.set('RadioGroup', Radio.Group);
 componentMap.set('Checkbox', Checkbox);
 componentMap.set('CheckboxGroup', Checkbox.Group);
+componentMap.set('ApiCascader', ApiCascader);
 componentMap.set('Cascader', Cascader);
 componentMap.set('Slider', Slider);
 componentMap.set('Rate', Rate);
@@ -61,6 +81,7 @@ componentMap.set('IconPicker', IconPicker);
 componentMap.set('InputCountDown', CountdownInput);
 
 componentMap.set('Upload', BasicUpload);
+componentMap.set('Divider', Divider);
 
 export function add(compName: ComponentType, component: Component) {
   componentMap.set(compName, component);

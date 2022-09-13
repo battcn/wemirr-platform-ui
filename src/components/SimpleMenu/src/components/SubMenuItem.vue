@@ -21,7 +21,7 @@
       :overlayClassName="`${prefixCls}-menu-popover`"
       v-else
       :visible="getIsOpend"
-      @visibleChange="handleVisibleChange"
+      @visible-change="handleVisibleChange"
       :overlayStyle="getOverlayStyle"
       :align="{ offset: [0, 0] }"
     >
@@ -286,7 +286,7 @@
             if (props.name && Array.isArray(data)) {
               state.opened = (data as (string | number)[]).includes(props.name);
             }
-          }
+          },
         );
 
         rootMenuEmitter.on('on-update-active-name:submenu', (data: number[]) => {

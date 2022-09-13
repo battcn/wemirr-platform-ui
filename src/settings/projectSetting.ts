@@ -23,7 +23,7 @@ const setting: ProjectConfig = {
   // `Settings` button position
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
 
-  // Permission mode
+  // Permission mode(菜单加载模式)
   permissionMode: PermissionModeEnum.BACK,
 
   // Permission-related cache is stored in sessionStorage or localStorage
@@ -51,7 +51,7 @@ const setting: ProjectConfig = {
   showLogo: true,
 
   // Whether to show footer
-  showFooter: false,
+  showFooter: true,
 
   // Header configuration
   headerSetting: {
@@ -97,7 +97,7 @@ const setting: ProjectConfig = {
     // Menu mode
     mode: MenuModeEnum.INLINE,
     // Menu type
-    type: MenuTypeEnum.MIX_SIDEBAR,
+    type: MenuTypeEnum.SIDEBAR,
     // Menu theme
     theme: ThemeEnum.DARK,
     // Split menu
@@ -113,7 +113,7 @@ const setting: ProjectConfig = {
     // Module opening method ‘click’ |'hover'
     mixSideTrigger: MixSidebarTriggerEnum.CLICK,
     // Fixed expanded menu
-    mixSideFixed: true,
+    mixSideFixed: false,
   },
 
   // Multi-label

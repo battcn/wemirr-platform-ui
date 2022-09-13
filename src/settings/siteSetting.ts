@@ -1,8 +1,8 @@
 // github repo url
-export const GITHUB_URL = 'https://github.com/anncwb/vue-vben-admin';
+export const GITHUB_URL = 'https://github.com/battcn/wemirr-platform-ui';
 
-// vue-vben-admin-next-doc
-export const DOC_URL = 'https://gitee.com/battcn/wemirr-platform';
+// vue-skill-full-next-doc
+export const DOC_URL = 'https://github.com/battcn/wemirr-platform-ui';
 
 // site url
-export const SITE_URL = 'https://vvbin.cn/next/';
+export const SITE_URL = 'https://gitee.com/battcn';

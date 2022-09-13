@@ -4,7 +4,7 @@
       <img :class="`${prefixCls}__header`" :src="getUserInfo.avatar" />
       <span :class="`${prefixCls}__info hidden md:block`">
         <span :class="`${prefixCls}__name  `" class="truncate">
-          {{ getUserInfo.realName }}
+          {{ getUserInfo.nickName || getUserInfo.realName }}
         </span>
       </span>
     </span>
@@ -17,7 +17,13 @@
           icon="ion:document-text-outline"
           v-if="getShowDoc"
         />
-        <MenuDivider v-if="getShowDoc" />
+        <MenuItem
+          key="org"
+          :text="getUserInfo.currentOrgName"
+          icon="ant-design:cluster-outlined"
+          v-if="getUserInfo.currentOrgName"
+        />
+        <MenuDivider v-if="getShowDoc || getUserInfo.currentOrgName" />
         <MenuItem
           v-if="getUseLockPage"
           key="lock"
@@ -33,6 +39,7 @@
     </template>
   </Dropdown>
   <LockAction @register="register" />
+  <OrgModal @register="registerOrg" />
 </template>
 <script lang="ts">
   // components
@@ -47,14 +54,13 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useModal } from '/@/components/Modal';
-
+  import { getAttachmentUrl } from '/@/utils';
   import headerImg from '/@/assets/images/header.jpg';
   import { propTypes } from '/@/utils/propTypes';
   import { openWindow } from '/@/utils';
-
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock';
+  type MenuEvent = 'logout' | 'doc' | 'lock' | 'org';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -64,6 +70,7 @@
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
       LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
+      OrgModal: createAsyncComponent(() => import('../org/OrgModal.vue')),
     },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
@@ -75,14 +82,44 @@
       const userStore = useUserStore();
 
       const getUserInfo = computed(() => {
-        const { realName = '', avatar, desc } = userStore.getUserInfo || {};
-        return { realName, avatar: avatar || headerImg, desc };
+        let userInfo = userStore.getUserInfo;
+        // 如果没有用户信息后端获取
+        if (!userInfo || Object.keys(userInfo).length <= 0) {
+          getUserAndAuth();
+        }
+        const {
+          realName = '',
+          nickName,
+          avatar,
+          shortProfile,
+          currentOrgId,
+          currentOrgName,
+        } = userStore.getUserInfo || {};
+        return {
+          realName,
+          avatar: getAttachmentUrl(avatar || headerImg),
+          shortProfile,
+          nickName,
+          currentOrgId,
+          currentOrgName: currentOrgName,
+        };
       });
 
+      async function getUserAndAuth() {
+        await userStore.getUserAndAuth();
+      }
+
       const [register, { openModal }] = useModal();
+      const [registerOrg, { openModal: openOrgModal }] = useModal();
 
       function handleLock() {
         openModal(true);
+      }
+
+      function handleOrg() {
+        openOrgModal(true, {
+          orgId: userStore.getUserInfo.currentOrgId,
+        });
       }
 
       //  login out
@@ -94,7 +131,6 @@
       function openDoc() {
         openWindow(DOC_URL);
       }
-
       function handleMenuClick(e: { key: MenuEvent }) {
         switch (e.key) {
           case 'logout':
@@ -106,6 +142,9 @@
           case 'lock':
             handleLock();
             break;
+          case 'org':
+            handleOrg();
+            break;
         }
       }
 
@@ -116,6 +155,7 @@
         handleMenuClick,
         getShowDoc,
         register,
+        registerOrg,
         getUseLockPage,
       };
     },

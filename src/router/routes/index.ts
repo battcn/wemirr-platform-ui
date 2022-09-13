@@ -5,6 +5,7 @@ import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic';
 import { mainOutRoutes } from './mainOut';
 import { PageEnum } from '/@/enums/pageEnum';
 import { t } from '/@/hooks/web/useI18n';
+import fixedRouter from './fixedRouter';
 
 const modules = import.meta.globEager('./modules/**/*.ts');
 
@@ -36,10 +37,11 @@ export const LoginRoute: AppRouteRecordRaw = {
   },
 };
 
-
 // Basic routing without permission
 export const basicRoutes = [
+  asyncRoutes,
   LoginRoute,
+  fixedRouter,
   RootRoute,
   ...mainOutRoutes,
   REDIRECT_ROUTE,

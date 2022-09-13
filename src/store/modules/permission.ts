@@ -1,8 +1,8 @@
 import type { AppRouteRecordRaw, Menu } from '/@/router/types';
-
+import { useGlobSetting } from '/@/hooks/setting';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
-import { useI18n } from '/@/hooks/web/useI18n';
+// import { useI18n } from '/@/hooks/web/useI18n';
 import { useUserStore } from './user';
 import { useAppStoreWithOut } from './app';
 import { toRaw } from 'vue';
@@ -15,16 +15,15 @@ import { PermissionModeEnum } from '/@/enums/appEnum';
 
 import { asyncRoutes } from '/@/router/routes';
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
-import { dashboard } from '/@/router/routes/modules/dashboard';
 
 import { filter } from '/@/utils/helper/treeHelper';
 
-import { getMenuList } from '/@/api/sys/menu';
-import { getPermCode } from '/@/api/sys/user';
+// import { getMenuList } from '/@/api/sys/menu';
+// import { getPermCode } from '/@/api/sys/user';
 
-import { useMessage } from '/@/hooks/web/useMessage';
+// import { useMessage } from '/@/hooks/web/useMessage';
 import { PageEnum } from '/@/enums/pageEnum';
-
+import { getRouterInfoTree } from '/@/api/modules/sys/webLoginCenter';
 interface PermissionState {
   // Permission code list
   permCodeList: string[] | number[];
@@ -93,12 +92,12 @@ export const usePermissionStore = defineStore({
       this.backMenuList = [];
       this.lastBuildMenuTime = 0;
     },
-    async changePermissionCode() {
-      const codeList = await getPermCode();
-      this.setPermCodeList(codeList);
-    },
-    async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
-      const { t } = useI18n();
+    // async changePermissionCode() {
+    //   const codeList = await getPermCode();
+    //   this.setPermCodeList(codeList);
+    // },
+    async buildRoutesAction(orgId?: string): Promise<AppRouteRecordRaw[]> {
+      // const { t } = useI18n();
       const userStore = useUserStore();
       const appStore = useAppStoreWithOut();
 
@@ -113,7 +112,7 @@ export const usePermissionStore = defineStore({
         return roleList.some((role) => roles.includes(role));
       };
 
-      const routeRmoveIgnoreFilter = (route: AppRouteRecordRaw) => {
+      const routeRemoveIgnoreFilter = (route: AppRouteRecordRaw) => {
         const { meta } = route;
         const { ignoreRoute } = meta || {};
         return !ignoreRoute;
@@ -161,8 +160,8 @@ export const usePermissionStore = defineStore({
           routes = filter(asyncRoutes, routeFilter);
           routes = routes.filter(routeFilter);
           const menuList = transformRouteToMenu(routes, true);
-          routes = filter(routes, routeRmoveIgnoreFilter);
-          routes = routes.filter(routeRmoveIgnoreFilter);
+          routes = filter(routes, routeRemoveIgnoreFilter);
+          routes = routes.filter(routeRemoveIgnoreFilter);
           menuList.sort((a, b) => {
             return (a.meta?.orderNo || 0) - (b.meta?.orderNo || 0);
           });
@@ -174,40 +173,40 @@ export const usePermissionStore = defineStore({
 
         //  If you are sure that you do not need to do background dynamic permissions, please comment the entire judgment below
         case PermissionModeEnum.BACK:
-          const { createMessage } = useMessage();
+          // const { createMessage } = useMessage();
 
-          createMessage.loading({
-            content: t('sys.app.menuLoading'),
-            duration: 1,
-          });
-
+          // createMessage.loading({
+          //   content: t('sys.app.menuLoading'),
+          //   duration: 1,
+          // });
           // !Simulate to obtain permission codes from the background,
           // this function may only need to be executed once, and the actual project can be put at the right time by itself
           let routeList: AppRouteRecordRaw[] = [];
           try {
-            this.changePermissionCode();
-            routeList = (await getMenuList()) as AppRouteRecordRaw[];
+            // this.changePermissionCode();
+            // 加载路由前获取用户信息
+            const globSetting = useGlobSetting();
+            await userStore.getUserAndAuth(orgId);
+            routeList = (await getRouterInfoTree(
+              globSetting.systemCode || '',
+            )) as AppRouteRecordRaw[];
           } catch (error) {
             console.error(error);
           }
 
           // Dynamically introduce components
-          if (routeList) {
-            routeList = transformObjToRoute(routeList);
-          } else {
-            routeList = [];
-          }
+          routeList = transformObjToRoute(routeList);
 
           //  Background routing to menu structure
           const backMenuList = transformRouteToMenu(routeList);
           this.setBackMenuList(backMenuList);
 
           // remove meta.ignoreRoute item
-          routeList = filter(routeList, routeRmoveIgnoreFilter);
-          routeList = routeList.filter(routeRmoveIgnoreFilter);
+          routeList = filter(routeList, routeRemoveIgnoreFilter);
+          routeList = routeList.filter(routeRemoveIgnoreFilter);
 
           routeList = flatMultiLevelRoutes(routeList);
-          routes = [PAGE_NOT_FOUND_ROUTE, dashboard, ...routeList];
+          routes = [PAGE_NOT_FOUND_ROUTE, ...asyncRoutes, ...routeList];
           break;
       }
 

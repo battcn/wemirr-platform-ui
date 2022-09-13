@@ -1,9 +1,10 @@
 export default {
-  footer: { onlinePreview: 'Preview', onlineDocument: 'Document' },
+  footer: { contactMe: 'Contact Me', onlineDocument: 'Document', question: 'Problem Of Feedback' },
   header: {
     // user dropdown
     dropdownItemDoc: 'Document',
     dropdownItemLoginOut: 'Login Out',
+    dropdownItemSwitchOrg: 'Switch Org',
 
     tooltipErrorLog: 'Error log',
     tooltipLock: 'Lock screen',
@@ -84,6 +85,7 @@ export default {
     breadcrumb: 'Breadcrumbs',
     breadcrumbIcon: 'Breadcrumbs Icon',
     tabs: 'Tabs',
+    tabDetail: 'Tab Detail',
     tabsQuickBtn: 'Tabs quick button',
     tabsRedoBtn: 'Tabs redo button',
     tabsFoldBtn: 'Tabs flod button',

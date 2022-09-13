@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { get } from 'lodash-es';
-import { getToken, getUserInfo } from '/@/utils/auth';
+import { getTokenInfo } from '/@/utils/auth';
 import { errorLog, errorCreate } from './tools';
 import { useGlobSetting } from '../hooks/setting';
 const globSetting = useGlobSetting();
@@ -94,13 +94,13 @@ function createService() {
  */
 function createRequestFunction(service) {
   return function (config) {
-    const token = getToken();
-    const userInfo = getUserInfo();
+    const token = getTokenInfo();
+    // const userInfo = getUserInfo();
     let headers = {};
     if (token !== null && token !== undefined) {
       headers = {
-        Authorization: 'Bearer ' + token,
-        tenant_code: userInfo?.tenantCode,
+        Authorization: 'Bearer ' + token?.access_token,
+        tenant_code: token?.tenantCode,
       };
     }
     const configDefault = {

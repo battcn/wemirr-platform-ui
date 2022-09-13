@@ -3,7 +3,7 @@
  */
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import type { RequestOptions, Result } from '/#/axios';
-
+import { RequestSecurityModel } from './Axios';
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   authenticationScheme?: string;
   urlPrefix?: string;
@@ -12,6 +12,17 @@ export interface CreateAxiosOptions extends AxiosRequestConfig {
 }
 
 export abstract class AxiosTransform {
+  /**
+   * @description: 请求加密处理
+   */
+  requestEncryptHook?: (
+    config: AxiosRequestConfig,
+    security: RequestSecurityModel
+  ) => AxiosRequestConfig;
+  /**
+   * @description: 响应解密处理
+   */
+  responseDecryptHook?: (res: AxiosResponse<Result>, security: RequestSecurityModel) => any;
   /**
    * @description: Process configuration before request
    * @description: Process configuration before request

@@ -1,6 +1,6 @@
 <template>
   <div :class="prefixCls">
-    <CollapseHeader v-bind="$props" :prefixCls="prefixCls" :show="show" @expand="handleExpand">
+    <CollapseHeader v-bind="props" :prefixCls="prefixCls" :show="show" @expand="handleExpand">
       <template #title>
         <slot name="title"></slot>
       </template>
@@ -22,9 +22,10 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
   import type { PropType } from 'vue';
-  import { defineComponent, ref } from 'vue';
+  import { ref } from 'vue';
+  import { isNil } from 'lodash-es';
   // component
   import { Skeleton } from 'ant-design-vue';
   import { CollapseTransition } from '/@/components/Transition';
@@ -34,7 +35,7 @@
   import { useTimeoutFn } from '/@/hooks/core/useTimeout';
   import { useDesign } from '/@/hooks/web/useDesign';
 
-  const props = {
+  const props = defineProps({
     title: { type: String, default: '' },
     loading: { type: Boolean },
     /**
@@ -57,38 +58,25 @@
      * Delayed loading time
      */
     lazyTime: { type: Number, default: 0 },
-  };
+  });
 
-  export default defineComponent({
-    name: 'CollapseContainer',
-    components: {
-      Skeleton,
-      CollapseHeader,
-      CollapseTransition,
-    },
-    props,
-    setup(props) {
-      const show = ref(true);
+  const show = ref(true);
 
-      const { prefixCls } = useDesign('collapse-container');
+  const { prefixCls } = useDesign('collapse-container');
 
-      /**
-       * @description: Handling development events
-       */
-      function handleExpand() {
-        show.value = !show.value;
-        if (props.triggerWindowResize) {
-          // 200 milliseconds here is because the expansion has animation,
-          useTimeoutFn(triggerWindowResize, 200);
-        }
-      }
+  /**
+   * @description: Handling development events
+   */
+  function handleExpand(val: boolean) {
+    show.value = isNil(val) ? !show.value : val;
+    if (props.triggerWindowResize) {
+      // 200 milliseconds here is because the expansion has animation,
+      useTimeoutFn(triggerWindowResize, 200);
+    }
+  }
 
-      return {
-        show,
-        handleExpand,
-        prefixCls,
-      };
-    },
+  defineExpose({
+    handleExpand,
   });
 </script>
 <style lang="less">

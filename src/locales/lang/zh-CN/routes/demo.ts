@@ -44,6 +44,7 @@ export default {
 
     time: '相对时间',
     cropperImage: '图片裁剪',
+    cardList: '卡片列表',
   },
   editor: {
     editor: '编辑器',
@@ -66,6 +67,7 @@ export default {
     icon: '图标',
     sessionTimeout: '登录过期',
     tabs: '标签页操作',
+    tabDetail: '标签详情页',
     print: '打印',
     contextMenu: '右键菜单',
     download: '文件下载',
@@ -86,6 +88,7 @@ export default {
     ws: 'websocket测试',
     breadcrumb: '面包屑导航',
     breadcrumbFlat: '平级模式',
+    requestDemo: '测试请求重试',
     breadcrumbFlatDetail: '平级详情',
     breadcrumbChildren: '层级模式',
     breadcrumbChildrenDetail: '层级详情',
@@ -104,6 +107,7 @@ export default {
     dynamicForm: '动态表单',
     customerForm: '自定义组件',
     appendForm: '表单增删示例',
+    tabsForm: '标签页+多级field',
   },
   iframe: {
     frame: '外部页面',
@@ -184,5 +188,6 @@ export default {
     editCellTable: '可编辑单元格',
     editRowTable: '可编辑行',
     authColumn: '权限列',
+    resizeParentHeightTable: '继承父元素高度',
   },
 };

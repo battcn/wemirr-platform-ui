@@ -2,6 +2,7 @@ export default {
   api: {
     operationFailed: 'Operation failed',
     errorTip: 'Error Tip',
+    infoTip: 'Info Tip',
     errorMessage: 'The operation failed, the system is abnormal!',
     timeoutMessage: 'Login timed out, please log in again!',
     apiTimeoutMessage: 'The interface request timed out, please refresh the page and try again!',
@@ -71,8 +72,8 @@ export default {
     signUpFormTitle: 'Sign up',
     forgetFormTitle: 'Reset password',
 
-    signInTitle: 'Backstage management system',
-    signInDesc: 'Enter your personal details and get started!',
+    signInTitle: '地有半亩，兰友半苗',
+    signInDesc: '人生就是在不断攀登，让一个个不可能成为可能',
     policy: 'I agree to the xxx Privacy Policy',
     scanSign: `scanning the code to complete the login`,
 
@@ -89,6 +90,7 @@ export default {
     // placeholder
     accountPlaceholder: 'Please input username',
     passwordPlaceholder: 'Please input password',
+    pictureCodePlaceholder: 'Please input picture code',
     smsPlaceholder: 'Please input sms code',
     mobilePlaceholder: 'Please input mobile',
     policyPlaceholder: 'Register after checking',
@@ -99,6 +101,7 @@ export default {
     confirmPassword: 'Confirm Password',
     email: 'Email',
     smsCode: 'SMS code',
+    pictureCode: 'Picture Code',
     mobile: 'Mobile',
   },
 };

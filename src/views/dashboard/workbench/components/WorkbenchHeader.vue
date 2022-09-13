@@ -1,6 +1,6 @@
 <template>
   <div class="lg:flex">
-    <Avatar :src="userinfo.avatar || headerImg" :size="72" class="!mx-auto !block" />
+    <Avatar :src="getPictureUrl(userinfo.avatar || headerImg)" :size="72" class="!mx-auto !block" />
     <div class="md:ml-6 flex flex-col justify-center md:mt-0 mt-2">
       <h1 class="md:text-lg text-md">早安, {{ userinfo.realName }}, 开始您一天的工作吧！</h1>
       <span class="text-secondary"> 今日晴，20℃ - 32℃！ </span>
@@ -10,7 +10,6 @@
         <span class="text-secondary"> 待办 </span>
         <span class="text-2xl">2/10</span>
       </div>
-
       <div class="flex flex-col justify-center text-right md:mx-16 mx-12">
         <span class="text-secondary"> 项目 </span>
         <span class="text-2xl">8</span>
@@ -22,19 +21,15 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-  import { computed, defineComponent } from 'vue';
-
+<script lang="ts" setup>
+  import { computed } from 'vue';
+  import { getAttachmentUrl } from '/@/utils';
   import { Avatar } from 'ant-design-vue';
   import { useUserStore } from '/@/store/modules/user';
-
   import headerImg from '/@/assets/images/header.jpg';
-  export default defineComponent({
-    components: { Avatar },
-    setup() {
-      const userStore = useUserStore();
-      const userinfo = computed(() => userStore.getUserInfo);
-      return { userinfo, headerImg };
-    },
-  });
+  function getPictureUrl(url: string) {
+    return getAttachmentUrl(url);
+  }
+  const userStore = useUserStore();
+  const userinfo = computed(() => userStore.getUserInfo);
 </script>

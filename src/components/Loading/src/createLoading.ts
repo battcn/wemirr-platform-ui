@@ -21,7 +21,7 @@ export function createLoading(props?: Partial<LoadingProps>, target?: HTMLElemen
   vm = createVNode(LoadingWrap);
 
   if (wait) {
-    // TODO fix https://github.com/anncwb/vue-vben-admin/issues/438
+    // TODO fix https://github.com/anncwb/vue-skill-full/issues/438
     setTimeout(() => {
       render(vm, document.createElement('div'));
     }, 0);

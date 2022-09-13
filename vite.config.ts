@@ -1,17 +1,14 @@
 import type { UserConfig, ConfigEnv } from 'vite';
-
+import pkg from './package.json';
+import dayjs from 'dayjs';
 import { loadEnv } from 'vite';
 import { resolve } from 'path';
-
 import { generateModifyVars } from './build/generate/generateModifyVars';
 import { createProxy } from './build/vite/proxy';
 import { wrapperEnv } from './build/utils';
 import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
-
-import pkg from './package.json';
-import moment from 'moment';
-
+const timestamp = new Date().getTime();
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
 }
@@ -19,7 +16,7 @@ function pathResolve(dir: string) {
 const { dependencies, devDependencies, name, version } = pkg;
 const __APP_INFO__ = {
   pkg: { dependencies, devDependencies, name, version },
-  lastBuildTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+  lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 };
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
@@ -53,29 +50,58 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           find: /\/#\//,
           replacement: pathResolve('types') + '/',
         },
-        // ['@vue/compiler-sfc', '@vue/compiler-sfc/dist/compiler-sfc.esm-browser.js'],
       ],
     },
     server: {
+      https: false,
+      open: true,
       // Listening on all local IPs
       host: true,
       port: VITE_PORT,
       // Load proxy configuration from .env
       proxy: createProxy(VITE_PROXY),
     },
+    esbuild: {
+      pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : [],
+    },
     build: {
       target: 'es2015',
+      cssTarget: 'chrome80',
       outDir: OUTPUT_DIR,
+      minify: 'terser',
+      /**
+       * 当 minify=“minify:'terser'” 解开注释
+       * Uncomment when minify="minify:'terser'"
+       */
       terserOptions: {
         compress: {
-          keep_infinity: true,
-          // Used to delete console in production environment
-          drop_console: VITE_DROP_CONSOLE,
+          drop_console: true, //打包时删除console
+          drop_debugger: true, //打包时删除 debugger
+          pure_funcs: ['console.log'],
+        },
+        output: {
+          // 去掉注释内容
+          comments: true,
         },
       },
       // Turning off brotliSize display can slightly reduce packaging time
-      brotliSize: false,
+      reportCompressedSize: false,
+      cssCodeSplit: true, //如果设置为false，整个项目中的所有 CSS 将被提取到一个 CSS 文件中
       chunkSizeWarningLimit: 2000,
+      rollupOptions: {
+        output: {
+          // 最小化拆分包
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              return id.toString().split('node_modules/')[1].split('/')[0].toString();
+            }
+          },
+          // 用于从入口点创建的块的打包输出格式[name]表示文件名,[hash]表示该文件内容hash值
+          entryFileNames: `assets/[name].[hash].${timestamp}.js`, // 用于命名代码拆分时创建的共享块的输出命名
+          chunkFileNames: `assets/[name].[hash].${timestamp}.js`, // 拆分js到模块文件夹
+          assetFileNames: `assets/[name].[hash].${timestamp}.[ext]`, // 用于输出静态资源的命名
+        },
+      },
     },
     define: {
       // setting vue-i18-next
@@ -83,6 +109,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       __INTLIFY_PROD_DEVTOOLS__: false,
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
+
     css: {
       preprocessorOptions: {
         less: {
@@ -98,13 +125,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     optimizeDeps: {
       // @iconify/iconify: The dependency is dynamically and virtually loaded by @purge-icons/generated, so it needs to be specified explicitly
       include: [
+        '@vue/runtime-core',
+        '@vue/shared',
         '@iconify/iconify',
         'ant-design-vue/es/locale/zh_CN',
-        'moment/dist/locale/zh-cn',
         'ant-design-vue/es/locale/en_US',
-        'moment/dist/locale/eu',
       ],
-      exclude: ['vue-demi', 'consolidate'],
     },
   };
 };

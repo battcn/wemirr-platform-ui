@@ -5,12 +5,15 @@ import axios from 'axios';
 import qs from 'qs';
 import { AxiosCanceler } from './axiosCancel';
 import { isFunction } from '/@/utils/is';
-import { cloneDeep, omit } from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
 import { ContentTypeEnum } from '/@/enums/httpEnum';
 import { RequestEnum } from '/@/enums/httpEnum';
-
+import type { WebSecurityModel } from '/#/store';
 export * from './axiosTransform';
-
+export interface RequestSecurityModel extends WebSecurityModel {
+  secret: string;
+  userSecurity: boolean;
+}
 /**
  * @description:  axios module
  */
@@ -119,9 +122,20 @@ export class VAxios {
   /**
    * @description:  File Upload
    */
-  uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
-    const formData = new window.FormData();
+  uploadFile<T = any>(
+    config: AxiosRequestConfig,
+    params: UploadFileParams,
+    options?: RequestOptions,
+  ) {
+    const { requestOptions } = this.options;
 
+    const opt: RequestOptions = Object.assign({}, requestOptions, options);
+    const transform = this.getTransform();
+    const { beforeRequestHook } = transform || {};
+    if (beforeRequestHook && isFunction(beforeRequestHook)) {
+      config = beforeRequestHook(config, opt);
+    }
+    const formData = new window.FormData();
     if (params.data) {
       Object.keys(params.data).forEach((key) => {
         if (!params.data) return;
@@ -137,20 +151,15 @@ export class VAxios {
       });
     }
     formData.append(params.name || 'file', params.file, params.filename);
-    const customParams = omit(params, 'file', 'filename', 'file');
+    // const customParams = omit(params, 'file', 'filename', 'file');
 
-    Object.keys(customParams).forEach((key) => {
-      formData.append(key, customParams[key]);
-    });
-
+    // Object.keys(customParams).forEach((key) => {
+    //   formData.append(key, customParams[key]);
+    // });
     return this.axiosInstance.request<T>({
       ...config,
       method: 'POST',
       data: formData,
-      headers: {
-        'Content-type': ContentTypeEnum.FORM_DATA,
-        ignoreCancelToken: true,
-      },
     });
   }
 
@@ -202,9 +211,7 @@ export class VAxios {
       conf = beforeRequestHook(conf, opt);
     }
     conf.requestOptions = opt;
-
     conf = this.supportFormData(conf);
-
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(conf)

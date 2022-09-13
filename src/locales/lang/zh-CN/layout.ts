@@ -1,9 +1,10 @@
 export default {
-  footer: { onlinePreview: '在线预览', onlineDocument: '在线文档' },
+  footer: { contactMe: '联系我', onlineDocument: '在线文档', question: '问题反馈' },
   header: {
     // user dropdown
     dropdownItemDoc: '文档',
     dropdownItemLoginOut: '退出系统',
+    dropdownItemSwitchOrg: '切换机构',
 
     // tooltip
     tooltipErrorLog: '错误日志',
@@ -22,11 +23,11 @@ export default {
   },
   multipleTab: {
     reload: '重新加载',
-    close: '关闭标签页',
-    closeLeft: '关闭左侧标签页',
-    closeRight: '关闭右侧标签页',
-    closeOther: '关闭其它标签页',
-    closeAll: '关闭全部标签页',
+    close: '关闭当前',
+    closeLeft: '关闭左侧',
+    closeRight: '关闭右侧',
+    closeOther: '关闭其它',
+    closeAll: '关闭全部',
   },
   setting: {
     // content mode
@@ -84,6 +85,7 @@ export default {
     breadcrumb: '面包屑',
     breadcrumbIcon: '面包屑图标',
     tabs: '标签页',
+    tabDetail: '标签详情页',
     tabsQuickBtn: '标签页快捷按钮',
     tabsRedoBtn: '标签页刷新按钮',
     tabsFoldBtn: '标签页折叠按钮',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { RouteRecordRaw } from 'vue-router';
 
 import { useAppStore } from '/@/store/modules/app';
@@ -13,7 +14,6 @@ import projectSetting from '/@/settings/projectSetting';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { RoleEnum } from '/@/enums/roleEnum';
 
-import { intersection } from 'lodash-es';
 import { isArray } from '/@/utils/is';
 import { useMultipleTabStore } from '/@/store/modules/multipleTab';
 
@@ -56,29 +56,20 @@ export function usePermission() {
   /**
    * Determine whether there is permission
    */
-  function hasPermission(value?: RoleEnum | RoleEnum[] | string | string[], def = true): boolean {
-    // Visible by default
+  function hasPermission(value?: string, def = true): boolean {
     if (!value) {
       return def;
     }
-
-    const permMode = projectSetting.permissionMode;
-
-    if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
-      if (!isArray(value)) {
-        return userStore.getRoleList?.includes(value as RoleEnum);
-      }
-      return (intersection(value, userStore.getRoleList) as RoleEnum[]).length > 0;
+    // 如果是超级管理员则拥有所有权限直接放行
+    const userInfo = userStore.getUserInfo;
+    if (userInfo.superAdmin) {
+      return true;
     }
-
-    if (PermissionModeEnum.BACK === permMode) {
-      const allCodeList = permissionStore.getPermCodeList as string[];
-      if (!isArray(value)) {
-        return allCodeList.includes(value);
-      }
-      return (intersection(value, allCodeList) as string[]).length > 0;
+    const allCodeList = (router.currentRoute.value?.meta?.actionSet || []) as string[];
+    if (allCodeList.length <= 0) {
+      return false;
     }
-    return true;
+    return allCodeList.includes(value);
   }
 
   /**
@@ -88,7 +79,7 @@ export function usePermission() {
   async function changeRole(roles: RoleEnum | RoleEnum[]): Promise<void> {
     if (projectSetting.permissionMode !== PermissionModeEnum.ROUTE_MAPPING) {
       throw new Error(
-        'Please switch PermissionModeEnum to ROUTE_MAPPING mode in the configuration to operate!'
+        'Please switch PermissionModeEnum to ROUTE_MAPPING mode in the configuration to operate!',
       );
     }
 

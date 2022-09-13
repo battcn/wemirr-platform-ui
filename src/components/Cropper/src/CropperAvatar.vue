@@ -22,7 +22,7 @@
 
     <CopperModal
       @register="register"
-      @uploadSuccess="handleUploadSuccess"
+      @upload-success="handleUploadSuccess"
       :uploadApi="uploadApi"
       :src="sourceValue"
     />
@@ -57,7 +57,7 @@
   };
 
   export default defineComponent({
-    name: 'CropperAvatar',
+    name: 'SkillfullCropperAvatar',
     components: { CopperModal, Icon },
     props,
     emits: ['update:value', 'change'],
@@ -77,7 +77,7 @@
       const getStyle = computed((): CSSProperties => ({ width: unref(getWidth) }));
 
       const getImageWrapperStyle = computed(
-        (): CSSProperties => ({ width: unref(getWidth), height: unref(getWidth) })
+        (): CSSProperties => ({ width: unref(getWidth), height: unref(getWidth) }),
       );
 
       watchEffect(() => {
@@ -88,7 +88,7 @@
         () => sourceValue.value,
         (v: string) => {
           emit('update:value', v);
-        }
+        },
       );
 
       function handleUploadSuccess({ source }) {
@@ -103,7 +103,7 @@
         t,
         prefixCls,
         register,
-        openModal,
+        openModal: openModal as any,
         getIconWidth,
         sourceValue,
         getClass,
@@ -135,15 +135,14 @@
     }
 
     &-image-mask {
-      opacity: 0;
+      opacity: 0%;
       position: absolute;
       width: inherit;
       height: inherit;
       border-radius: inherit;
       border: inherit;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgb(0 0 0 / 40%);
       cursor: pointer;
-      -webkit-transition: opacity 0.4s;
       transition: opacity 0.4s;
 
       ::v-deep(svg) {
@@ -152,7 +151,7 @@
     }
 
     &-image-mask:hover {
-      opacity: 40;
+      opacity: 4000%;
     }
 
     &-upload-btn {

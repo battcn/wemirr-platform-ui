@@ -2,7 +2,10 @@
   <MenuItem :key="itemKey">
     <span class="flex items-center">
       <Icon :icon="icon" class="mr-1" />
-      <span>{{ text }}</span>
+      <span v-if="text && text.length <= 7">{{ text }}</span>
+      <a-tooltip placement="topLeft" :title="text" v-else>
+        <span>{{ `${text.slice(0, 7)}...` }}</span>
+      </a-tooltip>
     </span>
   </MenuItem>
 </template>
@@ -18,6 +21,7 @@
     name: 'DropdownMenuItem',
     components: { MenuItem: Menu.Item, Icon },
     props: {
+      // eslint-disable-next-line
       key: propTypes.string,
       text: propTypes.string,
       icon: propTypes.string,

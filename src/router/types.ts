@@ -2,7 +2,7 @@ import type { RouteRecordRaw, RouteMeta } from 'vue-router';
 import { RoleEnum } from '/@/enums/roleEnum';
 import { defineComponent } from 'vue';
 
-export type Component<T extends any = any> =
+export type Component<T = any> =
   | ReturnType<typeof defineComponent>
   | (() => Promise<typeof import('*.vue')>)
   | (() => Promise<T>);
@@ -28,6 +28,8 @@ export interface Menu {
   name: string;
 
   icon?: string;
+  // 0-系统图标(基于icon),1-自定义图标(基于图片路径)
+  iconType?: number;
 
   path: string;
 

@@ -61,7 +61,7 @@ export default function ({
     { immediate: true }
   );
 
-  function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false) {
+  function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false, actionSpan) {
     const width = unref(realWidthRef);
 
     const mdWidth =
@@ -83,17 +83,18 @@ export default function ({
     } else {
       itemColSum += xxlWidth;
     }
-
+    const nowItemColSum = itemColSum + actionSpan;
     if (isLastAction) {
       advanceState.hideAdvanceBtn = false;
-      if (itemColSum <= BASIC_COL_LEN * 2) {
+      if (nowItemColSum <= BASIC_COL_LEN * 2) {
         // When less than or equal to 2 lines, the collapse and expand buttons are not displayed
         advanceState.hideAdvanceBtn = true;
         advanceState.isAdvanced = true;
       } else if (
-        itemColSum > BASIC_COL_LEN * 2 &&
-        itemColSum <= BASIC_COL_LEN * (unref(getProps).autoAdvancedLine || 3)
+        nowItemColSum > BASIC_COL_LEN * 2 &&
+        nowItemColSum <= BASIC_COL_LEN * (unref(getProps).autoAdvancedLine || 3)
       ) {
+        console.log('---------eqweqwe-----', unref(getProps).autoAdvancedLine);
         advanceState.hideAdvanceBtn = false;
 
         // More than 3 lines collapsed by default
@@ -103,7 +104,7 @@ export default function ({
       }
       return { isAdvanced: advanceState.isAdvanced, itemColSum };
     }
-    if (itemColSum > BASIC_COL_LEN) {
+    if (nowItemColSum > BASIC_COL_LEN * (unref(getProps).alwaysShowLines || 1)) {
       return { isAdvanced: advanceState.isAdvanced, itemColSum };
     } else {
       // The first line is always displayed
@@ -114,8 +115,8 @@ export default function ({
   function updateAdvanced() {
     let itemColSum = 0;
     let realItemColSum = 0;
-    const { baseColProps = {} } = unref(getProps);
-
+    const { baseColProps = {}, actionColOptions } = unref(getProps);
+    const actionSpan = parseInt(actionColOptions?.span ?? 6);
     for (const schema of unref(getSchema)) {
       const { show, colProps } = schema;
       let isShow = true;
@@ -139,7 +140,9 @@ export default function ({
       if (isShow && (colProps || baseColProps)) {
         const { itemColSum: sum, isAdvanced } = getAdvanced(
           { ...baseColProps, ...colProps },
-          itemColSum
+          itemColSum,
+          false,
+          actionSpan
         );
 
         itemColSum = sum || 0;
@@ -152,7 +155,12 @@ export default function ({
 
     advanceState.actionSpan = (realItemColSum % BASIC_COL_LEN) + unref(getEmptySpan);
 
-    getAdvanced(unref(getProps).actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
+    getAdvanced(
+      unref(getProps).actionColOptions || { span: BASIC_COL_LEN },
+      itemColSum,
+      true,
+      actionSpan
+    );
 
     emit('advanced-change');
   }
