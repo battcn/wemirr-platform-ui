@@ -65,7 +65,7 @@ export function usePermission() {
     if (userInfo.superAdmin) {
       return true;
     }
-    const allCodeList = (router.currentRoute.value?.meta?.actionSet || []) as string[];
+    const allCodeList = (userInfo?.permissions || []) as string[];
     if (allCodeList.length <= 0) {
       return false;
     }

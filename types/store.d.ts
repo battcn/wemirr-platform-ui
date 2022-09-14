@@ -36,28 +36,24 @@ export interface RoleInfo {
 }
 export interface UserInfo {
   userId: string;
-  userName: string;
-  phone: string;
+  username: string;
+  mobile: string;
   nickName?: string;
-  shortProfile?: string;
+  tenantId?: string;
+  tenantCode?: string;
+  // shortProfile?: string;
   realName?: string;
   avatar?: string;
-  birthday?: string;
+  // birthday?: string;
   sex: number;
   email: string;
   currentDepartId: string;
   currentDepartName: string;
   homePath?: string;
-  roleCodes: string[];
-  roleIds: string[];
+  roles: string[];
+  permissions: string[];
   roleInfos: RoleInfo[];
-  superAdmin: boolean;
-  currentAreaCode: string;
-  currentAreaName: string;
-  currentOrgCode: string;
-  currentOrgId: string;
-  currentOrgName: string;
-  currentTenantId: string;
+  superAdmin?: boolean;
 }
 
 export interface TokenInfo {

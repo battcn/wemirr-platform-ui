@@ -116,8 +116,6 @@ export const useUserStore = defineStore({
             router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
             permissionStore.setDynamicAddedRoute(true);
           }
-          //dashboard/workbench
-          console.log('router.currentRoute.value.query.redirect',router.currentRoute.value.query.redirect);
           const redirect = (router.currentRoute.value.query.redirect || '') as string;
           console.log('redirect===>>',redirect)
           if (redirect) {
@@ -136,7 +134,7 @@ export const useUserStore = defineStore({
       // 获取用户信息
       const userInfo = await getUserInfo(orgId);
       this.setUserInfo(userInfo);
-      this.setRoleList(userInfo?.roleCodes || []);
+      this.setRoleList(userInfo?.roles || []);
       // 获取权限信息
       return userInfo;
     },
