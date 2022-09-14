@@ -65,6 +65,7 @@
             span: 19,
           },
           schemas: schemas,
+          baseColProps:{lg:24,md:24},
           actionColOptions: {
             offset: 20,
           },
@@ -152,9 +153,9 @@
         if (!event.selected) {
           return;
         }
-        nodeRef.value = event.selectedNodes[0].props;
+        nodeRef.value = event.selectedNodes[0];
         crudBinding.value.actionbar.buttons.add.show = true;
-        setFieldsValue({ ...event.selectedNodes[0].props });
+        setFieldsValue({ ...event.selectedNodes[0] });
         expose.doRefresh();
       }
 

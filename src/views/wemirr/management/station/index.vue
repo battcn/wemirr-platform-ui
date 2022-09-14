@@ -56,7 +56,7 @@
         if (!event.selected) {
           return;
         }
-        nodeRef.value = event.selectedNodes[0].props;
+        nodeRef.value = event.selectedNodes[0];
         expose.doRefresh();
       }
       function onTreeNodeCheck(keys, event) {

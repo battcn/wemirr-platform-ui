@@ -207,6 +207,7 @@ export const usePermissionStore = defineStore({
 
           routeList = flatMultiLevelRoutes(routeList);
           routes = [PAGE_NOT_FOUND_ROUTE, ...asyncRoutes, ...routeList];
+          console.log('routes',routes);
           break;
       }
 

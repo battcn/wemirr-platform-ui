@@ -16,9 +16,6 @@ export const schemas: FormSchema[] = [
       disabled: true,
       placeholder: '请填写上级ID',
     },
-    // dynamicDisabled: ({ values }) => {
-    //   return values.id != null;
-    // },
     required: true,
   },
   {

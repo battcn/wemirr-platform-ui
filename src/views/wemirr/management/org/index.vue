@@ -48,6 +48,7 @@
             span: 19,
           },
           schemas: schemas,
+          baseColProps:{lg:24,md:24},
           actionColOptions: {
             offset: 20,
           },
@@ -136,7 +137,7 @@
           return;
         }
         setFieldsValue({
-          ...event.selectedNodes[0].props,
+          ...event.selectedNodes[0],
         });
       }
       function getTree() {
