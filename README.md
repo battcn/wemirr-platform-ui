@@ -45,7 +45,7 @@ git clone https://gitee.com/battcn/wemirr-platform-ui.git
 - 安装依赖
 
 ```bash
-cd vue-vben-admin
+cd wemirr-platform-ui
 
 yarn install
 
@@ -66,5 +66,7 @@ yarn build
 
 ## 更新日志
 
-[CHANGELOG](./CHANGELOG.zh_CN.md)
+```
+当前版本是基于 vben2.8.0 和 antdv3.x 历史版本请切换 vben2.6.2
+```
 
