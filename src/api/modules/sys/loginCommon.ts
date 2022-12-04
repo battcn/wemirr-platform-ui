@@ -5,7 +5,7 @@ import { ValidateDto } from './model/loginCommonModel';
 /**
  * @description: 退出登录
  */
-export const loginOut = () => defHttp.get<string>({ url: SysUrlPrefix.AUTH + '/logout' });
+export const loginOut = () => defHttp.delete<string>({ url: SysUrlPrefix.AUTH + '/oauth/logout' });
 
 /**
  * @description: 踢用户下线

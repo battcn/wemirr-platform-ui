@@ -95,12 +95,12 @@ function createService() {
 function createRequestFunction(service) {
   return function (config) {
     const token = getTokenInfo();
-    // const userInfo = getUserInfo();
     let headers = {};
     if (token !== null && token !== undefined) {
       headers = {
         Authorization: 'Bearer ' + token?.access_token,
         tenant_code: token?.tenantCode,
+        ...config.headers,
       };
     }
     const configDefault = {

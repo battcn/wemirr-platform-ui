@@ -13,7 +13,7 @@ export const loginPicture = (params: LoginPicture, mode: ErrorMessageMode = 'non
   params.client_id = 'client';
   params.client_secret = 'client';
   params.scope = 'server';
-  params.tenant_code = '0000'
+  // params.tenant_code = '0000'
   // params.scope = 'web';
   return defHttp.post<TokenInfo>(
     { url: SysUrlPrefix.AUTH + '/oauth/token', params },
