@@ -5,7 +5,7 @@
         <BasicTree
           v-model:value="scope.form.orgList"
           :treeData="treeData"
-          :replaceFields="{ title: 'name', key: 'id' }"
+          :fieldNames="{ title: 'name', key: 'id' }"
           checkable
           toolbar
           v-if="scope.form.scopeType === 20"

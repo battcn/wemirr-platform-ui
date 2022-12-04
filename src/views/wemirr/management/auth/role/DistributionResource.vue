@@ -16,7 +16,7 @@
           @check="onTreeNodeCheck"
           ref="permissionTreeRef"
           :treeData="permissionTreeData"
-          :replaceFields="{ key: 'id', title: 'name' }"
+          :fieldNames="{ key: 'id', title: 'name' }"
           @select="handleSelect"
         />
       </a-col>

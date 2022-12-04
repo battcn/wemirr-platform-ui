@@ -109,11 +109,6 @@ export default function ({ expose, distribution }) {
               { value: true, label: '禁用', color: 'error' },
             ],
           }),
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
-              row[key] = value === true ? 1 : 0;
-            }
-          },
         },
         scopeType: {
           title: '权限范围',

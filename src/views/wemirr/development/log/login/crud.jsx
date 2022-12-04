@@ -45,6 +45,7 @@ export default function ({ expose }) {
         name: {
           title: '名称',
           type: 'text',
+          search: { show: true },
           column: { width: 160 },
         },
         ip: {
