@@ -164,8 +164,8 @@ const transform: AxiosTransform = {
     ) {
       // jwt token
       config.headers['Authorization'] = 'Bearer ' + token.access_token;
+      config.headers.tenant_code = token?.tenantCode;
     }
-    config.headers.tenant_code = token?.tenantCode;
     config.headers['X-Request-Id'] = buildShortUUID();
     // 多语言后端支持
     config.headers['Accept-Language'] = getLocale.value;
