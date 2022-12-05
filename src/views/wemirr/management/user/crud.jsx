@@ -83,7 +83,7 @@ export default function ({ expose }) {
           title: '性别',
           type: 'dict-radio',
           dict: dict({
-            url: '/authority/dictionaries/sex/list',
+            url: '/authority/dictionaries/SEX/list',
           }),
           viewForm: {
             valueBuilder(context) {
@@ -152,11 +152,7 @@ export default function ({ expose }) {
           type: 'dict-tree',
           column: {
             width: 180,
-            component: {
-              style: {
-                color: 'red',
-              },
-            },
+            component: {color: 'auto',}
           },
           dict: dict({
             isTree: true,
