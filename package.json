@@ -32,13 +32,12 @@
     "gen:icon": "esno ./build/generate/icon/index.ts"
   },
   "dependencies": {
-    "moment": "^2.29.1",
-    "skillfull-process-pro-antvue": "^1.2.4",
-    "@fast-crud/fast-crud": "^1.6.1",
-    "@fast-crud/fast-extends": "^1.6.1",
-    "@fast-crud/ui-antdv": "^1.6.1",
     "@ant-design/colors": "^6.0.0",
     "@ant-design/icons-vue": "^6.1.0",
+    "@fast-crud/fast-crud": "^1.9.0",
+    "@fast-crud/fast-extends": "^1.9.0",
+    "@fast-crud/ui-antdv": "^1.9.0",
+    "@form-create/ant-design-vue": "^3.1.17",
     "@iconify/iconify": "^2.2.1",
     "@logicflow/core": "^1.1.13",
     "@logicflow/extension": "^1.1.13",
@@ -60,6 +59,7 @@
     "lodash-es": "^4.17.21",
     "min-dash": "^3.8.1",
     "mockjs": "^1.1.0",
+    "moment": "^2.29.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
     "pinia": "2.0.12",
@@ -68,6 +68,7 @@
     "qs": "^6.10.3",
     "resize-observer-polyfill": "^1.5.1",
     "showdown": "^2.1.0",
+    "skillfull-process-pro-antvue": "^1.2.4",
     "sortablejs": "^1.15.0",
     "tiny-svg": "^2.2.3",
     "tinymce": "^5.10.3",
@@ -83,6 +84,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "jsonlint-mod": "^1.7.6",
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
     "@iconify/json": "^2.1.30",
