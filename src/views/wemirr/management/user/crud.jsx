@@ -87,12 +87,12 @@ export default function ({ expose }) {
           }),
           viewForm: {
             valueBuilder(context) {
-              context.form.sex = context.row.sex.toString();
+              context.form.sex = context.row.sex?.toString();
             },
           },
           editForm: {
             valueBuilder(context) {
-              context.form.sex = context.row.sex.toString();
+              context.form.sex = context.row.sex?.toString();
             },
           },
           column: {

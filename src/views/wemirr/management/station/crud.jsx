@@ -67,7 +67,7 @@ export default function ({ expose, nodeRef }) {
           }),
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = value.toString();
+              row[key] = value?.toString();
             }
           },
           form: {

@@ -150,7 +150,7 @@ export default function ({ expose }) {
             }
           },
           valueResolve({ form, key }) {
-            form[key] = form[key].toString();
+            form[key] = form[key]?.toString();
           },
           dict: dict({
             data: [
