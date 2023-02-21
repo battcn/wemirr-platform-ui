@@ -13,6 +13,7 @@ const customOptions = {
       title: '数据源',
       type: 'dict-select',
       dict: dict({
+        prototype: true,
         url: '/authority/databases/active',
         value: 'id',
         label: 'poolName',
