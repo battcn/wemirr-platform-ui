@@ -14,3 +14,11 @@ export const enum SysUrlPrefix {
   SYSTEM = '/system', // 基础系统
   TOOLS = '/tools', // 工具系统
 }
+
+export const GetGlobPreviewUrl = (fileId) => {
+  return `${globSetting.apiUrl}/tools/files/${fileId}/preview`
+}
+
+export const DownloadFileById = (fileId) => {
+  return `${globSetting.apiUrl}/tools/files/${fileId}/download?fileId=${fileId}`
+}
