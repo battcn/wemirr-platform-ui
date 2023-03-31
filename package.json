@@ -32,12 +32,13 @@
     "gen:icon": "esno ./build/generate/icon/index.ts"
   },
   "dependencies": {
-    "@ant-design/colors": "^6.0.0",
+    "@ant-design/colors": "^7.0.0",
     "@ant-design/icons-vue": "^6.1.0",
-    "@fast-crud/fast-crud": "^1.9.0",
-    "@fast-crud/fast-extends": "^1.9.0",
-    "@fast-crud/ui-antdv": "^1.9.0",
-    "@form-create/ant-design-vue": "^3.1.17",
+    "@aws-sdk/signature-v4-crt": "^3.118.0",
+    "@fast-crud/fast-crud": "^1.11.7",
+    "@fast-crud/fast-extends": "^1.11.7",
+    "@fast-crud/ui-antdv": "^1.11.7",
+    "@fast-crud/ui-interface": "^1.11.6",
     "@iconify/iconify": "^2.2.1",
     "@logicflow/core": "^1.1.13",
     "@logicflow/extension": "^1.1.13",

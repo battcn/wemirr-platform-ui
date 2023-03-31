@@ -1,22 +1,25 @@
-import { defHttp } from '/@/utils/http/axios';
-import { FastCrud, setLogger } from '@fast-crud/fast-crud';
+import {defHttp} from '/@/utils/http/axios';
+import {FastCrud, setLogger} from '@fast-crud/fast-crud';
 import '@fast-crud/fast-crud/dist/style.css';
-import { FsExtendsEditor, FsExtendsUploader } from '@fast-crud/fast-extends';
+import {FsExtendsEditor, FsExtendsJson, FsExtendsUploader} from '@fast-crud/fast-extends';
 import '@fast-crud/fast-extends/dist/style.css';
 import UiAntdv from '@fast-crud/ui-antdv';
-import { useCrudPermission } from '/@/plugin/permission/use-crud-permission';
-
+import {useCrudPermission} from '/@/plugin/permission/use-crud-permission';
+import {GetGlobPreviewUrl} from "/@/api/sysPrefix";
+import {useGlobSetting} from "/@/hooks/setting";
+const globSetting = useGlobSetting();
+import { isDevMode } from '/@/utils/env';
 // 导出 setupFastCrud
 // 国际化配置见 /src/locales/en  or zh_CN
 export default function (app, i18n) {
   //先安装ui
   app.use(UiAntdv);
-  setLogger({ level: 'warn' });
+  setLogger({level: 'warn'});
   //再安装fast-crud
   app.use(FastCrud, {
     i18n,
-    async dictRequest({ url }) {
-      return await defHttp.request({ url });
+    async dictRequest({url}) {
+      return await defHttp.request({url});
     },
     commonOptions(context) {
       const opts = {
@@ -38,9 +41,9 @@ export default function (app, i18n) {
           // 固定右侧 不建议设置成全局
           // fixed: 'right',
           buttons: {
-            view: { size: 'small', type: 'link', text: null, icon: 'akar-icons:search' },
-            edit: { size: 'small', type: 'link', text: null, icon: 'ion:create-outline' },
-            remove: { size: 'small', type: 'link', text: null, icon: 'ion:trash-outline' },
+            view: {size: 'small', type: 'link', text: null, icon: 'akar-icons:search'},
+            edit: {size: 'small', type: 'link', text: null, icon: 'ion:create-outline'},
+            remove: {size: 'small', type: 'link', text: null, icon: 'ion:trash-outline'},
           },
           dropdown: {
             more: {
@@ -57,8 +60,8 @@ export default function (app, i18n) {
           pagination: false,
         },
         request: {
-          transformQuery: ({ page, form, sort }) => {
-            const order = sort == null ? {} : { column: sort.prop, asc: sort.asc };
+          transformQuery: ({page, form, sort}) => {
+            const order = sort == null ? {} : {column: sort.prop, asc: sort.asc};
             const currentPage = page.currentPage ?? 1;
             const limit = page.pageSize ?? 20;
             const offset = limit * (currentPage - 1);
@@ -70,8 +73,12 @@ export default function (app, i18n) {
               ...order,
             };
           },
-          transformRes: ({ res }) => {
-            return { currentPage: res.data.current, pageSize: res.data.size, ...res.data };
+          transformRes: ({res}) => {
+            return {
+              currentPage: parseInt(res.data.current), pageSize: parseInt(res.data.size),
+              total: parseInt(res.data.total),
+              records: res.data.records
+            };
           },
         },
         form: {
@@ -86,83 +93,47 @@ export default function (app, i18n) {
     },
   });
 
-  app.use(FsExtendsEditor);
+//安装editor
+  app.use(FsExtendsEditor, {
+    //编辑器的公共配置
+    wangEditor: {},
+    quillEditor: {}
+  });
+  app.use(FsExtendsJson);
   //配置uploader 公共参数
   app.use(FsExtendsUploader, {
-    defaultType: 'cos',
-    cos: {
-      domain: 'https://d2p-demo-1251260344.cos.ap-guangzhou.myqcloud.com',
-      bucket: 'd2p-demo-1251260344',
-      region: 'ap-guangzhou',
-      secretId: '', //
-      secretKey: '', // 传了secretKey 和secretId 代表使用本地签名模式（不安全，生产环境不推荐）
-      async getAuthorization() {
-        // 不传secretKey代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
-        return await defHttp.request(
-          {
-            url: '/upload/cos/getAuthorization',
-            method: 'get',
-          },
-          { apiUrl: 'http://www.docmirror.cn:7070/api' }
-        );
-      },
-      successHandle(ret) {
-        // 上传完成后可以在此处处理结果，修改url什么的
-        console.log('success handle:', ret);
-        return ret;
-      },
-    },
-    alioss: {
-      domain: 'https://d2p-demo.oss-cn-shenzhen.aliyuncs.com',
-      bucket: 'd2p-demo',
-      region: 'oss-cn-shenzhen',
-      accessKeyId: '',
-      accessKeySecret: '',
-      async getAuthorization() {
-        // 不传accessKeySecret代表使用临时签名模式,此时此参数必传（安全，生产环境推荐）
-        return defHttp.request(
-          {
-            url: '/upload/alioss/getAuthorization',
-            method: 'get',
-          },
-          { apiUrl: 'http://www.docmirror.cn:7070/api' }
-        );
-      },
-      sdkOpts: {
-        // sdk配置
-        secure: true, // 默认为非https上传,为了安全，设置为true
-      },
-      successHandle(ret) {
-        // 上传完成后可以在此处处理结果，修改url什么的
-        console.log('success handle:', ret);
-        return ret;
-      },
-    },
-    qiniu: {
-      bucket: 'battcn',
-      async getToken() {
-        return defHttp.request({ url: '/tools/files/token', method: 'get' });
-      },
-      successHandle(ret) {
-        // 上传完成后可以在此处处理结果，修改url什么的
-        console.log('success handle:', ret);
-        return ret;
-      },
-      // 不配置 domain 那么就自己在 valueBuilder 构建地址即可
-      domain: 'https://qiniu.battcn.com',
-    },
+    defaultType: 'form',
     form: {
-      action: 'http://www.docmirror.cn:7070/api/upload/form/upload',
+      action: '/tools/files/upload',
       name: 'file',
       withCredentials: false,
+      uploadRequest: async ({action, file, onProgress}) => {
+        const data = new FormData();
+        data.append("file", file);
+        return await defHttp.request({
+          url: action,
+          method: "post",
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+          timeout: 60000,
+          data,
+          onUploadProgress: (p) => {
+            onProgress({percent: Math.round((p.loaded / p.total) * 100)});
+          }
+        });
+      },
       successHandle(ret) {
         console.log('ret ==> ', ret);
         // 上传完成后的结果处理， 此处后台返回的结果应该为 ret = {code:0,msg:'',data:fileUrl}
-        if (!ret.data) {
+        if (!ret.fileId) {
           throw new Error('上传失败');
         }
+
         return {
-          url: ret.data,
+          url: GetGlobPreviewUrl(ret.fileId),
+          fileId: ret.fileId,
+          key: ret.fileId,
         };
       },
     },
