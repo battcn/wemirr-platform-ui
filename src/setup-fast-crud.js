@@ -7,8 +7,9 @@ import UiAntdv from '@fast-crud/ui-antdv';
 import {useCrudPermission} from '/@/plugin/permission/use-crud-permission';
 import {GetGlobPreviewUrl} from "/@/api/sysPrefix";
 import {useGlobSetting} from "/@/hooks/setting";
+
 const globSetting = useGlobSetting();
-import { isDevMode } from '/@/utils/env';
+import {isDevMode} from '/@/utils/env';
 // 导出 setupFastCrud
 // 国际化配置见 /src/locales/en  or zh_CN
 export default function (app, i18n) {
@@ -17,82 +18,91 @@ export default function (app, i18n) {
   setLogger({level: 'warn'});
   //再安装fast-crud
   app.use(FastCrud, {
-    i18n,
-    async dictRequest({url}) {
-      return await defHttp.request({url});
-    },
-    commonOptions(context) {
-      const opts = {
-        toolbar: {
-          // toolbar.buttons.export.show:false 显示隐藏
-          // toolbar.compact:false 默认选择
-          compact: false,
-        },
-        actionbar: {
-          buttons: {
-            add: {
-              icon: 'akar-icons:circle-plus',
+      i18n,
+      async dictRequest({url}) {
+        return await defHttp.request({url});
+      },
+      commonOptions(context) {
+        const opts = {
+          toolbar: {
+            // toolbar.buttons.export.show:false 显示隐藏
+            // toolbar.compact:false 默认选择
+            compact: false,
+          },
+          actionbar: {
+            buttons: {
+              add: {
+                icon: 'akar-icons:circle-plus',
+              },
             },
           },
-        },
-        rowHandle: {
-          width: 130,
-          align: 'center',
-          // 固定右侧 不建议设置成全局
-          // fixed: 'right',
-          buttons: {
-            view: {size: 'small', type: 'link', text: null, icon: 'akar-icons:search'},
-            edit: {size: 'small', type: 'link', text: null, icon: 'ion:create-outline'},
-            remove: {size: 'small', type: 'link', text: null, icon: 'ion:trash-outline'},
-          },
-          dropdown: {
-            more: {
-              type: 'link',
+          rowHandle: {
+            width: 130,
+            align: 'center',
+            // 固定右侧 不建议设置成全局
+            // fixed: 'right',
+            buttons: {
+              view: {size: 'small', type: 'link', text: null, icon: 'akar-icons:search'},
+              edit: {size: 'small', type: 'link', text: null, icon: 'ion:create-outline'},
+              remove: {size: 'small', type: 'link', text: null, icon: 'ion:trash-outline'},
+            },
+            dropdown: {
+              more: {
+                type: 'link',
+              },
             },
           },
-        },
-        table: {
-          size: 'small',
-          scroll: {
-            //需要设置它，否则滚动条拖动时，表头不会动
-            fixed: false,
+          table: {
+            size: 'small',
+            scroll: {
+              //需要设置它，否则滚动条拖动时，表头不会动
+              fixed: false,
+            },
+            pagination: false,
           },
-          pagination: false,
-        },
-        request: {
-          transformQuery: ({page, form, sort}) => {
-            const order = sort == null ? {} : {column: sort.prop, asc: sort.asc};
-            const currentPage = page.currentPage ?? 1;
-            const limit = page.pageSize ?? 20;
-            const offset = limit * (currentPage - 1);
-            return {
-              offset: offset,
-              current: currentPage,
-              size: page.pageSize,
-              ...form,
-              ...order,
-            };
+          request: {
+            transformQuery: ({page, form, sort}) => {
+              const order = sort == null ? {} : {column: sort.prop, asc: sort.asc};
+              const currentPage = page.currentPage ?? 1;
+              const limit = page.pageSize ?? 20;
+              const offset = limit * (currentPage - 1);
+              return {
+                offset: offset,
+                current: currentPage,
+                size: page.pageSize,
+                ...form,
+                ...order,
+              };
+            },
+            transformRes: ({res}) => {
+              if (res.data != null) {
+                return {
+                  currentPage: parseInt(res.data.current),
+                  pageSize: parseInt(res.data.size),
+                  total: parseInt(res.data.total),
+                  records: res.data.records,
+                };
+              }
+              return {
+                currentPage: parseInt(res.current ?? 0),
+                pageSize: parseInt(res.size ?? 9999),
+                total: parseInt(res.total ?? 9999),
+                records: res.records ?? res.data,
+              };
+            },
           },
-          transformRes: ({res}) => {
-            return {
-              currentPage: parseInt(res.data.current), pageSize: parseInt(res.data.size),
-              total: parseInt(res.data.total),
-              records: res.data.records
-            };
+          form: {
+            display: 'flex',
+            wrapper: {
+              is: 'a-drawer',
+            },
           },
-        },
-        form: {
-          display: 'flex',
-          wrapper: {
-            is: 'a-drawer',
-          },
-        },
-      };
-      const crudPermission = useCrudPermission(context);
-      return crudPermission.merge(opts);
-    },
-  });
-
+        };
+        const crudPermission = useCrudPermission(context);
+        return crudPermission.merge(opts);
+      },
+    }
+  )
 //安装editor
   app.use(FsExtendsEditor, {
     //编辑器的公共配置
@@ -100,7 +110,7 @@ export default function (app, i18n) {
     quillEditor: {}
   });
   app.use(FsExtendsJson);
-  //配置uploader 公共参数
+//配置uploader 公共参数
   app.use(FsExtendsUploader, {
     defaultType: 'form',
     form: {
