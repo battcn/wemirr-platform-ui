@@ -13,7 +13,7 @@
         :actionList="actionList"
       />
     </a-card>
-    <a-card title="菜单信息" :bordered="false" class="w-full menu" style="margin-left: 10px">
+    <a-card title="组织管理" :bordered="false" class="w-full menu" style="margin-left: 10px">
       <BasicForm @register="register" />
     </a-card>
   </PageWrapper>
