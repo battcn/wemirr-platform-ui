@@ -24,7 +24,7 @@ export function AddObj(obj) {
 
 export function UpdateObj(obj) {
   return request({
-    url: `/gateway/rules/blacklist/${obj.id}`,
+    url: `/gateway/rules/blacklist`,
     method: 'post',
     data: obj,
   });
