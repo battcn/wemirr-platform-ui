@@ -1,6 +1,6 @@
 import * as api from './api';
 import { compute, dict, utils } from '@fast-crud/fast-crud';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => {
@@ -130,7 +130,7 @@ export default function ({ expose }) {
           type: 'datetimerange',
           valueBuilder({ row, key }) {
             if (!utils.strings.hasEmpty(row.startTime, row.endTime)) {
-              row[key] = [moment(row.startTime), moment(row.endTime)];
+              row[key] = [dayjs(row.startTime), dayjs(row.endTime)];
             }
           },
           valueResolve({ form, key }) {
@@ -168,7 +168,7 @@ export default function ({ expose }) {
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },

@@ -1,5 +1,5 @@
 import { GET } from '/src/api/service';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => await GET('/authority/login_logs', query);
@@ -98,7 +98,7 @@ export default function ({ expose }) {
           type: 'datetime',
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },

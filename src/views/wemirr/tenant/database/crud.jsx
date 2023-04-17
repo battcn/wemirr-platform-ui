@@ -1,5 +1,5 @@
 import { dict, compute } from '@fast-crud/fast-crud';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { GET, DELETE, POST, PUT } from '/src/api/service';
 
 export default function ({ expose }) {
@@ -158,7 +158,7 @@ export default function ({ expose }) {
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },

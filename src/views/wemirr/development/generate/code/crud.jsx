@@ -1,5 +1,5 @@
 import { GET, POST, DELETE, PUT, request } from '/src/api/service';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { dict } from '@fast-crud/fast-crud';
 import { downloadByData } from '/src/utils/file/download';
 
@@ -135,7 +135,7 @@ export default function ({ expose, userStore }) {
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },

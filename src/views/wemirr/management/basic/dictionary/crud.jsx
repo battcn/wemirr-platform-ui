@@ -1,7 +1,7 @@
 import { shallowRef } from 'vue';
 import SubTable from './sub-table/index.vue';
 import { dict } from '@fast-crud/fast-crud';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { GET, POST, PUT, DELETE } from '/src/api/service';
 
 export default function () {
@@ -76,7 +76,7 @@ export default function () {
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },

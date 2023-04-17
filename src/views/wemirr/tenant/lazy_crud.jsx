@@ -1,5 +1,5 @@
 // import { compute, dict, utils, asyncCompute } from '@fast-crud/fast-crud';
-// import moment from 'moment';
+// import dayjs from 'dayjs';
 // import { GET, DELETE, POST, PUT } from '/src/api/service';
 //
 // import { getProvinceList } from '/@/api/sys/area';
@@ -268,7 +268,7 @@
 //           form: { show: false },
 //           valueBuilder({ value, row, key }) {
 //             if (value != null) {
-//               row[key] = moment(value);
+//               row[key] = dayjs(value);
 //             }
 //           },
 //         },

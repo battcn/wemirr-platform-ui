@@ -3,7 +3,7 @@ import { request } from '/src/api/service';
 import { compute, dict } from '@fast-crud/fast-crud';
 import { ref } from 'vue';
 import _ from 'lodash-es';
-import moment from "moment";
+import dayjs from "dayjs";
 
 function useSearchRemote() {
   let lastFetchId = 0;
@@ -164,7 +164,7 @@ export default function ({ expose }) {
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },

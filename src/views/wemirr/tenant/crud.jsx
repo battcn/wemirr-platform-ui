@@ -1,5 +1,5 @@
 import { compute, dict, utils, asyncCompute, useColumns } from '@fast-crud/fast-crud';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { GET, DELETE, POST, PUT } from '/src/api/service';
 import { getAreaTree } from '/@/api/sys/area';
@@ -348,7 +348,7 @@ export default function ({ expose }) {
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },

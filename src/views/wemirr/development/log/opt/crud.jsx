@@ -1,6 +1,6 @@
 import { GET } from '/src/api/service';
 // import { compute } from '@fast-crud/fast-crud';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 export default function ({ expose }) {
   const pageRequest = async (query) => await GET('/authority/opt_logs', query);
@@ -101,7 +101,7 @@ export default function ({ expose }) {
           column: { width: 180 },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },
@@ -111,7 +111,7 @@ export default function ({ expose }) {
           column: { width: 180 },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },

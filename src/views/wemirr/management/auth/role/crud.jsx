@@ -1,5 +1,5 @@
 import { dict, compute } from '@fast-crud/fast-crud';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { usePermission } from '/@/hooks/web/usePermission';
 import { GET, POST, PUT, DELETE } from '/src/api/service';
 
@@ -149,7 +149,7 @@ export default function ({ expose, distribution }) {
           editForm: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = moment(value);
+              row[key] = dayjs(value);
             }
           },
         },
