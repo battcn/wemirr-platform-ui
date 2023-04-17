@@ -88,6 +88,7 @@ export default function ({ expose, localDataRef }) {
         ip: {
           title: 'IP',
           type: 'text',
+          column: {width: 160,},
           search: { show: true },
         },
         status: {
@@ -96,6 +97,7 @@ export default function ({ expose, localDataRef }) {
           addForm: {
             value: true,
           },
+          column: {width: 100,},
           search: { show: true },
           dict: dict({
             data: [
@@ -107,6 +109,7 @@ export default function ({ expose, localDataRef }) {
         visits: {
           title: '访问量',
           type: 'text',
+          column: {width: 80,},
           form: { show: false },
         },
         path: {
@@ -131,6 +134,7 @@ export default function ({ expose, localDataRef }) {
             },
           },
           column: {
+            width:150,
             ellipsis: true,
           },
         },
@@ -138,6 +142,7 @@ export default function ({ expose, localDataRef }) {
           title: '方法',
           type: 'dict-select',
           search: { show: true },
+          column: {width: 100,},
           dict: dict({
             data: [
               { label: 'ALL', value: 'ALL', color: 'success' },
