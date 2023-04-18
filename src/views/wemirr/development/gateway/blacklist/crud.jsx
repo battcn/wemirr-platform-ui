@@ -123,10 +123,13 @@ export default function ({ expose, localDataRef }) {
                   <ul>
                     <li>（1）? 匹配一个字符（除过操作系统默认的文件分隔符）</li>
                     <li>（2）* 匹配0个或多个字符 </li>
-                    <li>（3）**匹配0个或多个目录 </li>
+                    <li>（3）**匹配0个或多个目录 /**/token/api/query 包含 /token/api/query</li>
                     <li>
                       （4）{'{spring:[a-z]+}'} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring
                       的路径变量
+                    </li>
+                    <li>
+                      （5）网关的限访里 需要去除微服务前缀。比如在访问的/xxx-service/api/query 在网关中需要填写 /api/query 或者 /**/api/query
                     </li>
                   </ul>
                 );
