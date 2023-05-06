@@ -1,18 +1,18 @@
 <template>
   <PageWrapper @back="goBack" :title="title">
-    <SkillFullBpmnDesigner
+<!--    <SkillFullBpmnDesigner
       @change="handleChange"
       :high-margin="254"
       @save="handleSaveOk"
       :dataMethod="urlInfos"
       ref="designer"
-    />
+    />-->
   </PageWrapper>
 </template>
 <script lang="ts" setup>
 
 import { PageWrapper } from '/@/components/Page';
-import { SkillFullBpmnDesigner } from 'skillfull-process-pro-antvue';
+// import { SkillFullBpmnDesigner } from 'skillfull-process-pro-antvue';
 import { ref, onMounted, reactive } from 'vue';
 import { useTabs } from '/@/hooks/web/useTabs';
 import { useRoute, useRouter } from 'vue-router';
