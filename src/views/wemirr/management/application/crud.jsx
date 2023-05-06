@@ -54,10 +54,10 @@ export default function ({ expose }) {
           },
           form: {
             component: {
-              addonAfter: '毫秒',
+              addonAfter: '秒',
             },
             rules: [{ required: true, message: 'Token有效期不能为空' }],
-            helper: 'Token有效期,默认12小时(1小时 = 3600毫秒 = 60 * 60)',
+            helper: 'Token有效期,默认12小时(1小时 = 3600秒 = 60 * 60)',
           },
         },
         status: {
