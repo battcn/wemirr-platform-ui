@@ -85,7 +85,7 @@ export default function ({ expose }) {
                   });
                 },
                 onCancel: () => {
-                  record.status = !value;
+                  record.status = value;
                 },
               });
             },
