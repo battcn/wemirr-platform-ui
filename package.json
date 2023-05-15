@@ -35,10 +35,10 @@
     "@ant-design/colors": "^7.0.0",
     "@ant-design/icons-vue": "^6.1.0",
     "@aws-sdk/signature-v4-crt": "^3.118.0",
-    "@fast-crud/fast-crud": "^1.13.1",
-    "@fast-crud/fast-extends": "^1.13.1",
-    "@fast-crud/ui-antdv": "^1.13.1",
-    "@fast-crud/ui-interface": "^1.13.1",
+    "@fast-crud/fast-crud": "^1.13.6",
+    "@fast-crud/fast-extends": "^1.13.6",
+    "@fast-crud/ui-antdv": "^1.13.6",
+    "@fast-crud/ui-interface": "^1.13.6",
     "@iconify/iconify": "^2.2.1",
     "@logicflow/core": "^1.1.13",
     "@logicflow/extension": "^1.1.13",
@@ -47,7 +47,7 @@
     "@vueuse/core": "^9.1.1",
     "@vueuse/shared": "^9.1.1",
     "@zxcvbn-ts/core": "^2.0.1",
-    "ant-design-vue": "^3.2.10",
+    "ant-design-vue": "^3.2.20",
     "axios": "^0.26.1",
     "codemirror": "^5.65.3",
     "cropperjs": "^1.5.12",
@@ -159,13 +159,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/battcn/wemirr-platform-ui-vue.git"
+    "url": "git+https://github.com/battcn/wemirr-platform-ui.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/battcn/wemirr-platform-ui-vue/issues"
+    "url": "https://github.com/battcn/wemirr-platform-ui/issues"
   },
-  "homepage": "https://github.com/battcn/wemirr-platform-ui-vue",
+  "homepage": "https://github.com/battcn/wemirr-platform-ui",
   "engines": {
     "node": "^12 || >=14"
   },
