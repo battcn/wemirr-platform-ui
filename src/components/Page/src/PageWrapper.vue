@@ -5,7 +5,7 @@
       :title="title"
       v-bind="omit($attrs, 'class')"
       ref="headerRef"
-      v-if="content || $slots.headerContent || title || getHeaderSlots.length"
+      v-if="getShowHeader"
     >
       <template #default>
         <template v-if="content">
@@ -33,9 +33,17 @@
   </div>
 </template>
 <script lang="ts">
-  import { CSSProperties, PropType, provide } from 'vue';
+  import {
+    CSSProperties,
+    PropType,
+    provide,
+    defineComponent,
+    computed,
+    watch,
+    ref,
+    unref,
+  } from 'vue';
 
-  import { defineComponent, computed, watch, ref, unref } from 'vue';
   import PageFooter from './PageFooter.vue';
 
   import { useDesign } from '/@/hooks/web/useDesign';
@@ -72,7 +80,7 @@
 
       provide(
         PageWrapperFixedHeightKey,
-        computed(() => props.fixedHeight)
+        computed(() => props.fixedHeight),
       );
 
       const getIsContentFullHeight = computed(() => {
@@ -85,7 +93,7 @@
         wrapperRef,
         [headerRef, footerRef],
         [contentRef],
-        getUpwardSpace
+        getUpwardSpace,
       );
       setCompensation({ useLayoutFooter: true, elements: [footerRef] });
 
@@ -98,6 +106,10 @@
           attrs.class ?? {},
         ];
       });
+
+      const getShowHeader = computed(
+        () => props.content || slots?.headerContent || props.title || getHeaderSlots.value.length,
+      );
 
       const getShowFooter = computed(() => slots?.leftFooter || slots?.rightFooter);
 
@@ -138,7 +150,7 @@
         {
           flush: 'post',
           immediate: true,
-        }
+        },
       );
 
       return {
@@ -150,6 +162,7 @@
         getClass,
         getHeaderSlots,
         prefixCls,
+        getShowHeader,
         getShowFooter,
         omit,
         getContentClass,

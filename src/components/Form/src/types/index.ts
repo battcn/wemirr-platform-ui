@@ -91,11 +91,8 @@ export type ComponentType =
   | 'Select'
   | 'ApiSelect'
   | 'TreeSelect'
-  | 'SkillfullDictSelect'
   | 'ApiTree'
   | 'ApiTreeSelect'
-  | 'SkillfullCategorySelect'
-  | 'SkillfullConstantDictSelect'
   | 'ApiRadioGroup'
   | 'RadioButtonGroup'
   | 'RadioGroup'
@@ -116,5 +113,5 @@ export type ComponentType =
   | 'Render'
   | 'Slider'
   | 'Rate'
-  | 'SkillfullCropperAvatar'
-  | 'Divider';
+  | 'Divider'
+  | 'ApiTransfer';

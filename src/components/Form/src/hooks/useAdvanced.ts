@@ -1,8 +1,7 @@
 import type { ColEx } from '../types';
 import type { AdvanceState } from '../types/hooks';
-import type { ComputedRef, Ref } from 'vue';
+import { ComputedRef, getCurrentInstance, Ref, shallowReactive, computed, unref, watch } from 'vue';
 import type { FormProps, FormSchema } from '../types/form';
-import { computed, unref, watch } from 'vue';
 import { isBoolean, isFunction, isNumber, isObject } from '/@/utils/is';
 import { useBreakpoint } from '/@/hooks/event/useBreakpoint';
 import { useDebounceFn } from '@vueuse/core';
@@ -26,6 +25,8 @@ export default function ({
   formModel,
   defaultValueRef,
 }: UseAdvancedContext) {
+  const vm = getCurrentInstance();
+
   const { realWidthRef, screenEnum, screenRef } = useBreakpoint();
 
   const getEmptySpan = computed((): number => {
@@ -58,10 +59,10 @@ export default function ({
         debounceUpdateAdvanced();
       }
     },
-    { immediate: true }
+    { immediate: true },
   );
 
-  function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false, actionSpan) {
+  function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false) {
     const width = unref(realWidthRef);
 
     const mdWidth =
@@ -83,18 +84,17 @@ export default function ({
     } else {
       itemColSum += xxlWidth;
     }
-    const nowItemColSum = itemColSum + actionSpan;
+
     if (isLastAction) {
       advanceState.hideAdvanceBtn = false;
-      if (nowItemColSum <= BASIC_COL_LEN * 2) {
+      if (itemColSum <= BASIC_COL_LEN * 2) {
         // When less than or equal to 2 lines, the collapse and expand buttons are not displayed
         advanceState.hideAdvanceBtn = true;
         advanceState.isAdvanced = true;
       } else if (
-        nowItemColSum > BASIC_COL_LEN * 2 &&
-        nowItemColSum <= BASIC_COL_LEN * (unref(getProps).autoAdvancedLine || 3)
+        itemColSum > BASIC_COL_LEN * 2 &&
+        itemColSum <= BASIC_COL_LEN * (unref(getProps).autoAdvancedLine || 3)
       ) {
-        console.log('---------eqweqwe-----', unref(getProps).autoAdvancedLine);
         advanceState.hideAdvanceBtn = false;
 
         // More than 3 lines collapsed by default
@@ -104,7 +104,7 @@ export default function ({
       }
       return { isAdvanced: advanceState.isAdvanced, itemColSum };
     }
-    if (nowItemColSum > BASIC_COL_LEN * (unref(getProps).alwaysShowLines || 1)) {
+    if (itemColSum > BASIC_COL_LEN * (unref(getProps).alwaysShowLines || 1)) {
       return { isAdvanced: advanceState.isAdvanced, itemColSum };
     } else {
       // The first line is always displayed
@@ -112,11 +112,13 @@ export default function ({
     }
   }
 
+  const fieldsIsAdvancedMap = shallowReactive({});
+
   function updateAdvanced() {
     let itemColSum = 0;
     let realItemColSum = 0;
-    const { baseColProps = {}, actionColOptions } = unref(getProps);
-    const actionSpan = parseInt(actionColOptions?.span ?? 6);
+    const { baseColProps = {} } = unref(getProps);
+
     for (const schema of unref(getSchema)) {
       const { show, colProps } = schema;
       let isShow = true;
@@ -141,26 +143,22 @@ export default function ({
         const { itemColSum: sum, isAdvanced } = getAdvanced(
           { ...baseColProps, ...colProps },
           itemColSum,
-          false,
-          actionSpan
         );
 
         itemColSum = sum || 0;
         if (isAdvanced) {
           realItemColSum = itemColSum;
         }
-        schema.isAdvanced = isAdvanced;
+        fieldsIsAdvancedMap[schema.field] = isAdvanced;
       }
     }
 
+    // 确保页面发送更新
+    vm?.proxy?.$forceUpdate();
+
     advanceState.actionSpan = (realItemColSum % BASIC_COL_LEN) + unref(getEmptySpan);
 
-    getAdvanced(
-      unref(getProps).actionColOptions || { span: BASIC_COL_LEN },
-      itemColSum,
-      true,
-      actionSpan
-    );
+    getAdvanced(unref(getProps).actionColOptions || { span: BASIC_COL_LEN }, itemColSum, true);
 
     emit('advanced-change');
   }
@@ -169,5 +167,5 @@ export default function ({
     advanceState.isAdvanced = !advanceState.isAdvanced;
   }
 
-  return { handleToggleAdvanced };
+  return { handleToggleAdvanced, fieldsIsAdvancedMap };
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { RouteRecordRaw } from 'vue-router';
 
 import { useAppStore } from '/@/store/modules/app';
@@ -14,6 +13,7 @@ import projectSetting from '/@/settings/projectSetting';
 import { PermissionModeEnum } from '/@/enums/appEnum';
 import { RoleEnum } from '/@/enums/roleEnum';
 
+import { intersection } from 'lodash-es';
 import { isArray } from '/@/utils/is';
 import { useMultipleTabStore } from '/@/store/modules/multipleTab';
 
@@ -30,7 +30,7 @@ export function usePermission() {
   async function togglePermissionMode() {
     appStore.setProjectConfig({
       permissionMode:
-        projectSetting.permissionMode === PermissionModeEnum.BACK
+        appStore.projectConfig?.permissionMode === PermissionModeEnum.BACK
           ? PermissionModeEnum.ROUTE_MAPPING
           : PermissionModeEnum.BACK,
     });
@@ -39,6 +39,7 @@ export function usePermission() {
 
   /**
    * Reset and regain authority resource information
+   * 重置和重新获得权限资源信息
    * @param id
    */
   async function resume() {
@@ -56,20 +57,29 @@ export function usePermission() {
   /**
    * Determine whether there is permission
    */
-  function hasPermission(value?: string, def = true): boolean {
+  function hasPermission(value?: RoleEnum | RoleEnum[] | string | string[], def = true): boolean {
+    // Visible by default
     if (!value) {
       return def;
     }
-    // 如果是超级管理员则拥有所有权限直接放行
-    const userInfo = userStore.getUserInfo;
-    if (userInfo.superAdmin) {
-      return true;
+
+    const permMode = projectSetting.permissionMode;
+
+    if ([PermissionModeEnum.ROUTE_MAPPING, PermissionModeEnum.ROLE].includes(permMode)) {
+      if (!isArray(value)) {
+        return userStore.getRoleList?.includes(value as RoleEnum);
+      }
+      return (intersection(value, userStore.getRoleList) as RoleEnum[]).length > 0;
     }
-    const allCodeList = (userInfo?.permissions || []) as string[];
-    if (allCodeList.length <= 0) {
-      return false;
+
+    if (PermissionModeEnum.BACK === permMode) {
+      const allCodeList = permissionStore.getPermCodeList as string[];
+      if (!isArray(value)) {
+        return allCodeList.includes(value);
+      }
+      return (intersection(value, allCodeList) as string[]).length > 0;
     }
-    return allCodeList.includes(value);
+    return true;
   }
 
   /**

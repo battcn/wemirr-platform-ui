@@ -1,44 +1,44 @@
-import { request } from '/src/api/service';
+import { defHttp } from '@/utils/http/axios'
 export function GetList(query) {
-  return request({
+  return defHttp.request({
     url: '/authority/areas',
     method: 'get',
-    params: query,
-  });
+    params: query
+  })
 }
 export function GetChildrenList(parentId) {
-  return request({
+  return defHttp.request({
     url: `/authority/areas/${parentId}/children`,
     method: 'get',
-    params: parentId,
-  });
+    params: parentId
+  })
 }
 export function GetListTree(query) {
-  return request({
+  return defHttp.request({
     url: '/authority/areas/trees',
     method: 'get',
-    params: query,
-  });
+    params: query
+  })
 }
 
 export function SaveOrUpdate(obj) {
-  return request({
+  return defHttp.request({
     url: '/authority/areas',
     method: 'post',
-    data: obj,
-  });
+    data: obj
+  })
 }
 export function BatchDelete(ids) {
-  return request({
+  return defHttp.request({
     url: `/authority/areas`,
     method: 'delete',
-    data: ids,
-  });
+    data: ids
+  })
 }
 export function DelObj(id) {
-  return request({
+  return defHttp.request({
     url: `/authority/areas/${id}`,
     method: 'delete',
-    data: { id },
-  });
+    data: { id }
+  })
 }

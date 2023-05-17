@@ -1,8 +1,9 @@
 export default {
   api: {
+    operationSuccess: '操作成功',
     operationFailed: '操作失败',
     errorTip: '错误提示',
-    infoTip: '信息提示',
+    successTip: '成功提示',
     errorMessage: '操作失败,系统异常!',
     timeoutMessage: '登录超时,请重新登录!',
     apiTimeoutMessage: '接口请求超时,请刷新页面重试!',
@@ -66,8 +67,8 @@ export default {
     signUpFormTitle: '注册',
     forgetFormTitle: '重置密码',
 
-    signInTitle: '地有半亩，兰友半苗',
-    signInDesc: '人生就是在不断攀登，让一个个不可能成为可能',
+    signInTitle: '开箱即用的中后台管理系统',
+    signInDesc: '输入您的个人详细信息开始使用！',
     policy: '我同意xxx隐私政策',
     scanSign: `扫码后点击"确认"，即可完成登录`,
 
@@ -83,7 +84,6 @@ export default {
 
     // placeholder
     accountPlaceholder: '请输入账号',
-    pictureCodePlaceholder: '请输入验证码',
     passwordPlaceholder: '请输入密码',
     smsPlaceholder: '请输入验证码',
     mobilePlaceholder: '请输入手机号码',
@@ -95,7 +95,6 @@ export default {
     confirmPassword: '确认密码',
     email: '邮箱',
     smsCode: '短信验证码',
-    pictureCode: '图片验证码',
     mobile: '手机号码',
   },
 };

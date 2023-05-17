@@ -1,38 +1,31 @@
 /**
  * Data processing class, can be configured according to the project
  */
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig
+} from 'axios';
 import type { RequestOptions, Result } from '/#/axios';
-import { RequestSecurityModel } from './Axios';
+
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   authenticationScheme?: string;
-  urlPrefix?: string;
   transform?: AxiosTransform;
   requestOptions?: RequestOptions;
 }
 
 export abstract class AxiosTransform {
   /**
-   * @description: 请求加密处理
-   */
-  requestEncryptHook?: (
-    config: AxiosRequestConfig,
-    security: RequestSecurityModel
-  ) => AxiosRequestConfig;
-  /**
-   * @description: 响应解密处理
-   */
-  responseDecryptHook?: (res: AxiosResponse<Result>, security: RequestSecurityModel) => any;
-  /**
-   * @description: Process configuration before request
-   * @description: Process configuration before request
+   * A function that is called before a request is sent. It can modify the request configuration as needed.
+   * 在发送请求之前调用的函数。它可以根据需要修改请求配置。
    */
   beforeRequestHook?: (config: AxiosRequestConfig, options: RequestOptions) => AxiosRequestConfig;
 
   /**
-   * @description: Request successfully processed
+   * @description: 处理响应数据
    */
-  transformRequestHook?: (res: AxiosResponse<Result>, options: RequestOptions) => any;
+  transformResponseHook?: (res: AxiosResponse<Result>, options: RequestOptions) => any;
 
   /**
    * @description: 请求失败处理
@@ -43,9 +36,9 @@ export abstract class AxiosTransform {
    * @description: 请求之前的拦截器
    */
   requestInterceptors?: (
-    config: AxiosRequestConfig,
-    options: CreateAxiosOptions
-  ) => AxiosRequestConfig;
+    config: InternalAxiosRequestConfig,
+    options: CreateAxiosOptions,
+  ) => InternalAxiosRequestConfig;
 
   /**
    * @description: 请求之后的拦截器
@@ -60,5 +53,5 @@ export abstract class AxiosTransform {
   /**
    * @description: 请求之后的拦截器错误处理
    */
-  responseInterceptorsCatch?: (error: Error) => void;
+  responseInterceptorsCatch?: (axiosInstance: AxiosInstance, error: Error) => void;
 }

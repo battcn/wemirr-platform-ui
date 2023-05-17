@@ -11,7 +11,7 @@ export { default as RadioButtonGroup } from './src/components/RadioButtonGroup.v
 export { default as ApiTreeSelect } from './src/components/ApiTreeSelect.vue';
 export { default as ApiTree } from './src/components/ApiTree.vue';
 export { default as ApiRadioGroup } from './src/components/ApiRadioGroup.vue';
-export { default as SkillfullCategorySelect } from './src/components/SkillfullCategorySelect.vue';
-export { default as SkillfullConstantDictSelect } from './src/components/SkillfullConstantDictSelect.vue';
 export { default as ApiCascader } from './src/components/ApiCascader.vue';
+export { default as ApiTransfer } from './src/components/ApiTransfer.vue';
+
 export { BasicForm };

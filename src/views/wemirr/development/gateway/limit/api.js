@@ -1,7 +1,7 @@
-import { request } from '/src/api/service';
+import { defHttp } from '@/utils/http/axios'
 
 export function GetList(query) {
-  return request({
+  return defHttp.request({
     url: '/gateway/rules/limits',
     method: 'get',
     params: query,
@@ -9,7 +9,7 @@ export function GetList(query) {
 }
 
 export function AddObj(obj) {
-  return request({
+  return defHttp.request({
     url: '/gateway/rules/limits',
     method: 'post',
     data: obj,
@@ -17,14 +17,14 @@ export function AddObj(obj) {
 }
 
 export function UpdateObj(obj) {
-  return request({
+  return defHttp.request({
     url: `/gateway/rules/limits/${obj.id}`,
     method: 'put',
     data: obj,
   });
 }
 export function DelObj(id) {
-  return request({
+  return defHttp.request({
     url: `/gateway/rules/limits/${id}`,
     method: 'delete',
     data: { id },

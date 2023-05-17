@@ -47,26 +47,26 @@ git clone https://gitee.com/battcn/wemirr-platform-ui.git
 ```bash
 cd wemirr-platform-ui
 
-yarn install
+pnpm install
 
-yarn run lint:eslint
+pnpm run lint:eslint
 ```
 
 - 运行
 
 ```bash
-yarn serve
+pnpm serve
 ```
 
 - 打包
 
 ```bash
-yarn build
+pnpm build
 ```
 
 ## 更新日志
 
 ```
-当前版本是基于 vben2.8.0 和 antdv3.x 历史版本请切换 vben2.6.2
+当前版本是基于 vben2.10 和 antdv3.x 历史版本请切换 vben2.8
 ```
 

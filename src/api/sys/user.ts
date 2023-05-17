@@ -1,37 +1,34 @@
-import { defHttp } from '/@/utils/http/axios';
-import { LoginParams, LoginResultModel, GetUserInfoModel, ChangePassword } from './model/userModel';
+import { defHttp } from "/@/utils/http/axios";
+import { LoginPicture, TokenInfo, GetUserInfoModel } from "./model/userModel";
 
-import { ErrorMessageMode } from '/#/axios';
+import { ErrorMessageMode } from "/#/axios";
 
 enum Api {
-  Logout = '/authority/oauth/logout',
-  Login = '/authority/oauth/token',
-  GetUserInfo = '/authority/oauth/info',
-  GetPermCode = '/authority/resources/permissions',
-  LoadCaptcha = '/authority/captcha',
-  ChangePassword = '/authority/oauth/change_password',
+  Login = "/authority/oauth/token",
+  Logout = "/authority/oauth/logout",
+  GetUserInfo = "/authority/oauth/info",
+  GetPermCode = "/getPermCode",
+  TestRetry = "/testRetry",
 }
-
 /**
- * @description: user login api
+ * @description: 验证码登录
  */
-export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
-  return defHttp.get<LoginResultModel>(
-    {
-      url: Api.Login,
-      params,
-    },
-    {
-      errorMessageMode: mode,
-    }
+export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none") => {
+  data.grant_type = "password";
+  data.client_id = "client";
+  data.client_secret = "client";
+  data.scope = "server";
+  return defHttp.post<TokenInfo>(
+    { url: Api.Login, params: data, data: data },
+    { errorMessageMode: mode }
   );
-}
+};
 
 /**
  * @description: getUserInfo
  */
 export function getUserInfo() {
-  return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo });
+  return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { errorMessageMode: "none" });
 }
 
 export function getPermCode() {
@@ -40,8 +37,4 @@ export function getPermCode() {
 
 export function doLogout() {
   return defHttp.delete({ url: Api.Logout });
-}
-
-export function changePassword(params: ChangePassword) {
-  return defHttp.put({ url: Api.ChangePassword, data: params });
 }

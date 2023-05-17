@@ -21,13 +21,16 @@
       :rowClassName="getRowClassName"
       v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
-      @resizeColumn="handleResizeColumn"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
       </template>
       <template #headerCell="{ column }">
         <HeaderCell :column="column" />
+      </template>
+      <!-- 增加对antdv3.x兼容 -->
+      <template #bodyCell="data">
+        <slot name="bodyCell" v-bind="data || {}"></slot>
       </template>
       <!--      <template #[`header-${column.dataIndex}`] v-for="(column, index) in columns" :key="index">-->
       <!--        <HeaderCell :column="column" />-->
@@ -72,6 +75,7 @@
   import { warn } from '/@/utils/log';
 
   export default defineComponent({
+    name: 'BasicTable',
     components: {
       Table,
       BasicForm,
@@ -98,7 +102,7 @@
     ],
     setup(props, { attrs, emit, slots, expose }) {
       const tableElRef = ref(null);
-      const tableData = ref<Recordable[]>([]);
+      const tableData = ref([]);
 
       const wrapRef = ref(null);
       const formRef = ref(null);
@@ -133,6 +137,7 @@
         getRowSelection,
         getRowSelectionRef,
         getSelectRows,
+        setSelectedRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
         deleteSelectRowByKey,
@@ -179,6 +184,7 @@
         getViewColumns,
         getColumns,
         setCacheColumnsByField,
+        setCacheColumns,
         setColumns,
         getColumnsRef,
         getCacheColumns,
@@ -234,7 +240,7 @@
 
       const getBindValues = computed(() => {
         const dataSource = unref(getDataSourceRef);
-        let propsData: Recordable = {
+        let propsData: any = {
           ...attrs,
           customRow,
           ...unref(getProps),
@@ -250,9 +256,9 @@
           footer: unref(getFooterProps),
           ...unref(getExpandOption),
         };
-        if (slots.expandedRowRender) {
-          propsData = omit(propsData, 'scroll');
-        }
+        // if (slots.expandedRowRender) {
+        //   propsData = omit(propsData, 'scroll');
+        // }
 
         propsData = omit(propsData, ['class', 'onChange']);
         return propsData;
@@ -285,6 +291,7 @@
       const tableAction: TableActionType = {
         reload,
         getSelectRows,
+        setSelectedRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
         deleteSelectRowByKey,
@@ -317,20 +324,18 @@
         getSize: () => {
           return unref(getBindValues).size as SizeType;
         },
+        setCacheColumns,
       };
       createTableContext({ ...tableAction, wrapRef, getBindValues });
 
       expose(tableAction);
 
       emit('register', tableAction, formActions);
-      function handleResizeColumn(w, col) {
-        col.width = w;
-      }
+
       return {
         formRef,
         tableElRef,
         getBindValues,
-        handleResizeColumn,
         getLoading,
         registerForm,
         handleSearchInfoChange,
@@ -375,21 +380,24 @@
       padding: 16px;
 
       .ant-form {
-        padding: 12px 10px 6px;
+        width: 100%;
         margin-bottom: 16px;
-        background-color: @component-background;
+        padding: 12px 10px 6px;
         border-radius: 2px;
+        background-color: @component-background;
       }
     }
 
-    .ant-tag {
-      margin-right: 0;
+    .ant-table-cell {
+      .ant-tag {
+        margin-right: 0;
+      }
     }
 
     .ant-table-wrapper {
       padding: 6px;
-      background-color: @component-background;
       border-radius: 2px;
+      background-color: @component-background;
 
       .ant-table-title {
         min-height: 40px;
@@ -407,10 +415,10 @@
 
       &-title {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
         padding: 8px 6px;
         border-bottom: none;
-        justify-content: space-between;
-        align-items: center;
       }
 
       //.ant-table-tbody > tr.ant-table-row-selected td {

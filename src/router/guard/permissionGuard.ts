@@ -1,13 +1,13 @@
-import type { Router, RouteRecordRaw } from 'vue-router';
+import type { Router, RouteRecordRaw } from "vue-router";
 
-import { usePermissionStoreWithOut } from '/@/store/modules/permission';
+import { usePermissionStoreWithOut } from "/@/store/modules/permission";
 
-import { PageEnum } from '/@/enums/pageEnum';
-import { useUserStoreWithOut } from '/@/store/modules/user';
+import { PageEnum } from "/@/enums/pageEnum";
+import { useUserStoreWithOut } from "/@/store/modules/user";
 
-import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
+import { PAGE_NOT_FOUND_ROUTE } from "/@/router/routes/basic";
 
-import { RootRoute } from '/@/router/routes';
+import { RootRoute } from "/@/router/routes";
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 
@@ -29,15 +29,26 @@ export function createPermissionGuard(router: Router) {
       return;
     }
 
+    const token = userStore.getToken;
+
     // Whitelist can be directly entered
     if (whitePathList.includes(to.path as PageEnum)) {
+      if (to.path === LOGIN_PATH && token) {
+        const isSessionTimeout = userStore.getSessionTimeout;
+        try {
+          await userStore.afterLoginAction();
+          if (!isSessionTimeout) {
+            next((to.query?.redirect as string) || "/");
+            return;
+          }
+        } catch {
+          //
+        }
+      }
       next();
       return;
     }
-
-    const token = userStore.getToken;
-
-    // token does not exist
+    // token or user does not exist
     if (!token) {
       // You can access without permission. You need to set the routing meta.ignoreAuth to true
       if (to.meta.ignoreAuth) {
@@ -71,13 +82,20 @@ export function createPermissionGuard(router: Router) {
     }
 
     // get userinfo while last fetch time is empty
-    // if (userStore.getLastUpdateTime === 0) {
-    //   await userStore.getUserInfoAction();
-    // }
+    if (userStore.getLastUpdateTime === 0) {
+      try {
+        await userStore.getUserInfoAction();
+      } catch (err) {
+        next();
+        return;
+      }
+    }
+
     if (permissionStore.getIsDynamicAddedRoute) {
       next();
       return;
     }
+
     const routes = await permissionStore.buildRoutesAction();
 
     routes.forEach((route) => {
@@ -87,6 +105,7 @@ export function createPermissionGuard(router: Router) {
     router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
 
     permissionStore.setDynamicAddedRoute(true);
+
     if (to.name === PAGE_NOT_FOUND_ROUTE.name) {
       // 动态添加路由后，此处应当重定向到fullPath，否则会加载404页面内容
       next({ path: to.fullPath, replace: true, query: to.query });
@@ -94,9 +113,6 @@ export function createPermissionGuard(router: Router) {
       const redirectPath = (from.query.redirect || to.path) as string;
       const redirect = decodeURIComponent(redirectPath);
       const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect };
-      if(nextData.path === ROOT_PATH){
-        nextData.path = PageEnum.BASE_HOME
-      }
       next(nextData);
     }
   });

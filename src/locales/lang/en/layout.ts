@@ -1,10 +1,9 @@
 export default {
-  footer: { contactMe: 'Contact Me', onlineDocument: 'Document', question: 'Problem Of Feedback' },
+  footer: { onlinePreview: 'Preview', onlineDocument: 'Document' },
   header: {
     // user dropdown
     dropdownItemDoc: 'Document',
-    dropdownItemLoginOut: 'Login Out',
-    dropdownItemSwitchOrg: 'Switch Org',
+    dropdownItemLoginOut: 'Log Out',
 
     tooltipErrorLog: 'Error log',
     tooltipLock: 'Lock screen',

@@ -1,12 +1,10 @@
 import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
-import type { App, Plugin } from 'vue';
-import { useGlobSetting } from '/@/hooks/setting';
-const globSetting = useGlobSetting();
+import type { App, Component } from 'vue';
+
 import { unref } from 'vue';
-import { isObject } from '/@/utils/is';
-import { SysUrlPrefix } from '/@/api/sysPrefix';
-import { Base64 } from 'js-base64';
-import { getTokenInfo } from '/@/utils/auth';
+import { isArray, isObject } from '/@/utils/is';
+import { cloneDeep, isEqual, mergeWith, unionWith } from 'lodash-es';
+
 export const noop = () => {};
 
 /**
@@ -35,12 +33,26 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
   return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters;
 }
 
-export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
-  let key: string;
-  for (key in target) {
-    src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);
-  }
-  return src;
+/**
+
+ 递归合并两个对象。
+ Recursively merge two objects.
+ @param target 目标对象，合并后结果存放于此。The target object to merge into.
+ @param source 要合并的源对象。The source object to merge from.
+ @returns 合并后的对象。The merged object.
+ */
+export function deepMerge<T extends object | null | undefined, U extends object | null | undefined>(
+  target: T,
+  source: U,
+): T & U {
+  return mergeWith(cloneDeep(target), source, (objValue, srcValue) => {
+    if (isObject(objValue) && isObject(srcValue)) {
+      return mergeWith(cloneDeep(objValue), srcValue, (prevValue, nextValue) => {
+        // 如果是数组，合并数组(去重) If it is an array, merge the array (remove duplicates)
+        return isArray(prevValue) ? unionWith(prevValue, nextValue, isEqual) : undefined;
+      });
+    }
+  });
 }
 
 export function openWindow(
@@ -57,7 +69,7 @@ export function openWindow(
 }
 
 // dynamic use hook props
-export function getDynamicProps<T, U>(props: T): Partial<U> {
+export function getDynamicProps<T extends Record<string, unknown>, U>(props: T): Partial<U> {
   const ret: Recordable = {};
 
   Object.keys(props).map((key) => {
@@ -82,96 +94,29 @@ export function getRawRoute(route: RouteLocationNormalized): RouteLocationNormal
   };
 }
 
-export const withInstall = <T>(component: T, alias?: string) => {
-  const comp = component as any;
-  comp.install = (app: App) => {
-    app.component(comp.name || comp.displayName, component);
+// https://github.com/vant-ui/vant/issues/8302
+type EventShim = {
+  new (...args: any[]): {
+    $props: {
+      onClick?: (...args: any[]) => void;
+    };
+  };
+};
+
+export type WithInstall<T> = T & {
+  install(app: App): void;
+} & EventShim;
+
+export type CustomComponent = Component & { displayName?: string };
+
+export const withInstall = <T extends CustomComponent>(component: T, alias?: string) => {
+  (component as Record<string, unknown>).install = (app: App) => {
+    const compName = component.name || component.displayName;
+    if (!compName) return;
+    app.component(compName, component);
     if (alias) {
       app.config.globalProperties[alias] = component;
     }
   };
-  return component as T & Plugin;
+  return component as WithInstall<T>;
 };
-
-export function getUrlPrefix() {
-  return globSetting.urlPrefix;
-}
-
-export function getAttachmentUrl(url: string) {
-  // 不是https、http以及base64图片
-  if (
-    url &&
-    url.indexOf('https') < 0 &&
-    url.indexOf('http') < 0 &&
-    url.indexOf('data:image/') < 0
-  ) {
-    const token = getTokenInfo();
-    const params = urlParamsToJson(url);
-    url = globSetting.urlPrefix + globSetting.apiUrl + SysUrlPrefix.STORAGE + url;
-    if (token && Object.keys(token).length > 0) {
-      params[token['token_query_name']] = token['access_token'];
-      url = setObjToUrlParams(url.split('?')[0], params);
-    }
-  }
-  return url;
-}
-
-export function getAttachmentDomainUrl(url: string) {
-  // 不是https、http以及base64图片
-  if (
-    url &&
-    url.indexOf('https') < 0 &&
-    url.indexOf('http') < 0 &&
-    url.indexOf('data:image/') < 0
-  ) {
-    const token = getTokenInfo();
-    const params = urlParamsToJson(url);
-    url = globSetting.urlPrefix + globSetting.apiUrl + SysUrlPrefix.STORAGE + url;
-    if (token && Object.keys(token).length > 0) {
-      params[token['token_query_name']] = token['access_token'];
-      url = setObjToUrlParams(window.location.origin + url.split('?')[0], params);
-    }
-  }
-  return url;
-}
-
-export function getAuthHeader() {
-  const token = getTokenInfo();
-  const headers = {};
-  if (token && Object.keys(token).length > 0) {
-    headers[token['bearer_token_header_name']] = 'Bearer ' + token['access_token'];
-  }
-  return headers;
-}
-
-function urlParamsToJson(urlInfo: string) {
-  const obj = {};
-  const p = urlInfo.split('?');
-  if (p.length > 1) {
-    const params = p[1];
-    const keyValue = params.split('&');
-    for (let i = 0; i < keyValue.length; i++) {
-      const item = keyValue[i].split('=');
-      const key = item[0];
-      const value = item[1];
-      obj[key] = value;
-    }
-  }
-  return obj;
-}
-
-/**
- * 字符串转base64
- * @param {*} str
- */
-export function strToBase64(str: string) {
-  return Base64.encode(str);
-}
-
-/**
- * base64转str
- * @param {*} base64
- */
-export function base64ToStr(base64: string) {
-  return Base64.decode(base64);
-}

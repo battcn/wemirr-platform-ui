@@ -1,7 +1,7 @@
-import { request } from '/src/api/service';
+import { defHttp } from '@/utils/http/axios'
 
 export function GetList(query) {
-  return request({
+  return defHttp.request({
     url: '/gateway/rules/routes',
     method: 'get',
     params: query,
@@ -9,14 +9,14 @@ export function GetList(query) {
 }
 
 export function SaveOrUpdate(obj) {
-  return request({
+  return defHttp.request({
     url: '/gateway/rules/routes',
     method: 'post',
     data: obj,
   });
 }
 export function DelObj(id) {
-  return request({
+  return defHttp.request({
     url: `/gateway/rules/routes/${id}`,
     method: 'delete',
     data: { id },
@@ -24,7 +24,7 @@ export function DelObj(id) {
 }
 
 export function ServiceStatus(id, status) {
-  return request({
+  return defHttp.request({
     url: `/gateway/rules/routes/${id}/${status}`,
     method: 'patch',
   });

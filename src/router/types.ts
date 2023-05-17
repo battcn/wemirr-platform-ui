@@ -28,8 +28,6 @@ export interface Menu {
   name: string;
 
   icon?: string;
-  // 0-系统图标(基于icon),1-自定义图标(基于图片路径)
-  iconType?: number;
 
   path: string;
 

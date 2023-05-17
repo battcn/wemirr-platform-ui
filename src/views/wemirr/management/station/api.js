@@ -5,7 +5,7 @@ export function GetList(query) {
 }
 
 export function AddObj(obj) {
-  return request({
+  return defHttp.request({
     url: '/authority/stations',
     method: 'post',
     data: obj,
@@ -13,14 +13,14 @@ export function AddObj(obj) {
 }
 
 export function UpdateObj(obj) {
-  return request({
+  return defHttp.request({
     url: `/authority/stations/${obj.id}`,
     method: 'put',
     data: obj,
   });
 }
 export function DelObj(id) {
-  return request({
+  return defHttp.request({
     url: `/authority/stations/${id}`,
     method: 'delete',
     data: { id },

@@ -10,7 +10,9 @@ import {
   SessionTimeoutProcessingEnum,
 } from '/@/enums/appEnum';
 import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from './designSetting';
-import { primaryColor } from '../../build/config/themeConfig';
+
+const primaryColor = '#0960bd';
+// import { primaryColor } from '../../build/config/themeConfig'
 
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
@@ -23,7 +25,7 @@ const setting: ProjectConfig = {
   // `Settings` button position
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
 
-  // Permission mode(菜单加载模式)
+  // Permission mode
   permissionMode: PermissionModeEnum.BACK,
 
   // Permission-related cache is stored in sessionStorage or localStorage
@@ -51,7 +53,7 @@ const setting: ProjectConfig = {
   showLogo: true,
 
   // Whether to show footer
-  showFooter: true,
+  showFooter: false,
 
   // Header configuration
   headerSetting: {
@@ -78,15 +80,16 @@ const setting: ProjectConfig = {
   // Menu configuration
   menuSetting: {
     // sidebar menu bg color
-    bgColor: SIDE_BAR_BG_COLOR_LIST[0],
+    bgColor: SIDE_BAR_BG_COLOR_LIST[3],
     //  Whether to fix the left menu
     fixed: true,
-    // Menu collapse
-    collapsed: false,
-    // Whether to display the menu name when folding the menu
+    // 菜单折叠
+    collapsed: true,
+    // When sider hide because of the responsive layout
+    siderHidden: false,
+    // 折叠菜单时是否显示菜单名称
     collapsedShowTitle: false,
-    // Whether it can be dragged
-    // Only limited to the opening of the left menu, the mouse has a drag bar on the right side of the menu
+    // 是否可以拖动 仅限于打开左侧菜单，鼠标在菜单右侧有一个拖动条
     canDrag: false,
     // Whether to show no dom
     show: true,
@@ -97,9 +100,9 @@ const setting: ProjectConfig = {
     // Menu mode
     mode: MenuModeEnum.INLINE,
     // Menu type
-    type: MenuTypeEnum.SIDEBAR,
+    type: MenuTypeEnum.MIX_SIDEBAR,
     // Menu theme
-    theme: ThemeEnum.DARK,
+    theme: ThemeEnum.LIGHT,
     // Split menu
     split: false,
     // Top menu layout
@@ -113,7 +116,7 @@ const setting: ProjectConfig = {
     // Module opening method ‘click’ |'hover'
     mixSideTrigger: MixSidebarTriggerEnum.CLICK,
     // Fixed expanded menu
-    mixSideFixed: false,
+    mixSideFixed: true,
   },
 
   // Multi-label
@@ -134,7 +137,7 @@ const setting: ProjectConfig = {
   // Transition Setting
   transitionSetting: {
     //  Whether to open the page switching animation
-    // The disabled state will also disable pageLoadinng
+    // The disabled state will also disable pageLoading
     enable: true,
 
     // Route basic switching animation

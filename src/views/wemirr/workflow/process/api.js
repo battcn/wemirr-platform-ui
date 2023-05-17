@@ -1,7 +1,7 @@
-import { request } from '/src/api/service';
+import { defHttp } from '@/utils/http/axios'
 
 export function BatchDelete(ids) {
-  return request({
+  return defHttp.request({
     url: `/authority/station_messages`,
     method: 'delete',
     data: ids,

@@ -5,10 +5,11 @@ import type {
   TransitionSetting,
   MultiTabsSetting,
 } from '/#/config';
-import projectSetting from '/@/settings/projectSetting';
 import type { BeforeMiniState } from '/#/store';
+
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
+
 import { ThemeEnum } from '/@/enums/appEnum';
 import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '/@/enums/cacheEnum';
 import { Persistent } from '/@/utils/cache/persistent';
@@ -35,20 +36,19 @@ export const useAppStore = defineStore({
     beforeMiniInfo: {},
   }),
   getters: {
-    getPageLoading(): boolean {
-      return this.pageLoading;
+    getPageLoading(state): boolean {
+      return state.pageLoading;
     },
-    getDarkMode(): 'light' | 'dark' | string {
-      return this.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
+    getDarkMode(state): 'light' | 'dark' | string {
+      return state.darkMode || localStorage.getItem(APP_DARK_MODE_KEY_) || darkMode;
     },
 
-    getBeforeMiniInfo(): BeforeMiniState {
-      return this.beforeMiniInfo;
+    getBeforeMiniInfo(state): BeforeMiniState {
+      return state.beforeMiniInfo;
     },
-    getProjectConfig(): ProjectConfig {
-      const projectConfig = this.projectConfig || ({} as ProjectConfig);
-      projectConfig.permissionMode = projectSetting.permissionMode;
-      return projectConfig;
+
+    getProjectConfig(state): ProjectConfig {
+      return state.projectConfig || ({} as ProjectConfig);
     },
 
     getHeaderSetting(): HeaderSetting {
@@ -77,10 +77,12 @@ export const useAppStore = defineStore({
     setBeforeMiniInfo(state: BeforeMiniState): void {
       this.beforeMiniInfo = state;
     },
+
     setProjectConfig(config: DeepPartial<ProjectConfig>): void {
       this.projectConfig = deepMerge(this.projectConfig || {}, config);
       Persistent.setLocal(PROJ_CFG_KEY, this.projectConfig);
     },
+
     async resetAllState() {
       resetRouter();
       Persistent.clearAll();
@@ -99,6 +101,7 @@ export const useAppStore = defineStore({
     },
   },
 });
+
 // Need to be used outside the setup
 export function useAppStoreWithOut() {
   return useAppStore(store);

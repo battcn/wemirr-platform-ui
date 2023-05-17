@@ -2,10 +2,7 @@
   <MenuItem :key="itemKey">
     <span class="flex items-center">
       <Icon :icon="icon" class="mr-1" />
-      <span v-if="text && text.length <= 7">{{ text }}</span>
-      <a-tooltip placement="topLeft" :title="text" v-else>
-        <span>{{ `${text.slice(0, 7)}...` }}</span>
-      </a-tooltip>
+      <span>{{ text }}</span>
     </span>
   </MenuItem>
 </template>
@@ -13,8 +10,8 @@
   import { Menu } from 'ant-design-vue';
 
   import { computed, defineComponent, getCurrentInstance } from 'vue';
+  import Icon from '@/components/Icon/Icon.vue';
 
-  import Icon from '/@/components/Icon/index';
   import { propTypes } from '/@/utils/propTypes';
 
   export default defineComponent({

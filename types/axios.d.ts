@@ -1,5 +1,6 @@
-export type ErrorMessageMode = 'none' | 'modal' | 'message' | 'notification' | undefined;
-export type SuccessMessageMode = 'none' | 'modal' | 'message' | 'notification' | undefined;
+export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
+export type SuccessMessageMode = ErrorMessageMode;
+
 export interface RequestOptions {
   // Splicing request parameters to url
   joinParamsToUrl?: boolean;
@@ -14,22 +15,31 @@ export interface RequestOptions {
   joinPrefix?: boolean;
   // Interface address, use the default apiUrl if you leave it blank
   apiUrl?: string;
+  // 请求拼接路径
+  urlPrefix?: string;
   // Error message prompt type
   errorMessageMode?: ErrorMessageMode;
+  // Success message prompt type
   successMessageMode?: SuccessMessageMode;
   // Whether to add a timestamp
   joinTime?: boolean;
   ignoreCancelToken?: boolean;
   // Whether to send token in header
   withToken?: boolean;
+  // 请求重试机制
+  retryRequest?: RetryRequest;
 }
 
+export interface RetryRequest {
+  isOpenRetry: boolean;
+  count: number;
+  waitTime: number;
+}
 export interface Result<T = any> {
   code: number;
-  success: boolean;
+  type: 'success' | 'error' | 'warning';
   message: string;
-  data?: T;
-  timestamp: number;
+  data: T;
 }
 
 // multipart/form-data: upload file

@@ -1,31 +1,31 @@
-import { request } from '/src/api/service';
+import { defHttp } from '@/utils/http/axios'
 export function GetList(query) {
-  return request({
+  return defHttp.request({
     url: '/tools/files',
     method: 'get',
-    params: query,
-  });
+    params: query
+  })
 }
 export function AddObj(obj) {
-  return request({
+  return defHttp.request({
     url: '/tools/files',
     method: 'post',
-    data: obj,
-  });
+    data: obj
+  })
 }
 
 export function UpdateObj(obj) {
-  return request({
+  return defHttp.request({
     url: `/tools/files/${obj.id}`,
     method: 'put',
-    data: obj,
-  });
+    data: obj
+  })
 }
 
 export function DelObj(id) {
-  return request({
+  return defHttp.request({
     url: `/tools/files/${id}`,
     method: 'delete',
-    data: { id },
-  });
+    data: { id }
+  })
 }

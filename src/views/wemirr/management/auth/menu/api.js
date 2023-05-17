@@ -1,47 +1,47 @@
-import { request } from '/src/api/service';
+import { defHttp } from '@/utils/http/axios'
 
 export function GetResourceList(query) {
-  return request({
+  return defHttp.request({
     url: '/authority/resources',
     method: 'get',
-    params: query,
-  });
+    params: query
+  })
 }
 export function SaveOrUpdate(obj) {
   if (obj.id) {
-    return UpdateObj(obj);
+    return UpdateObj(obj)
   } else {
-    return AddObj(obj);
+    return AddObj(obj)
   }
 }
 export function AddObj(obj) {
-  return request({
+  return defHttp.request({
     url: '/authority/resources',
     method: 'post',
-    data: obj,
-  });
+    data: obj
+  })
 }
 
 export function UpdateObj(obj) {
-  return request({
+  return defHttp.request({
     url: `/authority/resources/${obj.id}`,
     method: 'put',
-    data: obj,
-  });
+    data: obj
+  })
 }
 
 export function DelObj(id) {
-  return request({
+  return defHttp.request({
     url: `/authority/resources/${id}`,
     method: 'delete',
-    data: { id },
-  });
+    data: { id }
+  })
 }
 
 export function GetBuildStandardList(query) {
-  return request({
+  return defHttp.request({
     url: '/tools/dynamic_release_drag',
     method: 'get',
-    params: query,
-  });
+    params: query
+  })
 }

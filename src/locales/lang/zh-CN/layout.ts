@@ -1,10 +1,9 @@
 export default {
-  footer: { contactMe: '联系我', onlineDocument: '在线文档', question: '问题反馈' },
+  footer: { onlinePreview: '在线预览', onlineDocument: '在线文档' },
   header: {
     // user dropdown
     dropdownItemDoc: '文档',
     dropdownItemLoginOut: '退出系统',
-    dropdownItemSwitchOrg: '切换机构',
 
     // tooltip
     tooltipErrorLog: '错误日志',
@@ -23,11 +22,11 @@ export default {
   },
   multipleTab: {
     reload: '重新加载',
-    close: '关闭当前',
-    closeLeft: '关闭左侧',
-    closeRight: '关闭右侧',
-    closeOther: '关闭其它',
-    closeAll: '关闭全部',
+    close: '关闭标签页',
+    closeLeft: '关闭左侧标签页',
+    closeRight: '关闭右侧标签页',
+    closeOther: '关闭其它标签页',
+    closeAll: '关闭全部标签页',
   },
   setting: {
     // content mode
