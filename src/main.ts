@@ -1,4 +1,4 @@
-import Antd from 'ant-design-vue';
+
 import 'ant-design-vue/dist/antd.less';
 import 'virtual:windi-base.css';
 import 'virtual:windi-components.css';
@@ -17,6 +17,7 @@ import { setupStore } from '/@/store';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
+import Antd from 'ant-design-vue';
 import setupFastCrud from './setup-fast-crud';
 import './setup-fast-crud.less';
 async function bootstrap() {

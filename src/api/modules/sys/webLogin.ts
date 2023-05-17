@@ -17,7 +17,7 @@ export const loginPicture = (params: LoginPicture, mode: ErrorMessageMode = 'non
   // params.scope = 'web';
   return defHttp.post<TokenInfo>(
     { url: SysUrlPrefix.AUTH + '/oauth/token', params },
-    { errorMessageMode: mode }
+    { errorMessageMode: mode },
   );
 };
 
