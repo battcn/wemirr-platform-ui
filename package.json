@@ -11,9 +11,9 @@
   },
   "license": "MIT",
   "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
+    "name": "Levin",
+    "email": "1837307557@qq.com",
+    "url": "https://github.com/battcn"
   },
   "scripts": {
     "bootstrap": "pnpm install",
