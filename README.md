@@ -50,6 +50,8 @@ pnpm install
 - 运行
 
 ```bash
+# 如果您已运行了配套后端, 那么请注释掉 
+# vite.config.ts  target: "https://cloud.battcn.com/api" 将地址改成 http://localhost:9000
 pnpm serve
 ```
 

@@ -33,13 +33,14 @@ export default function ({ expose, userStore }) {
             title: "文件下载",
             async click(context) {
               await defHttp
-                .request({
-                  url: `/tools/generates/${context.row.id}/download`,
-                  method: "POST",
-                  // 意思是不特殊处理 response 了
-                  isTransformResponse: false,
-                  responseType: "blob",
-                })
+                .request(
+                  {
+                    url: `/tools/generates/${context.row.id}/download`,
+                    method: "POST",
+                    responseType: "blob",
+                  },
+                  { isTransformResponse: false }
+                )
                 .then((res) => {
                   downloadByData(res, `${context.row.moduleName}.zip`);
                 });
