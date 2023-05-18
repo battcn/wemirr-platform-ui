@@ -15,7 +15,7 @@ export default function ({ expose, nodeRef }) {
       },
       rowHandle: {
         show: true,
-        width: 90,
+        width: 120,
         fixed: "right",
         dropdown: {
           // 操作列折叠
@@ -90,7 +90,7 @@ export default function ({ expose, nodeRef }) {
         sequence: {
           title: "排序",
           type: "number",
-          column: { width: 50, align: "center" },
+          column: { width: 50, align: "center", show: false },
           addForm: { value: 0 },
           form: { component: { min: 0, max: 100 } },
         },

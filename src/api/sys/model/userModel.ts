@@ -45,15 +45,16 @@ export interface LoginResultModel {
  * @description: Get user information return value
  */
 export interface GetUserInfoModel {
-  roles: RoleInfo[];
-  // 用户id
   userId: string | number;
-  // 用户名
+  companyName: string;
+  tenantId: string | number;
+  tenantCode: string | number;
+  permissions: [];
   username: string;
-  // 真实名字
   realName: string;
-  // 头像
+  nickName: string;
   avatar: string;
-  // 介绍
-  desc?: string;
+  description?: string;
+  homePath?: string;
+  roles: RoleInfo[];
 }

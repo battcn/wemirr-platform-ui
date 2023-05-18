@@ -7,7 +7,7 @@ enum Api {
   Login = "/authority/oauth/token",
   Logout = "/authority/oauth/logout",
   GetUserInfo = "/authority/oauth/info",
-  GetPermCode = "/getPermCode",
+  GetPermCode = "/authority/resources/permissions",
   TestRetry = "/testRetry",
 }
 /**

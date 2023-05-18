@@ -18,10 +18,6 @@
 
 ![用户列表](./images/users.png)
 
-## 文档
-
-[文档地址](https://vvbin.cn/doc-next/)
-
 ## 准备
 
 - [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
@@ -45,10 +41,10 @@ git clone https://gitee.com/battcn/wemirr-platform-ui.git
 
 ```bash
 cd wemirr-platform-ui
-
+# 如果没有 pnpm 请先安装 pnpm  
+# npm install -g pnpm
 pnpm install
 
-pnpm run lint:eslint
 ```
 
 - 运行

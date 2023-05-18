@@ -32,10 +32,15 @@ export interface ErrorLogInfo {
 
 export interface UserInfo {
   userId: string | number;
+  companyName: string;
+  tenantId: string | number;
+  tenantCode: string | number;
+  permissions: [];
   username: string;
   realName: string;
+  nickName: string;
   avatar: string;
-  desc?: string;
+  description?: string;
   homePath?: string;
   roles: RoleInfo[];
 }

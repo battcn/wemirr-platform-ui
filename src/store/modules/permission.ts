@@ -22,6 +22,7 @@ import { getMenuList } from "/@/api/sys/menu";
 
 import { useMessage } from "/@/hooks/web/useMessage";
 import { PageEnum } from "/@/enums/pageEnum";
+import { getPermCode } from "@/api/sys/user";
 
 interface PermissionState {
   // Permission code list
@@ -103,8 +104,8 @@ export const usePermissionStore = defineStore({
       this.lastBuildMenuTime = 0;
     },
     async changePermissionCode() {
-      // const codeList = await getPermCode();
-      // this.setPermCodeList(codeList);
+      const codeList = await getPermCode();
+      this.setPermCodeList(codeList);
     },
 
     // 构建路由

@@ -156,11 +156,15 @@ const transform: AxiosTransform = {
   requestInterceptors: (config, options) => {
     // 请求之前处理config
     const token = getToken();
+    const userInfo = useUserStoreWithOut().userInfo;
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
-      // jwt token
       (config as Recordable).headers.Authorization = options.authenticationScheme
         ? `${options.authenticationScheme} ${token}`
         : token;
+    }
+    if (userInfo) {
+      config.headers["X-Request-Tenant-Code"] = userInfo.tenantCode;
+      config.headers["X-Request-User-Id"] = userInfo.userId;
     }
     return config;
   },
@@ -275,6 +279,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
     )
   );
 }
+
 export const defHttp = createAxios();
 
 // other api url
