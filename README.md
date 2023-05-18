@@ -1,4 +1,8 @@
 ## 演示图
+![左侧菜单混合](./images/left_mix_style.png)
+![顶部菜单混合-1](./images/top_mix.png)
+![顶部菜单混合-2](./images/top_mix_style.png)
+![顶部菜单混合-3](./images/top_mix_style2.png)
 
 ![分配用户](./images/binding_user.png)
 
