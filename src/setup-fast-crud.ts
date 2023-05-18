@@ -128,6 +128,7 @@ export default function (app, i18n) {
           timeout: 60000,
           data,
           onUploadProgress: (p) => {
+            // @ts-ignore
             onProgress({ percent: Math.round((p.loaded / p.total) * 100) });
           },
         });
