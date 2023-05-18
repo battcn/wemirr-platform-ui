@@ -24,78 +24,78 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue'
-import createCrudOptions from './crud'
-import { useExpose, useCrud } from '@fast-crud/fast-crud'
+import { defineComponent, ref, onMounted } from "vue";
+import createCrudOptions from "./crud";
+import { useExpose, useCrud } from "@fast-crud/fast-crud";
 // import { defHttp } from '@/utils/http/axios'
-import { BasicTree } from '/@/components/Tree'
-import { useModal } from '/@/components/Modal'
-import DistributionUser from './DistributionUser.vue'
-import DistributionResource from './DistributionResource.vue'
-import * as api from './api'
-import {PageWrapper} from "@/components/Page";
+import { BasicTree } from "/@/components/Tree";
+import { useModal } from "/@/components/Modal";
+import DistributionUser from "./DistributionUser.vue";
+import DistributionResource from "./DistributionResource.vue";
+import * as api from "./api";
+import { PageWrapper } from "@/components/Page";
 
 function useDistribution() {
-  const checkedKeys = ref()
+  const checkedKeys = ref();
 
   function userModal(roleId) {
     api.GetUserByRoleId(roleId).then((ret) => {
-      openBindUser(true, { roleId, ...ret.data })
-    })
+      openBindUser(true, { roleId, ...ret.data });
+    });
   }
-  const [registerBindUser, { openModal: openBindUser }] = useModal()
+  const [registerBindUser, { openModal: openBindUser }] = useModal();
 
   function resourceModal(roleId) {
-    openBindResource(true, roleId)
+    openBindResource(true, roleId);
   }
-  const [registerBindResource, { openModal: openBindResource }] = useModal()
+  const [registerBindResource, { openModal: openBindResource }] = useModal();
 
   return {
     checkedKeys,
     userModal,
     registerBindUser,
     resourceModal,
-    registerBindResource
-  }
+    registerBindResource,
+  };
 }
 
 export default defineComponent({
-  name: 'SlotsForm',
-  components: {PageWrapper, DistributionUser, DistributionResource, BasicTree },
+  name: "SlotsForm",
+  components: { PageWrapper, DistributionUser, DistributionResource, BasicTree },
   setup() {
     // crud组件的ref
-    const crudRef = ref()
+    const crudRef = ref();
     // crud 配置的ref
-    const crudBinding = ref()
+    const crudBinding = ref();
 
-    const distribution = useDistribution()
+    const distribution = useDistribution();
     // 暴露的方法
-    const { expose } = useExpose({ crudRef, crudBinding })
+    const { expose } = useExpose({ crudRef, crudBinding });
 
     // const go = useGo();
     // 你的crud配置
-    const { crudOptions } = createCrudOptions({ expose, distribution })
+    const { crudOptions } = createCrudOptions({ expose, distribution });
     // 初始化crud配置
-    useCrud({ expose, crudOptions, permission: 'role:management' })
+    useCrud({ expose, crudOptions, permission: "role:management" });
 
-    const treeData = ref([])
+    const treeData = ref([]);
     function initOrgList() {
       api.InitOrgList().then((response) => {
-        treeData.value = response.data
-      })
+        treeData.value = response.data;
+      });
     }
     // 页面打开后获取列表数据
     onMounted(() => {
-      initOrgList()
-      expose.doRefresh()
-    })
+      initOrgList();
+      expose.doRefresh();
+    });
 
     return {
       treeData,
       crudBinding,
       crudRef,
-      ...distribution
-    }
-  }
-})
+      ...distribution,
+    };
+  },
+});
 </script>

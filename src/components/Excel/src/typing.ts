@@ -1,4 +1,4 @@
-import type { JSON2SheetOpts, WritingOptions, BookType } from 'xlsx';
+import type { JSON2SheetOpts, WritingOptions, BookType } from "xlsx";
 
 export interface ExcelData<T = any> {
   header: string[];

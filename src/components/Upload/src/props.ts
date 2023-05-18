@@ -1,10 +1,10 @@
-import type { PropType } from 'vue';
-import { FileBasicColumn } from './typing';
+import type { PropType } from "vue";
+import { FileBasicColumn } from "./typing";
 
 export const basicProps = {
   helpText: {
     type: String as PropType<string>,
-    default: '',
+    default: "",
   },
   // 文件最大多少MB
   maxSize: {
@@ -36,7 +36,7 @@ export const basicProps = {
   },
   name: {
     type: String as PropType<string>,
-    default: 'file',
+    default: "file",
   },
   filename: {
     type: String as PropType<string>,

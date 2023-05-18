@@ -1,7 +1,7 @@
-import _ from 'lodash-es';
-import * as api from './api';
-import { dict, utils } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
+import _ from "lodash-es";
+import * as api from "./api";
+import { dict, utils } from "@fast-crud/fast-crud";
+import dayjs from "dayjs";
 
 export default function ({ expose, localDataRef }) {
   const pageRequest = async (query) => {
@@ -86,35 +86,35 @@ export default function ({ expose, localDataRef }) {
       },
       columns: {
         ip: {
-          title: 'IP',
-          type: 'text',
-          column: {width: 160,},
+          title: "IP",
+          type: "text",
+          column: { width: 160 },
           search: { show: true },
         },
         status: {
-          title: '状态',
-          type: 'dict-radio',
+          title: "状态",
+          type: "dict-radio",
           addForm: {
             value: true,
           },
-          column: {width: 100,},
+          column: { width: 100 },
           search: { show: true },
           dict: dict({
             data: [
-              { value: true, label: '启用', color: 'success' },
-              { value: false, label: '禁用', color: 'error' },
+              { value: true, label: "启用", color: "success" },
+              { value: false, label: "禁用", color: "error" },
             ],
           }),
         },
         visits: {
-          title: '访问量',
-          type: 'text',
-          column: {width: 80,},
+          title: "访问量",
+          type: "text",
+          column: { width: 80 },
           form: { show: false },
         },
         path: {
-          title: '路径',
-          type: 'text',
+          title: "路径",
+          type: "text",
           search: { show: true },
           form: {
             helper: {
@@ -125,11 +125,12 @@ export default function ({ expose, localDataRef }) {
                     <li>（2）* 匹配0个或多个字符 </li>
                     <li>（3）**匹配0个或多个目录 /**/token/api/query 包含 /token/api/query</li>
                     <li>
-                      （4）{'{spring:[a-z]+}'} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring
+                      （4）{"{spring:[a-z]+}"} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring
                       的路径变量
                     </li>
                     <li>
-                      （5）网关的限访里 需要去除微服务前缀。比如在访问的/xxx-service/api/query 在网关中需要填写 /api/query 或者 /**/api/query
+                      （5）网关的限访里 需要去除微服务前缀。比如在访问的/xxx-service/api/query
+                      在网关中需要填写 /api/query 或者 /**/api/query
                     </li>
                   </ul>
                 );
@@ -137,35 +138,35 @@ export default function ({ expose, localDataRef }) {
             },
           },
           column: {
-            width:150,
+            width: 150,
             ellipsis: true,
           },
         },
         method: {
-          title: '方法',
-          type: 'dict-select',
+          title: "方法",
+          type: "dict-select",
           search: { show: true },
-          column: {width: 100,},
+          column: { width: 100 },
           dict: dict({
             data: [
-              { label: 'ALL', value: 'ALL', color: 'success' },
-              { label: 'GET', value: 'GET', color: 'success' },
-              { label: 'POST', value: 'POST', color: 'success' },
-              { label: 'PUT', value: 'PUT', color: 'success' },
-              { label: 'DELETE', value: 'DELETE', color: 'error' },
-              { label: 'PATCH', value: 'PATCH', color: 'success' },
+              { label: "ALL", value: "ALL", color: "success" },
+              { label: "GET", value: "GET", color: "success" },
+              { label: "POST", value: "POST", color: "success" },
+              { label: "PUT", value: "PUT", color: "success" },
+              { label: "DELETE", value: "DELETE", color: "error" },
+              { label: "PATCH", value: "PATCH", color: "success" },
             ],
           }),
           addForm: {
-            value: 'ALL',
+            value: "ALL",
           },
           form: {
-            rules: [{ required: true, message: '请选择拦截方法' }],
+            rules: [{ required: true, message: "请选择拦截方法" }],
           },
         },
         datetimerange: {
-          title: '限时范围',
-          type: 'datetimerange',
+          title: "限时范围",
+          type: "datetimerange",
           valueBuilder({ row, key }) {
             if (!utils.strings.hasEmpty(row.startTime, row.endTime)) {
               row[key] = [dayjs(row.startTime), dayjs(row.endTime)];
@@ -183,8 +184,8 @@ export default function ({ expose, localDataRef }) {
           },
         },
         description: {
-          title: '描述',
-          type: 'textarea',
+          title: "描述",
+          type: "textarea",
           search: { show: false, labelCol: { span: 4 } },
           form: {
             col: { span: 24 },
@@ -196,8 +197,8 @@ export default function ({ expose, localDataRef }) {
           },
         },
         createdTime: {
-          title: '创建时间',
-          type: 'datetime',
+          title: "创建时间",
+          type: "datetime",
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

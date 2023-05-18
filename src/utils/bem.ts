@@ -1,4 +1,4 @@
-import { prefixCls } from '/@/settings/designSetting';
+import { prefixCls } from "/@/settings/designSetting";
 
 type Mod = string | { [key: string]: any };
 type Mods = Mod | Mod[];
@@ -7,18 +7,18 @@ export type BEM = ReturnType<typeof createBEM>;
 
 function genBem(name: string, mods?: Mods): string {
   if (!mods) {
-    return '';
+    return "";
   }
 
-  if (typeof mods === 'string') {
+  if (typeof mods === "string") {
     return ` ${name}--${mods}`;
   }
 
   if (Array.isArray(mods)) {
-    return mods.reduce<string>((ret, item) => ret + genBem(name, item), '');
+    return mods.reduce<string>((ret, item) => ret + genBem(name, item), "");
   }
 
-  return Object.keys(mods).reduce((ret, key) => ret + (mods[key] ? genBem(name, key) : ''), '');
+  return Object.keys(mods).reduce((ret, key) => ret + (mods[key] ? genBem(name, key) : ""), "");
 }
 
 /**
@@ -31,9 +31,9 @@ function genBem(name: string, mods?: Mods): string {
  */
 export function buildBEM(name: string) {
   return (el?: Mods, mods?: Mods): Mods => {
-    if (el && typeof el !== 'string') {
+    if (el && typeof el !== "string") {
       mods = el;
-      el = '';
+      el = "";
     }
 
     el = el ? `${name}__${el}` : name;

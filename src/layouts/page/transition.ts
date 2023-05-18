@@ -1,5 +1,5 @@
-import type { FunctionalComponent } from 'vue';
-import type { RouteLocation } from 'vue-router';
+import type { FunctionalComponent } from "vue";
+import type { RouteLocation } from "vue-router";
 
 export interface DefaultContext {
   Component: FunctionalComponent & { type: Recordable };
@@ -12,7 +12,7 @@ export function getTransitionName({
   cacheTabs,
   enableTransition,
   def,
-}: Pick<DefaultContext, 'route'> & {
+}: Pick<DefaultContext, "route"> & {
   enableTransition: boolean;
   openCache: boolean;
   def: string;
@@ -23,7 +23,7 @@ export function getTransitionName({
   }
 
   const isInCache = cacheTabs.includes(route.name as string);
-  const transitionName = 'fade-slide';
+  const transitionName = "fade-slide";
   let name: string | undefined = transitionName;
 
   if (openCache) {

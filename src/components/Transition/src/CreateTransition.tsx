@@ -1,11 +1,11 @@
-import type { PropType } from 'vue';
+import type { PropType } from "vue";
 
-import { defineComponent, Transition, TransitionGroup } from 'vue';
-import { getSlot } from '/@/utils/helper/tsxHelper';
+import { defineComponent, Transition, TransitionGroup } from "vue";
+import { getSlot } from "/@/utils/helper/tsxHelper";
 
-type Mode = 'in-out' | 'out-in' | 'default' | undefined;
+type Mode = "in-out" | "out-in" | "default" | undefined;
 
-export function createSimpleTransition(name: string, origin = 'top center 0', mode?: Mode) {
+export function createSimpleTransition(name: string, origin = "top center 0", mode?: Mode) {
   return defineComponent({
     name,
     props: {
@@ -41,7 +41,7 @@ export function createSimpleTransition(name: string, origin = 'top center 0', mo
 export function createJavascriptTransition(
   name: string,
   functions: Recordable,
-  mode: Mode = 'in-out',
+  mode: Mode = "in-out"
 ) {
   return defineComponent({
     name,

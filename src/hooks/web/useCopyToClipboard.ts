@@ -1,12 +1,12 @@
-import { ref, watch } from 'vue';
+import { ref, watch } from "vue";
 
-import { isDef } from '/@/utils/is';
+import { isDef } from "/@/utils/is";
 
 interface Options {
   target?: HTMLElement;
 }
 export function useCopyToClipboard(initial?: string) {
-  const clipboardRef = ref(initial || '');
+  const clipboardRef = ref(initial || "");
   const isSuccessRef = ref(false);
   const copiedRef = ref(false);
 
@@ -18,24 +18,24 @@ export function useCopyToClipboard(initial?: string) {
         isSuccessRef.value = copyTextToClipboard(str);
       }
     },
-    { immediate: !!initial, flush: 'sync' },
+    { immediate: !!initial, flush: "sync" }
   );
 
   return { clipboardRef, isSuccessRef, copiedRef };
 }
 
 export function copyTextToClipboard(input: string, { target = document.body }: Options = {}) {
-  const element = document.createElement('textarea');
+  const element = document.createElement("textarea");
   const previouslyFocusedElement = document.activeElement;
 
   element.value = input;
 
-  element.setAttribute('readonly', '');
+  element.setAttribute("readonly", "");
 
-  (element.style as any).contain = 'strict';
-  element.style.position = 'absolute';
-  element.style.left = '-9999px';
-  element.style.fontSize = '12pt';
+  (element.style as any).contain = "strict";
+  element.style.position = "absolute";
+  element.style.left = "-9999px";
+  element.style.fontSize = "12pt";
 
   const selection = document.getSelection();
   let originalRange;
@@ -51,7 +51,7 @@ export function copyTextToClipboard(input: string, { target = document.body }: O
 
   let isSuccess = false;
   try {
-    isSuccess = document.execCommand('copy');
+    isSuccess = document.execCommand("copy");
   } catch (e: any) {
     throw new Error(e);
   }

@@ -1,17 +1,17 @@
-import { FormProps, FormSchema } from '@/components/Table';
-import { BasicColumn } from '@/components/Table/src/types/table';
+import { FormProps, FormSchema } from "@/components/Table";
+import { BasicColumn } from "@/components/Table/src/types/table";
 
 export function getBasicColumns(): BasicColumn[] {
   return [
     {
-      title: '资源吗',
-      dataIndex: 'permission',
+      title: "资源吗",
+      dataIndex: "permission",
       width: 150,
     },
     {
-      title: '名称',
+      title: "名称",
       width: 150,
-      dataIndex: 'label',
+      dataIndex: "label",
     },
   ];
 }
@@ -29,20 +29,20 @@ const renderContent = ({ text, index }: { text: any; index: number }) => {
 export function getMergeHeaderColumns(): BasicColumn[] {
   return [
     {
-      title: 'ID',
-      dataIndex: 'id',
+      title: "ID",
+      dataIndex: "id",
       width: 300,
       customRender: renderContent,
     },
     {
-      title: '姓名',
-      dataIndex: 'name',
+      title: "姓名",
+      dataIndex: "name",
       width: 300,
       customRender: renderContent,
     },
     {
-      title: '地址',
-      dataIndex: 'address',
+      title: "地址",
+      dataIndex: "address",
       colSpan: 2,
       width: 120,
       sorter: true,
@@ -61,24 +61,24 @@ export function getMergeHeaderColumns(): BasicColumn[] {
       },
     },
     {
-      title: '编号',
-      dataIndex: 'no',
+      title: "编号",
+      dataIndex: "no",
       colSpan: 0,
       filters: [
-        { text: 'Male', value: 'male', children: [] },
-        { text: 'Female', value: 'female', children: [] },
+        { text: "Male", value: "male", children: [] },
+        { text: "Female", value: "female", children: [] },
       ],
       customRender: renderContent,
     },
     {
-      title: '开始时间',
-      dataIndex: 'beginTime',
+      title: "开始时间",
+      dataIndex: "beginTime",
       width: 200,
       customRender: renderContent,
     },
     {
-      title: '结束时间',
-      dataIndex: 'endTime',
+      title: "结束时间",
+      dataIndex: "endTime",
       width: 200,
       customRender: renderContent,
     },
@@ -90,7 +90,7 @@ export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
     arr.push({
       field: `field${index}`,
       label: `字段${index}`,
-      component: 'Input',
+      component: "Input",
       colProps: {
         xl: 12,
         xxl: 8,
@@ -107,8 +107,8 @@ export function getFormConfig(): Partial<FormProps> {
       {
         field: `field11`,
         label: `Slot示例`,
-        component: 'Select',
-        slot: 'custom',
+        component: "Select",
+        slot: "custom",
         colProps: {
           xl: 12,
           xxl: 8,
@@ -123,10 +123,10 @@ export function getBasicData() {
     for (let index = 0; index < 40; index++) {
       arr.push({
         id: `${index}`,
-        name: 'John Brown',
+        name: "John Brown",
         age: `1${index}`,
         no: `${index + 10}`,
-        address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
+        address: "New York No. 1 Lake ParkNew York No. 1 Lake Park",
         beginTime: new Date().toLocaleString(),
         endTime: new Date().toLocaleString(),
       });
@@ -142,19 +142,19 @@ export function getTreeTableData() {
     for (let index = 0; index < 40; index++) {
       arr.push({
         id: `${index}`,
-        name: 'John Brown',
+        name: "John Brown",
         age: `1${index}`,
         no: `${index + 10}`,
-        address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
+        address: "New York No. 1 Lake ParkNew York No. 1 Lake Park",
         beginTime: new Date().toLocaleString(),
         endTime: new Date().toLocaleString(),
         children: [
           {
             id: `l2-${index}`,
-            name: 'John Brown',
+            name: "John Brown",
             age: `1${index}`,
             no: `${index + 10}`,
-            address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
+            address: "New York No. 1 Lake ParkNew York No. 1 Lake Park",
             beginTime: new Date().toLocaleString(),
             endTime: new Date().toLocaleString(),
           },

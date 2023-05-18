@@ -1,19 +1,19 @@
-import type { RouteLocationNormalized, RouteLocationRaw, Router } from 'vue-router';
+import type { RouteLocationNormalized, RouteLocationRaw, Router } from "vue-router";
 
-import { toRaw, unref } from 'vue';
-import { defineStore } from 'pinia';
-import { store } from '/@/store';
+import { toRaw, unref } from "vue";
+import { defineStore } from "pinia";
+import { store } from "/@/store";
 
-import { useGo, useRedo } from '/@/hooks/web/usePage';
-import { Persistent } from '/@/utils/cache/persistent';
+import { useGo, useRedo } from "/@/hooks/web/usePage";
+import { Persistent } from "/@/utils/cache/persistent";
 
-import { PageEnum } from '/@/enums/pageEnum';
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '/@/router/routes/basic';
-import { getRawRoute } from '/@/utils';
-import { MULTIPLE_TABS_KEY } from '/@/enums/cacheEnum';
+import { PageEnum } from "/@/enums/pageEnum";
+import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from "/@/router/routes/basic";
+import { getRawRoute } from "/@/utils";
+import { MULTIPLE_TABS_KEY } from "/@/enums/cacheEnum";
 
-import projectSetting from '/@/settings/projectSetting';
-import { useUserStore } from '/@/store/modules/user';
+import projectSetting from "/@/settings/projectSetting";
+import { useUserStore } from "/@/store/modules/user";
 
 export interface MultipleTabState {
   cacheTabList: Set<string>;
@@ -38,7 +38,7 @@ const getToTarget = (tabItem: RouteLocationNormalized) => {
 const cacheTab = projectSetting.multiTabsSetting.cache;
 
 export const useMultipleTabStore = defineStore({
-  id: 'app-multiple-tab',
+  id: "app-multiple-tab",
   state: (): MultipleTabState => ({
     // Tabs that need to be cached
     cacheTabList: new Set(),
@@ -155,10 +155,10 @@ export const useMultipleTabStore = defineStore({
           // 如果动态路由层级大于 0 了，那么就要限制该路由的打开数限制了
           // 首先获取到真实的路由，使用配置方式减少计算开销.
           // const realName: string = path.match(/(\S*)\//)![1];
-          const realPath = meta?.realPath ?? '';
+          const realPath = meta?.realPath ?? "";
           // 获取到已经打开的动态路由数, 判断是否大于某一个值
           if (
-            this.tabList.filter((e) => e.meta?.realPath ?? '' === realPath).length >= dynamicLevel
+            this.tabList.filter((e) => e.meta?.realPath ?? "" === realPath).length >= dynamicLevel
           ) {
             // 关闭第一个
             const index = this.tabList.findIndex((item) => item.meta.realPath === realPath);

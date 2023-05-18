@@ -1,15 +1,15 @@
-import { Modal } from 'ant-design-vue';
-import { defineComponent, toRefs, unref } from 'vue';
-import { basicProps } from '../props';
-import { useModalDragMove } from '../hooks/useModalDrag';
-import { useAttrs } from '@vben/hooks';
-import { extendSlots } from '/@/utils/helper/tsxHelper';
+import { Modal } from "ant-design-vue";
+import { defineComponent, toRefs, unref } from "vue";
+import { basicProps } from "../props";
+import { useModalDragMove } from "../hooks/useModalDrag";
+import { useAttrs } from "@vben/hooks";
+import { extendSlots } from "/@/utils/helper/tsxHelper";
 
 export default defineComponent({
-  name: 'Modal',
+  name: "Modal",
   inheritAttrs: false,
   props: basicProps as any,
-  emits: ['cancel'],
+  emits: ["cancel"],
   setup(props, { slots, emit }) {
     const { visible, draggable, destroyOnClose } = toRefs(props);
     const attrs = useAttrs();
@@ -20,7 +20,7 @@ export default defineComponent({
     });
 
     const onCancel = (e: Event) => {
-      emit('cancel', e);
+      emit("cancel", e);
     };
 
     return () => {

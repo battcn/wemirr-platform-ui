@@ -1,12 +1,12 @@
-import type { ErrorLogInfo } from '/#/store';
+import type { ErrorLogInfo } from "/#/store";
 
-import { defineStore } from 'pinia';
-import { store } from '/@/store';
+import { defineStore } from "pinia";
+import { store } from "/@/store";
 
-import { formatToDateTime } from '/@/utils/dateUtil';
-import projectSetting from '/@/settings/projectSetting';
+import { formatToDateTime } from "/@/utils/dateUtil";
+import projectSetting from "/@/settings/projectSetting";
 
-import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
+import { ErrorTypeEnum } from "/@/enums/exceptionEnum";
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>;
@@ -14,7 +14,7 @@ export interface ErrorLogState {
 }
 
 export const useErrorLogStore = defineStore({
-  id: 'app-error-log',
+  id: "app-error-log",
   state: (): ErrorLogState => ({
     errorLogInfoList: null,
     errorLogListCount: 0,
@@ -57,12 +57,12 @@ export const useErrorLogStore = defineStore({
       };
       if (error.response) {
         const {
-          config: { url = '', data: params = '', method = 'get', headers = {} } = {},
+          config: { url = "", data: params = "", method = "get", headers = {} } = {},
           data = {},
         } = error.response;
         errInfo.url = url;
-        errInfo.name = 'Ajax Error!';
-        errInfo.file = '-';
+        errInfo.name = "Ajax Error!";
+        errInfo.file = "-";
         errInfo.stack = JSON.stringify(data);
         errInfo.detail = JSON.stringify({ params, method, headers });
       }

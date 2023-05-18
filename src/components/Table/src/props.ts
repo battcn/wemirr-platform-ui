@@ -1,5 +1,5 @@
-import type { PropType } from 'vue';
-import type { PaginationProps } from './types/pagination';
+import type { PropType } from "vue";
+import type { PaginationProps } from "./types/pagination";
 import type {
   BasicColumn,
   FetchSetting,
@@ -8,11 +8,11 @@ import type {
   TableCustomRecord,
   TableRowSelection,
   SizeType,
-} from './types/table';
-import type { FormProps } from '/@/components/Form';
+} from "./types/table";
+import type { FormProps } from "/@/components/Form";
 
-import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING, DEFAULT_SIZE } from './const';
-import { propTypes } from '/@/utils/propTypes';
+import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING, DEFAULT_SIZE } from "./const";
+import { propTypes } from "/@/utils/propTypes";
 
 export const basicProps = {
   clickToRowSelect: { type: Boolean, default: true },
@@ -119,7 +119,7 @@ export const basicProps = {
   },
   rowKey: {
     type: [String, Function] as PropType<string | ((record: Recordable) => string)>,
-    default: '',
+    default: "",
   },
   bordered: propTypes.bool,
   pagination: {

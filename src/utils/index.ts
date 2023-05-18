@@ -1,9 +1,9 @@
-import type { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
-import type { App, Component } from 'vue';
+import type { RouteLocationNormalized, RouteRecordNormalized } from "vue-router";
+import type { App, Component } from "vue";
 
-import { unref } from 'vue';
-import { isArray, isObject } from '/@/utils/is';
-import { cloneDeep, isEqual, mergeWith, unionWith } from 'lodash-es';
+import { unref } from "vue";
+import { isArray, isObject } from "/@/utils/is";
+import { cloneDeep, isEqual, mergeWith, unionWith } from "lodash-es";
 
 export const noop = () => {};
 
@@ -25,12 +25,12 @@ export function getPopupContainer(node?: HTMLElement): HTMLElement {
  *  ==>www.baidu.com?a=3&b=4
  */
 export function setObjToUrlParams(baseUrl: string, obj: any): string {
-  let parameters = '';
+  let parameters = "";
   for (const key in obj) {
-    parameters += key + '=' + encodeURIComponent(obj[key]) + '&';
+    parameters += key + "=" + encodeURIComponent(obj[key]) + "&";
   }
-  parameters = parameters.replace(/&$/, '');
-  return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters;
+  parameters = parameters.replace(/&$/, "");
+  return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, "?") + parameters;
 }
 
 /**
@@ -43,7 +43,7 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
  */
 export function deepMerge<T extends object | null | undefined, U extends object | null | undefined>(
   target: T,
-  source: U,
+  source: U
 ): T & U {
   return mergeWith(cloneDeep(target), source, (objValue, srcValue) => {
     if (isObject(objValue) && isObject(srcValue)) {
@@ -57,15 +57,15 @@ export function deepMerge<T extends object | null | undefined, U extends object 
 
 export function openWindow(
   url: string,
-  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean },
+  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean }
 ) {
-  const { target = '__blank', noopener = true, noreferrer = true } = opt || {};
+  const { target = "__blank", noopener = true, noreferrer = true } = opt || {};
   const feature: string[] = [];
 
-  noopener && feature.push('noopener=yes');
-  noreferrer && feature.push('noreferrer=yes');
+  noopener && feature.push("noopener=yes");
+  noreferrer && feature.push("noreferrer=yes");
 
-  window.open(url, target, feature.join(','));
+  window.open(url, target, feature.join(","));
 }
 
 // dynamic use hook props

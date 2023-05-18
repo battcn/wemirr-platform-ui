@@ -1,8 +1,8 @@
-import { readPackageJSON } from 'pkg-types';
-import { defineConfig, mergeConfig, type UserConfig } from 'vite';
-import dts from 'vite-plugin-dts';
+import { readPackageJSON } from "pkg-types";
+import { defineConfig, mergeConfig, type UserConfig } from "vite";
+import dts from "vite-plugin-dts";
 
-import { commonConfig } from './common';
+import { commonConfig } from "./common";
 
 interface DefineOptions {
   overrides?: UserConfig;
@@ -19,9 +19,9 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
     const packageConfig: UserConfig = {
       build: {
         lib: {
-          entry: 'src/index.ts',
-          formats: ['es'],
-          fileName: () => 'index.mjs',
+          entry: "src/index.ts",
+          formats: ["es"],
+          fileName: () => "index.mjs",
         },
         rollupOptions: {
           external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
@@ -29,7 +29,7 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
       },
       plugins: [
         dts({
-          logLevel: 'error',
+          logLevel: "error",
         }),
       ],
     };

@@ -1,15 +1,15 @@
-import type { GlobEnvConfig } from '/#/config';
-import pkg from '../../package.json';
+import type { GlobEnvConfig } from "/#/config";
+import pkg from "../../package.json";
 
 const getVariableName = (title: string) => {
-  return `__PRODUCTION__${title.replace(/\s/g, '_') || '__APP'}__CONF__`
+  return `__PRODUCTION__${title.replace(/\s/g, "_") || "__APP"}__CONF__`
     .toUpperCase()
-    .replace(/\s/g, '');
+    .replace(/\s/g, "");
 };
 
 export function getCommonStoragePrefix() {
   const { VITE_GLOB_APP_TITLE } = getAppEnvConfig();
-  return `${VITE_GLOB_APP_TITLE.replace(/\s/g, '_')}__${getEnv()}`.toUpperCase();
+  return `${VITE_GLOB_APP_TITLE.replace(/\s/g, "_")}__${getEnv()}`.toUpperCase();
 }
 
 // Generate cache key according to version
@@ -39,12 +39,12 @@ export function getAppEnvConfig() {
 /**
  * @description: Development mode
  */
-export const devMode = 'development';
+export const devMode = "development";
 
 /**
  * @description: Production mode
  */
-export const prodMode = 'production';
+export const prodMode = "production";
 
 /**
  * @description: Get environment variables

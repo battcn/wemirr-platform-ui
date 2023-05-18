@@ -1,6 +1,6 @@
-import { ComponentOptions, h, resolveComponent } from 'vue';
-import { VxeColumnPropTypes, VxeGlobalRendererHandles } from 'vxe-table';
-import XEUtils from 'xe-utils';
+import { ComponentOptions, h, resolveComponent } from "vue";
+import { VxeColumnPropTypes, VxeGlobalRendererHandles } from "vxe-table";
+import XEUtils from "xe-utils";
 import {
   cellText,
   createCellRender,
@@ -9,14 +9,14 @@ import {
   isEmptyValue,
   createExportMethod,
   createFormItemRender,
-} from './common';
+} from "./common";
 
 function renderOptions(options: any[], optionProps: VxeGlobalRendererHandles.RenderOptionProps) {
-  const labelProp = optionProps.label || 'label';
-  const valueProp = optionProps.value || 'value';
+  const labelProp = optionProps.label || "label";
+  const valueProp = optionProps.value || "value";
   return XEUtils.map(options, (item, oIndex) => {
     return h(
-      resolveComponent('a-select-option') as ComponentOptions,
+      resolveComponent("a-select-option") as ComponentOptions,
       {
         key: oIndex,
         value: item[valueProp],
@@ -24,7 +24,7 @@ function renderOptions(options: any[], optionProps: VxeGlobalRendererHandles.Ren
       },
       {
         default: () => cellText(item[labelProp]),
-      },
+      }
     );
   });
 }
@@ -32,7 +32,7 @@ function renderOptions(options: any[], optionProps: VxeGlobalRendererHandles.Ren
 function createEditRender() {
   return function (
     renderOpts: VxeColumnPropTypes.EditRender,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    params: VxeGlobalRendererHandles.RenderEditParams
   ) {
     const { options = [], optionGroups, optionProps = {}, optionGroupProps = {} } = renderOpts;
     const { row, column, $table } = params;
@@ -49,14 +49,14 @@ function createEditRender() {
       () => {
         // 处理 change 事件相关逻辑
         $table.updateStatus(params);
-      },
+      }
     );
     if (optionGroups) {
-      const groupOptions = optionGroupProps.options || 'options';
-      const groupLabel = optionGroupProps.label || 'label';
+      const groupOptions = optionGroupProps.options || "options";
+      const groupLabel = optionGroupProps.label || "label";
       return [
         h(
-          resolveComponent('a-select') as ComponentOptions,
+          resolveComponent("a-select") as ComponentOptions,
           {
             ...attrs,
             ...props,
@@ -66,26 +66,26 @@ function createEditRender() {
             default: () => {
               return XEUtils.map(optionGroups, (group, gIndex) => {
                 return h(
-                  resolveComponent('a-select-opt-group') as ComponentOptions,
+                  resolveComponent("a-select-opt-group") as ComponentOptions,
                   {
                     key: gIndex,
                   },
                   {
                     label: () => {
-                      return h('span', {}, group[groupLabel]);
+                      return h("span", {}, group[groupLabel]);
                     },
                     default: () => renderOptions(group[groupOptions], optionProps),
-                  },
+                  }
                 );
               });
             },
-          },
+          }
         ),
       ];
     }
     return [
       h(
-        resolveComponent('a-select') as ComponentOptions,
+        resolveComponent("a-select") as ComponentOptions,
         {
           ...props,
           ...attrs,
@@ -93,7 +93,7 @@ function createEditRender() {
         },
         {
           default: () => renderOptions(options, optionProps),
-        },
+        }
       ),
     ];
   };
@@ -101,7 +101,7 @@ function createEditRender() {
 
 function getSelectCellValue(
   renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-  params: VxeGlobalRendererHandles.RenderCellParams,
+  params: VxeGlobalRendererHandles.RenderCellParams
 ) {
   const {
     options = [],
@@ -111,20 +111,20 @@ function getSelectCellValue(
     optionGroupProps = {},
   } = renderOpts;
   const { row, column } = params;
-  const labelProp = optionProps.label || 'label';
-  const valueProp = optionProps.value || 'value';
-  const groupOptions = optionGroupProps.options || 'options';
+  const labelProp = optionProps.label || "label";
+  const valueProp = optionProps.value || "value";
+  const groupOptions = optionGroupProps.options || "options";
   const cellValue = XEUtils.get(row, column.field as string);
   if (!isEmptyValue(cellValue)) {
     return XEUtils.map(
-      props.mode === 'multiple' ? cellValue : [cellValue],
+      props.mode === "multiple" ? cellValue : [cellValue],
       optionGroups
         ? (value) => {
             let selectItem;
             for (let index = 0; index < optionGroups.length; index++) {
               selectItem = XEUtils.find(
                 optionGroups[index][groupOptions],
-                (item) => item[valueProp] === value,
+                (item) => item[valueProp] === value
               );
               if (selectItem) {
                 break;
@@ -135,28 +135,28 @@ function getSelectCellValue(
         : (value) => {
             const selectItem = XEUtils.find(options, (item) => item[valueProp] === value);
             return selectItem ? selectItem[labelProp] : value;
-          },
-    ).join(', ');
+          }
+    ).join(", ");
   }
-  return '';
+  return "";
 }
 
 function createFilterRender() {
   return function (
     renderOpts: VxeColumnPropTypes.FilterRender,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
+    params: VxeGlobalRendererHandles.RenderFilterParams
   ) {
     const { options = [], optionGroups, optionProps = {}, optionGroupProps = {} } = renderOpts;
-    const groupOptions = optionGroupProps.options || 'options';
-    const groupLabel = optionGroupProps.label || 'label';
+    const groupOptions = optionGroupProps.options || "options";
+    const groupLabel = optionGroupProps.label || "label";
     const { column } = params;
     const { attrs } = renderOpts;
 
     return [
       h(
-        'div',
+        "div",
         {
-          class: 'vxe-table--filter-antd-wrapper',
+          class: "vxe-table--filter-antd-wrapper",
         },
         optionGroups
           ? column.filters.map((option, oIndex) => {
@@ -164,7 +164,7 @@ function createFilterRender() {
               const props = createProps(renderOpts, optionValue);
 
               return h(
-                resolveComponent('a-select') as ComponentOptions,
+                resolveComponent("a-select") as ComponentOptions,
                 {
                   key: oIndex,
                   ...attrs,
@@ -181,39 +181,39 @@ function createFilterRender() {
                       const { $panel } = params;
                       $panel.changeOption(
                         null,
-                        props.mode === 'multiple'
+                        props.mode === "multiple"
                           ? option.data && option.data.length > 0
                           : !XEUtils.eqNull(option.data),
-                        option,
+                        option
                       );
-                    },
+                    }
                   ),
                 },
                 {
                   default: () => {
                     return XEUtils.map(optionGroups, (group, gIndex) => {
                       return h(
-                        resolveComponent('a-select-opt-group') as ComponentOptions,
+                        resolveComponent("a-select-opt-group") as ComponentOptions,
                         {
                           key: gIndex,
                         },
                         {
                           label: () => {
-                            return h('span', {}, group[groupLabel]);
+                            return h("span", {}, group[groupLabel]);
                           },
                           default: () => renderOptions(group[groupOptions], optionProps),
-                        },
+                        }
                       );
                     });
                   },
-                },
+                }
               );
             })
           : column.filters.map((option, oIndex) => {
               const optionValue = option.data;
               const props = createProps(renderOpts, optionValue);
               return h(
-                resolveComponent('a-select') as ComponentOptions,
+                resolveComponent("a-select") as ComponentOptions,
                 {
                   key: oIndex,
                   ...attrs,
@@ -230,19 +230,19 @@ function createFilterRender() {
                       const { $panel } = params;
                       $panel.changeOption(
                         null,
-                        props.mode === 'multiple'
+                        props.mode === "multiple"
                           ? option.data && option.data.length > 0
                           : !XEUtils.eqNull(option.data),
-                        option,
+                        option
                       );
-                    },
+                    }
                   ),
                 },
                 {
                   default: () => renderOptions(options, optionProps),
-                },
+                }
               );
-            }),
+            })
       ),
     ];
   };
@@ -258,7 +258,7 @@ export default {
     const { field, filterRender: renderOpts } = column;
     const { props = {} } = renderOpts;
     const cellValue = XEUtils.get(row, field);
-    if (props.mode === 'multiple') {
+    if (props.mode === "multiple") {
       if (XEUtils.isArray(cellValue)) {
         return XEUtils.includeArrays(cellValue, data);
       }

@@ -1,13 +1,13 @@
-import type { ProjectConfig } from '/#/config';
+import type { ProjectConfig } from "/#/config";
 
-import { computed } from 'vue';
+import { computed } from "vue";
 
-import { useAppStore } from '/@/store/modules/app';
-import { ContentEnum, ThemeEnum } from '/@/enums/appEnum';
+import { useAppStore } from "/@/store/modules/app";
+import { ContentEnum, ThemeEnum } from "/@/enums/appEnum";
 
 type RootSetting = Omit<
   ProjectConfig,
-  'locale' | 'headerSetting' | 'menuSetting' | 'multiTabsSetting'
+  "locale" | "headerSetting" | "menuSetting" | "multiTabsSetting"
 >;
 
 export function useRootSetting() {
@@ -56,7 +56,7 @@ export function useRootSetting() {
   const getLayoutContentMode = computed(() =>
     appStore.getProjectConfig.contentMode === ContentEnum.FULL
       ? ContentEnum.FULL
-      : ContentEnum.FIXED,
+      : ContentEnum.FIXED
   );
 
   function setRootSetting(setting: Partial<RootSetting>) {

@@ -5,7 +5,7 @@ import type {
   ComponentPublicInstance,
   FunctionalComponent,
   PropType as VuePropType,
-} from 'vue';
+} from "vue";
 
 declare global {
   const __APP_INFO__: {
@@ -60,7 +60,7 @@ declare global {
     VITE_USE_MOCK: boolean;
     VITE_PUBLIC_PATH: string;
     VITE_GLOB_APP_TITLE: string;
-    VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
+    VITE_BUILD_COMPRESS: "gzip" | "brotli" | "none";
   }
 
   declare function parseInt(s: string | number, radix?: number): number;
@@ -84,7 +84,7 @@ declare global {
   }
 }
 
-declare module 'vue' {
+declare module "vue" {
   export type JSXComponent<Props = any> =
     | { new (): ComponentPublicInstance<Props> }
     | FunctionalComponent<Props>;

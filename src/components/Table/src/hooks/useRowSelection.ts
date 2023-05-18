@@ -1,14 +1,14 @@
-import { isFunction } from '/@/utils/is';
-import type { BasicTableProps, TableRowSelection } from '../types/table';
-import { computed, ComputedRef, nextTick, Ref, ref, toRaw, unref, watch } from 'vue';
-import { ROW_KEY } from '../const';
-import { omit } from 'lodash-es';
-import { findNodeAll } from '/@/utils/helper/treeHelper';
+import { isFunction } from "/@/utils/is";
+import type { BasicTableProps, TableRowSelection } from "../types/table";
+import { computed, ComputedRef, nextTick, Ref, ref, toRaw, unref, watch } from "vue";
+import { ROW_KEY } from "../const";
+import { omit } from "lodash-es";
+import { findNodeAll } from "/@/utils/helper/treeHelper";
 
 export function useRowSelection(
   propsRef: ComputedRef<BasicTableProps>,
   tableData: Ref<Recordable[]>,
-  emit: EmitType,
+  emit: EmitType
 ) {
   const selectedRowKeysRef = ref<string[]>([]);
   const selectedRowRef = ref<Recordable[]>([]);
@@ -24,7 +24,7 @@ export function useRowSelection(
       onChange: (selectedRowKeys: string[]) => {
         setSelectedRowKeys(selectedRowKeys);
       },
-      ...omit(rowSelection, ['onChange']),
+      ...omit(rowSelection, ["onChange"]),
     };
   });
 
@@ -32,7 +32,7 @@ export function useRowSelection(
     () => unref(propsRef).rowSelection?.selectedRowKeys,
     (v: string[]) => {
       setSelectedRowKeys(v);
-    },
+    }
   );
 
   watch(
@@ -44,13 +44,13 @@ export function useRowSelection(
           const { onChange } = rowSelection;
           if (onChange && isFunction(onChange)) onChange(getSelectRowKeys(), getSelectRows());
         }
-        emit('selection-change', {
+        emit("selection-change", {
           keys: getSelectRowKeys(),
           rows: getSelectRows(),
         });
       });
     },
-    { deep: true },
+    { deep: true }
   );
 
   const getAutoCreateKey = computed(() => {
@@ -68,8 +68,8 @@ export function useRowSelection(
       toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
       (item) => rowKeys?.includes(item[unref(getRowKey) as string]),
       {
-        children: propsRef.value.childrenColumnName ?? 'children',
-      },
+        children: propsRef.value.childrenColumnName ?? "children",
+      }
     );
     const trueSelectedRows: any[] = [];
     rowKeys?.forEach((key: string) => {

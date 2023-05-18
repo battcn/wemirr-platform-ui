@@ -1,14 +1,14 @@
-import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from '../types/table';
-import type { PaginationProps } from '../types/pagination';
-import type { ComputedRef } from 'vue';
-import { computed, Ref, ref, reactive, toRaw, unref, watch } from 'vue';
-import { renderEditCell } from '../components/editable';
-import { usePermission } from '/@/hooks/web/usePermission';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { isArray, isBoolean, isFunction, isMap, isString } from '/@/utils/is';
-import { cloneDeep, isEqual } from 'lodash-es';
-import { formatToDate } from '/@/utils/dateUtil';
-import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from '../const';
+import type { BasicColumn, BasicTableProps, CellFormat, GetColumnsParams } from "../types/table";
+import type { PaginationProps } from "../types/pagination";
+import type { ComputedRef } from "vue";
+import { computed, Ref, ref, reactive, toRaw, unref, watch } from "vue";
+import { renderEditCell } from "../components/editable";
+import { usePermission } from "/@/hooks/web/usePermission";
+import { useI18n } from "/@/hooks/web/useI18n";
+import { isArray, isBoolean, isFunction, isMap, isString } from "/@/utils/is";
+import { cloneDeep, isEqual } from "lodash-es";
+import { formatToDate } from "/@/utils/dateUtil";
+import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from "../const";
 
 function handleItem(item: BasicColumn, ellipsis: boolean) {
   const { key, dataIndex, children } = item;
@@ -40,7 +40,7 @@ function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) 
 function handleIndexColumn(
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
-  columns: BasicColumn[],
+  columns: BasicColumn[]
 ) {
   const { t } = useI18n();
 
@@ -61,13 +61,13 @@ function handleIndexColumn(
 
   if (!pushIndexColumns) return;
 
-  const isFixedLeft = columns.some((item) => item.fixed === 'left');
+  const isFixedLeft = columns.some((item) => item.fixed === "left");
 
   columns.unshift({
     flag: INDEX_COLUMN_FLAG,
     width: 50,
-    title: t('component.table.index'),
-    align: 'center',
+    title: t("component.table.index"),
+    align: "center",
     customRender: ({ index }) => {
       const getPagination = unref(getPaginationRef);
       if (isBoolean(getPagination)) {
@@ -78,7 +78,7 @@ function handleIndexColumn(
     },
     ...(isFixedLeft
       ? {
-          fixed: 'left',
+          fixed: "left",
         }
       : {}),
     ...indexColumnProps,
@@ -93,7 +93,7 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
   if (hasIndex === -1) {
     columns.push({
       ...columns[hasIndex],
-      fixed: 'right',
+      fixed: "right",
       ...actionColumn,
       flag: ACTION_COLUMN_FLAG,
     });
@@ -102,7 +102,7 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
 
 export function useColumns(
   propsRef: ComputedRef<BasicTableProps>,
-  getPaginationRef: ComputedRef<boolean | PaginationProps>,
+  getPaginationRef: ComputedRef<boolean | PaginationProps>
 ) {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
   let cacheColumns = unref(propsRef).columns;
@@ -122,7 +122,7 @@ export function useColumns(
 
       handleItem(
         item,
-        Reflect.has(item, 'ellipsis') ? !!item.ellipsis : !!ellipsis && !customRender && !slots,
+        Reflect.has(item, "ellipsis") ? !!item.ellipsis : !!ellipsis && !customRender && !slots
       );
     });
     return columns;
@@ -152,7 +152,7 @@ export function useColumns(
       if (!slots || !slots?.title) {
         // column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
         column.customTitle = column.title;
-        Reflect.deleteProperty(column, 'title');
+        Reflect.deleteProperty(column, "title");
       }
       const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
       if (!customRender && format && !edit && !isDefaultAction) {
@@ -186,7 +186,7 @@ export function useColumns(
     (columns) => {
       columnsRef.value = columns;
       cacheColumns = columns?.filter((item) => !item.flag) ?? [];
-    },
+    }
   );
 
   function setCacheColumnsByField(dataIndex: string | undefined, value: Partial<BasicColumn>) {
@@ -281,18 +281,18 @@ function sortFixedColumn(columns: BasicColumn[]) {
   const fixedRightColumns: BasicColumn[] = [];
   const defColumns: BasicColumn[] = [];
   for (const column of columns) {
-    if (column.fixed === 'left') {
+    if (column.fixed === "left") {
       fixedLeftColumns.push(column);
       continue;
     }
-    if (column.fixed === 'right') {
+    if (column.fixed === "right") {
       fixedRightColumns.push(column);
       continue;
     }
     defColumns.push(column);
   }
   return [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
-    (item) => !item.defaultHidden,
+    (item) => !item.defaultHidden
   );
 }
 
@@ -309,9 +309,9 @@ export function formatCell(text: string, format: CellFormat, record: Recordable,
 
   try {
     // date type
-    const DATE_FORMAT_PREFIX = 'date|';
+    const DATE_FORMAT_PREFIX = "date|";
     if (isString(format) && format.startsWith(DATE_FORMAT_PREFIX) && text) {
-      const dateFormat = format.replace(DATE_FORMAT_PREFIX, '');
+      const dateFormat = format.replace(DATE_FORMAT_PREFIX, "");
 
       if (!dateFormat) {
         return text;

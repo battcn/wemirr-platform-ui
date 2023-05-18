@@ -1,7 +1,7 @@
-import type { ValidationRule, FormInstance } from 'ant-design-vue/lib/form/Form';
-import type { RuleObject, NamePath } from 'ant-design-vue/lib/form/interface';
-import { ref, computed, unref, Ref } from 'vue';
-import { useI18n } from '/@/hooks/web/useI18n';
+import type { ValidationRule, FormInstance } from "ant-design-vue/lib/form/Form";
+import type { RuleObject, NamePath } from "ant-design-vue/lib/form/interface";
+import { ref, computed, unref, Ref } from "vue";
+import { useI18n } from "/@/hooks/web/useI18n";
 
 export enum LoginStateEnum {
   LOGIN,
@@ -49,22 +49,22 @@ export function useFormValid<T extends Object = any>(formRef: Ref<FormInstance>)
 export function useFormRules(formData?: Recordable) {
   const { t } = useI18n();
 
-  const getAccountFormRule = computed(() => createRule(t('sys.login.accountPlaceholder')));
-  const getPasswordFormRule = computed(() => createRule(t('sys.login.passwordPlaceholder')));
-  const getSmsFormRule = computed(() => createRule(t('sys.login.smsPlaceholder')));
-  const getMobileFormRule = computed(() => createRule(t('sys.login.mobilePlaceholder')));
+  const getAccountFormRule = computed(() => createRule(t("sys.login.accountPlaceholder")));
+  const getPasswordFormRule = computed(() => createRule(t("sys.login.passwordPlaceholder")));
+  const getSmsFormRule = computed(() => createRule(t("sys.login.smsPlaceholder")));
+  const getMobileFormRule = computed(() => createRule(t("sys.login.mobilePlaceholder")));
 
   const validatePolicy = async (_: RuleObject, value: boolean) => {
-    return !value ? Promise.reject(t('sys.login.policyPlaceholder')) : Promise.resolve();
+    return !value ? Promise.reject(t("sys.login.policyPlaceholder")) : Promise.resolve();
   };
 
   const validateConfirmPassword = (password: string) => {
     return async (_: RuleObject, value: string) => {
       if (!value) {
-        return Promise.reject(t('sys.login.passwordPlaceholder'));
+        return Promise.reject(t("sys.login.passwordPlaceholder"));
       }
       if (value !== password) {
-        return Promise.reject(t('sys.login.diffPwd'));
+        return Promise.reject(t("sys.login.diffPwd"));
       }
       return Promise.resolve();
     };
@@ -87,9 +87,9 @@ export function useFormRules(formData?: Recordable) {
           account: accountFormRule,
           password: passwordFormRule,
           confirmPassword: [
-            { validator: validateConfirmPassword(formData?.password), trigger: 'change' },
+            { validator: validateConfirmPassword(formData?.password), trigger: "change" },
           ],
-          policy: [{ validator: validatePolicy, trigger: 'change' }],
+          policy: [{ validator: validatePolicy, trigger: "change" }],
           ...mobileRule,
         };
 
@@ -120,7 +120,7 @@ function createRule(message: string) {
     {
       required: true,
       message,
-      trigger: 'change',
+      trigger: "change",
     },
   ];
 }

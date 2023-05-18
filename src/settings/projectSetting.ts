@@ -1,6 +1,6 @@
-import type { ProjectConfig } from '/#/config';
-import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
-import { CacheTypeEnum } from '/@/enums/cacheEnum';
+import type { ProjectConfig } from "/#/config";
+import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from "/@/enums/menuEnum";
+import { CacheTypeEnum } from "/@/enums/cacheEnum";
 import {
   ContentEnum,
   PermissionModeEnum,
@@ -8,10 +8,10 @@ import {
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
-} from '/@/enums/appEnum';
-import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from './designSetting';
+} from "/@/enums/appEnum";
+import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from "./designSetting";
 
-const primaryColor = '#0960bd';
+const primaryColor = "#0960bd";
 // import { primaryColor } from '../../build/config/themeConfig'
 
 // ! You need to clear the browser cache after the change
@@ -106,7 +106,7 @@ const setting: ProjectConfig = {
     // Split menu
     split: false,
     // Top menu layout
-    topMenuAlign: 'center',
+    topMenuAlign: "center",
     // Fold trigger position
     trigger: TriggerEnum.HEADER,
     // Turn on accordion mode, only show a menu

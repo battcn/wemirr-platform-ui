@@ -1,12 +1,12 @@
 /**
  * Multi-language related operations
  */
-import type { LocaleType } from '/#/config';
+import type { LocaleType } from "/#/config";
 
-import { i18n } from './setupI18n';
-import { useLocaleStoreWithOut } from '/@/store/modules/locale';
-import { unref, computed } from 'vue';
-import { loadLocalePool, setHtmlPageLang } from './helper';
+import { i18n } from "./setupI18n";
+import { useLocaleStoreWithOut } from "/@/store/modules/locale";
+import { unref, computed } from "vue";
+import { loadLocalePool, setHtmlPageLang } from "./helper";
 
 interface LangModule {
   message: Recordable;
@@ -17,7 +17,7 @@ interface LangModule {
 function setI18nLanguage(locale: LocaleType) {
   const localeStore = useLocaleStoreWithOut();
 
-  if (i18n.mode === 'legacy') {
+  if (i18n.mode === "legacy") {
     i18n.global.locale = locale;
   } else {
     (i18n.global.locale as any).value = locale;

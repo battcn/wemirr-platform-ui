@@ -1,12 +1,12 @@
-import type { ComputedRef, Ref } from 'vue';
-import type { BasicTableProps } from '../types/table';
-import { computed, unref, ref, toRaw } from 'vue';
-import { ROW_KEY } from '../const';
+import type { ComputedRef, Ref } from "vue";
+import type { BasicTableProps } from "../types/table";
+import { computed, unref, ref, toRaw } from "vue";
+import { ROW_KEY } from "../const";
 
 export function useTableExpand(
   propsRef: ComputedRef<BasicTableProps>,
   tableData: Ref<Recordable[]>,
-  emit: EmitType,
+  emit: EmitType
 ) {
   const expandedRowKeys = ref<string[]>([]);
 
@@ -27,7 +27,7 @@ export function useTableExpand(
       expandedRowKeys: unref(expandedRowKeys),
       onExpandedRowsChange: (keys: string[]) => {
         expandedRowKeys.value = keys;
-        emit('expanded-rows-change', keys);
+        emit("expanded-rows-change", keys);
       },
     };
   });
@@ -49,7 +49,7 @@ export function useTableExpand(
     const { childrenColumnName } = unref(propsRef);
     toRaw(data || unref(tableData)).forEach((item) => {
       keys.push(item[unref(getRowKey) as string]);
-      const children = item[childrenColumnName || 'children'];
+      const children = item[childrenColumnName || "children"];
       if (children?.length) {
         keys.push(...getAllKeys(children));
       }

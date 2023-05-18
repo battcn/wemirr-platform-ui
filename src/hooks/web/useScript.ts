@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from "vue";
 
 interface ScriptOptions {
   src: string;
@@ -12,13 +12,13 @@ export function useScript(opts: ScriptOptions) {
 
   const promise = new Promise((resolve, reject) => {
     onMounted(() => {
-      script = document.createElement('script');
-      script.type = 'text/javascript';
+      script = document.createElement("script");
+      script.type = "text/javascript";
       script.onload = function () {
         isLoading.value = false;
         success.value = true;
         error.value = false;
-        resolve('');
+        resolve("");
       };
 
       script.onerror = function (err) {

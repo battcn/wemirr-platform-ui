@@ -1,5 +1,5 @@
-import { type Recordable } from '@vben/types';
-import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue';
+import { type Recordable } from "@vben/types";
+import { getCurrentInstance, reactive, shallowRef, watchEffect } from "vue";
 
 interface UseAttrsOptions {
   excludeListeners?: boolean;
@@ -7,7 +7,7 @@ interface UseAttrsOptions {
   excludeDefaultKeys?: boolean;
 }
 
-const DEFAULT_EXCLUDE_KEYS = ['class', 'style'];
+const DEFAULT_EXCLUDE_KEYS = ["class", "style"];
 const LISTENER_PREFIX = /^on[A-Z]/;
 
 function entries<T>(obj: Recordable<T>): [string, T][] {

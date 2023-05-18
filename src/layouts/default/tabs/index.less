@@ -1,6 +1,6 @@
-@prefix-cls: ~'@{namespace}-multiple-tabs';
+@prefix-cls: ~"@{namespace}-multiple-tabs";
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   .@{prefix-cls} {
     .ant-tabs-tab {
       border-bottom: 1px solid @border-color-base;
@@ -8,7 +8,7 @@ html[data-theme='dark'] {
   }
 }
 
-html[data-theme='light'] {
+html[data-theme="light"] {
   .@{prefix-cls} {
     .ant-tabs-tab:not(.ant-tabs-tab-active) {
       border: 1px solid #d9d9d9 !important;
@@ -157,13 +157,13 @@ html[data-theme='light'] {
         color: @text-color-base;
       }
 
-      span[role='img'] {
+      span[role="img"] {
         transform: rotate(90deg);
       }
     }
 
     &__extra-redo {
-      span[role='img'] {
+      span[role="img"] {
         transform: rotate(0deg);
       }
     }

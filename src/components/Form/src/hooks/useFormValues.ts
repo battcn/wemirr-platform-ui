@@ -1,9 +1,9 @@
-import { isArray, isFunction, isObject, isString, isNullOrUnDef } from '/@/utils/is';
-import { dateUtil } from '/@/utils/dateUtil';
-import { unref } from 'vue';
-import type { Ref, ComputedRef } from 'vue';
-import type { FormProps, FormSchema } from '../types/form';
-import { cloneDeep, set } from 'lodash-es';
+import { isArray, isFunction, isObject, isString, isNullOrUnDef } from "/@/utils/is";
+import { dateUtil } from "/@/utils/dateUtil";
+import { unref } from "vue";
+import type { Ref, ComputedRef } from "vue";
+import type { FormProps, FormSchema } from "../types/form";
+import { cloneDeep, set } from "lodash-es";
 
 interface UseFormValuesContext {
   defaultValueRef: Ref<any>;
@@ -20,7 +20,7 @@ function tryDeconstructArray(key: string, value: any, target: Recordable) {
   if (pattern.test(key)) {
     const match = key.match(pattern);
     if (match && match[1]) {
-      const keys = match[1].split(',');
+      const keys = match[1].split(",");
       value = Array.isArray(value) ? value : [value];
       keys.forEach((k, index) => {
         set(target, k.trim(), value[index]);
@@ -38,7 +38,7 @@ function tryDeconstructObject(key: string, value: any, target: Recordable) {
   if (pattern.test(key)) {
     const match = key.match(pattern);
     if (match && match[1]) {
-      const keys = match[1].split(',');
+      const keys = match[1].split(",");
       value = isObject(value) ? value : {};
       keys.forEach((k) => {
         set(target, k.trim(), value[k.trim()]);
@@ -77,7 +77,7 @@ export function useFormValues({
       // Remove spaces
       if (isString(value)) {
         // remove params from URL
-        if (value === '') {
+        if (value === "") {
           value = undefined;
         } else {
           value = value.trim();
@@ -101,7 +101,7 @@ export function useFormValues({
       return values;
     }
 
-    for (const [field, [startTimeKey, endTimeKey], format = 'YYYY-MM-DD'] of fieldMapToTime) {
+    for (const [field, [startTimeKey, endTimeKey], format = "YYYY-MM-DD"] of fieldMapToTime) {
       if (!field || !startTimeKey || !endTimeKey) {
         continue;
       }

@@ -1,13 +1,13 @@
-import { ComponentOptions, h } from 'vue';
+import { ComponentOptions, h } from "vue";
 import {
   FormItemContentRenderParams,
   FormItemRenderOptions,
   VxeGlobalRendererHandles,
-} from 'vxe-table';
-import XEUtils from 'xe-utils';
-import { componentMap } from '../componentMap';
-import { ComponentType } from '../componentType';
-import { createPlaceholderMessage } from '../helper';
+} from "vxe-table";
+import XEUtils from "xe-utils";
+import { componentMap } from "../componentMap";
+import { ComponentType } from "../componentType";
+import { createPlaceholderMessage } from "../helper";
 
 /**
  * @description: 获取组件
@@ -19,11 +19,11 @@ export function getComponent(componentName) {
 }
 
 export function isEmptyValue(cellValue: any) {
-  return cellValue === null || cellValue === undefined || cellValue === '';
+  return cellValue === null || cellValue === undefined || cellValue === "";
 }
 
 export function formatText(cellValue: any) {
-  return '' + (isEmptyValue(cellValue) ? '' : cellValue);
+  return "" + (isEmptyValue(cellValue) ? "" : cellValue);
 }
 
 export function cellText(cellValue: any): string[] {
@@ -34,17 +34,17 @@ export function cellText(cellValue: any): string[] {
  * @description: 方法名转换
  */
 export function getOnName(type: string) {
-  return 'on' + type.substring(0, 1).toLocaleUpperCase() + type.substring(1);
+  return "on" + type.substring(0, 1).toLocaleUpperCase() + type.substring(1);
 }
 
 /**
  * @description: 获取组件传值所接受的属性
  */
 function getModelKey(renderOpts: VxeGlobalRendererHandles.RenderOptions) {
-  let prop = 'value';
+  let prop = "value";
   switch (renderOpts.name) {
-    case 'ASwitch':
-      prop = 'checked';
+    case "ASwitch":
+      prop = "checked";
       break;
   }
   return prop;
@@ -54,10 +54,10 @@ function getModelKey(renderOpts: VxeGlobalRendererHandles.RenderOptions) {
  * @description: 回去双向更新的方法
  */
 function getModelEvent(renderOpts: VxeGlobalRendererHandles.RenderOptions) {
-  let type = 'update:value';
+  let type = "update:value";
   switch (renderOpts.name) {
-    case 'ASwitch':
-      type = 'update:checked';
+    case "ASwitch":
+      type = "update:checked";
       break;
   }
   return type;
@@ -70,11 +70,11 @@ function getModelEvent(renderOpts: VxeGlobalRendererHandles.RenderOptions) {
  * @author: *
  */
 function getChangeEvent() {
-  return 'change';
+  return "change";
 }
 
 function getClickEvent() {
-  return 'click';
+  return "click";
 }
 /**
  * @description: 获取方法
@@ -87,7 +87,7 @@ export function createEvents(
   params: VxeGlobalRendererHandles.RenderParams,
   inputFunc?: Function,
   changeFunc?: Function,
-  clickFunc?: Function,
+  clickFunc?: Function
 ) {
   const { events } = renderOpts;
   const modelEvent = getModelEvent(renderOpts);
@@ -137,7 +137,7 @@ export function createEvents(
 export function createProps(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
   value: any,
-  defaultProps?: { [prop: string]: any },
+  defaultProps?: { [prop: string]: any }
 ) {
   const name = renderOpts.name as ComponentType;
   return XEUtils.assign(
@@ -149,7 +149,7 @@ export function createProps(
     renderOpts.props,
     {
       [getModelKey(renderOpts)]: value,
-    },
+    }
   );
 }
 
@@ -160,12 +160,12 @@ export function createDefaultRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderDefaultOptions,
-    params: VxeGlobalRendererHandles.RenderDefaultParams,
-  ) => Record<string, any>,
+    params: VxeGlobalRendererHandles.RenderDefaultParams
+  ) => Record<string, any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderDefaultOptions,
-    params: VxeGlobalRendererHandles.RenderDefaultParams,
+    params: VxeGlobalRendererHandles.RenderDefaultParams
   ) {
     const { row, column, $table } = params;
     const { name, attrs } = renderOpts;
@@ -182,7 +182,7 @@ export function createDefaultRender(
           renderOpts,
           params,
           (value: any) => XEUtils.set(row, column.field as string, value),
-          () => $table.updateStatus(params),
+          () => $table.updateStatus(params)
         ),
       }),
     ];
@@ -196,12 +196,12 @@ export function createEditRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
-  ) => Record<string, any>,
+    params: VxeGlobalRendererHandles.RenderEditParams
+  ) => Record<string, any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    params: VxeGlobalRendererHandles.RenderEditParams
   ) {
     const { row, column, $table } = params;
     const { name, attrs } = renderOpts;
@@ -218,7 +218,7 @@ export function createEditRender(
           renderOpts,
           params,
           (value: any) => XEUtils.set(row, column.field as string, value),
-          () => $table.updateStatus(params),
+          () => $table.updateStatus(params)
         ),
       }),
     ];
@@ -232,12 +232,12 @@ export function createFilterRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderFilterOptions,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
-  ) => Record<string, any>,
+    params: VxeGlobalRendererHandles.RenderFilterParams
+  ) => Record<string, any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderFilterOptions,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
+    params: VxeGlobalRendererHandles.RenderFilterParams
   ) {
     const { column } = params;
     const { name, attrs } = renderOpts;
@@ -246,9 +246,9 @@ export function createFilterRender(
     const Component = getComponent(name);
     return [
       h(
-        'div',
+        "div",
         {
-          class: 'vxe-table--filter-antd-wrapper',
+          class: "vxe-table--filter-antd-wrapper",
         },
         column.filters.map((option, oIndex) => {
           const optionValue = option.data;
@@ -270,10 +270,10 @@ export function createFilterRender(
                 // 处理 change 事件相关逻辑
                 const { $panel } = params;
                 $panel.changeOption(null, checked, option);
-              },
+              }
             ),
           });
-        }),
+        })
       ),
     ];
   };
@@ -302,8 +302,8 @@ export function createFormItemRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: FormItemRenderOptions,
-    params: FormItemContentRenderParams,
-  ) => Record<string, any>,
+    params: FormItemContentRenderParams
+  ) => Record<string, any>
 ) {
   return function (renderOpts: FormItemRenderOptions, params: FormItemContentRenderParams) {
     const args = (callBack && callBack(renderOpts, params)) ?? {};
@@ -331,7 +331,7 @@ export function createFormItemRender(
               ...params,
               field: property,
             });
-          },
+          }
         ),
       }),
     ];
@@ -345,12 +345,12 @@ export function createCellRender(
   getSelectCellValue: Function,
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-    params: VxeGlobalRendererHandles.RenderCellParams,
-  ) => Array<any>,
+    params: VxeGlobalRendererHandles.RenderCellParams
+  ) => Array<any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-    params: VxeGlobalRendererHandles.RenderCellParams,
+    params: VxeGlobalRendererHandles.RenderCellParams
   ) {
     const args = (callBack && callBack(renderOpts, params)) ?? [];
     const cellLabel = getSelectCellValue && getSelectCellValue(renderOpts, params, ...args);
@@ -358,21 +358,21 @@ export function createCellRender(
 
     return [
       h(
-        'span',
+        "span",
         {
-          class: 'vxe-cell--label',
+          class: "vxe-cell--label",
         },
         placeholder && isEmptyValue(cellLabel)
           ? [
               h(
-                'span',
+                "span",
                 {
-                  class: 'vxe-cell--placeholder',
+                  class: "vxe-cell--placeholder",
                 },
-                formatText(placeholder),
+                formatText(placeholder)
               ),
             ]
-          : formatText(cellLabel),
+          : formatText(cellLabel)
       ),
     ];
   };
@@ -386,7 +386,7 @@ export function createCellRender(
  */
 export function createExportMethod(
   getExportCellValue: Function,
-  callBack?: (params: VxeGlobalRendererHandles.ExportMethodParams) => Array<any>,
+  callBack?: (params: VxeGlobalRendererHandles.ExportMethodParams) => Array<any>
 ) {
   return function (params: VxeGlobalRendererHandles.ExportMethodParams) {
     const { row, column, options } = params;
@@ -404,12 +404,12 @@ export function createToolbarToolRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderToolOptions,
-    params: VxeGlobalRendererHandles.RenderToolParams,
-  ) => Record<string, any>,
+    params: VxeGlobalRendererHandles.RenderToolParams
+  ) => Record<string, any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderToolOptions,
-    params: VxeGlobalRendererHandles.RenderToolParams,
+    params: VxeGlobalRendererHandles.RenderToolParams
   ) {
     const { name, attrs } = renderOpts;
     const args = (callBack && callBack(renderOpts, params)) ?? {};

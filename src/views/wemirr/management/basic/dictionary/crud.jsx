@@ -1,8 +1,8 @@
-import { shallowRef } from 'vue';
-import SubTable from './sub-table/index.vue';
-import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
-import { GET, POST, PUT, DELETE } from '/src/api/service';
+import { shallowRef } from "vue";
+import SubTable from "./sub-table/index.vue";
+import { dict } from "@fast-crud/fast-crud";
+import dayjs from "dayjs";
+import { GET, POST, PUT, DELETE } from "/src/api/service";
 
 export default function () {
   return {
@@ -15,24 +15,24 @@ export default function () {
       },
       columns: {
         name: {
-          title: '名称',
+          title: "名称",
           search: { show: true },
-          type: 'text',
+          type: "text",
         },
         code: {
-          title: '编码',
+          title: "编码",
           search: { show: true },
-          type: 'text',
+          type: "text",
         },
         status: {
-          title: '状态',
-          type: 'dict-radio',
+          title: "状态",
+          type: "dict-radio",
           search: { show: true },
-          column: { show: true, width: 100, align: 'center' },
+          column: { show: true, width: 100, align: "center" },
           dict: dict({
             data: [
-              { value: 1, label: '启用', color: 'success' },
-              { value: 0, label: '禁用', color: 'error' },
+              { value: 1, label: "启用", color: "success" },
+              { value: 0, label: "禁用", color: "error" },
             ],
           }),
           addForm: { value: 1 },
@@ -43,9 +43,9 @@ export default function () {
           },
         },
         readonly: {
-          title: '内置',
-          type: 'dict-radio',
-          column: { width: 90, align: 'center' },
+          title: "内置",
+          type: "dict-radio",
+          column: { width: 90, align: "center" },
           addForm: { show: false },
           editForm: {
             component: {
@@ -54,25 +54,25 @@ export default function () {
           },
           dict: dict({
             data: [
-              { value: true, label: '是', color: 'success' },
-              { value: false, label: '否', color: 'error' },
+              { value: true, label: "是", color: "success" },
+              { value: false, label: "否", color: "error" },
             ],
           }),
         },
         sequence: {
-          title: '排序',
-          column: { width: 50, align: 'center' },
-          type: 'number',
+          title: "排序",
+          column: { width: 50, align: "center" },
+          type: "number",
           addForm: { value: 0 },
           form: { component: { min: 0, max: 100 } },
         },
         description: {
-          title: '描述',
-          type: ['textarea', 'colspan'],
+          title: "描述",
+          type: ["textarea", "colspan"],
         },
         createdTime: {
-          title: '创建时间',
-          type: 'datetime',
+          title: "创建时间",
+          type: "datetime",
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
@@ -81,9 +81,9 @@ export default function () {
           },
         },
         id: {
-          title: '字典信息',
+          title: "字典信息",
           column: { show: false },
-          type: ['text-area', 'colspan'],
+          type: ["text-area", "colspan"],
           form: { show: false },
           viewForm: {
             show: true,
@@ -91,7 +91,7 @@ export default function () {
             component: {
               //局部引用子表格，要用shallowRef包裹
               name: shallowRef(SubTable),
-              vModel: 'modelValue',
+              vModel: "modelValue",
             },
           },
         },

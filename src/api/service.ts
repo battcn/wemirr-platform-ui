@@ -1,16 +1,16 @@
-import { defHttp } from '@/utils/http/axios'
+import { defHttp } from "@/utils/http/axios";
 export const GET = async (url, query) => {
-  return await defHttp.request({ url: url, method: 'GET', params: query })
-}
+  return await defHttp.request({ url: url, method: "GET", params: query });
+};
 
 export const POST = async (url, obj) => {
-  return await defHttp.request({ url: url, method: 'POST', data: obj })
-}
+  return await defHttp.request({ url: url, method: "POST", data: obj });
+};
 
 export const PUT = async (url, obj) => {
-  return await defHttp.request({ url: url, method: 'PUT', data: obj })
-}
+  return await defHttp.request({ url: url, method: "PUT", data: obj });
+};
 
 export const DELETE = async (url, obj) => {
-  return await defHttp.request({ url: url, method: 'DELETE', data: obj })
-}
+  return await defHttp.request({ url: url, method: "DELETE", data: obj });
+};

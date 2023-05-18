@@ -1,4 +1,4 @@
-import { createFormItemRender } from './common';
+import { createFormItemRender } from "./common";
 
 export default {
   renderItemContent: createFormItemRender(),

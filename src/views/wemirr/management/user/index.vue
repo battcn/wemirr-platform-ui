@@ -11,33 +11,33 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue'
-import createCrudOptions from './crud'
-import { useExpose, useCrud } from '@fast-crud/fast-crud'
-import { PageWrapper } from '@/components/Page'
-import { Card } from 'ant-design-vue'
+import { defineComponent, ref, onMounted } from "vue";
+import createCrudOptions from "./crud";
+import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { PageWrapper } from "@/components/Page";
+import { Card } from "ant-design-vue";
 
 export default defineComponent({
-  name: 'FormGroup',
+  name: "FormGroup",
   components: { PageWrapper, Card },
   setup() {
-    const crudRef = ref()
-    const crudBinding = ref()
-    const { expose } = useExpose({ crudRef, crudBinding })
-    const { crudOptions } = createCrudOptions({ expose })
-    useCrud({ expose, crudOptions, permission: 'user:management' })
+    const crudRef = ref();
+    const crudBinding = ref();
+    const { expose } = useExpose({ crudRef, crudBinding });
+    const { crudOptions } = createCrudOptions({ expose });
+    useCrud({ expose, crudOptions, permission: "user:management" });
 
     // 页面打开后获取列表数据
     onMounted(() => {
-      expose.doRefresh()
-    })
+      expose.doRefresh();
+    });
 
     return {
       crudBinding,
-      crudRef
-    }
-  }
-})
+      crudRef,
+    };
+  },
+});
 </script>
 
 <style lang="less">

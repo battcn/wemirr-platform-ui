@@ -1,32 +1,32 @@
-import { usePermission } from '@/hooks/web/usePermission'
+import { usePermission } from "@/hooks/web/usePermission";
 
-import _ from 'lodash-es'
+import _ from "lodash-es";
 
 /**
  * 设置动作权限
  * @param permission {prefix,extra}
  */
 export function useCrudPermission({ permission }) {
-  const { hasPermission } = usePermission()
-  const prefix = permission instanceof Object ? permission.prefix : permission
+  const { hasPermission } = usePermission();
+  const prefix = permission instanceof Object ? permission.prefix : permission;
   //根据权限显示按钮
   function hasActionPermission(action) {
     if (!prefix) {
-      return true
+      return true;
     }
-    return hasPermission(prefix + ':' + action)
+    return hasPermission(prefix + ":" + action);
   }
 
   function buildCrudPermission() {
     if (permission == null) {
-      return {}
+      return {};
     }
 
-    let extra = {}
+    let extra = {};
     if (permission instanceof Object) {
-      extra = permission.extra
+      extra = permission.extra;
       if (permission.extra && permission.extra instanceof Function) {
-        extra = permission.extra({ hasActionPermission })
+        extra = permission.extra({ hasActionPermission });
       }
     }
 
@@ -34,26 +34,26 @@ export function useCrudPermission({ permission }) {
       {
         actionbar: {
           buttons: {
-            add: { show: hasActionPermission('add') }
-          }
+            add: { show: hasActionPermission("add") },
+          },
         },
         rowHandle: {
           buttons: {
-            edit: { show: hasActionPermission('edit') },
-            remove: { show: hasActionPermission('remove') }
+            edit: { show: hasActionPermission("edit") },
+            remove: { show: hasActionPermission("remove") },
             // view: { show: hasActionPermission('view') },
-          }
-        }
+          },
+        },
       },
       extra
-    )
+    );
   }
 
   function merge(userOptions) {
-    const permissionOptions = buildCrudPermission()
-    _.merge(permissionOptions, userOptions)
-    return permissionOptions
+    const permissionOptions = buildCrudPermission();
+    _.merge(permissionOptions, userOptions);
+    return permissionOptions;
   }
 
-  return { merge, buildCrudPermission, hasActionPermission }
+  return { merge, buildCrudPermission, hasActionPermission };
 }

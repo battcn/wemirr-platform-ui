@@ -1,5 +1,5 @@
-import { isString } from '/@/utils/is';
-import { RenderQrCodeParams, LogoType } from './typing';
+import { isString } from "/@/utils/is";
+import { RenderQrCodeParams, LogoType } from "./typing";
 
 export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {
   if (!logo) {
@@ -10,7 +10,7 @@ export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {
   const canvasWidth = (canvas as HTMLCanvasElement).width;
   const {
     logoSize = 0.15,
-    bgColor = '#ffffff',
+    bgColor = "#ffffff",
     borderSize = 0.05,
     crossOrigin,
     borderRadius = 8,
@@ -23,7 +23,7 @@ export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {
   const logoBgWidth = canvasWidth * (logoSize + borderSize);
   const logoBgXY = (canvasWidth * (1 - logoSize - borderSize)) / 2;
 
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
   // logo 底色
@@ -34,7 +34,7 @@ export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {
   // logo
   const image = new Image();
   if (crossOrigin || logoRadius) {
-    image.setAttribute('crossOrigin', crossOrigin || 'anonymous');
+    image.setAttribute("crossOrigin", crossOrigin || "anonymous");
   }
   image.src = logoSrc;
 
@@ -45,16 +45,16 @@ export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {
 
   // 使用canvas绘制以获得更多的功能
   const drawLogoWithCanvas = (image: HTMLImageElement) => {
-    const canvasImage = document.createElement('canvas');
+    const canvasImage = document.createElement("canvas");
     canvasImage.width = logoXY + logoWidth;
     canvasImage.height = logoXY + logoWidth;
-    const imageCanvas = canvasImage.getContext('2d');
+    const imageCanvas = canvasImage.getContext("2d");
     if (!imageCanvas || !ctx) return;
     imageCanvas.drawImage(image, logoXY, logoXY, logoWidth, logoWidth);
 
     canvasRoundRect(ctx)(logoXY, logoXY, logoWidth, logoWidth, logoRadius);
     if (!ctx) return;
-    const fillStyle = ctx.createPattern(canvasImage, 'no-repeat');
+    const fillStyle = ctx.createPattern(canvasImage, "no-repeat");
     if (fillStyle) {
       ctx.fillStyle = fillStyle;
       ctx.fill();

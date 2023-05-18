@@ -2,17 +2,17 @@
   <PageWrapper contentClass="flex" contentFullHeight fixedHeight class="bg-white m-4 mr-4">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #actionbar-right>
-        <a-alert class="ml-1" type="info" message="非专业人士,请勿随便乱动"/>
+        <a-alert class="ml-1" type="info" message="非专业人士,请勿随便乱动" />
       </template>
       <template #form_predicates="scope">
         <div v-for="(scopeItem, scopeIndex) in scope.form.predicates" :key="scopeIndex">
           <a-divider
-          >{{ scopeItem.name }}
+            >{{ scopeItem.name }}
             <a-button
               v-show="scope.mode !== 'view'"
               @click="removePredicate(scopeItem, scopeIndex, scope.form, scope.key)"
             >
-              <DeleteOutlined/>
+              <DeleteOutlined />
             </a-button>
           </a-divider>
           <a-tag
@@ -21,9 +21,8 @@
             :closable="scope.mode !== 'view'"
             @close="removePredicateTag(scopeItem, tag)"
             color="success"
-          >{{ tag }}
-          </a-tag
-          >
+            >{{ tag }}
+          </a-tag>
           <a-input
             v-if="scopeItem.inputVisible"
             v-model:value="scopeItem.inputValue"
@@ -40,7 +39,7 @@
             style="margin-left: 10px; margin-bottom: 15px"
             @click="showInput(scopeItem)"
           >
-            <PlusSquareOutlined/>
+            <PlusSquareOutlined />
             新建{{ scopeItem.predicate }}
           </a-tag>
         </div>
@@ -52,7 +51,7 @@
             style="width: 100%"
           >
             添加路由条件
-            <DownOutlined/>
+            <DownOutlined />
           </a-button>
           <template #overlay>
             <a-menu style="margin-top: 12px">
@@ -63,8 +62,7 @@
                 @click="handlePredicateChange(predicate, scope.form, scope.key)"
               >
                 {{ predicate }}
-              </a-menu-item
-              >
+              </a-menu-item>
             </a-menu>
           </template>
         </a-dropdown>
@@ -73,12 +71,12 @@
       <template #form_filters="scope">
         <div v-for="(scopeItem, scopeIndex) in scope.form.filters" :key="scopeIndex">
           <a-divider
-          >{{ scopeItem.name }}
+            >{{ scopeItem.name }}
             <a-button
               v-show="scope.mode !== 'view'"
               @click="removeFilter(scopeItem, scopeIndex, scope.form, scope.key)"
             >
-              <DeleteOutlined/>
+              <DeleteOutlined />
             </a-button>
           </a-divider>
           <div v-for="(tag, index) in scopeItem.args" :key="tag.key" style="margin-bottom: 10px">
@@ -106,7 +104,7 @@
             size="small"
             @click="addFilterParams(scopeItem)"
           >
-            <PlusSquareOutlined/>
+            <PlusSquareOutlined />
             添加参数
           </a-button>
         </div>
@@ -118,7 +116,7 @@
             @mouseover="processFilters(scope)"
           >
             添加过滤器
-            <DownOutlined/>
+            <DownOutlined />
           </a-button>
           <template #overlay>
             <a-menu style="margin-top: 12px">
@@ -128,8 +126,7 @@
                 @click="handleFilterChange(filter, scope.form, scope.key)"
               >
                 {{ filter.title }}
-              </a-menu-item
-              >
+              </a-menu-item>
             </a-menu>
           </template>
         </a-dropdown>
@@ -139,22 +136,22 @@
 </template>
 
 <script>
-import {defineComponent, reactive, ref, onMounted} from 'vue';
-import createCrudOptions from './crud';
-import {useExpose, useCrud} from '@fast-crud/fast-crud';
-import {PlusSquareOutlined, DeleteOutlined, DownOutlined} from '@ant-design/icons-vue';
-import {predicates, filters} from './data';
-import {cloneDeep} from 'lodash-es';
-import {PageWrapper} from "@/components/Page";
+import { defineComponent, reactive, ref, onMounted } from "vue";
+import createCrudOptions from "./crud";
+import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { PlusSquareOutlined, DeleteOutlined, DownOutlined } from "@ant-design/icons-vue";
+import { predicates, filters } from "./data";
+import { cloneDeep } from "lodash-es";
+import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
-  name: 'GatewayRouteForm',
-  components: {PageWrapper, DeleteOutlined, PlusSquareOutlined, DownOutlined},
+  name: "GatewayRouteForm",
+  components: { PageWrapper, DeleteOutlined, PlusSquareOutlined, DownOutlined },
   setup() {
     const crudRef = ref();
     const crudBinding = ref();
-    const inputValue = '';
-    const {expose} = useExpose({crudRef, crudBinding});
+    const inputValue = "";
+    const { expose } = useExpose({ crudRef, crudBinding });
 
     const router = reactive({
       predicates: predicates,
@@ -162,8 +159,8 @@ export default defineComponent({
     });
     const cloneDeepRouter = cloneDeep(router);
 
-    const {crudOptions} = createCrudOptions({expose});
-    useCrud({expose, crudOptions});
+    const { crudOptions } = createCrudOptions({ expose });
+    useCrud({ expose, crudOptions });
     onMounted(() => {
       expose.doRefresh();
     });
@@ -177,7 +174,7 @@ export default defineComponent({
       if (form[key] == null) {
         form[key] = [];
       }
-      form[key].push('');
+      form[key].push("");
     }
 
     //删除路由条件配置项
@@ -203,7 +200,7 @@ export default defineComponent({
         scopeForm[scopeKey] = [];
       }
       const args = [];
-      const item = {name, args};
+      const item = { name, args };
       scopeForm[scopeKey].push(item);
     }
 
@@ -249,8 +246,8 @@ export default defineComponent({
 
     function addFilterParams(scopeForm) {
       scopeForm.args.push({
-        key: '_genkey_' + (scopeForm.args.length + 1),
-        value: '',
+        key: "_genkey_" + (scopeForm.args.length + 1),
+        value: "",
       });
     }
 

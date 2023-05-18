@@ -1,8 +1,8 @@
-import { ComputedRef, isRef, nextTick, Ref, ref, unref, watch } from 'vue';
-import { onMountedOrActivated, useWindowSizeFn } from '@vben/hooks';
-import { useLayoutHeight } from '/@/layouts/default/content/useContentViewHeight';
-import { getViewportOffset } from '/@/utils/domUtils';
-import { isNumber, isString } from '/@/utils/is';
+import { ComputedRef, isRef, nextTick, Ref, ref, unref, watch } from "vue";
+import { onMountedOrActivated, useWindowSizeFn } from "@vben/hooks";
+import { useLayoutHeight } from "/@/layouts/default/content/useContentViewHeight";
+import { getViewportOffset } from "/@/utils/domUtils";
+import { isNumber, isString } from "/@/utils/is";
 
 export interface CompensationHeight {
   // 使用 layout Footer 高度作为判断补偿高度的条件
@@ -31,7 +31,7 @@ export function useContentHeight(
   subtractHeightRefs: Ref[],
   substractSpaceRefs: Ref[],
   upwardSpace: Ref<Upward> | ComputedRef<Upward> | Upward = 0,
-  offsetHeightRef: Ref<number> = ref(0),
+  offsetHeightRef: Ref<number> = ref(0)
 ) {
   const contentHeight: Ref<Nullable<number>> = ref(null);
   const { footerHeightRef: layoutFooterHeightRef } = useLayoutHeight();
@@ -51,25 +51,25 @@ export function useContentHeight(
 
   function calcSubtractSpace(
     element: Element | null | undefined,
-    direction: 'all' | 'top' | 'bottom' = 'all',
+    direction: "all" | "top" | "bottom" = "all"
   ): number {
     function numberPx(px: string) {
-      return Number(px.replace(/[^\d]/g, ''));
+      return Number(px.replace(/[^\d]/g, ""));
     }
     let subtractHeight = 0;
-    const ZERO_PX = '0px';
+    const ZERO_PX = "0px";
     if (element) {
       const cssStyle = getComputedStyle(element);
       const marginTop = numberPx(cssStyle?.marginTop ?? ZERO_PX);
       const marginBottom = numberPx(cssStyle?.marginBottom ?? ZERO_PX);
       const paddingTop = numberPx(cssStyle?.paddingTop ?? ZERO_PX);
       const paddingBottom = numberPx(cssStyle?.paddingBottom ?? ZERO_PX);
-      if (direction === 'all') {
+      if (direction === "all") {
         subtractHeight += marginTop;
         subtractHeight += marginBottom;
         subtractHeight += paddingTop;
         subtractHeight += paddingBottom;
-      } else if (direction === 'top') {
+      } else if (direction === "top") {
         subtractHeight += marginTop;
         subtractHeight += paddingTop;
       } else {
@@ -120,14 +120,14 @@ export function useContentHeight(
         if (parent) {
           if (isString(upwardLvlOrClass)) {
             if (!parent.classList.contains(upwardLvlOrClass)) {
-              upwardSpaceHeight += calcSubtractSpace(parent, 'bottom');
+              upwardSpaceHeight += calcSubtractSpace(parent, "bottom");
               upward(parent, upwardLvlOrClass);
             } else {
-              upwardSpaceHeight += calcSubtractSpace(parent, 'bottom');
+              upwardSpaceHeight += calcSubtractSpace(parent, "bottom");
             }
           } else if (isNumber(upwardLvlOrClass)) {
             if (upwardLvlOrClass > 0) {
-              upwardSpaceHeight += calcSubtractSpace(parent, 'bottom');
+              upwardSpaceHeight += calcSubtractSpace(parent, "bottom");
               upward(parent, --upwardLvlOrClass);
             }
           }
@@ -172,7 +172,7 @@ export function useContentHeight(
     () => {
       calcContentHeight();
     },
-    { wait: 50, immediate: true },
+    { wait: 50, immediate: true }
   );
   watch(
     () => [layoutFooterHeightRef.value],
@@ -180,9 +180,9 @@ export function useContentHeight(
       calcContentHeight();
     },
     {
-      flush: 'post',
+      flush: "post",
       immediate: true,
-    },
+    }
   );
 
   return { redoHeight, setCompensation, contentHeight };

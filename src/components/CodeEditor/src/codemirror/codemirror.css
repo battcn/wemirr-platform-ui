@@ -89,7 +89,7 @@
   top: -0.1em;
   display: inline-block;
   font-size: 0.8em;
-  content: '>';
+  content: ">";
   opacity: 0.8;
   transform: rotate(90deg);
   transition: transform 0.2s;
@@ -516,7 +516,7 @@ div.CodeMirror-dragcursors {
 
 /* See issue #2901 */
 .cm-tab-wrap-hack::after {
-  content: '';
+  content: "";
 }
 
 /* Help users use markselection to safely style text background */

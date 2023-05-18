@@ -1,6 +1,6 @@
-import { ref, computed, unref } from 'vue';
-import { createPageContext } from '/@/hooks/component/usePageContext';
-import { useWindowSizeFn } from '@vben/hooks';
+import { ref, computed, unref } from "vue";
+import { createPageContext } from "/@/hooks/component/usePageContext";
+import { useWindowSizeFn } from "@vben/hooks";
 
 const headerHeightRef = ref(0);
 const footerHeightRef = ref(0);
@@ -26,7 +26,7 @@ export function useContentViewHeight() {
     () => {
       contentHeight.value = window.innerHeight;
     },
-    { wait: 100, immediate: true },
+    { wait: 100, immediate: true }
   );
 
   async function setPageHeight(height: number) {

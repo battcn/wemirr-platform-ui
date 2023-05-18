@@ -1,10 +1,10 @@
-import type { RouteLocationNormalized, Router } from 'vue-router';
+import type { RouteLocationNormalized, Router } from "vue-router";
 
-import { useRouter } from 'vue-router';
-import { unref } from 'vue';
+import { useRouter } from "vue-router";
+import { unref } from "vue";
 
-import { useMultipleTabStore } from '/@/store/modules/multipleTab';
-import { useAppStore } from '/@/store/modules/app';
+import { useMultipleTabStore } from "/@/store/modules/multipleTab";
+import { useAppStore } from "/@/store/modules/app";
 
 enum TableActionEnum {
   REFRESH,
@@ -22,7 +22,7 @@ export function useTabs(_router?: Router) {
   function canIUseTabs(): boolean {
     const { show } = appStore.getMultiTabsSetting;
     if (!show) {
-      throw new Error('The multi-tab page is currently not open, please open it in the settings！');
+      throw new Error("The multi-tab page is currently not open, please open it in the settings！");
     }
     return !!show;
   }

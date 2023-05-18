@@ -1,4 +1,4 @@
-export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
+export type ErrorMessageMode = "none" | "modal" | "message" | undefined;
 export type SuccessMessageMode = ErrorMessageMode;
 
 export interface RequestOptions {
@@ -37,7 +37,7 @@ export interface RetryRequest {
 }
 export interface Result<T = any> {
   code: number;
-  type: 'success' | 'error' | 'warning';
+  type: "success" | "error" | "warning";
   message: string;
   data: T;
 }

@@ -1,7 +1,7 @@
-import type { ComputedRef, Ref } from 'vue';
-import type { FormSchema, FormActionType, FormProps } from '../types/form';
+import type { ComputedRef, Ref } from "vue";
+import type { FormSchema, FormActionType, FormProps } from "../types/form";
 
-import { unref, nextTick, watchEffect } from 'vue';
+import { unref, nextTick, watchEffect } from "vue";
 
 interface UseAutoFocusContext {
   getSchema: ComputedRef<FormSchema[]>;
@@ -29,11 +29,11 @@ export async function useAutoFocus({
 
     const firstItem = schemas[0];
     // Only open when the first form item is input type
-    if (!firstItem.component.includes('Input')) {
+    if (!firstItem.component.includes("Input")) {
       return;
     }
 
-    const inputEl = el.querySelector('.ant-row:first-child input') as Nullable<HTMLInputElement>;
+    const inputEl = el.querySelector(".ant-row:first-child input") as Nullable<HTMLInputElement>;
     if (!inputEl) return;
     inputEl?.focus();
   });

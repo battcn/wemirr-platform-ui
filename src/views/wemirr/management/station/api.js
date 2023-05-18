@@ -1,13 +1,13 @@
-import { GET, request } from '/src/api/service';
+import { GET, request } from "/src/api/service";
 
 export function GetList(query) {
-  return GET('/authority/stations', query);
+  return GET("/authority/stations", query);
 }
 
 export function AddObj(obj) {
   return defHttp.request({
-    url: '/authority/stations',
-    method: 'post',
+    url: "/authority/stations",
+    method: "post",
     data: obj,
   });
 }
@@ -15,14 +15,14 @@ export function AddObj(obj) {
 export function UpdateObj(obj) {
   return defHttp.request({
     url: `/authority/stations/${obj.id}`,
-    method: 'put',
+    method: "put",
     data: obj,
   });
 }
 export function DelObj(id) {
   return defHttp.request({
     url: `/authority/stations/${id}`,
-    method: 'delete',
+    method: "delete",
     data: { id },
   });
 }

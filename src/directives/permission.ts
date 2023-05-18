@@ -3,9 +3,9 @@
  * Used for fine-grained control of component permissions
  * @Example v-auth="RoleEnum.TEST"
  */
-import type { App, Directive, DirectiveBinding } from 'vue';
+import type { App, Directive, DirectiveBinding } from "vue";
 
-import { usePermission } from '/@/hooks/web/usePermission';
+import { usePermission } from "/@/hooks/web/usePermission";
 
 function isAuth(el: Element, binding: any) {
   const { hasPermission } = usePermission();
@@ -26,7 +26,7 @@ const authDirective: Directive = {
 };
 
 export function setupPermissionDirective(app: App) {
-  app.directive('auth', authDirective);
+  app.directive("auth", authDirective);
 }
 
 export default authDirective;

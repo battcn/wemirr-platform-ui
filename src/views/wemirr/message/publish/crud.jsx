@@ -1,7 +1,7 @@
-import * as api from './api';
-import { useMessage } from '/@/hooks/web/useMessage';
-import { compute, dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
+import * as api from "./api";
+import { useMessage } from "/@/hooks/web/useMessage";
+import { compute, dict } from "@fast-crud/fast-crud";
+import dayjs from "dayjs";
 
 export default function ({ expose, searchRemote }) {
   const { notification } = useMessage();
@@ -19,8 +19,8 @@ export default function ({ expose, searchRemote }) {
         show: true,
         buttons: {
           add: {
-            icon: 'codicon:repo-force-push',
-            text: '发布消息',
+            icon: "codicon:repo-force-push",
+            text: "发布消息",
           },
         },
       },
@@ -28,17 +28,17 @@ export default function ({ expose, searchRemote }) {
         width: 220,
         buttons: {
           publish: {
-            icon: 'codicon:repo-force-push',
-            type: 'link',
+            icon: "codicon:repo-force-push",
+            type: "link",
             text: null,
-            size: 'small',
-            title: '通知',
+            size: "small",
+            title: "通知",
             order: 4,
             async click(context) {
               console.log(context);
               await api.PublishMessage(context.row.id).then((ret) => {
                 notification.success({
-                  message: '消息通知成功',
+                  message: "消息通知成功",
                   duration: 3,
                 });
               });
@@ -48,46 +48,46 @@ export default function ({ expose, searchRemote }) {
       },
       columns: {
         id: {
-          title: 'ID',
-          type: 'text',
+          title: "ID",
+          type: "text",
           form: { show: false },
           column: { show: false },
         },
         title: {
-          title: '标题',
-          type: 'text',
+          title: "标题",
+          type: "text",
           search: { show: true },
           form: {
-            rules: [{ required: true, message: '标题不能为空' }],
+            rules: [{ required: true, message: "标题不能为空" }],
           },
         },
         level: {
-          title: '级别',
-          type: 'dict-select',
+          title: "级别",
+          type: "dict-select",
           search: { show: true },
-          column: { show: true, align: 'center' }, // 表单配置
+          column: { show: true, align: "center" }, // 表单配置
           dict: dict({
-            url: '/authority/dictionaries/NOTICE/list',
+            url: "/authority/dictionaries/NOTICE/list",
           }),
           form: {
-            rules: [{ required: true, message: '消息类型不能为空' }],
+            rules: [{ required: true, message: "消息类型不能为空" }],
           },
         },
         type: {
-          title: '接收类型',
+          title: "接收类型",
           search: { show: true },
-          column: { show: true, align: 'center' },
-          type: 'dict-radio',
+          column: { show: true, align: "center" },
+          type: "dict-radio",
           dict: dict({
             data: [
-              { value: 1, label: '个人', color: 'success' },
-              { value: 2, label: '角色', color: 'error' },
+              { value: 1, label: "个人", color: "success" },
+              { value: 2, label: "角色", color: "error" },
             ],
           }),
           form: {
             valueChange: ({ value, form, ...content }) => {
-              console.log('value', value, 'form', form, 'content', content);
-              fetchReceiver(value, '');
+              console.log("value", value, "form", form, "content", content);
+              fetchReceiver(value, "");
             },
           },
           addForm: {
@@ -95,22 +95,22 @@ export default function ({ expose, searchRemote }) {
           },
         },
         receiver: {
-          title: '接收者',
+          title: "接收者",
           column: { show: false },
           form: {
-            rules: [{ required: true, message: '接收者不能为空' }],
+            rules: [{ required: true, message: "接收者不能为空" }],
             component: {
-              name: 'a-select',
-              vModel: 'value',
+              name: "a-select",
+              vModel: "value",
               filterOption: false,
-              mode: 'multiple',
+              mode: "multiple",
               showSearch: true,
               allowClear: true,
-              placeholder: '请输入搜索内容',
+              placeholder: "请输入搜索内容",
               options: searchState.data,
               onSearch: compute(({ form }) => {
                 if (!form.type) {
-                  return '暂无记录';
+                  return "暂无记录";
                 }
                 return function (value) {
                   fetchReceiver(form.type, value);
@@ -121,15 +121,15 @@ export default function ({ expose, searchRemote }) {
                   if (searchState.fetching.value) {
                     return <a-spin size="small" />;
                   }
-                  return '暂无记录';
+                  return "暂无记录";
                 },
               },
             },
           },
         },
         content: {
-          title: '消息内容',
-          type: ['editor-wang', 'colspan'],
+          title: "消息内容",
+          type: ["editor-wang", "colspan"],
           column: {
             ellipsis: true,
           },
@@ -137,25 +137,25 @@ export default function ({ expose, searchRemote }) {
             disabled: true,
           },
           form: {
-            rules: [{ required: true, message: '消息内容不能为空' }],
+            rules: [{ required: true, message: "消息内容不能为空" }],
             component: {
               uploader: {
-                type: 'form', // 上传后端类型【cos,aliyun,oss,form】
+                type: "form", // 上传后端类型【cos,aliyun,oss,form】
                 buildUrl(res) {
-                  return 'http://www.docmirror.cn:7070' + res.url;
+                  return "http://www.docmirror.cn:7070" + res.url;
                 },
               },
               on: {
-                'text-change': (event) => {
-                  console.log('text-change:', event);
+                "text-change": (event) => {
+                  console.log("text-change:", event);
                 },
               },
             },
           },
         },
         description: {
-          title: '描述信息',
-          type: 'textarea',
+          title: "描述信息",
+          type: "textarea",
           column: { ellipsis: true },
           form: {
             col: { span: 24 },
@@ -164,14 +164,14 @@ export default function ({ expose, searchRemote }) {
           },
         },
         createdName: {
-          title: '发布人',
-          type: 'text',
+          title: "发布人",
+          type: "text",
           column: { show: false },
           form: { show: false },
         },
         createdTime: {
-          title: '通知时间',
-          type: 'datetime',
+          title: "通知时间",
+          type: "datetime",
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

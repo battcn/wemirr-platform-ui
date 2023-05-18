@@ -1,17 +1,17 @@
-import { defHttp } from '@/utils/http/axios'
+import { defHttp } from "@/utils/http/axios";
 
 export function GetList(query) {
   return defHttp.request({
-    url: '/gateway/rules/limits',
-    method: 'get',
+    url: "/gateway/rules/limits",
+    method: "get",
     params: query,
   });
 }
 
 export function AddObj(obj) {
   return defHttp.request({
-    url: '/gateway/rules/limits',
-    method: 'post',
+    url: "/gateway/rules/limits",
+    method: "post",
     data: obj,
   });
 }
@@ -19,14 +19,14 @@ export function AddObj(obj) {
 export function UpdateObj(obj) {
   return defHttp.request({
     url: `/gateway/rules/limits/${obj.id}`,
-    method: 'put',
+    method: "put",
     data: obj,
   });
 }
 export function DelObj(id) {
   return defHttp.request({
     url: `/gateway/rules/limits/${id}`,
-    method: 'delete',
+    method: "delete",
     data: { id },
   });
 }

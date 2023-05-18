@@ -1,5 +1,5 @@
-import type { PropType } from 'vue';
-import { useI18n } from '/@/hooks/web/useI18n';
+import type { PropType } from "vue";
+import { useI18n } from "/@/hooks/web/useI18n";
 
 const { t } = useI18n();
 export const basicProps = {
@@ -15,11 +15,11 @@ export const basicProps = {
 
   text: {
     type: [String] as PropType<string>,
-    default: t('component.verify.dragText'),
+    default: t("component.verify.dragText"),
   },
   successText: {
     type: [String] as PropType<string>,
-    default: t('component.verify.successText'),
+    default: t("component.verify.successText"),
   },
   height: {
     type: [Number, String] as PropType<number | string>,

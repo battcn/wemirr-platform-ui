@@ -1,15 +1,15 @@
-import type { NamePath, RuleObject } from 'ant-design-vue/lib/form/interface';
-import type { VNode, CSSProperties } from 'vue';
-import type { ButtonProps as AntdButtonProps } from '/@/components/Button';
-import type { FormItem } from './formItem';
-import type { ColEx, ComponentType } from './index';
-import type { TableActionType } from '/@/components/Table/src/types/table';
-import type { RowProps } from 'ant-design-vue/lib/grid/Row';
+import type { NamePath, RuleObject } from "ant-design-vue/lib/form/interface";
+import type { VNode, CSSProperties } from "vue";
+import type { ButtonProps as AntdButtonProps } from "/@/components/Button";
+import type { FormItem } from "./formItem";
+import type { ColEx, ComponentType } from "./index";
+import type { TableActionType } from "/@/components/Table/src/types/table";
+import type { RowProps } from "ant-design-vue/lib/grid/Row";
 
 export type FieldMapToTime = [string, [string, string], (string | [string, string])?][];
 
 export type Rule = RuleObject & {
-  trigger?: 'blur' | 'change' | ['change', 'blur'];
+  trigger?: "blur" | "change" | ["change", "blur"];
 };
 
 export interface RenderCallbackParams {
@@ -36,7 +36,7 @@ export interface FormActionType {
   appendSchemaByField: (
     schema: FormSchema | FormSchema[],
     prefixField: string | undefined,
-    first?: boolean | undefined,
+    first?: boolean | undefined
   ) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
   validate: (nameList?: NamePath[]) => Promise<any>;
@@ -49,13 +49,13 @@ export type UseFormReturnType = [RegisterFn, FormActionType];
 
 export interface FormProps {
   name?: string;
-  layout?: 'vertical' | 'inline' | 'horizontal';
+  layout?: "vertical" | "inline" | "horizontal";
   // Form value
   model?: Recordable;
   // The width of all items in the entire form
   labelWidth?: number | string;
   // alignment
-  labelAlign?: 'left' | 'right';
+  labelAlign?: "left" | "right";
   // Row configuration for the entire form
   rowProps?: RowProps;
   // Submit form on reset
@@ -82,7 +82,7 @@ export interface FormProps {
   // Blank line span
   emptySpan?: number | Partial<ColEx>;
   // Internal component size of the form
-  size?: 'default' | 'small' | 'large';
+  size?: "default" | "small" | "large";
   // Whether to disable
   disabled?: boolean;
   // Time interval fields are mapped into multiple

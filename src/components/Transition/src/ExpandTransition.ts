@@ -15,9 +15,9 @@ interface HTMLExpandElement extends HTMLElement {
   };
 }
 
-export default function (expandedParentClass = '', x = false) {
-  const sizeProperty = x ? 'width' : ('height' as 'width' | 'height');
-  const offsetProperty = `offset${upperFirst(sizeProperty)}` as 'offsetHeight' | 'offsetWidth';
+export default function (expandedParentClass = "", x = false) {
+  const sizeProperty = x ? "width" : ("height" as "width" | "height");
+  const offsetProperty = `offset${upperFirst(sizeProperty)}` as "offsetHeight" | "offsetWidth";
 
   return {
     beforeEnter(el: HTMLExpandElement) {
@@ -32,8 +32,8 @@ export default function (expandedParentClass = '', x = false) {
     enter(el: HTMLExpandElement) {
       const initialStyle = el._initialStyle;
 
-      el.style.setProperty('transition', 'none', 'important');
-      el.style.overflow = 'hidden';
+      el.style.setProperty("transition", "none", "important");
+      el.style.overflow = "hidden";
       // const offset = `${el[offsetProperty]}px`;
 
       // el.style[sizeProperty] = '0';
@@ -56,17 +56,17 @@ export default function (expandedParentClass = '', x = false) {
 
     leave(el: HTMLExpandElement) {
       el._initialStyle = {
-        transition: '',
+        transition: "",
         overflow: el.style.overflow,
         [sizeProperty]: el.style[sizeProperty],
       };
 
-      el.style.overflow = 'hidden';
+      el.style.overflow = "hidden";
       el.style[sizeProperty] = `${el[offsetProperty]}px`;
       /* eslint-disable-next-line */
       void el.offsetHeight; // force reflow
 
-      requestAnimationFrame(() => (el.style[sizeProperty] = '0'));
+      requestAnimationFrame(() => (el.style[sizeProperty] = "0"));
     },
 
     afterLeave,
@@ -84,6 +84,6 @@ export default function (expandedParentClass = '', x = false) {
     const size = el._initialStyle[sizeProperty];
     el.style.overflow = el._initialStyle.overflow!;
     if (size != null) el.style[sizeProperty] = size;
-    Reflect.deleteProperty(el, '_initialStyle');
+    Reflect.deleteProperty(el, "_initialStyle");
   }
 }

@@ -1,11 +1,11 @@
-import type { Menu } from '/@/router/types';
-import type { PropType } from 'vue';
+import type { Menu } from "/@/router/types";
+import type { PropType } from "vue";
 
-import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
-import { ThemeEnum } from '/@/enums/appEnum';
-import { propTypes } from '/@/utils/propTypes';
-import type { MenuTheme } from 'ant-design-vue';
-import type { MenuMode } from 'ant-design-vue/lib/menu/src/interface';
+import { MenuModeEnum, MenuTypeEnum } from "/@/enums/menuEnum";
+import { ThemeEnum } from "/@/enums/appEnum";
+import { propTypes } from "/@/utils/propTypes";
+import type { MenuTheme } from "ant-design-vue";
+import type { MenuMode } from "ant-design-vue/lib/menu/src/interface";
 
 export const basicProps = {
   items: {
@@ -45,7 +45,7 @@ export const itemProps = {
     default: () => ({}),
   },
   level: propTypes.number,
-  theme: propTypes.oneOf(['dark', 'light']),
+  theme: propTypes.oneOf(["dark", "light"]),
   showTitle: propTypes.bool,
   isHorizontal: propTypes.bool,
 };

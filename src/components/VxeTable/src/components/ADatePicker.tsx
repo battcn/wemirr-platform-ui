@@ -1,16 +1,16 @@
-import { VxeGlobalRendererHandles } from 'vxe-table';
-import XEUtils from 'xe-utils';
+import { VxeGlobalRendererHandles } from "vxe-table";
+import XEUtils from "xe-utils";
 import {
   createCellRender,
   createEditRender,
   createExportMethod,
   createFormItemRender,
-} from './common';
+} from "./common";
 
 export function getDatePickerCellValue(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
   params: VxeGlobalRendererHandles.RenderCellParams | VxeGlobalRendererHandles.ExportMethodParams,
-  defaultFormat: string,
+  defaultFormat: string
 ) {
   const { props = {} } = renderOpts;
   const { row, column } = params;
@@ -24,10 +24,10 @@ export function getDatePickerCellValue(
 export default {
   renderEdit: createEditRender(),
   renderCell: createCellRender(getDatePickerCellValue, () => {
-    return ['YYYY-MM-DD'];
+    return ["YYYY-MM-DD"];
   }),
   renderItemContent: createFormItemRender(),
   exportMethod: createExportMethod(getDatePickerCellValue, () => {
-    return ['YYYY-MM-DD'];
+    return ["YYYY-MM-DD"];
   }),
 };

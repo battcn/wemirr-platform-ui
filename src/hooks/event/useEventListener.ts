@@ -1,6 +1,6 @@
-import type { Ref } from 'vue';
-import { ref, watch, unref } from 'vue';
-import { useThrottleFn, useDebounceFn } from '@vueuse/core';
+import type { Ref } from "vue";
+import { ref, watch, unref } from "vue";
+import { useThrottleFn, useDebounceFn } from "@vueuse/core";
 
 export type RemoveEventFn = () => void;
 export interface UseEventParams {
@@ -46,7 +46,7 @@ export function useEventListener({
           });
         }
       },
-      { immediate: true },
+      { immediate: true }
     );
 
     remove = () => {

@@ -1,6 +1,6 @@
-import type { PropType } from 'vue';
+import type { PropType } from "vue";
 
-import { useI18n } from '/@/hooks/web/useI18n';
+import { useI18n } from "/@/hooks/web/useI18n";
 
 const { t } = useI18n();
 
@@ -11,14 +11,14 @@ export const footerProps = {
    */
   showCancelBtn: { type: Boolean, default: true },
   cancelButtonProps: Object as PropType<Recordable>,
-  cancelText: { type: String, default: t('common.cancelText') },
+  cancelText: { type: String, default: t("common.cancelText") },
   /**
    * @description: Show confirmation button
    */
   showOkBtn: { type: Boolean, default: true },
   okButtonProps: Object as PropType<Recordable>,
-  okText: { type: String, default: t('common.okText') },
-  okType: { type: String, default: 'primary' },
+  okText: { type: String, default: t("common.okText") },
+  okType: { type: String, default: "primary" },
   showFooter: { type: Boolean },
   footerHeight: {
     type: [String, Number] as PropType<string | number>,
@@ -27,7 +27,7 @@ export const footerProps = {
 };
 export const basicProps = {
   isDetail: { type: Boolean },
-  title: { type: String, default: '' },
+  title: { type: String, default: "" },
   loadingText: { type: String },
   showDetailBack: { type: Boolean, default: true },
   visible: { type: Boolean },

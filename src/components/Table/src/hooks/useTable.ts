@@ -1,12 +1,12 @@
-import type { BasicTableProps, TableActionType, FetchParams, BasicColumn } from '../types/table';
-import type { PaginationProps } from '../types/pagination';
-import type { DynamicProps } from '/#/utils';
-import type { FormActionType } from '/@/components/Form';
-import type { WatchStopHandle } from 'vue';
-import { getDynamicProps } from '/@/utils';
-import { ref, onUnmounted, unref, watch, toRaw } from 'vue';
-import { isProdMode } from '/@/utils/env';
-import { error } from '/@/utils/log';
+import type { BasicTableProps, TableActionType, FetchParams, BasicColumn } from "../types/table";
+import type { PaginationProps } from "../types/pagination";
+import type { DynamicProps } from "/#/utils";
+import type { FormActionType } from "/@/components/Form";
+import type { WatchStopHandle } from "vue";
+import { getDynamicProps } from "/@/utils";
+import { ref, onUnmounted, unref, watch, toRaw } from "vue";
+import { isProdMode } from "/@/utils/env";
+import { error } from "/@/utils/log";
 
 type Props = Partial<DynamicProps<BasicTableProps>>;
 
@@ -18,7 +18,7 @@ export function useTable(tableProps?: Props): [
   (instance: TableActionType, formInstance: UseTableMethod) => void,
   TableActionType & {
     getForm: () => FormActionType;
-  },
+  }
 ] {
   const tableRef = ref<Nullable<TableActionType>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
@@ -50,7 +50,7 @@ export function useTable(tableProps?: Props): [
       {
         immediate: true,
         deep: true,
-      },
+      }
     );
   }
 
@@ -58,7 +58,7 @@ export function useTable(tableProps?: Props): [
     const table = unref(tableRef);
     if (!table) {
       error(
-        'The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!',
+        "The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!"
       );
     }
     return table as TableActionType;

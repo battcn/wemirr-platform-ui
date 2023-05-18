@@ -5,9 +5,9 @@ import type {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
-  InternalAxiosRequestConfig
-} from 'axios';
-import type { RequestOptions, Result } from '/#/axios';
+  InternalAxiosRequestConfig,
+} from "axios";
+import type { RequestOptions, Result } from "/#/axios";
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   authenticationScheme?: string;
@@ -37,7 +37,7 @@ export abstract class AxiosTransform {
    */
   requestInterceptors?: (
     config: InternalAxiosRequestConfig,
-    options: CreateAxiosOptions,
+    options: CreateAxiosOptions
   ) => InternalAxiosRequestConfig;
 
   /**

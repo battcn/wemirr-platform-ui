@@ -1,7 +1,7 @@
-import { ref } from 'vue';
-import { dict } from '@fast-crud/fast-crud';
-import { GET, DELETE } from '/src/api/service';
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import { dict } from "@fast-crud/fast-crud";
+import { GET, DELETE } from "/src/api/service";
+import { useRouter } from "vue-router";
 
 export default function ({ expose }) {
   const selectedRowKeys = ref([]);
@@ -32,12 +32,12 @@ export default function ({ expose }) {
             show: false,
           },
           publish: {
-            icon: 'codicon:repo-force-push',
-            type: 'button',
-            text: '新建模型',
-            title: '新建模型',
+            icon: "codicon:repo-force-push",
+            type: "button",
+            text: "新建模型",
+            title: "新建模型",
             async click() {
-              await router.push('/design/process/workflow');
+              await router.push("/design/process/workflow");
             },
           },
         },
@@ -49,25 +49,25 @@ export default function ({ expose }) {
       },
       columns: {
         id: {
-          title: 'ID',
-          type: 'text',
+          title: "ID",
+          type: "text",
           form: { show: false },
           column: { show: false },
         },
         title: {
-          title: '标题',
-          type: 'text',
+          title: "标题",
+          type: "text",
           search: { show: true },
         },
         mark: {
-          title: '状态',
+          title: "状态",
           search: { show: true },
-          column: { show: true, align: 'center' }, // 表单配置
-          type: 'dict-radio',
+          column: { show: true, align: "center" }, // 表单配置
+          type: "dict-radio",
           dict: dict({
             data: [
-              { value: true, label: '已读', color: 'success' },
-              { value: false, label: '未读', color: 'error' },
+              { value: true, label: "已读", color: "success" },
+              { value: false, label: "未读", color: "error" },
             ],
           }),
         },

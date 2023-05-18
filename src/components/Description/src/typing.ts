@@ -1,6 +1,6 @@
-import type { VNode, CSSProperties } from 'vue';
-import type { CollapseContainerOptions } from '/@/components/Container/index';
-import type { DescriptionsProps } from 'ant-design-vue/es/descriptions/index';
+import type { VNode, CSSProperties } from "vue";
+import type { CollapseContainerOptions } from "/@/components/Container/index";
+import type { DescriptionsProps } from "ant-design-vue/es/descriptions/index";
 
 export interface DescItem {
   labelMinWidth?: number;
@@ -14,7 +14,7 @@ export interface DescItem {
   // render
   render?: (
     val: any,
-    data: Recordable,
+    data: Recordable
   ) => VNode | undefined | JSX.Element | Element | string | number;
 }
 

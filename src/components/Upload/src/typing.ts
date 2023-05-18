@@ -1,9 +1,9 @@
-import { UploadApiResult } from '/@/api/sys/model/uploadModel';
+import { UploadApiResult } from "/@/api/sys/model/uploadModel";
 
 export enum UploadResultStatus {
-  SUCCESS = 'success',
-  ERROR = 'error',
-  UPLOADING = 'uploading',
+  SUCCESS = "success",
+  ERROR = "error",
+  UPLOADING = "uploading",
 }
 
 export interface FileItem {
@@ -51,5 +51,5 @@ export interface FileBasicColumn {
    * @default 'left'
    * @type string
    */
-  align?: 'left' | 'right' | 'center';
+  align?: "left" | "right" | "center";
 }

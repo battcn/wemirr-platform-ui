@@ -1,42 +1,42 @@
 <template>
   <PageWrapper contentClass="flex" contentFullHeight fixedHeight class="bg-white m-4 mr-4">
-    <fs-crud ref="crudRef" v-bind="crudBinding"/>
+    <fs-crud ref="crudRef" v-bind="crudBinding" />
   </PageWrapper>
 </template>
 
 <script>
-import {defineComponent, ref, onMounted, computed} from 'vue'
-import createCrudOptions from './crud'
-import {useExpose, useCrud} from '@fast-crud/fast-crud'
-import {useUserStore} from '@/store/modules/user'
-import {PageWrapper} from "@/components/Page";
+import { defineComponent, ref, onMounted, computed } from "vue";
+import createCrudOptions from "./crud";
+import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { useUserStore } from "@/store/modules/user";
+import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
-  name: 'FeatureExpand',
-  components: {PageWrapper},
+  name: "FeatureExpand",
+  components: { PageWrapper },
   setup() {
     // crud组件的ref
-    const crudRef = ref()
+    const crudRef = ref();
     // crud 配置的ref
-    const crudBinding = ref()
+    const crudBinding = ref();
     // 暴露的方法
-    const {expose} = useExpose({crudRef, crudBinding})
-    const userStore = useUserStore()
+    const { expose } = useExpose({ crudRef, crudBinding });
+    const userStore = useUserStore();
     // 你的crud配置
-    const {crudOptions} = createCrudOptions({expose, userStore})
+    const { crudOptions } = createCrudOptions({ expose, userStore });
     // 初始化crud配置
     // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-    const {resetCrudOptions} = useCrud({expose, crudOptions})
+    const { resetCrudOptions } = useCrud({ expose, crudOptions });
     // 你可以调用此方法，重新初始化crud配置
     // resetCrudOptions(options)
     // 页面打开后获取列表数据
     onMounted(() => {
-      expose.doRefresh()
-    })
+      expose.doRefresh();
+    });
     return {
       crudBinding,
-      crudRef
-    }
-  }
-})
+      crudRef,
+    };
+  },
+});
 </script>

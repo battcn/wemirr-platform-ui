@@ -6,25 +6,25 @@ export interface LoginParams {
   password: string;
 }
 export interface LoginPicture {
-  username: string
-  password: string
-  codeId?: string
-  code?: string
-  grant_type?: string
-  client_id?: string
-  client_secret?: string
-  scope?: string
-  rememberMe?: boolean
+  username: string;
+  password: string;
+  codeId?: string;
+  code?: string;
+  grant_type?: string;
+  client_id?: string;
+  client_secret?: string;
+  scope?: string;
+  rememberMe?: boolean;
 }
 
 export interface TokenInfo {
-  access_token: string
-  refresh_token: string
-  endpoint: string
-  scope: string
-  token_type: string
-  tenantCode: string
-  expires_in: number
+  access_token: string;
+  refresh_token: string;
+  endpoint: string;
+  scope: string;
+  token_type: string;
+  tenantCode: string;
+  expires_in: number;
 }
 
 export interface RoleInfo {

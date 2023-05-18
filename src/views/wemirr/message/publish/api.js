@@ -1,15 +1,15 @@
-import { defHttp } from '@/utils/http/axios'
+import { defHttp } from "@/utils/http/axios";
 export function GetList(query) {
   return defHttp.request({
-    url: '/authority/station_messages_publish',
-    method: 'get',
+    url: "/authority/station_messages_publish",
+    method: "get",
     params: query,
   });
 }
 export function AddObj(obj) {
   return defHttp.request({
-    url: '/authority/station_messages_publish',
-    method: 'post',
+    url: "/authority/station_messages_publish",
+    method: "post",
     data: obj,
   });
 }
@@ -17,7 +17,7 @@ export function AddObj(obj) {
 export function UpdateObj(obj) {
   return defHttp.request({
     url: `/authority/station_messages_publish/${obj.id}`,
-    method: 'put',
+    method: "put",
     data: obj,
   });
 }
@@ -25,7 +25,7 @@ export function UpdateObj(obj) {
 export function DelObj(id) {
   return defHttp.request({
     url: `/authority/station_messages_publish/${id}`,
-    method: 'delete',
+    method: "delete",
     data: { id },
   });
 }
@@ -33,7 +33,7 @@ export function DelObj(id) {
 export function SearchReceiver(type, value) {
   return defHttp.request({
     url: `/authority/station_messages_publish/${type}/receivers`,
-    method: 'get',
+    method: "get",
     params: { search: value },
   });
 }
@@ -41,7 +41,7 @@ export function SearchReceiver(type, value) {
 export function PublishMessage(id) {
   return defHttp.request({
     url: `/authority/station_messages_publish/${id}/publish`,
-    method: 'patch',
+    method: "patch",
     data: { id },
   });
 }

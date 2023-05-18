@@ -1,14 +1,14 @@
-import type { ComputedRef, Slots } from 'vue';
-import type { BasicTableProps, InnerHandlers } from '../types/table';
-import { unref, computed, h } from 'vue';
-import TableHeader from '../components/TableHeader.vue';
-import { isString } from '/@/utils/is';
-import { getSlot } from '/@/utils/helper/tsxHelper';
+import type { ComputedRef, Slots } from "vue";
+import type { BasicTableProps, InnerHandlers } from "../types/table";
+import { unref, computed, h } from "vue";
+import TableHeader from "../components/TableHeader.vue";
+import { isString } from "/@/utils/is";
+import { getSlot } from "/@/utils/helper/tsxHelper";
 
 export function useTableHeader(
   propsRef: ComputedRef<BasicTableProps>,
   slots: Slots,
-  handlers: InnerHandlers,
+  handlers: InnerHandlers
 ) {
   const getHeaderProps = computed((): Recordable => {
     const { title, showTableSetting, titleHelpMessage, tableSetting } = unref(propsRef);
@@ -33,20 +33,20 @@ export function useTableHeader(
               {
                 ...(slots.toolbar
                   ? {
-                      toolbar: () => getSlot(slots, 'toolbar'),
+                      toolbar: () => getSlot(slots, "toolbar"),
                     }
                   : {}),
                 ...(slots.tableTitle
                   ? {
-                      tableTitle: () => getSlot(slots, 'tableTitle'),
+                      tableTitle: () => getSlot(slots, "tableTitle"),
                     }
                   : {}),
                 ...(slots.headerTop
                   ? {
-                      headerTop: () => getSlot(slots, 'headerTop'),
+                      headerTop: () => getSlot(slots, "headerTop"),
                     }
                   : {}),
-              },
+              }
             ),
     };
   });

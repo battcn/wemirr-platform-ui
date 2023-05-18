@@ -1,7 +1,7 @@
-import { ref } from 'vue';
-import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
-import { GET, DELETE } from '/src/api/service';
+import { ref } from "vue";
+import { dict } from "@fast-crud/fast-crud";
+import dayjs from "dayjs";
+import { GET, DELETE } from "/src/api/service";
 
 export default function ({ expose }) {
   const selectedRowKeys = ref([]);
@@ -39,40 +39,40 @@ export default function ({ expose }) {
       },
       columns: {
         id: {
-          title: 'ID',
-          type: 'text',
+          title: "ID",
+          type: "text",
           form: { show: false },
           column: { show: false },
         },
         title: {
-          title: '标题',
-          type: 'text',
+          title: "标题",
+          type: "text",
           search: { show: true },
         },
         level: {
-          title: '级别',
-          type: 'dict-select',
+          title: "级别",
+          type: "dict-select",
           search: { show: true },
-          column: { show: true, align: 'center' }, // 表单配置
+          column: { show: true, align: "center" }, // 表单配置
           dict: dict({
-            url: '/authority/dictionaries/NOTICE/list',
+            url: "/authority/dictionaries/NOTICE/list",
           }),
         },
         mark: {
-          title: '状态',
+          title: "状态",
           search: { show: true },
-          column: { show: true, align: 'center' }, // 表单配置
-          type: 'dict-radio',
+          column: { show: true, align: "center" }, // 表单配置
+          type: "dict-radio",
           dict: dict({
             data: [
-              { value: true, label: '已读', color: 'success' },
-              { value: false, label: '未读', color: 'error' },
+              { value: true, label: "已读", color: "success" },
+              { value: false, label: "未读", color: "error" },
             ],
           }),
         },
         content: {
-          title: '消息内容',
-          type: 'editor-wang',
+          title: "消息内容",
+          type: "editor-wang",
           column: {
             ellipsis: true,
           },
@@ -83,8 +83,8 @@ export default function ({ expose }) {
           },
         },
         createdTime: {
-          title: '通知时间',
-          type: 'datetime',
+          title: "通知时间",
+          type: "datetime",
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

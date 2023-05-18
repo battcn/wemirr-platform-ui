@@ -4,7 +4,7 @@ import type {
   ReturnMethods,
   DrawerProps,
   UseDrawerInnerReturnType,
-} from './typing';
+} from "./typing";
 import {
   ref,
   getCurrentInstance,
@@ -14,12 +14,12 @@ import {
   nextTick,
   toRaw,
   computed,
-} from 'vue';
-import { isProdMode } from '/@/utils/env';
-import { isFunction } from '/@/utils/is';
-import { tryOnUnmounted } from '@vueuse/core';
-import { isEqual } from 'lodash-es';
-import { error } from '/@/utils/log';
+} from "vue";
+import { isProdMode } from "/@/utils/env";
+import { isFunction } from "/@/utils/is";
+import { tryOnUnmounted } from "@vueuse/core";
+import { isEqual } from "lodash-es";
+import { error } from "/@/utils/log";
 
 const dataTransferRef = reactive<any>({});
 
@@ -30,11 +30,11 @@ const visibleData = reactive<{ [key: number]: boolean }>({});
  */
 export function useDrawer(): UseDrawerReturnType {
   if (!getCurrentInstance()) {
-    throw new Error('useDrawer() can only be used inside setup() or functional components!');
+    throw new Error("useDrawer() can only be used inside setup() or functional components!");
   }
   const drawer = ref<DrawerInstance | null>(null);
   const loaded = ref<Nullable<boolean>>(false);
-  const uid = ref<string>('');
+  const uid = ref<string>("");
 
   function register(drawerInstance: DrawerInstance, uuid: string) {
     isProdMode() &&
@@ -59,7 +59,7 @@ export function useDrawer(): UseDrawerReturnType {
   const getInstance = () => {
     const instance = unref(drawer);
     if (!instance) {
-      error('useDrawer instance is undefined!');
+      error("useDrawer instance is undefined!");
     }
     return instance;
   };
@@ -100,16 +100,16 @@ export function useDrawer(): UseDrawerReturnType {
 export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   const drawerInstanceRef = ref<Nullable<DrawerInstance>>(null);
   const currentInstance = getCurrentInstance();
-  const uidRef = ref<string>('');
+  const uidRef = ref<string>("");
 
   if (!getCurrentInstance()) {
-    throw new Error('useDrawerInner() can only be used inside setup() or functional components!');
+    throw new Error("useDrawerInner() can only be used inside setup() or functional components!");
   }
 
   const getInstance = () => {
     const instance = unref(drawerInstanceRef);
     if (!instance) {
-      error('useDrawerInner instance is undefined!');
+      error("useDrawerInner instance is undefined!");
       return;
     }
     return instance;
@@ -123,7 +123,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
 
     uidRef.value = uuid;
     drawerInstanceRef.value = modalInstance;
-    currentInstance?.emit('register', modalInstance, uuid);
+    currentInstance?.emit("register", modalInstance, uuid);
   };
 
   watchEffect(() => {

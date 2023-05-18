@@ -11,21 +11,21 @@
 </template>
 
 <script>
-import {defineComponent, ref, onMounted} from 'vue';
-import createCrudOptions from './crud';
-import {useExpose, useCrud} from '@fast-crud/fast-crud';
-import {PageWrapper} from "@/components/Page";
+import { defineComponent, ref, onMounted } from "vue";
+import createCrudOptions from "./crud";
+import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
-  name: 'DatabaseForm',
-  components: {PageWrapper},
+  name: "DatabaseForm",
+  components: { PageWrapper },
   setup() {
     const crudRef = ref();
     const crudBinding = ref();
     const areaTree = ref([]);
-    const {expose} = useExpose({crudRef, crudBinding});
-    const {crudOptions} = createCrudOptions({expose, areaTree});
-    useCrud({expose, crudOptions});
+    const { expose } = useExpose({ crudRef, crudBinding });
+    const { crudOptions } = createCrudOptions({ expose, areaTree });
+    useCrud({ expose, crudOptions });
 
     onMounted(() => {
       expose.doRefresh();

@@ -1,4 +1,4 @@
-import { shallowRef, unref } from 'vue';
+import { shallowRef, unref } from "vue";
 
 interface UseScrollToOptions {
   el: any;
@@ -40,7 +40,7 @@ function useScrollTo({ el, to, duration = 500, callback }: UseScrollToOptions) {
     if (currentTime < duration && unref(isActiveRef)) {
       requestAnimationFrame(animateScroll);
     } else {
-      if (callback && typeof callback === 'function') {
+      if (callback && typeof callback === "function") {
         callback();
       }
     }

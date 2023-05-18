@@ -18,7 +18,6 @@
 
 ![用户列表](./images/users.png)
 
-
 ## 文档
 
 [文档地址](https://vvbin.cn/doc-next/)
@@ -69,4 +68,3 @@ pnpm build
 ```
 当前版本是基于 vben2.10 和 antdv3.x 历史版本请切换 vben2.8
 ```
-

@@ -1,13 +1,13 @@
-import { ContentEnum, RouterTransitionEnum } from '/@/enums/appEnum';
+import { ContentEnum, RouterTransitionEnum } from "/@/enums/appEnum";
 import {
   MenuModeEnum,
   MenuTypeEnum,
   TopMenuAlignEnum,
   TriggerEnum,
   MixSidebarTriggerEnum,
-} from '/@/enums/menuEnum';
+} from "/@/enums/menuEnum";
 
-import { useI18n } from '/@/hooks/web/useI18n';
+import { useI18n } from "/@/hooks/web/useI18n";
 
 const { t } = useI18n();
 
@@ -62,26 +62,26 @@ export enum HandlerEnum {
 export const contentModeOptions = [
   {
     value: ContentEnum.FULL,
-    label: t('layout.setting.contentModeFull'),
+    label: t("layout.setting.contentModeFull"),
   },
   {
     value: ContentEnum.FIXED,
-    label: t('layout.setting.contentModeFixed'),
+    label: t("layout.setting.contentModeFixed"),
   },
 ];
 
 export const topMenuAlignOptions = [
   {
     value: TopMenuAlignEnum.CENTER,
-    label: t('layout.setting.topMenuAlignRight'),
+    label: t("layout.setting.topMenuAlignRight"),
   },
   {
     value: TopMenuAlignEnum.START,
-    label: t('layout.setting.topMenuAlignLeft'),
+    label: t("layout.setting.topMenuAlignLeft"),
   },
   {
     value: TopMenuAlignEnum.END,
-    label: t('layout.setting.topMenuAlignCenter'),
+    label: t("layout.setting.topMenuAlignCenter"),
   },
 ];
 
@@ -89,18 +89,18 @@ export const getMenuTriggerOptions = (hideTop: boolean) => {
   return [
     {
       value: TriggerEnum.NONE,
-      label: t('layout.setting.menuTriggerNone'),
+      label: t("layout.setting.menuTriggerNone"),
     },
     {
       value: TriggerEnum.FOOTER,
-      label: t('layout.setting.menuTriggerBottom'),
+      label: t("layout.setting.menuTriggerBottom"),
     },
     ...(hideTop
       ? []
       : [
           {
             value: TriggerEnum.HEADER,
-            label: t('layout.setting.menuTriggerTop'),
+            label: t("layout.setting.menuTriggerTop"),
           },
         ]),
   ];
@@ -122,23 +122,23 @@ export const routerTransitionOptions = [
 
 export const menuTypeList = [
   {
-    title: t('layout.setting.menuTypeSidebar'),
+    title: t("layout.setting.menuTypeSidebar"),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.SIDEBAR,
   },
   {
-    title: t('layout.setting.menuTypeMix'),
+    title: t("layout.setting.menuTypeMix"),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.MIX,
   },
 
   {
-    title: t('layout.setting.menuTypeTopMenu'),
+    title: t("layout.setting.menuTypeTopMenu"),
     mode: MenuModeEnum.HORIZONTAL,
     type: MenuTypeEnum.TOP_MENU,
   },
   {
-    title: t('layout.setting.menuTypeMixSidebar'),
+    title: t("layout.setting.menuTypeMixSidebar"),
     mode: MenuModeEnum.INLINE,
     type: MenuTypeEnum.MIX_SIDEBAR,
   },
@@ -147,10 +147,10 @@ export const menuTypeList = [
 export const mixSidebarTriggerOptions = [
   {
     value: MixSidebarTriggerEnum.HOVER,
-    label: t('layout.setting.triggerHover'),
+    label: t("layout.setting.triggerHover"),
   },
   {
     value: MixSidebarTriggerEnum.CLICK,
-    label: t('layout.setting.triggerClick'),
+    label: t("layout.setting.triggerClick"),
   },
 ];

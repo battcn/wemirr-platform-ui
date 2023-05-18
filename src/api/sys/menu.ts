@@ -1,8 +1,8 @@
-import { defHttp } from '/@/utils/http/axios';
-import { getMenuListResultModel } from './model/menuModel';
-import { GetPermissionListModel } from '@/api/sys/model/roleModel'
+import { defHttp } from "/@/utils/http/axios";
+import { getMenuListResultModel } from "./model/menuModel";
+import { GetPermissionListModel } from "@/api/sys/model/roleModel";
 enum Api {
-  GetMenuList = '/authority/resources/router'
+  GetMenuList = "/authority/resources/router",
 }
 
 /**
@@ -16,6 +16,6 @@ export const getMenuList = () => {
 export const GetPermissionList = (roleId: number) => {
   return defHttp.get<GetPermissionListModel>({
     url: `/authority/roles/${roleId}/resources/permissions`,
-    params: { roleId: roleId }
-  })
-}
+    params: { roleId: roleId },
+  });
+};

@@ -1,13 +1,13 @@
-import { presetTypography, presetUno } from 'unocss';
-import UnoCSS from 'unocss/vite';
-import { type UserConfig } from 'vite';
+import { presetTypography, presetUno } from "unocss";
+import UnoCSS from "unocss/vite";
+import { type UserConfig } from "vite";
 
 const commonConfig: UserConfig = {
   server: {
     host: true,
   },
   esbuild: {
-    drop: ['console', 'debugger'],
+    drop: ["console", "debugger"],
   },
   build: {
     reportCompressedSize: false,

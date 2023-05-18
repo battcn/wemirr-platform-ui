@@ -1,79 +1,79 @@
-import { FormSchema } from '@/components/Form'
+import { FormSchema } from "@/components/Form";
 
 export const schemas: FormSchema[] = [
   {
-    field: 'id',
-    component: 'Input',
-    label: 'ID',
-    show: false
+    field: "id",
+    component: "Input",
+    label: "ID",
+    show: false,
   },
   {
-    field: 'parentId',
-    component: 'Input',
-    label: '上级ID',
+    field: "parentId",
+    component: "Input",
+    label: "上级ID",
     defaultValue: 0,
     componentProps: {
       disabled: true,
-      placeholder: '请填写上级ID'
+      placeholder: "请填写上级ID",
     },
-    required: true
+    required: true,
   },
   {
-    field: 'label',
-    component: 'Input',
-    label: '名称',
+    field: "label",
+    component: "Input",
+    label: "名称",
     componentProps: {
-      placeholder: '请输入名称'
+      placeholder: "请输入名称",
     },
-    required: true
+    required: true,
   },
   {
-    field: 'tel',
-    component: 'Input',
-    label: '联系方式',
-    helpMessage: ['联系方式（130-0217-1000）', '部门座机（0746-8485566）'],
+    field: "tel",
+    component: "Input",
+    label: "联系方式",
+    helpMessage: ["联系方式（130-0217-1000）", "部门座机（0746-8485566）"],
     componentProps: {
-      placeholder: '请填写联系方式'
+      placeholder: "请填写联系方式",
     },
     itemProps: {
-      extra: '请填写联系方式'
-    }
+      extra: "请填写联系方式",
+    },
   },
   {
-    field: 'status',
-    component: 'RadioButtonGroup',
-    label: '状态',
+    field: "status",
+    component: "RadioButtonGroup",
+    label: "状态",
     defaultValue: true,
     componentProps: {
-      placeholder: '请选择状态',
+      placeholder: "请选择状态",
       options: [
-        { label: '启用', value: true },
-        { label: '禁用', value: false }
-      ]
-    }
+        { label: "启用", value: true },
+        { label: "禁用", value: false },
+      ],
+    },
   },
   {
-    field: 'sequence',
-    component: 'InputNumber',
-    label: '排序',
+    field: "sequence",
+    component: "InputNumber",
+    label: "排序",
     defaultValue: 0,
     componentProps: {
-      placeholder: '请填写排序',
+      placeholder: "请填写排序",
       min: 0,
-      max: 100
+      max: 100,
     },
     itemProps: {
-      extra: '数值越小优先级越高'
-    }
+      extra: "数值越小优先级越高",
+    },
   },
   {
-    field: 'description',
-    component: 'InputTextArea',
-    label: '描述',
+    field: "description",
+    component: "InputTextArea",
+    label: "描述",
     componentProps: {
-      placeholder: '请填写描述信息',
-      rows: 4
+      placeholder: "请填写描述信息",
+      rows: 4,
     },
-    required: false
-  }
-]
+    required: false,
+  },
+];

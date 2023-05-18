@@ -4,10 +4,10 @@ import {
   createFormItemRender,
   createDefaultFilterRender,
   createDefaultRender,
-} from './common';
+} from "./common";
 
 export default {
-  autofocus: 'input.ant-input-number-input',
+  autofocus: "input.ant-input-number-input",
   renderDefault: createDefaultRender(),
   renderEdit: createEditRender(),
   renderFilter: createFilterRender(),

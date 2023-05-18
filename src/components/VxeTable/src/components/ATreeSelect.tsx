@@ -1,16 +1,16 @@
-import { VxeGlobalRendererHandles } from 'vxe-table';
-import XEUtils from 'xe-utils';
+import { VxeGlobalRendererHandles } from "vxe-table";
+import XEUtils from "xe-utils";
 import {
   createEditRender,
   createCellRender,
   isEmptyValue,
   createFormItemRender,
   createExportMethod,
-} from './common';
+} from "./common";
 
 function getTreeSelectCellValue(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
-  params: VxeGlobalRendererHandles.RenderCellParams | VxeGlobalRendererHandles.ExportMethodParams,
+  params: VxeGlobalRendererHandles.RenderCellParams | VxeGlobalRendererHandles.ExportMethodParams
 ) {
   const { props = {} } = renderOpts;
   const { treeData, treeCheckable } = props;
@@ -19,10 +19,10 @@ function getTreeSelectCellValue(
   if (!isEmptyValue(cellValue)) {
     return XEUtils.map(treeCheckable ? cellValue : [cellValue], (value) => {
       const matchObj = XEUtils.findTree(treeData, (item: any) => item.value === value, {
-        children: 'children',
+        children: "children",
       });
       return matchObj ? matchObj.item.title : value;
-    }).join(', ');
+    }).join(", ");
   }
   return cellValue;
 }

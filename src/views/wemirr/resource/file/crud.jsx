@@ -1,17 +1,17 @@
-import * as api from './api'
-import { useMessage } from '@/hooks/web/useMessage'
+import * as api from "./api";
+import { useMessage } from "@/hooks/web/useMessage";
 // import { compute, dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 export default function ({ expose }) {
-  const { notification } = useMessage()
+  const { notification } = useMessage();
   return {
     crudOptions: {
       request: {
         pageRequest: async (query) => await api.GetList(query),
         addRequest: async ({ form }) => await api.AddObj(form),
         editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id)
+        delRequest: async ({ row }) => await api.DelObj(row.id),
       },
       toolbar: {},
       actionbar: {
@@ -19,17 +19,17 @@ export default function ({ expose }) {
         buttons: {
           add: {
             show: false,
-            icon: 'codicon:repo-force-push',
-            text: '文件上传',
+            icon: "codicon:repo-force-push",
+            text: "文件上传",
             async click(context) {
-              console.log(context)
+              console.log(context);
               notification.error({
-                message: '暂未实现',
-                duration: 3
-              })
-            }
-          }
-        }
+                message: "暂未实现",
+                duration: 3,
+              });
+            },
+          },
+        },
       },
       rowHandle: {
         width: 90,
@@ -38,82 +38,82 @@ export default function ({ expose }) {
           view: { show: false },
           edit: { show: false },
           download: {
-            icon: 'ant-design:cloud-download-outlined',
-            type: 'link',
+            icon: "ant-design:cloud-download-outlined",
+            type: "link",
             text: null,
-            size: 'small',
-            title: '文件下载',
+            size: "small",
+            title: "文件下载",
             order: 1,
             async click(context) {
-              console.log(context)
+              console.log(context);
               notification.error({
-                message: '暂未实现',
-                duration: 3
-              })
-            }
+                message: "暂未实现",
+                duration: 3,
+              });
+            },
           },
-          remove: { order: 2 }
-        }
+          remove: { order: 2 },
+        },
       },
       columns: {
         id: {
-          title: 'ID',
-          type: 'text',
+          title: "ID",
+          type: "text",
           form: { show: false },
-          column: { show: false }
+          column: { show: false },
         },
         originName: {
-          title: '原始名',
-          type: 'text',
+          title: "原始名",
+          type: "text",
           search: { show: true },
-          column: { ellipsis: true }
+          column: { ellipsis: true },
         },
         targetName: {
-          title: '目标名',
-          type: 'text',
-          column: { ellipsis: true }
+          title: "目标名",
+          type: "text",
+          column: { ellipsis: true },
         },
         ip: {
-          title: 'IP',
-          type: 'text',
-          column: { ellipsis: true }
+          title: "IP",
+          type: "text",
+          column: { ellipsis: true },
         },
         location: {
-          title: '登录地点',
-          type: 'text',
-          column: { ellipsis: true }
+          title: "登录地点",
+          type: "text",
+          column: { ellipsis: true },
         },
         os: {
-          title: '操作系统',
-          type: 'text',
-          column: { ellipsis: true }
+          title: "操作系统",
+          type: "text",
+          column: { ellipsis: true },
         },
         engine: {
-          title: '引擎类型',
-          type: 'text',
-          column: { ellipsis: true }
+          title: "引擎类型",
+          type: "text",
+          column: { ellipsis: true },
         },
         engineVersion: {
-          title: '引擎版本',
-          type: 'text',
-          column: { ellipsis: true }
+          title: "引擎版本",
+          type: "text",
+          column: { ellipsis: true },
         },
         createdName: {
-          title: '上传者',
-          type: 'text',
-          column: { ellipsis: true }
+          title: "上传者",
+          type: "text",
+          column: { ellipsis: true },
         },
         createdTime: {
-          title: '上传时间',
-          type: 'datetime',
+          title: "上传时间",
+          type: "datetime",
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = dayjs(value)
+              row[key] = dayjs(value);
             }
-          }
-        }
-      }
-    }
-  }
+          },
+        },
+      },
+    },
+  };
 }

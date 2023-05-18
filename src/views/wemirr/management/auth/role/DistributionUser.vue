@@ -32,76 +32,76 @@
 </template>
 
 <script>
-  import { difference } from 'lodash-es';
-  import { defineComponent, ref } from 'vue';
-  import { BasicModal, useModalInner } from '/@/components/Modal';
-  import * as api from './api';
+import { difference } from "lodash-es";
+import { defineComponent, ref } from "vue";
+import { BasicModal, useModalInner } from "/@/components/Modal";
+import * as api from "./api";
 
-  const tableColumns = [
-    { dataIndex: 'nickName', title: '名称' },
-    { dataIndex: 'username', title: '账号' },
-  ];
+const tableColumns = [
+  { dataIndex: "nickName", title: "名称" },
+  { dataIndex: "username", title: "账号" },
+];
 
-  export default defineComponent({
-    name: 'DistributionUser',
-    components: { BasicModal },
-    setup() {
-      const modelRef = ref({});
-      const showSearch = ref(true);
-      const leftColumns = ref(tableColumns);
-      const rightColumns = ref(tableColumns);
-      const userRoleDetails = ref([]);
-      const targetKeys = ref([]);
+export default defineComponent({
+  name: "DistributionUser",
+  components: { BasicModal },
+  setup() {
+    const modelRef = ref({});
+    const showSearch = ref(true);
+    const leftColumns = ref(tableColumns);
+    const rightColumns = ref(tableColumns);
+    const userRoleDetails = ref([]);
+    const targetKeys = ref([]);
 
-      const [register, { closeModal }] = useModalInner((data) => {
-        modelRef.value = {
-          roleId: data.roleId,
-          userRoleDetails: data.userRoleDetails,
-          originTargetKeys: data.originTargetKeys,
-        };
-        userRoleDetails.value = data.userRoleDetails?.map((item) => {
-          return { key: String(item.id), title: item.nickName, ...item };
-        });
-        targetKeys.value = data.originTargetKeys?.map((key) => key.toString());
+    const [register, { closeModal }] = useModalInner((data) => {
+      modelRef.value = {
+        roleId: data.roleId,
+        userRoleDetails: data.userRoleDetails,
+        originTargetKeys: data.originTargetKeys,
+      };
+      userRoleDetails.value = data.userRoleDetails?.map((item) => {
+        return { key: String(item.id), title: item.nickName, ...item };
       });
+      targetKeys.value = data.originTargetKeys?.map((key) => key.toString());
+    });
 
-      const onChange = (nextTargetKeys) => {
-        targetKeys.value = nextTargetKeys;
-      };
+    const onChange = (nextTargetKeys) => {
+      targetKeys.value = nextTargetKeys;
+    };
 
-      const getRowSelection = ({ selectedKeys, onItemSelectAll, onItemSelect }) => {
-        return {
-          onSelectAll(selected, selectedRows) {
-            const treeSelectedKeys = selectedRows.map(({ key }) => key);
-            const diffKeys = selected
-              ? difference(treeSelectedKeys, selectedKeys)
-              : difference(selectedKeys, treeSelectedKeys);
-            onItemSelectAll(diffKeys, selected);
-          },
-          onSelect({ key }, selected) {
-            onItemSelect(key, selected);
-          },
-          selectedRowKeys: selectedKeys,
-        };
-      };
-      async function handleSubmit() {
-        api.DistributionUser({ roleId: modelRef.value.roleId, userIdList: targetKeys.value });
-        closeModal();
-      }
-
+    const getRowSelection = ({ selectedKeys, onItemSelectAll, onItemSelect }) => {
       return {
-        userRoleDetails,
-        targetKeys,
-        showSearch,
-        leftColumns,
-        rightColumns,
-        handleSubmit,
-        onChange,
-        getRowSelection,
-        register,
-        closeModal,
-        model: modelRef,
+        onSelectAll(selected, selectedRows) {
+          const treeSelectedKeys = selectedRows.map(({ key }) => key);
+          const diffKeys = selected
+            ? difference(treeSelectedKeys, selectedKeys)
+            : difference(selectedKeys, treeSelectedKeys);
+          onItemSelectAll(diffKeys, selected);
+        },
+        onSelect({ key }, selected) {
+          onItemSelect(key, selected);
+        },
+        selectedRowKeys: selectedKeys,
       };
-    },
-  });
+    };
+    async function handleSubmit() {
+      api.DistributionUser({ roleId: modelRef.value.roleId, userIdList: targetKeys.value });
+      closeModal();
+    }
+
+    return {
+      userRoleDetails,
+      targetKeys,
+      showSearch,
+      leftColumns,
+      rightColumns,
+      handleSubmit,
+      onChange,
+      getRowSelection,
+      register,
+      closeModal,
+      model: modelRef,
+    };
+  },
+});
 </script>

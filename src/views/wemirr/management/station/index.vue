@@ -19,58 +19,58 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, unref } from 'vue'
-import createCrudOptions from './crud'
-import { useExpose, useCrud } from '@fast-crud/fast-crud'
-import { BasicTree } from '@/components/Tree'
-import { PageWrapper } from '@/components/Page'
-import { getOrgList } from '@/api/sys/org'
-import { Card } from 'ant-design-vue'
+import { defineComponent, ref, onMounted, unref } from "vue";
+import createCrudOptions from "./crud";
+import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { BasicTree } from "@/components/Tree";
+import { PageWrapper } from "@/components/Page";
+import { getOrgList } from "@/api/sys/org";
+import { Card } from "ant-design-vue";
 export default defineComponent({
-  name: 'StationForm',
-  components: {Card, BasicTree, PageWrapper },
+  name: "StationForm",
+  components: { Card, BasicTree, PageWrapper },
   setup() {
-    const terrDataRef = ref({})
-    const terrData = ref()
-    const nodeRef = ref()
+    const terrDataRef = ref({});
+    const terrData = ref();
+    const nodeRef = ref();
 
-    const crudRef = ref()
-    const crudBinding = ref()
-    const { expose } = useExpose({ crudRef, crudBinding })
-    const { crudOptions } = createCrudOptions({ expose, nodeRef })
-    useCrud({ expose, crudOptions, permission: 'station:management' })
+    const crudRef = ref();
+    const crudBinding = ref();
+    const { expose } = useExpose({ crudRef, crudBinding });
+    const { crudOptions } = createCrudOptions({ expose, nodeRef });
+    useCrud({ expose, crudOptions, permission: "station:management" });
 
     // 页面打开后获取列表数据
     onMounted(() => {
-      getOrgList()
-      expose.doRefresh()
-    })
+      getOrgList();
+      expose.doRefresh();
+    });
 
     getOrgList().then((ret) => {
-      terrData.value = ret
+      terrData.value = ret;
       setTimeout(() => {
-        getTree().filterByLevel(2)
-      }, 0)
-    })
+        getTree().filterByLevel(2);
+      }, 0);
+    });
     function handleSelect(checkedKeys, event) {
       if (!event.selected) {
-        return
+        return;
       }
-      nodeRef.value = event.selectedNodes[0]
-      expose.doRefresh()
+      nodeRef.value = event.selectedNodes[0];
+      expose.doRefresh();
     }
     function onTreeNodeCheck(keys, event) {
-      console.log('keys event', keys, event)
+      console.log("keys event", keys, event);
       if (!event.checked) {
       } else {
       }
     }
     function getTree() {
-      const tree = unref(terrDataRef)
+      const tree = unref(terrDataRef);
       if (!tree) {
-        throw new Error('tree is null!')
+        throw new Error("tree is null!");
       }
-      return tree
+      return tree;
     }
     return {
       terrDataRef,
@@ -78,10 +78,10 @@ export default defineComponent({
       crudBinding,
       crudRef,
       handleSelect,
-      onTreeNodeCheck
-    }
-  }
-})
+      onTreeNodeCheck,
+    };
+  },
+});
 </script>
 
 <style lang="less">

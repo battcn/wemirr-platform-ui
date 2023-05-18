@@ -1,4 +1,4 @@
-import { SizeEnum } from '/@/enums/sizeEnum';
+import { SizeEnum } from "/@/enums/sizeEnum";
 
 export interface LoadingProps {
   tip: string;
@@ -6,5 +6,5 @@ export interface LoadingProps {
   absolute: boolean;
   loading: boolean;
   background: string;
-  theme: 'dark' | 'light';
+  theme: "dark" | "light";
 }

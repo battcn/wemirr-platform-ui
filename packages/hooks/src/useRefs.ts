@@ -1,5 +1,5 @@
-import type { Ref } from 'vue';
-import { onBeforeUpdate, shallowRef } from 'vue';
+import type { Ref } from "vue";
+import { onBeforeUpdate, shallowRef } from "vue";
 
 function useRefs(): {
   refs: Ref<HTMLElement[]>;

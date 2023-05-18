@@ -22,7 +22,7 @@ export function isHexColor(color: string) {
 export function rgbToHex(r: number, g: number, b: number) {
   // tslint:disable-next-line:no-bitwise
   const hex = ((r << 16) | (g << 8) | b).toString(16);
-  return '#' + new Array(Math.abs(hex.length - 7)).join('0') + hex;
+  return "#" + new Array(Math.abs(hex.length - 7)).join("0") + hex;
 }
 
 /**
@@ -34,7 +34,7 @@ export function hexToRGB(hex: string) {
   let sHex = hex.toLowerCase();
   if (isHexColor(hex)) {
     if (sHex.length === 4) {
-      let sColorNew = '#';
+      let sColorNew = "#";
       for (let i = 1; i < 4; i += 1) {
         sColorNew += sHex.slice(i, i + 1).concat(sHex.slice(i, i + 1));
       }
@@ -42,9 +42,9 @@ export function hexToRGB(hex: string) {
     }
     const sColorChange: number[] = [];
     for (let i = 1; i < 7; i += 2) {
-      sColorChange.push(parseInt('0x' + sHex.slice(i, i + 2)));
+      sColorChange.push(parseInt("0x" + sHex.slice(i, i + 2)));
     }
-    return 'RGB(' + sColorChange.join(',') + ')';
+    return "RGB(" + sColorChange.join(",") + ")";
   }
   return sHex;
 }
@@ -52,8 +52,8 @@ export function hexToRGB(hex: string) {
 export function colorIsDark(color: string) {
   if (!isHexColor(color)) return;
   const [r, g, b] = hexToRGB(color)
-    .replace(/(?:\(|\)|rgb|RGB)*/g, '')
-    .split(',')
+    .replace(/(?:\(|\)|rgb|RGB)*/g, "")
+    .split(",")
     .map((item) => Number(item));
   return r * 0.299 + g * 0.578 + b * 0.114 < 192;
 }
@@ -65,11 +65,11 @@ export function colorIsDark(color: string) {
  * @returns {string} The HEX representation of the processed color
  */
 export function darken(color: string, amount: number) {
-  color = color.indexOf('#') >= 0 ? color.substring(1, color.length) : color;
+  color = color.indexOf("#") >= 0 ? color.substring(1, color.length) : color;
   amount = Math.trunc((255 * amount) / 100);
   return `#${subtractLight(color.substring(0, 2), amount)}${subtractLight(
     color.substring(2, 4),
-    amount,
+    amount
   )}${subtractLight(color.substring(4, 6), amount)}`;
 }
 
@@ -80,11 +80,11 @@ export function darken(color: string, amount: number) {
  * @returns {string} The processed color represented as HEX
  */
 export function lighten(color: string, amount: number) {
-  color = color.indexOf('#') >= 0 ? color.substring(1, color.length) : color;
+  color = color.indexOf("#") >= 0 ? color.substring(1, color.length) : color;
   amount = Math.trunc((255 * amount) / 100);
   return `#${addLight(color.substring(0, 2), amount)}${addLight(
     color.substring(2, 4),
-    amount,
+    amount
   )}${addLight(color.substring(4, 6), amount)}`;
 }
 
@@ -133,9 +133,9 @@ function contrast(rgb1: string[], rgb2: number[]) {
  */
 export function calculateBestTextColor(hexColor: string) {
   const rgbColor = hexToRGB(hexColor.substring(1));
-  const contrastWithBlack = contrast(rgbColor.split(','), [0, 0, 0]);
+  const contrastWithBlack = contrast(rgbColor.split(","), [0, 0, 0]);
 
-  return contrastWithBlack >= 12 ? '#000000' : '#FFFFFF';
+  return contrastWithBlack >= 12 ? "#000000" : "#FFFFFF";
 }
 
 /**
