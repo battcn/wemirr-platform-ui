@@ -2,7 +2,7 @@
   <PageWrapper contentFullHeight fixedHeight contentClass="flex">
     <Card :bordered="false" class="w-1/3 menu">
       <template #extra>
-        <a-button @click="resetFields">新增根节点</a-button>
+        <a-button @click="handlePlus">新增根节点</a-button>
       </template>
       <BasicTree
         title="组织列表"
@@ -86,7 +86,7 @@ export default defineComponent({
 
     function handlePlus(node) {
       resetFields();
-      setFieldsValue({ parentId: node.id });
+      setFieldsValue({ parentId: node.id ?? "0" });
     }
 
     function handleDelete(node) {
@@ -143,8 +143,10 @@ export default defineComponent({
       if (!event.selected) {
         return;
       }
+      let item = event.selectedNodes[0];
       setFieldsValue({
-        ...event.selectedNodes[0],
+        ...item,
+        parentId: item.parentId + "",
       });
     }
 

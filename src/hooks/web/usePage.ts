@@ -44,6 +44,7 @@ export const useRedo = (_router?: Router) => {
         params["_redirect_type"] = "name";
         params["path"] = String(name);
       } else {
+        params["_origin_params"] = JSON.stringify(params ?? {});
         params["_redirect_type"] = "path";
         params["path"] = fullPath;
       }

@@ -32,11 +32,12 @@ export default function ({ expose, userStore }) {
             size: "small",
             title: "文件下载",
             async click(context) {
-              console.log("context", context);
               await defHttp
                 .request({
                   url: `/tools/generates/${context.row.id}/download`,
                   method: "POST",
+                  // 意思是不特殊处理 response 了
+                  isTransformResponse: false,
                   responseType: "blob",
                 })
                 .then((res) => {
@@ -47,18 +48,6 @@ export default function ({ expose, userStore }) {
           remove: { order: 2 },
         },
       },
-      // actionbar: {
-      //   show: true,
-      //   buttons: {
-      //     add: {
-      //       show: true,
-      //       async click(context) {
-      //         // const getRealName = computed(() => userStore.getUserInfo?.realName);
-      //         console.log('context', userStore.getUserInfo);
-      //       },
-      //     },
-      //   },
-      // },
       columns: {
         id: {
           title: "ID",

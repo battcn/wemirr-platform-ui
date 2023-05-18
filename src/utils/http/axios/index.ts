@@ -1,4 +1,4 @@
-import type { AxiosResponse } from "axios";
+import type { AxiosInstance, AxiosResponse } from "axios";
 import { clone } from "lodash-es";
 import type { RequestOptions, Result } from "/#/axios";
 import type { AxiosTransform, CreateAxiosOptions } from "./axiosTransform";
@@ -37,7 +37,7 @@ const transform: AxiosTransform = {
     }
     // 不进行任何处理，直接返回
     // 用于页面代码可能需要直接获取code，data，message这些信息时开启
-    if (!isTransformResponse) {
+    if (!isTransformResponse || res.config.responseType === "blob") {
       return res.data;
     }
     // 错误的时候返回
@@ -49,7 +49,6 @@ const transform: AxiosTransform = {
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     const { code, message } = data;
-
     // 这里逻辑可以根据项目进行修改
     const hasSuccess = data && Reflect.has(data, "code") && code === ResultEnum.SUCCESS;
     if (hasSuccess) {
@@ -176,7 +175,7 @@ const transform: AxiosTransform = {
   /**
    * @description: 响应错误处理
    */
-  responseInterceptorsCatch: (axiosInstance: AxiosResponse, error: any) => {
+  responseInterceptorsCatch: (axiosInstance: AxiosInstance, error: any) => {
     const { t } = useI18n();
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
