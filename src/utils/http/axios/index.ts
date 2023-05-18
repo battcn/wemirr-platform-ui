@@ -159,8 +159,8 @@ const transform: AxiosTransform = {
         : token;
     }
     if (userInfo) {
-      config.headers["X-Request-Tenant-Code"] = userInfo.tenantCode;
-      config.headers["X-Request-User-Id"] = userInfo.userId;
+      config.headers["tenant_code"] = userInfo.tenantCode;
+      // config.headers["user_id"] = userInfo.userId;
     }
     return config;
   },

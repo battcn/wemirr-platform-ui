@@ -35,7 +35,6 @@ export default function ({ expose, searchRemote }) {
             title: "通知",
             order: 4,
             async click(context) {
-              console.log(context);
               await api.PublishMessage(context.row.id).then((ret) => {
                 notification.success({
                   message: "消息通知成功",

@@ -33,7 +33,7 @@ function useSearchRemote() {
       if (fetchId !== lastFetchId) {
         return;
       }
-      state.data.value = ret.data.map((data) => ({
+      state.data.value = ret.map((data) => ({
         text: data.name,
         label: data.name,
         value: data.id,
