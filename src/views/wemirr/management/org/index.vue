@@ -1,6 +1,6 @@
 <template>
-  <PageWrapper contentFullHeight fixedHeight contentClass="flex">
-    <Card :bordered="false" class="w-1/3 menu">
+  <PageWrapper contentClass="flex">
+    <Card :bordered="false">
       <template #extra>
         <a-button @click="handlePlus">新增根节点</a-button>
       </template>
@@ -17,7 +17,7 @@
         :actionList="actionList"
       />
     </Card>
-    <Card title="组织管理" class="w-full menu">
+    <Card title="组织管理">
       <BasicForm @register="register" />
     </Card>
   </PageWrapper>

@@ -29,11 +29,18 @@
       />
     </FormItem>
     <ARow class="enter-x" v-show="formState.showCaptcha">
-      <ACol>
+      <ACol :md="12" :xs="24">
         <FormItem class="code-input" name="code">
-          <Input size="large" visibilityToggle v-model:value="formData.code" placeholder="验证码" />
+          <Input
+            size="large"
+            style="min-width: 200px"
+            visibilityToggle
+            v-model:value="formData.code"
+            placeholder="验证码"
+          />
         </FormItem>
-
+      </ACol>
+      <ACol :md="12" :xs="24">
         <img
           v-show="true"
           :src="formState.captchaSrc"
@@ -120,7 +127,7 @@ import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from "./use
 import { useDesign } from "@/hooks/web/useDesign";
 import { buildUUID } from "@/utils/uuid";
 
-const AAlert = Alert;
+// const AAlert = Alert;
 const ACol = Col;
 const ARow = Row;
 const FormItem = Form.Item;
@@ -158,7 +165,7 @@ const formState = reactive({
 
 async function loadCaptcha() {
   formData.key = buildUUID();
-  formState.captchaSrc = "/api/authority/captcha?key=" + formData.key;
+  formState.captchaSrc = "/api/authority/captcha?width=150&height=40&&key=" + formData.key;
 }
 
 onMounted(async () => {

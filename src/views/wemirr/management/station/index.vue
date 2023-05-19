@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight class="bg-white m-4 mr-4">
+  <PageWrapper contentClass="flex" contentFullHeight fixedHeight>
     <Card :bordered="false" class="w-1/3 xl:w-1/4">
       <BasicTree
         search

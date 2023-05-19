@@ -105,8 +105,8 @@ export default function ({ expose, distribution }) {
           form: { disabled: true },
           dict: dict({
             data: [
-              { value: false, label: "启用", color: "success" },
-              { value: true, label: "禁用", color: "error" },
+              { value: "false", label: "启用", color: "success" },
+              { value: "true", label: "禁用", color: "error" },
             ],
           }),
         },

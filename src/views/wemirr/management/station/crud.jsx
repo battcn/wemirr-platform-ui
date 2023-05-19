@@ -20,10 +20,10 @@ export default function ({ expose, nodeRef }) {
           return await DELETE(`/authority/stations/${row.id}`);
         },
       },
-      toolbar: {
+      /*toolbar: {
         compact: true,
         buttons: { compact: { show: false } },
-      },
+      },*/
       search: {
         onReset() {
           nodeRef.value = null;
@@ -94,8 +94,8 @@ export default function ({ expose, nodeRef }) {
           },
           dict: dict({
             data: [
-              { value: true, label: "启用", color: "success" },
-              { value: false, label: "禁用", color: "error" },
+              { value: "true", label: "启用", color: "success" },
+              { value: "false", label: "禁用", color: "error" },
             ],
           }),
         },

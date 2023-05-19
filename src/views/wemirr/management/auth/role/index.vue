@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight class="bg-white m-4 mr-4">
+  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #form_orgList="scope">
         <BasicTree

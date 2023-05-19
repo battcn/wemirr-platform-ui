@@ -33,7 +33,8 @@ import { useWebSocket } from "@vueuse/core";
 import { formatToDateTime } from "@/utils/dateUtil";
 import { useUserStoreWithOut } from "@/store/modules/user";
 import * as api from "./api";
-import { isDevMode } from '@/utils/env'
+import { isDevMode } from "@/utils/env";
+
 export default defineComponent({
   components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
   setup() {
@@ -59,7 +60,7 @@ export default defineComponent({
     const userInfo = useUserStoreWithOut().userInfo;
     // TODO webstock 案例
     const state = reactive({
-      server: isDevMode
+      server: isDevMode()
         ? `ws://localhost:9000/authority/message/${userInfo.tenantCode}/${userInfo.userId}`
         : `wss://cloud.battcn.com/api/authority/message/${userInfo.tenantCode}/${userInfo.userId}`,
       sendValue: "",

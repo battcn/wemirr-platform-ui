@@ -19,6 +19,10 @@ export default function ({ expose }) {
           form.sex = content.sex[0];
         },
       },
+      toolbar: {
+        // compact: true,
+        // buttons: { compact: { show: false } },
+      },
       columns: {
         id: {
           title: "ID",
@@ -172,7 +176,7 @@ export default function ({ expose }) {
               form.stationId = undefined; // 将“stationId”的值置空
               if (value) {
                 // 执行 stationId 的select组件的reloadDict()方法，触发“stationId”重新加载字典
-                getComponentRef("stationId").reloadDict();
+                getComponentRef("stationId")?.reloadDict();
               }
             },
           },

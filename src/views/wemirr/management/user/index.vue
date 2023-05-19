@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight class="bg-white m-4 mr-4">
+  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #cell_nickName="scope">
         <a-tooltip placement="top" :title="scope.row.nickName">
@@ -15,11 +15,10 @@ import { defineComponent, ref, onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
 import { PageWrapper } from "@/components/Page";
-import { Card } from "ant-design-vue";
 
 export default defineComponent({
   name: "FormGroup",
-  components: { PageWrapper, Card },
+  components: { PageWrapper },
   setup() {
     const crudRef = ref();
     const crudBinding = ref();
@@ -44,14 +43,17 @@ export default defineComponent({
 .station {
   margin-left: 10px;
   min-height: 820px;
+
   .footer {
     .fs-crud-footer {
       padding: 20px 0;
     }
   }
+
   .fs-toolbar {
     margin-right: 10px;
   }
+
   .ant-card-body {
     margin-top: -12px;
   }
