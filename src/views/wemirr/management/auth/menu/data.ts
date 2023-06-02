@@ -28,6 +28,15 @@ export const schemas: FormSchema[] = [
     required: true,
   },
   {
+    field: "permission",
+    component: "Input",
+    label: "资源编码",
+    componentProps: {
+      placeholder: "请输入名称",
+    },
+    required: false,
+  },
+  {
     field: "icon",
     component: "IconPicker",
     label: "图标",

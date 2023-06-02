@@ -157,6 +157,7 @@ export default defineComponent({
       if (!event.selected) {
         return;
       }
+      resetFields();
       nodeRef.value = event.selectedNodes[0];
       crudBinding.value.actionbar.buttons.add.show = true;
       setFieldsValue({ ...event.selectedNodes[0] });
