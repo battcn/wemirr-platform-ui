@@ -166,9 +166,6 @@ export default defineComponent({
 
     function onTreeNodeCheck(keys, event) {
       console.log("keys event", keys, event);
-      if (!event.checked) {
-      } else {
-      }
     }
 
     function getTree() {

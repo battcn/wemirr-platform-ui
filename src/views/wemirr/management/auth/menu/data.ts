@@ -114,6 +114,19 @@ export const schemas: FormSchema[] = [
     },
   },
   {
+    field: "display",
+    component: "RadioButtonGroup",
+    label: "状态",
+    defaultValue: true,
+    componentProps: {
+      placeholder: "请选择显示还是隐藏",
+      options: [
+        { label: "显示", value: true },
+        { label: "隐藏", value: false },
+      ],
+    },
+  },
+  {
     field: "global",
     component: "RadioButtonGroup",
     label: "全局",
