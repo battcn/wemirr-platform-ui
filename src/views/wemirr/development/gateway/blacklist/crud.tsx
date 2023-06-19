@@ -1,15 +1,16 @@
-import _ from "lodash-es";
 import * as api from "./api";
-import { dict, utils } from "@fast-crud/fast-crud";
+import _ from "lodash-es";
+import { CreateCrudOptionsProps, CreateCrudOptionsRet, dict, utils } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 
-export default function ({ expose, localDataRef }) {
+export default function ({ crudExpose, context }: CreateCrudOptionsProps): CreateCrudOptionsRet {
+  const localDataRef = context.localDataRef;
   const pageRequest = async (query) => {
     //总数据
     let data = localDataRef.value;
-    let current = query.current;
-    let offset = query.offset;
-    let size = query.size;
+    const current = query.current;
+    const offset = query.offset;
+    const size = query.size;
     data = data.filter((item) => {
       if (query.status && item.status !== query.status) {
         return false;
@@ -77,6 +78,7 @@ export default function ({ expose, localDataRef }) {
   };
 
   return {
+    output: {},
     crudOptions: {
       request: {
         pageRequest,

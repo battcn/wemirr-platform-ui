@@ -8,6 +8,7 @@ const commonConfig: UserConfig = {
   },
   esbuild: {
     // drop: ["console", "debugger"],
+    // drop: ["debugger"],
   },
   build: {
     reportCompressedSize: false,

@@ -46,12 +46,12 @@ import {
 
 import PageFooter from "./PageFooter.vue";
 
-import { useDesign } from "/@/hooks/web/useDesign";
-import { propTypes } from "/@/utils/propTypes";
+import { useDesign } from "@/hooks/web/useDesign";
+import { propTypes } from "@/utils/propTypes";
 import { omit } from "lodash-es";
 import { PageHeader } from "ant-design-vue";
-import { useContentHeight } from "/@/hooks/web/useContentHeight";
-import { PageWrapperFixedHeightKey } from "..";
+import { useContentHeight } from "@/hooks/web/useContentHeight";
+import { PageWrapperFixedHeightKey } from "@/enums/pageEnum";
 
 export default defineComponent({
   name: "PageWrapper",

@@ -43,8 +43,9 @@ import type { BasicTableProps, TableActionType, SizeType, ColumnChangeParam } fr
 
 import { defineComponent, ref, computed, unref, toRaw, inject, watchEffect } from "vue";
 import { Table } from "ant-design-vue";
-import { BasicForm, useForm } from "/@/components/Form/index";
-import { PageWrapperFixedHeightKey } from "/@/components/Page";
+import { BasicForm, useForm } from "@/components/Form/index";
+import { PageWrapperFixedHeightKey } from "@/enums/pageEnum";
+
 import HeaderCell from "./components/HeaderCell.vue";
 import { InnerHandlers } from "./types/table";
 
@@ -62,12 +63,12 @@ import { useTableExpand } from "./hooks/useTableExpand";
 import { createTableContext } from "./hooks/useTableContext";
 import { useTableFooter } from "./hooks/useTableFooter";
 import { useTableForm } from "./hooks/useTableForm";
-import { useDesign } from "/@/hooks/web/useDesign";
+import { useDesign } from "@/hooks/web/useDesign";
 
 import { omit } from "lodash-es";
 import { basicProps } from "./props";
-import { isFunction } from "/@/utils/is";
-import { warn } from "/@/utils/log";
+import { isFunction } from "@/utils/is";
+import { warn } from "@/utils/log";
 
 export default defineComponent({
   name: "BasicTable",

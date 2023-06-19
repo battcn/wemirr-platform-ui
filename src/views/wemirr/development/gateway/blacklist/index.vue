@@ -12,44 +12,43 @@
   </PageWrapper>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
-import { useCrud, useExpose } from "@fast-crud/fast-crud";
+import { useFs } from "@fast-crud/fast-crud";
 import createCrudOptions from "./crud";
 import { GetList } from "./api";
-import { PageWrapper } from "@/components/Page";
 
 /**
  * 本示例演示如何本地分页
  * 主要就是将pageRequest修改为从本地获取数据就行了
  */
 export default defineComponent({
-  name: "BlackListForm",
-  components: { PageWrapper },
+  name: "AdvanceLocalPagination",
   setup() {
+    // crud组件的ref
     const crudRef = ref();
+    // crud 配置的ref
     const crudBinding = ref();
+
     const localDataRef = ref();
 
     onMounted(async () => {
       //先加载后台数据
-      const ret = await GetList({
+      localDataRef.value = await GetList({
         page: { offset: 0, current: 1, size: 99999999 },
         query: {},
         sort: {},
       });
-      localDataRef.value = ret.data;
 
-      //然后再初始化crud
-      // 暴露的方法
-      const { expose } = useExpose({ crudRef, crudBinding });
-      // 你的crud配置
-      const { crudOptions } = createCrudOptions({ expose, localDataRef });
-      // 初始化crud配置
-      useCrud({ expose, crudOptions });
+      const { crudExpose } = useFs({
+        crudBinding,
+        crudRef,
+        createCrudOptions,
+        context: { localDataRef },
+      });
 
       // 页面打开后获取列表数据
-      await expose.doRefresh();
+      await crudExpose.doRefresh();
     });
 
     return {
