@@ -39,8 +39,8 @@ function useDistribution() {
   const checkedKeys = ref();
 
   function userModal(roleId) {
-    api.GetUserByRoleId(roleId).then((ret) => {
-      openBindUser(true, { roleId, ...ret.data });
+    api.GetUserByRoleId(roleId).then((data) => {
+      openBindUser(true, { roleId, ...data });
     });
   }
   const [registerBindUser, { openModal: openBindUser }] = useModal();

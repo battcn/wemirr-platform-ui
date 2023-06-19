@@ -4,7 +4,6 @@ export function GetUserByRoleId(roleId) {
   return defHttp.request({
     url: `/authority/roles/${roleId}/users`,
     method: "get",
-    params: roleId,
   });
 }
 
