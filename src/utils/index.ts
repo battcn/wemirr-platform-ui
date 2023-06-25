@@ -3,7 +3,7 @@ import type { App, Component } from "vue";
 
 import { intersectionWith, isEqual, mergeWith, unionWith } from "lodash-es";
 import { unref } from "vue";
-import { isArray, isObject } from "@/utils/is";
+import { isArray, isObject } from "/@/utils/is";
 
 export const noop = () => {};
 
@@ -58,26 +58,26 @@ export function deepMerge<T extends object | null | undefined, U extends object 
   if (!source) {
     return target as T & U;
   }
-  if (isArray(target) && isArray(source)) {
-    switch (mergeArrays) {
-      case "union":
-        return unionWith(target, source, isEqual) as T & U;
-      case "intersection":
-        return intersectionWith(target, source, isEqual) as T & U;
-      case "concat":
-        return target.concat(source) as T & U;
-      case "replace":
-        return source as T & U;
-      default:
-        throw new Error(`Unknown merge array strategy: ${mergeArrays}`);
+  return mergeWith({}, source, target, (sourceValue, targetValue) => {
+    if (isArray(targetValue) && isArray(sourceValue)) {
+      switch (mergeArrays) {
+        case "union":
+          return unionWith(sourceValue, targetValue, isEqual);
+        case "intersection":
+          return intersectionWith(sourceValue, targetValue, isEqual);
+        case "concat":
+          return sourceValue.concat(targetValue);
+        case "replace":
+          return targetValue;
+        default:
+          throw new Error(`Unknown merge array strategy: ${mergeArrays as string}`);
+      }
     }
-  }
-  if (isObject(target) && isObject(source)) {
-    return mergeWith({}, target, source, (targetValue, sourceValue) => {
-      return deepMerge(targetValue, sourceValue, mergeArrays);
-    }) as T & U;
-  }
-  return source as T & U;
+    if (isObject(targetValue) && isObject(sourceValue)) {
+      return deepMerge(sourceValue, targetValue, mergeArrays);
+    }
+    return undefined;
+  });
 }
 
 export function openWindow(
