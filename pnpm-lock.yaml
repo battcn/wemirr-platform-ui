@@ -11,17 +11,17 @@ importers:
         specifier: ^6.1.0
         version: registry.npmmirror.com/@ant-design/icons-vue@6.1.0(vue@3.2.47)
       '@fast-crud/fast-crud':
-        specifier: ^1.14.1
-        version: registry.npmmirror.com/@fast-crud/fast-crud@1.14.1(vue@3.2.47)
+        specifier: ^1.14.4
+        version: registry.npmmirror.com/@fast-crud/fast-crud@1.14.4(vue@3.2.47)
       '@fast-crud/fast-extends':
-        specifier: ^1.14.1
-        version: registry.npmmirror.com/@fast-crud/fast-extends@1.14.1(vue@3.2.47)
+        specifier: ^1.14.4
+        version: registry.npmmirror.com/@fast-crud/fast-extends@1.14.4(vue@3.2.47)
       '@fast-crud/ui-antdv':
-        specifier: ^1.14.1
-        version: registry.npmmirror.com/@fast-crud/ui-antdv@1.14.1
+        specifier: ^1.14.4
+        version: registry.npmmirror.com/@fast-crud/ui-antdv@1.14.4
       '@fast-crud/ui-interface':
-        specifier: ^1.14.1
-        version: registry.npmmirror.com/@fast-crud/ui-interface@1.14.1
+        specifier: ^1.14.4
+        version: registry.npmmirror.com/@fast-crud/ui-interface@1.14.4
       '@iconify/iconify':
         specifier: ^3.1.0
         version: registry.npmmirror.com/@iconify/iconify@3.1.0
@@ -528,7 +528,7 @@ packages:
       '@aws-crypto/ie11-detection': registry.npmmirror.com/@aws-crypto/ie11-detection@3.0.0
       '@aws-crypto/supports-web-crypto': registry.npmmirror.com/@aws-crypto/supports-web-crypto@3.0.0
       '@aws-crypto/util': registry.npmmirror.com/@aws-crypto/util@3.0.0
-      '@aws-sdk/types': registry.npmmirror.com/@aws-sdk/types@3.329.0
+      '@aws-sdk/types': registry.npmmirror.com/@aws-sdk/types@3.347.0
       '@aws-sdk/util-locate-window': registry.npmmirror.com/@aws-sdk/util-locate-window@3.310.0
       '@aws-sdk/util-utf8-browser': registry.npmmirror.com/@aws-sdk/util-utf8-browser@3.259.0
       tslib: registry.npmmirror.com/tslib@1.14.1
@@ -543,7 +543,7 @@ packages:
       '@aws-crypto/sha256-js': registry.npmmirror.com/@aws-crypto/sha256-js@3.0.0
       '@aws-crypto/supports-web-crypto': registry.npmmirror.com/@aws-crypto/supports-web-crypto@3.0.0
       '@aws-crypto/util': registry.npmmirror.com/@aws-crypto/util@3.0.0
-      '@aws-sdk/types': registry.npmmirror.com/@aws-sdk/types@3.329.0
+      '@aws-sdk/types': registry.npmmirror.com/@aws-sdk/types@3.347.0
       '@aws-sdk/util-locate-window': registry.npmmirror.com/@aws-sdk/util-locate-window@3.310.0
       '@aws-sdk/util-utf8-browser': registry.npmmirror.com/@aws-sdk/util-utf8-browser@3.259.0
       tslib: registry.npmmirror.com/tslib@1.14.1
@@ -555,7 +555,7 @@ packages:
     version: 3.0.0
     dependencies:
       '@aws-crypto/util': registry.npmmirror.com/@aws-crypto/util@3.0.0
-      '@aws-sdk/types': registry.npmmirror.com/@aws-sdk/types@3.329.0
+      '@aws-sdk/types': registry.npmmirror.com/@aws-sdk/types@3.347.0
       tslib: registry.npmmirror.com/tslib@1.14.1
     dev: false
 
@@ -2633,23 +2633,25 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  registry.npmmirror.com/@fast-crud/fast-crud@1.14.1(vue@3.2.47):
-    resolution: {integrity: sha512-UuucVbJquxuskODitYRcjAN3SsW80kY5mp82MH0HpaEUxgTBv/9900BDSuHCy2s3Ucfutod9TDXG6ek99ZJHxQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/fast-crud/-/fast-crud-1.14.1.tgz}
-    id: registry.npmmirror.com/@fast-crud/fast-crud/1.14.1
+  registry.npmmirror.com/@fast-crud/fast-crud@1.14.4(vue@3.2.47):
+    resolution: {integrity: sha512-37FNoW+wpRc549dqbMxX6WQPE45tHtEs3iIGD1lbsMlEIMei/JMevXYcJ9K4/aY10+Z8lV2T0O9sfShab1irWA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/fast-crud/-/fast-crud-1.14.4.tgz}
+    id: registry.npmmirror.com/@fast-crud/fast-crud/1.14.4
     name: '@fast-crud/fast-crud'
-    version: 1.14.1
+    version: 1.14.4
     dependencies:
+      file-saver: registry.npmmirror.com/file-saver@2.0.5
       lru-cache: registry.npmmirror.com/lru-cache@8.0.5
       vuedraggable-es: registry.npmmirror.com/vuedraggable-es@4.1.1(vue@3.2.47)
+      xlsx: registry.npmmirror.com/xlsx@0.14.5
     transitivePeerDependencies:
       - vue
     dev: false
 
-  registry.npmmirror.com/@fast-crud/fast-extends@1.14.1(vue@3.2.47):
-    resolution: {integrity: sha512-iIeXQNw+lgR5OcGlDcxoS2fTDwVnx/TfKI1kI+DrTf54vYkBnhLJGoWI6yNaWwjdgpvSkJMl0TWOJbSb5nR5BA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/fast-extends/-/fast-extends-1.14.1.tgz}
-    id: registry.npmmirror.com/@fast-crud/fast-extends/1.14.1
+  registry.npmmirror.com/@fast-crud/fast-extends@1.14.4(vue@3.2.47):
+    resolution: {integrity: sha512-yRbmUe8geveno8Ou127QDMNX91EE5bgZe+lnRaNXhxSGFsP5fQaClYDvSRggc3HAiCDOS9BGKsPjjmzXhwDdWg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/fast-extends/-/fast-extends-1.14.4.tgz}
+    id: registry.npmmirror.com/@fast-crud/fast-extends/1.14.4
     name: '@fast-crud/fast-extends'
-    version: 1.14.1
+    version: 1.14.4
     dependencies:
       '@aws-sdk/client-s3': registry.npmmirror.com/@aws-sdk/client-s3@3.332.0(@aws-sdk/signature-v4-crt@3.354.0)
       '@aws-sdk/s3-request-presigner': registry.npmmirror.com/@aws-sdk/s3-request-presigner@3.332.0(@aws-sdk/signature-v4-crt@3.354.0)
@@ -2678,16 +2680,16 @@ packages:
       - vue
     dev: false
 
-  registry.npmmirror.com/@fast-crud/ui-antdv@1.14.1:
-    resolution: {integrity: sha512-XL4PvSjoaqRzE/CED0Wg8i4yiVo1uV7e1rcvXQyyvWiqJ14GudXQsjz4mWqC+ISYA6z9Nl/g4MbRb/NRvYBRFA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/ui-antdv/-/ui-antdv-1.14.1.tgz}
+  registry.npmmirror.com/@fast-crud/ui-antdv@1.14.4:
+    resolution: {integrity: sha512-0teqINvAkCmdIIRlwg2I2cEb4jwcMpfwVpA1RKg4ZAVdixwsNXfRa3omQK6H9iwo95yeSvx9tKfz343s8d/qOQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/ui-antdv/-/ui-antdv-1.14.4.tgz}
     name: '@fast-crud/ui-antdv'
-    version: 1.14.1
+    version: 1.14.4
     dev: false
 
-  registry.npmmirror.com/@fast-crud/ui-interface@1.14.1:
-    resolution: {integrity: sha512-xnKqHPvGlal9TOkyXDWSJqK0TDvZ53SLbEVfD9XDiMWpo06DxMEDBSrFWTFHJI8wGDwMs1Yej8nGlKYaMxdDlA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/ui-interface/-/ui-interface-1.14.1.tgz}
+  registry.npmmirror.com/@fast-crud/ui-interface@1.14.4:
+    resolution: {integrity: sha512-+vb9CrOX3McyLYvtd0Lgq9YOJ4EhJhCL5NmCk1jWmGcQobkEFALqcLiL+uG2dYlK818mltmBVXw+gChtCQFxfg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/ui-interface/-/ui-interface-1.14.4.tgz}
     name: '@fast-crud/ui-interface'
-    version: 1.14.1
+    version: 1.14.4
     dependencies:
       lodash-es: registry.npmmirror.com/lodash-es@4.17.21
     dev: false
@@ -4623,6 +4625,17 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: false
 
+  registry.npmmirror.com/adler-32@1.2.0:
+    resolution: {integrity: sha512-/vUqU/UY4MVeFsg+SsK6c+/05RZXIHZMGJA+PX5JyWI0ZRcBpupnRuPLU/NXXoFwMYCPCoxIfElM2eS+DUXCqQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/adler-32/-/adler-32-1.2.0.tgz}
+    name: adler-32
+    version: 1.2.0
+    engines: {node: '>=0.8'}
+    hasBin: true
+    dependencies:
+      exit-on-epipe: registry.npmmirror.com/exit-on-epipe@1.0.1
+      printj: registry.npmmirror.com/printj@1.1.2
+    dev: false
+
   registry.npmmirror.com/adler-32@1.3.1:
     resolution: {integrity: sha512-ynZ4w/nUUv5rrsR8UUGoe1VC9hZj6V5hU9Qw1HlMDJGEJw5S7TfTErWTjMys6M7vr0YWcPqs3qAr4ss0nDfP+A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/adler-32/-/adler-32-1.3.1.tgz}
     name: adler-32
@@ -5677,6 +5690,17 @@ packages:
     version: 5.65.12
     dev: false
 
+  registry.npmmirror.com/codepage@1.14.0:
+    resolution: {integrity: sha512-iz3zJLhlrg37/gYRWgEPkaFTtzmnEv1h+r7NgZum2lFElYQPi0/5bnmuDfODHxfp0INEfnRqyfyeIJDbb7ahRw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/codepage/-/codepage-1.14.0.tgz}
+    name: codepage
+    version: 1.14.0
+    engines: {node: '>=0.8'}
+    hasBin: true
+    dependencies:
+      commander: registry.npmmirror.com/commander@2.14.1
+      exit-on-epipe: registry.npmmirror.com/exit-on-epipe@1.0.1
+    dev: false
+
   registry.npmmirror.com/codepage@1.15.0:
     resolution: {integrity: sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/codepage/-/codepage-1.15.0.tgz}
     name: codepage
@@ -5754,6 +5778,18 @@ packages:
     name: commander
     version: 10.0.1
     engines: {node: '>=14'}
+
+  registry.npmmirror.com/commander@2.14.1:
+    resolution: {integrity: sha512-+YR16o3rK53SmWHU3rEM3tPAh2rwb1yPcQX5irVn7mb0gXbwuCCrnkbV5+PBfETdfg1vui07nM6PCG1zndcjQw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/commander/-/commander-2.14.1.tgz}
+    name: commander
+    version: 2.14.1
+    dev: false
+
+  registry.npmmirror.com/commander@2.17.1:
+    resolution: {integrity: sha512-wPMUt6FnH2yzG95SA6mzjQOEKUU3aLaDEmzs1ti+1E9h+CsrZghRlqEM/EJ4KscsQVG8uNN4uVreUeT8+drlgg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/commander/-/commander-2.17.1.tgz}
+    name: commander
+    version: 2.17.1
+    dev: false
 
   registry.npmmirror.com/commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/commander/-/commander-2.20.3.tgz}
@@ -7368,6 +7404,13 @@ packages:
       strip-final-newline: registry.npmmirror.com/strip-final-newline@3.0.0
     dev: true
 
+  registry.npmmirror.com/exit-on-epipe@1.0.1:
+    resolution: {integrity: sha512-h2z5mrROTxce56S+pnvAV890uu7ls7f1kEvVGJbw1OlFH3/mlJ5bkXu0KRyW94v37zzHPiUd55iLn3DA7TjWpw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/exit-on-epipe/-/exit-on-epipe-1.0.1.tgz}
+    name: exit-on-epipe
+    version: 1.0.1
+    engines: {node: '>=0.8'}
+    dev: false
+
   registry.npmmirror.com/expand-brackets@2.1.4:
     resolution: {integrity: sha512-w/ozOKR9Obk3qoWeY/WDi6MFta9AoMR+zud60mdnbniMcBxRuFJyDt2LdX/14A1UABeqk+Uk+LDfUpvoGKppZA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/expand-brackets/-/expand-brackets-2.1.4.tgz}
     name: expand-brackets
@@ -7516,6 +7559,12 @@ packages:
     dependencies:
       flat-cache: registry.npmmirror.com/flat-cache@3.0.4
     dev: true
+
+  registry.npmmirror.com/file-saver@2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/file-saver/-/file-saver-2.0.5.tgz}
+    name: file-saver
+    version: 2.0.5
+    dev: false
 
   registry.npmmirror.com/file-uri-to-path@2.0.0:
     resolution: {integrity: sha512-hjPFI8oE/2iQPVe4gbrJ73Pp+Xfub2+WI2LlXDbsaJBwT5wuMh35WNWVYYTpnz895shtwfyutMFLFywpQAFdLg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/file-uri-to-path/-/file-uri-to-path-2.0.0.tgz}
@@ -11258,6 +11307,14 @@ packages:
     version: 1.6.0
     dev: false
 
+  registry.npmmirror.com/printj@1.1.2:
+    resolution: {integrity: sha512-zA2SmoLaxZyArQTOPj5LXecR+RagfPSU5Kw1qP+jkWeNlrq+eJZyY2oS68SU1Z/7/myXM4lo9716laOFAVStCQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/printj/-/printj-1.1.2.tgz}
+    name: printj
+    version: 1.1.2
+    engines: {node: '>=0.8'}
+    hasBin: true
+    dev: false
+
   registry.npmmirror.com/prismjs@1.29.0:
     resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/prismjs/-/prismjs-1.29.0.tgz}
     name: prismjs
@@ -12369,6 +12426,16 @@ packages:
     name: sprintf-js
     version: 1.0.3
     dev: true
+
+  registry.npmmirror.com/ssf@0.10.3:
+    resolution: {integrity: sha512-pRuUdW0WwyB2doSqqjWyzwCD6PkfxpHAHdZp39K3dp/Hq7f+xfMwNAWIi16DyrRg4gg9c/RvLYkJTSawTPTm1w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ssf/-/ssf-0.10.3.tgz}
+    name: ssf
+    version: 0.10.3
+    engines: {node: '>=0.8'}
+    hasBin: true
+    dependencies:
+      frac: registry.npmmirror.com/frac@1.1.2
+    dev: false
 
   registry.npmmirror.com/ssf@0.11.2:
     resolution: {integrity: sha512-+idbmIXoYET47hH+d7dfm2epdOMUDjqcB4648sTZ+t2JwoyBFL/insLfB/racrDmsKB3diwsDA696pZMieAC5g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ssf/-/ssf-0.11.2.tgz}
@@ -14414,6 +14481,22 @@ packages:
     resolution: {integrity: sha512-3H+fDBKBR2wLJgyA7k9C/w1Xljx6Maml5ukV0WDY06HjYyGs2FEz6XhcwRCLIDXX4pBP3Gu0nX9DbCeuuRA2Ew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/xe-utils/-/xe-utils-3.5.7.tgz}
     name: xe-utils
     version: 3.5.7
+    dev: false
+
+  registry.npmmirror.com/xlsx@0.14.5:
+    resolution: {integrity: sha512-s/5f4/mjeWREmIWZ+HtDfh/rnz51ar+dZ4LWKZU3u9VBx2zLdSIWTdXgoa52/pnZ9Oe/Vu1W1qzcKzLVe+lq4w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/xlsx/-/xlsx-0.14.5.tgz}
+    name: xlsx
+    version: 0.14.5
+    engines: {node: '>=0.8'}
+    hasBin: true
+    dependencies:
+      adler-32: registry.npmmirror.com/adler-32@1.2.0
+      cfb: registry.npmmirror.com/cfb@1.2.2
+      codepage: registry.npmmirror.com/codepage@1.14.0
+      commander: registry.npmmirror.com/commander@2.17.1
+      crc-32: registry.npmmirror.com/crc-32@1.2.2
+      exit-on-epipe: registry.npmmirror.com/exit-on-epipe@1.0.1
+      ssf: registry.npmmirror.com/ssf@0.10.3
     dev: false
 
   registry.npmmirror.com/xlsx@0.18.5:

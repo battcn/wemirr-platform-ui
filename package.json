@@ -66,10 +66,10 @@
     }
   },
   "dependencies": {
-    "@fast-crud/fast-crud": "^1.14.1",
-    "@fast-crud/fast-extends": "^1.14.1",
-    "@fast-crud/ui-antdv": "^1.14.1",
-    "@fast-crud/ui-interface": "^1.14.1",
+    "@fast-crud/fast-crud": "^1.14.4",
+    "@fast-crud/fast-extends": "^1.14.4",
+    "@fast-crud/ui-antdv": "^1.14.4",
+    "@fast-crud/ui-interface": "^1.14.4",
     "@ant-design/colors": "^7.0.0",
     "@ant-design/icons-vue": "^6.1.0",
     "@iconify/iconify": "^3.1.0",
