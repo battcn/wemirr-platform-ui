@@ -6,8 +6,8 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { RedoOutlined } from "@ant-design/icons-vue";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { useTabs } from "/@/hooks/web/useTabs";
+import { useDesign } from "@/hooks/web/useDesign";
+import { useTabs } from "@/hooks/web/useTabs";
 
 export default defineComponent({
   name: "TabRedo",
@@ -31,3 +31,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="less" scoped>
+span.anticon-redo {
+  vertical-align: baseline !important;
+}
+</style>

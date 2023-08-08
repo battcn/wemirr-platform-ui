@@ -1,8 +1,8 @@
-import type { ComputedRef } from "vue";
-import type { BasicTableProps } from "../types/table";
-import { unref } from "vue";
-import { ROW_KEY } from "../const";
-import { isString, isFunction } from "/@/utils/is";
+import type { ComputedRef } from 'vue';
+import type { BasicTableProps } from '../types/table';
+import { unref } from 'vue';
+import { ROW_KEY } from '../const';
+import { isString, isFunction } from '/@/utils/is';
 
 interface Options {
   setSelectedRowKeys: (keys: string[]) => void;
@@ -15,7 +15,7 @@ interface Options {
 function getKey(
   record: Recordable,
   rowKey: string | ((record: Record<string, any>) => string) | undefined,
-  autoCreateKey?: boolean
+  autoCreateKey?: boolean,
 ) {
   if (!rowKey || autoCreateKey) {
     return record[ROW_KEY];
@@ -31,7 +31,7 @@ function getKey(
 
 export function useCustomRow(
   propsRef: ComputedRef<BasicTableProps>,
-  { setSelectedRowKeys, getSelectRowKeys, getAutoCreateKey, clearSelectedRowKeys, emit }: Options
+  { setSelectedRowKeys, getSelectRowKeys, getAutoCreateKey, clearSelectedRowKeys, emit }: Options,
 ) {
   const customRow = (record: Recordable, index: number) => {
     return {
@@ -42,20 +42,21 @@ export function useCustomRow(
           if (!rowSelection || !clickToRowSelect) return;
           const keys = getSelectRowKeys() || [];
           const key = getKey(record, rowKey, unref(getAutoCreateKey));
-          if (!key) return;
+          if (key === null) return;
 
-          const isCheckbox = rowSelection.type === "checkbox";
+          const isCheckbox = rowSelection.type === 'checkbox';
           if (isCheckbox) {
             // 找到tr
             const tr: HTMLElement = (e as MouseEvent)
               .composedPath?.()
-              .find((dom: HTMLElement) => dom.tagName === "TR") as HTMLElement;
+              .find((dom: HTMLElement) => dom.tagName === 'TR') as HTMLElement;
             if (!tr) return;
             // 找到Checkbox，检查是否为disabled
-            const checkBox = tr.querySelector("input[type=checkbox]");
-            if (!checkBox || checkBox.hasAttribute("disabled")) return;
+            const checkBox = tr.querySelector('input[type=checkbox]');
+            if (!checkBox || checkBox.hasAttribute('disabled')) return;
             if (!keys.includes(key)) {
-              setSelectedRowKeys([...keys, key]);
+              keys.push(key);
+              setSelectedRowKeys(keys);
               return;
             }
             const keyIndex = keys.findIndex((item) => item === key);
@@ -64,7 +65,7 @@ export function useCustomRow(
             return;
           }
 
-          const isRadio = rowSelection.type === "radio";
+          const isRadio = rowSelection.type === 'radio';
           if (isRadio) {
             if (!keys.includes(key)) {
               if (keys.length) {
@@ -77,19 +78,19 @@ export function useCustomRow(
           }
         }
         handleClick();
-        emit("row-click", record, index, e);
+        emit('row-click', record, index, e);
       },
       onDblclick: (event: Event) => {
-        emit("row-dbClick", record, index, event);
+        emit('row-dbClick', record, index, event);
       },
       onContextmenu: (event: Event) => {
-        emit("row-contextmenu", record, index, event);
+        emit('row-contextmenu', record, index, event);
       },
       onMouseenter: (event: Event) => {
-        emit("row-mouseenter", record, index, event);
+        emit('row-mouseenter', record, index, event);
       },
       onMouseleave: (event: Event) => {
-        emit("row-mouseleave", record, index, event);
+        emit('row-mouseleave', record, index, event);
       },
     };
   };
