@@ -2,11 +2,12 @@ import { defHttp } from "/@/utils/http/axios";
 import { LoginPicture, TokenInfo, GetUserInfoModel } from "./model/userModel";
 
 import { ErrorMessageMode } from "/#/axios";
+import { encryptByBase64 } from "@/utils/cipher";
 
 enum Api {
-  Login = "/authority/oauth/token",
-  Logout = "/authority/oauth/logout",
-  GetUserInfo = "/authority/oauth/info",
+  Login = "/authority/oauth2/token",
+  Logout = "/authority/oauth2/logout",
+  GetUserInfo = "/authority/oauth2/userinfo",
   GetPermCode = "/authority/resources/permissions",
   TestRetry = "/testRetry",
 }
@@ -14,12 +15,21 @@ enum Api {
  * @description: 验证码登录
  */
 export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none") => {
-  data.grant_type = "password";
-  data.client_id = "client";
-  data.client_secret = "client";
-  data.scope = "server";
+  data.grant_type = "custom";
+  data.login_type = "password";
+  data.client_id = "messaging-client";
+  data.client_secret = "123456";
+  data.scope = "web";
+
   return defHttp.post<TokenInfo>(
-    { url: Api.Login, params: data, data: data },
+    {
+      url: Api.Login,
+      params: data,
+      data: data,
+      headers: {
+        Authorization: "Basic " + encryptByBase64(data.client_id + ":" + data.client_secret),
+      },
+    },
     { errorMessageMode: mode }
   );
 };
