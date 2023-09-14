@@ -36,15 +36,18 @@ export default function (app, i18n) {
             },
           },
         },
+        container: {
+          is: "fs-layout-card",
+        },
         rowHandle: {
-          width: 130,
+          width: 180,
           align: "center",
           // 固定右侧 不建议设置成全局
           // fixed: 'right',
           buttons: {
-            view: { size: "small", type: "link", text: null, icon: "akar-icons:search" },
-            edit: { size: "small", type: "link", text: null, icon: "ion:create-outline" },
-            remove: { size: "small", type: "link", text: null, icon: "ion:trash-outline" },
+            view: { size: "small", type: "link", icon: null },
+            edit: { size: "small", type: "link", icon: null },
+            remove: { size: "small", type: "link", icon: null },
           },
           dropdown: {
             more: {

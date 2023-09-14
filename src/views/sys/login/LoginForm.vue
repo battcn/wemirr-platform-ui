@@ -28,7 +28,38 @@
         :placeholder="t('sys.login.password')"
       />
     </FormItem>
-    <ARow class="enter-x" v-show="formState.showCaptcha">
+    <FormItem name="code" class="enter-x">
+      <PictureCode
+        size="large"
+        class="fix-auto-fill"
+        ref="pictureRef"
+        autocomplete="off"
+        @code-id="getCodeId"
+        v-model:value="formData.code"
+        placeholder="验证码"
+      />
+    </FormItem>
+    <!--    <FormItem class="enter-x" name="code">
+      <ACol :md="12" :xs="24">
+        <Input
+          size="large"
+          style="min-width: 200px"
+          visibilityToggle
+          v-model:value="formData.code"
+          placeholder="验证码"
+        />
+      </ACol>
+      <ACol :md="12" :xs="24" :offset="2">
+        <img
+          v-show="true"
+          :src="formState.captchaSrc"
+          @click="loadCaptcha"
+          alt="captcha"
+          class="code-image"
+        />
+      </ACol>
+    </FormItem>-->
+    <!--    <ARow class="enter-x" v-show="formState.showCaptcha">
       <ACol :md="12" :xs="24">
         <FormItem class="code-input" name="code">
           <Input
@@ -40,7 +71,7 @@
           />
         </FormItem>
       </ACol>
-      <ACol :md="12" :xs="24">
+      <ACol :md="9" :xs="24" :offset="3">
         <img
           v-show="true"
           :src="formState.captchaSrc"
@@ -49,7 +80,7 @@
           class="code-image"
         />
       </ACol>
-    </ARow>
+    </ARow>-->
     <ARow class="enter-x">
       <ACol :span="12">
         <FormItem>
@@ -126,7 +157,8 @@ import { useUserStore } from "@/store/modules/user";
 import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from "./useLogin";
 import { useDesign } from "@/hooks/web/useDesign";
 import { buildUUID } from "@/utils/uuid";
-
+import { getCaptcha } from "@/api/sys/user";
+import { PictureCode } from "@/components/PictureCode";
 // const AAlert = Alert;
 const ACol = Col;
 const ARow = Row;
@@ -143,13 +175,13 @@ const { getFormRules } = useFormRules();
 const formRef = ref();
 const loading = ref(false);
 const rememberMe = ref(false);
-
+const pictureRef = ref();
 const formData = reactive({
   tenantCode: "0000",
   username: "admin",
   password: "123456",
   code: "",
-  key: buildUUID(),
+  captchaId: buildUUID(),
 });
 
 const { validForm } = useFormValid(formRef);
@@ -163,14 +195,7 @@ const formState = reactive({
   // showCaptcha: globSetting.showCaptcha === undefined || globSetting.showCaptcha === 'true',
 });
 
-async function loadCaptcha() {
-  formData.key = buildUUID();
-  formState.captchaSrc = "/api/authority/captcha?width=150&height=40&&key=" + formData.key;
-}
-
-onMounted(async () => {
-  await loadCaptcha();
-});
+onMounted(async () => {});
 
 async function handleLogin() {
   const data = await validForm();
@@ -187,7 +212,7 @@ async function handleLogin() {
       tenant_code: data.tenantCode,
       auth_type: "vc",
       vc_code: data.code,
-      vc_token: formData.key,
+      vc_token: formData.captchaId,
       goHome: true,
       mode: "none", //不要默认的错误提示
     });
@@ -204,9 +229,12 @@ async function handleLogin() {
       content: (error as unknown as Error).message || t("sys.api.networkExceptionMsg"),
       getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
     });
-    await loadCaptcha();
+    pictureRef?.value?.refreshCode();
   } finally {
     loading.value = false;
   }
+}
+async function getCodeId(captchaId) {
+  formData.captchaId = captchaId;
 }
 </script>

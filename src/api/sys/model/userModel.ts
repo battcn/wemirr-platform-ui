@@ -59,3 +59,10 @@ export interface GetUserInfoModel {
   homePath?: string;
   roles: RoleInfo[];
 }
+
+
+export interface GetCaptchaCodeModel {
+  captchaId: string;
+  code: string;
+  imageData: string;
+}

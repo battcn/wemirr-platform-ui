@@ -84,7 +84,7 @@ const setting: ProjectConfig = {
     //  Whether to fix the left menu
     fixed: true,
     // 菜单折叠
-    collapsed: true,
+    collapsed: false,
     // When sider hide because of the responsive layout
     siderHidden: false,
     // 折叠菜单时是否显示菜单名称

@@ -1,5 +1,5 @@
 import { defHttp } from "/@/utils/http/axios";
-import { LoginPicture, TokenInfo, GetUserInfoModel } from "./model/userModel";
+import {LoginPicture, TokenInfo, GetUserInfoModel, GetCaptchaCodeModel} from "./model/userModel";
 
 import { ErrorMessageMode } from "/#/axios";
 import { encryptByBase64 } from "@/utils/cipher";
@@ -9,6 +9,7 @@ enum Api {
   Logout = "/authority/oauth2/logout",
   GetUserInfo = "/authority/oauth2/userinfo",
   GetPermCode = "/authority/resources/permissions",
+  GetCaptchaCode = "/authority/captcha",
   TestRetry = "/testRetry",
 }
 /**
@@ -39,6 +40,10 @@ export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none"
  */
 export function getUserInfo() {
   return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { errorMessageMode: "none" });
+}
+
+export function getCaptcha() {
+  return defHttp.get<GetCaptchaCodeModel>({ url: Api.GetCaptchaCode });
 }
 
 export function getPermCode() {

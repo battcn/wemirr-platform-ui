@@ -36,17 +36,17 @@ import TabContent from "./components/TabContent.vue";
 import FoldButton from "./components/FoldButton.vue";
 import TabRedo from "./components/TabRedo.vue";
 
-import { useGo } from "/@/hooks/web/usePage";
+import { useGo } from "@/hooks/web/usePage";
 
-import { useMultipleTabStore } from "/@/store/modules/multipleTab";
-import { useUserStore } from "/@/store/modules/user";
+import { useMultipleTabStore } from "@/store/modules/multipleTab";
+import { useUserStore } from "@/store/modules/user";
 
 import { initAffixTabs, useTabsDrag } from "./useMultipleTabs";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { useMultipleTabSetting } from "/@/hooks/setting/useMultipleTabSetting";
+import { useDesign } from "@/hooks/web/useDesign";
+import { useMultipleTabSetting } from "@/hooks/setting/useMultipleTabSetting";
 
-import { REDIRECT_NAME } from "/@/router/constant";
-import { listenerRouteChange } from "/@/logics/mitt/routeChange";
+import { REDIRECT_NAME } from "@/router/constant";
+import { listenerRouteChange } from "@/logics/mitt/routeChange";
 
 import { useRouter } from "vue-router";
 

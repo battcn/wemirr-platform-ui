@@ -7,12 +7,12 @@
 </template>
 <script lang="ts" setup>
 import { computed, unref } from "vue";
-import { SvgIcon } from "/@/components/Icon";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { useRootSetting } from "/@/hooks/setting/useRootSetting";
-import { updateHeaderBgColor, updateSidebarBgColor } from "/@/logics/theme/updateBackground";
-import { updateDarkTheme } from "/@/logics/theme/dark";
-import { ThemeEnum } from "/@/enums/appEnum";
+import { SvgIcon } from "@/components/Icon";
+import { useDesign } from "@/hooks/web/useDesign";
+import { useRootSetting } from "@/hooks/setting/useRootSetting";
+import { updateHeaderBgColor, updateSidebarBgColor } from "@/logics/theme/updateBackground";
+import { updateDarkTheme } from "@/logics/theme/dark";
+import { ThemeEnum } from "@/enums/appEnum";
 
 const { prefixCls } = useDesign("dark-switch");
 const { getDarkMode, setDarkMode, getShowDarkModeToggle } = useRootSetting();
