@@ -6,7 +6,7 @@
     <Popover
       placement="bottomLeft"
       trigger="click"
-      @visible-change="handleVisibleChange"
+      @open-change="handleVisibleChange"
       :overlayClassName="`${prefixCls}__cloumn-list`"
       :getPopupContainer="getPopupContainer"
     >
@@ -114,13 +114,13 @@ import { Tooltip, Popover, Checkbox, Divider } from "ant-design-vue";
 import type { CheckboxChangeEvent } from "ant-design-vue/lib/checkbox/interface";
 import { SettingOutlined, DragOutlined } from "@ant-design/icons-vue";
 import Icon from "@/components/Icon/Icon.vue";
-import { ScrollContainer } from "/@/components/Container";
-import { useI18n } from "/@/hooks/web/useI18n";
+import { ScrollContainer } from "@/components/Container";
+import { useI18n } from "@/hooks/web/useI18n";
 import { useTableContext } from "../../hooks/useTableContext";
-import { useDesign } from "/@/hooks/web/useDesign";
+import { useDesign } from "@/hooks/web/useDesign";
 // import { useSortable } from '/@/hooks/web/useSortable';
-import { isFunction, isNullAndUnDef } from "/@/utils/is";
-import { getPopupContainer as getParentContainer } from "/@/utils";
+import { isFunction, isNullAndUnDef } from "@/utils/is";
+import { getPopupContainer as getParentContainer } from "@/utils";
 import { cloneDeep, omit } from "lodash-es";
 import Sortablejs from "sortablejs";
 import type Sortable from "sortablejs";

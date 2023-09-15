@@ -1,17 +1,10 @@
-<template>
-  <EditTableHeaderCell v-if="getIsEdit">
-    {{ getTitle }}
-  </EditTableHeaderCell>
-  <span v-else>{{ getTitle }}</span>
-  <BasicHelp v-if="getHelpMessage" :text="getHelpMessage" :class="`${prefixCls}__help`" />
-</template>
-<script lang="ts">
+<script lang="tsx">
 import type { PropType } from "vue";
 import type { BasicColumn } from "../types/table";
 import { defineComponent, computed } from "vue";
 import BasicHelp from "/@/components/Basic/src/BasicHelp.vue";
 import EditTableHeaderCell from "./EditTableHeaderIcon.vue";
-import { useDesign } from "/@/hooks/web/useDesign";
+import { useDesign } from "@/hooks/web/useDesign";
 
 export default defineComponent({
   name: "TableHeaderCell",
@@ -29,10 +22,29 @@ export default defineComponent({
     const { prefixCls } = useDesign("basic-table-header-cell");
 
     const getIsEdit = computed(() => !!props.column?.edit);
-    const getTitle = computed(() => props.column?.customTitle || props.column?.title);
+    const getTitle = computed(() => {
+      const column = props.column;
+      if (typeof column.customHeaderRender === "function") {
+        return column.customHeaderRender(props.column);
+      }
+      return props.column?.customTitle || props.column?.title;
+    });
     const getHelpMessage = computed(() => props.column?.helpMessage);
 
-    return { prefixCls, getIsEdit, getTitle, getHelpMessage };
+    return () => {
+      return (
+        <div>
+          {getIsEdit.value ? (
+            <EditTableHeaderCell>{getTitle.value}</EditTableHeaderCell>
+          ) : (
+            <span class="default-header-cell">{getTitle.value}</span>
+          )}
+          {getHelpMessage.value && (
+            <BasicHelp text={getHelpMessage.value} class={`${prefixCls}__help`} />
+          )}
+        </div>
+      );
+    };
   },
 });
 </script>
