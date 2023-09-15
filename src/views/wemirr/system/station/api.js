@@ -1,4 +1,4 @@
-import { GET, request } from "/src/api/service";
+import { GET, request } from "@/api/service";
 
 export function GetList(query) {
   return GET("/authority/stations", query);

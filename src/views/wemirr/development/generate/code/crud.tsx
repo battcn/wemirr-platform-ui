@@ -1,9 +1,9 @@
-import { GET, POST, DELETE, PUT } from "/src/api/service";
+import { GET, POST, DELETE, PUT } from "@/api/service";
 import { defHttp } from "@/utils/http/axios";
 
 import dayjs from "dayjs";
 import { dict } from "@fast-crud/fast-crud";
-import { downloadByData } from "/src/utils/file/download";
+import { downloadByData } from "@/utils/file/download";
 
 export default function ({ expose, userStore }) {
   const pageRequest = async (query) => await GET("/tools/generates", query);
@@ -39,7 +39,7 @@ export default function ({ expose, userStore }) {
                     method: "POST",
                     responseType: "blob",
                   },
-                  { isTransformResponse: false }
+                  { isTransformResponse: false },
                 )
                 .then((res) => {
                   downloadByData(res, `${context.row.moduleName}.zip`);

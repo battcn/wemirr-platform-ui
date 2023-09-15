@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { dict } from "@fast-crud/fast-crud";
-import { GET, DELETE } from "/src/api/service";
+import { GET, DELETE } from "@/api/service";
 import { useRouter } from "vue-router";
 
 export default function ({ expose }) {

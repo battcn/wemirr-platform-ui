@@ -1,26 +1,21 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
+  <fs-page className="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding" />
-  </PageWrapper>
+  </fs-page>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, onMounted } from "vue";
+import { useFs } from "@fast-crud/fast-crud";
 import createCrudOptions from "./crud";
-import { useExpose, useCrud } from "@fast-crud/fast-crud";
-import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
-  name: "GatewayLimitForm",
-  components: { PageWrapper },
+  name: "GatewayLimitPageList",
   setup() {
-    const crudRef = ref();
-    const crudBinding = ref();
-    const { expose } = useExpose({ crudRef, crudBinding });
-    const { crudOptions } = createCrudOptions({ expose });
-    useCrud({ expose, crudOptions });
+    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions, context: {} });
+    // 页面打开后获取列表数据
     onMounted(() => {
-      expose.doRefresh();
+      crudExpose.doRefresh();
     });
     return {
       crudBinding,

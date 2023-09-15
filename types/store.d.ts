@@ -32,7 +32,7 @@ export interface ErrorLogInfo {
 
 export interface UserInfo {
   userId: string | number;
-  companyName: string;
+  tenantName: string;
   tenantId: string | number;
   tenantCode: string | number;
   permissions: [];

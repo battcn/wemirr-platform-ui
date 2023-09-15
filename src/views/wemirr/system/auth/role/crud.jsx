@@ -1,7 +1,7 @@
 import { dict, compute } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { usePermission } from "/@/hooks/web/usePermission";
-import { GET, POST, PUT, DELETE } from "/src/api/service";
+import { GET, POST, PUT, DELETE } from "@/api/service";
 
 export default function ({ expose, distribution }) {
   const { hasPermission } = usePermission();

@@ -1,17 +1,17 @@
-import colors from 'picocolors';
-import { readPackageJSON } from 'pkg-types';
-import { type PluginOption } from 'vite';
+import colors from "picocolors";
+import { readPackageJSON } from "pkg-types";
+import { type PluginOption } from "vite";
 
-import { getEnvConfig } from '../utils/env';
-import { createContentHash } from '../utils/hash';
+import { getEnvConfig } from "../utils/env";
+import { createContentHash } from "../utils/hash";
 
-const GLOBAL_CONFIG_FILE_NAME = '_app.config.js';
-const PLUGIN_NAME = 'app-config';
+const GLOBAL_CONFIG_FILE_NAME = "_app.config.js";
+const PLUGIN_NAME = "app-config";
 
 async function createAppConfigPlugin({
-                                       root,
-                                       isBuild,
-                                     }: {
+  root,
+  isBuild,
+}: {
   root: string;
   isBuild: boolean;
 }): Promise<PluginOption> {
@@ -22,28 +22,28 @@ async function createAppConfigPlugin({
       name: PLUGIN_NAME,
     };
   }
-  const { version = '' } = await readPackageJSON(root);
+  const { version = "" } = await readPackageJSON(root);
 
   return {
     name: PLUGIN_NAME,
     async configResolved(_config) {
-      let appTitle = _config?.env?.VITE_GLOB_APP_TITLE ?? '';
-      appTitle = appTitle.replace(/\s/g, '_').replace(/-/g, '_');
+      const appTitle = _config?.env?.VITE_GLOB_APP_TITLE ?? "";
+      // appTitle = appTitle.replace(/\s/g, '_').replace(/-/g, '_');
       publicPath = _config.base;
       source = await getConfigSource(appTitle);
     },
     async transformIndexHtml(html) {
-      publicPath = publicPath.endsWith('/') ? publicPath : `${publicPath}/`;
+      publicPath = publicPath.endsWith("/") ? publicPath : `${publicPath}/`;
 
       const appConfigSrc = `${
-        publicPath || '/'
+        publicPath || "/"
       }${GLOBAL_CONFIG_FILE_NAME}?v=${version}-${createContentHash(source)}`;
 
       return {
         html,
         tags: [
           {
-            tag: 'script',
+            tag: "script",
             attrs: {
               src: appConfigSrc,
             },
@@ -54,7 +54,7 @@ async function createAppConfigPlugin({
     async generateBundle() {
       try {
         this.emitFile({
-          type: 'asset',
+          type: "asset",
           fileName: GLOBAL_CONFIG_FILE_NAME,
           source,
         });
@@ -62,7 +62,7 @@ async function createAppConfigPlugin({
         console.log(colors.cyan(`✨configuration file is build successfully!`));
       } catch (error) {
         console.log(
-          colors.red('configuration file configuration file failed to package:\n' + error),
+          colors.red("configuration file configuration file failed to package:\n" + error),
         );
       }
     },
@@ -78,12 +78,11 @@ const getVariableName = (title: string) => {
     const result: string[] = [];
     for (let i = 0; i < str.length; ++i) {
       const hex = str.charCodeAt(i).toString(16);
-      result.push(('000' + hex).slice(-4));
+      result.push(("000" + hex).slice(-4));
     }
-    return result.join('').toUpperCase();
+    return result.join("").toUpperCase();
   }
-
-  return `__PRODUCTION__${strToHex(title) || '__APP'}__CONF__`.toUpperCase().replace(/\s/g, '');
+  return `__PRODUCTION__${strToHex(title) || "__APP"}__CONF__`.toUpperCase().replace(/\s/g, "");
 };
 
 async function getConfigSource(appTitle: string) {
@@ -98,7 +97,7 @@ async function getConfigSource(appTitle: string) {
       configurable: false,
       writable: false,
     });
-  `.replace(/\s/g, '');
+  `.replace(/\s/g, "");
   return source;
 }
 

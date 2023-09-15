@@ -21,7 +21,10 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
   return defineConfig(async ({ command, mode }) => {
     const root = process.cwd();
     const isBuild = command === "build";
-    const { VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(mode, root);
+    const { VITE_PUBLIC_PATH, VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(
+      mode,
+      root,
+    );
 
     const defineData = await createDefineData(root);
     const plugins = await createPlugins({
@@ -35,6 +38,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
     const pathResolve = (pathname: string) => resolve(root, ".", pathname);
 
     const applicationConfig: UserConfig = {
+      base: VITE_PUBLIC_PATH,
       resolve: {
         alias: [
           {
@@ -65,10 +69,12 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       },
       define: defineData,
       build: {
-        target: "es2018",
+        target: "es2015",
         cssTarget: "chrome80",
         rollupOptions: {
           output: {
+            // 入口文件名
+            entryFileNames: "assets/[name].js",
             manualChunks: {
               vue: ["vue", "pinia", "vue-router"],
               antd: ["ant-design-vue", "@ant-design/icons-vue"],

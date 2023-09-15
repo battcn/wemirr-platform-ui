@@ -4,7 +4,7 @@ import "@fast-crud/fast-crud/dist/style.css";
 import { FsExtendsEditor, FsExtendsJson, FsExtendsUploader } from "@fast-crud/fast-extends";
 import { useLocale } from "@/locales/useLocale";
 import "@fast-crud/fast-extends/dist/style.css";
-import UiAntdv from "@fast-crud/ui-antdv";
+import UiAntdv from "@fast-crud/ui-antdv4";
 import { useCrudPermission } from "@/plugin/permission/use-crud-permission";
 import { computed } from "vue";
 import { LOCALE } from "@/settings/localeSetting";
@@ -21,6 +21,7 @@ export default function (app, i18n) {
   //再安装fast-crud
   app.use(FastCrud, {
     i18n,
+    logger: { off: { tableColumns: false } },
     async dictRequest({ url }) {
       return await defHttp.request({ url });
     },
@@ -102,6 +103,7 @@ export default function (app, i18n) {
             is: "a-drawer",
           },
           layout: computed(() => {
+            console.log("getLocale.value", getLocale.value);
             return getLocale.value === LOCALE.ZH_CN ? "horizontal" : "vertical";
           }),
         },

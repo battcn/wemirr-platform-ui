@@ -1,8 +1,13 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
+  <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #actionbar-right>
-        <a-alert class="ml-1" type="info" message="非专业人士,请勿随便乱动" />
+        <a-alert
+          class="ml-1"
+          style="margin-top: 10px"
+          type="info"
+          message="非专业人士,请勿随便乱动"
+        />
       </template>
       <template #form_predicates="scope">
         <div v-for="(scopeItem, scopeIndex) in scope.form.predicates" :key="scopeIndex">
@@ -132,7 +137,7 @@
         </a-dropdown>
       </template>
     </fs-crud>
-  </PageWrapper>
+  </fs-page>
 </template>
 
 <script>
@@ -142,11 +147,10 @@ import { useExpose, useCrud } from "@fast-crud/fast-crud";
 import { PlusSquareOutlined, DeleteOutlined, DownOutlined } from "@ant-design/icons-vue";
 import { predicates, filters } from "./data";
 import { cloneDeep } from "lodash-es";
-import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
   name: "GatewayRouteForm",
-  components: { PageWrapper, DeleteOutlined, PlusSquareOutlined, DownOutlined },
+  components: { DeleteOutlined, PlusSquareOutlined, DownOutlined },
   setup() {
     const crudRef = ref();
     const crudBinding = ref();
@@ -194,7 +198,7 @@ export default defineComponent({
     function handlePredicateChange(name, scopeForm, scopeKey) {
       router.predicates.splice(
         router.predicates.findIndex((item) => item === name),
-        1
+        1,
       );
       if (scopeForm[scopeKey] == null) {
         scopeForm[scopeKey] = [];
@@ -227,7 +231,7 @@ export default defineComponent({
     function handleFilterChange(filter, scopeForm, scopeKey) {
       router.filters.splice(
         router.filters.findIndex((item) => item.name === filter.name),
-        1
+        1,
       );
       if (scopeForm[scopeKey] == null) {
         scopeForm[scopeKey] = [];

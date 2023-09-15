@@ -20,7 +20,7 @@ import {
 } from "vue";
 import { useWindowSizeFn } from "@vben/hooks";
 import { type AnyFunction } from "@vben/types";
-import { ScrollContainer } from "/@/components/Container";
+import { ScrollContainer } from "@/components/Container";
 import { createModalContext } from "../hooks/useModalContext";
 import { useMutationObserver } from "@vueuse/core";
 
@@ -32,7 +32,7 @@ const props = {
   minHeight: { type: Number, default: 200 },
   height: { type: Number },
   footerOffset: { type: Number, default: 0 },
-  visible: { type: Boolean },
+  open: { type: Boolean },
   fullScreen: { type: Boolean },
   loadingTip: { type: String },
 };
@@ -63,7 +63,7 @@ export default defineComponent({
       {
         attributes: true,
         subtree: true,
-      }
+      },
     );
 
     createModalContext({
@@ -90,7 +90,7 @@ export default defineComponent({
         } else {
           minRealHeightRef.value = realHeightRef.value;
         }
-      }
+      },
     );
 
     onMounted(() => {
@@ -112,8 +112,8 @@ export default defineComponent({
 
     async function setModalHeight() {
       // 解决在弹窗关闭的时候监听还存在,导致再次打开弹窗没有高度
-      // 加上这个,就必须在使用的时候传递父级的visible
-      if (!props.visible) return;
+      // 加上这个,就必须在使用的时候传递父级的 open
+      if (!props.open) return;
       const wrapperRefDom = unref(wrapperRef);
       if (!wrapperRefDom) return;
 

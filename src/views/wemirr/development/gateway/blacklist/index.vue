@@ -1,15 +1,16 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
+  <fs-page class="page-layout-card">
     <fs-crud v-if="crudBinding" ref="crudRef" v-bind="crudBinding">
       <template #actionbar-right>
         <a-alert
           class="ml-1"
+          style="margin-top: 10px"
           type="info"
           message="限访名单存储在Redis中，为了查询方便做的本地分页，一般黑名单也不会太多"
         />
       </template>
     </fs-crud>
-  </PageWrapper>
+  </fs-page>
 </template>
 
 <script lang="ts">
@@ -18,12 +19,8 @@ import { useFs } from "@fast-crud/fast-crud";
 import createCrudOptions from "./crud";
 import { GetList } from "./api";
 
-/**
- * 本示例演示如何本地分页
- * 主要就是将pageRequest修改为从本地获取数据就行了
- */
 export default defineComponent({
-  name: "AdvanceLocalPagination",
+  name: "GatewayBlackPageList",
   setup() {
     // crud组件的ref
     const crudRef = ref();

@@ -1,5 +1,5 @@
 import { compute, dict, utils } from "@fast-crud/fast-crud";
-import { GET, DELETE, POST, PUT } from "/src/api/service";
+import { GET, DELETE, POST, PUT } from "@/api/service";
 import { useMessage } from "/@/hooks/web/useMessage";
 
 export default function ({ expose }) {

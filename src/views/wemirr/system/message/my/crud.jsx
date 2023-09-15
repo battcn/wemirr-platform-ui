@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { GET, DELETE } from "/src/api/service";
+import { GET, DELETE } from "@/api/service";
 
 export default function ({ expose }) {
   const selectedRowKeys = ref([]);

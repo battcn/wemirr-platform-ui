@@ -1,8 +1,9 @@
-import { GET } from "/src/api/service";
+import { GET } from "@/api/service";
+// import { compute } from '@fast-crud/fast-crud';
 import dayjs from "dayjs";
 
 export default function ({ expose }) {
-  const pageRequest = async (query) => await GET("/authority/login_logs", query);
+  const pageRequest = async (query) => await GET("/authority/opt_logs", query);
   return {
     crudOptions: {
       request: {
@@ -20,12 +21,12 @@ export default function ({ expose }) {
         },
       },
       rowHandle: {
-        width: 70,
+        width: 80,
         //固定右侧
         fixed: "right",
         buttons: {
           view: { size: "small" },
-          edit: { size: "small", show: false },
+          edit: { show: false },
           remove: { size: "small", show: false },
         },
       },
@@ -33,40 +34,36 @@ export default function ({ expose }) {
         id: {
           title: "ID",
           type: "text",
-          viewForm: { show: false },
           column: { show: false },
-        },
-        principal: {
-          title: "登录账号",
-          type: "text",
-          search: { show: true },
-          column: { width: 180 },
-        },
-        name: {
-          title: "名称",
-          type: "text",
-          search: { show: true },
-          column: { width: 160 },
+          viewForm: { show: false },
         },
         ip: {
           title: "IP",
           type: "text",
-          column: { width: 160 },
+          column: { show: false },
         },
         location: {
           title: "登录地点",
           type: "text",
-          column: { width: 180 },
+          column: { width: 200 },
         },
-        clientId: {
-          title: "应用标识",
+        actionMethod: {
+          title: "请求方法",
           type: "text",
           column: { width: 100 },
+          search: { show: true },
+        },
+        httpMethod: {
+          title: "HTTP方式",
+          type: "text",
+          column: { width: 90 },
+          search: { show: true },
         },
         platform: {
           title: "操作平台",
           type: "text",
-          column: { width: 100 },
+          column: { width: 100, ellipsis: true },
+          search: { show: true },
         },
         os: {
           title: "操作系统",
@@ -93,14 +90,41 @@ export default function ({ expose }) {
           type: "text",
           column: { width: 160 },
         },
-        createdTime: {
-          title: "创建时间",
+        createdName: {
+          title: "操作人",
+          type: "text",
+          column: { width: 100 },
+        },
+        startTime: {
+          title: "开始时间",
           type: "datetime",
+          column: { width: 180 },
           valueBuilder({ value, row, key }) {
             if (value != null) {
               row[key] = dayjs(value);
             }
           },
+        },
+        finishTime: {
+          title: "结束时间",
+          type: "datetime",
+          column: { width: 180 },
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = dayjs(value);
+            }
+          },
+        },
+        consumingTime: {
+          title: "消耗时间",
+          type: "text",
+          column: { width: 100 },
+        },
+        description: {
+          title: "描述信息",
+          type: ["textarea", "colspan"],
+          search: { show: false },
+          column: { width: 200 },
         },
       },
       form: {
@@ -111,11 +135,11 @@ export default function ({ expose }) {
           groups: {
             baseInfo: {
               header: "基础信息",
-              columns: ["principal", "name", "ip", "location"],
+              columns: ["ip", "location"],
             },
             reqInfo: {
               header: "请求信息",
-              columns: ["clientId", "platform", "os", "engine", "browser"],
+              columns: ["actionMethod", "httpMethod", "platform", "os", "engine", "browser"],
             },
             version: {
               header: "版号信息",
@@ -124,7 +148,7 @@ export default function ({ expose }) {
             otherInfo: {
               header: "其它信息",
               collapsed: false, //默认折叠
-              columns: ["createdTime"],
+              columns: ["startTime", "finishTime", "consumingTime", "createdName", "description"],
             },
           },
         },

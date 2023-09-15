@@ -105,7 +105,7 @@ export const treeProps = buildProps({
   },
 
   beforeRightClick: {
-    type: Function as PropType<(...arg: any) => ContextMenuItem[] | ContextMenuOptions>,
+    type: Function as PropType<(...arg: any) => Promise<ContextMenuItem[] | ContextMenuOptions>>,
     default: undefined,
   },
 
@@ -190,6 +190,6 @@ export interface TreeActionType {
   getSelectedNode: (
     key: KeyType,
     treeList?: TreeItem[],
-    selectNode?: TreeItem | null
+    selectNode?: TreeItem | null,
   ) => TreeItem | null;
 }

@@ -27,11 +27,9 @@ import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
 import { useMessage } from "@/hooks/web/useMessage";
 import { defHttp } from "@/utils/http/axios";
-import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
   name: "OptLogForm",
-  components: { PageWrapper },
   setup() {
     const { notification, createConfirm } = useMessage();
     // crud组件的ref

@@ -3,6 +3,12 @@
   .ant-col {
     width: auto;
   }
+  .fs-crud-search{
+    .ant-col-4{
+      flex: 0 0 20% !important;
+      max-width: 20% !important;;
+    }
+  }
 }
 // 修复最大化不显示表格的bug
 .vben-layout-content.full {
@@ -46,7 +52,6 @@
 }
 
 .page-layout-card {
-  background-color: #eee;
 
   .fs-page-header {
     background-color: #fff;
@@ -59,4 +64,10 @@
   }
 
 }
+.fs-layout-card>.box>.inner>.header {
+  margin: 0 10px 0 0;
+}
 
+.fs-layout-card>.box>.inner>.body {
+  margin: 5px 10px 0 0;
+}

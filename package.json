@@ -68,7 +68,7 @@
   "dependencies": {
     "@fast-crud/fast-crud": "^1.17.1",
     "@fast-crud/fast-extends": "^1.17.1",
-    "@fast-crud/ui-antdv": "^1.17.1",
+    "@fast-crud/ui-antdv4": "^1.17.1",
     "@fast-crud/ui-interface": "^1.17.1",
     "@ant-design/colors": "^7.0.0",
     "@ant-design/icons-vue": "^6.1.0",
@@ -80,7 +80,7 @@
     "@vueuse/core": "^9.13.0",
     "@vueuse/shared": "^9.13.0",
     "@zxcvbn-ts/core": "^2.2.1",
-    "ant-design-vue": "^3.2.17",
+    "ant-design-vue": "^4.0.2",
     "axios": "^1.3.5",
     "codemirror": "^5.65.12",
     "cropperjs": "^1.5.13",

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { dict } from "@fast-crud/fast-crud";
-import { GET, POST, PUT, DELETE } from "/src/api/service";
+import { GET, POST, PUT, DELETE } from "@/api/service";
 export default function ({ expose, props, ctx }) {
   console.log("expose,ctx", expose, ctx);
   let dictionaryId = props.modelValue;

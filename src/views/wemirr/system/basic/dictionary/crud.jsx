@@ -2,7 +2,7 @@ import { shallowRef } from "vue";
 import SubTable from "./sub-table/index.vue";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { GET, POST, PUT, DELETE } from "/src/api/service";
+import { GET, POST, PUT, DELETE } from "@/api/service";
 
 export default function () {
   return {

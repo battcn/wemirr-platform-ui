@@ -1,6 +1,6 @@
 import { dict, compute } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { GET, DELETE, POST, PUT } from "/src/api/service";
+import { GET, DELETE, POST, PUT } from "@/api/service";
 
 export default function ({ expose }) {
   return {

@@ -1,19 +1,17 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
+  <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding" />
-  </PageWrapper>
+  </fs-page>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
 import { useUserStore } from "@/store/modules/user";
-import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
-  name: "FeatureExpand",
-  components: { PageWrapper },
+  name: "GenerateCodePageList",
   setup() {
     // crud组件的ref
     const crudRef = ref();

@@ -20,9 +20,10 @@
       placement="right"
       :overlayClassName="`${prefixCls}-menu-popover`"
       v-else
-      :visible="getIsOpend"
-      @visible-change="handleVisibleChange"
+      :open="getIsOpend"
+      @on-open-change="handleVisibleChange"
       :overlayStyle="getOverlayStyle"
+      :overlayInnerStyle="{ padding: 0 }"
       :align="{ offset: [0, 0] }"
     >
       <div :class="getSubClass" v-bind="getEvents(false)">
@@ -70,15 +71,15 @@ import {
   onBeforeMount,
   inject,
 } from "vue";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { propTypes } from "/@/utils/propTypes";
+import { useDesign } from "@/hooks/web/useDesign";
+import { propTypes } from "@/utils/propTypes";
 import { useMenuItem } from "./useMenu";
 import { useSimpleRootMenuContext } from "./useSimpleMenuContext";
-import { CollapseTransition } from "/@/components/Transition";
+import { CollapseTransition } from "@/components/Transition";
 import Icon from "@/components/Icon/Icon.vue";
 import { Popover } from "ant-design-vue";
-import { isBoolean, isObject } from "/@/utils/is";
-import { mitt } from "/@/utils/mitt";
+import { isBoolean, isObject } from "@/utils/is";
+import { mitt } from "@/utils/mitt";
 
 const DELAY = 200;
 export default defineComponent({
@@ -286,7 +287,7 @@ export default defineComponent({
           if (props.name && Array.isArray(data)) {
             state.opened = (data as (string | number)[]).includes(props.name);
           }
-        }
+        },
       );
 
       rootMenuEmitter.on("on-update-active-name:submenu", (data: number[]) => {

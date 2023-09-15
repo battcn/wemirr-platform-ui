@@ -1,9 +1,10 @@
 import { compute, dict, utils, asyncCompute, useColumns } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { useMessage } from "/@/hooks/web/useMessage";
-import { GET, DELETE, POST, PUT } from "/src/api/service";
-import { getAreaTree } from "/@/api/sys/area";
+import { useMessage } from "@/hooks/web/useMessage";
+import { GET, DELETE, POST, PUT } from "@/api/service";
+import { getAreaTree } from "@/api/sys/area";
 import { ref } from "vue";
+
 const tenantRow = ref();
 const { buildFormOptions } = useColumns();
 const { notification, createConfirm } = useMessage();
@@ -279,7 +280,7 @@ export default function ({ expose }) {
               showSearch: {
                 filter: (inputValue, path) => {
                   return path.some(
-                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
                   );
                 },
               },
