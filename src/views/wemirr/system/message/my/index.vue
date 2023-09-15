@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
+  <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #pagination-left>
         <a-tooltip title="批量删除">
@@ -12,20 +12,18 @@
         </a-tooltip>
       </template>
     </fs-crud>
-  </PageWrapper>
+  </fs-page>
 </template>
 
 <script>
 import { defineComponent, ref, onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
-import { useMessage } from "/@/hooks/web/useMessage";
+import { useMessage } from "@/hooks/web/useMessage";
 import * as api from "./api";
-import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
   name: "MyMessage",
-  components: { PageWrapper },
   setup() {
     const { createMessage, notification, createConfirm } = useMessage();
     // crud组件的ref

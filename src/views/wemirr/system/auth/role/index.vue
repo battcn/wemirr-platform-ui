@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
+  <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #form_orgList="scope">
         <BasicTree
@@ -20,7 +20,7 @@
     </fs-crud>
     <distribution-user @register="registerBindUser" />
     <distribution-resource @register="registerBindResource" />
-  </PageWrapper>
+  </fs-page>
 </template>
 
 <script>

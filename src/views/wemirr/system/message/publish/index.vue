@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
+  <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #cell_description="scope">
         <a-tooltip placement="topLeft" :title="scope.row.description">
@@ -7,7 +7,7 @@
         </a-tooltip>
       </template>
     </fs-crud>
-  </PageWrapper>
+  </fs-page>
 </template>
 
 <script>

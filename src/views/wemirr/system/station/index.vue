@@ -12,7 +12,7 @@
         @select="handleSelect"
       />
     </Card>
-    <Card title="组织管理" class="w-full menu">
+    <Card title="组织管理" class="w-full station">
       <fs-crud ref="crudRef" v-bind="crudBinding" />
     </Card>
   </PageWrapper>
@@ -26,6 +26,7 @@ import { BasicTree } from "@/components/Tree";
 import { PageWrapper } from "@/components/Page";
 import { getOrgList } from "@/api/sys/org";
 import { Card } from "ant-design-vue";
+
 export default defineComponent({
   name: "StationForm",
   components: { Card, BasicTree, PageWrapper },
@@ -87,17 +88,21 @@ export default defineComponent({
 <style lang="less">
 .station {
   margin-left: 10px;
-  min-height: 1020px;
   .footer {
     .fs-crud-footer {
       padding: 20px 0;
     }
   }
-  .fs-toolbar {
-    margin-right: 10px;
-  }
   .ant-card-body {
-    margin-top: -12px;
+    padding: 0 !important;
+  }
+  .box {
+    //background-color: slategrey;
+  }
+  .fs-layout-card {
+    .fs-layout-card-body {
+      height: 93%;
+    }
   }
 }
 </style>

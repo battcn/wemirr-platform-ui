@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight dense class="bg-white m-3">
+  <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #cell_name="scope">
         <a-tooltip placement="top" :title="scope.row.name">
@@ -7,18 +7,16 @@
         </a-tooltip>
       </template>
     </fs-crud>
-  </PageWrapper>
+  </fs-page>
 </template>
 
 <script>
 import { defineComponent, ref, onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
-import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
   name: "TenantForm",
-  components: { PageWrapper },
   setup() {
     const crudRef = ref();
     const crudBinding = ref();

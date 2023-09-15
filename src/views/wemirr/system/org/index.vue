@@ -172,22 +172,6 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-.menu {
-  .ant-card-body {
-    padding: 10px;
-  }
-}
-.menu-button-table {
-  margin-left: 10px;
-
-  .fs-container {
-    padding-right: 5px;
-  }
-
-  .ant-card-body {
-    padding: 10px;
-  }
-}
 .ant-card-head {
   height: 60px;
 }

@@ -22,7 +22,7 @@ export default function ({ expose, distribution }) {
       },
       rowHandle: {
         show: true,
-        width: 170,
+        width: 220,
         dropdown: {
           // 操作列折叠
           atLeast: 2,
