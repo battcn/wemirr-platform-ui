@@ -133,7 +133,7 @@ const transform: AxiosTransform = {
         if (joinParamsToUrl) {
           config.url = setObjToUrlParams(
             config.url as string,
-            Object.assign({}, config.params, config.data)
+            Object.assign({}, config.params, config.data),
           );
         }
       } else {
@@ -230,7 +230,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // authentication schemes，e.g: Bearer
         authenticationScheme: "Bearer",
         // authenticationScheme: '',
-        timeout: 10 * 1000,
+        timeout: 20 * 1000,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
 
@@ -265,13 +265,13 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           withToken: true,
           retryRequest: {
             isOpenRetry: true,
-            count: 5,
-            waitTime: 100,
+            count: 3,
+            waitTime: 5000,
           },
         },
       },
-      opt || {}
-    )
+      opt || {},
+    ),
   );
 }
 
