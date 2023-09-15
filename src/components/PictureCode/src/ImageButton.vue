@@ -3,35 +3,38 @@
     :fallback="code404"
     :height="'40px'"
     :preview="false"
-    :src="imgSrc"
+    :src="imgData.src"
+    :captchaId="imgData.captchaId"
     :width="'130px'"
     @click="getPicture"
   />
 </template>
 <script lang="ts">
 import { getCaptcha } from "@/api/sys/user";
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, reactive } from "vue";
 import { Image } from "ant-design-vue";
 import code404 from "@/assets/images/picture_code_404.png";
 
 export default defineComponent({
   name: "ImageButton",
   components: { Image },
-  emits: ["captchaId"],
   setup(_props, { emit }) {
-    const imgSrc = ref("");
+    const imgData = reactive({
+      src: "",
+      captchaId: "",
+    });
     /**
      * @description: 获取二维码
      */
     async function getPicture() {
       const pictureData = await getCaptcha();
-      imgSrc.value = pictureData.imageData;
-      emit("captchaId", pictureData.captchaId);
+      imgData.src = pictureData.imageData;
+      imgData.captchaId = pictureData.captchaId;
     }
     onMounted(() => {
       getPicture();
     });
-    return { getPicture, imgSrc, code404 };
+    return { getPicture, imgData, code404 };
   },
 });
 </script>

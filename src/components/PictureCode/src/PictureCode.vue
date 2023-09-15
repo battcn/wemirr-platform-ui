@@ -1,7 +1,7 @@
 <template>
   <a-input :class="prefixCls" :size="size" :value="code" v-bind="$attrs">
     <template #addonAfter>
-      <ImageButton ref="pictureRef" :size="size" class="imgbutton" @codeId="getCodeId" />
+      <ImageButton ref="pictureRef" :size="size" class="imgbutton" />
     </template>
   </a-input>
 </template>
@@ -15,10 +15,6 @@ const props = {
   value: { type: String },
   size: { type: String, validator: (v) => ["default", "large", "small"].includes(v) },
   count: { type: Number, default: 60 },
-  sendCodeApi: {
-    type: Function as PropType<() => Promise<boolean>>,
-    default: null,
-  },
 };
 
 export default defineComponent({
@@ -26,18 +22,14 @@ export default defineComponent({
   components: { ImageButton },
   inheritAttrs: false,
   props,
-  emits: ["codeId"],
   setup(props, { emit }) {
     const { prefixCls } = useDesign("countdown-input");
     const [code] = useRuleFormItem(props);
     const pictureRef = ref();
-    function getCodeId(codeId) {
-      emit("codeId", codeId);
-    }
     function refreshCode() {
       pictureRef.value.getPicture();
     }
-    return { prefixCls, code, getCodeId, refreshCode, pictureRef };
+    return { prefixCls, code, refreshCode, pictureRef };
   },
 });
 </script>

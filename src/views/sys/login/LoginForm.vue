@@ -34,7 +34,6 @@
         class="fix-auto-fill"
         ref="pictureRef"
         autocomplete="off"
-        @code-id="getCodeId"
         v-model:value="formData.code"
         placeholder="验证码"
       />
@@ -156,8 +155,6 @@ import { useMessage } from "@/hooks/web/useMessage";
 import { useUserStore } from "@/store/modules/user";
 import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from "./useLogin";
 import { useDesign } from "@/hooks/web/useDesign";
-import { buildUUID } from "@/utils/uuid";
-import { getCaptcha } from "@/api/sys/user";
 import { PictureCode } from "@/components/PictureCode";
 // const AAlert = Alert;
 const ACol = Col;
@@ -181,19 +178,11 @@ const formData = reactive({
   username: "admin",
   password: "123456",
   code: "",
-  captchaId: buildUUID(),
 });
 
 const { validForm } = useFormValid(formRef);
 
 const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
-const formState = reactive({
-  loading: false,
-  captchaSrc: "",
-  showCaptcha: true,
-  // isMultiTenant: globSetting.multiTenantType !== 'NONE',
-  // showCaptcha: globSetting.showCaptcha === undefined || globSetting.showCaptcha === 'true',
-});
 
 onMounted(async () => {});
 
@@ -212,7 +201,7 @@ async function handleLogin() {
       tenant_code: data.tenantCode,
       auth_type: "vc",
       vc_code: data.code,
-      vc_token: formData.captchaId,
+      vc_token: pictureRef?.value?.pictureRef?.imgData?.captchaId,
       goHome: true,
       mode: "none", //不要默认的错误提示
     });
@@ -233,8 +222,5 @@ async function handleLogin() {
   } finally {
     loading.value = false;
   }
-}
-async function getCodeId(captchaId) {
-  formData.captchaId = captchaId;
 }
 </script>
