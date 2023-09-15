@@ -2,12 +2,14 @@ import { defHttp } from "@/utils/http/axios";
 import { FastCrud, setLogger } from "@fast-crud/fast-crud";
 import "@fast-crud/fast-crud/dist/style.css";
 import { FsExtendsEditor, FsExtendsJson, FsExtendsUploader } from "@fast-crud/fast-extends";
+import { useLocale } from "@/locales/useLocale";
 import "@fast-crud/fast-extends/dist/style.css";
 import UiAntdv from "@fast-crud/ui-antdv";
 import { useCrudPermission } from "@/plugin/permission/use-crud-permission";
-// import { GetGlobPreviewUrl } from '@/api/sysPrefix'
-// import { useGlobSetting } from '@/hooks/setting'
+import { computed } from "vue";
+import { LOCALE } from "@/settings/localeSetting";
 
+const { getLocale } = useLocale();
 // const globSetting = useGlobSetting()
 // import { isDevMode } from '/@/utils/env'
 // 导出 setupFastCrud
@@ -99,6 +101,9 @@ export default function (app, i18n) {
           wrapper: {
             is: "a-drawer",
           },
+          layout: computed(() => {
+            return getLocale.value === LOCALE.ZH_CN ? "horizontal" : "vertical";
+          }),
         },
       };
       const crudPermission = useCrudPermission(context);
