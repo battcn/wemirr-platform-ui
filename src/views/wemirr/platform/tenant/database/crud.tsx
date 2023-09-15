@@ -1,4 +1,4 @@
-import { dict, compute } from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { GET, DELETE, POST, PUT } from "@/api/service";
 
@@ -12,13 +12,6 @@ export default function ({ expose }) {
         delRequest: async ({ row }) => await DELETE(`/authority/databases/${row.id}`),
       },
       rowHandle: { fixed: "right" },
-      table: {
-        scroll: {
-          //需要设置它，否则滚动条拖动时，表头不会动
-          fixed: true,
-          x: 1400,
-        },
-      },
       columns: {
         id: {
           title: "ID",
@@ -27,8 +20,9 @@ export default function ({ expose }) {
           column: { show: false },
         },
         poolName: {
-          title: "连接池名",
+          title: "连接池",
           type: ["text", "colspan"],
+          search: { show: true },
           column: { ellipsis: true, width: 200 },
           form: {
             wrapperCol: { span: 9 },
@@ -40,7 +34,6 @@ export default function ({ expose }) {
           title: "用户名",
           type: "text",
           column: { width: 155 },
-          search: { show: true, fixed: "left" },
           form: {
             rules: [
               { required: true, message: "请输入账号名" },

@@ -59,23 +59,24 @@ export default function ({ expose }) {
         delRequest: async ({ row }) => await DELETE(`/authority/tenants/${row.id}`),
       },
       rowHandle: {
-        width: 210,
+        width: 280,
         fixed: "right",
         dropdown: {
           // 操作列折叠
-          // atLeast: 2,
+          atLeast: 1,
           more: {
             size: "small",
-            text: "",
-            icon: "gg:more-o",
+            text: "更多",
+            // icon: "gg:more-o",
           },
         },
         buttons: {
           remove: { order: 5 },
           config: {
             type: "link",
-            title: "数据源配置",
-            icon: "icomoon-free:infinite",
+            title: "连接配置",
+            text: "连接配置",
+            // icon: "icomoon-free:infinite",
             size: "small",
             order: 3,
             async click({ row }) {
@@ -90,8 +91,9 @@ export default function ({ expose }) {
           },
           init: {
             type: "link",
-            title: "初始化数据",
-            icon: "bx:bx-refresh",
+            title: "数据初始",
+            text: "数据初始",
+            // icon: "bx:bx-refresh",
             size: "small",
             order: 4,
             click({ row }) {
