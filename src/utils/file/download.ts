@@ -35,7 +35,7 @@ export function downloadByBase64(buf: string, filename: string, mime?: string, b
  */
 export function downloadByData(data: BlobPart, filename: string, mime?: string, bom?: BlobPart) {
   const blobData = typeof bom !== "undefined" ? [bom, data] : [data];
-  const blob = new Blob(blobData, { type: mime || "application/octet-stream" });
+  const blob = new Blob(blobData, { type: mime || "client/octet-stream" });
 
   const blobURL = window.URL.createObjectURL(blob);
   const tempLink = document.createElement("a");

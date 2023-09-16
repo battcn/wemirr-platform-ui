@@ -25,7 +25,7 @@ export default function (app, i18n) {
     async dictRequest({ url }) {
       return await defHttp.request({ url });
     },
-    commonOptions(context) {
+    commonOptions: function (context) {
       const opts = {
         toolbar: {
           // toolbar.buttons.export.show:false 显示隐藏
@@ -46,7 +46,7 @@ export default function (app, i18n) {
           width: 180,
           align: "center",
           // 固定右侧 不建议设置成全局
-          // fixed: 'right',
+          fixed: "right",
           buttons: {
             view: { size: "small", type: "link", icon: null },
             edit: { size: "small", type: "link", icon: null },
@@ -102,8 +102,13 @@ export default function (app, i18n) {
           wrapper: {
             is: "a-drawer",
           },
+          // col: { span: 12 },
+          labelCol: {
+            width: 500,
+            style: "width: 500px",
+          },
+          // wrapperCol: { span: 12 },
           layout: computed(() => {
-            console.log("getLocale.value", getLocale.value);
             return getLocale.value === LOCALE.ZH_CN ? "horizontal" : "vertical";
           }),
         },

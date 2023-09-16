@@ -20,7 +20,7 @@ export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none"
   data.login_type = "password";
   data.client_id = "messaging-client";
   data.client_secret = "123456";
-  data.scope = "web";
+  data.scope = "platform";
 
   return defHttp.post<TokenInfo>(
     {
