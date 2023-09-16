@@ -78,8 +78,6 @@ export default function ({ expose }) {
           },
           form: {
             col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 21 },
           },
         },
         createdTime: {

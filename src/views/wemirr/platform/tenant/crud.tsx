@@ -291,8 +291,11 @@ export default function ({ expose }) {
         },
         address: {
           title: "地址",
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
           column: { ellipsis: true, show: false },
+          form:{
+            col: { span: 24 },
+          }
         },
         creditCode: {
           title: "信用代码",
@@ -316,13 +319,19 @@ export default function ({ expose }) {
         },
         webSite: {
           title: "租户网址",
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
           column: { ellipsis: true, show: false },
+          form: {
+            col: { span: 24 },
+          },
         },
         description: {
           title: "描述信息",
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
           column: { ellipsis: true, show: false },
+          form: {
+            col: { span: 24 },
+          },
         },
         logo: {
           title: "LOGO",

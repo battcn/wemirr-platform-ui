@@ -68,7 +68,10 @@ export default function () {
         },
         description: {
           title: "描述",
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
+          form: {
+            col: { span: 24 },
+          },
         },
         createdTime: {
           title: "创建时间",
@@ -83,8 +86,11 @@ export default function () {
         id: {
           title: "字典信息",
           column: { show: false },
-          type: ["text-area", "colspan"],
-          form: { show: false },
+          type: ["textarea"],
+          form: {
+            show: false,
+            col: { span: 24 },
+          },
           viewForm: {
             show: true,
             // 嵌套表格字段

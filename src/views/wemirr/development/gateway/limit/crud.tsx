@@ -145,8 +145,6 @@ export default function ({ expose }) {
           },
           form: {
             col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 21 },
           },
         },
         description: {
@@ -155,8 +153,6 @@ export default function ({ expose }) {
           search: { show: false, labelCol: { span: 4 } },
           form: {
             col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 21 },
           },
           column: {
             ellipsis: true,

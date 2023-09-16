@@ -102,12 +102,20 @@ export default function (app, i18n) {
           wrapper: {
             is: "a-drawer",
           },
-          // col: { span: 12 },
-          labelCol: {
-            width: 500,
-            style: "width: 500px",
+          wrapperCol: {
+            span: null,
           },
-          // wrapperCol: { span: 12 },
+          labelCol: {
+            //固定label宽度
+            span: null,
+            style: {
+              minWidth: "90px",
+            },
+          },
+          // labelCol: {
+          //   span: null,
+          //   style: { minWidth: "100px" },
+          // },
           layout: computed(() => {
             return getLocale.value === LOCALE.ZH_CN ? "horizontal" : "vertical";
           }),

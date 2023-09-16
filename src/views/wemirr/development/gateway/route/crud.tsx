@@ -160,19 +160,28 @@ export default function ({ expose }) {
         description: {
           title: "描述",
           column: { ellipsis: true, width: 200 },
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
+          form: {
+            col: { span: 24 },
+          },
         },
         predicates: {
           title: "条件过滤",
-          type: ["text", "colspan"],
+          type: ["text"],
           column: { show: false },
+          form: {
+            col: { span: 24 },
+          },
         },
         filters: {
           title: "过滤器",
-          type: ["text", "colspan"],
+          type: ["text"],
           column: {
             show: false,
             component: { name: "fs-values-format" },
+          },
+          form: {
+            col: { span: 24 },
           },
         },
         createdTime: {

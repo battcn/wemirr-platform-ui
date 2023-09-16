@@ -191,8 +191,6 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           search: { show: false, labelCol: { span: 4 } },
           form: {
             col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 21 },
           },
           column: {
             ellipsis: true,

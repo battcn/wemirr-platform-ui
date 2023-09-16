@@ -123,15 +123,16 @@ export default function ({ expose, nodeRef }) {
               },
             },
             col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 9 },
             rules: [{ required: true, message: "组织名称不能为空" }],
           },
         },
         description: {
           title: "描述",
           search: { show: false },
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
+          form: {
+            col: { span: 24 },
+          },
           column: { width: 150, ellipsis: true },
         },
         createdTime: {

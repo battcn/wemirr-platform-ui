@@ -135,7 +135,10 @@ export default function ({ expose, distribution }) {
           title: "描述",
           search: { show: false },
           column: { width: 170, ellipsis: true },
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
+          form: {
+            col: { span: 24 },
+          },
         },
         orgList: {
           search: { show: false },

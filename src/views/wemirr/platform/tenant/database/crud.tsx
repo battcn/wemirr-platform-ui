@@ -117,9 +117,10 @@ export default function ({ expose }) {
         // },
         host: {
           title: "Host",
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
           column: { show: true, width: 120, ellipsis: true },
           form: {
+            col: { span: 24 },
             helper: "Host格式 ip:port ",
             rules: [
               { required: true, message: "Host不能为空" },
@@ -142,8 +143,11 @@ export default function ({ expose }) {
         },
         description: {
           title: "描述信息",
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
           column: { ellipsis: true, show: false },
+          form: {
+            col: { span: 24 },
+          },
         },
         createdTime: {
           title: "创建时间",

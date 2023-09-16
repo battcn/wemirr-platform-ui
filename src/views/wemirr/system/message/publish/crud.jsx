@@ -25,14 +25,14 @@ export default function ({ expose, searchRemote }) {
         },
       },
       rowHandle: {
-        width: 220,
+        width: 250,
         buttons: {
           publish: {
-            icon: "codicon:repo-force-push",
+            // icon: "codicon:repo-force-push",
             type: "link",
-            text: null,
+            text: "消息推送",
             size: "small",
-            title: "通知",
+            title: "消息推送",
             order: 4,
             async click(context) {
               await api.PublishMessage(context.row.id).then((ret) => {
@@ -128,7 +128,7 @@ export default function ({ expose, searchRemote }) {
         },
         content: {
           title: "消息内容",
-          type: ["editor-wang", "colspan"],
+          type: ["editor-wang"],
           column: {
             ellipsis: true,
           },
@@ -136,6 +136,7 @@ export default function ({ expose, searchRemote }) {
             disabled: true,
           },
           form: {
+            col: { span: 24 },
             rules: [{ required: true, message: "消息内容不能为空" }],
             component: {
               uploader: {
@@ -158,8 +159,6 @@ export default function ({ expose, searchRemote }) {
           column: { ellipsis: true },
           form: {
             col: { span: 24 },
-            labelCol: { span: 2 },
-            wrapperCol: { span: 21 },
           },
         },
         createdName: {

@@ -167,10 +167,13 @@ export default function ({ expose }) {
         },
         redirectUris: {
           title: "回调地址",
-          type: ["textarea"],
+          type: "textarea",
           column: { ellipsis: true, show: false },
           form: {
             rules: [{ required: true, message: "请填写回调地址" }],
+            col: {
+              span: 24,
+            },
           },
         },
       },
