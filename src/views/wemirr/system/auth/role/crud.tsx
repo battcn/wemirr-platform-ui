@@ -1,6 +1,6 @@
-import { dict, compute } from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { usePermission } from "/@/hooks/web/usePermission";
+import { usePermission } from "@/hooks/web/usePermission";
 import { GET, POST, PUT, DELETE } from "@/api/service";
 
 export default function ({ expose, distribution }) {
@@ -30,9 +30,6 @@ export default function ({ expose, distribution }) {
             size: "small",
             text: "",
             icon: "gg:more-o",
-            // show:
-            //   hasPermission('role:management:distribution_user') ||
-            //   hasPermission('role:management:distribution_res'),
           },
         },
         buttons: {
@@ -40,7 +37,7 @@ export default function ({ expose, distribution }) {
             text: "分配用户",
             size: "small",
             order: 4,
-            show: hasPermission("role:management:distribution_user"),
+            show: hasPermission("sys:roles:distribution:user"),
             async click(context) {
               await distribution.userModal(context.record.id);
             },
@@ -49,7 +46,7 @@ export default function ({ expose, distribution }) {
             text: "分配权限",
             size: "small",
             order: 5,
-            show: hasPermission("role:management:distribution_res"),
+            show: hasPermission("sys:roles:distribution:res"),
             async click(context) {
               await distribution.resourceModal(context.record.id);
             },
