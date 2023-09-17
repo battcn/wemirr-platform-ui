@@ -22,7 +22,7 @@ export default defineComponent({
     const crudBinding = ref();
     const { expose } = useExpose({ crudRef, crudBinding });
     const { crudOptions } = createCrudOptions({ expose });
-    useCrud({ expose, crudOptions, permission: "user:management" });
+    useCrud({ expose, crudOptions, permission: "sys:users" });
 
     // 页面打开后获取列表数据
     onMounted(() => {

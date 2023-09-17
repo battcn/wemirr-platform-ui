@@ -39,7 +39,7 @@ export default defineComponent({
     const crudBinding = ref();
     const { expose } = useExpose({ crudRef, crudBinding });
     const { crudOptions } = createCrudOptions({ expose, nodeRef });
-    useCrud({ expose, crudOptions, permission: "station:management" });
+    useCrud({ expose, crudOptions, permission: "sys:station" });
 
     // 页面打开后获取列表数据
     onMounted(() => {
@@ -62,9 +62,6 @@ export default defineComponent({
     }
     function onTreeNodeCheck(keys, event) {
       console.log("keys event", keys, event);
-      if (!event.checked) {
-      } else {
-      }
     }
     function getTree() {
       const tree = unref(terrDataRef);

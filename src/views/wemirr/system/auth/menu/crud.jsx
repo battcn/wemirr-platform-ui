@@ -13,16 +13,6 @@ export default function ({ expose, nodeRef }) {
         editRequest: async ({ form }) => await api.UpdateObj(form),
         delRequest: async ({ row }) => await api.DelObj(row.id),
       },
-      rowHandle: {
-        show: true,
-        width: 120,
-        fixed: "right",
-        dropdown: {
-          // 操作列折叠
-          atLeast: 1,
-          more: { size: "small", text: "", icon: "gg:more-o" },
-        },
-      },
       toolbar: {
         compact: true,
         buttons: { search: { show: false } },
@@ -97,7 +87,12 @@ export default function ({ expose, nodeRef }) {
         description: {
           title: "描述",
           column: { show: false, ellipsis: true },
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
+          form: {
+            col: {
+              span: 24,
+            },
+          },
         },
       },
     },

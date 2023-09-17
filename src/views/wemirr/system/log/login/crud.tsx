@@ -1,5 +1,6 @@
 import { GET } from "@/api/service";
 import dayjs from "dayjs";
+import { dict } from "@fast-crud/fast-crud";
 
 export default function ({ expose }) {
   const pageRequest = async (query) => await GET("/authority/login_logs", query);
@@ -60,38 +61,49 @@ export default function ({ expose }) {
         },
         clientId: {
           title: "应用标识",
-          type: "text",
-          column: { width: 100 },
+          type: "dict-radio",
+          column: { width: 100, component: { color: "auto" } },
         },
         platform: {
           title: "操作平台",
-          type: "text",
-          column: { width: 100 },
+          type: "dict-select",
+          dict: dict({
+            data: [
+              { value: "Mac", label: "Mac" },
+              { value: "Windows", label: "Windows" },
+              { value: "Android", label: "Android" },
+              { value: "iPhone", label: "iPhone" },
+              { value: "Linux", label: "Linux" },
+              { value: "Java", label: "Java" },
+            ],
+          }),
+          column: { width: 100, component: { color: "auto" } },
+          search: { show: true },
         },
         os: {
           title: "操作系统",
-          type: "text",
-          column: { width: 100, ellipsis: true },
+          type: "dict-radio",
+          column: { width: 100, ellipsis: true, component: { color: "auto" } },
         },
         engine: {
           title: "引擎类型",
-          type: "text",
-          column: { width: 100 },
+          type: "dict-radio",
+          column: { width: 100, component: { color: "auto" } },
         },
         engineVersion: {
           title: "引擎版本",
-          type: "text",
-          column: { width: 100 },
+          type: "dict-radio",
+          column: { width: 100, component: { color: "auto" } },
         },
         browser: {
           title: "浏览器",
-          type: "text",
-          column: { width: 100 },
+          type: "dict-radio",
+          column: { width: 100, component: { color: "auto" } },
         },
         browserVersion: {
           title: "浏览器版本",
-          type: "text",
-          column: { width: 160 },
+          type: "dict-radio",
+          column: { width: 160, component: { color: "auto" } },
         },
         createdTime: {
           title: "创建时间",

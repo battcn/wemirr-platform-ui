@@ -1,6 +1,6 @@
 <template>
   <PageWrapper contentClass="flex">
-    <Card class="w-1/3 menu">
+    <Card class="w-1/3 menu" style="width: 25%">
       <template #extra>
         <a-button @click="resetFields">新增根节点</a-button>
       </template>
@@ -15,7 +15,7 @@
         :actionList="actionList"
       />
     </Card>
-    <Card title="菜单信息" class="w-1/2 menu" style="margin-left: 10px">
+    <Card title="菜单信息" class="w-1/2 menu" style="margin-left: 5px; width: 45%">
       <BasicForm @register="register" />
     </Card>
     <Card title="资源信息" class="w-1/2 menu-button-table">
@@ -40,7 +40,7 @@ import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
 
 export default defineComponent({
-  name: "AccountManagement",
+  name: "MenuPage",
   components: { Card, BasicForm, BasicTree, PageWrapper },
   setup() {
     const { notification, createConfirm } = useMessage();
@@ -77,10 +77,12 @@ export default defineComponent({
           text: "提交",
         },
         submitFunc: customSubmitFunc,
-      }
+        submit: customSubmitFunc,
+      },
     );
 
     async function customSubmitFunc() {
+      alert();
       try {
         await validate();
         await setProps({ submitButtonOptions: { loading: true } });
@@ -198,14 +200,15 @@ export default defineComponent({
   .ant-card-body {
     padding: 10px;
   }
+  //width: 40%;
 }
 .menu-button-table {
-  margin-left: 10px;
+  margin-left: 5px;
   .fs-container {
     padding-right: 5px;
   }
   .ant-card-body {
-    padding: 10px;
+    padding: 5px !important;
   }
 }
 </style>

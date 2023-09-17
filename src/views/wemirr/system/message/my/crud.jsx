@@ -20,8 +20,8 @@ export default function ({ expose }) {
         },
       },
       request: {
-        pageRequest: async (query) => await GET(`/authority/station_messages/my`, query),
-        delRequest: async ({ row }) => await DELETE(`/authority/station_messages/my/${row.id}`),
+        pageRequest: async (query) => await GET(`/authority/site_messages/page`, query),
+        delRequest: async ({ row }) => await DELETE(`/authority/site_messages/${row.id}`),
       },
       toolbar: {},
       actionbar: {

@@ -1,7 +1,7 @@
-import { GET, request } from "@/api/service";
+import { defHttp } from "@/utils/http/axios";
 
 export function GetList(query) {
-  return GET("/authority/stations", query);
+  return defHttp.get({ url: "/authority/stations", params: query });
 }
 
 export function AddObj(obj) {

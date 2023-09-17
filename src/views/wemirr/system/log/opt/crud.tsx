@@ -1,6 +1,7 @@
 import { GET } from "@/api/service";
 // import { compute } from '@fast-crud/fast-crud';
 import dayjs from "dayjs";
+import {dict} from "@fast-crud/fast-crud";
 
 export default function ({ expose }) {
   const pageRequest = async (query) => await GET("/authority/opt_logs", query);
@@ -61,39 +62,49 @@ export default function ({ expose }) {
         },
         platform: {
           title: "操作平台",
-          type: "text",
-          column: { width: 100, ellipsis: true },
+          type: "dict-select",
+          dict: dict({
+            data: [
+              { value: "Mac", label: "Mac" },
+              { value: "Windows", label: "Windows" },
+              { value: "Android", label: "Android" },
+              { value: "iPhone", label: "iPhone" },
+              { value: "Linux", label: "Linux" },
+              { value: "Java", label: "Java" },
+            ],
+          }),
+          column: { width: 100, component: { color: "auto" } },
           search: { show: true },
         },
         os: {
           title: "操作系统",
-          type: "text",
-          column: { width: 100, ellipsis: true },
+          type: "dict-radio",
+          column: { width: 100, ellipsis: true, component: { color: "auto" } },
         },
         engine: {
           title: "引擎类型",
-          type: "text",
-          column: { width: 100 },
+          type: "dict-radio",
+          column: { width: 100, component: { color: "auto" } },
         },
         engineVersion: {
           title: "引擎版本",
-          type: "text",
-          column: { width: 100 },
+          type: "dict-radio",
+          column: { width: 100, component: { color: "auto" } },
         },
         browser: {
           title: "浏览器",
-          type: "text",
-          column: { width: 100 },
+          type: "dict-radio",
+          column: { width: 100, component: { color: "auto" } },
         },
         browserVersion: {
           title: "浏览器版本",
-          type: "text",
-          column: { width: 160 },
+          type: "dict-radio",
+          column: { width: 160, component: { color: "auto" } },
         },
         createdName: {
           title: "操作人",
           type: "text",
-          column: { width: 100 },
+          column: { width: 180 },
         },
         startTime: {
           title: "开始时间",
@@ -122,9 +133,14 @@ export default function ({ expose }) {
         },
         description: {
           title: "描述信息",
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
           search: { show: false },
           column: { width: 200 },
+          form: {
+            col: {
+              span: 24,
+            },
+          },
         },
       },
       form: {
