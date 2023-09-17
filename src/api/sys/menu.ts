@@ -15,7 +15,7 @@ export const getMenuList = () => {
 
 export const GetPermissionList = (roleId: number) => {
   return defHttp.get<GetPermissionListModel>({
-    url: `/authority/roles/${roleId}/resources/permissions`,
+    url: `/authority/roles/${roleId}/permissions`,
     params: { roleId: roleId },
   });
 };

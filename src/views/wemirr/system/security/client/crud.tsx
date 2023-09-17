@@ -21,8 +21,7 @@ export default function ({ expose }) {
           };
           await POST(`/authority/registered_client_refs`, form);
         },
-        delRequest: async ({ row }) =>
-          await DELETE(`/authority/registered_client_refs/${row.clientId}`),
+        delRequest: async ({ row }) => await DELETE(`/authority/registered_client_refs/${row.id}`),
       },
       table: {
         rowKey: "clientId",

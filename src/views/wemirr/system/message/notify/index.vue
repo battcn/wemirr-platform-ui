@@ -63,7 +63,11 @@ export default defineComponent({
     const { crudOptions } = createCrudOptions({ expose, searchRemote });
     // 初始化crud配置
     // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-    const { resetCrudOptions } = useCrud({ expose, crudOptions });
+    const { resetCrudOptions } = useCrud({
+      expose,
+      crudOptions,
+      permission: "sys:site_notifies",
+    });
     // 你可以调用此方法，重新初始化crud配置
     // resetCrudOptions(options)
     // 页面打开后获取列表数据

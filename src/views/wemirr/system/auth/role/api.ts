@@ -15,14 +15,6 @@ export function DistributionUser(obj) {
   });
 }
 
-export function GetPermissionList(roleId) {
-  return defHttp.request({
-    url: `/authority/roles/${roleId}/resources/permissions`,
-    method: "get",
-    params: roleId,
-  });
-}
-
 export function DistributionRoleAuthority(obj) {
   return defHttp.request({
     url: `/authority/roles/${obj.roleId}/authority`,
