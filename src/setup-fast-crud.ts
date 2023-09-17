@@ -70,7 +70,7 @@ export default function (app, i18n) {
           transformQuery: ({ page, form, sort }) => {
             const order = sort == null ? {} : { column: sort.prop, asc: sort.asc };
             const currentPage = page.currentPage ?? 1;
-            const limit = page.pageSize ?? 15;
+            const limit = page.pageSize ?? 20;
             const offset = limit * (currentPage - 1);
             return {
               offset: offset,

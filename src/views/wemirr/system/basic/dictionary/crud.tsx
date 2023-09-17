@@ -1,5 +1,6 @@
 import { shallowRef } from "vue";
-import SubTable from "./sub-table/index.vue";
+import DictItemTable from "./item/index.vue";
+
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { GET, POST, PUT, DELETE } from "@/api/service";
@@ -96,7 +97,7 @@ export default function () {
             // 嵌套表格字段
             component: {
               //局部引用子表格，要用shallowRef包裹
-              name: shallowRef(SubTable),
+              name: shallowRef(DictItemTable),
               vModel: "modelValue",
             },
           },
