@@ -16,7 +16,7 @@ import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
 
 export default defineComponent({
-  name: "TenantForm",
+  name: "TenantPage",
   setup() {
     const crudRef = ref();
     const crudBinding = ref();

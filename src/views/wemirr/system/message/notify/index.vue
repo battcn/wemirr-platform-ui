@@ -49,8 +49,7 @@ function useSearchRemote() {
 }
 
 export default defineComponent({
-  name: "PublishMessage",
-  components: { PageWrapper },
+  name: "SiteNotifyPage",
   setup() {
     // crud组件的ref
     const crudRef = ref();

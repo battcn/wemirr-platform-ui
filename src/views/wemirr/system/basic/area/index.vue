@@ -44,7 +44,7 @@ import * as api from "./api";
 import { PlusOutlined } from "@ant-design/icons-vue";
 
 export default defineComponent({
-  name: "OrgForm",
+  name: "SysAreaPage",
   components: { Card, BasicForm, BasicTree, PageWrapper },
   setup() {
     const { notification, createErrorModal, createConfirm } = useMessage();

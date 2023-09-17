@@ -27,9 +27,8 @@
 import { defineComponent, ref, onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
-// import { defHttp } from '@/utils/http/axios'
-import { BasicTree } from "/@/components/Tree";
-import { useModal } from "/@/components/Modal";
+import { BasicTree } from "@/components/Tree";
+import { useModal } from "@/components/Modal";
 import DistributionUser from "./DistributionUser.vue";
 import DistributionResource from "./DistributionResource.vue";
 import * as api from "./api";
@@ -60,8 +59,8 @@ function useDistribution() {
 }
 
 export default defineComponent({
-  name: "SlotsForm",
-  components: { PageWrapper, DistributionUser, DistributionResource, BasicTree },
+  name: "SysRolePage",
+  components: { DistributionUser, DistributionResource, BasicTree },
   setup() {
     // crud组件的ref
     const crudRef = ref();

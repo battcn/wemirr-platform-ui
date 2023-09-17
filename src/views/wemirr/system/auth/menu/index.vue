@@ -40,7 +40,7 @@ import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
 
 export default defineComponent({
-  name: "MenuPage",
+  name: "SysMenuPage",
   components: { Card, BasicForm, BasicTree, PageWrapper },
   setup() {
     const { notification, createConfirm } = useMessage();

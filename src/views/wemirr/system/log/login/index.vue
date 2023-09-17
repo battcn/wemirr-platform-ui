@@ -11,7 +11,7 @@ import createCrudOptions from "./crud";
 
 //此处为组件定义
 export default defineComponent({
-  name: "FsCrudFirst",
+  name: "LoginLogPage",
   setup() {
     const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions, context: {} });
     // 页面打开后获取列表数据

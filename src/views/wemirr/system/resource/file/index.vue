@@ -44,8 +44,8 @@ import { uploadApi } from "/@/api/sys/upload";
 import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({
-  name: "FileForm",
-  components: { PageWrapper, BasicUpload },
+  name: "ResourceFilePage",
+  components: { BasicUpload },
   setup() {
     const { notification } = useMessage();
     const crudRef = ref();

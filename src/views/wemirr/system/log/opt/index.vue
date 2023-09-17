@@ -29,7 +29,7 @@ import { useMessage } from "@/hooks/web/useMessage";
 import { defHttp } from "@/utils/http/axios";
 
 export default defineComponent({
-  name: "OptLogForm",
+  name: "OptLogPage",
   setup() {
     const { notification, createConfirm } = useMessage();
     // crud组件的ref

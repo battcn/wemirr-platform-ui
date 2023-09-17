@@ -23,7 +23,7 @@ import { useMessage } from "@/hooks/web/useMessage";
 import * as api from "./api";
 
 export default defineComponent({
-  name: "MyMessage",
+  name: "SiteMessagePage",
   setup() {
     const { createMessage, notification, createConfirm } = useMessage();
     // crud组件的ref
