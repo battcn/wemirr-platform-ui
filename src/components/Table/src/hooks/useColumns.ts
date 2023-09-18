@@ -3,11 +3,11 @@ import type { PaginationProps } from "../types/pagination";
 import type { ComputedRef } from "vue";
 import { computed, Ref, ref, reactive, toRaw, unref, watch } from "vue";
 import { renderEditCell } from "../components/editable";
-import { usePermission } from "/@/hooks/web/usePermission";
-import { useI18n } from "/@/hooks/web/useI18n";
-import { isArray, isBoolean, isFunction, isMap, isString } from "/@/utils/is";
+import { usePermission } from "@/hooks/web/usePermission";
+import { useI18n } from "@/hooks/web/useI18n";
+import { isArray, isBoolean, isFunction, isMap, isString } from "@/utils/is";
 import { cloneDeep, isEqual } from "lodash-es";
-import { formatToDate } from "/@/utils/dateUtil";
+import { formatToDate } from "@/utils/dateUtil";
 import { ACTION_COLUMN_FLAG, DEFAULT_ALIGN, INDEX_COLUMN_FLAG, PAGE_SIZE } from "../const";
 
 function handleItem(item: BasicColumn, ellipsis: boolean) {
@@ -15,7 +15,7 @@ function handleItem(item: BasicColumn, ellipsis: boolean) {
   item.align = item.align || DEFAULT_ALIGN;
   if (ellipsis) {
     if (!key) {
-      item.key = dataIndex;
+      item.key = typeof dataIndex == "object" ? dataIndex.join("-") : dataIndex;
     }
     if (!isBoolean(item.ellipsis)) {
       Object.assign(item, {
@@ -40,7 +40,7 @@ function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) 
 function handleIndexColumn(
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
-  columns: BasicColumn[]
+  columns: BasicColumn[],
 ) {
   const { t } = useI18n();
 
@@ -102,7 +102,7 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
 
 export function useColumns(
   propsRef: ComputedRef<BasicTableProps>,
-  getPaginationRef: ComputedRef<boolean | PaginationProps>
+  getPaginationRef: ComputedRef<boolean | PaginationProps>,
 ) {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
   let cacheColumns = unref(propsRef).columns;
@@ -122,7 +122,7 @@ export function useColumns(
 
       handleItem(
         item,
-        Reflect.has(item, "ellipsis") ? !!item.ellipsis : !!ellipsis && !customRender && !slots
+        Reflect.has(item, "ellipsis") ? !!item.ellipsis : !!ellipsis && !customRender && !slots,
       );
     });
     return columns;
@@ -186,7 +186,7 @@ export function useColumns(
     (columns) => {
       columnsRef.value = columns;
       cacheColumns = columns?.filter((item) => !item.flag) ?? [];
-    }
+    },
   );
 
   function setCacheColumnsByField(dataIndex: string | undefined, value: Partial<BasicColumn>) {
@@ -292,7 +292,7 @@ function sortFixedColumn(columns: BasicColumn[]) {
     defColumns.push(column);
   }
   return [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
-    (item) => !item.defaultHidden
+    (item) => !item.defaultHidden,
   );
 }
 

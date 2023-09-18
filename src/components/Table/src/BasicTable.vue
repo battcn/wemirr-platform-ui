@@ -47,7 +47,6 @@ import { defineComponent, ref, computed, unref, toRaw, inject, watchEffect } fro
 import { Table } from "ant-design-vue";
 import { BasicForm, useForm } from "@/components/Form/index";
 import { PageWrapperFixedHeightKey } from "@/enums/pageEnum";
-
 import HeaderCell from "./components/HeaderCell.vue";
 import { InnerHandlers } from "./types/table";
 
@@ -72,6 +71,25 @@ import { basicProps } from "./props";
 import { isFunction } from "@/utils/is";
 import { warn } from "@/utils/log";
 
+const events = [
+  "fetch-success",
+  "fetch-error",
+  "selection-change",
+  "register",
+  "row-click",
+  "row-dbClick",
+  "row-contextmenu",
+  "row-mouseenter",
+  "row-mouseleave",
+  "edit-end",
+  "edit-cancel",
+  "edit-row-end",
+  "edit-change",
+  "expanded-rows-change",
+  "change",
+  "columns-change",
+];
+
 export default defineComponent({
   name: "BasicTable",
   components: {
@@ -80,24 +98,7 @@ export default defineComponent({
     HeaderCell,
   },
   props: basicProps,
-  emits: [
-    "fetch-success",
-    "fetch-error",
-    "selection-change",
-    "register",
-    "row-click",
-    "row-dbClick",
-    "row-contextmenu",
-    "row-mouseenter",
-    "row-mouseleave",
-    "edit-end",
-    "edit-cancel",
-    "edit-row-end",
-    "edit-change",
-    "expanded-rows-change",
-    "change",
-    "columns-change",
-  ],
+  emits: events,
   setup(props, { attrs, emit, slots, expose }) {
     const tableElRef = ref(null);
     const tableData = ref([]);
@@ -118,7 +119,7 @@ export default defineComponent({
       unref(isFixedHeightPage) &&
         props.canResize &&
         warn(
-          "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)"
+          "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)",
         );
     });
 
@@ -167,7 +168,7 @@ export default defineComponent({
         getFieldsValue: formActions.getFieldsValue,
         clearSelectedRowKeys,
       },
-      emit
+      emit,
     );
 
     function handleTableChange(...args) {
@@ -195,7 +196,7 @@ export default defineComponent({
       getRowSelectionRef,
       getDataSourceRef,
       wrapRef,
-      formRef
+      formRef,
     );
 
     const { scrollTo } = useTableScrollTo(tableElRef, getDataSourceRef);
@@ -213,7 +214,7 @@ export default defineComponent({
     const { getExpandOption, expandAll, expandRows, collapseAll } = useTableExpand(
       getProps,
       tableData,
-      emit
+      emit,
     );
 
     const handlers: InnerHandlers = {
