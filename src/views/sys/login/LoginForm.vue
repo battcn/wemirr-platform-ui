@@ -156,7 +156,9 @@ import { useUserStore } from "@/store/modules/user";
 import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from "./useLogin";
 import { useDesign } from "@/hooks/web/useDesign";
 import { PictureCode } from "@/components/PictureCode";
-// const AAlert = Alert;
+import { useWatermark } from "@/hooks/web/useWatermark";
+import { useGlobSetting } from "@/hooks/setting";
+
 const ACol = Col;
 const ARow = Row;
 const FormItem = Form.Item;
@@ -168,6 +170,7 @@ const userStore = useUserStore();
 
 const { setLoginState, getLoginState } = useLoginState();
 const { getFormRules } = useFormRules();
+const { setWatermark } = useWatermark();
 
 const formRef = ref();
 const loading = ref(false);
@@ -183,8 +186,11 @@ const formData = reactive({
 const { validForm } = useFormValid(formRef);
 
 const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
+const { title } = useGlobSetting();
 
-onMounted(async () => {});
+onMounted(async () => {
+  setWatermark(title);
+});
 
 async function handleLogin() {
   const data = await validForm();
