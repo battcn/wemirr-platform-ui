@@ -39,7 +39,7 @@ export interface RoleInfo {
 export interface LoginResultModel {
   userId: string | number;
   token: string;
-  role: RoleInfo;
+  roles: RoleInfo[];
 }
 
 /**
@@ -59,7 +59,6 @@ export interface GetUserInfoModel {
   homePath?: string;
   roles: RoleInfo[];
 }
-
 
 export interface GetCaptchaCodeModel {
   captchaId: string;
