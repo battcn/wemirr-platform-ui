@@ -92,7 +92,12 @@ export default function ({ expose, props, ctx }) {
         description: {
           title: "描述",
           column: { show: false },
-          type: ["textarea", "colspan"],
+          type: ["textarea"],
+          form: {
+            col: {
+              span: 24,
+            },
+          },
         },
         createdTime: {
           title: "创建时间",

@@ -21,11 +21,12 @@ export default function ({ expose }) {
         },
         poolName: {
           title: "连接池",
-          type: ["text", "colspan"],
+          type: ["text"],
           search: { show: true },
           column: { ellipsis: true, width: 200 },
           form: {
             wrapperCol: { span: 9 },
+            col: { span: 24 },
             helper: "数据源连接池名称(如: TenantDataSourcePool)",
             rules: [{ min: 2, max: 50, message: "长度在 2 到 8 个字符" }],
           },
@@ -84,37 +85,6 @@ export default function ({ expose }) {
             rules: [{ required: true, message: "请选择数据库类型" }],
           },
         },
-        // connectionType: {
-        //   title: '连接类型',
-        //   type: ['dict-radio'],
-        //   search: { show: true },
-        //   column: { ellipsis: true, width: 120 },
-        //   addForm: { value: 0 },
-        //   dict: dict({
-        //     data: [
-        //       { value: 0, label: '多 schema', color: 'success' },
-        //       { value: 1, label: '单 schema', color: 'success' },
-        //     ],
-        //   }),
-        //   form: {
-        //     helper: '多 schema 意味着一个数据源多个库',
-        //     rules: [{ required: true, message: '请选择数据库类型' }],
-        //   },
-        // },
-        // database: {
-        //   title: '数据库名',
-        //   type: 'text',
-        //   column: { show: false },
-        //   form: {
-        //     show: compute(({ form }) => {
-        //       return form.connectionType === 1;
-        //     }),
-        //     rules: [
-        //       { required: true, message: '数据库名称不能为空' },
-        //       { min: 8, max: 50, message: '长度在 8 到 100 个字符' },
-        //     ],
-        //   },
-        // },
         host: {
           title: "Host",
           type: ["textarea"],
