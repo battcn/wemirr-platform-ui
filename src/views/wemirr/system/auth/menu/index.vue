@@ -82,7 +82,6 @@ export default defineComponent({
     );
 
     async function customSubmitFunc() {
-      alert();
       try {
         await validate();
         await setProps({ submitButtonOptions: { loading: true } });

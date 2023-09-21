@@ -28,14 +28,15 @@ export default function ({ expose, distribution }) {
           atLeast: 2,
           more: {
             size: "small",
-            text: "",
-            icon: "gg:more-o",
+            text: "更多",
+            // icon: "gg:more-o",
           },
         },
         buttons: {
           distribution: {
             text: "分配用户",
             size: "small",
+            type: "link",
             order: 4,
             show: hasPermission("sys:roles:distribution:user"),
             async click(context) {
@@ -44,6 +45,7 @@ export default function ({ expose, distribution }) {
           },
           resource: {
             text: "分配权限",
+            type: "link",
             size: "small",
             order: 5,
             show: hasPermission("sys:roles:distribution:res"),
