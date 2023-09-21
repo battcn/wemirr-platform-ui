@@ -4,16 +4,16 @@ import type { PropType, Ref } from "vue";
 import { computed, defineComponent, toRefs, unref } from "vue";
 import type { FormActionType, FormProps, FormSchema } from "../types/form";
 import type { ValidationRule } from "ant-design-vue/lib/form/Form";
-import type { TableActionType } from "/@/components/Table";
+import type { TableActionType } from "@/components/Table";
 import { Col, Divider, Form } from "ant-design-vue";
 import { componentMap } from "../componentMap";
-import { BasicHelp } from "/@/components/Basic";
-import { isBoolean, isFunction, isNull } from "/@/utils/is";
-import { getSlot } from "/@/utils/helper/tsxHelper";
+import { BasicHelp } from "@/components/Basic";
+import { isBoolean, isFunction, isNull } from "@/utils/is";
+import { getSlot } from "@/utils/helper/tsxHelper";
 import { createPlaceholderMessage, NO_AUTO_LINK_COMPONENTS, setComponentRuleType } from "../helper";
 import { cloneDeep, upperFirst } from "lodash-es";
 import { useItemLabelWidth } from "../hooks/useLabelWidth";
-import { useI18n } from "/@/hooks/web/useI18n";
+import { useI18n } from "@/hooks/web/useI18n";
 
 export default defineComponent({
   name: "BasicFormItem",
@@ -87,7 +87,7 @@ export default defineComponent({
             orientation: "left",
             plain: true,
           },
-          componentProps
+          componentProps,
         );
       }
       return componentProps as Recordable<any>;
@@ -155,7 +155,10 @@ export default defineComponent({
       const joinLabel = Reflect.has(props.schema, "rulesMessageJoinLabel")
         ? rulesMessageJoinLabel
         : globalRulesMessageJoinLabel;
-      const defaultMsg = createPlaceholderMessage(component) + `${joinLabel ? label : ""}`;
+      const assertLabel = joinLabel ? label : "";
+      const defaultMsg = component
+        ? createPlaceholderMessage(component) + assertLabel
+        : assertLabel;
 
       function validator(rule: any, value: any) {
         const msg = rule.message || defaultMsg;
@@ -203,7 +206,7 @@ export default defineComponent({
       }
 
       const requiredRuleIndex: number = rules.findIndex(
-        (rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator")
+        (rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"),
       );
 
       if (requiredRuleIndex !== -1) {
@@ -376,8 +379,8 @@ export default defineComponent({
     }
 
     return () => {
-      const { colProps = {}, colSlot, renderColContent, component } = props.schema;
-      if (!componentMap.has(component)) {
+      const { colProps = {}, colSlot, renderColContent, component, slot } = props.schema;
+      if (!componentMap.has(component) && !slot) {
         return null;
       }
 
