@@ -184,7 +184,7 @@ export default function ({ expose }) {
         stationId: {
           title: "岗位",
           type: "dict-select",
-          column: { width: 150 },
+          column: { width: 150, component: { color: "auto" } },
           dict: dict({
             cache: true,
             prototype: true,
@@ -200,9 +200,7 @@ export default function ({ expose }) {
             getData: ({ form, url }) => {
               if (form.orgId) {
                 return GET(url).then((ret) => {
-                  return ret.records.map((item) => {
-                    return { color: "warning", ...item };
-                  });
+                  return ret.records;
                 });
               }
             },
