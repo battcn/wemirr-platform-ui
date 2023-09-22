@@ -21,6 +21,7 @@
       :rowClassName="getRowClassName"
       v-show="getEmptyDataIsShowTable"
       @change="handleTableChange"
+      @resizeColumn="setColumnWidth"
     >
       <template #[item]="data" v-for="item in Object.keys($slots)" :key="item">
         <slot :name="item" v-bind="data || {}"></slot>
@@ -184,6 +185,7 @@ export default defineComponent({
       getColumns,
       setCacheColumnsByField,
       setCacheColumns,
+      setColumnWidth,
       setColumns,
       getColumnsRef,
       getCacheColumns,
@@ -335,6 +337,7 @@ export default defineComponent({
       handleSearchInfoChange,
       getEmptyDataIsShowTable,
       handleTableChange,
+      setColumnWidth,
       getRowClassName,
       wrapRef,
       tableAction,

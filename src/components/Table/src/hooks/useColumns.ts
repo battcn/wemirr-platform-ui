@@ -264,6 +264,12 @@ export function useColumns(
     if (!isArray(columns)) return;
     cacheColumns = columns.filter((item) => !item.flag);
   }
+  /**
+   * 拖拽列宽修改列的宽度
+   */
+  function setColumnWidth(w: number, col: BasicColumn) {
+    col.width = w;
+  }
 
   return {
     getColumnsRef,
@@ -271,6 +277,7 @@ export function useColumns(
     getColumns,
     setColumns,
     getViewColumns,
+    setColumnWidth,
     setCacheColumnsByField,
     setCacheColumns,
   };
