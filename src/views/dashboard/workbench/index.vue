@@ -10,7 +10,7 @@
         <QuickNav :loading="loading" class="enter-y" />
 
         <Card class="!my-4 enter-y" :loading="loading">
-          <img class="xl:h-50 h-30 mx-auto" src="../../../assets/svg/illustration.svg" />
+          <img class="xl:h-50 h-30 mx-auto" src="@/assets/svg/illustration.svg" alt="" />
         </Card>
 
         <SaleRadar :loading="loading" class="enter-y" />
@@ -32,5 +32,5 @@ const loading = ref(true);
 
 setTimeout(() => {
   loading.value = false;
-}, 1500);
+}, 300);
 </script>

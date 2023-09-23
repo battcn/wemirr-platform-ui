@@ -2,8 +2,10 @@
   <div class="lg:flex">
     <Avatar :src="userinfo.avatar || headerImg" :size="72" class="!mx-auto !block" />
     <div class="md:ml-6 flex flex-col justify-center md:mt-0 mt-2">
-      <h1 class="md:text-lg text-md">早安, {{ userinfo.realName }}, 开始您一天的工作吧！</h1>
-      <span class="text-secondary"> 今日晴，20℃ - 32℃！ </span>
+      <h1 class="md:text-lg text-md">欢迎, {{ userinfo.realName }}, 开始您一天的工作吧！</h1>
+      <span class="text-secondary">
+        技术体系全面开源无需付费,业务模块需付费购买（付费是为了更开的维护开源）
+      </span>
     </div>
     <div class="flex flex-1 justify-end md:mt-0 mt-4">
       <div class="flex flex-col justify-center text-right">
