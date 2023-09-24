@@ -3,9 +3,14 @@ import DictItemTable from "./item/index.vue";
 
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
+
 import { GET, POST, PUT, DELETE } from "@/api/service";
+import { defHttp } from "@/utils/http/axios";
+import { usePermission } from "@/hooks/web/usePermission";
 
 export default function () {
+  const { hasPermission } = usePermission();
+
   return {
     crudOptions: {
       request: {
@@ -13,6 +18,21 @@ export default function () {
         addRequest: async ({ form }) => await POST(`/authority/dictionaries`, form),
         editRequest: async ({ form }) => await PUT(`/authority/dictionaries/${form.id}`, form),
         delRequest: async ({ row }) => await DELETE(`/authority/dictionaries/${row.id}`),
+      },
+      rowHandle: {
+        width: 250,
+        buttons: {
+          refresh: {
+            text: "刷新缓存",
+            size: "small",
+            type: "link",
+            order: 2,
+            show: hasPermission("sys:dict:refresh"),
+            click: async function ({ row }) {
+              await defHttp.get({ url: `/authority/dictionaries/${row.code}/refresh` });
+            },
+          },
+        },
       },
       columns: {
         name: {
