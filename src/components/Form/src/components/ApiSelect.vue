@@ -94,7 +94,7 @@ export default defineComponent({
       () => state.value,
       (v) => {
         emit("update:value", v);
-      }
+      },
     );
 
     watch(
@@ -102,7 +102,7 @@ export default defineComponent({
       () => {
         !unref(isFirstLoad) && fetch();
       },
-      { deep: true }
+      { deep: true },
     );
 
     async function fetch() {
@@ -144,6 +144,7 @@ export default defineComponent({
     }
 
     function handleChange(_, ...args) {
+      emit("change", args[0] ? args[0].value : undefined);
       emitData.value = args;
     }
 
