@@ -20,10 +20,6 @@ export default function ({ expose, nodeRef }) {
           return await DELETE(`/authority/stations/${row.id}`);
         },
       },
-      /*toolbar: {
-        compact: true,
-        buttons: { compact: { show: false } },
-      },*/
       search: {
         onReset() {
           nodeRef.value = null;
@@ -58,7 +54,7 @@ export default function ({ expose, nodeRef }) {
           column: { width: 70 },
         },
         type: {
-          column: { width: 70 },
+          column: { width: 90 },
           title: "类型",
           type: "dict-select",
           search: { show: true },
@@ -76,7 +72,7 @@ export default function ({ expose, nodeRef }) {
         },
         sequence: {
           title: "排序",
-          column: { width: 60, align: "center", show: false },
+          column: { width: 80, align: "center", show: false },
           type: "number",
           addForm: {
             value: 0,
@@ -87,26 +83,21 @@ export default function ({ expose, nodeRef }) {
         status: {
           title: "状态",
           type: "dict-radio",
-          column: { width: 60, align: "center" },
+          column: { width: 80, align: "center" },
           search: { show: true },
           addForm: {
             value: 1,
           },
           dict: dict({
             data: [
-              { value: "true", label: "启用", color: "success" },
-              { value: "false", label: "禁用", color: "error" },
+              { value: true, label: "启用", color: "success" },
+              { value: false, label: "禁用", color: "error" },
             ],
           }),
         },
         orgId: {
           title: "组织",
-          column: { show: true, width: 200 },
-          search: {
-            show: false,
-            labelCol: { span: null },
-            component: { style: { width: "150px" } },
-          },
+          column: { width: 150, component: { color: "auto" } },
           type: "dict-tree",
           dict: dict({
             isTree: true,

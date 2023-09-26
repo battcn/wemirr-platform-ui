@@ -22,15 +22,15 @@ export default function ({ expose, userStore }) {
         scroll: { fixed: true },
       },
       rowHandle: {
-        width: 200,
+        width: 260,
         fixed: "right",
         buttons: {
           download: {
-            icon: "ant-design:cloud-download-outlined",
+            // icon: "ant-design:cloud-download-outlined",
             type: "link",
-            text: null,
+            text: "代码生成",
             size: "small",
-            title: "文件下载",
+            title: "代码生成",
             async click(context) {
               await defHttp
                 .request(
@@ -56,23 +56,15 @@ export default function ({ expose, userStore }) {
           form: { show: false },
           column: { show: false },
         },
-        author: {
-          title: "作者",
-          type: "text",
-          search: { show: true },
-          column: { width: 180 },
-          addForm: {
-            value: userStore.getUserInfo?.realName,
-          },
-        },
         tableName: {
           title: "表名",
           type: "dict-select",
           dict: dict({
             url: "/tools/generates/tables",
           }),
-          column: { width: 120 },
+          column: { width: 250, component: { color: "auto" } },
           form: {
+            rules: [{ required: true, message: "表名不能为空" }],
             component: {
               showSearch: true,
               filterOption(inputValue, option) {
@@ -86,7 +78,7 @@ export default function ({ expose, userStore }) {
         tablePrefix: {
           title: "表前缀",
           type: "text",
-          column: { width: 80 },
+          column: { width: 100 },
           form: {
             helper: "文件前缀擦除(t_ => t_user => User)",
           },
@@ -94,19 +86,28 @@ export default function ({ expose, userStore }) {
         moduleName: {
           title: "模块名",
           type: "text",
-          column: { width: 180 },
+          column: { width: 200 },
+          form: {
+            rules: [{ required: true, message: "模块名不能为空" }],
+          },
         },
         parentPackage: {
           title: "父包",
           type: "text",
           column: { width: 250 },
+          form: {
+            rules: [{ required: true, message: "父包不能为空" }],
+          },
         },
         apiUrlPrefix: {
           title: "API前缀",
           type: "text",
           column: { width: 180 },
+          form: {
+            rules: [{ required: true, message: "API前缀不能为空" }],
+          },
         },
-        swagger2: {
+        springdoc: {
           title: "Swagger",
           type: "dict-radio",
           form: { value: true },
@@ -121,7 +122,20 @@ export default function ({ expose, userStore }) {
         rootDir: {
           title: "根目录",
           type: "text",
-          column: { width: 160 },
+          column: { width: 200, ellipsis: true },
+        },
+        author: {
+          title: "作者",
+          type: "text",
+          search: { show: true },
+          column: { width: 180 },
+          addForm: {
+            value: userStore.getUserInfo?.realName,
+          },
+          form: {
+            rules: [{ required: true, message: "作者不能为空" }],
+            helper: "默认当前登录人昵称",
+          },
         },
         createdTime: {
           title: "创建时间",

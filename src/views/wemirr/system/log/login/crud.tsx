@@ -61,8 +61,8 @@ export default function ({ expose }) {
         },
         clientId: {
           title: "应用标识",
-          type: "dict-radio",
-          column: { width: 100, component: { color: "auto" } },
+          type: "text",
+          column: { width: 200, component: { color: "auto" } },
         },
         platform: {
           title: "操作平台",
@@ -82,27 +82,27 @@ export default function ({ expose }) {
         },
         os: {
           title: "操作系统",
-          type: "dict-radio",
+          type: "text",
           column: { width: 100, ellipsis: true, component: { color: "auto" } },
         },
         engine: {
           title: "引擎类型",
-          type: "dict-radio",
+          type: "text",
           column: { width: 100, component: { color: "auto" } },
         },
         engineVersion: {
           title: "引擎版本",
-          type: "dict-radio",
+          type: "text",
           column: { width: 100, component: { color: "auto" } },
         },
         browser: {
           title: "浏览器",
-          type: "dict-radio",
+          type: "text",
           column: { width: 100, component: { color: "auto" } },
         },
         browserVersion: {
           title: "浏览器版本",
-          type: "dict-radio",
+          type: "text",
           column: { width: 160, component: { color: "auto" } },
         },
         createdTime: {

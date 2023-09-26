@@ -1,7 +1,7 @@
 import { GET } from "@/api/service";
 // import { compute } from '@fast-crud/fast-crud';
 import dayjs from "dayjs";
-import {dict} from "@fast-crud/fast-crud";
+import { dict, ValueBuilderContext, ValueResolveContext } from "@fast-crud/fast-crud";
 
 export default function ({ expose }) {
   const pageRequest = async (query) => await GET("/authority/opt_logs", query);
@@ -56,9 +56,18 @@ export default function ({ expose }) {
         },
         httpMethod: {
           title: "HTTP方式",
-          type: "text",
-          column: { width: 90 },
+          type: "dict-select",
+          column: { width: 100, component: { color: "auto" } },
           search: { show: true },
+          dict: dict({
+            data: [
+              { value: "GET", label: "GET" },
+              { value: "POST", label: "POST" },
+              { value: "PUT", label: "PUT" },
+              { value: "DELETE", label: "DELETE" },
+              { value: "PATCH", label: "PATCH" },
+            ],
+          }),
         },
         platform: {
           title: "操作平台",
@@ -78,27 +87,27 @@ export default function ({ expose }) {
         },
         os: {
           title: "操作系统",
-          type: "dict-radio",
+          type: "text",
           column: { width: 100, ellipsis: true, component: { color: "auto" } },
         },
         engine: {
           title: "引擎类型",
-          type: "dict-radio",
+          type: "text",
           column: { width: 100, component: { color: "auto" } },
         },
         engineVersion: {
           title: "引擎版本",
-          type: "dict-radio",
+          type: "text",
           column: { width: 100, component: { color: "auto" } },
         },
         browser: {
           title: "浏览器",
-          type: "dict-radio",
+          type: "text",
           column: { width: 100, component: { color: "auto" } },
         },
         browserVersion: {
           title: "浏览器版本",
-          type: "dict-radio",
+          type: "text",
           column: { width: 160, component: { color: "auto" } },
         },
         createdName: {
@@ -142,6 +151,28 @@ export default function ({ expose }) {
             },
           },
         },
+        result: {
+          title: "响应结果",
+          type: "json",
+          column: { show: false },
+          form: {
+            col: {
+              span: 24,
+            },
+            valueBuilder({ form }: ValueBuilderContext) {
+              if (form.result == null) {
+                return;
+              }
+              form.result = JSON.parse(form.result);
+            },
+            valueResolve({ form }: ValueResolveContext) {
+              if (form.result == null) {
+                return;
+              }
+              form.result = JSON.stringify(form.result);
+            },
+          },
+        },
       },
       form: {
         display: "flex",
@@ -163,8 +194,14 @@ export default function ({ expose }) {
             },
             otherInfo: {
               header: "其它信息",
-              collapsed: false, //默认折叠
-              columns: ["startTime", "finishTime", "consumingTime", "createdName", "description"],
+              columns: [
+                "startTime",
+                "finishTime",
+                "consumingTime",
+                "createdName",
+                "description",
+                "result",
+              ],
             },
           },
         },
