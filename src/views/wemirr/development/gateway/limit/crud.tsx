@@ -36,6 +36,7 @@ export default function ({ expose }) {
           title: "范围",
           type: "dict-select",
           search: { show: true },
+          column: { width: 100 },
           dict: dict({
             data: [
               { label: "全局", value: 0, color: "success" },
@@ -53,7 +54,7 @@ export default function ({ expose }) {
         total: {
           title: "数量",
           type: "number",
-          column: { show: true },
+          column: { show: true, width: 100 },
           addForm: { value: 10 },
           form: {
             component: {
@@ -66,12 +67,13 @@ export default function ({ expose }) {
         visits: {
           title: "访问量",
           type: "number",
-          column: { show: true },
+          column: { show: true, width: 120 },
           form: { show: false },
         },
         status: {
           title: "状态",
           type: "dict-radio",
+          column: { show: true, width: 120 },
           addForm: {
             value: true,
           },
@@ -86,6 +88,7 @@ export default function ({ expose }) {
         blacklist: {
           title: "进黑名单",
           type: "dict-radio",
+          column: { show: true, width: 120 },
           addForm: {
             value: true,
           },
@@ -100,6 +103,7 @@ export default function ({ expose }) {
         method: {
           title: "方法",
           type: "dict-select",
+          column: { show: true, width: 120 },
           search: { show: true },
           dict: dict({
             data: [
@@ -150,7 +154,7 @@ export default function ({ expose }) {
         description: {
           title: "描述",
           type: "textarea",
-          search: { show: false, labelCol: { span: 4 } },
+          search: { show: false },
           form: {
             col: { span: 24 },
           },

@@ -85,22 +85,24 @@
             </a-button>
           </a-divider>
           <div v-for="(tag, index) in scopeItem.args" :key="tag.key" style="margin-bottom: 10px">
-            <a-input
-              :disabled="scope.mode === 'view'"
-              v-model:value="tag.key"
-              placeholder="参数键"
-              style="width: 45%; margin-right: 8px"
-            />
-            <a-input
-              :disabled="scope.mode === 'view'"
-              v-model:value="tag.value"
-              placeholder="参数值"
-              style="width: 40%; margin-right: 8px"
-            />
-            <DeleteOutlined
-              @click="removeFilterParams(scopeItem, index)"
-              v-show="scope.mode !== 'view'"
-            />
+            <a-form-item>
+              <a-input
+                :disabled="scope.mode === 'view'"
+                v-model:value="tag.key"
+                placeholder="参数键"
+                style="width: 45%; margin-right: 8px"
+              />
+              <a-input
+                :disabled="scope.mode === 'view'"
+                v-model:value="tag.value"
+                placeholder="参数值"
+                style="width: 40%; margin-right: 8px"
+              />
+              <DeleteOutlined
+                @click="removeFilterParams(scopeItem, index)"
+                v-show="scope.mode !== 'view'"
+              />
+            </a-form-item>
           </div>
           <a-button
             v-show="scope.mode !== 'view'"
