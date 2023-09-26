@@ -17,7 +17,7 @@
         :actionList="actionList"
       />
     </Card>
-    <Card title="组织管理">
+    <Card title="组织管理" style="margin-left: 10px">
       <BasicForm @register="register" />
     </Card>
   </PageWrapper>
