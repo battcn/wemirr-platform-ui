@@ -116,11 +116,11 @@ import type { CropendResult, Cropper } from "./typing";
 import { defineComponent, ref, PropType } from "vue";
 import CropperImage from "./Cropper.vue";
 import { Space, Upload, Avatar, Tooltip } from "ant-design-vue";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { BasicModal, useModalInner } from "/@/components/Modal";
-import { dataURLtoBlob } from "/@/utils/file/base64Conver";
-import { isFunction } from "/@/utils/is";
-import { useI18n } from "/@/hooks/web/useI18n";
+import { useDesign } from "@/hooks/web/useDesign";
+import { BasicModal, useModalInner } from "@/components/Modal";
+import { dataURLtoBlob } from "@/utils/file/base64Conver";
+import { isFunction } from "@/utils/is";
+import { useI18n } from "@/hooks/web/useI18n";
 
 type apiFunParams = { file: Blob; name: string; filename: string };
 

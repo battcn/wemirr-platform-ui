@@ -11,11 +11,11 @@
 
     <template #overlay>
       <Menu @click="handleMenuClick">
+        <MenuItem key="doc" text="在线文档" icon="ion:document-text-outline" v-if="getShowDoc" />
         <MenuItem
-          key="doc"
-          :text="t('layout.header.dropdownItemDoc')"
-          icon="ion:document-text-outline"
-          v-if="getShowDoc"
+          key="setting"
+          text="个人设置"
+          icon="material-symbols:settings-account-box-outline"
         />
         <MenuDivider v-if="getShowDoc" />
         <MenuItem
@@ -54,8 +54,10 @@ import { propTypes } from "@/utils/propTypes";
 import { openWindow } from "@/utils";
 
 import { createAsyncComponent } from "@/utils/factory/createAsyncComponent";
+import { router } from "@/router";
+import { PageEnum } from "@/enums/pageEnum";
 
-type MenuEvent = "logout" | "doc" | "lock";
+type MenuEvent = "logout" | "doc" | "lock" | "setting";
 
 export default defineComponent({
   name: "UserDropdown",
@@ -106,6 +108,9 @@ export default defineComponent({
           break;
         case "lock":
           handleLock();
+          break;
+        case "setting":
+          router.push("/account/setting");
           break;
       }
     }

@@ -40,7 +40,7 @@ import {
   watch,
   PropType,
 } from "vue";
-import CropperModal from "./CropperModal.vue";
+import CropperModal from "@/components/Cropper/src/CopperModal.vue";
 import { useDesign } from "@/hooks/web/useDesign";
 import { useModal } from "@/components/Modal";
 import { useMessage } from "@/hooks/web/useMessage";
@@ -79,7 +79,7 @@ export default defineComponent({
     const getStyle = computed((): CSSProperties => ({ width: unref(getWidth) }));
 
     const getImageWrapperStyle = computed(
-      (): CSSProperties => ({ width: unref(getWidth), height: unref(getWidth) })
+      (): CSSProperties => ({ width: unref(getWidth), height: unref(getWidth) }),
     );
 
     watchEffect(() => {
@@ -90,7 +90,7 @@ export default defineComponent({
       () => sourceValue.value,
       (v: string) => {
         emit("update:value", v);
-      }
+      },
     );
 
     function handleUploadSuccess({ source, data }) {
