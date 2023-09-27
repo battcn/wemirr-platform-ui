@@ -3,9 +3,6 @@
     <template #[item]="data" v-for="item in Object.keys($slots)">
       <slot :name="item" v-bind="data || {}"></slot>
     </template>
-    <template #suffixIcon v-if="loading">
-      <LoadingOutlined spin />
-    </template>
   </a-tree>
 </template>
 
@@ -13,14 +10,14 @@
 import { type Recordable, type AnyFunction } from "@vben/types";
 import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from "vue";
 import { Tree } from "ant-design-vue";
-import { isArray, isFunction } from "/@/utils/is";
+import { isArray, isFunction } from "@/utils/is";
 import { get } from "lodash-es";
-import { propTypes } from "/@/utils/propTypes";
-import { LoadingOutlined } from "@ant-design/icons-vue";
+import { propTypes } from "@/utils/propTypes";
+import { DataNode } from "ant-design-vue/es/tree";
 
 export default defineComponent({
   name: "ApiTree",
-  components: { ATree: Tree, LoadingOutlined },
+  components: { ATree: Tree },
   props: {
     api: { type: Function as PropType<(arg?: Recordable<any>) => Promise<Recordable<any>>> },
     params: { type: Object },
@@ -30,7 +27,7 @@ export default defineComponent({
   },
   emits: ["options-change", "change"],
   setup(props, { attrs, emit }) {
-    const treeData = ref<Recordable<any>[]>([]);
+    const treeData = ref<DataNode[]>([]);
     const isFirstLoaded = ref<Boolean>(false);
     const loading = ref(false);
     const getAttrs = computed(() => {
@@ -49,14 +46,14 @@ export default defineComponent({
       () => {
         !unref(isFirstLoaded) && fetch();
       },
-      { deep: true }
+      { deep: true },
     );
 
     watch(
       () => props.immediate,
       (v) => {
         v && !isFirstLoaded.value && fetch();
-      }
+      },
     );
 
     onMounted(() => {
