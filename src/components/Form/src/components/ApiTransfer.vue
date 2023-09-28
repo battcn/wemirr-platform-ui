@@ -14,10 +14,10 @@
 <script lang="ts">
 import { computed, defineComponent, watch, ref, unref, watchEffect, PropType } from "vue";
 import { Transfer } from "ant-design-vue";
-import { isFunction } from "/@/utils/is";
+import { isFunction } from "@/utils/is";
 import { get, omit } from "lodash-es";
-import { propTypes } from "/@/utils/propTypes";
-import { useI18n } from "/@/hooks/web/useI18n";
+import { propTypes } from "@/utils/propTypes";
+import { useI18n } from "@/hooks/web/useI18n";
 import { TransferDirection, TransferItem } from "ant-design-vue/lib/transfer";
 
 export default defineComponent({
@@ -73,9 +73,9 @@ export default defineComponent({
       }, [] as TransferItem[]);
     });
     const getTargetKeys = computed<string[]>(() => {
-      if (unref(_targetKeys).length > 0) {
-        return unref(_targetKeys);
-      }
+      // if (unref(_targetKeys).length > 0) {
+      //   return unref(_targetKeys);
+      // }
       if (Array.isArray(props.value)) {
         return props.value;
       }
