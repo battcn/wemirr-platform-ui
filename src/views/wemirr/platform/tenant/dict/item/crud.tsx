@@ -10,14 +10,14 @@ export default function ({ expose, props, ctx }) {
     crudOptions: {
       request: {
         pageRequest: async (query) => {
-          return await GET(`/authority/dictionaries/${dictionaryId ?? 0}/items`, query);
+          return await GET(`/authority/tenant_dictionaries/${dictionaryId ?? 0}/items`, query);
         },
         addRequest: async ({ form }) =>
-          await POST(`/authority/dictionaries/${dictionaryId}/items`, form),
+          await POST(`/authority/tenant_dictionaries/${dictionaryId}/items`, form),
         editRequest: async ({ form }) =>
-          await PUT(`/authority/dictionaries/${dictionaryId}/items/${form.id}`, form),
+          await PUT(`/authority/tenant_dictionaries/${dictionaryId}/items/${form.id}`, form),
         delRequest: async ({ row }) =>
-          await DELETE(`/authority/dictionaries/${dictionaryId}/items/${row.id}`),
+          await DELETE(`/authority/tenant_dictionaries/${dictionaryId}/items/${row.id}`),
       },
       search: { show: false },
       rowHandle: {
@@ -25,9 +25,9 @@ export default function ({ expose, props, ctx }) {
         align: "center",
         buttons: {
           view: { size: "small", show: false },
-          edit: { size: "small" },
+          edit: { size: "small", show: hasPermission("tenant:dict:edit") },
           remove: {
-            show: hasPermission("sys:dict:remove"),
+            show: hasPermission("tenant:dict:remove"),
           },
         },
       },
@@ -48,11 +48,7 @@ export default function ({ expose, props, ctx }) {
           title: "名称",
           search: { show: true },
           type: "text",
-          column: {
-            width: 80,
-            align: "center",
-            sorter: true,
-          },
+          column: { width: 180 },
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
           },
@@ -61,9 +57,7 @@ export default function ({ expose, props, ctx }) {
           title: "值",
           search: { show: false },
           type: "text",
-          column: {
-            sorter: true,
-          },
+          column: { width: 180 },
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
           },
@@ -71,7 +65,7 @@ export default function ({ expose, props, ctx }) {
         color: {
           title: "颜色",
           type: "dict-select",
-          column: { width: 100 },
+          column: { width: 100, show: false },
           dict: dict({
             url: "/authority/dictionaries/COLOR/list",
           }),
@@ -79,6 +73,7 @@ export default function ({ expose, props, ctx }) {
         status: {
           title: "状态",
           type: "dict-radio",
+          column: { width: 90 },
           search: { show: true },
           dict: dict({
             data: [

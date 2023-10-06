@@ -14,17 +14,19 @@ export default function () {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/dictionaries`, query),
-        addRequest: async ({ form }) => await POST(`/authority/dictionaries`, form),
-        editRequest: async ({ form }) => await PUT(`/authority/dictionaries/${form.id}`, form),
-        delRequest: async ({ row }) => await DELETE(`/authority/dictionaries/${row.id}`),
+        pageRequest: async (query) => await GET(`/authority/tenant_dictionaries`, query),
+        addRequest: async ({ form }) => await POST(`/authority/tenant_dictionaries`, form),
+        editRequest: async ({ form }) =>
+          await PUT(`/authority/tenant_dictionaries/${form.id}`, form),
+        delRequest: async ({ row }) => await DELETE(`/authority/tenant_dictionaries/${row.id}`),
       },
       rowHandle: {
         width: 250,
         buttons: {
+          edit: { size: "small", show: hasPermission("tenant:dict:edit") },
           remove: {
             show: compute(({ row }) => {
-              return !row.readonly && hasPermission("sys:dict:remove");
+              return !row.readonly && hasPermission("tenant:dict:remove");
             }),
           },
           refresh: {
@@ -32,9 +34,9 @@ export default function () {
             size: "small",
             type: "link",
             order: 2,
-            show: hasPermission("sys:dict:refresh"),
+            show: hasPermission("tenant:dict:refresh"),
             click: async function ({ row }) {
-              await defHttp.get({ url: `/authority/dictionaries/${row.code}/refresh` });
+              await defHttp.get({ url: `/authority/tenant_dictionaries/${row.code}/refresh` });
             },
           },
         },
