@@ -1,7 +1,7 @@
 import { shallowRef } from "vue";
 import DictItemTable from "./item/index.vue";
 
-import { dict } from "@fast-crud/fast-crud";
+import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 
 import { GET, POST, PUT, DELETE } from "@/api/service";
@@ -22,6 +22,11 @@ export default function () {
       rowHandle: {
         width: 250,
         buttons: {
+          remove: {
+            show: compute(({ row }) => {
+              return !row.readonly && hasPermission("sys:dict:remove");
+            }),
+          },
           refresh: {
             text: "刷新缓存",
             size: "small",
@@ -66,7 +71,7 @@ export default function () {
         readonly: {
           title: "内置",
           type: "dict-radio",
-          column: { width: 90, align: "center" },
+          column: { width: 100, align: "center" },
           addForm: { show: false },
           editForm: {
             component: {
@@ -82,7 +87,7 @@ export default function () {
         },
         sequence: {
           title: "排序",
-          column: { width: 50, align: "center" },
+          column: { width: 100, align: "center" },
           type: "number",
           addForm: { value: 0 },
           form: { component: { min: 0, max: 100 } },

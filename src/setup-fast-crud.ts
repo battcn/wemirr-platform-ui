@@ -44,7 +44,7 @@ export default function (app, i18n) {
         },
         rowHandle: {
           width: 180,
-          align: "center",
+          align: "left",
           // 固定右侧 不建议设置成全局
           fixed: "right",
           buttons: {
