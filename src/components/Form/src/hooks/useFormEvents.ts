@@ -2,20 +2,12 @@ import type { ComputedRef, Ref } from "vue";
 import type { FormProps, FormSchema, FormActionType } from "../types/form";
 import type { NamePath } from "ant-design-vue/lib/form/interface";
 import { unref, toRaw, nextTick } from "vue";
-import {
-  isArray,
-  isFunction,
-  isObject,
-  isString,
-  isDef,
-  isNullOrUnDef,
-  isEmpty,
-} from "/@/utils/is";
-import { deepMerge } from "/@/utils";
+import { isArray, isFunction, isObject, isString, isDef, isNullOrUnDef, isEmpty } from "@/utils/is";
+import { deepMerge } from "@/utils";
 import { dateItemType, handleInputNumberValue, defaultValueComponents } from "../helper";
-import { dateUtil } from "/@/utils/dateUtil";
+import { dateUtil } from "@/utils/dateUtil";
 import { cloneDeep, set, uniqBy, get } from "lodash-es";
-import { error } from "/@/utils/log";
+import { error } from "@/utils/log";
 
 interface UseFormActionContext {
   emit: EmitType;
@@ -340,7 +332,8 @@ export function useFormEvents({
   }
 
   async function validateFields(nameList?: NamePath[] | undefined) {
-    return unref(formElRef)?.validateFields(nameList);
+    const values = unref(formElRef)?.validateFields(nameList);
+    return handleFormValues(values);
   }
 
   async function validate(nameList?: NamePath[] | false | undefined) {
@@ -350,7 +343,8 @@ export function useFormEvents({
     } else {
       _nameList = nameList === Array.isArray(nameList) ? nameList : undefined;
     }
-    return await unref(formElRef)?.validate(_nameList);
+    const values = await unref(formElRef)?.validate(_nameList);
+    return handleFormValues(values);
   }
 
   async function clearValidate(name?: string | string[]) {
@@ -375,8 +369,7 @@ export function useFormEvents({
     if (!formEl) return;
     try {
       const values = await validate();
-      const res = handleFormValues(values);
-      emit("submit", res);
+      emit("submit", values);
     } catch (error: any) {
       if (error?.outOfDate === false && error?.errorFields) {
         return;
