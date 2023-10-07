@@ -1,7 +1,7 @@
 import { compute, dict, utils, asyncCompute, useColumns } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { useMessage } from "@/hooks/web/useMessage";
-import { GET, DELETE, POST, PUT } from "@/api/service";
+import { DELETE, POST, PUT } from "@/api/service";
 import { getAreaTree } from "@/api/sys/area";
 import { ref } from "vue";
 
@@ -52,7 +52,7 @@ export default function ({ expose }) {
             query.cityId = query?.area[1];
             query.districtId = query?.area[2];
           }
-          return await GET(`/authority/tenants`, query);
+          return await POST(`/authority/tenants/page`, query);
         },
         addRequest: async ({ form }) => await POST(`/authority/tenants`, form),
         editRequest: async ({ form }) => await PUT(`/authority/tenants/${form.id}`, form),
@@ -293,9 +293,9 @@ export default function ({ expose }) {
           title: "地址",
           type: ["textarea"],
           column: { ellipsis: true, show: false },
-          form:{
+          form: {
             col: { span: 24 },
-          }
+          },
         },
         creditCode: {
           title: "信用代码",
