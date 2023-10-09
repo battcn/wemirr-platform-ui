@@ -38,38 +38,38 @@
   </Form>
 </template>
 <script lang="ts">
-import type { FormActionType, FormProps, FormSchema } from './types/form';
-import type { AdvanceState } from './types/hooks';
-import type { Ref } from 'vue';
+import type { FormActionType, FormProps, FormSchema } from "./types/form";
+import type { AdvanceState } from "./types/hooks";
+import type { Ref } from "vue";
 
-import { defineComponent, reactive, ref, computed, unref, onMounted, watch, nextTick } from 'vue';
-import { Form, Row } from 'ant-design-vue';
-import FormItem from './components/FormItem.vue';
-import FormAction from './components/FormAction.vue';
+import { defineComponent, reactive, ref, computed, unref, onMounted, watch, nextTick } from "vue";
+import { Form, Row } from "ant-design-vue";
+import FormItem from "./components/FormItem.vue";
+import FormAction from "./components/FormAction.vue";
 
-import { dateItemType } from './helper';
-import { dateUtil } from '/@/utils/dateUtil';
+import { dateItemType } from "./helper";
+import { dateUtil } from "/@/utils/dateUtil";
 
 // import { cloneDeep } from 'lodash-es';
-import { deepMerge } from '/@/utils';
+import { deepMerge } from "/@/utils";
 
-import { useFormValues } from './hooks/useFormValues';
-import useAdvanced from './hooks/useAdvanced';
-import { useFormEvents } from './hooks/useFormEvents';
-import { createFormContext } from './hooks/useFormContext';
-import { useAutoFocus } from './hooks/useAutoFocus';
-import { useModalContext } from '/@/components/Modal';
-import { useDebounceFn } from '@vueuse/core';
+import { useFormValues } from "./hooks/useFormValues";
+import useAdvanced from "./hooks/useAdvanced";
+import { useFormEvents } from "./hooks/useFormEvents";
+import { createFormContext } from "./hooks/useFormContext";
+import { useAutoFocus } from "./hooks/useAutoFocus";
+import { useModalContext } from "/@/components/Modal";
+import { useDebounceFn } from "@vueuse/core";
 
-import { basicProps } from './props';
-import { useDesign } from '/@/hooks/web/useDesign';
-import { cloneDeep } from 'lodash-es';
+import { basicProps } from "./props";
+import { useDesign } from "/@/hooks/web/useDesign";
+import { cloneDeep } from "lodash-es";
 
 export default defineComponent({
-  name: 'BasicForm',
+  name: "BasicForm",
   components: { FormItem, Form, Row, FormAction },
   props: basicProps,
-  emits: ['advanced-change', 'reset', 'submit', 'register', 'field-value-change'],
+  emits: ["advanced-change", "reset", "submit", "register", "field-value-change"],
   setup(props, { emit, attrs }) {
     const formModel = reactive({});
     const modalFn = useModalContext();
@@ -87,7 +87,7 @@ export default defineComponent({
     const schemaRef = ref<FormSchema[] | null>(null);
     const formElRef = ref<FormActionType | null>(null);
 
-    const { prefixCls } = useDesign('basic-form');
+    const { prefixCls } = useDesign("basic-form");
 
     // Get the basic configuration of the form
     const getProps = computed((): FormProps => {
@@ -117,12 +117,12 @@ export default defineComponent({
     const getSchema = computed((): FormSchema[] => {
       const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
       for (const schema of schemas) {
-        const { defaultValue, component, componentProps,isHandleDateDefaultValue = true } = schema;
+        const { defaultValue, component, componentProps, isHandleDateDefaultValue = true } = schema;
         // handle date type
         if (isHandleDateDefaultValue && defaultValue && dateItemType.includes(component)) {
-          const valueFormat =componentProps ? componentProps['valueFormat'] : null;
+          const valueFormat = componentProps ? componentProps["valueFormat"] : null;
           if (!Array.isArray(defaultValue)) {
-            schema.defaultValue =  valueFormat
+            schema.defaultValue = valueFormat
               ? dateUtil(defaultValue).format(valueFormat)
               : dateUtil(defaultValue);
           } else {
@@ -136,7 +136,7 @@ export default defineComponent({
       }
       if (unref(getProps).showAdvancedButton) {
         return cloneDeep(
-          schemas.filter((schema) => schema.component !== 'Divider') as FormSchema[],
+          schemas.filter((schema) => schema.component !== "Divider") as FormSchema[],
         );
       } else {
         return cloneDeep(schemas as FormSchema[]);
@@ -245,7 +245,7 @@ export default defineComponent({
 
     function setFormModel(key: string, value: any, schema: FormSchema) {
       formModel[key] = value;
-      emit('field-value-change', key, value);
+      emit("field-value-change", key, value);
       // TODO 优化验证，这里如果是autoLink=false手动关联的情况下才会再次触发此函数
       if (schema && schema.itemProps && !schema.itemProps.autoLink) {
         validateFields([key]).catch((_) => {});
@@ -255,9 +255,9 @@ export default defineComponent({
     function handleEnterPress(e: KeyboardEvent) {
       const { autoSubmitOnEnter } = unref(getProps);
       if (!autoSubmitOnEnter) return;
-      if (e.key === 'Enter' && e.target && e.target instanceof HTMLElement) {
+      if (e.key === "Enter" && e.target && e.target instanceof HTMLElement) {
         const target: HTMLElement = e.target as HTMLElement;
-        if (target && target.tagName && target.tagName.toUpperCase() == 'INPUT') {
+        if (target && target.tagName && target.tagName.toUpperCase() == "INPUT") {
           handleSubmit();
         }
       }
@@ -281,7 +281,7 @@ export default defineComponent({
 
     onMounted(() => {
       initDefault();
-      emit('register', formActionType);
+      emit("register", formActionType);
     });
 
     return {
@@ -306,7 +306,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less">
-@prefix-cls: ~'@{namespace}-basic-form';
+@prefix-cls: ~"@{namespace}-basic-form";
 
 .@{prefix-cls} {
   .ant-form-item {
