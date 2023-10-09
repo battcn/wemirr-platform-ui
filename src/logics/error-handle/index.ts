@@ -63,15 +63,15 @@ function formatComponentName(vm: any) {
  * Configure Vue error handling function
  */
 
-function vueErrorHandler(err: Error, vm: any, info: string) {
+function vueErrorHandler(err: unknown, vm: any, info: string) {
   const errorLogStore = useErrorLogStoreWithOut();
   const { name, path } = formatComponentName(vm);
   errorLogStore.addErrorLogInfo({
     type: ErrorTypeEnum.VUE,
     name,
     file: path,
-    message: err.message,
-    stack: processStackMsg(err),
+    message: (err as Error).message,
+    stack: processStackMsg(err as Error),
     detail: info,
     url: window.location.href,
   });
@@ -85,7 +85,7 @@ export function scriptErrorHandler(
   source?: string,
   lineno?: number,
   colno?: number,
-  error?: Error
+  error?: Error,
 ) {
   if (event === "Script error." && !source) {
     return false;
@@ -129,7 +129,7 @@ function registerPromiseErrorHandler() {
         message: event.reason,
       });
     },
-    true
+    true,
   );
 }
 
@@ -157,7 +157,7 @@ function registerResourceErrorHandler() {
         message: (e.target || ({} as any)).localName + " is load error",
       });
     },
-    true
+    true,
   );
 }
 

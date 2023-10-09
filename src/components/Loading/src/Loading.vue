@@ -1,7 +1,7 @@
 <template>
   <section
     class="full-loading"
-    :class="{ absolute, [theme]: !!theme }"
+    :class="{ absolute, [`${theme}`]: !!theme }"
     :style="[background ? `background-color: ${background}` : '']"
     v-show="loading"
   >
@@ -11,7 +11,7 @@
 <script lang="ts">
 import { PropType, defineComponent } from "vue";
 import { Spin } from "ant-design-vue";
-import { SizeEnum } from "/@/enums/sizeEnum";
+import { SizeEnum } from "@/enums/sizeEnum";
 
 export default defineComponent({
   name: "Loading",
