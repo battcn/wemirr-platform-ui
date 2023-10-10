@@ -18,8 +18,8 @@
 
 <script lang="ts">
 import { PropType, defineComponent, ref, computed, unref, getCurrentInstance, watch } from "vue";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { propTypes } from "/@/utils/propTypes";
+import { useDesign } from "@/hooks/web/useDesign";
+import { propTypes } from "@/utils/propTypes";
 import { useMenuItem } from "./useMenu";
 import { Tooltip } from "ant-design-vue";
 import { useSimpleRootMenuContext } from "./useSimpleMenuContext";
@@ -82,7 +82,7 @@ export default defineComponent({
     }
     watch(
       () => activeName.value,
-      (name: string) => {
+      (name: string | number) => {
         if (name === props.name) {
           const { list, uidList } = getParentList();
           active.value = true;
@@ -97,7 +97,7 @@ export default defineComponent({
           active.value = false;
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     return { getClass, prefixCls, getItemStyle, getCollapse, handleClickItem, showTooptip };
