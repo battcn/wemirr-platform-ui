@@ -66,13 +66,13 @@ import {
 } from "vue";
 import ImgUpload from "./ImgUpload.vue";
 import { toolbar, plugins } from "./tinymce";
-import { buildShortUUID } from "/@/utils/uuid";
+import { buildShortUUID } from "@/utils/uuid";
 import { bindHandlers } from "./helper";
 import { onMountedOrActivated } from "@vben/hooks";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { isNumber } from "/@/utils/is";
-import { useLocale } from "/@/locales/useLocale";
-import { useAppStore } from "/@/store/modules/app";
+import { useDesign } from "@/hooks/web/useDesign";
+import { isNumber } from "@/utils/is";
+import { useLocale } from "@/locales/useLocale";
+import { useAppStore } from "@/store/modules/app";
 
 const tinymceProps = {
   options: {
@@ -191,7 +191,7 @@ export default defineComponent({
           return;
         }
         editor.setMode(attrs.disabled ? "readonly" : "design");
-      }
+      },
     );
 
     onMountedOrActivated(() => {
@@ -246,7 +246,7 @@ export default defineComponent({
       bindHandlers(e, attrs, unref(editorRef));
     }
 
-    function setValue(editor: Record<string, any>, val: string, prevVal?: string) {
+    function setValue(editor: Record<string, any>, val?: string, prevVal?: string) {
       if (
         editor &&
         typeof val === "string" &&
@@ -263,19 +263,19 @@ export default defineComponent({
 
       watch(
         () => props.modelValue,
-        (val: string, prevVal: string) => {
+        (val, prevVal) => {
           setValue(editor, val, prevVal);
-        }
+        },
       );
 
       watch(
         () => props.value,
-        (val: string, prevVal: string) => {
+        (val, prevVal) => {
           setValue(editor, val, prevVal);
         },
         {
           immediate: true,
-        }
+        },
       );
 
       editor.on(normalizedEvents ? normalizedEvents : "change keyup undo redo", () => {
