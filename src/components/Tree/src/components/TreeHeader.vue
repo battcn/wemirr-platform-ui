@@ -34,12 +34,12 @@
 </template>
 <script lang="ts" setup>
 import { type PropType, computed, ref, watch, useSlots } from "vue";
-import { Dropdown, Menu, MenuItem, MenuDivider, InputSearch } from "ant-design-vue";
+import { Dropdown, Menu, MenuItem, MenuDivider, InputSearch, type MenuProps } from "ant-design-vue";
 import Icon from "@/components/Icon/Icon.vue";
-import { BasicTitle } from "/@/components/Basic";
-import { useI18n } from "/@/hooks/web/useI18n";
+import { BasicTitle } from "@/components/Basic";
+import { useI18n } from "@/hooks/web/useI18n";
 import { useDebounceFn } from "@vueuse/core";
-import { createBEM } from "/@/utils/bem";
+import { createBEM } from "@/utils/bem";
 import { ToolbarEnum } from "../types/tree";
 
 const searchValue = ref("");
@@ -122,8 +122,7 @@ const toolbarList = computed(() => {
     : defaultToolbarList;
 });
 
-function handleMenuClick(e: { key: ToolbarEnum }) {
-  const { key } = e;
+const handleMenuClick: MenuProps["onClick"] = ({ key }) => {
   switch (key) {
     case ToolbarEnum.SELECT_ALL:
       props.checkAll?.(true);
@@ -144,7 +143,7 @@ function handleMenuClick(e: { key: ToolbarEnum }) {
       emit("strictly-change", true);
       break;
   }
-}
+};
 
 function emitChange(value?: string): void {
   emit("search", value);
@@ -156,7 +155,7 @@ watch(
   () => searchValue.value,
   (v) => {
     debounceEmitChange(v);
-  }
+  },
 );
 
 watch(
@@ -165,6 +164,6 @@ watch(
     if (v !== searchValue.value) {
       searchValue.value = v;
     }
-  }
+  },
 );
 </script>
