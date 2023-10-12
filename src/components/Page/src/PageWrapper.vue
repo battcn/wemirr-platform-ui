@@ -33,7 +33,7 @@
     </PageFooter>
   </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts" name="PageWrapper" setup>
 import {
   CSSProperties,
   PropType,
@@ -55,11 +55,6 @@ import { PageHeader } from "ant-design-vue";
 import { useContentHeight } from "@/hooks/web/useContentHeight";
 import { useLayoutHeight } from "@/layouts/default/content/useContentViewHeight";
 import { PageWrapperFixedHeightKey } from "@/enums/pageEnum";
-
-defineOptions({
-  name: "PageWrapper",
-  inheritAttrs: false,
-});
 
 const props = defineProps({
   title: propTypes.string,

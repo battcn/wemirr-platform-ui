@@ -16,10 +16,10 @@
 <script lang="ts">
 import type { ExportModalResult } from "./typing";
 import { defineComponent } from "vue";
-import { BasicModal, useModalInner } from "/@/components/Modal";
-import { BasicForm, FormSchema, useForm } from "/@/components/Form/index";
+import { BasicModal, useModalInner } from "@/components/Modal";
+import { BasicForm, FormSchema, useForm } from "@/components/Form/index";
 
-import { useI18n } from "/@/hooks/web/useI18n";
+import { useI18n } from "@/hooks/web/useI18n";
 
 const { t } = useI18n();
 
@@ -66,18 +66,18 @@ export default defineComponent({
   components: { BasicModal, BasicForm },
   emits: ["success", "register"],
   setup(_, { emit }) {
-    const [registerForm, { validateFields }] = useForm();
+    const [registerForm, { validate }] = useForm();
     const [registerModal, { closeModal }] = useModalInner();
 
-    async function handleOk() {
-      const res = (await validateFields()) as ExportModalResult;
+    const handleOk = async () => {
+      const res = await validate<ExportModalResult>();
       const { filename, bookType } = res;
       emit("success", {
         filename: `${filename.split(".").shift()}.${bookType}`,
         bookType,
       });
       closeModal();
-    }
+    };
 
     return {
       schemas,

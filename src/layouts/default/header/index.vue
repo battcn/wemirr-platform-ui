@@ -54,7 +54,7 @@
     </div>
   </Layout.Header>
 </template>
-<script lang="ts" setup>
+<script lang="ts" name="LayoutHeader" setup>
 import { Layout } from "ant-design-vue";
 import { computed, unref } from "vue";
 
@@ -77,7 +77,6 @@ import { ErrorAction, FullScreen, LayoutBreadcrumb, Notify, UserDropDown } from 
 const SettingDrawer = createAsyncComponent(() => import("@/layouts/default/setting/index.vue"), {
   loading: true,
 });
-defineOptions({ name: "LayoutHeader" });
 
 const props = defineProps({
   fixed: propTypes.bool,
