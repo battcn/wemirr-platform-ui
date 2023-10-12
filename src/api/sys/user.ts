@@ -1,5 +1,5 @@
 import { defHttp } from "/@/utils/http/axios";
-import {LoginPicture, TokenInfo, GetUserInfoModel, GetCaptchaCodeModel} from "./model/userModel";
+import { LoginPicture, TokenInfo, GetUserInfoModel, GetCaptchaCodeModel } from "./model/userModel";
 
 import { ErrorMessageMode } from "/#/axios";
 import { encryptByBase64 } from "@/utils/cipher";
@@ -16,12 +16,6 @@ enum Api {
  * @description: 验证码登录
  */
 export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none") => {
-  data.grant_type = "custom";
-  data.login_type = "password";
-  data.client_id = "messaging-client";
-  data.client_secret = "123456";
-  data.scope = "platform";
-
   return defHttp.post<TokenInfo>(
     {
       url: Api.Login,
@@ -31,7 +25,7 @@ export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none"
         Authorization: "Basic " + encryptByBase64(data.client_id + ":" + data.client_secret),
       },
     },
-    { errorMessageMode: mode }
+    { errorMessageMode: mode },
   );
 };
 
