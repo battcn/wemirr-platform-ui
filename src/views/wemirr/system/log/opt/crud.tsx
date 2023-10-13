@@ -41,18 +41,20 @@ export default function ({ expose }) {
         ip: {
           title: "IP",
           type: "text",
-          column: { show: false },
+          column: { width: 140 },
         },
         location: {
           title: "登录地点",
           type: "text",
           column: { width: 200 },
         },
-        actionMethod: {
+        action: {
           title: "请求方法",
-          type: "text",
-          column: { width: 100 },
-          search: { show: true },
+          type: "textarea",
+          column: { ellipsis: true, width: 300 },
+          form: {
+            col: { span: 24 },
+          },
         },
         httpMethod: {
           title: "HTTP方式",
@@ -95,20 +97,10 @@ export default function ({ expose }) {
           type: "text",
           column: { width: 100, component: { color: "auto" } },
         },
-        engineVersion: {
-          title: "引擎版本",
-          type: "text",
-          column: { width: 100, component: { color: "auto" } },
-        },
         browser: {
           title: "浏览器",
           type: "text",
           column: { width: 100, component: { color: "auto" } },
-        },
-        browserVersion: {
-          title: "浏览器版本",
-          type: "text",
-          column: { width: 160, component: { color: "auto" } },
         },
         createdName: {
           title: "操作人",
@@ -186,11 +178,7 @@ export default function ({ expose }) {
             },
             reqInfo: {
               header: "请求信息",
-              columns: ["actionMethod", "httpMethod", "platform", "os", "engine", "browser"],
-            },
-            version: {
-              header: "版号信息",
-              columns: ["engineVersion", "browserVersion"],
+              columns: ["action", "httpMethod", "platform", "os", "engine", "browser"],
             },
             otherInfo: {
               header: "其它信息",

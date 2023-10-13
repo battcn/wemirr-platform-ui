@@ -90,20 +90,10 @@ export default function ({ expose }) {
           type: "text",
           column: { width: 100, component: { color: "auto" } },
         },
-        engineVersion: {
-          title: "引擎版本",
-          type: "text",
-          column: { width: 100, component: { color: "auto" } },
-        },
         browser: {
           title: "浏览器",
           type: "text",
           column: { width: 100, component: { color: "auto" } },
-        },
-        browserVersion: {
-          title: "浏览器版本",
-          type: "text",
-          column: { width: 160, component: { color: "auto" } },
         },
         createdTime: {
           title: "创建时间",
@@ -128,10 +118,6 @@ export default function ({ expose }) {
             reqInfo: {
               header: "请求信息",
               columns: ["clientId", "platform", "os", "engine", "browser"],
-            },
-            version: {
-              header: "版号信息",
-              columns: ["engineVersion", "browserVersion"],
             },
             otherInfo: {
               header: "其它信息",

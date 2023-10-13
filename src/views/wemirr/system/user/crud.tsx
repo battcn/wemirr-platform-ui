@@ -36,6 +36,7 @@ export default function ({ expose }) {
           column: { width: 155 },
           search: { show: true, fixed: "left" },
           form: {
+            component: { disabled: true },
             rules: [
               { required: true, message: "请输入账号名" },
               { min: 4, max: 30, message: "长度在 4 到 30 个字符" },

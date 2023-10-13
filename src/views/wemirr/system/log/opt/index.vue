@@ -1,6 +1,11 @@
 <template>
   <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
+      <template #cell_action="scope">
+        <a-tooltip placement="top" :title="scope.row.action">
+          {{ scope.row.action }}
+        </a-tooltip>
+      </template>
       <template #actionbar-right>
         <a-dropdown type="primary" class="ml-1">
           <template #overlay>
