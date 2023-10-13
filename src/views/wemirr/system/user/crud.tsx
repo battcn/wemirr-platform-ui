@@ -35,8 +35,10 @@ export default function ({ expose }) {
           type: "text",
           column: { width: 155 },
           search: { show: true, fixed: "left" },
-          form: {
+          editForm: {
             component: { disabled: true },
+          },
+          form: {
             rules: [
               { required: true, message: "请输入账号名" },
               { min: 4, max: 30, message: "长度在 4 到 30 个字符" },
