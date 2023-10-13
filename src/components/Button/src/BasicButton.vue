@@ -8,18 +8,18 @@
   </Button>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" name="AButton" setup>
 import { Button } from "ant-design-vue";
-import { ComponentOptionsMixin, computed, unref } from "vue";
+import { computed, unref } from "vue";
 import Icon from "@/components/Icon/Icon.vue";
 import { buttonProps } from "./props";
 import { useAttrs } from "@vben/hooks";
 
-defineOptions({
-  name: "AButton",
-  extends: Button as ComponentOptionsMixin,
-  inheritAttrs: false,
-});
+// defineOptions({
+//   name: "AButton",
+//   extends: Button as ComponentOptionsMixin,
+//   inheritAttrs: false,
+// });
 
 const props = defineProps(buttonProps);
 // get component class
