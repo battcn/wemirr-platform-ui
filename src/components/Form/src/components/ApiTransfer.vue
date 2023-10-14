@@ -7,6 +7,7 @@
     :selectedKeys="selectedKeys"
     :targetKeys="getTargetKeys"
     :showSearch="showSearch"
+    :disabled="disabled"
     @change="handleChange"
   />
 </template>
@@ -101,7 +102,7 @@ export default defineComponent({
       () => {
         fetch();
       },
-      { deep: true }
+      { deep: true },
     );
 
     async function fetch() {
