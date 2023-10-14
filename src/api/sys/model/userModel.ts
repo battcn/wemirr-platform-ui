@@ -42,24 +42,6 @@ export interface LoginResultModel {
   roles: RoleInfo[];
 }
 
-/**
- * @description: Get user information return value
- */
-export interface GetUserInfoModel {
-  userId: string | number;
-  companyName: string;
-  tenantId: string | number;
-  tenantCode: string | number;
-  permissions: [];
-  username: string;
-  realName: string;
-  nickName: string;
-  avatar: string;
-  description?: string;
-  homePath?: string;
-  roles: RoleInfo[];
-}
-
 export interface GetCaptchaCodeModel {
   captchaId: string;
   code: string;

@@ -39,7 +39,10 @@ export interface UserInfo {
   username: string;
   realName: string;
   nickName: string;
+  birthday: string;
   avatar: string;
+  email: string;
+  mobile: string;
   description?: string;
   homePath?: string;
   roles: RoleInfo[];

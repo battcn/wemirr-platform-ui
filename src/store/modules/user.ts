@@ -6,7 +6,7 @@ import { RoleEnum } from "@/enums/roleEnum";
 import { PageEnum } from "@/enums/pageEnum";
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from "@/enums/cacheEnum";
 import { getAuthCache, setAuthCache } from "@/utils/auth";
-import { GetUserInfoModel, LoginPicture } from "@/api/sys/model/userModel";
+import { LoginPicture } from "@/api/sys/model/userModel";
 import { doLogout, getUserInfo, loginPicture } from "@/api/sys/user";
 import { useI18n } from "@/hooks/web/useI18n";
 import { useMessage } from "@/hooks/web/useMessage";
@@ -86,8 +86,8 @@ export const useUserStore = defineStore({
       params: LoginPicture & {
         goHome?: boolean;
         mode?: ErrorMessageMode;
-      }
-    ): Promise<GetUserInfoModel | null> {
+      },
+    ): Promise<UserInfo | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const data = await loginPicture(loginParams, mode);
@@ -97,7 +97,7 @@ export const useUserStore = defineStore({
         return Promise.reject(error);
       }
     },
-    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+    async afterLoginAction(goHome?: boolean): Promise<UserInfo | null> {
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();

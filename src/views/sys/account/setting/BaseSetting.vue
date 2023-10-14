@@ -31,10 +31,11 @@ import { CropperAvatar } from "@/components/Cropper";
 import { useMessage } from "@/hooks/web/useMessage";
 
 import headerImg from "@/assets/images/header.jpg";
-// import { accountInfoApi } from "@/api/demo/account";
-import { baseSetschemas } from "./data";
+import { baseSetSchemas } from "./data";
 import { useUserStore } from "@/store/modules/user";
 import { uploadApi } from "@/api/sys/upload";
+import { UserInfo } from "#/store";
+import { changeUserInfo } from "@/api/sys/user";
 
 export default defineComponent({
   components: {
@@ -49,9 +50,9 @@ export default defineComponent({
     const { createMessage } = useMessage();
     const userStore = useUserStore();
 
-    const [register, { setFieldsValue }] = useForm({
+    const [register, { getFieldsValue, setFieldsValue, validate }] = useForm({
       labelWidth: 120,
-      schemas: baseSetschemas,
+      schemas: baseSetSchemas,
       showActionButtonGroup: false,
     });
 
@@ -62,15 +63,30 @@ export default defineComponent({
 
     const avatar = computed(() => {
       const { avatar } = userStore.getUserInfo;
-      console.log(avatar);
       return avatar || headerImg;
     });
 
     function updateAvatar({ src, data }) {
-      const userinfo = userStore.getUserInfo;
-      userinfo.avatar = src;
-      userStore.setUserInfo(userinfo);
-      console.log("data", data);
+      console.log("data", data, src);
+      createMessage.error("暂未实现！");
+      // const userinfo = userStore.getUserInfo as UserInfo;
+      // userinfo.avatar = src;
+      // userStore.setUserInfo(userinfo);
+    }
+
+    async function handleSubmit() {
+      await validate();
+      let data = getFieldsValue();
+      await changeUserInfo(data).then(() => {
+        const userinfo = userStore.getUserInfo as UserInfo;
+        userinfo.email = data.email;
+        userinfo.mobile = data.mobile;
+        userinfo.nickName = data.nickName;
+        userinfo.birthday = data.birthday;
+        userinfo.description = data.description;
+        userStore.setUserInfo(userinfo);
+        createMessage.success("更新成功！");
+      });
     }
 
     return {
@@ -78,9 +94,7 @@ export default defineComponent({
       register,
       uploadApi: uploadApi as any,
       updateAvatar,
-      handleSubmit: () => {
-        createMessage.success("更新成功！");
-      },
+      handleSubmit,
     };
   },
 });

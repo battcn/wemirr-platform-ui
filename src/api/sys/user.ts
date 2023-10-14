@@ -1,8 +1,9 @@
 import { defHttp } from "/@/utils/http/axios";
-import { LoginPicture, TokenInfo, GetUserInfoModel, GetCaptchaCodeModel } from "./model/userModel";
+import { LoginPicture, TokenInfo, GetCaptchaCodeModel } from "./model/userModel";
 
 import { ErrorMessageMode } from "/#/axios";
 import { encryptByBase64 } from "@/utils/cipher";
+import { UserInfo } from "#/store";
 
 enum Api {
   Login = "/authority/oauth2/token",
@@ -10,7 +11,7 @@ enum Api {
   GetUserInfo = "/authority/oauth2/userinfo",
   GetPermCode = "/authority/resources/permissions",
   GetCaptchaCode = "/authority/captcha",
-  TestRetry = "/testRetry",
+  ChangeUserInfo = "/authority/oauth2/change_info",
 }
 /**
  * @description: 验证码登录
@@ -33,7 +34,7 @@ export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none"
  * @description: getUserInfo
  */
 export function getUserInfo() {
-  return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { errorMessageMode: "none" });
+  return defHttp.get<UserInfo>({ url: Api.GetUserInfo }, { errorMessageMode: "none" });
 }
 
 export function getCaptcha() {
@@ -46,4 +47,8 @@ export function getPermCode() {
 
 export function doLogout() {
   return defHttp.delete({ url: Api.Logout });
+}
+
+export function changeUserInfo(data: any) {
+  return defHttp.put({ url: Api.ChangeUserInfo, data: data });
 }
