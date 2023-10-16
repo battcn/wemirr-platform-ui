@@ -47,13 +47,13 @@ export default function ({ expose }) {
         title: {
           title: "标题",
           type: "text",
-          search: { show: true },
+          search: { show: true, width: 230 },
         },
         level: {
           title: "级别",
           type: "dict-select",
           search: { show: true },
-          column: { show: true, align: "center" }, // 表单配置
+          column: { show: true, width: 130 }, // 表单配置
           dict: dict({
             url: "/authority/dictionaries/NOTICE/list",
           }),
@@ -61,7 +61,7 @@ export default function ({ expose }) {
         mark: {
           title: "状态",
           search: { show: true },
-          column: { show: true, align: "center" }, // 表单配置
+          column: { show: true, align: "center", width: 100 }, // 表单配置
           type: "dict-radio",
           dict: dict({
             data: [

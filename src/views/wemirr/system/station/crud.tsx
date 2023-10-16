@@ -97,7 +97,7 @@ export default function ({ expose, nodeRef }) {
         },
         orgId: {
           title: "组织",
-          column: { width: 150, component: { color: "auto" } },
+          column: { width: 200, component: { color: "auto" } },
           type: "dict-tree",
           dict: dict({
             isTree: true,

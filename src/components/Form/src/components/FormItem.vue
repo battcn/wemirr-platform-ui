@@ -2,7 +2,12 @@
 import { type Recordable, type Nullable } from "@vben/types";
 import type { PropType, Ref } from "vue";
 import { computed, defineComponent, toRefs, unref } from "vue";
-import type { FormActionType, FormProps, FormSchema } from "../types/form";
+import {
+  isComponentFormSchema,
+  type FormActionType,
+  type FormProps,
+  type FormSchemaInner as FormSchema,
+} from "../types/form";
 import type { Rule as ValidationRule } from "ant-design-vue/lib/form/interface";
 import type { TableActionType } from "@/components/Table";
 import { Col, Divider, Form } from "ant-design-vue";
@@ -237,6 +242,9 @@ export default defineComponent({
     }
 
     function renderComponent() {
+      if (!isComponentFormSchema(props.schema)) {
+        return null;
+      }
       const {
         renderComponentContent,
         component,
@@ -294,7 +302,7 @@ export default defineComponent({
         return <Comp {...compAttr} />;
       }
       const compSlot = isFunction(renderComponentContent)
-        ? { ...renderComponentContent(unref(getValues)) }
+        ? { ...renderComponentContent(unref(getValues), { disabled: unref(getDisable) }) }
         : {
             default: () => renderComponentContent,
           };
@@ -326,7 +334,7 @@ export default defineComponent({
       const { itemProps, slot, render, field, suffix, component } = props.schema;
       const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
       const { colon } = props.formProps;
-
+      const opts = { disabled: unref(getDisable) };
       if (component === "Divider") {
         return (
           <Col span={24}>
@@ -336,9 +344,9 @@ export default defineComponent({
       } else {
         const getContent = () => {
           return slot
-            ? getSlot(slots, slot, unref(getValues))
+            ? getSlot(slots, slot, unref(getValues), opts)
             : render
-            ? render(unref(getValues))
+            ? render(unref(getValues), opts)
             : renderComponent();
         };
 
@@ -346,7 +354,7 @@ export default defineComponent({
         const getSuffix = isFunction(suffix) ? suffix(unref(getValues)) : suffix;
 
         // TODO 自定义组件验证会出现问题，因此这里框架默认将自定义组件设置手动触发验证，如果其他组件还有此问题请手动设置autoLink=false
-        if (NO_AUTO_LINK_COMPONENTS.includes(component)) {
+        if (component && NO_AUTO_LINK_COMPONENTS.includes(component)) {
           props.schema &&
             (props.schema.itemProps! = {
               autoLink: false,
@@ -376,7 +384,7 @@ export default defineComponent({
 
     return () => {
       const { colProps = {}, colSlot, renderColContent, component, slot } = props.schema;
-      if (!componentMap.has(component) && !slot) {
+      if (!component || (!componentMap.has(component) && !slot)) {
         return null;
       }
 
@@ -384,12 +392,13 @@ export default defineComponent({
       const realColProps = { ...baseColProps, ...colProps };
       const { isIfShow, isShow } = getShow();
       const values = unref(getValues);
+      const opts = { disabled: unref(getDisable) };
 
       const getContent = () => {
         return colSlot
-          ? getSlot(slots, colSlot, values)
+          ? getSlot(slots, colSlot, values, opts)
           : renderColContent
-          ? renderColContent(values)
+          ? renderColContent(values, opts)
           : renderItem();
       };
 

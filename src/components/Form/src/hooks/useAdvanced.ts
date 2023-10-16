@@ -1,7 +1,7 @@
 import type { ColEx } from "../types";
 import type { AdvanceState } from "../types/hooks";
 import { ComputedRef, getCurrentInstance, Ref, shallowReactive, computed, unref, watch } from "vue";
-import type { FormProps, FormSchema } from "../types/form";
+import type { FormProps, FormSchemaInner as FormSchema } from "../types/form";
 import { isBoolean, isFunction, isNumber, isObject } from "/@/utils/is";
 import { useBreakpoint } from "/@/hooks/event/useBreakpoint";
 import { useDebounceFn } from "@vueuse/core";
@@ -59,7 +59,7 @@ export default function ({
         debounceUpdateAdvanced();
       }
     },
-    { immediate: true }
+    { immediate: true },
   );
 
   function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false) {
@@ -142,7 +142,7 @@ export default function ({
       if (isShow && (colProps || baseColProps)) {
         const { itemColSum: sum, isAdvanced } = getAdvanced(
           { ...baseColProps, ...colProps },
-          itemColSum
+          itemColSum,
         );
 
         itemColSum = sum || 0;
