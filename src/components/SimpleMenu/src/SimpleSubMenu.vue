@@ -5,6 +5,7 @@
     v-bind="$props"
     :class="getLevelClass"
   >
+    <img v-if="getImg" :src="getImg" class="w-16px h-16px align-top" />
     <Icon v-if="getIcon" :icon="getIcon" :size="16" />
     <div v-if="collapsedShowTitle && getIsCollapseParent" class="mt-1 collapse-title">
       {{ getI18nName }}
@@ -23,6 +24,7 @@
     :collapsedShowTitle="collapsedShowTitle"
   >
     <template #title>
+      <img v-if="getImg" :src="getImg" class="w-16px h-16px align-top" />
       <Icon v-if="getIcon" :icon="getIcon" :size="16" />
 
       <div v-if="collapsedShowTitle && getIsCollapseParent" class="mt-2 collapse-title">
@@ -44,17 +46,17 @@
 </template>
 <script lang="ts">
 import type { PropType } from "vue";
-import type { Menu } from "/@/router/types";
+import type { Menu } from "@/router/types";
 
 import { defineComponent, computed } from "vue";
-import { useDesign } from "/@/hooks/web/useDesign";
+import { useDesign } from "@/hooks/web/useDesign";
 import Icon from "@/components/Icon/Icon.vue";
 
 import MenuItem from "./components/MenuItem.vue";
 import SubMenu from "./components/SubMenuItem.vue";
-import { propTypes } from "/@/utils/propTypes";
-import { useI18n } from "/@/hooks/web/useI18n";
-import { createAsyncComponent } from "/@/utils/factory/createAsyncComponent";
+import { propTypes } from "@/utils/propTypes";
+import { useI18n } from "@/hooks/web/useI18n";
+import { createAsyncComponent } from "@/utils/factory/createAsyncComponent";
 
 export default defineComponent({
   name: "SimpleSubMenu",
@@ -79,7 +81,8 @@ export default defineComponent({
     const { prefixCls } = useDesign("simple-menu");
 
     const getShowMenu = computed(() => !props.item?.meta?.hideMenu);
-    const getIcon = computed(() => props.item?.icon);
+    const getIcon = computed(() => (props.item?.img ? undefined : props.item?.icon));
+    const getImg = computed(() => props.item?.img);
     const getI18nName = computed(() => t(props.item?.name));
     const getShowSubTitle = computed(() => !props.collapse || !props.parent);
     const getIsCollapseParent = computed(() => !!props.collapse && !!props.parent);
@@ -106,6 +109,7 @@ export default defineComponent({
       menuHasChildren,
       getShowMenu,
       getIcon,
+      getImg,
       getI18nName,
       getShowSubTitle,
       getLevelClass,
