@@ -20,19 +20,19 @@
 <script lang="ts">
 import type { MenuState } from "./types";
 import { computed, defineComponent, unref, reactive, watch, toRefs, ref } from "vue";
-import { Menu } from "ant-design-vue";
+import { Menu, MenuProps } from "ant-design-vue";
 import BasicSubMenuItem from "./components/BasicSubMenuItem.vue";
-import { MenuModeEnum, MenuTypeEnum } from "/@/enums/menuEnum";
+import { MenuModeEnum, MenuTypeEnum } from "@/enums/menuEnum";
 import { useOpenKeys } from "./useOpenKeys";
 import { RouteLocationNormalizedLoaded, useRouter } from "vue-router";
-import { isFunction } from "/@/utils/is";
+import { isFunction } from "@/utils/is";
 import { basicProps } from "./props";
-import { useMenuSetting } from "/@/hooks/setting/useMenuSetting";
-import { REDIRECT_NAME } from "/@/router/constant";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { getCurrentParentPath } from "/@/router/menus";
-import { listenerRouteChange } from "/@/logics/mitt/routeChange";
-import { getAllParentPath } from "/@/router/helper/menuHelper";
+import { useMenuSetting } from "@/hooks/setting/useMenuSetting";
+import { REDIRECT_NAME } from "@/router/constant";
+import { useDesign } from "@/hooks/web/useDesign";
+import { getCurrentParentPath } from "@/router/menus";
+import { listenerRouteChange } from "@/logics/mitt/routeChange";
+import { getAllParentPath } from "@/router/helper/menuHelper";
 
 export default defineComponent({
   name: "BasicMenu",
@@ -64,7 +64,7 @@ export default defineComponent({
       menuState,
       items,
       mode as any,
-      accordion
+      accordion,
     );
 
     const getIsTopMenu = computed(() => {
@@ -114,10 +114,10 @@ export default defineComponent({
         () => props.items,
         () => {
           handleMenuChange();
-        }
+        },
       );
 
-    async function handleMenuClick({ key }: { key: string; keyPath: string[] }) {
+    const handleMenuClick: MenuProps["onClick"] = async ({ key }) => {
       const { beforeClickFn } = props;
       if (beforeClickFn && isFunction(beforeClickFn)) {
         const flag = await beforeClickFn(key);
@@ -127,7 +127,7 @@ export default defineComponent({
 
       isClickGo.value = true;
       menuState.selectedKeys = [key];
-    }
+    };
 
     async function handleMenuChange(route?: RouteLocationNormalizedLoaded) {
       if (unref(isClickGo)) {

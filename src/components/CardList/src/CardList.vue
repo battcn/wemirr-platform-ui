@@ -35,8 +35,6 @@
                 </div>
               </template>
               <template #actions>
-                <!--              <SettingOutlined key="setting" />-->
-                <EditOutlined key="edit" />
                 <Dropdown
                   :trigger="['hover']"
                   :dropMenuList="[
@@ -51,7 +49,7 @@
                   ]"
                   popconfirm
                 >
-                  <EllipsisOutlined key="ellipsis" />
+                  <EllipsisOutlined/>
                 </Dropdown>
               </template>
 
@@ -73,7 +71,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, onMounted, ref } from "vue";
-import { EditOutlined, EllipsisOutlined, RedoOutlined, TableOutlined } from "@ant-design/icons-vue";
+import { EllipsisOutlined, RedoOutlined, TableOutlined } from "@ant-design/icons-vue";
 import { List, Card, Image, Typography, Tooltip, Slider, Avatar } from "ant-design-vue";
 import { Dropdown } from "@/components/Dropdown";
 import { BasicForm, useForm } from "@/components/Form";
