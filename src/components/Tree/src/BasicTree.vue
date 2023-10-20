@@ -33,6 +33,7 @@ import { useContextMenu } from "@/hooks/web/useContextMenu";
 import { CreateContextOptions } from "@/components/ContextMenu";
 import { treeEmits, treeProps } from "./types/tree";
 import { createBEM } from "@/utils/bem";
+import type { TreeProps } from "ant-design-vue/es/tree/Tree";
 
 export default defineComponent({
   name: "BasicTree",
@@ -106,11 +107,11 @@ export default defineComponent({
         },
         onRightClick: handleRightClick,
       };
-      return omit(propsData, "treeData", "class");
+      return omit(propsData, "treeData", "class") as TreeProps;
     });
 
     const getTreeData = computed((): TreeItem[] =>
-      searchState.startSearch ? searchState.searchData : unref(treeDataRef)
+      searchState.startSearch ? searchState.searchData : unref(treeDataRef),
     );
 
     const getNotFound = computed((): boolean => {
@@ -201,7 +202,7 @@ export default defineComponent({
       },
       {
         immediate: true,
-      }
+      },
     );
 
     watch(
@@ -210,7 +211,7 @@ export default defineComponent({
         if (val) {
           handleSearch(searchState.searchText);
         }
-      }
+      },
     );
 
     function handleSearch(searchValue: string) {
@@ -236,7 +237,7 @@ export default defineComponent({
           }
           return result;
         },
-        unref(getFieldNames)
+        unref(getFieldNames),
       );
 
       if (expandOnSearch) {
@@ -301,7 +302,7 @@ export default defineComponent({
       () => {
         state.checkedKeys = toRaw(props.value || []);
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     watch(
@@ -310,7 +311,7 @@ export default defineComponent({
         const v = toRaw(state.checkedKeys);
         emit("update:value", v);
         emit("change", v);
-      }
+      },
     );
 
     watchEffect(() => {

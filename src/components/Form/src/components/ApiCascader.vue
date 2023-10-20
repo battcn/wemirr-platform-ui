@@ -22,12 +22,12 @@
 import { type Recordable } from "@vben/types";
 import { defineComponent, PropType, ref, unref, watch, watchEffect } from "vue";
 import { Cascader } from "ant-design-vue";
-import { propTypes } from "/@/utils/propTypes";
-import { isFunction } from "/@/utils/is";
+import { propTypes } from "@/utils/propTypes";
+import { isFunction } from "@/utils/is";
 import { get, omit } from "lodash-es";
-import { useRuleFormItem } from "/@/hooks/component/useFormItem";
+import { useRuleFormItem } from "@/hooks/component/useFormItem";
 import { LoadingOutlined } from "@ant-design/icons-vue";
-import { useI18n } from "/@/hooks/web/useI18n";
+import { useI18n } from "@/hooks/web/useI18n";
 
 interface Option {
   value: string;
@@ -55,7 +55,7 @@ export default defineComponent({
     labelField: propTypes.string.def("label"),
     valueField: propTypes.string.def("value"),
     childrenField: propTypes.string.def("children"),
-    asyncFetchParamKey: propTypes.string.def("parentCode"),
+    apiParamKey: propTypes.string.def("parentCode"),
     immediate: propTypes.bool.def(true),
     // init fetch params
     initFetchParams: {
@@ -88,7 +88,7 @@ export default defineComponent({
         const opts = generatorOptions(data);
         options.value = opts;
       },
-      { deep: true }
+      { deep: true },
     );
 
     function generatorOptions(options: any[]): Option[] {
@@ -141,7 +141,7 @@ export default defineComponent({
       if (!api || !isFunction(api)) return;
       try {
         const res = await api({
-          [props.asyncFetchParamKey]: Reflect.get(targetOption, "value"),
+          [props.apiParamKey]: Reflect.get(targetOption, "value"),
         });
         if (Array.isArray(res)) {
           const children = generatorOptions(res);
@@ -168,7 +168,7 @@ export default defineComponent({
       () => {
         !unref(isFirstLoad) && initialFetch();
       },
-      { deep: true }
+      { deep: true },
     );
 
     function handleChange(keys, args) {

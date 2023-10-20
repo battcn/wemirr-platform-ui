@@ -135,7 +135,6 @@ export default defineComponent({
       return [
         `${prefixCls}-submenu`,
         {
-          [`${prefixCls}-item-active`]: state.active,
           [`${prefixCls}-opened`]: state.opened,
           [`${prefixCls}-submenu-disabled`]: props.disabled,
           [`${prefixCls}-submenu-has-parent-submenu`]: unref(getParentSubMenu),

@@ -2,7 +2,7 @@ import { defHttp } from "/@/utils/http/axios";
 import { LoginPicture, TokenInfo, GetCaptchaCodeModel } from "./model/userModel";
 
 import { ErrorMessageMode } from "/#/axios";
-import { encryptByBase64 } from "@/utils/cipher";
+import { encryptByBase64 } from "@/utils/cipherOld";
 import { UserInfo } from "#/store";
 
 enum Api {
