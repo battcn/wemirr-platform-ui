@@ -106,10 +106,11 @@ export type ComponentType =
   | "RangePicker"
   | "WeekPicker"
   | "TimePicker"
-  | 'TimeRangePicker'
+  | "TimeRangePicker"
   | "Switch"
   | "StrengthMeter"
   | "Upload"
+  | "ImageUpload"
   | "IconPicker"
   | "Render"
   | "Slider"
