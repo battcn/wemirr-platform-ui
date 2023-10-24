@@ -82,7 +82,7 @@ export default function ({ expose }) {
           form: {
             rules: [
               { required: true, message: "请输入手机号" },
-              { min: 11, max: 11, message: "长度在 11 个字符" },
+              { pattern: /^1\d{10}$/, message: "手机号格式错误" },
             ],
           },
         },
