@@ -15,6 +15,11 @@ import { useLocale } from "@/locales/useLocale";
 import "dayjs/locale/zh-cn";
 import { useDarkModeTheme } from "@/hooks/setting/useDarkModeTheme";
 
+import { useWatermark } from "@/hooks/web/useWatermark";
+import { onMounted } from "vue";
+import { useGlobSetting } from "@/hooks/setting";
+
+const { setWatermark } = useWatermark();
 // support Multi-language
 const { getAntdLocale } = useLocale();
 
@@ -22,4 +27,8 @@ const { isDark, darkTheme } = useDarkModeTheme();
 
 // Listening to page changes and dynamically changing site titles
 useTitle();
+const { title } = useGlobSetting();
+onMounted(async () => {
+  setWatermark(title);
+});
 </script>

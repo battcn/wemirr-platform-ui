@@ -137,7 +137,7 @@
   </Form>
 </template>
 <script lang="ts" setup>
-import { reactive, ref, unref, computed, onMounted } from "vue";
+import { reactive, ref, unref, computed } from "vue";
 
 import { Alert, Checkbox, Form, Input, Row, Col, Button, Divider } from "ant-design-vue";
 import {
@@ -156,8 +156,6 @@ import { useUserStore } from "@/store/modules/user";
 import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from "./useLogin";
 import { useDesign } from "@/hooks/web/useDesign";
 import { PictureCode } from "@/components/PictureCode";
-import { useWatermark } from "@/hooks/web/useWatermark";
-import { useGlobSetting } from "@/hooks/setting";
 
 const ACol = Col;
 const ARow = Row;
@@ -170,7 +168,6 @@ const userStore = useUserStore();
 
 const { setLoginState, getLoginState } = useLoginState();
 const { getFormRules } = useFormRules();
-const { setWatermark } = useWatermark();
 
 const formRef = ref();
 const loading = ref(false);
@@ -186,11 +183,6 @@ const formData = reactive({
 const { validForm } = useFormValid(formRef);
 
 const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
-const { title } = useGlobSetting();
-
-onMounted(async () => {
-  setWatermark(title);
-});
 
 async function handleLogin() {
   const data = await validForm();

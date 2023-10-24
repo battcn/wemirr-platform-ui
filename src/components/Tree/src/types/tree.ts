@@ -96,7 +96,6 @@ export const treeProps = buildProps({
 
   selectedKeys: {
     type: Array as PropType<KeyType[]>,
-    default: () => [],
   },
 
   checkedKeys: {

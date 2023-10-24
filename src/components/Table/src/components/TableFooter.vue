@@ -16,11 +16,12 @@ import type { PropType } from "vue";
 import { defineComponent, unref, computed, toRaw } from "vue";
 import { Table } from "ant-design-vue";
 import { cloneDeep } from "lodash-es";
-import { isFunction } from "/@/utils/is";
+import { isFunction } from "@/utils/is";
 import type { BasicColumn } from "../types/table";
 import { INDEX_COLUMN_FLAG } from "../const";
-import { propTypes } from "/@/utils/propTypes";
+import { propTypes } from "@/utils/propTypes";
 import { useTableContext } from "../hooks/useTableContext";
+import { ColumnType } from "ant-design-vue/es/table/interface";
 
 const SUMMARY_ROW_KEY = "_row";
 const SUMMARY_INDEX_KEY = "_index";
@@ -86,7 +87,7 @@ export default defineComponent({
           customRender: ({ record }) => record[SUMMARY_ROW_KEY],
         });
       }
-      return columns;
+      return columns as unknown as ColumnType[];
     });
     return { getColumns, getDataSource };
   },

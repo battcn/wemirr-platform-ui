@@ -45,22 +45,21 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs, unref, computed, PropType } from "vue";
 import { Upload, Alert } from "ant-design-vue";
-import { BasicModal, useModalInner } from "/@/components/Modal";
-//   import { BasicTable, useTable } from '/@/components/Table';
+import { BasicModal, useModalInner } from "@/components/Modal";
 // hooks
 import { useUploadType } from "./useUpload";
-import { useMessage } from "/@/hooks/web/useMessage";
+import { useMessage } from "@/hooks/web/useMessage";
 //   types
 import { FileItem, UploadResultStatus } from "./typing";
 import { basicProps } from "./props";
 import { createTableColumns, createActionColumn } from "./data";
 // utils
 import { checkImgType, getBase64WithFile } from "./helper";
-import { buildUUID } from "/@/utils/uuid";
-import { isFunction } from "/@/utils/is";
-import { warn } from "/@/utils/log";
+import { buildUUID } from "@/utils/uuid";
+import { isFunction } from "@/utils/is";
+import { warn } from "@/utils/log";
 import FileList from "./FileList.vue";
-import { useI18n } from "/@/hooks/web/useI18n";
+import { useI18n } from "@/hooks/web/useI18n";
 
 export default defineComponent({
   components: { BasicModal, Upload, Alert, FileList },
@@ -103,7 +102,7 @@ export default defineComponent({
 
     const getOkButtonProps = computed(() => {
       const someSuccess = fileListRef.value.some(
-        (item) => item.status === UploadResultStatus.SUCCESS
+        (item) => item.status === UploadResultStatus.SUCCESS,
       );
       return {
         disabled: isUploadingRef.value || fileListRef.value.length === 0 || !someSuccess,
@@ -163,14 +162,6 @@ export default defineComponent({
       emit("delete", record);
     }
 
-    // 预览
-    // function handlePreview(record: FileItem) {
-    //   const { thumbUrl = '' } = record;
-    //   createImgPreview({
-    //     imageList: [thumbUrl],
-    //   });
-    // }
-
     async function uploadApiByItem(item: FileItem) {
       const { api } = props;
       if (!api || !isFunction(api)) {
@@ -190,7 +181,7 @@ export default defineComponent({
           function onUploadProgress(progressEvent: ProgressEvent) {
             const complete = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
             item.percent = complete;
-          }
+          },
         );
         const { data } = ret;
         item.status = UploadResultStatus.SUCCESS;
@@ -223,7 +214,7 @@ export default defineComponent({
         const data = await Promise.all(
           uploadFileList.map((item) => {
             return uploadApiByItem(item);
-          })
+          }),
         );
         isUploadingRef.value = false;
         // 生产环境:抛出错误
@@ -274,15 +265,14 @@ export default defineComponent({
     }
 
     return {
-      columns: createTableColumns() as any[],
-      actionColumn: createActionColumn(handleRemove) as any,
+      columns: createTableColumns(),
+      actionColumn: createActionColumn(handleRemove),
       register,
       closeModal,
       getHelpText,
       getStringAccept,
       getOkButtonProps,
       beforeUpload,
-      // registerTable,
       fileListRef,
       state,
       isUploadingRef,

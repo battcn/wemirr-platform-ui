@@ -12,15 +12,14 @@
 </template>
 <script lang="ts">
 import { defineComponent, watch, ref } from "vue";
-//   import { BasicTable, useTable } from '/@/components/Table';
 import FileList from "./FileList.vue";
-import { BasicModal, useModalInner } from "/@/components/Modal";
+import { BasicModal, useModalInner } from "@/components/Modal";
 import { previewProps } from "./props";
 import { PreviewFileItem } from "./typing";
-import { downloadByUrl } from "/@/utils/file/download";
+import { downloadByUrl } from "@/utils/file/download";
 import { createPreviewColumns, createPreviewActionColumn } from "./data";
-import { useI18n } from "/@/hooks/web/useI18n";
-import { isArray } from "/@/utils/is";
+import { useI18n } from "@/hooks/web/useI18n";
+import { isArray } from "@/utils/is";
 
 export default defineComponent({
   components: { BasicModal, FileList },
@@ -45,7 +44,7 @@ export default defineComponent({
             };
           });
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     // 删除
@@ -56,18 +55,10 @@ export default defineComponent({
         emit("delete", removed[0].url);
         emit(
           "list-change",
-          fileListRef.value.map((item) => item.url)
+          fileListRef.value.map((item) => item.url),
         );
       }
     }
-
-    // // 预览
-    // function handlePreview(record: PreviewFileItem) {
-    //   const { url = '' } = record;
-    //   createImgPreview({
-    //     imageList: [url],
-    //   });
-    // }
 
     // 下载
     function handleDownload(record: PreviewFileItem) {
