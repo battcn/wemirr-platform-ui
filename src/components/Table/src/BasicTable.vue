@@ -423,7 +423,7 @@ export default defineComponent({
     //}
   }
 
-  .ant-pagination {
+  .ant-table-wrapper .ant-pagination {
     margin: 10px 0 0;
   }
 
