@@ -15,17 +15,17 @@ importers:
         specifier: ^6.1.0
         version: registry.npmmirror.com/@ant-design/icons-vue@6.1.0(vue@3.3.4)
       '@fast-crud/fast-crud':
-        specifier: ^1.18.0
-        version: registry.npmmirror.com/@fast-crud/fast-crud@1.18.0(vue@3.3.4)
+        specifier: ^1.18.1
+        version: registry.npmmirror.com/@fast-crud/fast-crud@1.18.1(vue@3.3.4)
       '@fast-crud/fast-extends':
-        specifier: ^1.18.0
-        version: registry.npmmirror.com/@fast-crud/fast-extends@1.18.0(vue@3.3.4)
+        specifier: ^1.18.1
+        version: registry.npmmirror.com/@fast-crud/fast-extends@1.18.1(vue@3.3.4)
       '@fast-crud/ui-antdv4':
-        specifier: ^1.18.0
-        version: registry.npmmirror.com/@fast-crud/ui-antdv4@1.18.0
+        specifier: ^1.18.1
+        version: registry.npmmirror.com/@fast-crud/ui-antdv4@1.18.1
       '@fast-crud/ui-interface':
-        specifier: ^1.18.0
-        version: registry.npmmirror.com/@fast-crud/ui-interface@1.18.0
+        specifier: ^1.18.1
+        version: registry.npmmirror.com/@fast-crud/ui-interface@1.18.1
       '@iconify/iconify':
         specifier: ^3.1.0
         version: registry.npmmirror.com/@iconify/iconify@3.1.0
@@ -2351,11 +2351,11 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  registry.npmmirror.com/@fast-crud/fast-crud@1.18.0(vue@3.3.4):
-    resolution: {integrity: sha512-OvxCxHBvZlRpY1+D5fhwibNF2dXE9DKdjQsbkjf34zFl8E6woLiF0Ua4x1abyBiQfPwXJmF0JTamAvo01lhSzg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/fast-crud/-/fast-crud-1.18.0.tgz}
-    id: registry.npmmirror.com/@fast-crud/fast-crud/1.18.0
+  registry.npmmirror.com/@fast-crud/fast-crud@1.18.1(vue@3.3.4):
+    resolution: {integrity: sha512-7hMYEhzqcClKF5o2jBwe4j/zs/rgwrWaB7UDVgPOsFml5lZt2geiOiRaGGn3A8EfGvIXtHzgN5haHsX5k7xyeg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/fast-crud/-/fast-crud-1.18.1.tgz}
+    id: registry.npmmirror.com/@fast-crud/fast-crud/1.18.1
     name: '@fast-crud/fast-crud'
-    version: 1.18.0
+    version: 1.18.1
     dependencies:
       file-saver: registry.npmmirror.com/file-saver@2.0.5
       lru-cache: registry.npmmirror.com/lru-cache@10.0.1
@@ -2365,11 +2365,11 @@ packages:
       - vue
     dev: false
 
-  registry.npmmirror.com/@fast-crud/fast-extends@1.18.0(vue@3.3.4):
-    resolution: {integrity: sha512-Vpia1JwfGoJW5XqJ4f9XpkHEmF7FRQmHpjnQvFM1e7L4OEwCttk5k+vFoqFt57EyDOkqk3h3XBFlziGiin+rtQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/fast-extends/-/fast-extends-1.18.0.tgz}
-    id: registry.npmmirror.com/@fast-crud/fast-extends/1.18.0
+  registry.npmmirror.com/@fast-crud/fast-extends@1.18.1(vue@3.3.4):
+    resolution: {integrity: sha512-+UoaXT+7/BY6Ww6MoBcwy44akp0jqFGfcWRh03vx3AgZIucSXKwk9A6JhXr1dysGUJlIHYpuQPDuQx4JZACcnw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/fast-extends/-/fast-extends-1.18.1.tgz}
+    id: registry.npmmirror.com/@fast-crud/fast-extends/1.18.1
     name: '@fast-crud/fast-extends'
-    version: 1.18.0
+    version: 1.18.1
     dependencies:
       '@aws-sdk/client-s3': registry.npmmirror.com/@aws-sdk/client-s3@3.413.0
       '@aws-sdk/s3-request-presigner': registry.npmmirror.com/@aws-sdk/s3-request-presigner@3.413.0
@@ -2399,16 +2399,16 @@ packages:
       - vue
     dev: false
 
-  registry.npmmirror.com/@fast-crud/ui-antdv4@1.18.0:
-    resolution: {integrity: sha512-Svn4tyoYj7mhTAVNJR/xWWzNKHCLY3b7Zx8n+D2BxdeO48cbqDP0a7LhqEM+gRAHuQfHBG+CnnaySTNUhYM+Gw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/ui-antdv4/-/ui-antdv4-1.18.0.tgz}
+  registry.npmmirror.com/@fast-crud/ui-antdv4@1.18.1:
+    resolution: {integrity: sha512-ZHwdeHAJMUjpu2tenOdEtWeiKXNaYFzbnkal3qzgJnC44AULpWscWGaMCsxh/XvPYe4E8bpEy1IadVDplbi3AA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/ui-antdv4/-/ui-antdv4-1.18.1.tgz}
     name: '@fast-crud/ui-antdv4'
-    version: 1.18.0
+    version: 1.18.1
     dev: false
 
-  registry.npmmirror.com/@fast-crud/ui-interface@1.18.0:
-    resolution: {integrity: sha512-QPFXKK3Z2sGBPKPzitEdwROtcfE7Xy7OK8z5BVHxhHmHSIwOl5GzPuyeO2v1xu8iAnHha/ROIZc3HJbXY4xBTQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/ui-interface/-/ui-interface-1.18.0.tgz}
+  registry.npmmirror.com/@fast-crud/ui-interface@1.18.1:
+    resolution: {integrity: sha512-aQzenXjKAbK58uvRGQmbII8H04uCYvfW+ddxMpjyBBMbLnvpDqEs95h2jV2OUDjTDA4+wgMhaCjYdoOJEXw7Nw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@fast-crud/ui-interface/-/ui-interface-1.18.1.tgz}
     name: '@fast-crud/ui-interface'
-    version: 1.18.0
+    version: 1.18.1
     dependencies:
       lodash-es: registry.npmmirror.com/lodash-es@4.17.21
     dev: false
