@@ -110,12 +110,16 @@ html[data-theme="dark"] {
     -webkit-text-fill-color: #c9d1d9 !important;
     box-shadow: inherit !important;
   }
+  .ant-divider-inner-text {
+    color: @text-color-secondary;
+    font-size: 12px;
+  }
 }
 
 .@{prefix-cls} {
   min-height: 100%;
   overflow: hidden;
-
+  /* stylelint-disable-next-line media-query-no-invalid */
   @media (max-width: @screen-xl) {
     background-color: #293146;
 
@@ -136,7 +140,7 @@ html[data-theme="dark"] {
     background-repeat: no-repeat;
     background-position: 100%;
     background-size: auto 100%;
-
+    /* stylelint-disable-next-line media-query-no-invalid */
     @media (max-width: @screen-xl) {
       display: none;
     }
@@ -188,19 +192,19 @@ html[data-theme="dark"] {
 
   input:not([type="checkbox"]) {
     min-width: 360px;
-
+    /* stylelint-disable-next-line media-query-no-invalid */
     @media (max-width: @screen-xl) {
       min-width: 320px;
     }
-
+    /* stylelint-disable-next-line media-query-no-invalid */
     @media (max-width: @screen-lg) {
       min-width: 260px;
     }
-
+    /* stylelint-disable-next-line media-query-no-invalid */
     @media (max-width: @screen-md) {
       min-width: 240px;
     }
-
+    /* stylelint-disable-next-line media-query-no-invalid */
     @media (max-width: @screen-sm) {
       min-width: 160px;
     }
@@ -208,11 +212,6 @@ html[data-theme="dark"] {
 
   .@{countdown-prefix-cls} input {
     min-width: unset;
-  }
-
-  .ant-divider-inner-text {
-    color: @text-color-secondary;
-    font-size: 12px;
   }
 }
 </style>
