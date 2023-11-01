@@ -42,7 +42,7 @@ function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
 
 function dynamicImport(
   dynamicViewsModules: Record<string, () => Promise<Recordable>>,
-  component: string
+  component: string,
 ) {
   const keys = Object.keys(dynamicViewsModules);
   const matchKeys = keys.filter((key) => {
@@ -58,7 +58,7 @@ function dynamicImport(
     return dynamicViewsModules[matchKey];
   } else if (matchKeys?.length > 1) {
     warn(
-      "Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure"
+      "Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure",
     );
     return;
   } else {
@@ -78,7 +78,11 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
       } else {
         route.children = [cloneDeep(route)];
         route.component = LAYOUT;
-        route.name = `${route.name}Parent`;
+        //某些情况下如果name如果没有值， 多个一级路由菜单会导致页面404
+        if (!route.name || !route.menuName) {
+          warn("找不到菜单对应的name或menuName, 请检查数据!");
+        }
+        route.name = `${route.name || route.menuName}Parent`;
         route.path = "";
         const meta = route.meta || {};
         meta.single = true;
@@ -138,7 +142,7 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
 function addToChildren(
   routes: RouteRecordNormalized[],
   children: AppRouteRecordRaw[],
-  routeModule: AppRouteModule
+  routeModule: AppRouteModule,
 ) {
   for (let index = 0; index < children.length; index++) {
     const child = children[index];

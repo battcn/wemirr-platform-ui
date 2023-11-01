@@ -111,7 +111,7 @@ import {
   computed,
 } from "vue";
 import { Tooltip, Popover, Checkbox, Divider } from "ant-design-vue";
-import type { CheckboxChangeEvent } from "ant-design-vue/lib/checkbox/interface";
+import type { CheckboxChangeEvent, CheckboxValueType } from "ant-design-vue/lib/checkbox/interface";
 import { SettingOutlined, DragOutlined } from "@ant-design/icons-vue";
 import Icon from "@/components/Icon/Icon.vue";
 import { ScrollContainer } from "@/components/Container";
@@ -259,7 +259,7 @@ export default defineComponent({
     function onCheckAllChange(e: CheckboxChangeEvent) {
       const checkList = plainSortOptions.value.map((item) => item.value);
       plainSortOptions.value.forEach(
-        (item) => ((item as BasicColumn).defaultHidden = !e.target.checked)
+        (item) => ((item as BasicColumn).defaultHidden = !e.target.checked),
       );
       if (e.target.checked) {
         state.checkedList = checkList;
@@ -278,17 +278,17 @@ export default defineComponent({
     });
 
     // Trigger when check/uncheck a column
-    function onChange(checkedList: string[]) {
+    function onChange(checkedList: CheckboxValueType[]) {
       const len = plainSortOptions.value.length;
       state.checkAll = checkedList.length === len;
       const sortList = unref(plainSortOptions).map((item) => item.value);
       checkedList.sort((prev, next) => {
-        return sortList.indexOf(prev) - sortList.indexOf(next);
+        return sortList.indexOf(String(prev)) - sortList.indexOf(String(next));
       });
       unref(plainSortOptions).forEach((item) => {
         (item as BasicColumn).defaultHidden = !checkedList.includes(item.value);
       });
-      setColumns(checkedList);
+      setColumns(checkedList as string[]);
     }
 
     let sortable: Sortable;
@@ -368,7 +368,7 @@ export default defineComponent({
       if (!state.checkedList.includes(item.dataIndex as string)) return;
 
       const columns = getColumns().filter((c: BasicColumn) =>
-        state.checkedList.includes(c.dataIndex as string)
+        state.checkedList.includes(c.dataIndex as string),
       ) as BasicColumn[];
       const isFixed = item.fixed === fixed ? false : fixed;
       const index = columns.findIndex((col) => col.dataIndex === item.dataIndex);
@@ -393,7 +393,7 @@ export default defineComponent({
         const visible =
           columns.findIndex(
             (c: BasicColumn | string) =>
-              c === col.value || (typeof c !== "string" && c.dataIndex === col.value)
+              c === col.value || (typeof c !== "string" && c.dataIndex === col.value),
           ) !== -1;
         return { dataIndex: col.value, fixed: col.fixed, visible };
       });
