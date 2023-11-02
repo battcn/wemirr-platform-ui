@@ -1,5 +1,5 @@
 <template>
-  <ConfigProvider :locale="getAntdLocale" :theme="isDark ? darkTheme : {}">
+  <ConfigProvider :locale="getAntdLocale" :theme="themeConfig">
     <AppProvider>
       <RouterView />
     </AppProvider>
@@ -12,19 +12,32 @@ import { AppProvider } from "@/components/Application";
 import { useTitle } from "@/hooks/web/useTitle";
 import { useLocale } from "@/locales/useLocale";
 
-import "dayjs/locale/zh-cn";
 import { useDarkModeTheme } from "@/hooks/setting/useDarkModeTheme";
 
 import { useWatermark } from "@/hooks/web/useWatermark";
-import { onMounted } from "vue";
 import { useGlobSetting } from "@/hooks/setting";
+import "dayjs/locale/zh-cn";
+import { onMounted, computed } from "vue";
 
 const { setWatermark } = useWatermark();
 // support Multi-language
 const { getAntdLocale } = useLocale();
 
 const { isDark, darkTheme } = useDarkModeTheme();
-
+const themeConfig = computed(() =>
+  Object.assign(
+    {
+      token: {
+        colorPrimary: "#0960bd",
+        colorSuccess: "#55D187",
+        colorWarning: "#EFBD47",
+        colorError: "#ED6F6F",
+        colorInfo: "#0960bd",
+      },
+    },
+    isDark.value ? darkTheme : {},
+  ),
+);
 // Listening to page changes and dynamically changing site titles
 useTitle();
 const { title } = useGlobSetting();

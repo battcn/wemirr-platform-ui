@@ -381,7 +381,7 @@ export default defineComponent({
       margin-bottom: 16px;
       padding: 12px 10px 6px;
       border-radius: 2px;
-      background-color: @component-background;
+      background-color: @app-content-background !important;
     }
   }
 
