@@ -42,13 +42,13 @@ import { defineComponent, ref, watch, unref, computed } from "vue";
 import { Recordable } from "@vben/types";
 import Icon from "@/components/Icon/Icon.vue";
 import { Tooltip, Space } from "ant-design-vue";
-import { useModal } from "/@/components/Modal";
+import { useModal } from "@/components/Modal";
 import { uploadContainerProps } from "./props";
 import { omit } from "lodash-es";
-import { useI18n } from "/@/hooks/web/useI18n";
-import { isArray } from "/@/utils/is";
-import UploadModal from "./UploadModal.vue";
-import UploadPreviewModal from "./UploadPreviewModal.vue";
+import { useI18n } from "@/hooks/web/useI18n";
+import { isArray } from "@/utils/is";
+import UploadModal from "./components/UploadModal.vue";
+import UploadPreviewModal from "./components/UploadPreviewModal.vue";
 
 export default defineComponent({
   name: "BasicUpload",
@@ -82,7 +82,7 @@ export default defineComponent({
       (value = []) => {
         fileList.value = isArray(value) ? value : [];
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     // 上传modal保存操作

@@ -2,21 +2,24 @@
 import { defineComponent, computed, unref } from "vue";
 import { BackTop } from "ant-design-vue";
 
-import { useRootSetting } from "/@/hooks/setting/useRootSetting";
-import { useHeaderSetting } from "/@/hooks/setting/useHeaderSetting";
-import { useDesign } from "/@/hooks/web/useDesign";
-import { useUserStoreWithOut } from "/@/store/modules/user";
+import { useRootSetting } from "@/hooks/setting/useRootSetting";
+import { useHeaderSetting } from "@/hooks/setting/useHeaderSetting";
+import { useDesign } from "@/hooks/web/useDesign";
+import { useUserStoreWithOut } from "@/store/modules/user";
 
-import { SettingButtonPositionEnum } from "/@/enums/appEnum";
-import { createAsyncComponent } from "/@/utils/factory/createAsyncComponent";
+import { SettingButtonPositionEnum } from "@/enums/appEnum";
+import { createAsyncComponent } from "@/utils/factory/createAsyncComponent";
 
-import SessionTimeoutLogin from "/@/views/sys/login/SessionTimeoutLogin.vue";
+import SessionTimeoutLogin from "@/views/sys/login/SessionTimeoutLogin.vue";
+
+import { useMultipleTabSetting } from "@/hooks/setting/useMultipleTabSetting";
+
 export default defineComponent({
   name: "LayoutFeatures",
   components: {
     BackTop,
-    LayoutLockPage: createAsyncComponent(() => import("/@/views/sys/lock/index.vue")),
-    SettingDrawer: createAsyncComponent(() => import("/@/layouts/default/setting/index.vue")),
+    LayoutLockPage: createAsyncComponent(() => import("@/views/sys/lock/index.vue")),
+    SettingDrawer: createAsyncComponent(() => import("@/layouts/default/setting/index.vue")),
     SessionTimeoutLogin,
   },
   setup() {
@@ -40,12 +43,16 @@ export default defineComponent({
       return settingButtonPosition === SettingButtonPositionEnum.FIXED;
     });
 
+    const { getShowMultipleTab } = useMultipleTabSetting();
+
     return {
       getTarget: () => document.body,
       getUseOpenBackTop,
       getIsFixedSettingDrawer,
       prefixCls,
       getIsSessionTimeout,
+      getShowMultipleTab,
+      getFullContent,
     };
   },
 });
@@ -54,7 +61,10 @@ export default defineComponent({
 <template>
   <LayoutLockPage />
   <BackTop v-if="getUseOpenBackTop" :target="getTarget" />
-  <SettingDrawer v-if="getIsFixedSettingDrawer" :class="prefixCls" />
+  <SettingDrawer
+    v-if="getIsFixedSettingDrawer && (!getShowMultipleTab || getFullContent)"
+    :class="prefixCls"
+  />
   <SessionTimeoutLogin v-if="getIsSessionTimeout" />
 </template>
 

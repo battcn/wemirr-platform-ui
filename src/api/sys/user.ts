@@ -2,7 +2,7 @@ import { defHttp } from "/@/utils/http/axios";
 import { LoginPicture, TokenInfo, GetCaptchaCodeModel } from "./model/userModel";
 
 import { ErrorMessageMode } from "/#/axios";
-import { encryptByBase64 } from "@/utils/cipherOld";
+import { EncryptionFactory } from "@/utils/cipher";
 import { UserInfo } from "#/store";
 
 enum Api {
@@ -23,7 +23,11 @@ export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none"
       params: data,
       data: data,
       headers: {
-        Authorization: "Basic " + encryptByBase64(data.client_id + ":" + data.client_secret),
+        Authorization:
+          "Basic " +
+          EncryptionFactory.createBase64Encryption().encrypt(
+            data.client_id + ":" + data.client_secret,
+          ),
       },
     },
     { errorMessageMode: mode },
