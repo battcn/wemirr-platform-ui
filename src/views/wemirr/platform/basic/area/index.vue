@@ -34,7 +34,7 @@
 import { defineComponent, onMounted, ref, unref, h } from "vue";
 import { Card } from "ant-design-vue";
 import { BasicForm, useForm } from "@/components/Form";
-import { BasicTree } from "@/components/Tree/index";
+import { BasicTree } from "@/components/Tree";
 
 import { PageWrapper } from "@/components/Page";
 import { getAreaTree } from "@/api/sys/area";

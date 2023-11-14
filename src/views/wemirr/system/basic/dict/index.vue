@@ -21,7 +21,7 @@ export default defineComponent({
     // 你的crud配置
     const { crudOptions } = createCrudOptions({ expose });
     // 初始化crud配置
-    useCrud({ expose, crudOptions, permission: "sys:dict" });
+    useCrud({ expose, crudOptions, permission: "tenant:dict" });
     // 页面打开后获取列表数据
     onMounted(() => {
       expose.doRefresh();

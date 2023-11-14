@@ -14,17 +14,6 @@ export default function () {
         editRequest: async ({ form }) => await PUT(`/authority/i18n/${form.id}`, form),
         delRequest: async ({ row }) => await DELETE(`/authority/i18n/${row.id}`),
       },
-      rowHandle: {
-        width: 250,
-        buttons: {
-          edit: { size: "small", show: hasPermission("tenant:dict:edit") },
-          remove: {
-            show: compute(({ row }) => {
-              return !row.readonly && hasPermission("tenant:dict:remove");
-            }),
-          },
-        },
-      },
       columns: {
         id: {
           title: "ID",
