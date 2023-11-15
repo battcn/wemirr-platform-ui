@@ -84,15 +84,15 @@ export default defineComponent({
     async function customSubmitFunc() {
       try {
         await validate();
-        await setProps({submitButtonOptions: {loading: true}});
+        await setProps({ submitButtonOptions: { loading: true } });
         await api.SaveOrUpdate(getFieldsValue()).then(() => {
           notification.success({ message: "操作成功", duration: 3 });
-          setProps({submitButtonOptions: {loading: false}});
+          setProps({ submitButtonOptions: { loading: false } });
           resetFields();
           loadMenu();
         });
       } catch (error) {
-        setProps({submitButtonOptions: {loading: false}});
+        setProps({ submitButtonOptions: { loading: false } });
       }
     }
 

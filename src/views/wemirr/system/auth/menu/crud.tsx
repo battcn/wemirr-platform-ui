@@ -1,5 +1,5 @@
 import * as api from "./api";
-import { dict, compute } from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
 
 export default function ({ expose, nodeRef }) {
   const pageRequest = async (query) => {
@@ -33,9 +33,9 @@ export default function ({ expose, nodeRef }) {
           type: "text",
           column: { show: false },
           addForm: {
-            value: compute(() => {
-              return nodeRef.value.id;
-            }),
+            valueBuilder({ row, key }) {
+              row[key] = nodeRef.value.id;
+            },
           },
           form: {
             component: {
