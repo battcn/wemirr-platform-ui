@@ -1,7 +1,7 @@
-import type { AppRouteModule } from "/@/router/types";
-// import { t } from "/@/hooks/web/useI18n";
+import type { AppRouteModule } from "@/router/types";
+// import { t } from "@/hooks/web/useI18n";
 
-import { LAYOUT } from "/@/router/constant";
+import { LAYOUT } from "@/router/constant";
 
 const account: AppRouteModule = {
   path: "/account",

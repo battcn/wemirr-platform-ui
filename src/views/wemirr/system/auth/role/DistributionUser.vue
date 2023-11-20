@@ -34,7 +34,7 @@
 <script>
 import { difference } from "lodash-es";
 import { defineComponent, ref } from "vue";
-import { BasicModal, useModalInner } from "/@/components/Modal";
+import { BasicModal, useModalInner } from "@/components/Modal";
 import * as api from "./api";
 
 const tableColumns = [

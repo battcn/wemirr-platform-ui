@@ -1,7 +1,7 @@
 import * as api from "./api";
 import { compute, dict, utils } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { useMessage } from "/@/hooks/web/useMessage";
+import { useMessage } from "@/hooks/web/useMessage";
 
 export default function ({ expose }) {
   console.log("router", expose);

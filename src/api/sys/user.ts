@@ -1,4 +1,4 @@
-import { defHttp } from "/@/utils/http/axios";
+import { defHttp } from "@/utils/http/axios";
 import { LoginPicture, TokenInfo, GetCaptchaCodeModel } from "./model/userModel";
 
 import { ErrorMessageMode } from "/#/axios";

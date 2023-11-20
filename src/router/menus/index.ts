@@ -7,7 +7,7 @@ import { transformMenuModule, getAllParentPath } from "@/router/helper/menuHelpe
 import { filter } from "@/utils/helper/treeHelper";
 import { isHttpUrl } from "@/utils/is";
 import { router } from "@/router";
-import { PermissionModeEnum } from "/@/enums/appEnum";
+import { PermissionModeEnum } from "@/enums/appEnum";
 import { pathToRegexp } from "path-to-regexp";
 
 const modules = import.meta.glob("./modules/**/*.ts", { eager: true });

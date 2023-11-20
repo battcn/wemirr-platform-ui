@@ -11,17 +11,22 @@
       >
         <template #header>
           <div class="flex justify-end space-x-2">
-            <slot name="header"></slot>
+            <slot name="header"> </slot>
             <Tooltip>
               <template #title>
                 <div class="w-50">每行显示数量</div>
-                <Slider id="slider" v-bind="sliderProp" v-model:value="grid" @change="sliderChange"
-              /></template>
-              <Button><TableOutlined /></Button>
+                <Slider
+                  id="slider"
+                  v-bind="sliderProp"
+                  v-model:value="grid"
+                  @change="sliderChange"
+                />
+              </template>
+              <a-button><TableOutlined /></a-button>
             </Tooltip>
             <Tooltip @click="fetch">
               <template #title>刷新</template>
-              <Button><RedoOutlined /></Button>
+              <a-button><RedoOutlined /></a-button>
             </Tooltip>
           </div>
         </template>
@@ -35,6 +40,7 @@
                 </div>
               </template>
               <template #actions>
+                <EditOutlined />
                 <Dropdown
                   :trigger="['hover']"
                   :dropMenuList="[
@@ -49,7 +55,7 @@
                   ]"
                   popconfirm
                 >
-                  <EllipsisOutlined/>
+                  <EllipsisOutlined />
                 </Dropdown>
               </template>
 
@@ -70,15 +76,19 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
-import { EllipsisOutlined, RedoOutlined, TableOutlined } from "@ant-design/icons-vue";
-import { List, Card, Image, Typography, Tooltip, Slider, Avatar } from "ant-design-vue";
-import { Dropdown } from "@/components/Dropdown";
-import { BasicForm, useForm } from "@/components/Form";
-import { propTypes } from "@/utils/propTypes";
-import { Button } from "@/components/Button";
-import { isFunction } from "@/utils/is";
-import { useSlider, grid } from "./data";
+import { computed, onMounted, ref } from 'vue';
+import {
+  EditOutlined,
+  EllipsisOutlined,
+  RedoOutlined,
+  TableOutlined,
+} from '@ant-design/icons-vue';
+import { List, Card, Image, Typography, Tooltip, Slider, Avatar } from 'ant-design-vue';
+import { Dropdown } from '@/components/Dropdown';
+import { BasicForm, useForm } from '@/components/Form';
+import { propTypes } from '@/utils/propTypes';
+import { isFunction } from '@/utils/is';
+import { useSlider, grid } from './data';
 
 const ListItem = List.Item;
 const CardMeta = Card.Meta;
@@ -93,7 +103,7 @@ const props = defineProps({
   api: propTypes.func,
 });
 //暴露内部方法
-const emit = defineEmits(["getMethod", "delete"]);
+const emit = defineEmits(['getMethod', 'delete']);
 //数据
 const data = ref([]);
 // 切换每行个数
@@ -105,7 +115,7 @@ const height = computed(() => {
 });
 //表单
 const [registerForm, { validate }] = useForm({
-  schemas: [{ field: "type", component: "Input", label: "类型" }],
+  schemas: [{ field: 'type', component: 'Input', label: '类型' }],
   labelWidth: 80,
   baseColProps: { span: 6 },
   actionColOptions: { span: 24 },
@@ -125,7 +135,7 @@ function sliderChange(n) {
 // 自动请求并暴露内部方法
 onMounted(() => {
   fetch();
-  emit("getMethod", fetch);
+  emit('getMethod', fetch);
 });
 
 async function fetch(p = {}) {
@@ -162,6 +172,6 @@ function pageSizeChange(_current, size: number) {
 }
 
 async function handleDelete(id: number) {
-  emit("delete", id);
+  emit('delete', id);
 }
 </script>

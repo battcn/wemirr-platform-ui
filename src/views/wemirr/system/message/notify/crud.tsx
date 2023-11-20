@@ -1,5 +1,5 @@
 import * as api from "./api";
-import { useMessage } from "/@/hooks/web/useMessage";
+import { useMessage } from "@/hooks/web/useMessage";
 import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 

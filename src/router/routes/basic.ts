@@ -1,11 +1,11 @@
-import type { AppRouteRecordRaw } from "/@/router/types";
-import { t } from "/@/hooks/web/useI18n";
+import type { AppRouteRecordRaw } from "@/router/types";
+import { t } from "@/hooks/web/useI18n";
 import {
   REDIRECT_NAME,
   LAYOUT,
   EXCEPTION_COMPONENT,
   PAGE_NOT_FOUND_NAME,
-} from "/@/router/constant";
+} from "@/router/constant";
 /**
  * 前端路由，不会显示到菜单
  */
@@ -46,7 +46,7 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
     {
       path: "/redirect/:path(.*)/:_redirect_type(.*)/:_origin_params(.*)?",
       name: REDIRECT_NAME,
-      component: () => import("/@/views/sys/redirect/index.vue"),
+      component: () => import("@/views/sys/redirect/index.vue"),
       meta: {
         title: REDIRECT_NAME,
         hideBreadcrumb: true,
@@ -69,7 +69,7 @@ export const ERROR_LOG_ROUTE: AppRouteRecordRaw = {
     {
       path: "list",
       name: "ErrorLogList",
-      component: () => import("/@/views/sys/error-log/index.vue"),
+      component: () => import("@/views/sys/error-log/index.vue"),
       meta: {
         title: t("routes.basic.errorLogList"),
         hideBreadcrumb: true,

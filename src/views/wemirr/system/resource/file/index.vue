@@ -38,9 +38,9 @@
 import { defineComponent, ref, onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
-import { useMessage } from "/@/hooks/web/useMessage";
-import { BasicUpload } from "/@/components/Upload";
-import { uploadApi } from "/@/api/sys/upload";
+import { useMessage } from "@/hooks/web/useMessage";
+import { BasicUpload } from "@/components/Upload";
+import { uploadApi } from "@/api/sys/upload";
 import { PageWrapper } from "@/components/Page";
 
 export default defineComponent({

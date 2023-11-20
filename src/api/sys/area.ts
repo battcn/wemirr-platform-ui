@@ -1,5 +1,5 @@
 import { AreaTreeGetResultModel } from "../model/systemModel";
-import { defHttp } from "/@/utils/http/axios";
+import { defHttp } from "@/utils/http/axios";
 
 enum Api {
   AreaList = "/authority/areas/trees",

@@ -81,7 +81,7 @@ export default defineComponent({
           const avatar = res.level == "0" ? "notice" : res.level == "1" ? "dingding" : "star";
           state.tabListData[res.level].list.unshift({
             id: res.id,
-            avatar: `/@/assets/images/${avatar}.png`,
+            avatar: `@/assets/images/${avatar}.png`,
             title: res.title,
             description: res.description,
             datetime: formatToDateTime(res.createdTime),
