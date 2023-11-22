@@ -53,23 +53,6 @@ export default function ({ expose, nodeRef }) {
           type: "text",
           column: { width: 70 },
         },
-        type: {
-          column: { width: 90 },
-          title: "类型",
-          type: "dict-select",
-          search: { show: true },
-          dict: dict({
-            url: "/authority/dictionaries/STATION_TYPE/list",
-          }),
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
-              row[key] = value?.toString();
-            }
-          },
-          form: {
-            rules: [{ required: true, message: "岗位类型不能为空" }],
-          },
-        },
         sequence: {
           title: "排序",
           column: { width: 80, align: "center", show: false },

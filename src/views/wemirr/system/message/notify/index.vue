@@ -66,7 +66,7 @@ export default defineComponent({
     const { resetCrudOptions } = useCrud({
       expose,
       crudOptions,
-      permission: "sys:site_notifies",
+      permission: "sys:site_notify",
     });
     // 你可以调用此方法，重新初始化crud配置
     // resetCrudOptions(options)

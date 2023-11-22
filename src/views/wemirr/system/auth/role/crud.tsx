@@ -38,7 +38,7 @@ export default function ({ expose, distribution }) {
             size: "small",
             type: "link",
             order: 4,
-            show: hasPermission("sys:roles:distribution:user"),
+            show: hasPermission("sys:role:distribution:user"),
             async click(context) {
               await distribution.userModal(context.record.id);
             },
@@ -48,7 +48,7 @@ export default function ({ expose, distribution }) {
             type: "link",
             size: "small",
             order: 5,
-            show: hasPermission("sys:roles:distribution:res"),
+            show: hasPermission("sys:role:distribution:res"),
             async click(context) {
               await distribution.resourceModal(context.record.id);
             },

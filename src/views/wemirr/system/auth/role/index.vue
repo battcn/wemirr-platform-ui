@@ -75,7 +75,7 @@ export default defineComponent({
     // 你的crud配置
     const { crudOptions } = createCrudOptions({ expose, distribution });
     // 初始化crud配置
-    useCrud({ expose, crudOptions, permission: "sys:roles" });
+    useCrud({ expose, crudOptions, permission: "sys:role" });
 
     const treeData = ref([]);
     function initOrgList() {
