@@ -2,21 +2,31 @@ import { GET, POST, PUT, DELETE } from "@/api/service";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 
-export default function ({ expose }) {
+export default function ({ expose, nodeRef }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/users`, query),
+        pageRequest: async (query) => {
+          query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
+          return await GET(`/authority/users`, query);
+        },
         addRequest: async ({ form }) => await POST(`/authority/users`, form),
         editRequest: async ({ form }) => await PUT(`/authority/users/${form.id}`, form),
         delRequest: async ({ row }) => await DELETE(`/authority/users/${row.id}`),
       },
       rowHandle: { fixed: "right" },
+      search: {
+        onReset() {
+          nodeRef.value = null;
+        },
+      },
       table: {
         scroll: { fixed: true },
         onFilterChange: (content) => {
           const form = expose.getSearchFormData();
-          form.sex = content.sex[0];
+          if (content.sex) {
+            form.sex = content?.sex[0];
+          }
         },
       },
       toolbar: {
@@ -155,7 +165,6 @@ export default function ({ expose }) {
         },
         orgId: {
           title: "组织",
-          search: { show: true, component: { style: { width: "150px" } } },
           type: "dict-tree",
           column: {
             width: 180,
@@ -193,14 +202,14 @@ export default function ({ expose }) {
             prototype: true,
             value: "id",
             label: "name",
-            url({ form }) {
+            url({ form }: any) {
               if (form && form.orgId != null) {
                 // 本数据字典的url是通过前一个select的选项决定的
                 return `/authority/stations?status=1&orgId=${form.orgId}`;
               }
               return undefined;
             },
-            getData: ({ form, url }) => {
+            getData: ({ form, url }: any) => {
               if (form.orgId) {
                 return GET(url).then((ret) => {
                   return ret.records;

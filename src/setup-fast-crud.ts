@@ -31,6 +31,11 @@ export default function (app, i18n) {
           // toolbar.buttons.export.show:false 显示隐藏
           // toolbar.compact:false 默认选择
           compact: false,
+          buttons: {
+            compact: {
+              show: false,
+            },
+          },
         },
         actionbar: {
           buttons: {
