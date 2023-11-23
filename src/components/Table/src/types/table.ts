@@ -5,6 +5,7 @@ import type {
   TableRowSelection as ITableRowSelection,
   Key,
 } from "ant-design-vue/lib/table/interface";
+
 import type { ColumnProps } from "ant-design-vue/lib/table";
 
 import { ComponentType } from "./componentType";

@@ -33,7 +33,7 @@ export default defineComponent({
           okText: t("common.okText"),
           cancelText: t("common.cancelText"),
         },
-        { ...props, ...unref(attrs) },
+        { ...props, ...unref(attrs) }
       );
     });
 

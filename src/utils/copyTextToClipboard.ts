@@ -7,6 +7,6 @@ export function copyText(text: string, prompt: string | null = "已成功复制�
     },
     function (error: Error) {
       message.error("复制失败!" + error.message);
-    },
+    }
   );
 }

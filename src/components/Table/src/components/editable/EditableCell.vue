@@ -273,7 +273,6 @@ export default defineComponent({
           }
         }
       }
-
       set(record, dataKey, value);
       defaultValueRef.value = value;
       //const record = await table.updateTableData(index, dataKey, value);
@@ -484,6 +483,7 @@ export default defineComponent({
 }
 .@{prefix-cls} {
   position: relative;
+  min-height: 24px; //设置高度让其始终可被hover
 
   &__wrapper {
     display: flex;

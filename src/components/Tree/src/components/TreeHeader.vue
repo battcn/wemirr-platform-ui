@@ -155,7 +155,7 @@ watch(
   () => searchValue.value,
   (v) => {
     debounceEmitChange(v);
-  },
+  }
 );
 
 watch(
@@ -164,6 +164,6 @@ watch(
     if (v !== searchValue.value) {
       searchValue.value = v;
     }
-  },
+  }
 );
 </script>

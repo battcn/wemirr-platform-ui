@@ -9,12 +9,10 @@ import {
   Ref,
 } from "vue";
 import { on, off } from "@/utils/domUtils";
-
 import { renderThumbStyle, BAR_MAP } from "./util";
 
 export default defineComponent({
   name: "Bar",
-
   props: {
     vertical: Boolean,
     size: String,

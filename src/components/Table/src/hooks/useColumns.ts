@@ -41,7 +41,7 @@ function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) 
 function handleIndexColumn(
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
-  columns: BasicColumn[],
+  columns: BasicColumn[]
 ) {
   const { t } = useI18n();
 
@@ -103,7 +103,7 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
 
 export function useColumns(
   propsRef: ComputedRef<BasicTableProps>,
-  getPaginationRef: ComputedRef<boolean | PaginationProps>,
+  getPaginationRef: ComputedRef<boolean | PaginationProps>
 ) {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
   let cacheColumns = unref(propsRef).columns;
@@ -123,7 +123,7 @@ export function useColumns(
 
       handleItem(
         item,
-        Reflect.has(item, "ellipsis") ? !!item.ellipsis : !!ellipsis && !customRender && !slots,
+        Reflect.has(item, "ellipsis") ? !!item.ellipsis : !!ellipsis && !customRender && !slots
       );
     });
     return columns;
@@ -185,7 +185,7 @@ export function useColumns(
     (columns) => {
       columnsRef.value = columns;
       cacheColumns = columns?.filter((item) => !item.flag) ?? [];
-    },
+    }
   );
 
   function setCacheColumnsByField(dataIndex: string | undefined, value: Partial<BasicColumn>) {
@@ -275,8 +275,8 @@ export function useColumns(
     getCacheColumns,
     getColumns,
     setColumns,
-    getViewColumns,
     setColumnWidth,
+    getViewColumns,
     setCacheColumnsByField,
     setCacheColumns,
   };
@@ -298,7 +298,7 @@ function sortFixedColumn(columns: BasicColumn[]) {
     defColumns.push(column);
   }
   return [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
-    (item) => !item.defaultHidden,
+    (item) => !item.defaultHidden
   );
 }
 

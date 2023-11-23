@@ -33,7 +33,7 @@
     </PageFooter>
   </div>
 </template>
-<script lang="ts" name="PageWrapper" setup>
+<script lang="ts" setup>
 import {
   CSSProperties,
   PropType,
@@ -45,9 +45,7 @@ import {
   useAttrs,
   useSlots,
 } from "vue";
-
 import PageFooter from "./PageFooter.vue";
-
 import { useDesign } from "@/hooks/web/useDesign";
 import { propTypes } from "@/utils/propTypes";
 import { omit } from "lodash-es";
@@ -55,6 +53,11 @@ import { PageHeader } from "ant-design-vue";
 import { useContentHeight } from "@/hooks/web/useContentHeight";
 import { useLayoutHeight } from "@/layouts/default/content/useContentViewHeight";
 import { PageWrapperFixedHeightKey } from "@/enums/pageEnum";
+
+defineOptions({
+  name: "PageWrapper",
+  inheritAttrs: false,
+});
 
 const props = defineProps({
   title: propTypes.string,
@@ -84,7 +87,7 @@ const { prefixCls } = useDesign("page-wrapper");
 
 provide(
   PageWrapperFixedHeightKey,
-  computed(() => props.fixedHeight),
+  computed(() => props.fixedHeight)
 );
 
 const getIsContentFullHeight = computed(() => {
@@ -97,7 +100,7 @@ const { redoHeight, setCompensation, contentHeight } = useContentHeight(
   wrapperRef,
   [headerRef, footerRef],
   [contentRef],
-  getUpwardSpace,
+  getUpwardSpace
 );
 setCompensation({ useLayoutFooter: true, elements: [footerRef] });
 
@@ -126,7 +129,7 @@ const getHeaderStyle = computed((): CSSProperties => {
 });
 
 const getShowHeader = computed(
-  () => props.content || slots?.headerContent || props.title || getHeaderSlots.value.length,
+  () => props.content || slots?.headerContent || props.title || getHeaderSlots.value.length
 );
 
 const getShowFooter = computed(() => slots?.leftFooter || slots?.rightFooter);
@@ -168,7 +171,7 @@ watch(
   {
     flush: "post",
     immediate: true,
-  },
+  }
 );
 </script>
 <style lang="less">

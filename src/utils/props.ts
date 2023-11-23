@@ -48,7 +48,7 @@ export type BuildPropType<T, V, C> = _BuildPropType<
 
 type _BuildPropDefault<T, D> = [T] extends [
   // eslint-disable-next-line @typescript-eslint/ban-types
-  Record<string, unknown> | Array<any> | Function,
+  Record<string, unknown> | Array<any> | Function
 ]
   ? D
   : D extends () => T
@@ -94,7 +94,7 @@ export function buildProp<
   D extends BuildPropType<T, V, C> = never,
   R extends boolean = false,
   V = never,
-  C = never,
+  C = never
 >(option: BuildPropOption<T, D, R, V, C>, key?: string): BuildPropReturn<T, D, R, V, C> {
   // filter native prop type and nested prop, e.g `null`, `undefined` (from `buildProps`)
   if (!isObject(option) || !!option[propKey]) return option as any;
@@ -120,7 +120,7 @@ export function buildProp<
             warn(
               `Invalid prop: validation failed${
                 key ? ` for prop "${key}"` : ""
-              }. Expected one of [${allowValuesText}], got value ${JSON.stringify(val)}.`,
+              }. Expected one of [${allowValuesText}], got value ${JSON.stringify(val)}.`
             );
           }
           return valid;
@@ -152,12 +152,12 @@ export const buildProps = <
         ? BuildPropOption<T, D, R, V, C>
         : never
       : never;
-  },
+  }
 >(
-  props: O,
+  props: O
 ) =>
   fromPairs(
-    Object.entries(props).map(([key, option]) => [key, buildProp(option as any, key)]),
+    Object.entries(props).map(([key, option]) => [key, buildProp(option as any, key)])
   ) as unknown as {
     [K in keyof O]: O[K] extends { [propKey]: boolean }
       ? O[K]
@@ -175,7 +175,7 @@ export const buildProps = <
       : never;
   };
 
-export const definePropType = <T>(val: any) => ({ [wrapperKey]: val }) as PropWrapper<T>;
+export const definePropType = <T>(val: any) => ({ [wrapperKey]: val } as PropWrapper<T>);
 
 export const keyOf = <T extends object>(arr: T) => Object.keys(arr) as Array<keyof T>;
 

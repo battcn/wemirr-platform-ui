@@ -6,9 +6,10 @@ import { ROW_KEY } from "../const";
 export function useTableExpand(
   propsRef: ComputedRef<BasicTableProps>,
   tableData: Ref<Recordable[]>,
-  emit: EmitType,
+  emit: EmitType
 ) {
   const expandedRowKeys = ref<(string | number)[]>([]);
+
   const getAutoCreateKey = computed(() => {
     return unref(propsRef).autoCreateKey && !unref(propsRef).rowKey;
   });

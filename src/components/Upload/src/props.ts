@@ -14,6 +14,7 @@ type SortableOptions = Merge<
 >;
 
 type ListType = "text" | "picture" | "picture-card";
+
 export const basicProps = {
   listType: {
     type: String as PropType<ListType>,

@@ -48,7 +48,7 @@ watchEffect(
       }
     }
   },
-  { flush: "post" },
+  { flush: "post" }
 );
 const emit = defineEmits(["expandChange"]);
 function onExpand() {
@@ -114,16 +114,19 @@ function onExpand() {
   overflow: hidden;
   cursor: text;
 }
+
 .ellipsis-line {
   display: -webkit-inline-box;
   -webkit-box-orient: vertical;
 }
+
 .not-ellipsis-line {
   display: inline-block;
   text-overflow: ellipsis;
   vertical-align: bottom;
   white-space: nowrap;
 }
+
 .cursor-pointer {
   cursor: pointer;
 }

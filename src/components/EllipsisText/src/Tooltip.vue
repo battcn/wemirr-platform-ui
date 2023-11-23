@@ -75,6 +75,7 @@ function onHide(): void {
 .m-tooltip {
   display: inline-block;
   position: relative;
+
   .m-tooltip-content {
     position: absolute;
     z-index: 9999;
@@ -82,20 +83,17 @@ function onHide(): void {
     padding-bottom: 12px;
     transform: scale(0.8); // 缩放变换
     transform-origin: 50% 75%;
-    transition:
-      transform 0.25s,
-      opacity 0.25s;
+    transition: transform 0.25s, opacity 0.25s;
     opacity: 0;
     pointer-events: none;
+
     .u-tooltip {
       min-width: 32px;
       min-height: 32px;
       padding: 6px 8px;
       border-radius: 6px;
       background-color: var(--tooltip-background-color);
-      box-shadow:
-        0 6px 16px 0 rgb(0 0 0 / 8%),
-        0 3px 6px -4px rgb(0 0 0 / 12%),
+      box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
         0 9px 28px 8px rgb(0 0 0 / 5%);
       color: var(--tooltip-color);
       font-size: var(--tooltip-font-size);
@@ -104,6 +102,7 @@ function onHide(): void {
       text-decoration: none;
       word-wrap: break-word;
     }
+
     .m-tooltip-arrow {
       content: "";
       display: block;
@@ -116,6 +115,7 @@ function onHide(): void {
       overflow: hidden;
       transform: translateX(-50%) translateY(100%) rotate(180deg);
       pointer-events: none;
+
       &::before {
         position: absolute;
         bottom: 0;
@@ -127,6 +127,7 @@ function onHide(): void {
           "M 0 8 A 4 4 0 0 0 2.82842712474619 6.82842712474619 L 6.585786437626905 3.0710678118654755 A 2 2 0 0 1 9.414213562373096 3.0710678118654755 L 13.17157287525381 6.82842712474619 A 4 4 0 0 0 16 8 Z"
         );
       }
+
       &::after {
         content: "";
         position: absolute;
@@ -143,6 +144,7 @@ function onHide(): void {
       }
     }
   }
+
   .show-tip {
     transform: scale(1); // 缩放变换
     opacity: 1;

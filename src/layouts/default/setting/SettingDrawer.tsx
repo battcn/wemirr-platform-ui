@@ -29,7 +29,7 @@ import {
   topMenuAlignOptions,
   getMenuTriggerOptions,
   routerTransitionOptions,
-  menuTypeList,
+  menuTypeListEnum,
   mixSidebarTriggerOptions,
 } from "./enum";
 
@@ -101,8 +101,8 @@ export default defineComponent({
       return (
         <>
           <TypePicker
-            menuTypeList={menuTypeList}
-            handler={(item: (typeof menuTypeList)[0]) => {
+            menuTypeList={menuTypeListEnum}
+            handler={(item: (typeof menuTypeListEnum)[0]) => {
               baseHandler(HandlerEnum.CHANGE_LAYOUT, {
                 mode: item.mode,
                 type: item.type,

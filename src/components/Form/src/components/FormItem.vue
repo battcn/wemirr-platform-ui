@@ -92,7 +92,7 @@ export default defineComponent({
             orientation: "left",
             plain: true,
           },
-          componentProps,
+          componentProps
         );
       }
       return componentProps as Recordable<any>;
@@ -211,7 +211,7 @@ export default defineComponent({
       }
 
       const requiredRuleIndex: number = rules.findIndex(
-        (rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"),
+        (rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator")
       );
 
       if (requiredRuleIndex !== -1) {

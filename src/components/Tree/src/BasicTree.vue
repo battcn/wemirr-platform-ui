@@ -1,5 +1,5 @@
 <script lang="tsx">
-import type { CSSProperties } from 'vue';
+import type { CSSProperties } from "vue";
 import type {
   FieldNames,
   TreeState,
@@ -7,7 +7,7 @@ import type {
   KeyType,
   CheckKeys,
   TreeActionType,
-} from './types/tree';
+} from "./types/tree";
 
 import {
   defineComponent,
@@ -19,29 +19,29 @@ import {
   toRaw,
   watch,
   onMounted,
-} from 'vue';
-import TreeHeader from './components/TreeHeader.vue';
-import { Tree, Spin, Empty } from 'ant-design-vue';
-import { TreeIcon } from './TreeIcon';
-import { ScrollContainer } from '@/components/Container';
-import { omit, get, difference, cloneDeep } from 'lodash-es';
-import { isArray, isBoolean, isEmpty, isFunction } from '@/utils/is';
-import { extendSlots, getSlot } from '@/utils/helper/tsxHelper';
-import { filter, treeToList, eachTree } from '@/utils/helper/treeHelper';
-import { useTree } from './hooks/useTree';
-import { useContextMenu } from '@/hooks/web/useContextMenu';
-import { CreateContextOptions } from '@/components/ContextMenu';
-import { treeEmits, treeProps } from './types/tree';
-import { createBEM } from '@/utils/bem';
-import type { TreeProps } from 'ant-design-vue/es/tree/Tree';
+} from "vue";
+import TreeHeader from "./components/TreeHeader.vue";
+import { Tree, Spin, Empty } from "ant-design-vue";
+import { TreeIcon } from "./TreeIcon";
+import { ScrollContainer } from "@/components/Container";
+import { omit, get, difference, cloneDeep } from "lodash-es";
+import { isArray, isBoolean, isEmpty, isFunction } from "@/utils/is";
+import { extendSlots, getSlot } from "@/utils/helper/tsxHelper";
+import { filter, treeToList, eachTree } from "@/utils/helper/treeHelper";
+import { useTree } from "./hooks/useTree";
+import { useContextMenu } from "@/hooks/web/useContextMenu";
+import { CreateContextOptions } from "@/components/ContextMenu";
+import { treeEmits, treeProps } from "./types/tree";
+import { createBEM } from "@/utils/bem";
+import type { TreeProps } from "ant-design-vue/es/tree/Tree";
 
 export default defineComponent({
-  name: 'BasicTree',
+  name: "BasicTree",
   inheritAttrs: false,
   props: treeProps,
   emits: treeEmits,
   setup(props, { attrs, slots, emit, expose }) {
-    const [bem] = createBEM('tree');
+    const [bem] = createBEM("tree");
 
     const state = reactive<TreeState>({
       checkStrictly: props.checkStrictly,
@@ -52,7 +52,7 @@ export default defineComponent({
 
     const searchState = reactive({
       startSearch: false,
-      searchText: '',
+      searchText: "",
       searchData: [] as TreeItem[],
     });
 
@@ -63,9 +63,9 @@ export default defineComponent({
     const getFieldNames = computed((): Required<FieldNames> => {
       const { fieldNames } = props;
       return {
-        children: 'children',
-        title: 'title',
-        key: 'key',
+        children: "children",
+        title: "title",
+        key: "key",
         ...fieldNames,
       };
     });
@@ -80,13 +80,13 @@ export default defineComponent({
         checkedKeys: state.checkedKeys,
         checkStrictly: state.checkStrictly,
         fieldNames: unref(getFieldNames),
-        'onUpdate:expandedKeys': (v: KeyType[]) => {
+        "onUpdate:expandedKeys": (v: KeyType[]) => {
           state.expandedKeys = v;
-          emit('update:expandedKeys', v);
+          emit("update:expandedKeys", v);
         },
-        'onUpdate:selectedKeys': (v: KeyType[]) => {
+        "onUpdate:selectedKeys": (v: KeyType[]) => {
           state.selectedKeys = v;
-          emit('update:selectedKeys', v);
+          emit("update:selectedKeys", v);
         },
         onCheck: (v: CheckKeys, e) => {
           let currentValue = toRaw(state.checkedKeys) as KeyType[];
@@ -102,16 +102,16 @@ export default defineComponent({
           }
 
           const rawVal = toRaw(state.checkedKeys);
-          emit('update:value', rawVal);
-          emit('check', rawVal, e);
+          emit("update:value", rawVal);
+          emit("check", rawVal, e);
         },
         onRightClick: handleRightClick,
       };
-      return omit(propsData, 'treeData', 'class') as TreeProps;
+      return omit(propsData, "treeData", "class") as TreeProps;
     });
 
     const getTreeData = computed((): TreeItem[] =>
-      searchState.startSearch ? searchState.searchData : unref(treeDataRef),
+      searchState.startSearch ? searchState.searchData : unref(treeDataRef)
     );
 
     const getNotFound = computed((): boolean => {
@@ -202,7 +202,7 @@ export default defineComponent({
       },
       {
         immediate: true,
-      },
+      }
     );
 
     watch(
@@ -211,18 +211,17 @@ export default defineComponent({
         if (val) {
           handleSearch(searchState.searchText);
         }
-      },
+      }
     );
 
     function handleSearch(searchValue: string) {
       if (searchValue !== searchState.searchText) searchState.searchText = searchValue;
-      emit('update:searchValue', searchValue);
+      emit("update:searchValue", searchValue);
       if (!searchValue) {
         searchState.startSearch = false;
         return;
       }
-      const { filterFn, checkable, expandOnSearch, checkOnSearch, selectedOnSearch } =
-        unref(props);
+      const { filterFn, checkable, expandOnSearch, checkOnSearch, selectedOnSearch } = unref(props);
       searchState.startSearch = true;
       const { title: titleField, key: keyField } = unref(getFieldNames);
 
@@ -238,7 +237,7 @@ export default defineComponent({
           }
           return result;
         },
-        unref(getFieldNames),
+        unref(getFieldNames)
       );
 
       if (expandOnSearch) {
@@ -303,16 +302,16 @@ export default defineComponent({
       () => {
         state.checkedKeys = toRaw(props.value || []);
       },
-      { immediate: true },
+      { immediate: true }
     );
 
     watch(
       () => state.checkedKeys,
       () => {
         const v = toRaw(state.checkedKeys);
-        emit('update:value', v);
-        emit('change', v);
-      },
+        emit("update:value", v);
+        emit("change", v);
+      }
     );
 
     watchEffect(() => {
@@ -359,9 +358,9 @@ export default defineComponent({
         if (!nodeShow) return null;
 
         return (
-          <span key={index} class={bem('action')}>
-              {item.render(node)}
-            </span>
+          <span key={index} class={bem("action")}>
+            {item.render(node)}
+          </span>
         );
       });
     }
@@ -371,11 +370,7 @@ export default defineComponent({
       eachTree(data, (item, _parent) => {
         const searchText = searchState.searchText;
         const { highlight } = unref(props);
-        const {
-          title: titleField,
-          key: keyField,
-          children: childrenField,
-        } = unref(getFieldNames);
+        const { title: titleField, key: keyField, children: childrenField } = unref(getFieldNames);
 
         const icon = getIcon(item, item.icon);
         const title = get(item, titleField);
@@ -383,14 +378,14 @@ export default defineComponent({
         const searchIdx = searchText ? title.indexOf(searchText) : -1;
         const isHighlight =
           searchState.startSearch && !isEmpty(searchText) && highlight && searchIdx !== -1;
-        const highlightStyle = `color: ${isBoolean(highlight) ? '#f50' : highlight}`;
+        const highlightStyle = `color: ${isBoolean(highlight) ? "#f50" : highlight}`;
 
         const titleDom = isHighlight ? (
-          <span class={unref(getBindValues)?.blockNode ? `${bem('content')}` : ''}>
-              <span>{title.substr(0, searchIdx)}</span>
-              <span style={highlightStyle}>{searchText}</span>
-              <span>{title.substr(searchIdx + (searchText as string).length)}</span>
-            </span>
+          <span class={unref(getBindValues)?.blockNode ? `${bem("content")}` : ""}>
+            <span>{title.substr(0, searchIdx)}</span>
+            <span style={highlightStyle}>{searchText}</span>
+            <span>{title.substr(searchIdx + (searchText as string).length)}</span>
+          </span>
         ) : (
           title
         );
@@ -398,27 +393,27 @@ export default defineComponent({
         const iconDom = icon ? (
           <TreeIcon icon={icon} />
         ) : slots.icon ? (
-          <span class="mr-1">{getSlot(slots, 'icon')}</span>
+          <span class="mr-1">{getSlot(slots, "icon")}</span>
         ) : null;
 
         item[titleField] = (
           <span
-            class={`${bem('title')} pl-2`}
+            class={`${bem("title")} pl-2`}
             onClick={handleClickNode.bind(null, item[keyField], item[childrenField])}
           >
-              {slots?.title ? (
-                <>
-                  {iconDom}
-                  {getSlot(slots, 'title', item)}
-                </>
-              ) : (
-                <>
-                  {iconDom}
-                  {titleDom}
-                  <span class={bem('actions')}>{renderAction(item)}</span>
-                </>
-              )}
-            </span>
+            {slots?.title ? (
+              <>
+                {iconDom}
+                {getSlot(slots, "title", item)}
+              </>
+            ) : (
+              <>
+                {iconDom}
+                {titleDom}
+                <span class={bem("actions")}>{renderAction(item)}</span>
+              </>
+            )}
+          </span>
         );
         return item;
       });
@@ -430,9 +425,9 @@ export default defineComponent({
     return () => {
       const { title, helpMessage, toolbar, search, checkable } = props;
       const showTitle = title || toolbar || search || slots.headerTitle;
-      const scrollStyle: CSSProperties = { height: 'calc(100% - 38px)' };
+      const scrollStyle: CSSProperties = { height: "calc(100% - 38px)" };
       return (
-        <div class={[bem(), 'h-full', attrs.class]}>
+        <div class={[bem(), "h-full", attrs.class]}>
           {showTitle && (
             <TreeHeader
               checkable={checkable}
@@ -456,14 +451,10 @@ export default defineComponent({
           >
             <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
               <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value}>
-                {extendSlots(slots, ['title'])}
+                {extendSlots(slots, ["title"])}
               </Tree>
             </ScrollContainer>
-            <Empty
-              v-show={unref(getNotFound)}
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              class="!mt-4"
-            />
+            <Empty v-show={unref(getNotFound)} image={Empty.PRESENTED_IMAGE_SIMPLE} class="!mt-4" />
           </Spin>
         </div>
       );

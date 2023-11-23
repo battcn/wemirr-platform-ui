@@ -24,7 +24,7 @@ function getConfFiles() {
  */
 export async function getEnvConfig(
   match = "VITE_GLOB_",
-  confFiles = getConfFiles(),
+  confFiles = getConfFiles()
 ): Promise<{ [key: string]: string }> {
   let envConfig = {};
 

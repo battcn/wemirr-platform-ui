@@ -37,13 +37,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue';
-import { type Recordable } from '@vben/types';
-import { type DropMenu } from './typing';
-import { Dropdown, Menu, Popconfirm } from 'ant-design-vue';
-import Icon from '@/components/Icon/Icon.vue';
-import { omit } from 'lodash-es';
-import { isFunction } from '@/utils/is';
+import { computed, PropType } from "vue";
+import { type Recordable } from "@vben/types";
+import { type DropMenu } from "./typing";
+import { Dropdown, Menu, Popconfirm } from "ant-design-vue";
+import Icon from "@/components/Icon/Icon.vue";
+import { omit } from "lodash-es";
+import { isFunction } from "/@/utils/is";
 
 const ADropdown = Dropdown;
 const AMenu = Menu;
@@ -59,9 +59,9 @@ const props = defineProps({
    * @type string[]
    */
   trigger: {
-    type: Array as PropType<('contextmenu' | 'click' | 'hover')[]>,
+    type: Array as PropType<("contextmenu" | "click" | "hover")[]>,
     default: () => {
-      return ['contextmenu'];
+      return ["contextmenu"];
     },
   },
   dropMenuList: {
@@ -74,22 +74,22 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['menuEvent']);
+const emit = defineEmits(["menuEvent"]);
 
 function handleClickMenu(item: DropMenu) {
   const { event } = item;
   const menu = props.dropMenuList.find((item) => `${item.event}` === `${event}`);
-  emit('menuEvent', menu);
+  emit("menuEvent", menu);
   item.onClick?.();
 }
 
 const getPopConfirmAttrs = computed(() => {
   return (attrs) => {
-    const originAttrs = omit(attrs, ['confirm', 'cancel', 'icon']);
+    const originAttrs = omit(attrs, ["confirm", "cancel", "icon"]);
     if (!attrs.onConfirm && attrs.confirm && isFunction(attrs.confirm))
-      originAttrs['onConfirm'] = attrs.confirm;
+      originAttrs["onConfirm"] = attrs.confirm;
     if (!attrs.onCancel && attrs.cancel && isFunction(attrs.cancel))
-      originAttrs['onCancel'] = attrs.cancel;
+      originAttrs["onCancel"] = attrs.cancel;
     return originAttrs;
   };
 });

@@ -59,7 +59,7 @@ export default function ({
         debounceUpdateAdvanced();
       }
     },
-    { immediate: true },
+    { immediate: true }
   );
 
   function getAdvanced(itemCol: Partial<ColEx>, itemColSum = 0, isLastAction = false) {
@@ -142,7 +142,7 @@ export default function ({
       if (isShow && (colProps || baseColProps)) {
         const { itemColSum: sum, isAdvanced } = getAdvanced(
           { ...baseColProps, ...colProps },
-          itemColSum,
+          itemColSum
         );
 
         itemColSum = sum || 0;

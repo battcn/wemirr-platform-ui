@@ -14,7 +14,7 @@ type UseWatermarkRes = {
 const sourceMap = new Map<Symbol, Omit<UseWatermarkRes, "clearAll">>();
 
 export function useWatermark(
-  appendEl: Ref<HTMLElement | null> = ref(document.body) as Ref<HTMLElement>,
+  appendEl: Ref<HTMLElement | null> = ref(document.body) as Ref<HTMLElement>
 ): UseWatermarkRes {
   const domSymbol = Symbol(watermarkSymbol);
   const appendElRaw = unref(appendEl);
@@ -63,7 +63,7 @@ export function useWatermark(
       width?: number;
       height?: number;
       str?: string;
-    } = {},
+    } = {}
   ) {
     const el = unref(watermarkEl);
     if (!el) return;

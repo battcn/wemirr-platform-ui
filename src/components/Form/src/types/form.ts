@@ -2,7 +2,7 @@ import type { NamePath, RuleObject } from "ant-design-vue/lib/form/interface";
 import type { VNode, CSSProperties } from "vue";
 import type { ButtonProps as AntdButtonProps } from "@/components/Button";
 import type { FormItem } from "./formItem";
-import type { ColEx, ComponentType } from "./index";
+import type { ColEx, ComponentType } from "./";
 import type { TableActionType } from "@/components/Table/src/types/table";
 import type { RowProps } from "ant-design-vue/lib/grid/Row";
 
@@ -36,7 +36,7 @@ export interface FormActionType {
   appendSchemaByField: (
     schema: FormSchemaInner | FormSchemaInner[],
     prefixField: string | undefined,
-    first?: boolean | undefined,
+    first?: boolean | undefined
   ) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
   validate: <T = Recordable>(nameList?: NamePath[] | false) => Promise<T>;
@@ -198,13 +198,13 @@ interface BaseFormSchema {
   // Render the content in the form-item tag
   render?: (
     renderCallbackParams: RenderCallbackParams,
-    opts: RenderOpts,
+    opts: RenderOpts
   ) => VNode | VNode[] | string;
 
   // Rendering col content requires outer wrapper form-item
   renderColContent?: (
     renderCallbackParams: RenderCallbackParams,
-    opts: RenderOpts,
+    opts: RenderOpts
   ) => VNode | VNode[] | string;
 
   renderComponentContent?:

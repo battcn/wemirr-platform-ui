@@ -36,7 +36,7 @@ export function usePagination(refProps: ComputedRef<BasicTableProps>) {
           ...(pagination ?? {}),
         };
       }
-    },
+    }
   );
 
   const getPaginationInfo = computed((): PaginationProps | boolean => {

@@ -200,7 +200,7 @@ export default defineComponent({
     function handlePredicateChange(name, scopeForm, scopeKey) {
       router.predicates.splice(
         router.predicates.findIndex((item) => item === name),
-        1,
+        1
       );
       if (scopeForm[scopeKey] == null) {
         scopeForm[scopeKey] = [];
@@ -233,7 +233,7 @@ export default defineComponent({
     function handleFilterChange(filter, scopeForm, scopeKey) {
       router.filters.splice(
         router.filters.findIndex((item) => item.name === filter.name),
-        1,
+        1
       );
       if (scopeForm[scopeKey] == null) {
         scopeForm[scopeKey] = [];
