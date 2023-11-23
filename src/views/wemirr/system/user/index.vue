@@ -100,5 +100,8 @@ export default defineComponent({
   .ant-card-body {
     padding: 10px !important;
   }
+  .fs-search-layout-default {
+    padding-right: 20px;
+  }
 }
 </style>

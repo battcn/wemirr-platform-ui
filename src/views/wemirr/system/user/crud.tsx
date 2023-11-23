@@ -132,6 +132,7 @@ export default function ({ expose, nodeRef }) {
         },
         status: {
           title: "状态",
+          search: { show: true },
           type: "dict-radio",
           dict: dict({
             data: [
@@ -260,6 +261,7 @@ export default function ({ expose, nodeRef }) {
         },
         education: {
           title: "学历",
+          search: { show: true },
           type: "dict-select",
           column: { width: 90 },
           dict: dict({
