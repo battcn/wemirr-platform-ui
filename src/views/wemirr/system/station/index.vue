@@ -12,7 +12,7 @@
         @select="handleSelect"
       />
     </Card>
-    <Card title="组织管理" class="w-full station">
+    <Card title="组织管理" class="w-full sys-station-page-card">
       <fs-crud ref="crudRef" v-bind="crudBinding" />
     </Card>
   </PageWrapper>
@@ -81,25 +81,16 @@ export default defineComponent({
   },
 });
 </script>
-
 <style lang="less">
-.station {
+.sys-station-page-card {
   margin-left: 10px;
   .footer {
     .fs-crud-footer {
-      padding: 20px 0;
+      padding-bottom: 80px;
     }
   }
   .ant-card-body {
-    padding: 0 !important;
-  }
-  .box {
-    //background-color: slategrey;
-  }
-  .fs-layout-card {
-    .fs-layout-card-body {
-      height: 93%;
-    }
+    padding: 10px !important;
   }
 }
 </style>

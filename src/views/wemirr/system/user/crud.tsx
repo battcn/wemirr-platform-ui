@@ -14,6 +14,9 @@ export default function ({ expose, nodeRef }) {
         editRequest: async ({ form }) => await PUT(`/authority/users/${form.id}`, form),
         delRequest: async ({ row }) => await DELETE(`/authority/users/${row.id}`),
       },
+      container: {
+        is: "fs-layout-default",
+      },
       rowHandle: { fixed: "right" },
       search: {
         onReset() {

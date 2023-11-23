@@ -25,6 +25,9 @@ export default function ({ expose, nodeRef }) {
           nodeRef.value = null;
         },
       },
+      container: {
+        is: "fs-layout-default",
+      },
       table: {
         scroll: { fixed: true },
         size: "small",
