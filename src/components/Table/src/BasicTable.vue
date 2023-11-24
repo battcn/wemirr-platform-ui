@@ -319,7 +319,7 @@ createTableContext({ ...tableAction, wrapRef, getBindValues });
 
 emit("register", tableAction, formActions);
 
-defineExpose({ ...tableAction });
+defineExpose({ tableElRef, ...tableAction });
 </script>
 <style lang="less">
 @border-color: #cecece4d;
