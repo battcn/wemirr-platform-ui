@@ -1,6 +1,6 @@
 import type { AxiosInstance, AxiosResponse } from "axios";
 import { clone } from "lodash-es";
-import type { RequestOptions, Result } from "/#/axios";
+import type { RequestOptions, Result } from "#/axios";
 import type { AxiosTransform, CreateAxiosOptions } from "./axiosTransform";
 import { VAxios } from "./Axios";
 import { checkStatus } from "./checkStatus";

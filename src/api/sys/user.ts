@@ -1,7 +1,7 @@
 import { defHttp } from "@/utils/http/axios";
 import { LoginPicture, TokenInfo, GetCaptchaCodeModel } from "./model/userModel";
 
-import { ErrorMessageMode } from "/#/axios";
+import { ErrorMessageMode } from "#/axios";
 import { EncryptionFactory } from "@/utils/cipher";
 import { UserInfo } from "#/store";
 

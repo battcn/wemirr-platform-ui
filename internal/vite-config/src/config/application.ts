@@ -23,7 +23,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
     const isBuild = command === "build";
     const { VITE_PUBLIC_PATH, VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(
       mode,
-      root
+      root,
     );
 
     const defineData = await createDefineData(root);
@@ -44,16 +44,6 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
           {
             find: "vue-i18n",
             replacement: "vue-i18n/dist/vue-i18n.cjs.js",
-          },
-          // @/xxxx => src/xxxx
-          {
-            find: /\/@\//,
-            replacement: pathResolve("src") + "/",
-          },
-          // /#/xxxx => types/xxxx
-          {
-            find: /\/#\//,
-            replacement: pathResolve("types") + "/",
           },
           // @/xxxx => src/xxxx
           {
