@@ -235,7 +235,9 @@ async function handleOk() {
         transparent 75%,
         rgb(0 0 0 / 25%) 0
       );
-    background-position: 0 0, 12px 12px;
+    background-position:
+      0 0,
+      12px 12px;
     background-size: 24px 24px;
   }
 

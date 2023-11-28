@@ -23,7 +23,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
     const isBuild = command === "build";
     const { VITE_PUBLIC_PATH, VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(
       mode,
-      root,
+      root
     );
 
     const defineData = await createDefineData(root);

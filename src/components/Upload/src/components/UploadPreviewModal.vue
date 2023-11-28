@@ -46,7 +46,7 @@ watch(
         };
       });
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 // 删除
@@ -57,7 +57,7 @@ function handleRemove(record: PreviewFileItem) {
     emit("delete", removed[0].url);
     emit(
       "list-change",
-      fileListRef.value.map((item) => item.url)
+      fileListRef.value.map((item) => item.url),
     );
   }
 }

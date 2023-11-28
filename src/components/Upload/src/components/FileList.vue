@@ -18,7 +18,7 @@ export default defineComponent({
         nextTick(() => {
           modalFn?.redoModalHeight?.();
         });
-      }
+      },
     );
 
     if (props.openDrag) {
@@ -45,7 +45,7 @@ export default defineComponent({
               });
             }
           },
-        }).initSortable()
+        }).initSortable(),
       );
     }
 

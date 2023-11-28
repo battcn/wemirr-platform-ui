@@ -127,7 +127,7 @@ watch(
   (newVal, oldVal) => {
     if (newVal !== oldVal) openRef.value = newVal;
   },
-  { deep: true }
+  { deep: true },
 );
 
 watch(
@@ -137,7 +137,7 @@ watch(
       emit("open-change", open);
       instance && drawerInstance.emitOpen?.(open, instance.uid);
     });
-  }
+  },
 );
 
 // Cancel event

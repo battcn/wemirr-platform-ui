@@ -51,7 +51,7 @@ function handleClearEvent(
   params:
     | VxeGlobalInterceptorHandles.InterceptorClearFilterParams
     | VxeGlobalInterceptorHandles.InterceptorClearActivedParams
-    | VxeGlobalInterceptorHandles.InterceptorClearAreasParams
+    | VxeGlobalInterceptorHandles.InterceptorClearAreasParams,
 ) {
   const { $event } = params;
   const bodyElem = document.body;

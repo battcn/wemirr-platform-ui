@@ -104,7 +104,7 @@ watch(
       nextTick(() => {
         unref(inputRef)?.focus();
       });
-  }
+  },
 );
 
 function handleClose() {

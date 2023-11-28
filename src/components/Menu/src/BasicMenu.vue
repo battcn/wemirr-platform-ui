@@ -61,7 +61,7 @@ const { handleOpenChange, setOpenKeys, getOpenKeys } = useOpenKeys(
   menuState,
   items,
   mode as any,
-  accordion
+  accordion,
 );
 
 const getIsTopMenu = computed(() => {
@@ -111,7 +111,7 @@ listenerRouteChange((route) => {
     () => props.items,
     () => {
       handleMenuChange();
-    }
+    },
   );
 
 const handleMenuClick: MenuProps["onClick"] = async ({ key }) => {

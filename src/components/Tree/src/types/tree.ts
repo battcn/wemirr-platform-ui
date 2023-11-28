@@ -190,6 +190,6 @@ export interface TreeActionType {
   getSelectedNode: (
     key: KeyType,
     treeList?: TreeItem[],
-    selectNode?: TreeItem | null
+    selectNode?: TreeItem | null,
   ) => TreeItem | null;
 }

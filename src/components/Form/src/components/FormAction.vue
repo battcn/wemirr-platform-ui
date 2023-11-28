@@ -98,7 +98,7 @@ const getResetBtnOptions = computed((): ButtonOptions => {
     {
       text: t("common.resetText"),
     },
-    props.resetButtonOptions
+    props.resetButtonOptions,
   );
 });
 
@@ -107,7 +107,7 @@ const getSubmitBtnOptions = computed(() => {
     {
       text: t("common.queryText"),
     },
-    props.submitButtonOptions
+    props.submitButtonOptions,
   );
 });
 

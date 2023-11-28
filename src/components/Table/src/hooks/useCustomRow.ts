@@ -16,7 +16,7 @@ interface Options {
 function getKey(
   record: Recordable,
   rowKey: string | ((record: Record<string, any>) => string) | undefined,
-  autoCreateKey?: boolean
+  autoCreateKey?: boolean,
 ) {
   if (!rowKey || autoCreateKey) {
     return record[ROW_KEY];
@@ -32,7 +32,7 @@ function getKey(
 
 export function useCustomRow(
   propsRef: ComputedRef<BasicTableProps>,
-  { setSelectedRowKeys, getSelectRowKeys, getAutoCreateKey, clearSelectedRowKeys, emit }: Options
+  { setSelectedRowKeys, getSelectRowKeys, getAutoCreateKey, clearSelectedRowKeys, emit }: Options,
 ) {
   const customRow = (record: Recordable, index: number) => {
     return {

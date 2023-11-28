@@ -11,6 +11,7 @@
 import { defineComponent, ref, onMounted, watch } from "vue";
 import createCrudOptions from "./crud";
 import { useExpose, useCrud } from "@fast-crud/fast-crud";
+
 export default defineComponent({
   name: "SubTable",
   props: {
@@ -44,7 +45,7 @@ export default defineComponent({
       },
       (value) => {
         console.log("modelValue changed", value);
-      }
+      },
     );
     return {
       crudBinding,

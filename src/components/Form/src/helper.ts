@@ -38,7 +38,7 @@ function genType() {
 export function setComponentRuleType(
   rule: ValidationRule,
   component: ComponentType,
-  valueFormat: string
+  valueFormat: string,
 ) {
   if (Reflect.has(rule, "type")) {
     return;

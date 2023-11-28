@@ -11,7 +11,7 @@ export function useOpenKeys(
   menuState: MenuState,
   menus: Ref<MenuType[]>,
   mode: Ref<MenuModeEnum>,
-  accordion: Ref<boolean>
+  accordion: Ref<boolean>,
 ) {
   const { getCollapsed, getIsMixSidebar } = useMenuSetting();
 

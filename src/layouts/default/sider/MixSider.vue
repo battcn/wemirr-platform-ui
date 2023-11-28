@@ -107,7 +107,7 @@ import LayoutTrigger from "../trigger/index.vue";
 import { createAsyncComponent } from "@/utils/factory/createAsyncComponent";
 
 const SimpleMenuTag = createAsyncComponent(
-  () => import("@/components/SimpleMenu/src/SimpleMenuTag.vue")
+  () => import("@/components/SimpleMenu/src/SimpleMenuTag.vue"),
 );
 
 defineOptions({ name: "LayoutMixSider" });
@@ -200,7 +200,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 );
 
 listenerRouteChange((route) => {

@@ -57,7 +57,7 @@ watch(
   {
     immediate: true,
     flush: "post",
-  }
+  },
 );
 
 watch(
@@ -67,7 +67,7 @@ watch(
       instance.getVditor()?.setValue(v);
     }
     valueRef.value = v;
-  }
+  },
 );
 
 const getCurrentLang = computed((): "zh_CN" | "en_US" | "ja_JP" | "ko_KR" => {

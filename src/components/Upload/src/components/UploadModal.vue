@@ -116,8 +116,8 @@ const getUploadBtnText = computed(() => {
   return isUploadingRef.value
     ? t("component.upload.uploading")
     : someError
-    ? t("component.upload.reUploadFailed")
-    : t("component.upload.startUpload");
+      ? t("component.upload.reUploadFailed")
+      : t("component.upload.startUpload");
 });
 
 // 上传前校验
@@ -183,7 +183,7 @@ async function uploadApiByItem(item: FileItem) {
       function onUploadProgress(progressEvent: ProgressEvent) {
         const complete = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
         item.percent = complete;
-      }
+      },
     );
     const { data } = ret;
     item.status = UploadResultStatus.SUCCESS;
@@ -216,7 +216,7 @@ async function handleStartUpload() {
     const data = await Promise.all(
       uploadFileList.map((item) => {
         return uploadApiByItem(item);
-      })
+      }),
     );
     isUploadingRef.value = false;
     // 生产环境:抛出错误

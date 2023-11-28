@@ -186,7 +186,7 @@ watch(
       return;
     }
     editor.setMode(attrs.disabled ? "readonly" : "design");
-  }
+  },
 );
 
 onMountedOrActivated(() => {
@@ -260,7 +260,7 @@ function bindModelHandlers(editor: any) {
     () => props.modelValue,
     (val, prevVal) => {
       setValue(editor, val, prevVal);
-    }
+    },
   );
 
   watch(
@@ -270,7 +270,7 @@ function bindModelHandlers(editor: any) {
     },
     {
       immediate: true,
-    }
+    },
   );
 
   editor.on(normalizedEvents ? normalizedEvents : "change keyup undo redo", () => {

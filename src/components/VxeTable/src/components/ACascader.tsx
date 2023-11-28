@@ -21,7 +21,7 @@ function matchCascaderData(index: number, list: any[], values: any[], labels: an
 
 function getCascaderCellValue(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
-  params: VxeGlobalRendererHandles.RenderCellParams
+  params: VxeGlobalRendererHandles.RenderCellParams,
 ) {
   const { props = {} } = renderOpts;
   const { row, column } = params;

@@ -63,14 +63,14 @@ watch(
   () => {
     !unref(isFirstLoaded) && fetch();
   },
-  { deep: true }
+  { deep: true },
 );
 
 watch(
   () => props.immediate,
   (v) => {
     v && !isFirstLoaded.value && fetch();
-  }
+  },
 );
 
 onMounted(() => {

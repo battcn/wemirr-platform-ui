@@ -11,7 +11,7 @@ export default {
       ...antdLocale,
       DatePicker: deepMerge(
         antdLocale.DatePicker,
-        genMessage(modules as Recordable<Recordable>, "zh-CN").antdLocale.DatePicker
+        genMessage(modules as Recordable<Recordable>, "zh-CN").antdLocale.DatePicker,
       ),
     },
   },

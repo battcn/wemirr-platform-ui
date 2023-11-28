@@ -83,7 +83,9 @@ function onHide(): void {
     padding-bottom: 12px;
     transform: scale(0.8); // 缩放变换
     transform-origin: 50% 75%;
-    transition: transform 0.25s, opacity 0.25s;
+    transition:
+      transform 0.25s,
+      opacity 0.25s;
     opacity: 0;
     pointer-events: none;
 
@@ -93,7 +95,9 @@ function onHide(): void {
       padding: 6px 8px;
       border-radius: 6px;
       background-color: var(--tooltip-background-color);
-      box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
+      box-shadow:
+        0 6px 16px 0 rgb(0 0 0 / 8%),
+        0 3px 6px -4px rgb(0 0 0 / 12%),
         0 9px 28px 8px rgb(0 0 0 / 5%);
       color: var(--tooltip-color);
       font-size: var(--tooltip-font-size);

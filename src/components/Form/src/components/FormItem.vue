@@ -92,7 +92,7 @@ export default defineComponent({
             orientation: "left",
             plain: true,
           },
-          componentProps
+          componentProps,
         );
       }
       return componentProps as Recordable<any>;
@@ -211,7 +211,7 @@ export default defineComponent({
       }
 
       const requiredRuleIndex: number = rules.findIndex(
-        (rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator")
+        (rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"),
       );
 
       if (requiredRuleIndex !== -1) {
@@ -345,8 +345,8 @@ export default defineComponent({
           return slot
             ? getSlot(slots, slot, unref(getValues), opts)
             : render
-            ? render(unref(getValues), opts)
-            : renderComponent();
+              ? render(unref(getValues), opts)
+              : renderComponent();
         };
 
         const showSuffix = !!suffix;
@@ -397,8 +397,8 @@ export default defineComponent({
         return colSlot
           ? getSlot(slots, colSlot, values, opts)
           : renderColContent
-          ? renderColContent(values, opts)
-          : renderItem();
+            ? renderColContent(values, opts)
+            : renderItem();
       };
 
       return (

@@ -37,14 +37,14 @@ watch(
     VditorPreview.setContentTheme(getTheme(val, "content"));
     VditorPreview.setCodeTheme(getTheme(val, "code"));
     init();
-  }
+  },
 );
 
 watch(
   () => props.value,
   (v, oldValue) => {
     v !== oldValue && init();
-  }
+  },
 );
 
 function destroy() {

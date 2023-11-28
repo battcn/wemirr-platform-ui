@@ -48,7 +48,7 @@ watchEffect(
       }
     }
   },
-  { flush: "post" }
+  { flush: "post" },
 );
 const emit = defineEmits(["expandChange"]);
 function onExpand() {

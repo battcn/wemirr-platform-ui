@@ -45,7 +45,7 @@ export default defineComponent({
       },
       (value) => {
         console.log("modelValue changed", value);
-      }
+      },
     );
     return {
       crudBinding,

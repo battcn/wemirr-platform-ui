@@ -178,7 +178,7 @@ watch(
   },
   {
     immediate: false,
-  }
+  },
 );
 
 // 取消事件

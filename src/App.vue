@@ -35,8 +35,8 @@ const themeConfig = computed(() =>
         colorInfo: "#0960bd",
       },
     },
-    isDark.value ? darkTheme : {}
-  )
+    isDark.value ? darkTheme : {},
+  ),
 );
 // Listening to page changes and dynamically changing site titles
 useTitle();

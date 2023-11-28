@@ -42,7 +42,7 @@ export function useI18n(namespace?: string): {
 
     return (t as (arg0: string, ...arg: I18nTranslationRestParameters) => string)(
       getKey(namespace, key),
-      ...(arg as I18nTranslationRestParameters)
+      ...(arg as I18nTranslationRestParameters),
     );
   };
   return {

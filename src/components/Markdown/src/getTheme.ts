@@ -5,7 +5,7 @@
  */
 export const getTheme = (
   darkModeVal: "light" | "dark" | string,
-  themeMode: "default" | "content" | "code" = "default"
+  themeMode: "default" | "content" | "code" = "default",
 ) => {
   const isDark = darkModeVal === "dark";
   switch (themeMode) {

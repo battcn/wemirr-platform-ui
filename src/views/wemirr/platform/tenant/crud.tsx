@@ -282,7 +282,7 @@ export default function ({ expose }) {
               showSearch: {
                 filter: (inputValue, path) => {
                   return path.some(
-                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
                   );
                 },
               },

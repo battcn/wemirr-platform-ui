@@ -40,7 +40,7 @@ export function useDataSource(
     clearSelectedRowKeys,
     tableData,
   }: ActionType,
-  emit: EmitType
+  emit: EmitType,
 ) {
   const searchState = reactive<SearchState>({
     sortInfo: {},
@@ -61,13 +61,13 @@ export function useDataSource(
     },
     {
       immediate: true,
-    }
+    },
   );
 
   function handleTableChange(
     pagination: PaginationProps,
     filters: Partial<Recordable<string[]>>,
-    sorter: SorterResult
+    sorter: SorterResult,
   ) {
     const { clearSelectOnPageChange, sortFn, filterFn } = unref(propsRef);
     if (clearSelectOnPageChange) {
@@ -148,7 +148,7 @@ export function useDataSource(
 
   function updateTableDataRecord(
     rowKey: string | number,
-    record: Recordable
+    record: Recordable,
   ): Recordable | undefined {
     const row = findTableDataRecord(rowKey);
 
@@ -208,7 +208,7 @@ export function useDataSource(
 
   function insertTableDataRecord(
     record: Recordable | Recordable[],
-    index?: number
+    index?: number,
   ): Recordable[] | undefined {
     // if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     index = index ?? dataSourceRef.value?.length;
@@ -271,7 +271,7 @@ export function useDataSource(
       const { pageField, sizeField, listField, totalField } = Object.assign(
         {},
         FETCH_SETTING,
-        fetchSetting
+        fetchSetting,
       );
       let pageParams: Recordable = {};
 
@@ -295,7 +295,7 @@ export function useDataSource(
         sortInfo,
         filterInfo,
         opt?.sortInfo ?? {},
-        opt?.filterInfo ?? {}
+        opt?.filterInfo ?? {},
       );
       if (beforeFetch && isFunction(beforeFetch)) {
         params = (await beforeFetch(params)) || params;

@@ -108,7 +108,7 @@ export default defineComponent({
       api.MarkMessage(record.id).then((ret) => {
         listData.value[record.type].list.splice(
           listData.value[record.type].list.findIndex((item) => item.id === record.id),
-          1
+          1,
         );
       });
     }

@@ -114,7 +114,7 @@ watchEffect(() => {
   unref(isFixedHeightPage) &&
     props.canResize &&
     warn(
-      "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)"
+      "'canResize' of BasicTable may not work in PageWrapper with 'fixedHeight' (especially in hot updates)",
     );
 });
 
@@ -158,7 +158,7 @@ const {
     getFieldsValue: formActions.getFieldsValue,
     clearSelectedRowKeys,
   },
-  emit
+  emit,
 );
 
 function handleTableChange(pagination: any, filters: any, sorter: any, extra: any) {
@@ -187,7 +187,7 @@ const { getScrollRef, redoHeight } = useTableScroll(
   getRowSelectionRef,
   getDataSourceRef,
   wrapRef,
-  formRef
+  formRef,
 );
 
 const { scrollTo } = useTableScrollTo(tableElRef, getDataSourceRef);
@@ -205,7 +205,7 @@ const { getRowClassName } = useTableStyle(getProps, prefixCls);
 const { getExpandOption, expandAll, expandRows, collapseAll } = useTableExpand(
   getProps,
   tableData,
-  emit
+  emit,
 );
 
 const handlers: InnerHandlers = {
@@ -224,7 +224,7 @@ const { getFormProps, replaceFormSlotKey, getFormSlotKeys, handleSearchInfoChang
   getProps,
   slots,
   fetch,
-  getLoading
+  getLoading,
 );
 
 const getBindValues = computed(() => {

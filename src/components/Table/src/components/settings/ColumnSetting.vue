@@ -239,7 +239,7 @@ async function init(isReset = false) {
 function onCheckAllChange(e: CheckboxChangeEvent) {
   const checkList = plainSortOptions.value.map((item) => item.value);
   plainSortOptions.value.forEach(
-    (item) => ((item as BasicColumn).defaultHidden = !e.target.checked)
+    (item) => ((item as BasicColumn).defaultHidden = !e.target.checked),
   );
   if (e.target.checked) {
     state.checkedList = checkList;
@@ -348,7 +348,7 @@ function handleColumnFixed(item: BasicColumn, fixed?: "left" | "right") {
   if (!state.checkedList.includes(item.dataIndex as string)) return;
 
   const columns = getColumns().filter((c: BasicColumn) =>
-    state.checkedList.includes(c.dataIndex as string)
+    state.checkedList.includes(c.dataIndex as string),
   ) as BasicColumn[];
   const isFixed = item.fixed === fixed ? false : fixed;
   const index = columns.findIndex((col) => col.dataIndex === item.dataIndex);
@@ -373,7 +373,7 @@ function setColumns(columns: BasicColumn[] | string[]) {
     const visible =
       columns.findIndex(
         (c: BasicColumn | string) =>
-          c === col.value || (typeof c !== "string" && c.dataIndex === col.value)
+          c === col.value || (typeof c !== "string" && c.dataIndex === col.value),
       ) !== -1;
     return { dataIndex: col.value, fixed: col.fixed, visible };
   });

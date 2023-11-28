@@ -1,6 +1,7 @@
 import { defHttp } from "@/utils/http/axios";
 import { getMenuListResultModel } from "./model/menuModel";
 import { GetPermissionListModel } from "@/api/sys/model/roleModel";
+
 enum Api {
   GetMenuList = "/authority/resources/router",
 }
