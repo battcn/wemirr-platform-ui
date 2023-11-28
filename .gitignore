@@ -31,3 +31,6 @@ turbo-sub.log*
 /yarn.lock
 /turbo-sub.log
 /dist.zip
+/internal/eslint-config/.turbo/
+/internal/stylelint-config/.turbo/
+/internal/vite-config/.turbo/
