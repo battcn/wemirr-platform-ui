@@ -1,26 +1,36 @@
-import { shallowRef } from "vue";
 import DictItemTable from "./item/index.vue";
-
-import { compute, dict } from "@fast-crud/fast-crud";
+import {
+  dict,
+  compute,
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+  UserPageQuery,
+  UserPageRes,
+  EditReq,
+  DelReq,
+  AddReq,
+} from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 
 import { GET, POST, PUT, DELETE } from "@/api/service";
 import { defHttp } from "@/utils/http/axios";
 import { usePermission } from "@/hooks/web/usePermission";
 
-export default function () {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { hasPermission } = usePermission();
-
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/dictionaries`, query),
-        addRequest: async ({ form }) => await POST(`/authority/dictionaries`, form),
-        editRequest: async ({ form }) => await PUT(`/authority/dictionaries/${form.id}`, form),
-        delRequest: async ({ row }) => await DELETE(`/authority/dictionaries/${row.id}`),
+        pageRequest: async (query: UserPageQuery): Promise<UserPageRes> =>
+          await GET(`/authority/dictionaries`, query),
+        addRequest: async ({ form }: AddReq) => await POST(`/authority/dictionaries`, form),
+        editRequest: async ({ form }: EditReq) =>
+          await PUT(`/authority/dictionaries/${form.id}`, form),
+        delRequest: async ({ row }: DelReq) => await DELETE(`/authority/dictionaries/${row.id}`),
       },
       rowHandle: {
-        width: 250,
+        width: 220,
         buttons: {
           remove: {
             show: compute(({ row }) => {
@@ -37,6 +47,12 @@ export default function () {
               await defHttp.get({ url: `/authority/dictionaries/${row.code}/refresh` });
             },
           },
+        },
+      },
+      form: {
+        wrapper: {
+          width: "70%",
+          // is: "a-modal",
         },
       },
       columns: {
@@ -91,13 +107,6 @@ export default function () {
             ],
           }),
         },
-        sequence: {
-          title: "排序",
-          column: { width: 100, align: "center" },
-          type: "number",
-          addForm: { value: 0 },
-          form: { component: { min: 0, max: 100 } },
-        },
         description: {
           title: "描述",
           type: ["textarea"],
@@ -115,22 +124,18 @@ export default function () {
             }
           },
         },
-        id: {
+        dictItem: {
           title: "字典信息",
+          type: "text",
           column: { show: false },
-          type: ["textarea"],
           form: {
-            show: false,
-            col: { span: 24 },
-          },
-          editForm: {
-            show: true,
-            // 嵌套表格字段
             component: {
-              //局部引用子表格，要用shallowRef包裹
-              name: shallowRef(DictItemTable),
-              vModel: "modelValue",
+              name: DictItemTable,
+              id: compute(({ form }) => {
+                return form.id;
+              }),
             },
+            col: { span: 24 },
           },
         },
       },

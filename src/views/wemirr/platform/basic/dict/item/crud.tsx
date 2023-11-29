@@ -1,33 +1,84 @@
 import dayjs from "dayjs";
-import { dict } from "@fast-crud/fast-crud";
+import {
+  AddReq,
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+  DelReq,
+  dict,
+  EditReq,
+  UserPageQuery,
+  UserPageRes,
+} from "@fast-crud/fast-crud";
 import { GET, POST, PUT, DELETE } from "@/api/service";
 import { usePermission } from "@/hooks/web/usePermission";
 
-export default function ({ expose, props, ctx }) {
+export default function ({ expose, context }: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { hasPermission } = usePermission();
-  const dictionaryId = props.modelValue;
+  const { parentIdRef } = context;
+  const dictionaryId = parentIdRef.value;
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => {
-          return await GET(`/authority/dictionaries/${dictionaryId ?? 0}/items`, query);
+        pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
+          return await GET(`/authority/dictionaries/${dictionaryId}/items`, query);
         },
-        addRequest: async ({ form }) =>
+        addRequest: async ({ form }: AddReq) =>
           await POST(`/authority/dictionaries/${dictionaryId}/items`, form),
-        editRequest: async ({ form }) =>
+        editRequest: async ({ form }: EditReq) =>
           await PUT(`/authority/dictionaries/${dictionaryId}/items/${form.id}`, form),
-        delRequest: async ({ row }) =>
+        delRequest: async ({ row }: DelReq) =>
           await DELETE(`/authority/dictionaries/${dictionaryId}/items/${row.id}`),
       },
-      search: { show: false },
-      rowHandle: {
-        width: 150,
-        align: "center",
+      actionbar: {
         buttons: {
-          view: { size: "small", show: false },
-          edit: { size: "small" },
-          remove: {
-            show: hasPermission("sys:dict:remove"),
+          add: {
+            show: false,
+          },
+          addRow: {
+            show: true,
+          },
+        },
+      },
+      search: {
+        show: false,
+        initialForm: {
+          parentId: parentIdRef,
+        },
+      },
+      toolbar: {
+        buttons: {
+          refresh: {
+            show: false,
+          },
+        },
+      },
+      table: {
+        editable: {
+          enabled: true,
+          mode: "row",
+          activeDefault: false,
+        },
+      },
+      rowHandle: {
+        width: 180,
+        align: "center",
+        group: {
+          editable: {
+            //自由编辑模式
+          },
+          editRow: {
+            //行编辑模式
+            edit: {
+              size: "small",
+              type: "link",
+            },
+            save: { size: "small", type: "link" }, //保存
+            cancel: { size: "small", type: "link" }, //退出编辑
+            remove: {
+              size: "small",
+              type: "link",
+              show: hasPermission("sys:dict:remove"),
+            },
           },
         },
       },
@@ -48,11 +99,6 @@ export default function ({ expose, props, ctx }) {
           title: "名称",
           search: { show: true },
           type: "text",
-          column: {
-            width: 80,
-            align: "center",
-            sorter: true,
-          },
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
           },
@@ -61,20 +107,9 @@ export default function ({ expose, props, ctx }) {
           title: "值",
           search: { show: false },
           type: "text",
-          column: {
-            sorter: true,
-          },
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
           },
-        },
-        color: {
-          title: "颜色",
-          type: "dict-select",
-          column: { width: 100 },
-          dict: dict({
-            url: "/authority/dictionaries/COLOR/list",
-          }),
         },
         status: {
           title: "状态",
@@ -95,14 +130,13 @@ export default function ({ expose, props, ctx }) {
         },
         sequence: {
           title: "排序",
-          column: { width: 50, align: "center" },
           type: "number",
           addForm: { value: 0 },
+          column: { sorter: true },
           form: { component: { min: 0, max: 100 } },
         },
         description: {
           title: "描述",
-          column: { show: false },
           type: ["textarea"],
           form: {
             col: {
@@ -113,7 +147,7 @@ export default function ({ expose, props, ctx }) {
         createdTime: {
           title: "创建时间",
           type: "datetime",
-          column: { width: 180, sorter: true },
+          column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

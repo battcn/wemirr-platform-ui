@@ -1,61 +1,105 @@
 <template>
-  <div>
-    <div style="margin-top: 6px">{{ modelValue }}</div>
-    <div style="height: 400px">
+  <div class="sub-table">
+    <div v-if="id > 0" style="height: 500px; position: relative">
       <fs-crud ref="crudRef" v-bind="crudBinding" />
     </div>
+    <div v-else><fs-button @click="saveMain">保存</fs-button> 保存后即可编辑子表</div>
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, onMounted, watch } from "vue";
+<script lang="ts">
+import { defineComponent, onMounted, watch, ref } from "vue";
 import createCrudOptions from "./crud";
-import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { useFs, useUi, utils } from "@fast-crud/fast-crud";
 
 export default defineComponent({
-  name: "SubTable",
+  name: "EditableSubCrudTarget",
   props: {
-    modelValue: {},
+    /**
+     * 主表id
+     */
+    id: {
+      type: Number,
+      default: 0,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ["update:modelValue"],
+  emits: ["save-main"],
   setup(props, ctx) {
-    // crud组件的ref
-    const crudRef = ref();
-    // crud 配置的ref
-    const crudBinding = ref();
-    // 暴露的方法
-    const { expose } = useExpose({ crudRef, crudBinding });
-    // 你的crud配置
-    const { crudOptions } = createCrudOptions({ expose, props, ctx });
-    // 初始化crud配置
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-    const { resetCrudOptions } = useCrud({ expose, crudOptions });
-    // 你可以调用此方法，重新初始化crud配置
-    // resetCrudOptions(options)
+    const parentIdRef = ref(props.id);
+    const { crudBinding, crudRef, crudExpose } = useFs({
+      createCrudOptions,
+      context: { parentIdRef },
+    });
+    const { ui } = useUi();
+
+    let formItemContext = ui.formItem.injectFormItemContext();
+
+    function emit(data: any) {
+      utils.logger.info("emit:", data);
+      formItemContext.onBlur();
+      formItemContext.onChange();
+    }
+
+    function saveMain() {
+      ctx.emit("save-main", true);
+    }
+
+    watch(
+      () => {
+        return props.id;
+      },
+      (value: any) => {
+        if (value > 0) {
+          crudExpose.setSearchFormData({
+            form: { parentId: value },
+            mergeForm: true,
+            triggerSearch: true,
+          });
+          parentIdRef.value = value;
+        }
+      },
+      {
+        immediate: true,
+      },
+    );
 
     // 页面打开后获取列表数据
     onMounted(() => {
-      expose.doRefresh();
+      crudExpose.doRefresh();
+      watch(
+        () => {
+          return props.disabled || props.readonly;
+        },
+        (value) => {
+          if (value) {
+            crudBinding.value.table.editable.readonly = true;
+            crudBinding.value.actionbar.buttons.addRow.show = false;
+            crudBinding.value.rowHandle.show = false;
+          } else {
+            crudBinding.value.table.editable.readonly = false;
+            crudBinding.value.actionbar.buttons.addRow.show = true;
+            crudBinding.value.rowHandle.show = true;
+          }
+        },
+        {
+          immediate: true,
+        },
+      );
     });
 
-    //你的业务代码
-    watch(
-      () => {
-        return props.modelValue;
-      },
-      (value) => {
-        console.log("modelValue changed", value);
-      },
-    );
     return {
       crudBinding,
       crudRef,
+      saveMain,
     };
   },
 });
 </script>
-<style lang="less" scoped>
-/deep/.fs-crud-container.compact .el-table--border {
-  border-left: 1px solid #eee;
-}
-</style>
