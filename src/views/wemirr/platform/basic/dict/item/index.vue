@@ -3,7 +3,6 @@
     <div v-if="id > 0" style="height: 500px; position: relative">
       <fs-crud ref="crudRef" v-bind="crudBinding" />
     </div>
-    <div v-else><fs-button @click="saveMain">保存</fs-button> 保存后即可编辑子表</div>
   </div>
 </template>
 
@@ -13,7 +12,7 @@ import createCrudOptions from "./crud";
 import { useFs, useUi, utils } from "@fast-crud/fast-crud";
 
 export default defineComponent({
-  name: "EditableSubCrudTarget",
+  name: "DictItemTable",
   props: {
     /**
      * 主表id
@@ -46,10 +45,6 @@ export default defineComponent({
       utils.logger.info("emit:", data);
       formItemContext.onBlur();
       formItemContext.onChange();
-    }
-
-    function saveMain() {
-      ctx.emit("save-main", true);
     }
 
     watch(
@@ -98,7 +93,6 @@ export default defineComponent({
     return {
       crudBinding,
       crudRef,
-      saveMain,
     };
   },
 });
