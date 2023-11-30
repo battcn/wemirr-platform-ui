@@ -93,13 +93,6 @@ export default function () {
             ],
           }),
         },
-        sequence: {
-          title: "排序",
-          column: { width: 100, align: "center" },
-          type: "number",
-          addForm: { value: 0 },
-          form: { component: { min: 0, max: 100 } },
-        },
         description: {
           title: "描述",
           type: ["textarea"],

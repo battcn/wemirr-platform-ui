@@ -62,14 +62,6 @@ export default function ({ expose, props, ctx }) {
             rules: [{ required: true, message: "编码不能为空" }],
           },
         },
-        color: {
-          title: "颜色",
-          type: "dict-select",
-          column: { width: 100, show: false },
-          dict: dict({
-            url: "/authority/dictionaries/COLOR/list",
-          }),
-        },
         status: {
           title: "状态",
           type: "dict-radio",
