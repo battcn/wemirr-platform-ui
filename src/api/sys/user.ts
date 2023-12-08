@@ -23,6 +23,7 @@ export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none"
       params: data,
       data: data,
       headers: {
+        "Tenant-Code": data.tenant_code,
         Authorization:
           "Basic " +
           EncryptionFactory.createBase64Encryption().encrypt(

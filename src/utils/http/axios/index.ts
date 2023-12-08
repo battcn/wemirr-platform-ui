@@ -157,8 +157,7 @@ const transform: AxiosTransform = {
         : token;
     }
     if (userInfo) {
-      config.headers["tenant_code"] = userInfo.tenantCode;
-      // config.headers["user_id"] = userInfo.userId;
+      config.headers["Tenant-Code"] = userInfo.tenantCode;
     }
     return config;
   },

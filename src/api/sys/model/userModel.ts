@@ -9,7 +9,10 @@ export interface LoginPicture {
   username: string;
   password: string;
   codeId?: string;
+  tenant_code?: string;
   code?: string;
+  vc_code?: string;
+  vc_token?: string;
   grant_type?: string;
   login_type?: string;
   client_id?: string;
