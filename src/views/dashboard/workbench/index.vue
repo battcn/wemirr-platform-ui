@@ -8,29 +8,35 @@
       </div>
       <div class="lg:w-3/10 w-full enter-y">
         <QuickNav :loading="loading" class="enter-y" />
-
-        <Card class="!my-4 enter-y" :loading="loading">
-          <img class="xl:h-50 h-30 mx-auto" src="@/assets/svg/illustration.svg" alt="" />
-        </Card>
-
-        <SaleRadar :loading="loading" class="enter-y" />
+        <Schedule :loading="loading" class="!my-4 enter-y wp-schedule" />
       </div>
     </div>
   </PageWrapper>
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
-import { Card } from "ant-design-vue";
 import { PageWrapper } from "@/components/Page";
 import WorkbenchHeader from "./components/WorkbenchHeader.vue";
 import ProjectCard from "./components/ProjectCard.vue";
 import QuickNav from "./components/QuickNav.vue";
 import DynamicInfo from "./components/DynamicInfo.vue";
-import SaleRadar from "./components/SaleRadar.vue";
+import Schedule from "./components/Schedule.vue";
 
 const loading = ref(true);
 
 setTimeout(() => {
   loading.value = false;
-}, 300);
+}, 200);
 </script>
+
+<style>
+.wp-schedule {
+  .add-schedule {
+    cursor: pointer;
+    margin: -10px 0 0 10px;
+  }
+  .ant-card-body {
+    padding: 10px 8px 10px 8px !important;
+  }
+}
+</style>

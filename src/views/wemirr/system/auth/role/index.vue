@@ -32,7 +32,6 @@ import { useModal } from "@/components/Modal";
 import DistributionUser from "./DistributionUser.vue";
 import DistributionResource from "./DistributionResource.vue";
 import * as api from "./api";
-import { PageWrapper } from "@/components/Page";
 
 function useDistribution() {
   const checkedKeys = ref();

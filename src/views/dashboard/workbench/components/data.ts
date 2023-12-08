@@ -19,7 +19,11 @@ interface DynamicInfoItem {
   date: string;
   desc: string;
 }
-
+interface ScheduleItem {
+  id: string;
+  time: string;
+  desc: string;
+}
 export const navItems: NavItem[] = [
   {
     title: "首页",
@@ -135,4 +139,11 @@ export const groupItems: GroupItem[] = [
     group: "付费",
     date: "2023-09-23",
   },
+];
+
+export const scheduleItems: ScheduleItem[] = [
+  { id: "1", time: "09:30:00", desc: "上班打卡" },
+  { id: "2", time: "11:30:00", desc: "下班吃饭" },
+  { id: "3", time: "12:30:00", desc: "上班摸鱼" },
+  { id: "4", time: "18:30:00", desc: "下班回家" },
 ];

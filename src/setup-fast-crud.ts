@@ -117,10 +117,6 @@ export default function (app, i18n) {
               minWidth: "90px",
             },
           },
-          // labelCol: {
-          //   span: null,
-          //   style: { minWidth: "100px" },
-          // },
           layout: computed(() => {
             return getLocale.value === LOCALE.ZH_CN ? "horizontal" : "vertical";
           }),
