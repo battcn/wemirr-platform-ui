@@ -56,6 +56,18 @@ export default function ({ expose }) {
             col: { span: 24 },
           },
         },
+        status: {
+          title: "状态",
+          type: "dict-select",
+          column: { ellipsis: true, width: 100 },
+          search: { show: true },
+          dict: dict({
+            data: [
+              { value: true, label: "正常", color: "success" },
+              { value: false, label: "异常", color: "error" },
+            ],
+          }),
+        },
         httpMethod: {
           title: "HTTP方式",
           type: "dict-select",
@@ -174,7 +186,7 @@ export default function ({ expose }) {
           groups: {
             baseInfo: {
               header: "基础信息",
-              columns: ["ip", "location"],
+              columns: ["ip", "location", "status"],
             },
             reqInfo: {
               header: "请求信息",
