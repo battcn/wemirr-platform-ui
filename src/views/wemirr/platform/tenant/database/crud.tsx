@@ -19,22 +19,22 @@ export default function ({ expose }) {
           form: { show: false },
           column: { show: false },
         },
-        poolName: {
-          title: "连接池",
+        name: {
+          title: "连接名",
           type: ["text"],
           search: { show: true },
-          column: { ellipsis: true, width: 180 },
+          column: { ellipsis: true, width: 200 },
           form: {
             wrapperCol: { span: 9 },
             col: { span: 24 },
-            helper: "数据源连接池名称(如: TenantDataSourcePool)",
-            rules: [{ min: 2, max: 50, message: "长度在 2 到 8 个字符" }],
+            helper: "数据连接名称",
+            rules: [{ min: 2, max: 50, message: "长度在 2 到 50 个字符" }],
           },
         },
         username: {
           title: "用户名",
           type: "text",
-          column: { width: 155 },
+          column: { width: 120 },
           form: {
             rules: [
               { required: true, message: "请输入账号名" },
@@ -86,16 +86,16 @@ export default function ({ expose }) {
             rules: [{ required: true, message: "请选择数据库类型" }],
           },
         },
-        url: {
-          title: "URL",
+        host: {
+          title: "Host",
           type: ["textarea"],
-          column: { show: true, width: 300, ellipsis: true },
+          column: { show: true, width: 120, ellipsis: true },
           form: {
             col: { span: 24 },
-            helper: "如 jdbc:mysql://localhost:3309/wemirr-platform ",
+            helper: "Host格式 ip:port ",
             rules: [
               { required: true, message: "Host不能为空" },
-              { min: 8, max: 1000, message: "长度在 8 到 1000 个字符" },
+              { min: 8, max: 100, message: "长度在 8 到 100 个字符" },
             ],
           },
         },

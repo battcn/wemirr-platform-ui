@@ -17,7 +17,7 @@ const customOptions = {
         prototype: true,
         url: "/authority/databases/active",
         value: "id",
-        label: "poolName",
+        label: "name",
       }),
       form: {
         rules: [{ required: true, message: "限流类型不能为空" }],
