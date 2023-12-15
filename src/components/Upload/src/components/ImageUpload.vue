@@ -91,7 +91,7 @@ watch(
         }
       }) as UploadProps["fileList"];
     }
-  },
+  }
 );
 
 function getBase64<T extends string | ArrayBuffer | null>(file: File) {

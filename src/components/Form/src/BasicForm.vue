@@ -113,7 +113,7 @@ const getRow = computed(() => {
   };
 });
 
-const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) }) as AntFormProps);
+const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) } as AntFormProps));
 
 const getSchema = computed((): FormSchema[] => {
   const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
@@ -203,14 +203,14 @@ watch(
   },
   {
     immediate: true,
-  },
+  }
 );
 
 watch(
   () => unref(getProps).schemas,
   (schemas) => {
     resetSchema(schemas ?? []);
-  },
+  }
 );
 
 watch(
@@ -227,7 +227,7 @@ watch(
       initDefault();
       isInitedDefaultRef.value = true;
     }
-  },
+  }
 );
 
 watch(
@@ -235,7 +235,7 @@ watch(
   useDebounceFn(() => {
     unref(getProps).submitOnChange && handleSubmit();
   }, 300),
-  { deep: true },
+  { deep: true }
 );
 
 async function setProps(formProps: Partial<FormProps>): Promise<void> {
@@ -279,7 +279,7 @@ const formActionType = {
 };
 
 const getFormActionBindProps = computed(
-  () => ({ ...getProps.value, ...advanceState }) as InstanceType<typeof FormAction>["$props"],
+  () => ({ ...getProps.value, ...advanceState } as InstanceType<typeof FormAction>["$props"])
 );
 
 defineExpose({

@@ -87,7 +87,7 @@ watch(
     const opts = generatorOptions(data);
     options.value = opts;
   },
-  { deep: true },
+  { deep: true }
 );
 
 function generatorOptions(options: any[]): Option[] {
@@ -167,7 +167,7 @@ watch(
   () => {
     !unref(isFirstLoad) && initialFetch();
   },
-  { deep: true },
+  { deep: true }
 );
 
 function handleChange(keys, args) {

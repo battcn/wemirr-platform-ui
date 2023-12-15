@@ -31,7 +31,7 @@ export function useContentHeight(
   subtractHeightRefs: Ref[],
   substractSpaceRefs: Ref[],
   upwardSpace: Ref<Upward> | ComputedRef<Upward> | Upward = 0,
-  offsetHeightRef: Ref<number> = ref(0),
+  offsetHeightRef: Ref<number> = ref(0)
 ) {
   const contentHeight: Ref<Nullable<number>> = ref(null);
   const { footerHeightRef: layoutFooterHeightRef } = useLayoutHeight();
@@ -51,7 +51,7 @@ export function useContentHeight(
 
   function calcSubtractSpace(
     element: Element | null | undefined,
-    direction: "all" | "top" | "bottom" = "all",
+    direction: "all" | "top" | "bottom" = "all"
   ): number {
     function numberPx(px: string) {
       return Number(px.replace(/[^\d]/g, ""));
@@ -172,7 +172,7 @@ export function useContentHeight(
     () => {
       calcContentHeight();
     },
-    { wait: 50, immediate: true },
+    { wait: 50, immediate: true }
   );
   watch(
     () => [layoutFooterHeightRef.value],
@@ -182,7 +182,7 @@ export function useContentHeight(
     {
       flush: "post",
       immediate: true,
-    },
+    }
   );
 
   return { redoHeight, setCompensation, contentHeight };

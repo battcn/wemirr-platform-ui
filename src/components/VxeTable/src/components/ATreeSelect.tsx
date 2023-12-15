@@ -10,7 +10,7 @@ import {
 
 function getTreeSelectCellValue(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
-  params: VxeGlobalRendererHandles.RenderCellParams | VxeGlobalRendererHandles.ExportMethodParams,
+  params: VxeGlobalRendererHandles.RenderCellParams | VxeGlobalRendererHandles.ExportMethodParams
 ) {
   const { props = {} } = renderOpts;
   const { treeData, treeCheckable } = props;

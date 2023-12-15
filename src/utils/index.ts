@@ -50,7 +50,7 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
 export function deepMerge<T extends object | null | undefined, U extends object | null | undefined>(
   source: T,
   target: U,
-  mergeArrays: "union" | "intersection" | "concat" | "replace" = "replace",
+  mergeArrays: "union" | "intersection" | "concat" | "replace" = "replace"
 ): T & U {
   if (!target) {
     return source as T & U;
@@ -82,7 +82,7 @@ export function deepMerge<T extends object | null | undefined, U extends object 
 
 export function openWindow(
   url: string,
-  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean },
+  opt?: { target?: TargetContext | string; noopener?: boolean; noreferrer?: boolean }
 ) {
   const { target = "__blank", noopener = true, noreferrer = true } = opt || {};
   const feature: string[] = [];

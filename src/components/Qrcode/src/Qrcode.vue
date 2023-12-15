@@ -107,7 +107,7 @@ watch(
   },
   {
     deep: true,
-  },
+  }
 );
 
 defineExpose({ download });

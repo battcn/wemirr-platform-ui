@@ -41,10 +41,10 @@ export default {
                 // 处理 change 事件相关逻辑
                 const { $panel } = params;
                 $panel.changeOption(null, XEUtils.isBoolean(option.data), option);
-              },
+              }
             ),
           });
-        }),
+        })
       ),
     ];
   },

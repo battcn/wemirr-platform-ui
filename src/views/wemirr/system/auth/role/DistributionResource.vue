@@ -77,7 +77,7 @@ export default defineComponent({
         return;
       }
       let filterTable = tableButtons.value.filter(
-        (item) => item.type === 2 && item.parentId === checkedKeys[0],
+        (item) => item.type === 2 && item.parentId === checkedKeys[0]
       );
       if (filterTable && filterTable.length > 0) {
         dataSource.value = filterTable;
@@ -92,12 +92,12 @@ export default defineComponent({
         checkedKeys.value = checkedKeys.value.filter((item) => item != event.node.eventKey);
         const tableRowIds = getDataSource().map((item) => item.id);
         resIdList.value = resIdList.value.filter(
-          (item) => item != event.node.eventKey && !tableRowIds.includes(item),
+          (item) => item != event.node.eventKey && !tableRowIds.includes(item)
         );
       } else {
         checkedKeys.value = [
           ...new Set(
-            checkedKeys.value.filter((item) => item != event.node.eventKey).concat(keys.checked),
+            checkedKeys.value.filter((item) => item != event.node.eventKey).concat(keys.checked)
           ),
         ];
       }

@@ -87,7 +87,7 @@ export function createEvents(
   params: VxeGlobalRendererHandles.RenderParams,
   inputFunc?: Function,
   changeFunc?: Function,
-  clickFunc?: Function,
+  clickFunc?: Function
 ) {
   const { events } = renderOpts;
   const modelEvent = getModelEvent(renderOpts);
@@ -137,7 +137,7 @@ export function createEvents(
 export function createProps(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
   value: any,
-  defaultProps?: { [prop: string]: any },
+  defaultProps?: { [prop: string]: any }
 ) {
   const name = renderOpts.name as ComponentType;
   return XEUtils.assign(
@@ -149,7 +149,7 @@ export function createProps(
     renderOpts.props,
     {
       [getModelKey(renderOpts)]: value,
-    },
+    }
   );
 }
 
@@ -160,12 +160,12 @@ export function createDefaultRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderDefaultOptions,
-    params: VxeGlobalRendererHandles.RenderDefaultParams,
-  ) => Record<string, any>,
+    params: VxeGlobalRendererHandles.RenderDefaultParams
+  ) => Record<string, any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderDefaultOptions,
-    params: VxeGlobalRendererHandles.RenderDefaultParams,
+    params: VxeGlobalRendererHandles.RenderDefaultParams
   ) {
     const { row, column, $table } = params;
     const { name, attrs } = renderOpts;
@@ -182,7 +182,7 @@ export function createDefaultRender(
           renderOpts,
           params,
           (value: any) => XEUtils.set(row, column.field as string, value),
-          () => $table.updateStatus(params),
+          () => $table.updateStatus(params)
         ),
       }),
     ];
@@ -196,12 +196,12 @@ export function createEditRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
-  ) => Record<string, any>,
+    params: VxeGlobalRendererHandles.RenderEditParams
+  ) => Record<string, any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderEditOptions,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    params: VxeGlobalRendererHandles.RenderEditParams
   ) {
     const { row, column, $table } = params;
     const { name, attrs } = renderOpts;
@@ -218,7 +218,7 @@ export function createEditRender(
           renderOpts,
           params,
           (value: any) => XEUtils.set(row, column.field as string, value),
-          () => $table.updateStatus(params),
+          () => $table.updateStatus(params)
         ),
       }),
     ];
@@ -232,12 +232,12 @@ export function createFilterRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderFilterOptions,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
-  ) => Record<string, any>,
+    params: VxeGlobalRendererHandles.RenderFilterParams
+  ) => Record<string, any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderFilterOptions,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
+    params: VxeGlobalRendererHandles.RenderFilterParams
   ) {
     const { column } = params;
     const { name, attrs } = renderOpts;
@@ -270,10 +270,10 @@ export function createFilterRender(
                 // 处理 change 事件相关逻辑
                 const { $panel } = params;
                 $panel.changeOption(null, checked, option);
-              },
+              }
             ),
           });
-        }),
+        })
       ),
     ];
   };
@@ -302,8 +302,8 @@ export function createFormItemRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: FormItemRenderOptions,
-    params: FormItemContentRenderParams,
-  ) => Record<string, any>,
+    params: FormItemContentRenderParams
+  ) => Record<string, any>
 ) {
   return function (renderOpts: FormItemRenderOptions, params: FormItemContentRenderParams) {
     const args = (callBack && callBack(renderOpts, params)) ?? {};
@@ -331,7 +331,7 @@ export function createFormItemRender(
               ...params,
               field: property,
             });
-          },
+          }
         ),
       }),
     ];
@@ -345,12 +345,12 @@ export function createCellRender(
   getSelectCellValue: Function,
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-    params: VxeGlobalRendererHandles.RenderCellParams,
-  ) => Array<any>,
+    params: VxeGlobalRendererHandles.RenderCellParams
+  ) => Array<any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-    params: VxeGlobalRendererHandles.RenderCellParams,
+    params: VxeGlobalRendererHandles.RenderCellParams
   ) {
     const args = (callBack && callBack(renderOpts, params)) ?? [];
     const cellLabel = getSelectCellValue && getSelectCellValue(renderOpts, params, ...args);
@@ -369,10 +369,10 @@ export function createCellRender(
                 {
                   class: "vxe-cell--placeholder",
                 },
-                formatText(placeholder),
+                formatText(placeholder)
               ),
             ]
-          : formatText(cellLabel),
+          : formatText(cellLabel)
       ),
     ];
   };
@@ -386,7 +386,7 @@ export function createCellRender(
  */
 export function createExportMethod(
   getExportCellValue: Function,
-  callBack?: (params: VxeGlobalRendererHandles.ExportMethodParams) => Array<any>,
+  callBack?: (params: VxeGlobalRendererHandles.ExportMethodParams) => Array<any>
 ) {
   return function (params: VxeGlobalRendererHandles.ExportMethodParams) {
     const { row, column, options } = params;
@@ -404,12 +404,12 @@ export function createToolbarToolRender(
   defaultProps?: { [key: string]: any },
   callBack?: (
     renderOpts: VxeGlobalRendererHandles.RenderToolOptions,
-    params: VxeGlobalRendererHandles.RenderToolParams,
-  ) => Record<string, any>,
+    params: VxeGlobalRendererHandles.RenderToolParams
+  ) => Record<string, any>
 ) {
   return function (
     renderOpts: VxeGlobalRendererHandles.RenderToolOptions,
-    params: VxeGlobalRendererHandles.RenderToolParams,
+    params: VxeGlobalRendererHandles.RenderToolParams
   ) {
     const { name, attrs } = renderOpts;
     const args = (callBack && callBack(renderOpts, params)) ?? {};

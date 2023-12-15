@@ -10,7 +10,7 @@ import {
 export function getDatePickerCellValue(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
   params: VxeGlobalRendererHandles.RenderCellParams | VxeGlobalRendererHandles.ExportMethodParams,
-  defaultFormat: string,
+  defaultFormat: string
 ) {
   const { props = {} } = renderOpts;
   const { row, column } = params;

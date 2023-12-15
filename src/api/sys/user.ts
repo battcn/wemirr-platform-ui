@@ -27,11 +27,11 @@ export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none"
         Authorization:
           "Basic " +
           EncryptionFactory.createBase64Encryption().encrypt(
-            data.client_id + ":" + data.client_secret,
+            data.client_id + ":" + data.client_secret
           ),
       },
     },
-    { errorMessageMode: mode },
+    { errorMessageMode: mode }
   );
 };
 

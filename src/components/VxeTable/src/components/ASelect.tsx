@@ -24,7 +24,7 @@ function renderOptions(options: any[], optionProps: VxeGlobalRendererHandles.Ren
       },
       {
         default: () => cellText(item[labelProp]),
-      },
+      }
     );
   });
 }
@@ -32,7 +32,7 @@ function renderOptions(options: any[], optionProps: VxeGlobalRendererHandles.Ren
 function createEditRender() {
   return function (
     renderOpts: VxeColumnPropTypes.EditRender,
-    params: VxeGlobalRendererHandles.RenderEditParams,
+    params: VxeGlobalRendererHandles.RenderEditParams
   ) {
     const { options = [], optionGroups, optionProps = {}, optionGroupProps = {} } = renderOpts;
     const { row, column, $table } = params;
@@ -49,7 +49,7 @@ function createEditRender() {
       () => {
         // 处理 change 事件相关逻辑
         $table.updateStatus(params);
-      },
+      }
     );
     if (optionGroups) {
       const groupOptions = optionGroupProps.options || "options";
@@ -75,11 +75,11 @@ function createEditRender() {
                       return h("span", {}, group[groupLabel]);
                     },
                     default: () => renderOptions(group[groupOptions], optionProps),
-                  },
+                  }
                 );
               });
             },
-          },
+          }
         ),
       ];
     }
@@ -93,7 +93,7 @@ function createEditRender() {
         },
         {
           default: () => renderOptions(options, optionProps),
-        },
+        }
       ),
     ];
   };
@@ -101,7 +101,7 @@ function createEditRender() {
 
 function getSelectCellValue(
   renderOpts: VxeGlobalRendererHandles.RenderCellOptions,
-  params: VxeGlobalRendererHandles.RenderCellParams,
+  params: VxeGlobalRendererHandles.RenderCellParams
 ) {
   const {
     options = [],
@@ -124,7 +124,7 @@ function getSelectCellValue(
             for (let index = 0; index < optionGroups.length; index++) {
               selectItem = XEUtils.find(
                 optionGroups[index][groupOptions],
-                (item) => item[valueProp] === value,
+                (item) => item[valueProp] === value
               );
               if (selectItem) {
                 break;
@@ -135,7 +135,7 @@ function getSelectCellValue(
         : (value) => {
             const selectItem = XEUtils.find(options, (item) => item[valueProp] === value);
             return selectItem ? selectItem[labelProp] : value;
-          },
+          }
     ).join(", ");
   }
   return "";
@@ -144,7 +144,7 @@ function getSelectCellValue(
 function createFilterRender() {
   return function (
     renderOpts: VxeColumnPropTypes.FilterRender,
-    params: VxeGlobalRendererHandles.RenderFilterParams,
+    params: VxeGlobalRendererHandles.RenderFilterParams
   ) {
     const { options = [], optionGroups, optionProps = {}, optionGroupProps = {} } = renderOpts;
     const groupOptions = optionGroupProps.options || "options";
@@ -184,9 +184,9 @@ function createFilterRender() {
                         props.mode === "multiple"
                           ? option.data && option.data.length > 0
                           : !XEUtils.eqNull(option.data),
-                        option,
+                        option
                       );
-                    },
+                    }
                   ),
                 },
                 {
@@ -202,11 +202,11 @@ function createFilterRender() {
                             return h("span", {}, group[groupLabel]);
                           },
                           default: () => renderOptions(group[groupOptions], optionProps),
-                        },
+                        }
                       );
                     });
                   },
-                },
+                }
               );
             })
           : column.filters.map((option, oIndex) => {
@@ -233,16 +233,16 @@ function createFilterRender() {
                         props.mode === "multiple"
                           ? option.data && option.data.length > 0
                           : !XEUtils.eqNull(option.data),
-                        option,
+                        option
                       );
-                    },
+                    }
                   ),
                 },
                 {
                   default: () => renderOptions(options, optionProps),
-                },
+                }
               );
-            }),
+            })
       ),
     ];
   };

@@ -13,7 +13,7 @@ export function useTableScroll(
   rowSelectionRef: ComputedRef<TableRowSelection | null>,
   getDataSourceRef: ComputedRef<Recordable[]>,
   wrapRef: Ref<HTMLElement | null>,
-  formRef: Ref<ComponentRef>,
+  formRef: Ref<ComponentRef>
 ) {
   const tableHeightRef: Ref<Nullable<number | string>> = ref(167);
   const modalFn = useModalContext();
@@ -33,7 +33,7 @@ export function useTableScroll(
     },
     {
       flush: "post",
-    },
+    }
   );
 
   function redoHeight() {

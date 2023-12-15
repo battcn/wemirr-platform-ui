@@ -62,7 +62,7 @@ export default defineComponent({
           text: "提交",
         },
         submitFunc: customSubmitFunc,
-      },
+      }
     );
 
     async function customSubmitFunc() {

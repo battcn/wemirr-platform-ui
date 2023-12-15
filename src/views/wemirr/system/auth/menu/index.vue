@@ -78,7 +78,7 @@ export default defineComponent({
         },
         submitFunc: customSubmitFunc,
         submit: customSubmitFunc,
-      },
+      }
     );
 
     async function customSubmitFunc() {

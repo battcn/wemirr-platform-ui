@@ -69,7 +69,7 @@ export default defineComponent({
         showResetButton: false,
         submitButtonOptions: { text: "提交" },
         submitFunc: customSubmitFunc,
-      },
+      }
     );
 
     async function customSubmitFunc() {

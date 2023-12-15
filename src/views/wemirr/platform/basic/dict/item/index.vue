@@ -63,7 +63,7 @@ export default defineComponent({
       },
       {
         immediate: true,
-      },
+      }
     );
 
     // 页面打开后获取列表数据
@@ -86,7 +86,7 @@ export default defineComponent({
         },
         {
           immediate: true,
-        },
+        }
       );
     });
 

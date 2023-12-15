@@ -39,7 +39,7 @@ export default function ({ expose, userStore }) {
                     method: "POST",
                     responseType: "blob",
                   },
-                  { isTransformResponse: false },
+                  { isTransformResponse: false }
                 )
                 .then((res) => {
                   downloadByData(res, `${context.row.moduleName}.zip`);

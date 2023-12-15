@@ -78,7 +78,7 @@ watch(
   () => props.data,
   () => {
     onRender();
-  },
+  }
 );
 
 // TODO
@@ -93,7 +93,7 @@ watch(
   () => unref(getFlowOptions),
   (options) => {
     unref(lfInstance)?.updateEditConfig(options);
-  },
+  }
 );
 
 // init logicFlow

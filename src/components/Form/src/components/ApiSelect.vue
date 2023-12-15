@@ -90,7 +90,7 @@ watch(
   () => state.value,
   (v) => {
     emit("update:value", v);
-  },
+  }
 );
 
 watch(
@@ -98,7 +98,7 @@ watch(
   () => {
     !unref(isFirstLoaded) && fetch();
   },
-  { deep: true, immediate: props.immediate },
+  { deep: true, immediate: props.immediate }
 );
 
 async function fetch() {

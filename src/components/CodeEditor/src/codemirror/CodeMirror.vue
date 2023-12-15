@@ -63,7 +63,7 @@ watch(
       editor?.setValue(value ? value : "");
     }
   },
-  { flush: "post" },
+  { flush: "post" }
 );
 
 watchEffect(() => {
@@ -77,13 +77,13 @@ watch(
   },
   {
     immediate: true,
-  },
+  }
 );
 
 function setTheme() {
   unref(editor)?.setOption(
     "theme",
-    appStore.getDarkMode === "light" ? "idea" : "material-palenight",
+    appStore.getDarkMode === "light" ? "idea" : "material-palenight"
   );
 }
 

@@ -111,7 +111,7 @@ export default defineComponent({
     });
 
     const getTreeSearchData = computed((): TreeItem[] =>
-      searchState.startSearch ? searchState.searchData : unref(treeDataRef),
+      searchState.startSearch ? searchState.searchData : unref(treeDataRef)
     );
 
     const getNotFound = computed((): boolean => {
@@ -206,7 +206,7 @@ export default defineComponent({
       },
       {
         immediate: true,
-      },
+      }
     );
 
     watch(
@@ -215,7 +215,7 @@ export default defineComponent({
         if (val) {
           handleSearch(searchState.searchText);
         }
-      },
+      }
     );
 
     function handleSearch(searchValue: string) {
@@ -241,7 +241,7 @@ export default defineComponent({
           }
           return result;
         },
-        unref(getFieldNames),
+        unref(getFieldNames)
       );
 
       if (expandOnSearch) {
@@ -306,7 +306,7 @@ export default defineComponent({
       () => {
         state.checkedKeys = toRaw(props.value || []);
       },
-      { immediate: true },
+      { immediate: true }
     );
 
     watch(
@@ -315,7 +315,7 @@ export default defineComponent({
         const v = toRaw(state.checkedKeys);
         emit("update:value", v);
         emit("change", v);
-      },
+      }
     );
 
     watchEffect(() => {

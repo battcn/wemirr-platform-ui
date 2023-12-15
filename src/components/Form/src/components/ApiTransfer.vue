@@ -94,7 +94,7 @@ watch(
   () => {
     fetch();
   },
-  { deep: true },
+  { deep: true }
 );
 
 async function fetch() {

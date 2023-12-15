@@ -214,7 +214,7 @@ export function useFormEvents({
   async function appendSchemaByField(
     schema: FormSchema | FormSchema[],
     prefixField?: string,
-    first = false,
+    first = false
   ) {
     const schemaList: FormSchema[] = cloneDeep(unref(getSchema));
     const addSchemaIds: string[] = Array.isArray(schema)
@@ -245,12 +245,12 @@ export function useFormEvents({
     }
 
     const hasField = updateData.every(
-      (item) => item.component === "Divider" || (Reflect.has(item, "field") && item.field),
+      (item) => item.component === "Divider" || (Reflect.has(item, "field") && item.field)
     );
 
     if (!hasField) {
       error(
-        "All children of the form Schema array that need to be updated must contain the `field` field",
+        "All children of the form Schema array that need to be updated must contain the `field` field"
       );
       return;
     }
@@ -267,12 +267,12 @@ export function useFormEvents({
     }
 
     const hasField = updateData.every(
-      (item) => item.component === "Divider" || (Reflect.has(item, "field") && item.field),
+      (item) => item.component === "Divider" || (Reflect.has(item, "field") && item.field)
     );
 
     if (!hasField) {
       error(
-        "All children of the form Schema array that need to be updated must contain the `field` field",
+        "All children of the form Schema array that need to be updated must contain the `field` field"
       );
       return;
     }
@@ -422,7 +422,7 @@ export function useFormEvents({
 function getDefaultValue(
   schema: FormSchema | undefined,
   defaultValueRef: UseFormActionContext["defaultValueRef"],
-  key: string,
+  key: string
 ) {
   let defaultValue = cloneDeep(defaultValueRef.value[key]);
   const isInput = checkIsInput(schema);

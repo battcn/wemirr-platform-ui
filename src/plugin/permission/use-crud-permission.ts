@@ -45,7 +45,7 @@ export function useCrudPermission({ permission }) {
           },
         },
       },
-      extra,
+      extra
     );
   }
 

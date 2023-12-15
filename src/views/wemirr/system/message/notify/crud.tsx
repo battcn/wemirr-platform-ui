@@ -2,8 +2,10 @@ import * as api from "./api";
 import { useMessage } from "@/hooks/web/useMessage";
 import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
+import { usePermission } from "@/hooks/web/usePermission";
 
 export default function ({ expose, searchRemote }) {
+  const { hasPermission } = usePermission();
   const { notification } = useMessage();
   const { fetchReceiver, searchState } = searchRemote;
   return {
@@ -28,12 +30,12 @@ export default function ({ expose, searchRemote }) {
         width: 250,
         buttons: {
           publish: {
-            // icon: "codicon:repo-force-push",
             type: "link",
             text: "消息推送",
             size: "small",
             title: "消息推送",
             order: 4,
+            show: hasPermission("sys:site_notify:publish"),
             async click(context) {
               await api.PublishMessage(context.row.id).then((ret) => {
                 notification.success({

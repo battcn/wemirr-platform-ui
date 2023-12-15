@@ -98,6 +98,6 @@ watch(
       active.value = false;
     }
   },
-  { immediate: true },
+  { immediate: true }
 );
 </script>

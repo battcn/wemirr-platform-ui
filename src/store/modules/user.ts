@@ -86,7 +86,7 @@ export const useUserStore = defineStore({
       params: LoginPicture & {
         goHome?: boolean;
         mode?: ErrorMessageMode;
-      },
+      }
     ): Promise<UserInfo | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;

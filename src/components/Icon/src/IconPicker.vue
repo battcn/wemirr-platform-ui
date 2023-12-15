@@ -150,7 +150,7 @@ watch(
   (v) => {
     emit("update:value", v);
     emit("change", v);
-  },
+  }
 );
 function handlePageChange(page: number) {
   setCurrentPage(page);

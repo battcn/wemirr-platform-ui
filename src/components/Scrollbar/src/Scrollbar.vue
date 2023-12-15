@@ -98,7 +98,7 @@ watch(
   () => {
     if (props.native) return;
     update();
-  },
+  }
 );
 
 defineExpose({

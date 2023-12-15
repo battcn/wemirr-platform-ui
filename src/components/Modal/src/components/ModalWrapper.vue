@@ -49,7 +49,7 @@ useMutationObserver(
   {
     attributes: true,
     subtree: true,
-  },
+  }
 );
 
 createModalContext({
@@ -76,7 +76,7 @@ watch(
     } else {
       minRealHeightRef.value = realHeightRef.value;
     }
-  },
+  }
 );
 
 onMounted(() => {
@@ -141,8 +141,8 @@ async function setModalHeight() {
       realHeightRef.value = props.height
         ? props.height
         : realHeight.value > maxHeight
-          ? maxHeight
-          : realHeight.value;
+        ? maxHeight
+        : realHeight.value;
     }
     emit("height-change", unref(realHeightRef));
   } catch (error) {
