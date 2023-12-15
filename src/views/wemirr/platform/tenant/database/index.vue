@@ -1,9 +1,9 @@
 <template>
   <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
-      <template #cell_name="scope">
-        <a-tooltip placement="top" :title="scope.row.name">
-          {{ scope.row.name }}
+      <template #cell_url="scope">
+        <a-tooltip placement="leftTop" :title="scope.row.url">
+          {{ scope.row.url }}
         </a-tooltip>
       </template>
     </fs-crud>

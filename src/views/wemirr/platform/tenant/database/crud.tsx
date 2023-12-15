@@ -23,7 +23,7 @@ export default function ({ expose }) {
           title: "连接池",
           type: ["text"],
           search: { show: true },
-          column: { ellipsis: true, width: 200 },
+          column: { ellipsis: true, width: 180 },
           form: {
             wrapperCol: { span: 9 },
             col: { span: 24 },
@@ -45,6 +45,7 @@ export default function ({ expose }) {
         password: {
           title: "密码",
           type: "password",
+          column: { show: false, width: 120, ellipsis: true },
           form: {
             rules: [
               { required: true, message: "请输入密码" },
@@ -85,16 +86,16 @@ export default function ({ expose }) {
             rules: [{ required: true, message: "请选择数据库类型" }],
           },
         },
-        host: {
-          title: "Host",
+        url: {
+          title: "URL",
           type: ["textarea"],
-          column: { show: true, width: 120, ellipsis: true },
+          column: { show: true, width: 300, ellipsis: true },
           form: {
             col: { span: 24 },
-            helper: "Host格式 ip:port ",
+            helper: "如 jdbc:mysql://localhost:3309/wemirr-platform ",
             rules: [
               { required: true, message: "Host不能为空" },
-              { min: 8, max: 100, message: "长度在 8 到 100 个字符" },
+              { min: 8, max: 1000, message: "长度在 8 到 1000 个字符" },
             ],
           },
         },

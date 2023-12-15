@@ -132,7 +132,7 @@ const transform: AxiosTransform = {
         if (joinParamsToUrl) {
           config.url = setObjToUrlParams(
             config.url as string,
-            Object.assign({}, config.params, config.data)
+            Object.assign({}, config.params, config.data),
           );
         }
       } else {
@@ -264,12 +264,12 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           retryRequest: {
             isOpenRetry: true,
             count: 3,
-            waitTime: 5000,
+            waitTime: 10000,
           },
         },
       },
-      opt || {}
-    )
+      opt || {},
+    ),
   );
 }
 
