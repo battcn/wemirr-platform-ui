@@ -7,7 +7,7 @@
         <a style="float: right"><DeleteOutlined @click="deleteSchedule(item)" /></a>
       </a-timeline-item>
     </a-timeline>
-    <a class="add-schedule" @click="openFormWrapperNoTag"><PlusSquareOutlined /> 新增日程</a>
+    <a class="add-schedule" @click="openScheduleForm"><PlusSquareOutlined /> 新增日程</a>
   </Card>
 </template>
 
@@ -45,14 +45,14 @@ const deleteSchedule = (item) => {
 };
 
 const { openDialog } = useFormWrapper();
-const createFormOptionsFromCrudOptions = () => {
+const createScheduleFromCrudOptions = () => {
   const { buildFormOptions } = useColumns();
   const { crudOptions } = createCrudOptions({ calendarValue });
   return buildFormOptions(crudOptions);
 };
 
-async function openFormWrapperNoTag() {
-  const opts = createFormOptionsFromCrudOptions();
+async function openScheduleForm() {
+  const opts = createScheduleFromCrudOptions();
   await openDialog(opts);
 }
 </script>
