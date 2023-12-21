@@ -37,6 +37,13 @@ export default function (app, i18n) {
             },
           },
         },
+        search: {
+          buttons: {
+            search: {
+              style: "marginLeft:-2px",
+            },
+          },
+        },
         actionbar: {
           buttons: {
             add: {
