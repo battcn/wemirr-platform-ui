@@ -12,7 +12,7 @@
         @select="handleSelect"
       />
     </Card>
-    <Card title="组织管理" class="w-full sys-station-page-card">
+    <Card title="岗位管理" class="w-full sys-station-page-card">
       <fs-crud ref="crudRef" v-bind="crudBinding" />
     </Card>
   </PageWrapper>

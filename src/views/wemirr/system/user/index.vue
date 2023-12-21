@@ -12,7 +12,7 @@
         @select="handleSelect"
       />
     </Card>
-    <Card title="组织管理" class="w-full sys-user-page-card">
+    <Card title="用户管理" class="w-full sys-user-page-card">
       <fs-crud ref="crudRef" v-bind="crudBinding">
         <template #cell_nickName="scope">
           <a-tooltip placement="top" :title="scope.row.nickName">
