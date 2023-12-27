@@ -20,7 +20,6 @@ export default defineComponent({
   setup() {
     const crudRef = ref();
     const crudBinding = ref();
-    const areaTree = ref([]);
     const { expose } = useExpose({ crudRef, crudBinding });
     const { crudOptions } = createCrudOptions({ expose });
     useCrud({ expose, crudOptions });
@@ -29,14 +28,7 @@ export default defineComponent({
       expose.doRefresh();
     });
 
-    const filter = (inputValue, path) => {
-      return path.some(
-        (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
-      );
-    };
     return {
-      filter,
-      areaTree,
       crudBinding,
       crudRef,
     };

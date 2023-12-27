@@ -4,24 +4,79 @@ import { useMessage } from "@/hooks/web/useMessage";
 import { DELETE, POST, PUT } from "@/api/service";
 import { getAreaTree } from "@/api/sys/area";
 import { ref } from "vue";
+import createCrudOptionsText from "./database/crud";
+import { defHttp } from "@/utils/http/axios";
 
 const tenantRow = ref();
 const { buildFormOptions } = useColumns();
 const { notification, createConfirm } = useMessage();
 const customOptions = {
   columns: {
-    dynamicDatasourceId: {
+    datasourceId: {
       title: "数据源",
-      type: "dict-select",
+      type: "table-select",
       dict: dict({
-        prototype: true,
-        url: "/authority/databases/active",
         value: "id",
         label: "name",
+        getNodesByValues: async (values: any[]) => {
+          return defHttp.get({ url: "/authority/databases/active", params: values });
+        },
       }),
       form: {
-        rules: [{ required: true, message: "限流类型不能为空" }],
+        component: {
+          crossPage: true,
+          valuesFormat: {
+            labelFormatter: (item: any) => {
+              return `${item.id}.${item.name}`;
+            },
+          },
+          select: {
+            placeholder: "点击选择",
+          },
+          createCrudOptions: createCrudOptionsText,
+          crudOptionsOverride: {
+            toolbar: {
+              show: false,
+            },
+            actionbar: {
+              buttons: {
+                add: {
+                  show: false,
+                },
+              },
+            },
+            rowHandle: {
+              show: false,
+            },
+          },
+        },
+        rules: [{ required: true, message: "数据源不能为空" }],
         helper: "选择数据源后,会将租户初始化到指定的数据库中",
+      },
+    },
+    description: {
+      title: "描述",
+      column: { show: false, ellipsis: true },
+      type: ["textarea"],
+      form: {
+        col: {
+          span: 24,
+        },
+      },
+    },
+    lazy: {
+      title: "懒加载",
+      search: { show: true },
+      column: { show: true, align: "center", width: 80 }, // 表单配置
+      type: ["dict-radio"],
+      dict: dict({
+        data: [
+          { value: false, label: "立即执行", color: "success" },
+          { value: true, label: "延迟加载", color: "error" },
+        ],
+      }),
+      addForm: {
+        value: true,
       },
     },
   },
@@ -81,7 +136,7 @@ export default function ({ expose }) {
             order: 3,
             async click({ row }) {
               if (row.locked) {
-                await notification.error({ message: "租户已被禁用,无法进行租户配置", duration: 2 });
+                notification.error({ message: "租户已被禁用,无法进行租户配置", duration: 2 });
                 return;
               }
               tenantRow.value = row;
@@ -282,7 +337,7 @@ export default function ({ expose }) {
               showSearch: {
                 filter: (inputValue, path) => {
                   return path.some(
-                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
                   );
                 },
               },
