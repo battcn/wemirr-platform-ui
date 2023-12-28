@@ -6,6 +6,7 @@ import { getAreaTree } from "@/api/sys/area";
 import { ref } from "vue";
 import createCrudOptionsText from "./database/crud";
 import { defHttp } from "@/utils/http/axios";
+import { DictCode, dictFunc } from "@/api/dict/dict";
 
 const tenantRow = ref();
 const { buildFormOptions } = useColumns();
@@ -272,9 +273,7 @@ export default function ({ expose }) {
           title: "行业",
           column: { show: true, width: 150 },
           type: "dict-select",
-          dict: dict({
-            url: "/authority/dictionaries/INDUSTRY/list",
-          }),
+          dict: dictFunc(DictCode.INDUSTRY),
         },
         // 目的是为了用户体验更好,打开弹窗和进入页面更快速
         areaText: {
@@ -337,7 +336,7 @@ export default function ({ expose }) {
               showSearch: {
                 filter: (inputValue, path) => {
                   return path.some(
-                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
                   );
                 },
               },

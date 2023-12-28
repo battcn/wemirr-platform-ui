@@ -8,7 +8,7 @@ export default function ({ expose, distribution }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/roles`, query),
+        pageRequest: async (query: any) => await GET(`/authority/roles`, query),
         addRequest: async ({ form }) => await POST(`/authority/roles`, form),
         editRequest: async ({ form }) => await PUT(`/authority/roles/${form.id}`, form),
         delRequest: async ({ row }) => await DELETE(`/authority/roles/${row.id}`),
@@ -39,7 +39,7 @@ export default function ({ expose, distribution }) {
             type: "link",
             order: 4,
             show: hasPermission("sys:role:distribution:user"),
-            async click(context) {
+            async click(context: any) {
               await distribution.userModal(context.record.id);
             },
           },
@@ -49,7 +49,7 @@ export default function ({ expose, distribution }) {
             size: "small",
             order: 5,
             show: hasPermission("sys:role:distribution:res"),
-            async click(context) {
+            async click(context: any) {
               await distribution.resourceModal(context.record.id);
             },
           },

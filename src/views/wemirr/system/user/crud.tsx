@@ -1,6 +1,7 @@
 import { GET, POST, PUT, DELETE } from "@/api/service";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
+import { DictCode, dictFunc } from "@/api/dict/dict";
 
 export default function ({ expose, nodeRef }) {
   return {
@@ -102,9 +103,7 @@ export default function ({ expose, nodeRef }) {
         sex: {
           title: "性别",
           type: "dict-radio",
-          dict: dict({
-            url: "/authority/dictionaries/SEX/list",
-          }),
+          dict: dictFunc(DictCode.SEX),
           viewForm: {
             valueBuilder(context) {
               context.form.sex = context.row.sex?.toString();
@@ -247,9 +246,7 @@ export default function ({ expose, nodeRef }) {
           title: "民族",
           type: "dict-select",
           column: { width: 90 },
-          dict: dict({
-            url: "/authority/dictionaries/NATION/list",
-          }),
+          dict: dictFunc(DictCode.NATION),
           form: {
             component: {
               showSearch: true,
@@ -264,9 +261,7 @@ export default function ({ expose, nodeRef }) {
           search: { show: true },
           type: "dict-select",
           column: { width: 90 },
-          dict: dict({
-            url: "/authority/dictionaries/EDUCATION/list",
-          }),
+          dict: dictFunc(DictCode.EDUCATION),
           form: {
             component: {
               showSearch: true,

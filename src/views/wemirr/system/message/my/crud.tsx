@@ -2,6 +2,7 @@ import { ref } from "vue";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { GET, DELETE } from "@/api/service";
+import { DictCode, dictFunc } from "@/api/dict/dict";
 
 export default function ({ expose }) {
   const selectedRowKeys = ref([]);
@@ -54,9 +55,7 @@ export default function ({ expose }) {
           type: "dict-select",
           search: { show: true },
           column: { show: true, width: 130 }, // 表单配置
-          dict: dict({
-            url: "/authority/dictionaries/NOTICE/list",
-          }),
+          dict: dictFunc(DictCode.NOTICE),
         },
         mark: {
           title: "状态",
