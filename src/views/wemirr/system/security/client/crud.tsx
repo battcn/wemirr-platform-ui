@@ -1,27 +1,29 @@
 import { dict } from "@fast-crud/fast-crud";
-import { GET, DELETE, POST } from "@/api/service";
 import dayjs from "dayjs";
+import { defHttp } from "@/utils/http/axios";
 
-export default function ({ expose }) {
+export default function () {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/registered_client_refs`, query),
+        pageRequest: async (query: any) =>
+          await defHttp.get({ url: `/authority/registered_client_refs`, params: query }),
         addRequest: async ({ form }) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
-          await POST(`/authority/registered_client_refs`, form);
+          await defHttp.post({ url: `/authority/registered_client_refs`, data: form });
         },
         editRequest: async ({ form }) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
-          await POST(`/authority/registered_client_refs`, form);
+          await defHttp.post({ url: `/authority/registered_client_refs`, data: form });
         },
-        delRequest: async ({ row }) => await DELETE(`/authority/registered_client_refs/${row.id}`),
+        delRequest: async ({ row }) =>
+          await defHttp.delete({ url: `/authority/registered_client_refs/${row.id}` }),
       },
       table: {
         rowKey: "clientId",

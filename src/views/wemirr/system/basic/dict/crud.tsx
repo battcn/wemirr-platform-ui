@@ -1,10 +1,7 @@
 import { shallowRef } from "vue";
 import DictItemTable from "./item/index.vue";
-
 import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-
-import { GET, POST, PUT, DELETE } from "@/api/service";
 import { defHttp } from "@/utils/http/axios";
 import { usePermission } from "@/hooks/web/usePermission";
 
@@ -14,11 +11,14 @@ export default function () {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/tenant_dictionaries`, query),
-        addRequest: async ({ form }) => await POST(`/authority/tenant_dictionaries`, form),
-        editRequest: async ({ form }) =>
-          await PUT(`/authority/tenant_dictionaries/${form.id}`, form),
-        delRequest: async ({ row }) => await DELETE(`/authority/tenant_dictionaries/${row.id}`),
+        pageRequest: async (query: any) =>
+          await defHttp.get({ url: `/authority/tenant_dictionaries`, params: query }),
+        addRequest: async ({ form }: any) =>
+          await defHttp.post({ url: `/authority/tenant_dictionaries`, data: form }),
+        editRequest: async ({ form }: any) =>
+          await defHttp.put({ url: `/authority/tenant_dictionaries/${form.id}`, data: form }),
+        delRequest: async ({ row }: any) =>
+          await defHttp.delete({ url: `/authority/tenant_dictionaries/${row.id}` }),
       },
       rowHandle: {
         width: 250,

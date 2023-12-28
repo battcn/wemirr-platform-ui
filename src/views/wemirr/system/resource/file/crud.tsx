@@ -1,14 +1,13 @@
 import * as api from "./api";
 import { useMessage } from "@/hooks/web/useMessage";
-// import { compute, dict } from '@fast-crud/fast-crud';
 import dayjs from "dayjs";
 
-export default function ({ expose }) {
+export default function () {
   const { notification } = useMessage();
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.GetList(query),
+        pageRequest: async (query: any) => await api.GetList(query),
         addRequest: async ({ form }) => await api.AddObj(form),
         editRequest: async ({ form }) => await api.UpdateObj(form),
         delRequest: async ({ row }) => await api.DelObj(row.id),
@@ -44,8 +43,7 @@ export default function ({ expose }) {
             size: "small",
             title: "文件下载",
             order: 1,
-            async click(context) {
-              console.log(context);
+            async click() {
               notification.error({
                 message: "暂未实现",
                 duration: 3,

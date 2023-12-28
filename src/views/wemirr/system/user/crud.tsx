@@ -1,19 +1,20 @@
-import { GET, POST, PUT, DELETE } from "@/api/service";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { DictCode, dictFunc } from "@/api/dict/dict";
+import { defHttp } from "@/utils/http/axios";
 
 export default function ({ expose, nodeRef }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => {
+        pageRequest: async (query: any) => {
           query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
-          return await GET(`/authority/users`, query);
+          return await defHttp.get({ url: `/authority/users`, params: query });
         },
-        addRequest: async ({ form }) => await POST(`/authority/users`, form),
-        editRequest: async ({ form }) => await PUT(`/authority/users/${form.id}`, form),
-        delRequest: async ({ row }) => await DELETE(`/authority/users/${row.id}`),
+        addRequest: async ({ form }) => await defHttp.post({ url: `/authority/users`, data: form }),
+        editRequest: async ({ form }) =>
+          await defHttp.put({ url: `/authority/users/${form.id}`, data: form }),
+        delRequest: async ({ row }) => await defHttp.delete({ url: `/authority/users/${row.id}` }),
       },
       container: {
         is: "fs-layout-default",
@@ -214,7 +215,7 @@ export default function ({ expose, nodeRef }) {
             },
             getData: ({ form, url }: any) => {
               if (form.orgId) {
-                return GET(url).then((ret) => {
+                return defHttp.get({ url: url }).then((ret) => {
                   return ret.records;
                 });
               }
@@ -223,7 +224,7 @@ export default function ({ expose, nodeRef }) {
           form: {
             component: {
               showSearch: true,
-              filterOption: (val, form) => {
+              filterOption: (val: string, form: any) => {
                 return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },

@@ -9,10 +9,10 @@ import {
   UserPageQuery,
   UserPageRes,
 } from "@fast-crud/fast-crud";
-import { GET, POST, PUT, DELETE } from "@/api/service";
 import { usePermission } from "@/hooks/web/usePermission";
+import { defHttp } from "@/utils/http/axios";
 
-export default function ({ expose, context }: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { hasPermission } = usePermission();
   const { parentIdRef } = context;
   const dictionaryId = parentIdRef.value;
@@ -20,14 +20,20 @@ export default function ({ expose, context }: CreateCrudOptionsProps): CreateCru
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
-          return await GET(`/authority/dictionaries/${dictionaryId}/items`, query);
+          return await defHttp.get({
+            url: `/authority/dictionaries/${dictionaryId}/items`,
+            params: query,
+          });
         },
         addRequest: async ({ form }: AddReq) =>
-          await POST(`/authority/dictionaries/${dictionaryId}/items`, form),
+          await defHttp.post({ url: `/authority/dictionaries/${dictionaryId}/items`, data: form }),
         editRequest: async ({ form }: EditReq) =>
-          await PUT(`/authority/dictionaries/${dictionaryId}/items/${form.id}`, form),
+          await defHttp.put({
+            url: `/authority/dictionaries/${dictionaryId}/items/${form.id}`,
+            data: form,
+          }),
         delRequest: async ({ row }: DelReq) =>
-          await DELETE(`/authority/dictionaries/${dictionaryId}/items/${row.id}`),
+          await defHttp.delete({ url: `/authority/dictionaries/${dictionaryId}/items/${row.id}` }),
       },
       actionbar: {
         buttons: {

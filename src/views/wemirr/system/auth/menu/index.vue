@@ -78,7 +78,7 @@ export default defineComponent({
         },
         submitFunc: customSubmitFunc,
         submit: customSubmitFunc,
-      }
+      },
     );
 
     async function customSubmitFunc() {
@@ -110,7 +110,7 @@ export default defineComponent({
         title: "确认",
         content: `确定删除 ${node.label} ？ 同时会级联删除子节点以及相关资源数据`,
         onOk: async () => {
-          await api.DelObj(node.id).then((ret) => {
+          await api.DelObj(node.id).then(() => {
             notification.success({
               message: "删除成功",
               duration: 3,

@@ -1,23 +1,23 @@
-import { GET, POST, PUT, DELETE } from "@/api/service";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
+import { defHttp } from "@/utils/http/axios";
 
-export default function ({ expose, nodeRef }) {
+export default function ({ nodeRef }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => {
+        pageRequest: async (query: any) => {
           query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
-          return await GET(`/authority/stations`, query);
+          return await defHttp.get({ url: `/authority/stations`, params: query });
         },
         addRequest: async ({ form }) => {
-          return await POST(`/authority/stations`, form);
+          return await defHttp.post({ url: `/authority/stations`, data: form });
         },
         editRequest: async ({ form }) => {
-          return await PUT(`/authority/stations/${form.id}`, form);
+          return await defHttp.put({ url: `/authority/stations/${form.id}`, data: form });
         },
         delRequest: async ({ row }) => {
-          return await DELETE(`/authority/stations/${row.id}`);
+          return await defHttp.delete({ url: `/authority/stations/${row.id}` });
         },
       },
       search: {
@@ -95,7 +95,7 @@ export default function ({ expose, nodeRef }) {
             component: {
               fieldNames: { children: "children", title: "name", key: "id", value: "id" },
               showSearch: true,
-              filterTreeNode: (val, treeNode) => {
+              filterTreeNode: (val: any, treeNode: any) => {
                 return treeNode.props.title.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },

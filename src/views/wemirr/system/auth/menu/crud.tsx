@@ -1,8 +1,8 @@
 import * as api from "./api";
 import { dict } from "@fast-crud/fast-crud";
 
-export default function ({ expose, nodeRef }) {
-  const pageRequest = async (query) => {
+export default function ({ nodeRef }) {
+  const pageRequest = async (query: any) => {
     return await api.GetResourceList({ parentId: nodeRef.value.id, type: "2", size: query.size });
   };
   return {

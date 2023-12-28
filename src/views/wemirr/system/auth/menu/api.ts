@@ -1,20 +1,20 @@
 import { defHttp } from "@/utils/http/axios";
 
-export function GetResourceList(query) {
+export function GetResourceList(query: any) {
   return defHttp.request({
     url: "/authority/resources",
     method: "get",
     params: query,
   });
 }
-export function SaveOrUpdate(obj) {
+export function SaveOrUpdate(obj: any) {
   if (obj.id) {
     return UpdateObj(obj);
   } else {
     return AddObj(obj);
   }
 }
-export function AddObj(obj) {
+export function AddObj(obj: any) {
   return defHttp.request({
     url: "/authority/resources",
     method: "post",
@@ -22,7 +22,7 @@ export function AddObj(obj) {
   });
 }
 
-export function UpdateObj(obj) {
+export function UpdateObj(obj: any) {
   return defHttp.request({
     url: `/authority/resources/${obj.id}`,
     method: "put",
@@ -30,7 +30,7 @@ export function UpdateObj(obj) {
   });
 }
 
-export function DelObj(id) {
+export function DelObj(id: any) {
   return defHttp.request({
     url: `/authority/resources/${id}`,
     method: "delete",
@@ -38,7 +38,7 @@ export function DelObj(id) {
   });
 }
 
-export function GetBuildStandardList(query) {
+export function GetBuildStandardList(query: any) {
   return defHttp.request({
     url: "/tools/dynamic_release_drag",
     method: "get",

@@ -85,7 +85,7 @@ export default defineComponent({
       };
     };
     async function handleSubmit() {
-      api.DistributionUser({ roleId: modelRef.value.roleId, userIdList: targetKeys.value });
+      await api.DistributionUser({ roleId: modelRef.value.roleId, userIdList: targetKeys.value });
       closeModal();
     }
 

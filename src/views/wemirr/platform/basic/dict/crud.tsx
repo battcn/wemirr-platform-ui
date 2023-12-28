@@ -2,7 +2,6 @@ import DictItemTable from "./item/index.vue";
 import {
   dict,
   compute,
-  CreateCrudOptionsProps,
   CreateCrudOptionsRet,
   UserPageQuery,
   UserPageRes,
@@ -11,23 +10,22 @@ import {
   AddReq,
 } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-
-import { GET, POST, PUT, DELETE } from "@/api/service";
 import { defHttp } from "@/utils/http/axios";
 import { usePermission } from "@/hooks/web/usePermission";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function (): CreateCrudOptionsRet {
   const { hasPermission } = usePermission();
   return {
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> =>
-          await GET(`/authority/dictionaries`, query),
-        addRequest: async ({ form }: AddReq) => await POST(`/authority/dictionaries`, form),
+          await defHttp.get({ url: `/authority/dictionaries`, params: query }),
+        addRequest: async ({ form }: AddReq) =>
+          await defHttp.post({ url: `/authority/dictionaries`, data: form }),
         editRequest: async ({ form }: EditReq) =>
-          await PUT(`/authority/dictionaries/${form.id}`, form),
-        delRequest: async ({ row }: DelReq) => await DELETE(`/authority/dictionaries/${row.id}`),
+          await defHttp.put({ url: `/authority/dictionaries/${form.id}`, data: form }),
+        delRequest: async ({ row }: DelReq) =>
+          await defHttp.delete({ url: `/authority/dictionaries/${row.id}` }),
       },
       rowHandle: {
         width: 220,

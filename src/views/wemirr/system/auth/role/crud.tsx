@@ -1,17 +1,17 @@
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { usePermission } from "@/hooks/web/usePermission";
-import { GET, POST, PUT, DELETE } from "@/api/service";
+import * as api from "./api";
 
-export default function ({ expose, distribution }) {
+export default function ({ distribution }) {
   const { hasPermission } = usePermission();
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query: any) => await GET(`/authority/roles`, query),
-        addRequest: async ({ form }) => await POST(`/authority/roles`, form),
-        editRequest: async ({ form }) => await PUT(`/authority/roles/${form.id}`, form),
-        delRequest: async ({ row }) => await DELETE(`/authority/roles/${row.id}`),
+        pageRequest: async (query: any) => await api.GetList(query),
+        addRequest: async ({ form }) => await api.AddObj(form),
+        editRequest: async ({ form }) => await api.UpdateObj(form),
+        delRequest: async ({ row }) => await api.DelObj(row.id),
       },
       table: {
         size: "small",

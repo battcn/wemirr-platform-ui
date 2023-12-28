@@ -1,10 +1,10 @@
-import { GET } from "@/api/service";
-// import { compute } from '@fast-crud/fast-crud';
 import dayjs from "dayjs";
 import { dict, ValueBuilderContext, ValueResolveContext } from "@fast-crud/fast-crud";
+import { defHttp } from "@/utils/http/axios";
 
-export default function ({ expose }) {
-  const pageRequest = async (query) => await GET("/authority/opt_logs", query);
+export default function () {
+  const pageRequest = async (query: any) =>
+    await defHttp.get({ url: "/authority/opt_logs", params: query });
   return {
     crudOptions: {
       request: {

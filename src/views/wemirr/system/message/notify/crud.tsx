@@ -5,17 +5,17 @@ import dayjs from "dayjs";
 import { usePermission } from "@/hooks/web/usePermission";
 import { DictCode, dictFunc } from "@/api/dict/dict";
 
-export default function ({ expose, searchRemote }) {
+export default function ({ searchRemote }) {
   const { hasPermission } = usePermission();
   const { notification } = useMessage();
   const { fetchReceiver, searchState } = searchRemote;
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.GetList(query),
-        addRequest: async ({ form }) => await api.AddObj(form),
-        editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        pageRequest: async (query: any) => await api.GetList(query),
+        addRequest: async ({ form }: any) => await api.AddObj(form),
+        editRequest: async ({ form }: any) => await api.UpdateObj(form),
+        delRequest: async ({ row }: any) => await api.DelObj(row.id),
       },
       toolbar: {},
       actionbar: {
@@ -37,8 +37,8 @@ export default function ({ expose, searchRemote }) {
             title: "消息推送",
             order: 4,
             show: hasPermission("sys:site_notify:publish"),
-            async click(context) {
-              await api.PublishMessage(context.row.id).then((ret) => {
+            async click({ row }) {
+              await api.PublishMessage(row.id).then(() => {
                 notification.success({
                   message: "消息通知成功",
                   duration: 3,

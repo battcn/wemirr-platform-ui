@@ -1,15 +1,19 @@
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { GET, DELETE, POST, PUT } from "@/api/service";
+import { defHttp } from "@/utils/http/axios";
 
-export default function ({ expose }) {
+export default function () {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/databases`, query),
-        addRequest: async ({ form }) => await POST(`/authority/databases`, form),
-        editRequest: async ({ form }) => await PUT(`/authority/databases/${form.id}`, form),
-        delRequest: async ({ row }) => await DELETE(`/authority/databases/${row.id}`),
+        pageRequest: async (query: any) =>
+          await defHttp.get({ url: `/authority/databases`, params: query }),
+        addRequest: async ({ form }: any) =>
+          await defHttp.post({ url: `/authority/databases`, data: form }),
+        editRequest: async ({ form }: any) =>
+          await defHttp.put({ url: `/authority/databases/${form.id}`, data: form }),
+        delRequest: async ({ row }: any) =>
+          await defHttp.delete({ url: `/authority/databases/${row.id}` }),
       },
       rowHandle: { fixed: "right" },
       columns: {

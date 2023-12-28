@@ -1,32 +1,28 @@
 import { defHttp } from "@/utils/http/axios";
 
-export function GetList(query) {
-  return defHttp.request({
+export function GetList(query: any) {
+  return defHttp.get({
     url: "/tools/files",
-    method: "get",
     params: query,
   });
 }
-export function AddObj(obj) {
-  return defHttp.request({
+export function AddObj(obj: any) {
+  return defHttp.post({
     url: "/tools/files",
-    method: "post",
     data: obj,
   });
 }
 
-export function UpdateObj(obj) {
-  return defHttp.request({
+export function UpdateObj(obj: any) {
+  return defHttp.put({
     url: `/tools/files/${obj.id}`,
-    method: "put",
     data: obj,
   });
 }
 
-export function DelObj(id) {
-  return defHttp.request({
+export function DelObj(id: string) {
+  return defHttp.delete({
     url: `/tools/files/${id}`,
-    method: "delete",
     data: { id },
   });
 }

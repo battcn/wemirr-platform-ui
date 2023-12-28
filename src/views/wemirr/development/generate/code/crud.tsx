@@ -1,15 +1,17 @@
-import { GET, POST, DELETE, PUT } from "@/api/service";
 import { defHttp } from "@/utils/http/axios";
-
 import dayjs from "dayjs";
 import { dict } from "@fast-crud/fast-crud";
 import { downloadByData } from "@/utils/file/download";
 
-export default function ({ expose, userStore }) {
-  const pageRequest = async (query) => await GET("/tools/generates", query);
-  const editRequest = async ({ form }) => await PUT(`/tools/generates/${form.id}`, form);
-  const delRequest = async ({ row }) => await DELETE(`/tools/generates/${row.id}`);
-  const addRequest = async ({ form }) => await POST("/tools/generates", form);
+export default function ({ userStore }) {
+  const pageRequest = async (query: any) =>
+    await defHttp.get({ url: "/tools/generates", params: query });
+  // eslint-disable-next-line prettier/prettier
+  const editRequest = async ({ form }:any) => await defHttp.put({url:`/tools/generates/${form.id}`,data: form});
+  const delRequest = async ({ row }: any) =>
+    await defHttp.delete({ url: `/tools/generates/${row.id}` });
+  const addRequest = async ({ form }: any) =>
+    await defHttp.post({ url: "/tools/generates", data: form });
   return {
     crudOptions: {
       request: {
@@ -39,7 +41,7 @@ export default function ({ expose, userStore }) {
                     method: "POST",
                     responseType: "blob",
                   },
-                  { isTransformResponse: false }
+                  { isTransformResponse: false },
                 )
                 .then((res) => {
                   downloadByData(res, `${context.row.moduleName}.zip`);

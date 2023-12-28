@@ -1,18 +1,18 @@
-import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { GET, POST, PUT, DELETE } from "@/api/service";
-import { usePermission } from "@/hooks/web/usePermission";
+import { defHttp } from "@/utils/http/axios";
 
 export default function () {
-  const { hasPermission } = usePermission();
-
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await GET(`/authority/i18n`, query),
-        addRequest: async ({ form }) => await POST(`/authority/i18n`, form),
-        editRequest: async ({ form }) => await PUT(`/authority/i18n/${form.id}`, form),
-        delRequest: async ({ row }) => await DELETE(`/authority/i18n/${row.id}`),
+        pageRequest: async (query: any) =>
+          await defHttp.get({ url: `/authority/i18n`, params: query }),
+        addRequest: async ({ form }: any) =>
+          await defHttp.post({ url: `/authority/i18n`, data: form }),
+        editRequest: async ({ form }: any) =>
+          await defHttp.put({ url: `/authority/i18n/${form.id}`, data: form }),
+        delRequest: async ({ row }: any) =>
+          await defHttp.delete({ url: `/authority/i18n/${row.id}` }),
       },
       columns: {
         id: {

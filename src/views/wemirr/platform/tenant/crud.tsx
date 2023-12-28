@@ -1,7 +1,6 @@
 import { compute, dict, utils, asyncCompute, useColumns } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { useMessage } from "@/hooks/web/useMessage";
-import { DELETE, POST, PUT } from "@/api/service";
 import { getAreaTree } from "@/api/sys/area";
 import { ref } from "vue";
 import createCrudOptionsText from "./database/crud";
@@ -84,8 +83,8 @@ const customOptions = {
   form: {
     wrapper: { title: "租户配置" },
     doSubmit({ form }) {
-      console.log("form", form);
-      PUT(`/authority/tenants/${tenantRow.value.id}/config`, form)
+      defHttp
+        .put({ url: `/authority/tenants/${tenantRow.value.id}/config`, data: form })
         .then(() => {
           notification.success({ message: "租户配置成功", duration: 2 });
         })
@@ -108,11 +107,14 @@ export default function ({ expose }) {
             query.cityId = query?.area[1];
             query.districtId = query?.area[2];
           }
-          return await POST(`/authority/tenants/page`, query);
+          return await defHttp.post({ url: `/authority/tenants/page`, data: query });
         },
-        addRequest: async ({ form }) => await POST(`/authority/tenants`, form),
-        editRequest: async ({ form }) => await PUT(`/authority/tenants/${form.id}`, form),
-        delRequest: async ({ row }) => await DELETE(`/authority/tenants/${row.id}`),
+        addRequest: async ({ form }) =>
+          await defHttp.post({ url: `/authority/tenants`, data: form }),
+        editRequest: async ({ form }) =>
+          await defHttp.put({ url: `/authority/tenants/${form.id}`, data: form }),
+        delRequest: async ({ row }) =>
+          await defHttp.delete({ url: `/authority/tenants/${row.id}` }),
       },
       rowHandle: {
         width: 280,
@@ -158,7 +160,7 @@ export default function ({ expose }) {
                 title: "风险提示",
                 content: `确定初始化 [${row.name}] 数据吗?`,
                 onOk: () => {
-                  PUT(`/authority/tenants/${row.id}/init_sql_script`).then(() => {
+                  defHttp.put({ url: `/authority/tenants/${row.id}/init_sql_script` }).then(() => {
                     notification.success({ message: "租户数据初始化成功", duration: 2 });
                   });
                 },
@@ -336,7 +338,7 @@ export default function ({ expose }) {
               showSearch: {
                 filter: (inputValue, path) => {
                   return path.some(
-                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1
+                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
                   );
                 },
               },

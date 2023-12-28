@@ -1,32 +1,29 @@
 import { defHttp } from "@/utils/http/axios";
 
-export function SaveOrUpdate(obj) {
+export function SaveOrUpdate(obj: any) {
   if (obj.id) {
     return UpdateObj(obj);
   } else {
     return AddObj(obj);
   }
 }
-export function AddObj(obj) {
-  return defHttp.request({
+export function AddObj(obj: any) {
+  return defHttp.post({
     url: "/authority/org",
-    method: "post",
     data: obj,
   });
 }
 
-export function UpdateObj(obj) {
-  return defHttp.request({
+export function UpdateObj(obj: any) {
+  return defHttp.put({
     url: `/authority/org/${obj.id}`,
-    method: "put",
     data: obj,
   });
 }
 
-export function DelObj(id) {
-  return defHttp.request({
+export function DelObj(id: any) {
+  return defHttp.delete({
     url: `/authority/org/${id}`,
-    method: "delete",
     data: { id },
   });
 }

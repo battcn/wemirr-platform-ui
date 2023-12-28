@@ -19,9 +19,6 @@ export const schemas: FormSchema[] = [
     componentProps: {
       placeholder: "请填写国标码",
     },
-    // dynamicDisabled: ({ values }) => {
-    //   return values.id != null;
-    // },
     required: true,
   },
   {

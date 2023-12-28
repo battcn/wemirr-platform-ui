@@ -1,23 +1,34 @@
 import dayjs from "dayjs";
 import { dict } from "@fast-crud/fast-crud";
-import { GET, POST, PUT, DELETE } from "@/api/service";
 import { usePermission } from "@/hooks/web/usePermission";
+import { defHttp } from "@/utils/http/axios";
 
-export default function ({ expose, props, ctx }) {
+export default function ({ props }) {
   const { hasPermission } = usePermission();
   const dictionaryId = props.modelValue;
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => {
-          return await GET(`/authority/tenant_dictionaries/${dictionaryId ?? 0}/items`, query);
+        pageRequest: async (query: any) => {
+          return await defHttp.get({
+            url: `/authority/tenant_dictionaries/${dictionaryId ?? 0}/items`,
+            params: query,
+          });
         },
-        addRequest: async ({ form }) =>
-          await POST(`/authority/tenant_dictionaries/${dictionaryId}/items`, form),
-        editRequest: async ({ form }) =>
-          await PUT(`/authority/tenant_dictionaries/${dictionaryId}/items/${form.id}`, form),
-        delRequest: async ({ row }) =>
-          await DELETE(`/authority/tenant_dictionaries/${dictionaryId}/items/${row.id}`),
+        addRequest: async ({ form }: any) =>
+          await defHttp.post({
+            url: `/authority/tenant_dictionaries/${dictionaryId}/items`,
+            data: form,
+          }),
+        editRequest: async ({ form }: any) =>
+          await defHttp.put({
+            url: `/authority/tenant_dictionaries/${dictionaryId}/items/${form.id}`,
+            data: form,
+          }),
+        delRequest: async ({ row }: any) =>
+          await defHttp.delete({
+            url: `/authority/tenant_dictionaries/${dictionaryId}/items/${row.id}`,
+          }),
       },
       search: { show: false },
       rowHandle: {

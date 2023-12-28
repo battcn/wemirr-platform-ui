@@ -1,13 +1,13 @@
 import { ref } from "vue";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { GET, DELETE } from "@/api/service";
+import * as api from "./api";
 import { DictCode, dictFunc } from "@/api/dict/dict";
 
-export default function ({ expose }) {
+export default function () {
   const selectedRowKeys = ref([]);
 
-  const onSelectChange = (changed) => {
+  const onSelectChange = (changed: any) => {
     selectedRowKeys.value = changed;
   };
 
@@ -21,8 +21,8 @@ export default function ({ expose }) {
         },
       },
       request: {
-        pageRequest: async (query) => await GET(`/authority/site_messages/page`, query),
-        delRequest: async ({ row }) => await DELETE(`/authority/site_messages/${row.id}`),
+        pageRequest: async (query: any) => await api.PageList(query),
+        delRequest: async ({ row }) => await api.DelObj(row.id),
       },
       toolbar: {},
       actionbar: {
