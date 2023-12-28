@@ -7,7 +7,7 @@ export enum DictCode {
   NATION = "NATION",
   EDUCATION = "EDUCATION",
 }
-export const dictFunc = async (code: DictCode) => {
+export const dictFunc = (code: DictCode) => {
   return dict({
     url: `/authority/dictionaries/${code}/list`,
   });

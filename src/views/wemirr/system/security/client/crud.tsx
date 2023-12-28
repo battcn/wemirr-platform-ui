@@ -97,7 +97,7 @@ export default function () {
         scopes: {
           title: "授权范围",
           type: "dict-select",
-          column: { width: 200, component: { color: "auto" } },
+          column: { width: 400, component: { color: "auto" } },
           dict: dict({
             data: [
               { value: "platform", label: "平台端", color: "warning" },
@@ -133,7 +133,7 @@ export default function () {
               { value: "refresh_token", label: "RefreshToken", color: "warning" },
             ],
           }),
-          column: { ellipsis: true, width: 470 },
+          column: { width: 470 },
         },
         accessTokenTimeToLive: {
           title: "AT 有效期",
