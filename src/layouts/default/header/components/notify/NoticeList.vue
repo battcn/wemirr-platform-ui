@@ -116,7 +116,7 @@ export default defineComponent({
       () => props.currentPage,
       (v) => {
         current.value = v;
-      }
+      },
     );
     const isTitleClickable = computed(() => !!props.onTitleClick);
     const getPagination = computed(() => {
@@ -129,7 +129,7 @@ export default defineComponent({
           total: list.length,
           pageSize: size,
           current: unref(current),
-          onChange(page) {
+          onChange(page: any) {
             current.value = page;
             emit("update:currentPage", page);
           },

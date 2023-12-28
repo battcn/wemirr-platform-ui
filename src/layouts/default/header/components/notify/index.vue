@@ -26,43 +26,26 @@
 import { computed, defineComponent, reactive, ref, watchEffect } from "vue";
 import { Popover, Tabs, Badge } from "ant-design-vue";
 import { BellOutlined } from "@ant-design/icons-vue";
-import { ListItem, TabItem } from "./data";
+import { ListItem, tabListData } from "./data";
 import NoticeList from "./NoticeList.vue";
 import { useDesign } from "@/hooks/web/useDesign";
 import { useWebSocket } from "@vueuse/core";
 import { formatToDateTime } from "@/utils/dateUtil";
 import { useUserStoreWithOut } from "@/store/modules/user";
 import * as api from "./api";
-import { isDevMode } from "@/utils/env";
+import type { UserInfo } from "#/store";
+import { useGlobSetting } from "@/hooks/setting";
 
 export default defineComponent({
   components: { Popover, BellOutlined, Tabs, TabPane: Tabs.TabPane, Badge, NoticeList },
   setup() {
     const { prefixCls } = useDesign("header-notify");
-    const tabListData: TabItem[] = [
-      {
-        key: "1",
-        name: "通知",
-        list: [],
-      },
-      {
-        key: "2",
-        name: "消息",
-        list: [],
-      },
-      {
-        key: "3",
-        name: "待办",
-        list: [],
-      },
-    ];
 
-    const userInfo = useUserStoreWithOut().userInfo;
+    const userInfo = useUserStoreWithOut().userInfo as UserInfo;
+    const { wsServerUrl } = useGlobSetting();
     // TODO webstock 案例
     const state = reactive({
-      server: isDevMode()
-        ? `ws://localhost:9000/authority/message/${userInfo.tenantCode}/${userInfo.userId}`
-        : `wss://cloud.battcn.com/api/authority/message/${userInfo.tenantCode}/${userInfo.userId}`,
+      server: `${wsServerUrl}/message/${userInfo.tenantCode}/${userInfo.userId}`,
       sendValue: "",
       recordList: [] as ListItem[],
       tabListData: tabListData,
@@ -75,22 +58,23 @@ export default defineComponent({
     });
 
     watchEffect(() => {
-      if (data.value) {
-        try {
-          const res = JSON.parse(data.value);
-          const avatar = res.level == "0" ? "notice" : res.level == "1" ? "dingding" : "star";
-          state.tabListData[res.level].list.unshift({
-            id: res.id,
-            avatar: `@/assets/images/${avatar}.png`,
-            title: res.title,
-            description: res.description,
-            datetime: formatToDateTime(res.createdTime),
-            type: res.level,
-            clickClose: true,
-          });
-        } catch (error) {
-          console.log("error", error);
-        }
+      if (!data.value) {
+        return;
+      }
+      try {
+        const res = JSON.parse(data.value);
+        const avatar = res.level == "0" ? "notice" : res.level == "1" ? "dingding" : "star";
+        state.tabListData[res.level].list.unshift({
+          id: res.id,
+          avatar: `src/assets/images/${avatar}.png`,
+          title: res.title,
+          description: res.description,
+          datetime: formatToDateTime(res.createdTime),
+          type: res.level,
+          clickClose: true,
+        });
+      } catch (error) {
+        console.log("error", error);
       }
     });
 
@@ -105,10 +89,10 @@ export default defineComponent({
     });
 
     function onNoticeClick(record: ListItem) {
-      api.MarkMessage(record.id).then((ret) => {
+      api.MarkMessage(record.id).then(() => {
         listData.value[record.type].list.splice(
-          listData.value[record.type].list.findIndex((item) => item.id === record.id),
-          1
+          listData.value[record.type].list.findIndex((item: ListItem) => item.id === record.id),
+          1,
         );
       });
     }

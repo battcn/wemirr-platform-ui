@@ -28,8 +28,6 @@ export default defineApplicationConfig({
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/api`), ""),
-          // only https
-          // secure: false
         },
         "/upload": {
           target: "https://localhost:9000/tools/files/upload",
