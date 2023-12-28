@@ -87,6 +87,7 @@
     "notAutoScreenLock": "不自动锁屏",
     "fixedHeader": "固定header",
     "fixedSideBar": "固定Sidebar",
+    "autoCollapseTabsInFold": "Fold模式下自动收起标签页",
     "mixSidebarTrigger": "混合菜单触发方式",
     "triggerHover": "悬停",
     "triggerClick": "点击",
