@@ -69,7 +69,7 @@ export default function () {
           },
           valueResolve({ value, row, key }) {
             if (value != null) {
-              row[key] = value.unix();
+              row[key] = dayjs(value).unix();
             }
           },
           form: {
@@ -87,7 +87,7 @@ export default function () {
           },
           valueResolve({ value, row, key }) {
             if (value != null) {
-              row[key] = value.unix();
+              row[key] = dayjs(value).unix();
             }
           },
           form: {
