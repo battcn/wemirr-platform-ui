@@ -39,8 +39,8 @@ function createDocumentHandler(el: HTMLElement, binding: DirectiveBinding): Docu
         popperRef: Nullable<HTMLElement>;
       }>
     ).popperRef;
-    const mouseUpTarget = mouseup.target as Node;
-    const mouseDownTarget = mousedown.target as Node;
+    const mouseUpTarget = mouseup?.target as Node;
+    const mouseDownTarget = mousedown?.target as Node;
     const isBound = !binding || !binding.instance;
     const isTargetExists = !mouseUpTarget || !mouseDownTarget;
     const isContainedByEl = el.contains(mouseUpTarget) || el.contains(mouseDownTarget);
