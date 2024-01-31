@@ -58,6 +58,7 @@ export default function ({ searchRemote }) {
         title: {
           title: "标题",
           type: "text",
+          column: { show: true, width: 200 },
           search: { show: true },
           form: {
             rules: [{ required: true, message: "标题不能为空" }],
@@ -67,7 +68,7 @@ export default function ({ searchRemote }) {
           title: "级别",
           type: "dict-select",
           search: { show: true },
-          column: { show: true, align: "center" }, // 表单配置
+          column: { show: true, width: 180 },
           dict: dictFunc(DictCode.NOTICE),
           form: {
             rules: [{ required: true, message: "消息类型不能为空" }],
@@ -76,7 +77,7 @@ export default function ({ searchRemote }) {
         type: {
           title: "接收类型",
           search: { show: true },
-          column: { show: true, align: "center" },
+          column: { show: true, align: "center", width: 180 },
           type: "dict-radio",
           dict: dict({
             data: [
@@ -96,7 +97,7 @@ export default function ({ searchRemote }) {
         },
         receiver: {
           title: "接收者",
-          column: { show: false },
+          column: { show: false, width: 180 },
           form: {
             rules: [{ required: true, message: "接收者不能为空" }],
             component: {
@@ -130,9 +131,7 @@ export default function ({ searchRemote }) {
         content: {
           title: "消息内容",
           type: ["editor-wang"],
-          column: {
-            ellipsis: true,
-          },
+          column: { ellipsis: true, width: 200 },
           viewForm: {
             disabled: true,
           },
@@ -157,7 +156,7 @@ export default function ({ searchRemote }) {
         description: {
           title: "描述信息",
           type: "textarea",
-          column: { ellipsis: true },
+          column: { ellipsis: true, width: 200 },
           form: {
             col: { span: 24 },
           },
@@ -165,12 +164,13 @@ export default function ({ searchRemote }) {
         createdName: {
           title: "发布人",
           type: "text",
-          column: { show: false },
+          column: { show: false, width: 180 },
           form: { show: false },
         },
         createdTime: {
           title: "通知时间",
           type: "datetime",
+          column: { show: true, width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

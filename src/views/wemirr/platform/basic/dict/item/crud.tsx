@@ -104,6 +104,7 @@ export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptions
         label: {
           title: "名称",
           search: { show: true },
+          column: { show: true, width: 180 },
           type: "text",
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
@@ -112,6 +113,7 @@ export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptions
         value: {
           title: "值",
           search: { show: false },
+          column: { show: true, width: 180 },
           type: "text",
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
@@ -120,6 +122,7 @@ export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptions
         status: {
           title: "状态",
           type: "dict-radio",
+          column: { show: true, width: 180 },
           search: { show: true },
           dict: dict({
             data: [
@@ -138,7 +141,7 @@ export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptions
           title: "排序",
           type: "number",
           addForm: { value: 0 },
-          column: { sorter: true },
+          column: { show: true, width: 180 },
           form: { component: { min: 0, max: 100 } },
         },
         description: {

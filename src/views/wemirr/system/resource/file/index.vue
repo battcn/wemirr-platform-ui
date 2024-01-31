@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, onMounted } from "vue";
 import createCrudOptions from "./crud";
-import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { useFs } from "@fast-crud/fast-crud";
 import { useMessage } from "@/hooks/web/useMessage";
 import { BasicUpload } from "@/components/Upload";
 import { uploadApi } from "@/api/sys/upload";
@@ -47,13 +47,10 @@ export default defineComponent({
   components: { BasicUpload },
   setup() {
     const { notification } = useMessage();
-    const crudRef = ref();
-    const crudBinding = ref();
-    const { expose } = useExpose({ crudRef, crudBinding });
-    const { crudOptions } = createCrudOptions({ expose });
-    useCrud({ expose, crudOptions });
+    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
+    // 页面打开后获取列表数据
     onMounted(() => {
-      expose.doRefresh();
+      crudExpose.doRefresh();
     });
 
     function handleChange() {

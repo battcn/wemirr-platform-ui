@@ -58,6 +58,7 @@ export default function (): CreateCrudOptionsRet {
           title: "名称",
           search: { show: true },
           type: "text",
+          column: { show: true, width: 200 },
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
           },
@@ -66,6 +67,7 @@ export default function (): CreateCrudOptionsRet {
           title: "编码",
           search: { show: true },
           type: "text",
+          column: { show: true, width: 200 },
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
           },
@@ -116,6 +118,7 @@ export default function (): CreateCrudOptionsRet {
           title: "创建时间",
           type: "datetime",
           form: { show: false },
+          column: { show: true, width: 180 },
           valueBuilder({ value, row, key }) {
             if (value != null) {
               row[key] = dayjs(value);

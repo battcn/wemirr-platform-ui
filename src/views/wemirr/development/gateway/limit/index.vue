@@ -12,7 +12,7 @@ import createCrudOptions from "./crud";
 export default defineComponent({
   name: "GatewayLimitPageList",
   setup() {
-    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions, context: {} });
+    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
     // 页面打开后获取列表数据
     onMounted(() => {
       crudExpose.doRefresh();

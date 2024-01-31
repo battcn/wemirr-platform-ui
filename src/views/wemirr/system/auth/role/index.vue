@@ -26,7 +26,7 @@
 <script>
 import { defineComponent, ref, onMounted } from "vue";
 import createCrudOptions from "./crud";
-import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { useFs } from "@fast-crud/fast-crud";
 import { BasicTree } from "@/components/Tree";
 import { useModal } from "@/components/Modal";
 import DistributionUser from "./DistributionUser.vue";
@@ -61,20 +61,12 @@ export default defineComponent({
   name: "SysRolePage",
   components: { DistributionUser, DistributionResource, BasicTree },
   setup() {
-    // crud组件的ref
-    const crudRef = ref();
-    // crud 配置的ref
-    const crudBinding = ref();
-
     const distribution = useDistribution();
-    // 暴露的方法
-    const { expose } = useExpose({ crudRef, crudBinding });
-
-    // const go = useGo();
-    // 你的crud配置
-    const { crudOptions } = createCrudOptions({ expose, distribution });
-    // 初始化crud配置
-    useCrud({ expose, crudOptions, permission: "sys:role" });
+    const { crudRef, crudBinding, crudExpose } = useFs({
+      createCrudOptions,
+      distribution,
+      permission: "sys:role",
+    });
 
     const treeData = ref([]);
     function initOrgList() {
@@ -85,7 +77,7 @@ export default defineComponent({
     // 页面打开后获取列表数据
     onMounted(() => {
       initOrgList();
-      expose.doRefresh();
+      crudExpose.doRefresh();
     });
 
     return {

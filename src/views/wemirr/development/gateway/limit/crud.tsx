@@ -1,8 +1,8 @@
 import * as api from "./api";
-import { compute, dict, utils } from "@fast-crud/fast-crud";
+import { dict, utils } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 
-export default function ({ expose }) {
+export default function () {
   const pageRequest = async (query) => {
     return await api.GetList(query);
   };
@@ -165,6 +165,7 @@ export default function ({ expose }) {
         createdTime: {
           title: "创建时间",
           type: "datetime",
+          column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

@@ -24,6 +24,7 @@ export default function () {
         code: {
           title: "编码",
           search: { show: true },
+          column: { show: true, width: 180 },
           type: "text",
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
@@ -50,12 +51,14 @@ export default function () {
         createdName: {
           title: "创建人",
           type: "text",
+          column: { show: true, width: 180 },
           addForm: { show: false },
           editForm: { show: false },
         },
         createdTime: {
           title: "创建时间",
           type: "datetime",
+          column: { show: true, width: 180 },
           addForm: { show: false },
           editForm: { show: false },
           valueBuilder({ value, row, key }) {

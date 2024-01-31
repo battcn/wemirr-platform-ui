@@ -11,22 +11,17 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, onMounted } from "vue";
 import createCrudOptions from "./crud";
-import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { useFs } from "@fast-crud/fast-crud";
 
 export default defineComponent({
   name: "DatabaseForm",
   setup() {
-    const crudRef = ref();
-    const crudBinding = ref();
-    const areaTree = ref([]);
-    const { expose } = useExpose({ crudRef, crudBinding });
-    const { crudOptions } = createCrudOptions({ expose, areaTree });
-    useCrud({ expose, crudOptions });
-
+    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
+    // 页面打开后获取列表数据
     onMounted(() => {
-      expose.doRefresh();
+      crudExpose.doRefresh();
     });
 
     const filter = (inputValue, path) => {
@@ -36,7 +31,6 @@ export default defineComponent({
     };
     return {
       filter,
-      areaTree,
       crudBinding,
       crudRef,
     };

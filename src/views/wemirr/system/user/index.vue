@@ -27,7 +27,7 @@
 <script>
 import { defineComponent, ref, onMounted, unref } from "vue";
 import createCrudOptions from "./crud";
-import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { useFs } from "@fast-crud/fast-crud";
 import { BasicTree } from "@/components/Tree";
 import { Card } from "ant-design-vue";
 import { PageWrapper } from "@/components/Page";
@@ -40,17 +40,16 @@ export default defineComponent({
     const terrDataRef = ref({});
     const terrData = ref();
     const nodeRef = ref();
-
-    const crudRef = ref();
-    const crudBinding = ref();
-    const { expose } = useExpose({ crudRef, crudBinding });
-    const { crudOptions } = createCrudOptions({ expose, nodeRef });
-    useCrud({ expose, crudOptions, permission: "sys:user" });
+    const { crudRef, crudBinding, crudExpose } = useFs({
+      createCrudOptions,
+      nodeRef,
+      permission: "sys:user",
+    });
 
     // 页面打开后获取列表数据
     onMounted(() => {
       getOrgList();
-      expose.doRefresh();
+      crudExpose.doRefresh();
     });
 
     getOrgList().then((ret) => {

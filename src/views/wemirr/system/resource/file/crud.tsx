@@ -63,48 +63,49 @@ export default function () {
         originName: {
           title: "原始名",
           type: "text",
+          column: { ellipsis: true, width: 230 },
           search: { show: true },
-          column: { ellipsis: true },
         },
         targetName: {
           title: "目标名",
           type: "text",
-          column: { ellipsis: true },
+          column: { ellipsis: true, width: 230 },
         },
         ip: {
           title: "IP",
           type: "text",
-          column: { ellipsis: true },
+          column: { ellipsis: true, width: 130 },
         },
         location: {
           title: "登录地点",
           type: "text",
-          column: { ellipsis: true },
+          column: { ellipsis: true, width: 230 },
         },
         os: {
           title: "操作系统",
           type: "text",
-          column: { ellipsis: true },
+          column: { ellipsis: true, width: 150 },
         },
         engine: {
           title: "引擎类型",
           type: "text",
-          column: { ellipsis: true },
+          column: { ellipsis: true, width: 150 },
         },
         engineVersion: {
           title: "引擎版本",
           type: "text",
-          column: { ellipsis: true },
+          column: { ellipsis: true, width: 150 },
         },
         createdName: {
           title: "上传者",
           type: "text",
-          column: { ellipsis: true },
+          column: { ellipsis: true, width: 180 },
         },
         createdTime: {
           title: "上传时间",
           type: "datetime",
           form: { show: false },
+          column: { ellipsis: true, width: 180 },
           valueBuilder({ value, row, key }) {
             if (value != null) {
               row[key] = dayjs(value);

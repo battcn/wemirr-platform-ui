@@ -45,6 +45,7 @@ export default function () {
         name: {
           title: "名称",
           search: { show: true },
+          column: { show: true, width: 180 },
           type: "text",
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
@@ -53,6 +54,7 @@ export default function () {
         code: {
           title: "编码",
           search: { show: true },
+          column: { show: true, width: 200 },
           type: "text",
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
@@ -95,6 +97,7 @@ export default function () {
         },
         description: {
           title: "描述",
+          column: { width: 200 },
           type: ["textarea"],
           form: {
             col: { span: 24 },
@@ -103,6 +106,7 @@ export default function () {
         createdTime: {
           title: "创建时间",
           type: "datetime",
+          column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

@@ -317,13 +317,6 @@ export default function ({ expose }) {
               row.districtId = null;
             }
           },
-          // dict: dict({
-          //   cache: true,
-          //   isTree: true,
-          //   url: '/authority/areas/trees',
-          //   value: 'id',
-          //   label: 'name',
-          // }),
           form: {
             component: {
               changeOnSelect: true,
@@ -356,7 +349,7 @@ export default function ({ expose }) {
         creditCode: {
           title: "信用代码",
           type: "text",
-          column: { ellipsis: true, show: false },
+          column: { ellipsis: true, show: false, width: 200 },
           form: {
             show: compute(({ form }) => {
               return form?.type === 1;
@@ -413,6 +406,7 @@ export default function ({ expose }) {
         createdTime: {
           title: "创建时间",
           type: "datetime",
+          column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

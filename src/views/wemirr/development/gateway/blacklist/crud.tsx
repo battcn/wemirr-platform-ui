@@ -200,6 +200,7 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           title: "创建时间",
           type: "datetime",
           form: { show: false },
+          column: { width: 180 },
           valueBuilder({ value, row, key }) {
             if (value != null) {
               row[key] = dayjs(value);

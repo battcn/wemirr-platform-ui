@@ -80,6 +80,7 @@ export default function () {
         createdTime: {
           title: "通知时间",
           type: "datetime",
+          column: { show: true, width: 170 }, // 表单配置
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

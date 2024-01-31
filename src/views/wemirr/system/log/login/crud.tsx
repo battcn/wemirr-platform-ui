@@ -99,6 +99,7 @@ export default function () {
         createdTime: {
           title: "创建时间",
           type: "datetime",
+          column: { width: 160 },
           valueBuilder({ value, row, key }) {
             if (value != null) {
               row[key] = dayjs(value);

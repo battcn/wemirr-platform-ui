@@ -142,6 +142,7 @@ export default function ({ userStore }) {
         createdTime: {
           title: "创建时间",
           type: "datetime",
+          column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

@@ -1,5 +1,5 @@
 import * as api from "./api";
-import { compute, dict, utils } from "@fast-crud/fast-crud";
+import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { useMessage } from "@/hooks/web/useMessage";
 
@@ -39,7 +39,6 @@ export default function ({ expose }) {
         buttons: {
           edit: {
             show: compute(({ row }) => {
-              console.log("row.dynamic", row.dynamic);
               return row.dynamic;
             }),
           },
@@ -187,6 +186,7 @@ export default function ({ expose }) {
         createdTime: {
           title: "创建时间",
           type: "datetime",
+          column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

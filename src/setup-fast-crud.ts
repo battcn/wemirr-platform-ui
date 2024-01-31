@@ -1,5 +1,12 @@
 import { defHttp } from "@/utils/http/axios";
-import { FastCrud, setLogger } from "@fast-crud/fast-crud";
+import {
+  ColumnCompositionProps,
+  CrudOptions,
+  FastCrud,
+  setLogger,
+  useColumns,
+  UseCrudProps,
+} from "@fast-crud/fast-crud";
 import "@fast-crud/fast-crud/dist/style.css";
 import { FsExtendsEditor, FsExtendsJson, FsExtendsUploader } from "@fast-crud/fast-extends";
 import { useLocale } from "@/locales/useLocale";
@@ -8,6 +15,7 @@ import UiAntdv from "@fast-crud/ui-antdv4";
 import { useCrudPermission } from "@/plugin/permission/use-crud-permission";
 import { computed } from "vue";
 import { LOCALE } from "@/settings/localeSetting";
+import _ from "lodash-es";
 
 const { getLocale } = useLocale();
 // const globSetting = useGlobSetting()
@@ -25,7 +33,8 @@ export default function (app, i18n) {
     async dictRequest({ url }) {
       return await defHttp.request({ url });
     },
-    commonOptions: function (context) {
+    commonOptions(props: UseCrudProps): CrudOptions {
+      const crudBinding = props.crudExpose?.crudBinding;
       const opts = {
         toolbar: {
           // toolbar.buttons.export.show:false 显示隐藏
@@ -77,6 +86,14 @@ export default function (app, i18n) {
             fixed: false,
           },
           pagination: false,
+          onResizeColumn: (w: number, col: any) => {
+            if (
+              crudBinding.value?.table?.columnsMap &&
+              crudBinding.value?.table?.columnsMap[col.key]
+            ) {
+              crudBinding.value.table.columnsMap[col.key].width = w;
+            }
+          },
         },
         request: {
           transformQuery: ({ page, form, sort }) => {
@@ -129,7 +146,8 @@ export default function (app, i18n) {
           }),
         },
       };
-      const crudPermission = useCrudPermission(context);
+      const permission = props.context?.permission || null;
+      const crudPermission = useCrudPermission({ permission });
       return crudPermission.merge(opts);
     },
   });
@@ -177,6 +195,31 @@ export default function (app, i18n) {
           key: ret.fileId,
         };
       },
+    },
+  });
+
+  // 此处演示自定义字段合并插件
+  const { registerMergeColumnPlugin } = useColumns();
+  registerMergeColumnPlugin({
+    name: "readonly-plugin",
+    order: 1,
+    handle: (columnProps: ColumnCompositionProps) => {
+      // 你可以在此处做你自己的处理
+      // 比如你可以定义一个readonly的公共属性，处理该字段只读，不能编辑
+      if (columnProps.readonly) {
+        // 合并column配置
+        _.merge(columnProps, {
+          form: { show: false },
+          viewForm: { show: true },
+        });
+      }
+      if (columnProps.column?.width) {
+        _.merge(columnProps, {
+          column: { resizable: true, ellipsis: true, showTitle: true },
+        });
+      }
+      //resizable: true, ellipsis: true, showTitle: true
+      return columnProps;
     },
   });
 }

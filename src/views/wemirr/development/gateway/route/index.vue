@@ -143,9 +143,9 @@
 </template>
 
 <script>
-import { defineComponent, reactive, ref, onMounted } from "vue";
+import { defineComponent, reactive, onMounted } from "vue";
 import createCrudOptions from "./crud";
-import { useExpose, useCrud } from "@fast-crud/fast-crud";
+import { useFs } from "@fast-crud/fast-crud";
 import { PlusSquareOutlined, DeleteOutlined, DownOutlined } from "@ant-design/icons-vue";
 import { predicates, filters } from "./data";
 import { cloneDeep } from "lodash-es";
@@ -154,10 +154,11 @@ export default defineComponent({
   name: "GatewayRouteForm",
   components: { DeleteOutlined, PlusSquareOutlined, DownOutlined },
   setup() {
-    const crudRef = ref();
-    const crudBinding = ref();
+    // const crudRef = ref();
+    // const crudBinding = ref();
     const inputValue = "";
-    const { expose } = useExpose({ crudRef, crudBinding });
+    // const { expose } = useExpose({ crudRef, crudBinding });
+    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
 
     const router = reactive({
       predicates: predicates,
@@ -165,10 +166,10 @@ export default defineComponent({
     });
     const cloneDeepRouter = cloneDeep(router);
 
-    const { crudOptions } = createCrudOptions({ expose });
-    useCrud({ expose, crudOptions });
+    // const { crudOptions } = createCrudOptions({ crudExpose });
+    // useCrud({ crudExpose, crudOptions });
     onMounted(() => {
-      expose.doRefresh();
+      crudExpose.doRefresh();
     });
 
     function removePredicate(scopeItem, scopeIndex, form, key) {
@@ -200,7 +201,7 @@ export default defineComponent({
     function handlePredicateChange(name, scopeForm, scopeKey) {
       router.predicates.splice(
         router.predicates.findIndex((item) => item === name),
-        1
+        1,
       );
       if (scopeForm[scopeKey] == null) {
         scopeForm[scopeKey] = [];
@@ -233,7 +234,7 @@ export default defineComponent({
     function handleFilterChange(filter, scopeForm, scopeKey) {
       router.filters.splice(
         router.filters.findIndex((item) => item.name === filter.name),
-        1
+        1,
       );
       if (scopeForm[scopeKey] == null) {
         scopeForm[scopeKey] = [];
