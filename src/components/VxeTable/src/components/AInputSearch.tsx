@@ -5,7 +5,7 @@ import {
   createDefaultFilterRender,
   createFormItemRender,
   createToolbarToolRender,
-} from "./common";
+} from './common';
 
 export default {
   renderDefault: createDefaultRender(),

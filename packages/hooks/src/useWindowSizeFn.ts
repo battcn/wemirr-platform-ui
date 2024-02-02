@@ -1,5 +1,5 @@
-import { type AnyFunction } from "@vben/types";
-import { tryOnMounted, tryOnUnmounted, useDebounceFn } from "@vueuse/core";
+import { type AnyFunction } from '@vben/types';
+import { tryOnMounted, tryOnUnmounted, useDebounceFn } from '@vueuse/core';
 
 interface UseWindowSizeOptions {
   wait?: number;
@@ -20,11 +20,11 @@ function useWindowSizeFn(fn: AnyFunction, options: UseWindowSizeOptions = {}) {
     if (immediate) {
       handler();
     }
-    window.addEventListener("resize", handler);
+    window.addEventListener('resize', handler);
   };
 
   const stop = () => {
-    window.removeEventListener("resize", handler);
+    window.removeEventListener('resize', handler);
   };
 
   tryOnMounted(() => {

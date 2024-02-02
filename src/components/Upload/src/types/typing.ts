@@ -1,11 +1,11 @@
-import { BasicColumn } from "@/components/Table";
-import { UploadApiResult } from "@/api/sys/model/uploadModel";
+import { BasicColumn } from '@/components/Table';
+import { UploadApiResult } from '@/api/sys/model/uploadModel';
 
 export enum UploadResultStatus {
-  DONE = "done",
-  SUCCESS = "success",
-  ERROR = "error",
-  UPLOADING = "uploading",
+  DONE = 'done',
+  SUCCESS = 'success',
+  ERROR = 'error',
+  UPLOADING = 'uploading',
 }
 
 export interface FileItem {
@@ -26,7 +26,7 @@ export interface PreviewFileItem {
   type: string;
 }
 
-export interface FileBasicColumn extends Omit<BasicColumn, "customRender"> {
+export interface FileBasicColumn extends Omit<BasicColumn, 'customRender'> {
   /**
    * Renderer of the table cell. The return value should be a VNode, or an object for colSpan/rowSpan config
    * @type Function | ScopedSlot

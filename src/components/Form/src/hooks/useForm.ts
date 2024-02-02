@@ -3,13 +3,13 @@ import type {
   FormActionType,
   UseFormReturnType,
   FormSchemaInner as FormSchema,
-} from "../types/form";
-import type { NamePath } from "ant-design-vue/lib/form/interface";
-import type { DynamicProps } from "#/utils";
-import { ref, onUnmounted, unref, nextTick, watch } from "vue";
-import { isProdMode } from "@/utils/env";
-import { error } from "@/utils/log";
-import { getDynamicProps } from "@/utils";
+} from '../types/form';
+import type { NamePath } from 'ant-design-vue/lib/form/interface';
+import type { DynamicProps } from '#/utils';
+import { ref, onUnmounted, unref, nextTick, watch } from 'vue';
+import { isProdMode } from '@/utils/env';
+import { error } from '@/utils/log';
+import { getDynamicProps } from '@/utils';
 
 export declare type ValidateFields = (nameList?: NamePath[]) => Promise<Recordable>;
 
@@ -23,7 +23,7 @@ export function useForm(props?: Props): UseFormReturnType {
     const form = unref(formRef);
     if (!form) {
       error(
-        "The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!"
+        'The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!',
       );
     }
     await nextTick();
@@ -49,7 +49,7 @@ export function useForm(props?: Props): UseFormReturnType {
       {
         immediate: true,
         deep: true,
-      }
+      },
     );
   }
 
@@ -101,7 +101,7 @@ export function useForm(props?: Props): UseFormReturnType {
     appendSchemaByField: async (
       schema: FormSchema | FormSchema[],
       prefixField: string | undefined,
-      first?: boolean
+      first?: boolean,
     ) => {
       const form = await getForm();
       form.appendSchemaByField(schema, prefixField, first);

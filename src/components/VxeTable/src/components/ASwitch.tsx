@@ -1,5 +1,5 @@
-import { h } from "vue";
-import XEUtils from "xe-utils";
+import { h } from 'vue';
+import XEUtils from 'xe-utils';
 import {
   createEditRender,
   createDefaultRender,
@@ -8,7 +8,7 @@ import {
   createDefaultFilterRender,
   createFormItemRender,
   getComponent,
-} from "./common";
+} from './common';
 
 export default {
   renderDefault: createDefaultRender(),
@@ -20,9 +20,9 @@ export default {
 
     return [
       h(
-        "div",
+        'div',
         {
-          class: "vxe-table--filter-antd-wrapper",
+          class: 'vxe-table--filter-antd-wrapper',
         },
         column.filters.map((option, oIndex) => {
           const optionValue = option.data;
@@ -41,10 +41,10 @@ export default {
                 // 处理 change 事件相关逻辑
                 const { $panel } = params;
                 $panel.changeOption(null, XEUtils.isBoolean(option.data), option);
-              }
+              },
             ),
           });
-        })
+        }),
       ),
     ];
   },

@@ -1,13 +1,13 @@
-import { type Menu } from "@/router/types";
-import { type AnyFunction } from "@vben/types";
-import { ref, onBeforeMount, unref, Ref, nextTick } from "vue";
-import { getMenus } from "@/router/menus";
-import { cloneDeep } from "lodash-es";
-import { filter, forEach } from "@/utils/helper/treeHelper";
-import { useGo } from "@/hooks/web/usePage";
-import { useScrollTo } from "@vben/hooks";
-import { onKeyStroke, useDebounceFn } from "@vueuse/core";
-import { useI18n } from "@/hooks/web/useI18n";
+import { type Menu } from '@/router/types';
+import { type AnyFunction } from '@vben/types';
+import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue';
+import { getMenus } from '@/router/menus';
+import { cloneDeep } from 'lodash-es';
+import { filter, forEach } from '@/utils/helper/treeHelper';
+import { useGo } from '@/hooks/web/usePage';
+import { useScrollTo } from '@vben/hooks';
+import { onKeyStroke, useDebounceFn } from '@vueuse/core';
+import { useI18n } from '@/hooks/web/useI18n';
 
 export interface SearchResult {
   name: string;
@@ -17,19 +17,19 @@ export interface SearchResult {
 
 // Translate special characters
 function transform(c: string) {
-  const code: string[] = ["$", "(", ")", "*", "+", ".", "[", "]", "?", "\\", "^", "{", "}", "|"];
+  const code: string[] = ['$', '(', ')', '*', '+', '.', '[', ']', '?', '\\', '^', '{', '}', '|'];
   return code.includes(c) ? `\\${c}` : c;
 }
 
 function createSearchReg(key: string) {
   const keys = [...key].map((item) => transform(item));
-  const str = ["", ...keys, ""].join(".*");
+  const str = ['', ...keys, ''].join('.*');
   return new RegExp(str);
 }
 
 export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: AnyFunction) {
   const searchResult = ref<SearchResult[]>([]);
-  const keyword = ref("");
+  const keyword = ref('');
   const activeIndex = ref(-1);
 
   let menuList: Menu[] = [];
@@ -152,16 +152,16 @@ export function useMenuSearch(refs: Ref<HTMLElement[]>, scrollWrap: Ref, emit: A
   // close search modal
   function handleClose() {
     searchResult.value = [];
-    emit("close");
+    emit('close');
   }
 
   // enter search
-  onKeyStroke("Enter", handleEnter);
+  onKeyStroke('Enter', handleEnter);
   // Monitor keyboard arrow keys
-  onKeyStroke("ArrowUp", handleUp);
-  onKeyStroke("ArrowDown", handleDown);
+  onKeyStroke('ArrowUp', handleUp);
+  onKeyStroke('ArrowDown', handleDown);
   // esc close
-  onKeyStroke("Escape", handleClose);
+  onKeyStroke('Escape', handleClose);
 
   return { handleSearch, searchResult, keyword, activeIndex, handleMouseenter, handleEnter };
 }

@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref } from 'vue';
 // 每行个数
 export const grid = ref(12);
 // slider属性
@@ -9,7 +9,7 @@ export const useSlider = (min = 6, max = 12) => {
     for (let i = min; i < max + 1; i++) {
       l[i] = {
         style: {
-          color: "#fff",
+          color: '#fff',
         },
         label: i,
       };

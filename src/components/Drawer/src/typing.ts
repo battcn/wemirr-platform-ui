@@ -1,6 +1,6 @@
-import type { ButtonProps } from "ant-design-vue/lib/button/buttonTypes";
-import type { CSSProperties, VNodeChild, ComputedRef } from "vue";
-import type { ScrollContainerOptions } from "@/components/Container";
+import type { ButtonProps } from 'ant-design-vue/lib/button/buttonTypes';
+import type { CSSProperties, VNodeChild, ComputedRef } from 'vue';
+import type { ScrollContainerOptions } from '@/components/Container';
 
 export interface DrawerInstance {
   setDrawerProps: (props: Partial<DrawerProps>) => void;
@@ -47,7 +47,7 @@ export interface DrawerFooterProps {
    * @default 'primary'
    * @type string
    */
-  okType: "primary" | "danger" | "dashed" | "ghost" | "default";
+  okType: 'primary' | 'danger' | 'dashed' | 'ghost' | 'default';
   /**
    * The ok button props, follow jsx rules
    * @type object
@@ -179,7 +179,7 @@ export interface DrawerProps extends DrawerFooterProps {
    * @default 'right'
    * @type string
    */
-  placement?: "top" | "right" | "bottom" | "left";
+  placement?: 'top' | 'right' | 'bottom' | 'left';
   afterOpenChange?: (open?: boolean) => void;
   keyboard?: boolean;
   /**

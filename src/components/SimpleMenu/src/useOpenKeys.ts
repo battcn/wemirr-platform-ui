@@ -1,17 +1,17 @@
-import type { Menu as MenuType } from "@/router/types";
-import type { MenuState } from "./types";
-import { computed, Ref, toRaw, unref } from "vue";
-import { uniq } from "lodash-es";
-import { getAllParentPath } from "@/router/helper/menuHelper";
-import { useTimeoutFn } from "@vben/hooks";
-import { useDebounceFn } from "@vueuse/core";
+import type { Menu as MenuType } from '@/router/types';
+import type { MenuState } from './types';
+import { computed, Ref, toRaw, unref } from 'vue';
+import { uniq } from 'lodash-es';
+import { getAllParentPath } from '@/router/helper/menuHelper';
+import { useTimeoutFn } from '@vben/hooks';
+import { useDebounceFn } from '@vueuse/core';
 
 export function useOpenKeys(
   menuState: MenuState,
   menus: Ref<MenuType[]>,
   accordion: Ref<boolean>,
   mixSider: Ref<boolean>,
-  collapse: Ref<boolean>
+  collapse: Ref<boolean>,
 ) {
   const debounceSetOpenKeys = useDebounceFn(setOpenKeys, 50);
   async function setOpenKeys(path: string) {

@@ -1,7 +1,7 @@
 <template>
   <BasicTitle v-if="!isDetail" :class="prefixCls">
     <slot name="title"></slot>
-    {{ !$slots.title ? title : "" }}
+    {{ !$slots.title ? title : '' }}
   </BasicTitle>
 
   <div :class="[prefixCls, `${prefixCls}--detail`]" v-else>
@@ -18,51 +18,51 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { BasicTitle } from "@/components/Basic";
-import { ArrowLeftOutlined } from "@ant-design/icons-vue";
-import { useDesign } from "@/hooks/web/useDesign";
-import { propTypes } from "@/utils/propTypes";
+  import { BasicTitle } from '@/components/Basic';
+  import { ArrowLeftOutlined } from '@ant-design/icons-vue';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { propTypes } from '@/utils/propTypes';
 
-defineOptions({ name: "BasicDrawerHeader" });
+  defineOptions({ name: 'BasicDrawerHeader' });
 
-defineProps({
-  isDetail: propTypes.bool,
-  showDetailBack: propTypes.bool,
-  title: propTypes.string,
-});
+  defineProps({
+    isDetail: propTypes.bool,
+    showDetailBack: propTypes.bool,
+    title: propTypes.string,
+  });
 
-const emit = defineEmits(["close"]);
+  const emit = defineEmits(['close']);
 
-const { prefixCls } = useDesign("basic-drawer-header");
+  const { prefixCls } = useDesign('basic-drawer-header');
 
-function handleClose() {
-  emit("close");
-}
+  function handleClose() {
+    emit('close');
+  }
 </script>
 
 <style lang="less">
-@prefix-cls: ~"@{namespace}-basic-drawer-header";
-@footer-height: 60px;
-.@{prefix-cls} {
-  display: flex;
-  align-items: center;
-  height: 100%;
+  @prefix-cls: ~'@{namespace}-basic-drawer-header';
+  @footer-height: 60px;
+  .@{prefix-cls} {
+    display: flex;
+    align-items: center;
+    height: 100%;
 
-  &__back {
-    padding: 0 12px;
-    cursor: pointer;
+    &__back {
+      padding: 0 12px;
+      cursor: pointer;
 
-    &:hover {
-      color: @primary-color;
+      &:hover {
+        color: @primary-color;
+      }
+    }
+
+    &__twrap {
+      flex: 1;
+    }
+
+    &__toolbar {
+      padding-right: 50px;
     }
   }
-
-  &__twrap {
-    flex: 1;
-  }
-
-  &__toolbar {
-    padding-right: 50px;
-  }
-}
 </style>

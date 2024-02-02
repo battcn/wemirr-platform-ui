@@ -36,6 +36,9 @@ export default defineApplicationConfig({
           rewrite: (path) => path.replace(new RegExp(`^/upload`), ""),
         },
       },
+      warmup: {
+        clientFiles: ["./index.html", "./src/{views,components}/*"],
+      },
     },
   },
 });

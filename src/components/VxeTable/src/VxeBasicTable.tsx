@@ -1,9 +1,9 @@
-import { defineComponent, computed, ref } from "vue";
-import { BasicTableProps } from "./types";
-import { basicProps } from "./props";
-import { ignorePropKeys } from "./const";
-import { basicEmits } from "./emits";
-import XEUtils from "xe-utils";
+import { defineComponent, computed, ref } from 'vue';
+import { BasicTableProps } from './types';
+import { basicProps } from './props';
+import { ignorePropKeys } from './const';
+import { basicEmits } from './emits';
+import XEUtils from 'xe-utils';
 import type {
   VxeGridInstance,
   VxeGridEventProps,
@@ -11,15 +11,15 @@ import type {
   TableMethods,
   TableEditMethods,
   TableValidatorMethods,
-} from "vxe-table";
-import { Grid as VxeGrid } from "vxe-table";
+} from 'vxe-table';
+import { Grid as VxeGrid } from 'vxe-table';
 
-import { extendSlots } from "@/utils/helper/tsxHelper";
-import { gridComponentMethodKeys } from "./methods";
-import { omit } from "lodash-es";
+import { extendSlots } from '@/utils/helper/tsxHelper';
+import { gridComponentMethodKeys } from './methods';
+import { omit } from 'lodash-es';
 
 export default defineComponent({
-  name: "VxeBasicTable",
+  name: 'VxeBasicTable',
   props: basicProps,
   emits: basicEmits,
   setup(props, { emit, attrs }) {

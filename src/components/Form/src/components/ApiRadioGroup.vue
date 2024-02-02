@@ -19,108 +19,109 @@
   </Radio.Group>
 </template>
 <script lang="ts" setup>
-import { type PropType, ref, watchEffect, computed, unref, watch } from "vue";
-import { Radio } from "ant-design-vue";
-import { isFunction } from "@/utils/is";
-import { useRuleFormItem } from "@/hooks/component/useFormItem";
-import { useAttrs } from "@vben/hooks";
-import { propTypes } from "@/utils/propTypes";
-import { get, omit } from "lodash-es";
+  import { type PropType, ref, computed, unref, watch } from 'vue';
+  import { Radio } from 'ant-design-vue';
+  import { isFunction } from '@/utils/is';
+  import { useRuleFormItem } from '@/hooks/component/useFormItem';
+  import { useAttrs } from '@vben/hooks';
+  import { propTypes } from '@/utils/propTypes';
+  import { get, omit, isEqual } from 'lodash-es';
 
-type OptionsItem = { label: string; value: string | number | boolean; disabled?: boolean };
+  type OptionsItem = {
+    label?: string;
+    value?: string | number | boolean;
+    disabled?: boolean;
+    [key: string]: any;
+  };
 
-defineOptions({ name: "ApiRadioGroup" });
+  defineOptions({ name: 'ApiRadioGroup' });
 
-const props = defineProps({
-  api: {
-    type: Function as PropType<(arg?: any | string) => Promise<OptionsItem[]>>,
-    default: null,
-  },
-  params: {
-    type: [Object, String] as PropType<any | string>,
-    default: () => ({}),
-  },
-  value: {
-    type: [String, Number, Boolean] as PropType<string | number | boolean>,
-  },
-  isBtn: {
-    type: [Boolean] as PropType<boolean>,
-    default: false,
-  },
-  numberToString: propTypes.bool,
-  resultField: propTypes.string.def(""),
-  labelField: propTypes.string.def("label"),
-  valueField: propTypes.string.def("value"),
-  immediate: propTypes.bool.def(true),
-});
+  const props = defineProps({
+    api: {
+      type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
+      default: null,
+    },
+    params: {
+      type: [Object, String] as PropType<any | string>,
+      default: () => ({}),
+    },
+    value: {
+      type: [String, Number, Boolean] as PropType<string | number | boolean>,
+    },
+    isBtn: {
+      type: [Boolean] as PropType<boolean>,
+      default: false,
+    },
+    numberToString: propTypes.bool,
+    resultField: propTypes.string.def(''),
+    labelField: propTypes.string.def('label'),
+    valueField: propTypes.string.def('value'),
+    immediate: propTypes.bool.def(true),
+  });
 
-const emit = defineEmits(["options-change", "change"]);
+  const emit = defineEmits(['options-change', 'change', 'update:value']);
 
-const options = ref<OptionsItem[]>([]);
-const loading = ref(false);
-const isFirstLoad = ref(true);
-const emitData = ref<any[]>([]);
-const attrs = useAttrs();
-// Embedded in the form, just use the hook binding to perform form verification
-const [state] = useRuleFormItem(props, "value", "change", emitData);
+  const options = ref<OptionsItem[]>([]);
+  const loading = ref(false);
+  const emitData = ref<any[]>([]);
+  const attrs = useAttrs();
+  // Embedded in the form, just use the hook binding to perform form verification
+  const [state] = useRuleFormItem(props, 'value', 'change', emitData);
 
-// Processing options value
-const getOptions = computed(() => {
-  const { labelField, valueField, numberToString } = props;
+  // Processing options value
+  const getOptions = computed(() => {
+    const { labelField, valueField, numberToString } = props;
 
-  return unref(options).reduce((prev, next: any) => {
-    if (next) {
-      const value = next[valueField];
-      prev.push({
-        label: next[labelField],
-        value: numberToString ? `${value}` : value,
-        ...omit(next, [labelField, valueField]),
-      });
-    }
-    return prev;
-  }, [] as OptionsItem[]);
-});
+    return unref(options).reduce((prev, next: any) => {
+      if (next) {
+        const value = next[valueField];
+        prev.push({
+          label: next[labelField],
+          value: numberToString ? `${value}` : value,
+          ...omit(next, [labelField, valueField]),
+        });
+      }
+      return prev;
+    }, [] as OptionsItem[]);
+  });
 
-watchEffect(() => {
-  props.immediate && fetch();
-});
+  watch(
+    () => props.params,
+    (value, oldValue) => {
+      if (isEqual(value, oldValue)) return;
+      fetch();
+    },
+    { deep: true, immediate: props.immediate },
+  );
 
-watch(
-  () => props.params,
-  () => {
-    !unref(isFirstLoad) && fetch();
-  },
-  { deep: true }
-);
-
-async function fetch() {
-  const api = props.api;
-  if (!api || !isFunction(api)) return;
-  options.value = [];
-  try {
-    loading.value = true;
-    const res = await api(props.params);
-    if (Array.isArray(res)) {
-      options.value = res;
+  async function fetch() {
+    const api = props.api;
+    if (!api || !isFunction(api)) return;
+    options.value = [];
+    try {
+      loading.value = true;
+      const res = await api(props.params);
+      if (Array.isArray(res)) {
+        options.value = res;
+        emitChange();
+        return;
+      }
+      if (props.resultField) {
+        options.value = get(res, props.resultField) || [];
+      }
       emitChange();
-      return;
+    } catch (error) {
+      console.warn(error);
+    } finally {
+      loading.value = false;
     }
-    if (props.resultField) {
-      options.value = get(res, props.resultField) || [];
-    }
-    emitChange();
-  } catch (error) {
-    console.warn(error);
-  } finally {
-    loading.value = false;
   }
-}
 
-function emitChange() {
-  emit("options-change", unref(getOptions));
-}
+  function emitChange() {
+    emit('options-change', unref(getOptions));
+  }
 
-function handleClick(...args) {
-  emitData.value = args;
-}
+  function handleClick(...args) {
+    emitData.value = args;
+  }
 </script>

@@ -26,11 +26,15 @@ export const useTableSettingStore = defineStore({
     },
     //
     getShowIndexColumn(state) {
-      return state.setting?.showIndexColumn;
+      return (routerName: string) => {
+        return state.setting?.showIndexColumn?.[routerName];
+      };
     },
     //
     getShowRowSelection(state) {
-      return state.setting?.showRowSelection;
+      return (routerName: string) => {
+        return state.setting?.showRowSelection?.[routerName];
+      };
     },
     //
     getColumns(state) {
@@ -55,23 +59,29 @@ export const useTableSettingStore = defineStore({
       this.setTableSetting(
         Object.assign({}, this.setting, {
           size,
-        })
+        }),
       );
     },
     //
-    setShowIndexColumn(show: boolean) {
+    setShowIndexColumn(routerName: string, show: boolean) {
       this.setTableSetting(
         Object.assign({}, this.setting, {
-          showIndexColumn: show,
-        })
+          showIndexColumn: {
+            ...this.setting?.showIndexColumn,
+            [routerName]: show,
+          },
+        }),
       );
     },
     //
-    setShowRowSelection(show: boolean) {
+    setShowRowSelection(routerName: string, show: boolean) {
       this.setTableSetting(
         Object.assign({}, this.setting, {
-          showRowSelection: show,
-        })
+          showRowSelection: {
+            ...this.setting?.showRowSelection,
+            [routerName]: show,
+          },
+        }),
       );
     },
     //
@@ -82,7 +92,7 @@ export const useTableSettingStore = defineStore({
             ...this.setting?.columns,
             [routerName]: columns,
           },
-        })
+        }),
       );
     },
     clearColumns(routerName: string) {
@@ -92,7 +102,7 @@ export const useTableSettingStore = defineStore({
             ...this.setting?.columns,
             [routerName]: undefined,
           },
-        })
+        }),
       );
     },
   },

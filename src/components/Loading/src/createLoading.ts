@@ -1,12 +1,12 @@
-import { VNode, defineComponent, createVNode, render, reactive, h } from "vue";
-import type { LoadingProps } from "./typing";
+import { VNode, defineComponent, createVNode, render, reactive, h } from 'vue';
+import type { LoadingProps } from './typing';
 
-import Loading from "./Loading.vue";
+import Loading from './Loading.vue';
 
 export function createLoading(props?: Partial<LoadingProps>, target?: HTMLElement, wait = false) {
   let vm: Nullable<VNode> = null;
   const data = reactive({
-    tip: "",
+    tip: '',
     loading: true,
     ...props,
   });
@@ -22,10 +22,10 @@ export function createLoading(props?: Partial<LoadingProps>, target?: HTMLElemen
   if (wait) {
     // TODO fix https://github.com/anncwb/vue-vben-admin/issues/438
     setTimeout(() => {
-      render(vm, document.createElement("div"));
+      render(vm, document.createElement('div'));
     }, 0);
   } else {
-    render(vm, document.createElement("div"));
+    render(vm, document.createElement('div'));
   }
 
   function close() {

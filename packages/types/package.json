@@ -1,17 +1,18 @@
 {
   "name": "@vben/types",
   "version": "1.0.0",
-  "homepage": "https://github.com/battcn/wemirr-platform-ui",
+  "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": {
-    "url": "https://github.com/battcn/wemirr-platform-ui/issues"
+    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/battcn/wemirr-platform-ui.git",
+    "url": "git+https://github.com/vbenjs/vue-vben-admin.git",
     "directory": "packages/types"
   },
   "license": "MIT",
   "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
       "default": "./src/index.ts"

@@ -1,7 +1,7 @@
-import type { ExtractPropTypes } from "vue";
-import type { TreeDataItem } from "ant-design-vue/es/tree/Tree";
+import type { ExtractPropTypes } from 'vue';
+import type { TreeDataItem } from 'ant-design-vue/es/tree/Tree';
 
-import { buildProps } from "@/utils/props";
+import { buildProps } from '@/utils/props';
 
 export enum ToolbarEnum {
   SELECT_ALL,
@@ -13,12 +13,12 @@ export enum ToolbarEnum {
 }
 
 export const treeEmits = [
-  "update:expandedKeys",
-  "update:selectedKeys",
-  "update:value",
-  "change",
-  "check",
-  "update:searchValue",
+  'update:expandedKeys',
+  'update:selectedKeys',
+  'update:value',
+  'change',
+  'check',
+  'update:searchValue',
 ];
 
 export interface TreeState {
@@ -51,18 +51,18 @@ export const treeProps = buildProps({
 
   helpMessage: {
     type: [String, Array] as PropType<string | string[]>,
-    default: "",
+    default: '',
   },
 
   title: {
     type: String,
-    default: "",
+    default: '',
   },
   toolbar: Boolean,
   search: Boolean,
   searchValue: {
     type: String,
-    default: "",
+    default: '',
   },
   checkStrictly: Boolean,
   clickRowToExpand: {
@@ -72,7 +72,7 @@ export const treeProps = buildProps({
   checkable: Boolean,
   defaultExpandLevel: {
     type: [String, Number] as PropType<string | number>,
-    default: "",
+    default: '',
   },
   defaultExpandAll: Boolean,
 
@@ -167,7 +167,7 @@ export interface InsertNodeParams {
   parentKey: string | null;
   node?: TreeDataItem;
   list?: TreeDataItem[];
-  push?: "push" | "unshift";
+  push?: 'push' | 'unshift';
 }
 
 export interface TreeActionType {
@@ -184,12 +184,12 @@ export interface TreeActionType {
   insertNodeByKey: (opt: InsertNodeParams) => void;
   insertNodesByKey: (opt: InsertNodeParams) => void;
   deleteNodeByKey: (key: string, list?: TreeDataItem[]) => void;
-  updateNodeByKey: (key: string, node: Omit<TreeDataItem, "key">) => void;
+  updateNodeByKey: (key: string, node: Omit<TreeDataItem, 'key'>) => void;
   setSearchValue: (value: string) => void;
   getSearchValue: () => string;
   getSelectedNode: (
     key: KeyType,
     treeList?: TreeItem[],
-    selectNode?: TreeItem | null
+    selectNode?: TreeItem | null,
   ) => TreeItem | null;
 }

@@ -1,5 +1,5 @@
-import type { ComponentPublicInstance, Ref } from "vue";
-import { onBeforeUpdate, shallowRef } from "vue";
+import type { ComponentPublicInstance, Ref } from 'vue';
+import { onBeforeUpdate, shallowRef } from 'vue';
 
 function useRefs<T = HTMLElement>(): {
   refs: Ref<T[]>;

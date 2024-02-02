@@ -1,7 +1,7 @@
-import contextMenuVue from "./ContextMenu.vue";
-import { isClient } from "@/utils/is";
-import { CreateContextOptions, ContextMenuProps } from "./typing";
-import { createVNode, render } from "vue";
+import contextMenuVue from './ContextMenu.vue';
+import { isClient } from '@/utils/is';
+import { CreateContextOptions, ContextMenuProps } from './typing';
+import { createVNode, render } from 'vue';
 
 const menuManager: {
   domList: Element[];
@@ -22,7 +22,7 @@ export const createContextMenu = function (options: CreateContextOptions) {
   return new Promise((resolve) => {
     const body = document.body;
 
-    const container = document.createElement("div");
+    const container = document.createElement('div');
     const propsData: Partial<ContextMenuProps> = {};
     if (options.styles) {
       propsData.styles = options.styles;
@@ -34,14 +34,14 @@ export const createContextMenu = function (options: CreateContextOptions) {
 
     if (options.event) {
       propsData.customEvent = event;
-      propsData.axis = { x: event.clientX, y: event.clientY };
+      propsData.axis = { x: event.clientX, y: event.clientY + body.scrollTop }; // y坐标需加上body往上滚动的Y
     }
 
     const vm = createVNode(contextMenuVue, propsData);
     render(vm, container);
 
     const handleClick = function () {
-      menuManager.resolve("");
+      menuManager.resolve('');
     };
 
     menuManager.domList.push(container);
@@ -54,8 +54,8 @@ export const createContextMenu = function (options: CreateContextOptions) {
           //
         }
       });
-      body.removeEventListener("click", handleClick);
-      body.removeEventListener("scroll", handleClick);
+      body.removeEventListener('click', handleClick);
+      body.removeEventListener('scroll', handleClick);
     };
 
     menuManager.resolve = function (arg) {
@@ -64,14 +64,14 @@ export const createContextMenu = function (options: CreateContextOptions) {
     };
     remove();
     body.appendChild(container);
-    body.addEventListener("click", handleClick);
-    body.addEventListener("scroll", handleClick);
+    body.addEventListener('click', handleClick);
+    body.addEventListener('scroll', handleClick);
   });
 };
 
 export const destroyContextMenu = function () {
   if (menuManager) {
-    menuManager.resolve("");
+    menuManager.resolve('');
     menuManager.domList = [];
   }
 };

@@ -1,15 +1,15 @@
-import type { NamePath, RuleObject } from "ant-design-vue/lib/form/interface";
-import type { VNode, CSSProperties } from "vue";
-import type { ButtonProps as AntdButtonProps } from "@/components/Button";
-import type { FormItem } from "./formItem";
-import type { ColEx, ComponentType } from "./";
-import type { TableActionType } from "@/components/Table/src/types/table";
-import type { RowProps } from "ant-design-vue/lib/grid/Row";
+import type { NamePath, RuleObject } from 'ant-design-vue/lib/form/interface';
+import type { VNode, CSSProperties } from 'vue';
+import type { ButtonProps as AntdButtonProps } from '@/components/Button';
+import type { FormItem } from './formItem';
+import type { ColEx, ComponentType, ComponentProps } from './';
+import type { TableActionType } from '@/components/Table/src/types/table';
+import type { RowProps } from 'ant-design-vue/lib/grid/Row';
 
 export type FieldMapToTime = [string, [string, string], (string | [string, string])?][];
 
 export type Rule = RuleObject & {
-  trigger?: "blur" | "change" | ["change", "blur"];
+  trigger?: 'blur' | 'change' | ['change', 'blur'];
 };
 
 export interface RenderCallbackParams {
@@ -36,7 +36,7 @@ export interface FormActionType {
   appendSchemaByField: (
     schema: FormSchemaInner | FormSchemaInner[],
     prefixField: string | undefined,
-    first?: boolean | undefined
+    first?: boolean | undefined,
   ) => Promise<void>;
   validateFields: (nameList?: NamePath[]) => Promise<any>;
   validate: <T = Recordable>(nameList?: NamePath[] | false) => Promise<T>;
@@ -49,13 +49,13 @@ export type UseFormReturnType = [RegisterFn, FormActionType];
 
 export interface FormProps {
   name?: string;
-  layout?: "vertical" | "inline" | "horizontal";
+  layout?: 'vertical' | 'inline' | 'horizontal';
   // Form value
   model?: Recordable;
   // The width of all items in the entire form
   labelWidth?: number | string;
   // alignment
-  labelAlign?: "left" | "right";
+  labelAlign?: 'left' | 'right';
   // Row configuration for the entire form
   rowProps?: RowProps;
   // Submit form on reset
@@ -82,9 +82,11 @@ export interface FormProps {
   // Blank line span
   emptySpan?: number | Partial<ColEx>;
   // Internal component size of the form
-  size?: "default" | "small" | "large";
+  size?: 'default' | 'small' | 'large';
   // Whether to disable
   disabled?: boolean;
+  // Whether to readonly
+  readonly?: boolean;
   // Time interval fields are mapped into multiple
   fieldMapToTime?: FieldMapToTime;
   // Placeholder is set automatically
@@ -128,7 +130,7 @@ export type RenderOpts = {
   [key: string]: any;
 };
 
-interface BaseFormSchema {
+interface BaseFormSchema<T extends ComponentType = any> {
   // Field name
   field: string;
   // Extra Fields name[]
@@ -138,7 +140,7 @@ interface BaseFormSchema {
   // Variable name bound to v-model Default value
   valueField?: string;
   // Label name
-  label?: string | VNode;
+  label?: string | VNode | ((renderCallbackParams: RenderCallbackParams) => string | VNode);
   // Auxiliary text
   subLabel?: string;
   // Help text on the right side of the text
@@ -159,8 +161,8 @@ interface BaseFormSchema {
         tableAction: TableActionType;
         formActionType: FormActionType;
         formModel: Recordable;
-      }) => Recordable)
-    | object;
+      }) => ComponentProps[T])
+    | ComponentProps[T];
   // Required
   required?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
@@ -198,13 +200,13 @@ interface BaseFormSchema {
   // Render the content in the form-item tag
   render?: (
     renderCallbackParams: RenderCallbackParams,
-    opts: RenderOpts
+    opts: RenderOpts,
   ) => VNode | VNode[] | string;
 
   // Rendering col content requires outer wrapper form-item
   renderColContent?: (
     renderCallbackParams: RenderCallbackParams,
-    opts: RenderOpts
+    opts: RenderOpts,
   ) => VNode | VNode[] | string;
 
   renderComponentContent?:
@@ -218,26 +220,32 @@ interface BaseFormSchema {
 
   dynamicDisabled?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
 
+  dynamicReadonly?: boolean | ((renderCallbackParams: RenderCallbackParams) => boolean);
+
   dynamicRules?: (renderCallbackParams: RenderCallbackParams) => Rule[];
 }
-export interface ComponentFormSchema extends BaseFormSchema {
+export interface ComponentFormSchema<T extends ComponentType = any> extends BaseFormSchema<T> {
   // render component
-  component: ComponentType;
+  component: T;
 }
 
 export interface SlotFormSchema extends BaseFormSchema {
-  // Custom slot, in from-item
+  // Custom slot, in form-item
   slot: string;
 }
 
-export type FormSchema = ComponentFormSchema | SlotFormSchema;
+type ComponentFormSchemaType<T extends ComponentType = ComponentType> = T extends any
+  ? ComponentFormSchema<T>
+  : never;
+
+export type FormSchema = ComponentFormSchemaType | SlotFormSchema;
 
 export type FormSchemaInner = Partial<ComponentFormSchema> &
   Partial<SlotFormSchema> &
   BaseFormSchema;
 
 export function isSlotFormSchema(schema: FormSchemaInner): schema is SlotFormSchema {
-  return "slot" in schema;
+  return 'slot' in schema;
 }
 
 export function isComponentFormSchema(schema: FormSchemaInner): schema is ComponentFormSchema {

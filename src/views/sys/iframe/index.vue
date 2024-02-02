@@ -102,6 +102,7 @@ defineExpose({ postMessage, reload });
   }
 
   &__main {
+    display: block;
     box-sizing: border-box;
     width: 100%;
     height: 100%;

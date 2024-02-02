@@ -1,11 +1,11 @@
-import { VxeGlobalRendererHandles } from "vxe-table";
-import XEUtils from "xe-utils";
+import { VxeGlobalRendererHandles } from 'vxe-table';
+import XEUtils from 'xe-utils';
 import {
   createEditRender,
   createCellRender,
   createFormItemRender,
   createExportMethod,
-} from "./common";
+} from './common';
 
 function matchCascaderData(index: number, list: any[], values: any[], labels: any[]) {
   const val = values[index];
@@ -21,7 +21,7 @@ function matchCascaderData(index: number, list: any[], values: any[], labels: an
 
 function getCascaderCellValue(
   renderOpts: VxeGlobalRendererHandles.RenderOptions,
-  params: VxeGlobalRendererHandles.RenderCellParams
+  params: VxeGlobalRendererHandles.RenderCellParams,
 ) {
   const { props = {} } = renderOpts;
   const { row, column } = params;
@@ -31,7 +31,7 @@ function getCascaderCellValue(
   matchCascaderData(0, props.options, values, labels);
   return (
     props.showAllLevels === false ? labels.slice(labels.length - 1, labels.length) : labels
-  ).join(` ${props.separator || "/"} `);
+  ).join(` ${props.separator || '/'} `);
 }
 
 export default {

@@ -1,19 +1,19 @@
-import Pagination from "ant-design-vue/lib/pagination";
-import { VNodeChild } from "vue";
+import Pagination from 'ant-design-vue/lib/pagination';
+import { VNodeChild } from 'vue';
 
 interface PaginationRenderProps {
   page: number;
-  type: "page" | "prev" | "next";
+  type: 'page' | 'prev' | 'next';
   originalElement: any;
 }
 
 type PaginationPositon =
-  | "topLeft"
-  | "topCenter"
-  | "topRight"
-  | "bottomLeft"
-  | "bottomCenter"
-  | "bottomRight";
+  | 'topLeft'
+  | 'topCenter'
+  | 'topRight'
+  | 'bottomLeft'
+  | 'bottomCenter'
+  | 'bottomRight';
 
 export declare class PaginationConfig extends Pagination {
   position?: PaginationPositon[];

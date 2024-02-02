@@ -1,5 +1,5 @@
-import { Ref, unref, watchEffect } from "vue";
-import { useTimeoutFn } from "@vben/hooks";
+import { Ref, unref, watchEffect } from 'vue';
+import { useTimeoutFn } from '@vben/hooks';
 
 export interface UseModalDragMoveContext {
   draggable: Ref<boolean>;
@@ -13,13 +13,13 @@ export function useModalDragMove(context: UseModalDragMoveContext) {
   };
   const drag = (wrap: any) => {
     if (!wrap) return;
-    wrap.setAttribute("data-drag", unref(context.draggable));
-    const dialogHeaderEl = wrap.querySelector(".ant-modal-header");
-    const dragDom = wrap.querySelector(".ant-modal");
+    wrap.setAttribute('data-drag', unref(context.draggable));
+    const dialogHeaderEl = wrap.querySelector('.ant-modal-header');
+    const dragDom = wrap.querySelector('.ant-modal');
 
     if (!dialogHeaderEl || !dragDom || !unref(context.draggable)) return;
 
-    dialogHeaderEl.style.cursor = "move";
+    dialogHeaderEl.style.cursor = 'move';
 
     dialogHeaderEl.onmousedown = (e: any) => {
       if (!e) return;
@@ -38,18 +38,18 @@ export function useModalDragMove(context: UseModalDragMoveContext) {
       const minDragDomTop = dragDom.offsetTop;
       const maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomheight;
       // 获取到的值带px 正则匹配替换
-      const domLeft = getStyle(dragDom, "left");
-      const domTop = getStyle(dragDom, "top");
+      const domLeft = getStyle(dragDom, 'left');
+      const domTop = getStyle(dragDom, 'top');
       let styL = +domLeft;
       let styT = +domTop;
 
       // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
-      if (domLeft.includes("%")) {
-        styL = +document.body.clientWidth * (+domLeft.replace(/%/g, "") / 100);
-        styT = +document.body.clientHeight * (+domTop.replace(/%/g, "") / 100);
+      if (domLeft.includes('%')) {
+        styL = +document.body.clientWidth * (+domLeft.replace(/%/g, '') / 100);
+        styT = +document.body.clientHeight * (+domTop.replace(/%/g, '') / 100);
       } else {
-        styL = +domLeft.replace(/px/g, "");
-        styT = +domTop.replace(/px/g, "");
+        styL = +domLeft.replace(/px/g, '');
+        styT = +domTop.replace(/px/g, '');
       }
 
       document.onmousemove = function (e) {
@@ -82,12 +82,12 @@ export function useModalDragMove(context: UseModalDragMoveContext) {
   };
 
   const handleDrag = () => {
-    const dragWraps = document.querySelectorAll(".ant-modal-wrap");
+    const dragWraps = document.querySelectorAll('.ant-modal-wrap');
     for (const wrap of Array.from(dragWraps)) {
       if (!wrap) continue;
-      const display = getStyle(wrap, "display");
-      const draggable = wrap.getAttribute("data-drag");
-      if (display !== "none") {
+      const display = getStyle(wrap, 'display');
+      const draggable = wrap.getAttribute('data-drag');
+      if (display !== 'none') {
         // 拖拽位置
         if (draggable === null || unref(context.destroyOnClose)) {
           drag(wrap);

@@ -1,21 +1,21 @@
-import type { InjectionKey, Ref, ComponentInternalInstance } from "vue";
-import type { Emitter } from "@/utils/mitt";
-import { createContext, useContext } from "@/hooks/core/useContext";
+import type { InjectionKey, Ref, ComponentInternalInstance } from 'vue';
+import type { Emitter } from '@/utils/mitt';
+import { createContext, useContext } from '@/hooks/core/useContext';
 
 export type MenuEmitterEvents = {
-  "on-update-opened":
+  'on-update-opened':
     | (string | number)[]
     | {
         opend: boolean;
         parent?: ComponentInternalInstance | null;
         uidList: number[];
       };
-  "on-menu-item-select": string | number;
-  "open-name-change": {
+  'on-menu-item-select': string | number;
+  'open-name-change': {
     name: string | number;
     opened: boolean;
   };
-  "on-update-active-name:submenu": number[];
+  'on-update-active-name:submenu': number[];
 };
 
 export interface SimpleRootMenuContextProps {

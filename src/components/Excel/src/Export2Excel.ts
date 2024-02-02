@@ -1,12 +1,12 @@
-import * as xlsx from "xlsx";
-import type { WorkBook } from "xlsx";
-import type { JsonToSheet, AoAToSheet } from "./typing";
-import { AoaToMultipleSheet, JsonToMultipleSheet } from "./typing";
+import * as xlsx from 'xlsx';
+import type { WorkBook } from 'xlsx';
+import type { JsonToSheet, AoAToSheet } from './typing';
+import { AoaToMultipleSheet, JsonToMultipleSheet } from './typing';
 
 const { utils, writeFile } = xlsx;
 
-const DEF_FILE_NAME = "excel-list.xlsx";
-const DEF_SHEET_NAME = "sheet";
+const DEF_FILE_NAME = 'excel-list.xlsx';
+const DEF_SHEET_NAME = 'sheet';
 
 /**
  * @param data source data
@@ -15,7 +15,7 @@ const DEF_SHEET_NAME = "sheet";
  */
 function setColumnWidth(data, worksheet, min = 3) {
   const obj = {};
-  worksheet["!cols"] = [];
+  worksheet['!cols'] = [];
   data.forEach((item) => {
     Object.keys(item).forEach((key) => {
       const cur = item[key];
@@ -24,7 +24,7 @@ function setColumnWidth(data, worksheet, min = 3) {
     });
   });
   Object.keys(obj).forEach((key) => {
-    worksheet["!cols"].push({
+    worksheet['!cols'].push({
       wch: obj[key],
     });
   });
@@ -36,7 +36,7 @@ export function jsonToSheetXlsx<T = any>({
   filename = DEF_FILE_NAME,
   sheetName = DEF_SHEET_NAME,
   json2sheetOpts = {},
-  write2excelOpts = { bookType: "xlsx" },
+  write2excelOpts = { bookType: 'xlsx' },
 }: JsonToSheet<T>) {
   const arrData = [...data];
   if (header) {
@@ -62,7 +62,7 @@ export function aoaToSheetXlsx<T = any>({
   data,
   header,
   filename = DEF_FILE_NAME,
-  write2excelOpts = { bookType: "xlsx" },
+  write2excelOpts = { bookType: 'xlsx' },
 }: AoAToSheet<T>) {
   const arrData = [...data];
   if (header) {
@@ -92,7 +92,7 @@ export function aoaToSheetXlsx<T = any>({
 export function jsonToMultipleSheetXlsx<T = any>({
   sheetList,
   filename = DEF_FILE_NAME,
-  write2excelOpts = { bookType: "xlsx" },
+  write2excelOpts = { bookType: 'xlsx' },
 }: JsonToMultipleSheet<T>) {
   const workbook: WorkBook = {
     SheetNames: [],
@@ -125,7 +125,7 @@ export function jsonToMultipleSheetXlsx<T = any>({
 export function aoaToMultipleSheetXlsx<T = any>({
   sheetList,
   filename = DEF_FILE_NAME,
-  write2excelOpts = { bookType: "xlsx" },
+  write2excelOpts = { bookType: 'xlsx' },
 }: AoaToMultipleSheet<T>) {
   const workbook: WorkBook = {
     SheetNames: [],

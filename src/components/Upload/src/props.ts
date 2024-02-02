@@ -1,28 +1,28 @@
-import type { PropType } from "vue";
-import { FileBasicColumn } from "./types/typing";
+import type { PropType } from 'vue';
+import { FileBasicColumn } from './types/typing';
 
-import type { Options } from "sortablejs";
+import type { Options } from 'sortablejs';
 
-import { Merge } from "@/utils/types";
+import { Merge } from '@/utils/types';
 
 type SortableOptions = Merge<
-  Omit<Options, "onEnd">,
+  Omit<Options, 'onEnd'>,
   {
     onAfterEnd?: <T = any, R = any>(params: T) => R;
     // ...可扩展
   }
 >;
 
-type ListType = "text" | "picture" | "picture-card";
+type ListType = 'text' | 'picture' | 'picture-card';
 
 export const basicProps = {
   listType: {
     type: String as PropType<ListType>,
-    default: "picture-card",
+    default: 'picture-card',
   },
   helpText: {
     type: String as PropType<string>,
-    default: "",
+    default: '',
   },
   // 文件最大多少MB
   maxSize: {
@@ -54,7 +54,7 @@ export const basicProps = {
   },
   name: {
     type: String as PropType<string>,
-    default: "file",
+    default: 'file',
   },
   filename: {
     type: String as PropType<string>,

@@ -4,7 +4,7 @@ import type {
   ModalProps,
   ReturnMethods,
   UseModalInnerReturnType,
-} from "../typing";
+} from '../typing';
 import {
   ref,
   onUnmounted,
@@ -15,12 +15,12 @@ import {
   nextTick,
   toRaw,
   computed,
-} from "vue";
-import { isProdMode } from "@/utils/env";
-import { isFunction } from "@/utils/is";
-import { isEqual } from "lodash-es";
-import { tryOnUnmounted } from "@vueuse/core";
-import { error } from "@/utils/log";
+} from 'vue';
+import { isProdMode } from '@/utils/env';
+import { isFunction } from '@/utils/is';
+import { isEqual } from 'lodash-es';
+import { tryOnUnmounted } from '@vueuse/core';
+import { error } from '@/utils/log';
 
 const dataTransfer = reactive<any>({});
 
@@ -36,7 +36,7 @@ export function useModal(): UseModalReturnType {
 
   function register(modalMethod: ModalMethods, uuid: number) {
     if (!getCurrentInstance()) {
-      throw new Error("useModal() can only be used inside setup() or functional components!");
+      throw new Error('useModal() can only be used inside setup() or functional components!');
     }
     uid.value = uuid;
     isProdMode() &&
@@ -57,7 +57,7 @@ export function useModal(): UseModalReturnType {
   const getInstance = () => {
     const instance = unref(modal);
     if (!instance) {
-      error("useModal instance is undefined!");
+      error('useModal instance is undefined!');
     }
     return instance;
   };
@@ -108,7 +108,7 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
   const getInstance = () => {
     const instance = unref(modalInstanceRef);
     if (!instance) {
-      error("useModalInner instance is undefined!");
+      error('useModalInner instance is undefined!');
     }
     return instance;
   };
@@ -120,7 +120,7 @@ export const useModalInner = (callbackFn?: Fn): UseModalInnerReturnType => {
       });
     uidRef.value = uuid;
     modalInstanceRef.value = modalInstance;
-    currentInstance?.emit("register", modalInstance, uuid);
+    currentInstance?.emit('register', modalInstance, uuid);
   };
 
   watchEffect(() => {

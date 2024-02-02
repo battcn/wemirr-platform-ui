@@ -37,18 +37,10 @@ export interface ErrorLogInfo {
 
 export interface UserInfo {
   userId: string | number;
-  tenantName: string;
-  tenantId: string | number;
-  tenantCode: string | number;
-  permissions: [];
   username: string;
   realName: string;
-  nickName: string;
-  birthday: string;
   avatar: string;
-  email: string;
-  mobile: string;
-  description?: string;
+  desc?: string;
   homePath?: string;
   roles: RoleInfo[];
 }
@@ -62,7 +54,7 @@ export interface BeforeMiniState {
 
 export interface TableSetting {
   size: Nullable<SizeType>;
-  showIndexColumn: Nullable<boolean>;
+  showIndexColumn: Recordable<Nullable<boolean>>;
   columns: Recordable<Nullable<Array<ColumnOptionsType>>>;
-  showRowSelection: Nullable<boolean>;
+  showRowSelection: Recordable<Nullable<boolean>>;
 }

@@ -1,6 +1,6 @@
-import { FormSchema } from "@/components/Form";
+import { FormSchema } from '@/components/Form';
 
-type InputType = "InputTextArea" | "InputNumber" | "Input";
+type InputType = 'InputTextArea' | 'InputNumber' | 'Input';
 export interface PromptProps {
   title: string;
   label?: string;
@@ -9,7 +9,7 @@ export interface PromptProps {
   inputType?: InputType;
   labelWidth?: number;
   width?: string;
-  layout?: "horizontal" | "vertical" | "inline";
+  layout?: 'horizontal' | 'vertical' | 'inline';
   defaultValue?: string | number;
 }
 
@@ -23,13 +23,13 @@ interface genFormSchemasProps {
 const inputTypeMap: {
   [key in InputType]: {
     colProps: { span: number; offset?: number };
-    componentProps: FormSchema["componentProps"];
+    componentProps: FormSchema['componentProps'];
   };
 } = {
   InputTextArea: {
     colProps: { span: 23 },
     componentProps: {
-      placeholder: "请输入内容",
+      placeholder: '请输入内容',
       autoSize: { minRows: 2, maxRows: 6 },
       maxlength: 255,
       showCount: true,
@@ -38,27 +38,27 @@ const inputTypeMap: {
   InputNumber: {
     colProps: { span: 20, offset: 2 },
     componentProps: {
-      placeholder: "请输入数字",
+      placeholder: '请输入数字',
       min: 0,
     },
   },
   Input: {
     colProps: { span: 20, offset: 2 },
     componentProps: {
-      placeholder: "请输入内容",
+      placeholder: '请输入内容',
       min: 0,
     },
   },
 };
 
 export function genFormSchemas({
-  label = "备注信息",
+  label = '备注信息',
   required = true,
-  inputType = "InputTextArea",
-  defaultValue = "",
+  inputType = 'InputTextArea',
+  defaultValue = '',
 }: genFormSchemasProps) {
   const formSchema: FormSchema = {
-    field: "txt",
+    field: 'txt',
     component: inputType,
     label,
     defaultValue,

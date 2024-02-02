@@ -25,57 +25,57 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { CSSProperties } from "vue";
-import { computed } from "vue";
-import { useDesign } from "@/hooks/web/useDesign";
-import { footerProps } from "../props";
+  import type { CSSProperties } from 'vue';
+  import { computed } from 'vue';
+  import { useDesign } from '@/hooks/web/useDesign';
+  import { footerProps } from '../props';
 
-defineOptions({ name: "BasicDrawerFooter" });
+  defineOptions({ name: 'BasicDrawerFooter' });
 
-const props = defineProps({
-  ...footerProps,
-  height: {
-    type: String,
-    default: "60px",
-  },
-});
+  const props = defineProps({
+    ...footerProps,
+    height: {
+      type: String,
+      default: '60px',
+    },
+  });
 
-const emit = defineEmits(["ok", "close"]);
+  const emit = defineEmits(['ok', 'close']);
 
-const { prefixCls } = useDesign("basic-drawer-footer");
+  const { prefixCls } = useDesign('basic-drawer-footer');
 
-const getStyle = computed((): CSSProperties => {
-  const heightStr = `${props.height}`;
-  return {
-    height: heightStr,
-    lineHeight: `calc(${heightStr} - 1px)`,
-  };
-});
+  const getStyle = computed((): CSSProperties => {
+    const heightStr = `${props.height}`;
+    return {
+      height: heightStr,
+      lineHeight: `calc(${heightStr} - 1px)`,
+    };
+  });
 
-function handleOk() {
-  emit("ok");
-}
+  function handleOk() {
+    emit('ok');
+  }
 
-function handleClose() {
-  emit("close");
-}
+  function handleClose() {
+    emit('close');
+  }
 </script>
 
 <style lang="less">
-@prefix-cls: ~"@{namespace}-basic-drawer-footer";
-@footer-height: 60px;
-.@{prefix-cls} {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 0 12px 0 20px;
-  border-top: 1px solid @border-color-base;
-  background-color: @component-background;
-  text-align: right;
+  @prefix-cls: ~'@{namespace}-basic-drawer-footer';
+  @footer-height: 60px;
+  .@{prefix-cls} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 12px 0 20px;
+    border-top: 1px solid @border-color-base;
+    background-color: @component-background;
+    text-align: right;
 
-  > * {
-    margin-right: 8px;
+    > * {
+      margin-right: 8px;
+    }
   }
-}
 </style>
