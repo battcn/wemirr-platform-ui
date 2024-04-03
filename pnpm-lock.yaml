@@ -15,16 +15,16 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(vue@3.3.10)
       '@fast-crud/fast-crud':
-        specifier: ^1.12.0
+        specifier: ^1.12.2
         version: 1.19.3(vue@3.3.10)
       '@fast-crud/fast-extends':
-        specifier: ^1.12.0
+        specifier: ^1.12.2
         version: 1.19.3(vue@3.3.10)
       '@fast-crud/ui-antdv4':
-        specifier: ^1.12.0
+        specifier: ^1.12.2
         version: 1.19.3
       '@fast-crud/ui-interface':
-        specifier: ^1.12.0
+        specifier: ^1.12.2
         version: 1.19.3
       '@iconify/iconify':
         specifier: ^3.1.0
