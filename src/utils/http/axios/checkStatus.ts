@@ -14,7 +14,7 @@ const stp = projectSetting.sessionTimeoutProcessing;
 export function checkStatus(
   status: number,
   msg: string,
-  errorMessageMode: ErrorMessageMode = "message"
+  errorMessageMode: ErrorMessageMode = "message",
 ): void {
   const { t } = useI18n();
   const userStore = useUserStoreWithOut();
@@ -33,7 +33,8 @@ export function checkStatus(
       if (stp === SessionTimeoutProcessingEnum.PAGE_COVERAGE) {
         userStore.setSessionTimeout(true);
       } else {
-        userStore.logout(true);
+        // 被动登出，带redirect地址
+        userStore.logout(false);
       }
       break;
     case 403:

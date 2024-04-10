@@ -38,6 +38,7 @@ export interface ErrorLogInfo {
 export interface UserInfo {
   userId: string | number;
   username: string;
+  tenantCode: string | number;
   realName: string;
   avatar: string;
   desc?: string;

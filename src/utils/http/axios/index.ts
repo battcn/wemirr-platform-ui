@@ -72,7 +72,8 @@ const transform: AxiosTransform = {
       case ResultEnum.TIMEOUT:
         timeoutMsg = t("sys.api.timeoutMessage");
         const userStore = useUserStoreWithOut();
-        userStore.logout(true);
+        // 被动登出，带redirect地址
+        userStore.logout(false);
         break;
       default:
         if (message) {
@@ -132,7 +133,7 @@ const transform: AxiosTransform = {
         if (joinParamsToUrl) {
           config.url = setObjToUrlParams(
             config.url as string,
-            Object.assign({}, config.params, config.data)
+            Object.assign({}, config.params, config.data),
           );
         }
       } else {
@@ -268,8 +269,8 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
           },
         },
       },
-      opt || {}
-    )
+      opt || {},
+    ),
   );
 }
 
