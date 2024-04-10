@@ -63,7 +63,7 @@ export default defineComponent({
         return;
       }
       nodeRef.value = event.selectedNodes[0];
-      expose.doRefresh();
+      crudExpose.doRefresh();
     }
     function onTreeNodeCheck(keys, event) {
       console.log("keys event", keys, event);
