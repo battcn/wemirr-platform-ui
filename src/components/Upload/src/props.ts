@@ -14,23 +14,28 @@ type SortableOptions = Merge<
     // ...可扩展
   }
 >;
-
+type previewColumnsFnType = {
+  handleRemove: (record: Record<string, any>, key: string) => any;
+  handleAdd: (record: Record<string, any>, key: string) => any;
+};
 export const previewType = {
-  previewColumns:{
-    type: Array as (PropType<BasicColumn[] | FileBasicColumn[]>),
-    default: [],
+  previewColumns: {
+    type: [Array, Function] as PropType<
+      BasicColumn[] | ((arg: previewColumnsFnType) => BasicColumn[])
+    >,
     required: false,
   },
-  beforePreviewData:{
-    type: Function as PropType<(arg:string[])=>Recordable<any>>,
+  beforePreviewData: {
+    type: Function as PropType<(arg: string[]) => Recordable<any>>,
     default: null,
     required: false,
   },
-}
+};
 
 type ListType = 'text' | 'picture' | 'picture-card';
 
 export const basicProps = {
+  disabled: { type: Boolean, default: false },
   listType: {
     type: String as PropType<ListType>,
     default: 'picture-card',
@@ -90,7 +95,7 @@ export const basicProps = {
 
 export const uploadContainerProps = {
   value: {
-    type: Array as (PropType<string[]>),
+    type: Array as PropType<string[]>,
     default: () => [],
   },
   ...basicProps,
@@ -102,7 +107,7 @@ export const uploadContainerProps = {
     type: Boolean as PropType<boolean>,
     default: false,
   },
-  ...previewType
+  ...previewType,
 };
 
 export const previewProps = {
@@ -110,12 +115,16 @@ export const previewProps = {
     type: Array as PropType<string[]>,
     default: () => [],
   },
-  ...previewType
+  maxNumber: {
+    type: Number as PropType<number>,
+    default: 1,
+  },
+  ...previewType,
 };
 
 export const fileListProps = {
   columns: {
-    type: Array as (PropType<BasicColumn[] | FileBasicColumn[]> ),
+    type: Array as PropType<BasicColumn[] | FileBasicColumn[]>,
     default: null,
   },
   actionColumn: {

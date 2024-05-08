@@ -9,6 +9,7 @@
       :maxCount="maxNumber"
       :before-upload="beforeUpload"
       :custom-request="customRequest"
+      :disabled="disabled"
       @preview="handlePreview"
       @remove="handleRemove"
     >
@@ -35,14 +36,15 @@
   import { useI18n } from '@/hooks/web/useI18n';
   import { useUploadType } from '../hooks/useUpload';
   import { uploadContainerProps } from '../props';
-  import { isImgTypeByName } from '../helper';
+  import { checkFileType } from '../helper';
   import { UploadResultStatus } from '@/components/Upload/src/types/typing';
-  import { get,omit } from 'lodash-es';
+  import { get, omit } from 'lodash-es';
+
   defineOptions({ name: 'ImageUpload' });
 
   const emit = defineEmits(['change', 'update:value', 'delete']);
   const props = defineProps({
-    ...omit(uploadContainerProps,["previewColumns","beforePreviewData"]),
+    ...omit(uploadContainerProps, ['previewColumns', 'beforePreviewData']),
   });
   const { t } = useI18n();
   const { createMessage } = useMessage();
@@ -69,8 +71,8 @@
         isInnerOperate.value = false;
         return;
       }
+      let value: string[] = [];
       if (v) {
-        let value: string[] = [];
         if (isArray(v)) {
           value = v;
         } else {
@@ -91,6 +93,8 @@
           }
         }) as UploadProps['fileList'];
       }
+      emit('update:value', value);
+      emit('change', value);
     },
     {
       immediate: true,
@@ -138,8 +142,7 @@
 
   const beforeUpload = (file: File) => {
     const { maxSize, accept } = props;
-    const { name } = file;
-    const isAct = isImgTypeByName(name);
+    const isAct = checkFileType(file, accept);
     if (!isAct) {
       createMessage.error(t('component.upload.acceptUpload', [accept]));
       isActMsg.value = false;
@@ -157,22 +160,23 @@
   };
 
   async function customRequest(info: UploadRequestOption<any>) {
-    const { api } = props;
+    const { api, uploadParams = {}, name, filename, resultField } = props;
     if (!api || !isFunction(api)) {
       return warn('upload api must exist and be a function');
     }
     try {
-      const res = await props.api?.({
+      const res = await api?.({
         data: {
-          ...(props.uploadParams || {}),
+          ...uploadParams,
         },
         file: info.file,
-        name: props.name,
-        filename: props.filename,
+        name: name,
+        filename: filename,
       });
-      if(props.resultField){
-        info.onSuccess!(res);
-      }else{
+      if (props.resultField) {
+        let result = get(res, resultField);
+        info.onSuccess!(result);
+      } else {
         // 不传入 resultField 的情况
         info.onSuccess!(res.data);
       }
@@ -190,12 +194,12 @@
     const list = (fileList.value || [])
       .filter((item) => item?.status === UploadResultStatus.DONE)
       .map((item: any) => {
-        if(props.resultField){
-          return get(item?.response, props.resultField)
+        if (item?.response && props?.resultField) {
+          return item?.response;
         }
         return item?.url || item?.response?.url;
       });
-    return props.multiple ? list : list.length > 0 ? list[0] : '';
+    return list;
   }
 </script>
 

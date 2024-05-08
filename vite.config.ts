@@ -17,8 +17,8 @@ export default defineApplicationConfig({
     server: {
       proxy: {
         "/dev-api": {
-          target: "http://localhost:9000",
-          // target: "https://cloud.battcn.com/api",
+          // target: "http://localhost:9000",
+          target: "https://cloud.battcn.com/api",
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/dev-api`), ""),
