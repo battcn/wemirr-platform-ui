@@ -48,7 +48,8 @@ export default function ({ expose, nodeRef }) {
         username: {
           title: "账号",
           type: "text",
-          column: { width: 155 },
+
+          column: { width: 155, showTitle: true },
           search: { show: true, fixed: "left" },
           editForm: {
             component: { disabled: true },
@@ -170,10 +171,7 @@ export default function ({ expose, nodeRef }) {
         orgId: {
           title: "组织",
           type: "dict-tree",
-          column: {
-            width: 180,
-            component: { color: "auto" },
-          },
+          column: { width: 180, component: { color: "auto" } },
           dict: dict({
             isTree: true,
             url: "/authority/org/trees",
@@ -189,10 +187,11 @@ export default function ({ expose, nodeRef }) {
               },
             },
             valueChange({ form, value, getComponentRef }) {
-              form.stationId = undefined; // 将“stationId”的值置空
+              form.stationId = undefined;
               if (value) {
-                // 执行 stationId 的select组件的reloadDict()方法，触发“stationId”重新加载字典
-                getComponentRef("stationId")?.reloadDict();
+                const targetDict = getComponentRef("stationId").getDict();
+                targetDict.url = `/authority/stations/list?orgId=${value}`;
+                targetDict.reloadDict();
               }
             },
           },
@@ -202,30 +201,17 @@ export default function ({ expose, nodeRef }) {
           type: "dict-select",
           column: { width: 150, component: { color: "auto" } },
           dict: dict({
-            cache: true,
-            prototype: true,
+            prototype: false,
+            url: "/authority/stations/list",
             value: "id",
             label: "name",
-            url({ form }: any) {
-              if (form && form.orgId != null) {
-                // 本数据字典的url是通过前一个select的选项决定的
-                return `/authority/stations?status=1&orgId=${form.orgId}`;
-              }
-              return undefined;
-            },
-            getData: ({ form, url }: any) => {
-              if (form.orgId) {
-                return defHttp.get({ url: url }).then((ret) => {
-                  return ret.records;
-                });
-              }
-            },
           }),
           form: {
             component: {
+              dict: { cache: false },
               showSearch: true,
               filterOption: (val: string, form: any) => {
-                return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+                return form?.label?.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
             helper: "选择组织后才可以选择岗位哟~~~",

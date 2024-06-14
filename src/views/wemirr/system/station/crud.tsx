@@ -8,7 +8,7 @@ export default function ({ nodeRef }) {
       request: {
         pageRequest: async (query: any) => {
           query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
-          return await defHttp.get({ url: `/authority/stations`, params: query });
+          return await defHttp.get({ url: `/authority/stations/page`, params: query });
         },
         addRequest: async ({ form }) => {
           return await defHttp.post({ url: `/authority/stations`, data: form });
