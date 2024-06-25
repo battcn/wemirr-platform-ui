@@ -1,5 +1,5 @@
 import { createLoading } from "@/components/Loading";
-import type { Directive, App } from "vue";
+import type { App, Directive } from "vue";
 
 const loadingDirective: Directive = {
   mounted(el, binding) {
@@ -15,7 +15,7 @@ const loadingDirective: Directive = {
         loading: !!binding.value,
         absolute: !fullscreen,
       },
-      fullscreen ? document.body : el
+      fullscreen ? document.body : el,
     );
     el.instance = instance;
   },
@@ -28,7 +28,7 @@ const loadingDirective: Directive = {
     }
   },
   unmounted(el) {
-    el?.instance?.close();
+    el?.instance?.destroy();
   },
 };
 

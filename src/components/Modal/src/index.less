@@ -1,4 +1,4 @@
-@prefix-cls: ~'@{namespace}-basic-modal-wrap';
+@modal-prefix-cls: ~'@{namespace}-basic-modal';
 
 .fullscreen-modal {
   overflow: hidden;
@@ -20,7 +20,7 @@
   }
 }
 
-.@{prefix-cls} {
+.@{modal-prefix-cls} {
   .ant-modal {
     width: 520px;
     padding-bottom: 0;
@@ -61,8 +61,9 @@
 
     &-content {
       padding: 0 !important;
-      box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%),
-      0 6px 20px 0 rgb(0 0 0 / 19%);
+      box-shadow:
+        0 4px 8px 0 rgb(0 0 0 / 20%),
+        0 6px 20px 0 rgb(0 0 0 / 19%);
     }
 
     &-footer {
@@ -125,7 +126,6 @@
     padding: 24px !important;
   }
 }
-
 
 @media screen and (max-height: 600px) {
   .ant-modal {

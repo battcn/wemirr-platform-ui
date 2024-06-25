@@ -1,17 +1,17 @@
-import type { BasicTableProps, TableRowSelection, BasicColumn } from "../types/table";
-import { Ref, ComputedRef, ref, computed, unref, nextTick, watch } from "vue";
-import { getViewportOffset } from "@/utils/domUtils";
-import { isBoolean } from "@/utils/is";
-import { useWindowSizeFn, onMountedOrActivated } from "@vben/hooks";
-import { useModalContext } from "@/components/Modal";
-import { useDebounceFn, promiseTimeout } from "@vueuse/core";
+import type { BasicTableProps, TableRowSelection, BasicColumn } from '../types/table';
+import { Ref, ComputedRef, ref, computed, unref, nextTick, watch } from 'vue';
+import { getViewportOffset } from '@/utils/domUtils';
+import { isBoolean } from '@/utils/is';
+import { useWindowSizeFn, onMountedOrActivated } from '@vben/hooks';
+import { useModalContext } from '@/components/Modal';
+import { useDebounceFn, promiseTimeout } from '@vueuse/core';
 
 import {
   footerHeight as layoutFooterHeight,
   layoutMultipleHeadePlaceholderTime,
-} from "@/settings/designSetting";
+} from '@/settings/designSetting';
 
-import { useRootSetting } from "@/hooks/setting/useRootSetting";
+import { useRootSetting } from '@/hooks/setting/useRootSetting';
 
 const { getShowFooter, getFullContent } = useRootSetting();
 
@@ -41,7 +41,7 @@ export function useTableScroll(
       debounceRedoHeight();
     },
     {
-      flush: "post",
+      flush: 'post',
     },
   );
 
@@ -53,7 +53,7 @@ export function useTableScroll(
       debounceRedoHeight();
     },
     {
-      flush: "post",
+      flush: 'post',
     },
   );
 
@@ -85,17 +85,17 @@ export function useTableScroll(
     const hasScrollBarX = bodyEl.scrollWidth > bodyEl.clientWidth;
 
     if (hasScrollBarY) {
-      tableEl.classList.contains("hide-scrollbar-y") &&
-        tableEl.classList.remove("hide-scrollbar-y");
+      tableEl.classList.contains('hide-scrollbar-y') &&
+        tableEl.classList.remove('hide-scrollbar-y');
     } else {
-      !tableEl.classList.contains("hide-scrollbar-y") && tableEl.classList.add("hide-scrollbar-y");
+      !tableEl.classList.contains('hide-scrollbar-y') && tableEl.classList.add('hide-scrollbar-y');
     }
 
     if (hasScrollBarX) {
-      tableEl.classList.contains("hide-scrollbar-x") &&
-        tableEl.classList.remove("hide-scrollbar-x");
+      tableEl.classList.contains('hide-scrollbar-x') &&
+        tableEl.classList.remove('hide-scrollbar-x');
     } else {
-      !tableEl.classList.contains("hide-scrollbar-x") && tableEl.classList.add("hide-scrollbar-x");
+      !tableEl.classList.contains('hide-scrollbar-x') && tableEl.classList.add('hide-scrollbar-x');
     }
   }
 
@@ -111,11 +111,12 @@ export function useTableScroll(
     if (!isBoolean(pagination)) {
       // 从 Dom 获取
       if (!paginationEl) {
-        paginationEl = tableEl.querySelector(".ant-pagination") as HTMLElement;
+        paginationEl = tableEl.querySelector('.ant-pagination') as HTMLElement;
       }
       if (paginationEl) {
         // 分页 margin-top
-        const paginationElMarginTop = parseInt(getComputedStyle(paginationEl).marginTop);
+        const paginationElMarginTop =
+          parseInt(getComputedStyle(paginationEl)?.marginTop) || 10 + 24;
         // 分页高度
         const offsetHeight = paginationEl.offsetHeight;
         paginationHeight = offsetHeight + paginationElMarginTop;
@@ -135,7 +136,7 @@ export function useTableScroll(
     let footerHeight = 0;
     if (!isBoolean(pagination)) {
       if (!footerEl) {
-        footerEl = tableEl.querySelector(".ant-table-footer") as HTMLElement;
+        footerEl = tableEl.querySelector('.ant-table-footer') as HTMLElement;
       } else {
         const offsetHeight = footerEl.offsetHeight;
         footerHeight += offsetHeight || 0;
@@ -193,11 +194,12 @@ export function useTableScroll(
     let modalElIterator: HTMLElement = tableEl.parentElement!;
     let modalIsFullscreen = false;
     while (modalElIterator !== document.body) {
-      if (modalElIterator.classList.contains("ant-modal")) {
+      if (!modalElIterator) break;
+      if (modalElIterator.classList.contains('ant-modal')) {
         modalEl = modalElIterator;
         modalWrapEl = modalEl.parentElement;
-        modalFooterEl = modalElIterator.querySelector(".ant-modal-content>.ant-modal-footer");
-        modalIsFullscreen = modalWrapEl?.classList.contains("fullscreen-modal") ?? false;
+        modalFooterEl = modalElIterator.querySelector('.ant-modal-content>.ant-modal-footer');
+        modalIsFullscreen = modalWrapEl?.classList.contains('fullscreen-modal') ?? false;
         break;
       }
       modalElIterator = modalElIterator.parentElement!;
@@ -264,20 +266,20 @@ export function useTableScroll(
     if (!tableEl) return;
 
     if (!bodyEl) {
-      bodyEl = tableEl.querySelector(".ant-table-body");
+      bodyEl = tableEl.querySelector('.ant-table-body');
       if (!bodyEl) return;
     }
 
     handleScrollBar(bodyEl, tableEl);
 
-    bodyEl!.style.height = "unset";
+    bodyEl!.style.height = 'unset';
 
     if (!unref(getCanResize) || !unref(tableData) || tableData.length === 0) return;
 
     await nextTick();
     // Add a delay to get the correct bottomIncludeBody paginationHeight footerHeight headerHeight
 
-    const headEl = tableEl.querySelector(".ant-table-thead ");
+    const headEl = tableEl.querySelector('.ant-table-thead ');
 
     if (!headEl) return;
 
@@ -334,7 +336,7 @@ export function useTableScroll(
       width += Number.parseFloat(item.width as string) || 0;
     });
     const unsetWidthColumns = columns.filter(
-      (item) => !Reflect.has(item, "width") && item.ifShow !== false,
+      (item) => !Reflect.has(item, 'width') && item.ifShow !== false,
     );
 
     const len = unsetWidthColumns.length;
@@ -344,7 +346,7 @@ export function useTableScroll(
 
     const table = unref(tableElRef);
     const tableWidth = table?.$el?.offsetWidth ?? 0;
-    return tableWidth > width ? "100%" : width;
+    return tableWidth > width ? '100%' : width;
   });
 
   const getScrollRef = computed(() => {
@@ -355,7 +357,7 @@ export function useTableScroll(
       y: canResize ? tableHeight : null,
       scrollToFirstRowOnChange: false,
       ...scroll,
-    } as BasicTableProps["scroll"];
+    } as BasicTableProps['scroll'];
   });
 
   return { getScrollRef, redoHeight };
