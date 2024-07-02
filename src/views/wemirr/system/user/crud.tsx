@@ -1,7 +1,8 @@
-import { dict } from "@fast-crud/fast-crud";
+import { dict, UserPageQuery } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { DictCode, dictFunc } from "@/api/dict/dict";
 import { defHttp } from "@/utils/http/axios";
+import { downloadByData } from "@/utils/file/download";
 
 export default function ({ expose, nodeRef }) {
   return {
@@ -9,9 +10,10 @@ export default function ({ expose, nodeRef }) {
       request: {
         pageRequest: async (query: any) => {
           query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
-          return await defHttp.get({ url: `/authority/users`, params: query });
+          return await defHttp.post({ url: `/authority/users/page`, data: query });
         },
-        addRequest: async ({ form }) => await defHttp.post({ url: `/authority/users`, data: form }),
+        addRequest: async ({ form }) =>
+          await defHttp.post({ url: `/authority/users/create`, data: form }),
         editRequest: async ({ form }) =>
           await defHttp.put({ url: `/authority/users/${form.id}`, data: form }),
         delRequest: async ({ row }) => await defHttp.delete({ url: `/authority/users/${row.id}` }),
@@ -35,8 +37,23 @@ export default function ({ expose, nodeRef }) {
         },
       },
       toolbar: {
-        // compact: true,
-        // buttons: { compact: { show: false } },
+        export: {
+          server: async (userPageQuery: UserPageQuery) => {
+            await defHttp
+              .request(
+                {
+                  url: `/authority/users/export`,
+                  method: "POST",
+                  params: userPageQuery,
+                  responseType: "blob",
+                },
+                { isTransformResponse: false },
+              )
+              .then((res) => {
+                downloadByData(res, `用户列表.xlsx`);
+              });
+          },
+        },
       },
       columns: {
         id: {
