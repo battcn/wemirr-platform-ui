@@ -1,4 +1,12 @@
-import { compute, dict, utils, asyncCompute, useColumns } from "@fast-crud/fast-crud";
+import {
+  compute,
+  dict,
+  utils,
+  asyncCompute,
+  useColumns,
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+} from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { useMessage } from "@/hooks/web/useMessage";
 import { getAreaTree } from "@/api/sys/area";
@@ -30,24 +38,12 @@ const customOptions = {
               return `${item.id}.${item.name}`;
             },
           },
-          select: {
-            placeholder: "点击选择",
-          },
+          select: { placeholder: "点击选择" },
           createCrudOptions: createCrudOptionsText,
           crudOptionsOverride: {
-            toolbar: {
-              show: false,
-            },
-            actionbar: {
-              buttons: {
-                add: {
-                  show: false,
-                },
-              },
-            },
-            rowHandle: {
-              show: false,
-            },
+            toolbar: { show: false },
+            actionbar: { buttons: { add: { show: false } } },
+            rowHandle: { show: false },
           },
         },
         rules: [{ required: true, message: "数据源不能为空" }],
@@ -58,11 +54,7 @@ const customOptions = {
       title: "描述",
       column: { show: false, ellipsis: true },
       type: ["textarea"],
-      form: {
-        col: {
-          span: 24,
-        },
-      },
+      form: { col: { span: 24 } },
     },
     lazy: {
       title: "懒加载",
@@ -75,9 +67,7 @@ const customOptions = {
           { value: true, label: "延迟加载", color: "error" },
         ],
       }),
-      addForm: {
-        value: true,
-      },
+      addForm: { value: true },
     },
   },
   form: {
@@ -97,7 +87,8 @@ const customOptions = {
 //使用crudOptions结构来构建自定义表单配置
 const formOptions = buildFormOptions(customOptions);
 
-export default function ({ expose }) {
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+  const { crudExpose } = props;
   return {
     crudOptions: {
       request: {
@@ -144,7 +135,7 @@ export default function ({ expose }) {
               }
               tenantRow.value = row;
               console.log("formOptions", formOptions);
-              await expose.getFormWrapperRef().open(formOptions);
+              await crudExpose.getFormWrapperRef().open(formOptions);
             },
           },
           init: {
@@ -372,6 +363,10 @@ export default function ({ expose }) {
           column: { ellipsis: true, show: false },
           form: {
             col: { span: 24 },
+            rules: [
+              { required: true, message: "请输入租户域名" },
+              { min: 2, max: 100, message: "长度在 2 到 100 个字符" },
+            ],
           },
         },
         description: {
@@ -434,7 +429,7 @@ export default function ({ expose }) {
             },
             otherInfo: {
               header: "其它信息",
-              collapsed: true,
+              collapsed: false,
               columns: ["creditCode", "legalPersonName", "webSite", "description", "logo"],
             },
           },

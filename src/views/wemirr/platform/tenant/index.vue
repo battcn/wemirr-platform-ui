@@ -10,24 +10,16 @@
   </fs-page>
 </template>
 
-<script>
-import { defineComponent, onMounted } from "vue";
-import createCrudOptions from "./crud";
+<script lang="ts" setup name="TenantPage">
+import { onMounted } from "vue";
 import { useFs } from "@fast-crud/fast-crud";
+import createCrudOptions from "./crud";
 
-export default defineComponent({
-  name: "TenantPage",
-  setup() {
-    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
-    // 页面打开后获取列表数据
-    onMounted(() => {
-      crudExpose.doRefresh();
-    });
+//通过context传递到crud.tsx中
+const { crudBinding, crudRef, crudExpose } = useFs({ createCrudOptions });
 
-    return {
-      crudBinding,
-      crudRef,
-    };
-  },
+// 页面打开后获取列表数据
+onMounted(() => {
+  crudExpose.doRefresh();
 });
 </script>

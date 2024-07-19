@@ -1,14 +1,22 @@
-import * as api from "./api";
-import { dict } from "@fast-crud/fast-crud";
+import * as api from "../api";
+import {
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+  dict,
+  UserPageQuery,
+  UserPageRes,
+} from "@fast-crud/fast-crud";
 
-export default function ({ nodeRef }) {
-  const pageRequest = async (query: any) => {
-    return await api.GetResourceList({ parentId: nodeRef.value.id, type: "2", size: query.size });
-  };
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+  const { parentId } = props.context;
+  // const { search } = crudBinding.value;
   return {
     crudOptions: {
       request: {
-        pageRequest,
+        pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
+          query.parentId = parentId.value;
+          return await api.GetResourceList(query);
+        },
         addRequest: async ({ form }) => await api.AddObj(form),
         editRequest: async ({ form }) => await api.UpdateObj(form),
         delRequest: async ({ row }) => await api.DelObj(row.id),
@@ -32,15 +40,9 @@ export default function ({ nodeRef }) {
           title: "父ID",
           type: "text",
           column: { show: false },
-          addForm: {
-            valueBuilder({ row, key }) {
-              row[key] = nodeRef.value.id;
-            },
-          },
           form: {
-            component: {
-              disabled: true,
-            },
+            show: false,
+            component: { disabled: true },
             rules: [{ required: true, message: "请选择菜单后操作" }],
           },
         },
@@ -88,11 +90,7 @@ export default function ({ nodeRef }) {
           title: "描述",
           column: { show: false, ellipsis: true },
           type: ["textarea"],
-          form: {
-            col: {
-              span: 24,
-            },
-          },
+          form: { col: { span: 24 } },
         },
       },
     },

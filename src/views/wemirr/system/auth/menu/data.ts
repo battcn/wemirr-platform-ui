@@ -40,9 +40,7 @@ export const schemas: FormSchema[] = [
     field: "icon",
     component: "IconPicker",
     label: "图标",
-    componentProps: {
-      placeholder: "请选择图标",
-    },
+    // componentProps: { placeholder: "请选择图标" },
     required: true,
   },
   {
@@ -106,7 +104,6 @@ export const schemas: FormSchema[] = [
     label: "状态",
     defaultValue: true,
     componentProps: {
-      placeholder: "请选择状态",
       options: [
         { label: "启用", value: true },
         { label: "禁用", value: false },
@@ -119,7 +116,7 @@ export const schemas: FormSchema[] = [
     label: "状态",
     defaultValue: true,
     componentProps: {
-      placeholder: "请选择显示还是隐藏",
+      // placeholder: "请选择显示还是隐藏",
       options: [
         { label: "显示", value: true },
         { label: "隐藏", value: false },

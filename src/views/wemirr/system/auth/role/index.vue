@@ -8,6 +8,7 @@
           :fieldNames="{ title: 'name', key: 'id' }"
           checkable
           toolbar
+          search
           v-if="scope.form.scopeType === 20"
           title="组织架构"
         />
@@ -64,14 +65,13 @@ export default defineComponent({
     const distribution = useDistribution();
     const { crudRef, crudBinding, crudExpose } = useFs({
       createCrudOptions,
-      distribution,
-      permission: "sys:role",
+      context: { distribution, permission: "sys:role" },
     });
 
     const treeData = ref([]);
-    function initOrgList() {
-      api.InitOrgList().then((response) => {
-        treeData.value = response.data;
+    async function initOrgList() {
+      await api.InitOrgList().then((data) => {
+        treeData.value = data;
       });
     }
     // 页面打开后获取列表数据

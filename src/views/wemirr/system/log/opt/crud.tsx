@@ -1,26 +1,22 @@
 import dayjs from "dayjs";
-import { dict, ValueBuilderContext, ValueResolveContext } from "@fast-crud/fast-crud";
+import {
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+  dict,
+  ValueBuilderContext,
+  ValueResolveContext,
+} from "@fast-crud/fast-crud";
 import { defHttp } from "@/utils/http/axios";
 
-export default function () {
-  const pageRequest = async (query: any) =>
-    await defHttp.get({ url: "/authority/opt_logs", params: query });
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
-        pageRequest,
+        pageRequest: async (query: any) =>
+          await defHttp.get({ url: "/authority/opt_logs", params: query }),
       },
-      table: {
-        scroll: { fixed: true },
-      },
-      actionbar: {
-        show: true,
-        buttons: {
-          add: {
-            show: false,
-          },
-        },
-      },
+      table: { scroll: { fixed: true } },
+      actionbar: { show: true, buttons: { add: { show: false } } },
       rowHandle: {
         width: 80,
         //固定右侧
@@ -58,9 +54,8 @@ export default function () {
         },
         status: {
           title: "状态",
-          type: "dict-select",
+          type: "dict-switch",
           column: { ellipsis: true, width: 100 },
-          search: { show: true },
           dict: dict({
             data: [
               { value: true, label: "正常", color: "success" },
@@ -149,20 +144,14 @@ export default function () {
           type: ["textarea"],
           search: { show: false },
           column: { width: 200 },
-          form: {
-            col: {
-              span: 24,
-            },
-          },
+          form: { col: { span: 24 } },
         },
         result: {
           title: "响应结果",
           type: "json",
           column: { show: false },
           form: {
-            col: {
-              span: 24,
-            },
+            col: { span: 24 },
             valueBuilder({ form }: ValueBuilderContext) {
               if (form.result == null) {
                 return;

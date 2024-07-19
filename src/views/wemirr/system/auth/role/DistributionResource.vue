@@ -72,7 +72,7 @@ export default defineComponent({
       });
     });
 
-    function handleSelect(checkedKeys, event) {
+    function handleSelect(checkedKeys: any, event: any) {
       if (!event.selected) {
         return;
       }

@@ -1,9 +1,10 @@
-import { dict } from "@fast-crud/fast-crud";
+import { compute, CreateCrudOptionsProps, CreateCrudOptionsRet, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { usePermission } from "@/hooks/web/usePermission";
 import * as api from "./api";
 
-export default function ({ distribution }) {
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+  const { distribution } = props.context;
   const { hasPermission } = usePermission();
   return {
     crudOptions: {
@@ -13,23 +14,15 @@ export default function ({ distribution }) {
         editRequest: async ({ form }) => await api.UpdateObj(form),
         delRequest: async ({ row }) => await api.DelObj(row.id),
       },
-      table: {
-        size: "small",
-        scroll: {
-          //需要设置它，否则滚动条拖动时，表头不会动
-          fixed: true,
-        },
-      },
+      table: { size: "small", scroll: { fixed: true } },
       rowHandle: {
         show: true,
         width: 220,
         dropdown: {
-          // 操作列折叠
           atLeast: 2,
           more: {
             size: "small",
             text: "更多",
-            // icon: "gg:more-o",
           },
         },
         buttons: {
@@ -83,12 +76,7 @@ export default function ({ distribution }) {
           title: "内置角色",
           type: "dict-radio",
           column: { width: 90, align: "center" },
-          addForm: { show: false },
-          editForm: {
-            component: {
-              disabled: true,
-            },
-          },
+          form: { show: false },
           dict: dict({
             data: [
               { value: true, label: "是", color: "success" },
@@ -96,16 +84,16 @@ export default function ({ distribution }) {
             ],
           }),
         },
-        locked: {
+        status: {
           title: "状态",
           type: "dict-radio",
           search: { show: true },
           column: { width: 100, align: "center" },
-          form: { disabled: true },
+          addForm: { value: true },
           dict: dict({
             data: [
-              { value: false, label: "启用", color: "success" },
-              { value: true, label: "禁用", color: "error" },
+              { value: true, label: "启用", color: "success" },
+              { value: false, label: "禁用", color: "error" },
             ],
           }),
         },
@@ -141,6 +129,12 @@ export default function ({ distribution }) {
         },
         orgList: {
           search: { show: false },
+          title: "机构",
+          form: {
+            show: compute(({ form }) => {
+              return form.scopeType === 20;
+            }),
+          },
           column: { show: false },
         },
         createdTime: {

@@ -1,15 +1,22 @@
-import { dict, UserPageQuery } from "@fast-crud/fast-crud";
+import {
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+  dict,
+  UserPageQuery,
+} from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { DictCode, dictFunc } from "@/api/dict/dict";
 import { defHttp } from "@/utils/http/axios";
 import { downloadByData } from "@/utils/file/download";
 
-export default function ({ expose, nodeRef }) {
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+  const { crudExpose, context } = props;
+  const { nodeRef } = context;
   return {
     crudOptions: {
       request: {
         pageRequest: async (query: any) => {
-          query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
+          query.orgId = query.orgId > 0 ? null : nodeRef?.value?.id;
           return await defHttp.post({ url: `/authority/users/page`, data: query });
         },
         addRequest: async ({ form }) =>
@@ -18,21 +25,20 @@ export default function ({ expose, nodeRef }) {
           await defHttp.put({ url: `/authority/users/${form.id}`, data: form }),
         delRequest: async ({ row }) => await defHttp.delete({ url: `/authority/users/${row.id}` }),
       },
-      container: {
-        is: "fs-layout-default",
-      },
+      // container: { is: "fs-layout-default" },
       rowHandle: { fixed: "right" },
       search: {
-        onReset() {
+        onReset(context: any) {
+          console.log("context", context);
           nodeRef.value = null;
         },
       },
       table: {
         scroll: { fixed: true },
-        onFilterChange: (content) => {
-          const form = expose.getSearchFormData();
-          if (content.sex) {
-            form.sex = content?.sex[0];
+        onFilterChange: (filters: any) => {
+          const form = crudExpose.getSearchFormData();
+          if (filters.sex) {
+            form.sex = filters?.sex[0];
           }
         },
       },
@@ -123,39 +129,32 @@ export default function ({ expose, nodeRef }) {
           title: "性别",
           type: "dict-radio",
           dict: dictFunc(DictCode.SEX),
-          viewForm: {
-            valueBuilder(context) {
-              context.form.sex = context.row.sex?.toString();
-            },
-          },
-          editForm: {
-            valueBuilder(context) {
-              context.form.sex = context.row.sex?.toString();
-            },
-          },
           column: {
             width: 100,
             align: "center",
             filterable: true,
             filterMultiple: false,
             filters: [
-              { text: "男", value: 1 },
-              { text: "女", value: 2 },
+              { text: "男", value: "1" },
+              { text: "女", value: "2" },
             ],
-            sortDirections: ["descend"],
           },
-          addForm: {
-            value: "1",
-          },
+          addForm: { value: "1" },
         },
         status: {
           title: "状态",
           search: { show: true },
           type: "dict-radio",
+          // true | false 在 渲染查询控件会有告警 antdv 问题
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = value ? 1 : 0;
+            }
+          },
           dict: dict({
             data: [
-              { value: true, label: "启用", color: "success" },
-              { value: false, label: "禁用", color: "error" },
+              { value: 1, label: "启用", color: "success" },
+              { value: 0, label: "停用", color: "error" },
             ],
           }),
           column: { width: 80 },
@@ -163,7 +162,7 @@ export default function ({ expose, nodeRef }) {
         email: {
           title: "邮箱",
           type: "text",
-          search: { show: true },
+          search: { show: false },
           column: { width: 180 },
         },
         avatar: {

@@ -9,85 +9,36 @@ import {
   UserPageQuery,
   UserPageRes,
 } from "@fast-crud/fast-crud";
-import { usePermission } from "@/hooks/web/usePermission";
 import { defHttp } from "@/utils/http/axios";
 
-export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const { hasPermission } = usePermission();
-  const { parentIdRef } = context;
-  const dictionaryId = parentIdRef.value;
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
           return await defHttp.get({
-            url: `/authority/dictionaries/${dictionaryId}/items`,
+            url: `/authority/dict/${query.dictId}/items`,
             params: query,
           });
         },
         addRequest: async ({ form }: AddReq) =>
-          await defHttp.post({ url: `/authority/dictionaries/${dictionaryId}/items`, data: form }),
+          await defHttp.post({
+            url: `/authority/dict/${form.dictId}/items`,
+            data: form,
+          }),
         editRequest: async ({ form }: EditReq) =>
           await defHttp.put({
-            url: `/authority/dictionaries/${dictionaryId}/items/${form.id}`,
+            url: `/authority/dict/${form.dictId}/items/${form.id}`,
             data: form,
           }),
         delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete({ url: `/authority/dictionaries/${dictionaryId}/items/${row.id}` }),
+          await defHttp.delete({
+            url: `/authority/dict/${row.dictId}/items/${row.id}`,
+          }),
       },
-      actionbar: {
-        buttons: {
-          add: {
-            show: false,
-          },
-          addRow: {
-            show: true,
-          },
-        },
-      },
-      search: {
-        show: false,
-        initialForm: {
-          parentId: parentIdRef,
-        },
-      },
-      toolbar: {
-        buttons: {
-          refresh: {
-            show: false,
-          },
-        },
-      },
-      table: {
-        editable: {
-          enabled: true,
-          mode: "row",
-          activeDefault: false,
-        },
-      },
-      rowHandle: {
-        width: 180,
-        align: "center",
-        group: {
-          editable: {
-            //自由编辑模式
-          },
-          editRow: {
-            //行编辑模式
-            edit: {
-              size: "small",
-              type: "link",
-            },
-            save: { size: "small", type: "link" }, //保存
-            cancel: { size: "small", type: "link" }, //退出编辑
-            remove: {
-              size: "small",
-              type: "link",
-              show: hasPermission("sys:dict:remove"),
-            },
-          },
-        },
-      },
+      actionbar: { buttons: { add: { show: false } } },
+      toolbar: { buttons: { refresh: { show: false } } },
+      rowHandle: { width: 180, align: "center" },
       columns: {
         id: {
           title: "ID",
@@ -95,7 +46,7 @@ export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptions
           form: { show: false },
           column: { show: false },
         },
-        dictionaryId: {
+        dictId: {
           title: "字典ID",
           type: "text",
           form: { show: false },
@@ -122,7 +73,7 @@ export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptions
         status: {
           title: "状态",
           type: "dict-radio",
-          column: { show: true, width: 180 },
+          column: { show: true, width: 80 },
           search: { show: true },
           dict: dict({
             data: [
@@ -141,11 +92,12 @@ export default function ({ context }: CreateCrudOptionsProps): CreateCrudOptions
           title: "排序",
           type: "number",
           addForm: { value: 0 },
-          column: { show: true, width: 180 },
-          form: { component: { min: 0, max: 100 } },
+          column: { show: true, width: 80 },
+          form: { component: { min: 0, max: 1000 } },
         },
         description: {
           title: "描述",
+          column: { show: false, width: 100 },
           type: ["textarea"],
           form: {
             col: {

@@ -45,7 +45,6 @@ export const schemas: FormSchema[] = [
     label: "状态",
     defaultValue: true,
     componentProps: {
-      placeholder: "请选择状态",
       options: [
         { label: "启用", value: true },
         { label: "禁用", value: false },

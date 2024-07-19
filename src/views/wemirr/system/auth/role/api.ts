@@ -1,14 +1,14 @@
 import { defHttp } from "@/utils/http/axios";
 
 export function GetList(query: any) {
-  return defHttp.get({
-    url: "/authority/roles",
-    params: query,
+  return defHttp.post({
+    url: "/authority/roles/page",
+    data: query,
   });
 }
 export function AddObj(obj: any) {
   return defHttp.post({
-    url: "/authority/roles",
+    url: "/authority/roles/create",
     data: obj,
   });
 }

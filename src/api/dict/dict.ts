@@ -9,6 +9,6 @@ export enum DictCode {
 }
 export const dictFunc = (code: DictCode) => {
   return dict({
-    url: `/authority/dictionaries/${code}/list`,
+    url: `/authority/dict/${code}/list`,
   });
 };

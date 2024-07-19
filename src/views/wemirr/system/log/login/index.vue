@@ -4,24 +4,16 @@
   </fs-page>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted } from "vue";
+<script lang="ts" setup name="LoginLogPage">
+import { onMounted } from "vue";
 import { useFs } from "@fast-crud/fast-crud";
 import createCrudOptions from "./crud";
 
-//此处为组件定义
-export default defineComponent({
-  name: "LoginLogPage",
-  setup() {
-    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions, context: {} });
-    // 页面打开后获取列表数据
-    onMounted(() => {
-      crudExpose.doRefresh();
-    });
-    return {
-      crudBinding,
-      crudRef,
-    };
-  },
+//通过context传递到crud.tsx中
+const { crudBinding, crudRef, crudExpose } = useFs({ createCrudOptions });
+
+// 页面打开后获取列表数据
+onMounted(() => {
+  crudExpose.doRefresh();
 });
 </script>

@@ -1,8 +1,8 @@
-import { dict } from "@fast-crud/fast-crud";
+import { CreateCrudOptionsProps, CreateCrudOptionsRet, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { defHttp } from "@/utils/http/axios";
 
-export default function () {
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -107,12 +107,18 @@ export default function () {
           title: "状态",
           search: { show: true },
           addForm: { value: false },
-          column: { show: true, align: "center", width: 80 }, // 表单配置
+          column: { show: true, align: "center", width: 80 },
           type: ["dict-radio"],
+          // true | false 在 渲染查询控件会有告警 antdv 问题
+          valueBuilder({ value, row, key }) {
+            if (value != null) {
+              row[key] = value ? 1 : 0;
+            }
+          },
           dict: dict({
             data: [
-              { value: "false", label: "启用", color: "success" },
-              { value: "true", label: "禁用", color: "error" },
+              { value: 0, label: "启用", color: "success" },
+              { value: 1, label: "禁用", color: "error" },
             ],
           }),
         },
@@ -120,9 +126,7 @@ export default function () {
           title: "描述信息",
           type: ["textarea"],
           column: { ellipsis: true, show: false },
-          form: {
-            col: { span: 24 },
-          },
+          form: { col: { span: 24 } },
         },
         createdTime: {
           title: "创建时间",

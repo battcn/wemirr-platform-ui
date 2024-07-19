@@ -5,29 +5,29 @@ import { defHttp } from "@/utils/http/axios";
 
 export default function ({ props }) {
   const { hasPermission } = usePermission();
-  const dictionaryId = props.modelValue;
+  const dictId = props.modelValue;
   return {
     crudOptions: {
       request: {
         pageRequest: async (query: any) => {
           return await defHttp.get({
-            url: `/authority/tenant_dictionaries/${dictionaryId ?? 0}/items`,
+            url: `/authority/tenant_dictionaries/${dictId ?? 0}/items`,
             params: query,
           });
         },
         addRequest: async ({ form }: any) =>
           await defHttp.post({
-            url: `/authority/tenant_dictionaries/${dictionaryId}/items`,
+            url: `/authority/tenant_dictionaries/${dictId}/items`,
             data: form,
           }),
         editRequest: async ({ form }: any) =>
           await defHttp.put({
-            url: `/authority/tenant_dictionaries/${dictionaryId}/items/${form.id}`,
+            url: `/authority/tenant_dictionaries/${dictId}/items/${form.id}`,
             data: form,
           }),
         delRequest: async ({ row }: any) =>
           await defHttp.delete({
-            url: `/authority/tenant_dictionaries/${dictionaryId}/items/${row.id}`,
+            url: `/authority/tenant_dictionaries/${dictId}/items/${row.id}`,
           }),
       },
       search: { show: false },
@@ -49,7 +49,7 @@ export default function ({ props }) {
           form: { show: false },
           column: { show: false },
         },
-        dictionaryId: {
+        dictId: {
           title: "字典ID",
           type: "text",
           form: { show: false },

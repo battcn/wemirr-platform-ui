@@ -36,7 +36,7 @@ export const schemas: FormSchema[] = [
     label: "级别",
     defaultValue: 1,
     componentProps: {
-      placeholder: "请选择级别",
+      // placeholder: "请选择级别",
       options: [
         { label: "省份", value: 1 },
         { label: "城市", value: 2 },

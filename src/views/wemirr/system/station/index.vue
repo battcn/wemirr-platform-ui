@@ -6,7 +6,7 @@
         checkStrictly
         @check="onTreeNodeCheck"
         :clickRowToExpand="false"
-        ref="terrDataRef"
+        ref="treeRef"
         :treeData="terrData"
         :fieldNames="{ key: 'id', title: 'name' }"
         @select="handleSelect"
@@ -18,70 +18,55 @@
   </PageWrapper>
 </template>
 
-<script>
-import { defineComponent, ref, onMounted, unref } from "vue";
+<script lang="ts" setup name="StationForm">
+import { ref, onMounted, unref } from "vue";
 import createCrudOptions from "./crud";
-import {useExpose, useCrud, useFs} from "@fast-crud/fast-crud";
-import { BasicTree } from "@/components/Tree";
+import { useFs } from "@fast-crud/fast-crud";
+import { BasicTree, TreeActionType } from "@/components/Tree";
 import { PageWrapper } from "@/components/Page";
 import { getOrgList } from "@/api/sys/org";
 import { Card } from "ant-design-vue";
 
-export default defineComponent({
-  name: "StationForm",
-  components: { Card, BasicTree, PageWrapper },
-  setup() {
-    const terrDataRef = ref({});
-    const terrData = ref();
-    const nodeRef = ref();
-    const { crudRef, crudBinding, crudExpose } = useFs({
-      createCrudOptions,
-      nodeRef,
-      permission: "sys:station",
-    });
-
-    // 页面打开后获取列表数据
-    onMounted(() => {
-      getOrgList();
-      crudExpose.doRefresh();
-    });
-
-    getOrgList().then((ret) => {
-      terrData.value = ret;
-      setTimeout(() => {
-        getTree().filterByLevel(2);
-      }, 0);
-    });
-    function handleSelect(checkedKeys, event) {
-      if (!event.selected) {
-        return;
-      }
-      nodeRef.value = event.selectedNodes[0];
-      crudExpose.doRefresh();
-    }
-    function onTreeNodeCheck(keys, event) {
-      console.log("keys event", keys, event);
-    }
-    function getTree() {
-      const tree = unref(terrDataRef);
-      if (!tree) {
-        throw new Error("tree is null!");
-      }
-      return tree;
-    }
-    return {
-      terrDataRef,
-      terrData,
-      crudBinding,
-      crudRef,
-      handleSelect,
-      onTreeNodeCheck,
-    };
-  },
+const treeRef = ref<Nullable<TreeActionType>>(null);
+const terrData = ref();
+const nodeRef = ref();
+const { crudRef, crudBinding, crudExpose } = useFs({
+  createCrudOptions,
+  context: { nodeRef, permission: "sys:station" },
 });
+
+// 页面打开后获取列表数据
+onMounted(() => {
+  getOrgList();
+  crudExpose.doRefresh();
+});
+
+getOrgList().then((ret) => {
+  terrData.value = ret;
+  setTimeout(() => {
+    getTree().filterByLevel(2);
+  }, 0);
+});
+function handleSelect(checkedKeys: any, event: any) {
+  if (!event.selected) {
+    return;
+  }
+  nodeRef.value = event.selectedNodes[0];
+  crudExpose.doRefresh();
+}
+function onTreeNodeCheck(keys, event) {
+  console.log("keys event", keys, event);
+}
+function getTree() {
+  const tree = unref(treeRef);
+  if (!tree) {
+    throw new Error("tree is null!");
+  }
+  return tree;
+}
 </script>
-<style lang="less">
-.sys-station-page-card {
+<style lang="less" scoped>
+/deep/ .sys-station-page-card {
   margin-left: 10px;
   .footer {
     .fs-crud-footer {

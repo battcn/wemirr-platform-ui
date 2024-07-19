@@ -10,30 +10,16 @@
   </fs-page>
 </template>
 
-<script>
-import { defineComponent, onMounted } from "vue";
-import createCrudOptions from "./crud";
+<script lang="ts" setup name="DatabasePage">
+import { onMounted } from "vue";
 import { useFs } from "@fast-crud/fast-crud";
+import createCrudOptions from "./crud";
 
-export default defineComponent({
-  name: "DatabaseForm",
-  setup() {
-    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
-    // 页面打开后获取列表数据
-    onMounted(() => {
-      crudExpose.doRefresh();
-    });
+//通过context传递到crud.tsx中
+const { crudBinding, crudRef, crudExpose } = useFs({ createCrudOptions });
 
-    const filter = (inputValue, path) => {
-      return path.some(
-        (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
-      );
-    };
-    return {
-      filter,
-      crudBinding,
-      crudRef,
-    };
-  },
+// 页面打开后获取列表数据
+onMounted(() => {
+  crudExpose.doRefresh();
 });
 </script>

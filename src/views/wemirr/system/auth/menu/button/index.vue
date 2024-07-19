@@ -5,16 +5,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import createCrudOptions from "./crud.js";
 import { useFs } from "@fast-crud/fast-crud";
 
 export default defineComponent({
-  name: "DictItemTable",
+  name: "ResourceButtonTable",
   setup() {
+    const parentId = ref();
     const { crudRef, crudBinding, crudExpose } = useFs({
       createCrudOptions,
-      context: { permission: "sys:dict" },
+      context: { parentId, permission: "sys:menu" },
     });
     // 页面打开后获取列表数据
     onMounted(() => {});
@@ -22,6 +23,7 @@ export default defineComponent({
     return {
       crudBinding,
       crudRef,
+      parentId,
       setSearchFormData: crudExpose.setSearchFormData,
       doRefresh: crudExpose.doRefresh,
     };

@@ -1,8 +1,9 @@
-import { dict } from "@fast-crud/fast-crud";
+import { CreateCrudOptionsProps, CreateCrudOptionsRet, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { defHttp } from "@/utils/http/axios";
 
-export default function ({ nodeRef }) {
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+  const { nodeRef } = props.context;
   return {
     crudOptions: {
       request: {

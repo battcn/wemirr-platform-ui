@@ -7,6 +7,7 @@ import _ from "lodash-es";
  * @param permission {prefix,extra}
  */
 export function useCrudPermission({ permission }) {
+  console.log('permission', permission);
   const { hasPermission } = usePermission();
   const prefix = permission instanceof Object ? permission.prefix : permission;
   //根据权限显示按钮

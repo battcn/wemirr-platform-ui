@@ -1,26 +1,16 @@
 import dayjs from "dayjs";
-import { dict } from "@fast-crud/fast-crud";
+import { CreateCrudOptionsProps, CreateCrudOptionsRet, dict } from "@fast-crud/fast-crud";
 import { defHttp } from "@/utils/http/axios";
 
-export default function () {
-  const pageRequest = async (query: any) =>
-    await defHttp.get({ url: "/authority/login_logs", params: query });
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
-        pageRequest,
+        pageRequest: async (query: any) =>
+          await defHttp.get({ url: "/authority/login_logs", params: query }),
       },
-      table: {
-        scroll: { fixed: true },
-      },
-      actionbar: {
-        show: true,
-        buttons: {
-          add: {
-            show: false,
-          },
-        },
-      },
+      table: { scroll: { fixed: true } },
+      actionbar: { show: true, buttons: { add: { show: false } } },
       rowHandle: {
         width: 70,
         //固定右侧

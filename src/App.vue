@@ -35,10 +35,11 @@ const themeConfig = computed(() =>
         colorWarning: "#EFBD47",
         colorError: "#ED6F6F",
         colorInfo: "#0960bd",
+        borderRadius: 0,
       },
     },
-    isDark.value ? darkTheme : {}
-  )
+    isDark.value ? darkTheme : {},
+  ),
 );
 // Listening to page changes and dynamically changing site titles
 useTitle();
