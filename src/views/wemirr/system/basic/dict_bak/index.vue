@@ -1,29 +1,30 @@
 <template>
-  <fs-page>
+  <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding" />
   </fs-page>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, onMounted } from "vue";
-import createCrudOptions from "./crud.js";
+import createCrudOptions from "./crud";
 import { useFs } from "@fast-crud/fast-crud";
 
 export default defineComponent({
-  name: "TenantDictItemTable",
+  name: "TenantDictPage",
   setup() {
     const { crudRef, crudBinding, crudExpose } = useFs({
       createCrudOptions,
-      context: { permission: "tenant:dict" },
+      permission: "tenant:dict",
     });
+
     // 页面打开后获取列表数据
-    onMounted(() => {});
+    onMounted(() => {
+      crudExpose.doRefresh();
+    });
 
     return {
       crudBinding,
       crudRef,
-      setSearchFormData: crudExpose.setSearchFormData,
-      doRefresh: crudExpose.doRefresh,
     };
   },
 });

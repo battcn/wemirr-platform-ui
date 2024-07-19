@@ -1,44 +1,47 @@
 import dayjs from "dayjs";
-import {
-  AddReq,
-  CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
-  DelReq,
-  dict,
-  EditReq,
-  UserPageQuery,
-  UserPageRes,
-} from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
+import { usePermission } from "@/hooks/web/usePermission";
 import { defHttp } from "@/utils/http/axios";
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function ({ props }) {
+  const { hasPermission } = usePermission();
+  const dictId = props.modelValue;
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
+        pageRequest: async (query: any) => {
           return await defHttp.get({
-            url: `/authority/tenant_dict/${query.dictId}/items`,
+            url: `/authority/tenant_dictionaries/${dictId ?? 0}/items`,
             params: query,
           });
         },
-        addRequest: async ({ form }: AddReq) =>
+        addRequest: async ({ form }: any) =>
           await defHttp.post({
-            url: `/authority/tenant_dict/${form.dictId}/items`,
+            url: `/authority/tenant_dictionaries/${dictId}/items`,
             data: form,
           }),
-        editRequest: async ({ form }: EditReq) =>
+        editRequest: async ({ form }: any) =>
           await defHttp.put({
-            url: `/authority/tenant_dict/${form.dictId}/items/${form.id}`,
+            url: `/authority/tenant_dictionaries/${dictId}/items/${form.id}`,
             data: form,
           }),
-        delRequest: async ({ row }: DelReq) =>
+        delRequest: async ({ row }: any) =>
           await defHttp.delete({
-            url: `/authority/tenant_dict/${row.dictId}/items/${row.id}`,
+            url: `/authority/tenant_dictionaries/${dictId}/items/${row.id}`,
           }),
       },
-      actionbar: { buttons: { add: { show: false } } },
-      toolbar: { buttons: { refresh: { show: false } } },
-      rowHandle: { width: 180, align: "center" },
+      search: { show: false },
+      rowHandle: {
+        width: 150,
+        align: "center",
+        buttons: {
+          view: { size: "small", show: false },
+          edit: { size: "small", show: hasPermission("tenant:dict:edit") },
+          remove: {
+            show: hasPermission("tenant:dict:remove"),
+          },
+        },
+      },
       columns: {
         id: {
           title: "ID",
@@ -55,8 +58,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         label: {
           title: "名称",
           search: { show: true },
-          column: { show: true, width: 180 },
           type: "text",
+          column: { width: 180 },
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
           },
@@ -64,8 +67,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         value: {
           title: "值",
           search: { show: false },
-          column: { show: true, width: 180 },
           type: "text",
+          column: { width: 180 },
           form: {
             rules: [{ required: true, message: "编码不能为空" }],
           },
@@ -73,7 +76,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         status: {
           title: "状态",
           type: "dict-radio",
-          column: { show: true, width: 80 },
+          column: { width: 90 },
           search: { show: true },
           dict: dict({
             data: [
@@ -90,21 +93,25 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         sequence: {
           title: "排序",
+          column: { width: 50, align: "center" },
           type: "number",
           addForm: { value: 0 },
-          column: { show: true, width: 80 },
-          form: { component: { min: 0, max: 1000 } },
+          form: { component: { min: 0, max: 100 } },
         },
         description: {
           title: "描述",
-          column: { show: false, width: 100 },
+          column: { show: false },
           type: ["textarea"],
-          form: { col: { span: 24 } },
+          form: {
+            col: {
+              span: 24,
+            },
+          },
         },
         createdTime: {
           title: "创建时间",
           type: "datetime",
-          column: { width: 180 },
+          column: { width: 180, sorter: true },
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {

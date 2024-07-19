@@ -16,7 +16,7 @@ export default function (callbackFunc: () => void): any {
         column: { show: false, width: 200 },
         form: { show: false, width: 200 },
       },
-      label: {
+      name: {
         title: "名称",
         search: { show: true },
         type: "text",
