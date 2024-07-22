@@ -21,7 +21,7 @@ const { getLocale } = useLocale();
 // const globSetting = useGlobSetting()
 // import { isDevMode } from '@/utils/env'
 // 导出 setupFastCrud
-// 国际化配置见 /src/locales/en  or zh_CN
+// 国际化配置见 /src/locales/en-US  or zh_CN
 export default function (app, i18n) {
   //先安装ui
   app.use(UiAntdv);

@@ -97,7 +97,7 @@ export default defineComponent({
       formWrapperOptions.value.initialForm = {
         id: node.id,
         code: node.code,
-        label: node.label,
+        name: node.name,
         sequence: node.sequence,
         description: node.description,
       };

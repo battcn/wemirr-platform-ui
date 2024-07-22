@@ -5,7 +5,10 @@
         <a-button color="success" @click="openFormWrapper" v-if="hasPermission('tenant:dict:add')"
           >新增字典</a-button
         >
-        <a-button color="success" @click="refreshDictCache" v-if="hasPermission('tenant:dict:refresh')"
+        <a-button
+          color="success"
+          @click="refreshDictCache"
+          v-if="hasPermission('tenant:dict:refresh')"
           >刷新缓存</a-button
         >
         <fs-form-wrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
@@ -97,7 +100,7 @@ export default defineComponent({
       formWrapperOptions.value.initialForm = {
         id: node.id,
         code: node.code,
-        label: node.label,
+        name: node.name,
         sequence: node.sequence,
         description: node.description,
       };

@@ -74,7 +74,7 @@
   const getCurrentLang = computed((): 'zh_CN' | 'en_US' | 'ja_JP' | 'ko_KR' => {
     let lang: Lang;
     switch (unref(getLocale)) {
-      case 'en':
+      case 'en-US':
         lang = 'en_US';
         break;
       case 'ja':

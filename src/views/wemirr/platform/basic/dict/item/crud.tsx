@@ -99,11 +99,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: "描述",
           column: { show: false, width: 100 },
           type: ["textarea"],
-          form: {
-            col: {
-              span: 24,
-            },
-          },
+          form: { col: { span: 24 } },
         },
         createdTime: {
           title: "创建时间",

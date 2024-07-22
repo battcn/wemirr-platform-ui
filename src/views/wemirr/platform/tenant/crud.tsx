@@ -116,7 +116,6 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           more: {
             size: "small",
             text: "更多",
-            // icon: "gg:more-o",
           },
         },
         buttons: {
@@ -125,7 +124,6 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             type: "link",
             title: "连接配置",
             text: "连接配置",
-            // icon: "icomoon-free:infinite",
             size: "small",
             order: 3,
             async click({ row }) {
@@ -134,7 +132,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                 return;
               }
               tenantRow.value = row;
-              console.log("formOptions", formOptions);
+              formOptions.initialForm = { lazy: true };
               await crudExpose.getFormWrapperRef().open(formOptions);
             },
           },

@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
-import createCrudOptions from "./crud.js";
+import createCrudOptions from "./crud";
 import { useFs } from "@fast-crud/fast-crud";
 
 export default defineComponent({
