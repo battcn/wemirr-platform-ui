@@ -7,7 +7,6 @@
       </a-col>
       <a-col :md="24" :lg="17">
         <!-- 基本设置 -->
-        <!--        <ScrollContainer>-->
         <Card :bordered="false" class="account-setting-card">
           <div ref="wrapperRef" :class="prefixCls">
             <Tabs tab-position="left" :tabBarStyle="tabBarStyle">
@@ -19,7 +18,6 @@
             </Tabs>
           </div>
         </Card>
-        <!--        </ScrollContainer>-->
       </a-col>
     </a-row>
   </PageWrapper>

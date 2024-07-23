@@ -45,9 +45,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         remark: {
           title: "备注",
           type: ["textarea"],
-          form: {
-            col: { span: 24 },
-          },
+          column: { show: true, width: 180 },
+          form: { col: { span: 24 } },
         },
         createdName: {
           title: "创建人",
