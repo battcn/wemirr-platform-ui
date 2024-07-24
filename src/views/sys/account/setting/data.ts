@@ -90,13 +90,13 @@ export const secureSettingList: ListItem[] = [
     key: "4",
     title: "备用邮箱",
     description: "已绑定邮箱：：ant***sign.com",
-    extra: "修改",
+    // extra: "修改",
   },
   {
     key: "5",
     title: "MFA 设备",
     description: "未绑定 MFA 设备，绑定后，可以进行二次确认",
-    extra: "修改",
+    // extra: "修改",
   },
 ];
 

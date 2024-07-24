@@ -99,7 +99,7 @@ span.iconify {
   display: block;
   min-width: 1em;
   min-height: 1em;
-  background-color: @iconify-bg-color;
   border-radius: 100%;
+  background-color: @iconify-bg-color;
 }
 </style>

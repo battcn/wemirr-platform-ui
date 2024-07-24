@@ -76,14 +76,17 @@ function getTree() {
 <style lang="less">
 .sys-user-page-card {
   margin-left: 10px;
+
   .footer {
     .fs-crud-footer {
       padding-bottom: 80px;
     }
   }
+
   .ant-card-body {
     padding: 0;
   }
+
   .fs-search-layout-default {
     padding-right: 10px;
   }

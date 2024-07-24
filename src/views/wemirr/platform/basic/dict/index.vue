@@ -199,6 +199,7 @@ export default defineComponent({
   .ant-card-body {
     padding: 0;
   }
+
   .fs-page {
     margin-top: 60px;
   }

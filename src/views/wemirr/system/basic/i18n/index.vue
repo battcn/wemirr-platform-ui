@@ -29,7 +29,7 @@
         <a-button
           v-show="scope.mode !== 'view'"
           type="dashed"
-          style="margin-left: 28%; width: 30%"
+          style=" width: 30%;margin-left: 28%"
           size="small"
           @click="addFilterParams(scope.form)"
         >

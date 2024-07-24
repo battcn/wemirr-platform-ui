@@ -15,7 +15,7 @@
         :actionList="actionList"
       />
     </Card>
-    <Card title="菜单信息" class="w-1/2 menu" style="margin-left: 5px; width: 45%">
+    <Card title="菜单信息" class="w-1/2 menu" style=" width: 45%;margin-left: 5px">
       <BasicForm @register="register" />
     </Card>
     <Card title="资源信息" class="w-1/2 menu-button-table">
@@ -162,11 +162,14 @@ function getTree() {
     padding: 0;
   }
 }
+
 /deep/.menu-button-table {
   margin-left: 5px;
+
   .fs-container {
     padding-right: 5px;
   }
+
   .ant-card-body {
     padding: 5px !important;
   }

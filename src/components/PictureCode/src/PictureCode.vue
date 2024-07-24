@@ -39,8 +39,8 @@ export default defineComponent({
 .@{prefix-cls} {
   .ant-input-group-addon {
     padding-right: 0;
-    background-color: transparent !important;
     border: none;
+    background-color: transparent !important;
 
     button {
       font-size: 14px;

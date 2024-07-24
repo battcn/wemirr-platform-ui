@@ -136,6 +136,7 @@ export default defineComponent({
     }
   }
 }
+
 .ant-tabs-top {
   .ant-spin-nested-loading {
     width: 400px;

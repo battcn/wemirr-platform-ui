@@ -29,19 +29,10 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       rowHandle: { fixed: "right" },
       search: {
         onReset(context: any) {
-          console.log("context", context);
           nodeRef.value = null;
         },
       },
-      table: {
-        scroll: { fixed: true },
-        onFilterChange: (filters: any) => {
-          const form = crudExpose.getSearchFormData();
-          if (filters.sex) {
-            form.sex = filters?.sex[0];
-          }
-        },
-      },
+      table: {scroll: { fixed: true },},
       toolbar: {
         export: {
           server: async (userPageQuery: UserPageQuery) => {
@@ -129,16 +120,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: "性别",
           type: "dict-radio",
           dict: dictFunc(DictCode.SEX),
-          column: {
-            width: 100,
-            align: "center",
-            filterable: true,
-            filterMultiple: false,
-            filters: [
-              { text: "男", value: "1" },
-              { text: "女", value: "2" },
-            ],
-          },
+          column: { width: 100, align: "center" },
           addForm: { value: "1" },
         },
         status: {
@@ -157,6 +139,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               { value: 0, label: "停用", color: "error" },
             ],
           }),
+          addForm: { value: 1 },
           column: { width: 80 },
         },
         email: {
@@ -274,6 +257,14 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             },
           },
         },
+        description: {
+          title: "描述",
+          column: { show: false },
+          type: ["textarea"],
+          form: {
+            col: { span: 24 },
+          },
+        },
         createdTime: {
           title: "创建时间",
           type: "datetime",
@@ -299,7 +290,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           groups: {
             baseInfo: {
               header: "基础信息",
-              columns: ["username", "password", "nickName", "sex", "status"],
+              columns: ["username", "password", "nickName", "sex", "status","description"],
             },
             orgInfo: {
               header: "职位信息",

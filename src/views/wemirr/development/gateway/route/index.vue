@@ -41,7 +41,7 @@
             v-show="scope.mode !== 'view'"
             v-else
             color="#2db7f5"
-            style="margin-left: 10px; margin-bottom: 15px"
+            style=" margin-bottom: 15px;margin-left: 10px"
             @click="showInput(scopeItem)"
           >
             <PlusSquareOutlined />
@@ -107,7 +107,7 @@
           <a-button
             v-show="scope.mode !== 'view'"
             type="dashed"
-            style="margin-left: 28%; width: 30%"
+            style=" width: 30%;margin-left: 28%"
             size="small"
             @click="addFilterParams(scopeItem)"
           >

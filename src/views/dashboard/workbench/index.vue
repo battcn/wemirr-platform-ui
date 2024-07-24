@@ -32,11 +32,12 @@ setTimeout(() => {
 <style>
 .wp-schedule {
   .add-schedule {
-    cursor: pointer;
     margin: -10px 0 0 10px;
+    cursor: pointer;
   }
+
   .ant-card-body {
-    padding: 10px 8px 10px 8px !important;
+    padding: 10px 8px !important;
   }
 }
 </style>

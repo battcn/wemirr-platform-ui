@@ -12,6 +12,7 @@ enum Api {
   GetPermCode = "/authority/resources/permissions",
   GetCaptchaCode = "/authority/captcha",
   ChangeUserInfo = "/authority/oauth2/change_info",
+  ChangePassword = "/authority/oauth2/change_password",
 }
 /**
  * @description: 验证码登录
@@ -27,11 +28,11 @@ export const loginPicture = (data: LoginPicture, mode: ErrorMessageMode = "none"
         Authorization:
           "Basic " +
           EncryptionFactory.createBase64Encryption().encrypt(
-            data.client_id + ":" + data.client_secret
+            data.client_id + ":" + data.client_secret,
           ),
       },
     },
-    { errorMessageMode: mode }
+    { errorMessageMode: mode },
   );
 };
 
@@ -56,4 +57,8 @@ export function doLogout() {
 
 export function changeUserInfo(data: any) {
   return defHttp.put({ url: Api.ChangeUserInfo, data: data });
+}
+
+export function changePassword(data: any) {
+  return defHttp.put({ url: Api.ChangePassword, data: data });
 }

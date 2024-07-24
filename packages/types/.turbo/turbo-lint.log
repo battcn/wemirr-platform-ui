@@ -1,0 +1,21 @@
+
+> @vben/types@1.0.0 lint /Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/packages/types
+> pnpm eslint .
+
+[31m
+Oops! Something went wrong! :(
+
+ESLint: 8.57.0
+
+Error [ERR_REQUIRE_ESM]: require() of ES Module /Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/packages/types/.eslintrc.js from /Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/node_modules/.pnpm/@eslint+eslintrc@2.1.4/node_modules/@eslint/eslintrc/dist/eslintrc.cjs not supported.
+.eslintrc.js is treated as an ES module file as it is a .js file whose nearest parent package.json contains "type": "module" which declares all .js files in that package scope as ES modules.
+Instead either rename .eslintrc.js to end in .cjs, change the requiring code to use dynamic import() which is available in all CommonJS modules, or change "type": "module" to "type": "commonjs" in /Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/packages/types/package.json to treat all .js files as CommonJS (using .mjs for all ES modules instead).
+
+    at module.exports [as default] (/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/node_modules/.pnpm/import-fresh@3.3.0/node_modules/import-fresh/index.js:32:59)
+    at loadJSConfigFile (/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/node_modules/.pnpm/@eslint+eslintrc@2.1.4/node_modules/@eslint/eslintrc/dist/eslintrc.cjs:2583:47)
+    at loadConfigFile (/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/node_modules/.pnpm/@eslint+eslintrc@2.1.4/node_modules/@eslint/eslintrc/dist/eslintrc.cjs:2667:20)
+    at ConfigArrayFactory.loadInDirectory (/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/node_modules/.pnpm/@eslint+eslintrc@2.1.4/node_modules/@eslint/eslintrc/dist/eslintrc.cjs:2877:34)
+    at CascadingConfigArrayFactory._loadConfigInAncestors (/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/node_modules/.pnpm/@eslint+eslintrc@2.1.4/node_modules/@eslint/eslintrc/dist/eslintrc.cjs:3871:46)
+    at CascadingConfigArrayFactory.getConfigArrayForFile (/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/node_modules/.pnpm/@eslint+eslintrc@2.1.4/node_modules/@eslint/eslintrc/dist/eslintrc.cjs:3792:18)[39m
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 2.[39m
+[43m[30m WARN [39m[49m  Local package.json exists, but node_modules missing, did you mean to install?

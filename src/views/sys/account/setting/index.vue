@@ -68,6 +68,7 @@ export default defineComponent({
     padding: 0 !important;
   }
 }
+
 .account-setting {
   margin: 5px;
   background-color: @component-background;
@@ -75,9 +76,11 @@ export default defineComponent({
   .base-title {
     padding-left: 0;
   }
+
   .ant-tabs-nav-wrap {
     min-height: 700px;
   }
+
   .ant-tabs-tab-active {
     background-color: @item-active-bg;
   }

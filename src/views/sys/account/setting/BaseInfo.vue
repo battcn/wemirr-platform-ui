@@ -13,7 +13,7 @@
     <div class="my-4">
       <p class="mb-2">
         <SolutionOutlined />
-        <span class="ml-2">{{ userInfo.station || "--" }}</span>
+        <span class="ml-2">{{ userInfo.mobile || "--" }}</span>
       </p>
       <p class="mb-2">
         <ClusterOutlined />
@@ -98,10 +98,6 @@ const state = reactive<StResult>({
 });
 // 获取store用户信息
 const userInfo = computed(() => {
-  // 获取用户信息
-  // const { tag } = userStore.getUserInfo;
-  // state.tags = tag ? tag.split(",") : [];
-  // return userStore.getUserInfo || {};
   return userStore.getUserInfo as UserInfo;
 });
 // 关闭输入框
@@ -132,8 +128,7 @@ const handleInputConfirm = async () => {
   if (inputValue && tags.indexOf(inputValue) === -1) {
     tags = [...tags, inputValue];
   }
-  // await changeUserTag({ tags: tags.join(",") });
-  createMessage.success(t("router.common.addSuccess"));
+  createMessage.success(t("common.addSuccess"));
   //   更新store信息
   userStore.setUserInfo(Object.assign(unref(userInfo), { tag: tags.join(",") }));
   Object.assign(state, { tags, inputVisible: false, inputValue: "" });

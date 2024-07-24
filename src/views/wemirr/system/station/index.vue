@@ -68,11 +68,13 @@ function getTree() {
 <style lang="less" scoped>
 /deep/ .sys-station-page-card {
   margin-left: 10px;
+
   .footer {
     .fs-crud-footer {
       padding-bottom: 80px;
     }
   }
+
   .ant-card-body {
     padding: 10px !important;
   }
