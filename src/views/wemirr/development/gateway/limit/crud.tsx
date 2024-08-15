@@ -140,8 +140,8 @@ export default function () {
           valueResolve({ form, key }) {
             const row = form;
             if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
-              row.startTime = row[key][0];
-              row.endTime = row[key][1];
+              row.startTime = dayjs(row[key][0]).format();
+              row.endTime = dayjs(row[key][1]).format();
             } else {
               row.startTime = null;
               row.endTime = null;
@@ -169,7 +169,7 @@ export default function () {
           form: { show: false },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = dayjs(value);
+              row[key] = dayjs(value).format();
             }
           },
         },

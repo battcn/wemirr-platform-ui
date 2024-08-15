@@ -177,8 +177,8 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           valueResolve({ form, key }) {
             const row = form;
             if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
-              row.startTime = dayjs(row[key][0]).unix();
-              row.endTime = dayjs(row[key][1]).unix();
+              row.startTime = dayjs(row[key][0]).format();
+              row.endTime = dayjs(row[key][1]).format();
             } else {
               row.startTime = null;
               row.endTime = null;
@@ -203,7 +203,7 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           column: { width: 180 },
           valueBuilder({ value, row, key }) {
             if (value != null) {
-              row[key] = dayjs(value);
+              row[key] = dayjs(value).format();
             }
           },
         },
