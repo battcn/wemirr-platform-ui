@@ -177,8 +177,8 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           valueResolve({ form, key }) {
             const row = form;
             if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
-              row.startTime = row[key][0];
-              row.endTime = row[key][1];
+              row.startTime = dayjs(row[key][0]).unix();
+              row.endTime = dayjs(row[key][1]).unix();
             } else {
               row.startTime = null;
               row.endTime = null;
