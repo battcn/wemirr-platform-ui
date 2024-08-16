@@ -8,10 +8,11 @@ import dayjs from "dayjs";
 import { DictCode, dictFunc } from "@/api/dict/dict";
 import { defHttp } from "@/utils/http/axios";
 import { downloadByData } from "@/utils/file/download";
+import { useMessage } from "@/hooks/web/useMessage";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const { crudExpose, context } = props;
-  const { nodeRef } = context;
+  const { notification, createConfirm } = useMessage();
+  const { nodeRef } = props.context;
   return {
     crudOptions: {
       request: {
@@ -25,14 +26,39 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           await defHttp.put({ url: `/authority/users/${form.id}`, data: form }),
         delRequest: async ({ row }) => await defHttp.delete({ url: `/authority/users/${row.id}` }),
       },
-      // container: { is: "fs-layout-default" },
-      rowHandle: { fixed: "right" },
+      rowHandle: {
+        width: 240,
+        //固定右侧
+        fixed: "right",
+        buttons: {
+          remove: { order: 2 },
+          resetPassword: {
+            type: "link",
+            order: 1,
+            text: "重置密码",
+            size: "small",
+            title: "重置密码",
+            async click({ row }) {
+              createConfirm({
+                iconType: "warning",
+                title: "风险提示",
+                content: `确定重置 [${row.nickName}] 密码吗 ?`,
+                onOk: () => {
+                  defHttp.put({ url: `/authority/users/${row.id}/reset_password` }).then(() => {
+                    notification.success({ message: "密码重置成功", duration: 2 });
+                  });
+                },
+              });
+            },
+          },
+        },
+      },
       search: {
         onReset(context: any) {
           nodeRef.value = null;
         },
       },
-      table: {scroll: { fixed: true },},
+      table: { scroll: { fixed: true } },
       toolbar: {
         export: {
           server: async (userPageQuery: UserPageQuery) => {
@@ -294,7 +320,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           groups: {
             baseInfo: {
               header: "基础信息",
-              columns: ["username", "password", "nickName", "sex", "status","description"],
+              columns: ["username", "password", "nickName", "sex", "status", "description"],
             },
             orgInfo: {
               header: "职位信息",
