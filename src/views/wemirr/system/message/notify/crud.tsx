@@ -3,7 +3,7 @@ import { useMessage } from "@/hooks/web/useMessage";
 import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { usePermission } from "@/hooks/web/usePermission";
-import { DictCode, dictFunc } from "@/api/dict/dict";
+import { SysDictCode, sysDictFunc } from "@/api/dict/dict";
 
 export default function ({ searchRemote }) {
   const { hasPermission } = usePermission();
@@ -69,7 +69,7 @@ export default function ({ searchRemote }) {
           type: "dict-select",
           search: { show: true },
           column: { show: true, width: 180 },
-          dict: dictFunc(DictCode.NOTICE),
+          dict: sysDictFunc(SysDictCode.NOTICE),
           form: {
             rules: [{ required: true, message: "消息类型不能为空" }],
           },

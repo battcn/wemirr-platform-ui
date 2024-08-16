@@ -5,13 +5,15 @@ import {
   UserPageQuery,
 } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { DictCode, dictFunc } from "@/api/dict/dict";
+import { SysDictCode, sysDictFunc } from "@/api/dict/dict";
 import { defHttp } from "@/utils/http/axios";
 import { downloadByData } from "@/utils/file/download";
 import { useMessage } from "@/hooks/web/useMessage";
+import { usePermission } from "@/hooks/web/usePermission";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { notification, createConfirm } = useMessage();
+  const { hasPermission } = usePermission();
   const { nodeRef } = props.context;
   return {
     crudOptions: {
@@ -38,15 +40,22 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             text: "重置密码",
             size: "small",
             title: "重置密码",
+            show: hasPermission("sys:user:reset"),
             async click({ row }) {
               createConfirm({
                 iconType: "warning",
                 title: "风险提示",
                 content: `确定重置 [${row.nickName}] 密码吗 ?`,
                 onOk: () => {
-                  defHttp.put({ url: `/authority/users/${row.id}/reset_password` }).then(() => {
-                    notification.success({ message: "密码重置成功", duration: 2 });
-                  });
+                  defHttp
+                    .put({ url: `/authority/users/${row.id}/reset_password` })
+                    .then(() => {
+                      notification.success({ message: "密码重置成功", duration: 2 });
+                    })
+                    .catch((ret) => {
+                      console.error("异常原因 - ", ret);
+                      notification.error({ message: "密码重置异常", duration: 2 });
+                    });
                 },
               });
             },
@@ -149,7 +158,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         sex: {
           title: "性别",
           type: "dict-radio",
-          dict: dictFunc(DictCode.SEX),
+          dict: sysDictFunc(SysDictCode.SEX),
           column: { width: 100, align: "center" },
           addForm: { value: "1" },
         },
@@ -262,7 +271,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: "民族",
           type: "dict-select",
           column: { width: 90 },
-          dict: dictFunc(DictCode.NATION),
+          dict: sysDictFunc(SysDictCode.NATION),
           form: {
             component: {
               showSearch: true,
@@ -277,7 +286,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           search: { show: true },
           type: "dict-select",
           column: { width: 90 },
-          dict: dictFunc(DictCode.EDUCATION),
+          dict: sysDictFunc(SysDictCode.EDUCATION),
           form: {
             component: {
               showSearch: true,
