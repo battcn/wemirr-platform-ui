@@ -112,6 +112,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             ],
           }),
           form: {
+            rules: [{ required: true, message: "请输入编码" }],
             component: { radioName: "a-radio-button" },
             valueChange: ({ value, form, ...content }) => {
               console.log("value", value, "form", form, "content", content);
