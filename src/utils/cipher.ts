@@ -1,6 +1,7 @@
 import { decrypt as aesDecrypt, encrypt as aesEncrypt } from "crypto-js/aes";
 import UTF8, { parse } from "crypto-js/enc-utf8";
-import pkcs7 from "crypto-js/pad-pkcs7";
+// import padding from "crypto-js/pad-nopadding";
+import CryptoJS from "crypto-js";
 import CTR from "crypto-js/mode-ctr";
 import Base64 from "crypto-js/enc-base64";
 import MD5 from "crypto-js/md5";
@@ -35,8 +36,8 @@ class AesEncryption implements Encryption {
 
   get getOptions() {
     return {
-      mode: CTR,
-      padding: pkcs7,
+      mode: CryptoJS.mode.CTR,
+      padding: CryptoJS.pad.NoPadding,
       iv: this.iv,
     };
   }

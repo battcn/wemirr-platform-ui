@@ -156,6 +156,7 @@ import { useUserStore } from "@/store/modules/user";
 import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from "./useLogin";
 import { useDesign } from "@/hooks/web/useDesign";
 import { PictureCode } from "@/components/PictureCode";
+import { EncryptionFactory } from "@/utils/cipher";
 
 const ACol = Col;
 const ARow = Row;
@@ -190,7 +191,12 @@ async function handleLogin() {
   try {
     loading.value = true;
     const userInfo = await userStore.login({
-      password: data.password,
+      // password: data.password,
+      password: EncryptionFactory.createAesEncryption({
+        key: "we-wemirr-groups",
+        iv: "we-wemirr-groups",
+      }).encrypt(data.password),
+      // password: "JGZtDYE9RLIX0FFxa0hKiQ==",
       username: data.username,
       tenant_code: data.tenantCode,
       grant_type: "password",
