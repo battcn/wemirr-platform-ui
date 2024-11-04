@@ -15,17 +15,17 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(vue@3.4.32)
       '@fast-crud/fast-crud':
-        specifier: ^1.21.2
-        version: 1.21.2(vue@3.4.32)
+        specifier: ^1.22.3
+        version: 1.22.3(vue@3.4.32)
       '@fast-crud/fast-extends':
-        specifier: ^1.21.2
-        version: 1.21.2(vue@3.4.32)
+        specifier: ^1.22.3
+        version: 1.22.3(vue@3.4.32)
       '@fast-crud/ui-antdv4':
-        specifier: ^1.21.2
-        version: 1.21.2
+        specifier: ^1.22.3
+        version: 1.22.3
       '@fast-crud/ui-interface':
-        specifier: ^1.21.2
-        version: 1.21.2
+        specifier: ^1.22.3
+        version: 1.22.3
       '@iconify/iconify':
         specifier: ^3.1.0
         version: 3.1.1
@@ -2487,8 +2487,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fast-crud/fast-crud@1.21.2(vue@3.4.32):
-    resolution: {integrity: sha512-SEr3oUyuVlOnc+Ga35DmiPUABc4gy+lb4S7ZEg6b0rPkbjuHScWq+ecHd00xd9XIkAtSw001sEZiWUWmHAkruw==}
+  /@fast-crud/fast-crud@1.22.3(vue@3.4.32):
+    resolution: {integrity: sha512-r7gO9LT4GaO9mLvJxQUdMfRZUsje9xoP0XGc1V0vMxIMZGRJ2zKiE5tx0CnrvjzYIh4K2wbUQN7+FSbTsXNiSg==}
     dependencies:
       file-saver: 2.0.5
       lru-cache: 10.4.3
@@ -2498,8 +2498,8 @@ packages:
       - vue
     dev: false
 
-  /@fast-crud/fast-extends@1.21.2(vue@3.4.32):
-    resolution: {integrity: sha512-vy1q9qzEkgpbWY+/IN/vm5o5k2yNupZmIzdfJHCNs3xgpBQtrZ5m4CP4ZOUJlOB7ECi6vDWCWznqMXjA9xmGAg==}
+  /@fast-crud/fast-extends@1.22.3(vue@3.4.32):
+    resolution: {integrity: sha512-Rm2kFKd0LA0939VFEYpvl67NoW3HXurH0rN0DezK7mBCXMEVCyuZDQSBk4jf0Gm30G+OOYmcSCQ0/QlciUk2tg==}
     dependencies:
       '@aws-sdk/client-s3': 3.616.0
       '@aws-sdk/s3-request-presigner': 3.616.0
@@ -2529,12 +2529,12 @@ packages:
       - vue
     dev: false
 
-  /@fast-crud/ui-antdv4@1.21.2:
-    resolution: {integrity: sha512-Ins7ICLMGcE2Syrlc9CYG81kUSPpgV6K1UfYwa5etgUM22ss+gyRq/SL3WzTjcFR+IDRWnQu8/HTltkGEq4YTw==}
+  /@fast-crud/ui-antdv4@1.22.3:
+    resolution: {integrity: sha512-HPwNjHVx7ySN7zy/9fx4hd45uOG1cAIs9JFnn6Uk2g4gHLfDh9v1wCKVAQXgXzB6V3+kmygWoQkrduQ8/LEq3Q==}
     dev: false
 
-  /@fast-crud/ui-interface@1.21.2:
-    resolution: {integrity: sha512-XyKq4sv9k9ku2sE4BsEJePGLeqFAiD1xTavKD+KIY52nBn7xiis7mUP35cKsnpPkAsHIl1rvS4cv+XZMAfUlSQ==}
+  /@fast-crud/ui-interface@1.22.3:
+    resolution: {integrity: sha512-UjemzlLIFSLDm2EpWE+91E+YGR5ULgcSNL06AnSyv7b2vBMNBuWbmuApENxjmkLZ3P0xApmTDbQeUqs6ATWhFA==}
     dependencies:
       lodash-es: 4.17.21
     dev: false
