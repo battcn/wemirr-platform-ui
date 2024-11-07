@@ -125,9 +125,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               { required: true, message: "请输入密码" },
               { min: 8, max: 30, message: "长度在 8 到 30 个字符" },
               {
-                pattern: /^(?![A-Za-z0-9]+$)(?![a-z0-9\W]+$)(?![A-Za-z\W]+$)(?![A-Z0-9\W]+$)[a-zA-Z0-9\W]{8,30}$/,
-                message: "密码至少8个字符，并且包含大写字母、小写字母、数字和特殊字符。",
-                trigger: 'blur'
+                pattern:
+                  /^(?![A-Za-z0-9]+$)(?![a-z0-9\W]+$)(?![A-Za-z\W]+$)(?![A-Z0-9\W]+$)[a-zA-Z0-9\W]{8,30}$/,
+                message: "需同时包含大写字母、小写字母、数字和特殊字符",
               },
             ],
           },
