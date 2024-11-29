@@ -17,23 +17,23 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
           return await defHttp.get({
-            url: `/authority/tenant_dict/${query.dictId}/items`,
+            url: `iam/tenant_dict/${query.dictId}/items`,
             params: query,
           });
         },
         addRequest: async ({ form }: AddReq) =>
           await defHttp.post({
-            url: `/authority/tenant_dict/${form.dictId}/items`,
+            url: `iam/tenant_dict/${form.dictId}/items`,
             data: form,
           }),
         editRequest: async ({ form }: EditReq) =>
           await defHttp.put({
-            url: `/authority/tenant_dict/${form.dictId}/items/${form.id}`,
+            url: `iam/tenant_dict/${form.dictId}/items/${form.id}`,
             data: form,
           }),
         delRequest: async ({ row }: DelReq) =>
           await defHttp.delete({
-            url: `/authority/tenant_dict/${row.dictId}/items/${row.id}`,
+            url: `iam/tenant_dict/${row.dictId}/items/${row.id}`,
           }),
       },
       actionbar: { buttons: { add: { show: false } } },

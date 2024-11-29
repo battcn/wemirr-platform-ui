@@ -13,12 +13,12 @@ export const enum BusinessDictCode {}
 
 export const sysDictFunc = (code: SysDictCode) => {
   return dict({
-    url: `/authority/dict/${code}/list`,
+    url: `iam/dict/${code}/list`,
   });
 };
 
 export const businessDictFunc = (code: BusinessDictCode) => {
   return dict({
-    url: `/authority/tenant_dict/${code}/list`,
+    url: `iam/tenant_dict/${code}/list`,
   });
 };

@@ -27,7 +27,7 @@ const customOptions = {
         value: "id",
         label: "name",
         getNodesByValues: async (values: any[]) => {
-          return defHttp.get({ url: "/authority/databases/active", params: values });
+          return defHttp.get({ url: "iam/databases/active", params: values });
         },
       }),
       form: {
@@ -74,7 +74,7 @@ const customOptions = {
     wrapper: { title: "租户配置" },
     doSubmit({ form }) {
       defHttp
-        .put({ url: `/authority/tenants/${tenantRow.value.id}/config`, data: form })
+        .put({ url: `iam/tenants/${tenantRow.value.id}/config`, data: form })
         .then(() => {
           notification.success({ message: "租户配置成功", duration: 2 });
         })
@@ -98,14 +98,14 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             query.cityId = query?.area[1];
             query.districtId = query?.area[2];
           }
-          return await defHttp.post({ url: `/authority/tenants/page`, data: query });
+          return await defHttp.post({ url: `iam/tenants/page`, data: query });
         },
         addRequest: async ({ form }) =>
-          await defHttp.post({ url: `/authority/tenants`, data: form }),
+          await defHttp.post({ url: `iam/tenants`, data: form }),
         editRequest: async ({ form }) =>
-          await defHttp.put({ url: `/authority/tenants/${form.id}`, data: form }),
+          await defHttp.put({ url: `iam/tenants/${form.id}`, data: form }),
         delRequest: async ({ row }) =>
-          await defHttp.delete({ url: `/authority/tenants/${row.id}` }),
+          await defHttp.delete({ url: `iam/tenants/${row.id}` }),
       },
       rowHandle: {
         width: 280,
@@ -149,7 +149,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                 title: "风险提示",
                 content: `确定初始化 [${row.name}] 数据吗?`,
                 onOk: () => {
-                  defHttp.put({ url: `/authority/tenants/${row.id}/init_sql_script` }).then(() => {
+                  defHttp.put({ url: `iam/tenants/${row.id}/init_sql_script` }).then(() => {
                     notification.success({ message: "租户数据初始化成功", duration: 2 });
                   });
                 },

@@ -46,7 +46,7 @@ const handleMenuClick = (e) => {
     title: "提示",
     content: "是否批量删除",
     onOk: async () => {
-      defHttp.request({ url: `/authority/opt_logs/${e.key}`, method: "delete" }).then((ret) => {
+      defHttp.request({ url: `iam/opt_logs/${e.key}`, method: "delete" }).then((ret) => {
         notification.success({
           message: "批量删除成功",
           duration: 3,

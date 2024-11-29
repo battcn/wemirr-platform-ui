@@ -2,7 +2,7 @@ import { defHttp } from "@/utils/http/axios";
 
 export function GetResourceList(query: any) {
   return defHttp.request({
-    url: "/authority/resources",
+    url: "iam/resources",
     method: "get",
     params: query,
   });
@@ -16,7 +16,7 @@ export function SaveOrUpdate(obj: any) {
 }
 export function AddObj(obj: any) {
   return defHttp.request({
-    url: "/authority/resources",
+    url: "iam/resources",
     method: "post",
     data: obj,
   });
@@ -24,7 +24,7 @@ export function AddObj(obj: any) {
 
 export function UpdateObj(obj: any) {
   return defHttp.request({
-    url: `/authority/resources/${obj.id}`,
+    url: `iam/resources/${obj.id}`,
     method: "put",
     data: obj,
   });
@@ -32,7 +32,7 @@ export function UpdateObj(obj: any) {
 
 export function DelObj(id: any) {
   return defHttp.request({
-    url: `/authority/resources/${id}`,
+    url: `iam/resources/${id}`,
     method: "delete",
     data: { id },
   });

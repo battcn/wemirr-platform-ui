@@ -7,13 +7,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.get({ url: `/authority/databases`, params: query }),
+          await defHttp.get({ url: `iam/databases`, params: query }),
         addRequest: async ({ form }: any) =>
-          await defHttp.post({ url: `/authority/databases`, data: form }),
+          await defHttp.post({ url: `iam/databases`, data: form }),
         editRequest: async ({ form }: any) =>
-          await defHttp.put({ url: `/authority/databases/${form.id}`, data: form }),
+          await defHttp.put({ url: `iam/databases/${form.id}`, data: form }),
         delRequest: async ({ row }: any) =>
-          await defHttp.delete({ url: `/authority/databases/${row.id}` }),
+          await defHttp.delete({ url: `iam/databases/${row.id}` }),
       },
       rowHandle: { fixed: "right" },
       columns: {

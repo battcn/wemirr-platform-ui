@@ -2,14 +2,14 @@ import { defHttp } from "@/utils/http/axios";
 
 export function GetList(query) {
   return defHttp.request({
-    url: "/authority/site_notifies/page",
+    url: "iam/site_notifies/page",
     method: "get",
     params: query,
   });
 }
 export function AddObj(obj) {
   return defHttp.request({
-    url: "/authority/site_notifies",
+    url: "iam/site_notifies",
     method: "post",
     data: obj,
   });
@@ -17,7 +17,7 @@ export function AddObj(obj) {
 
 export function UpdateObj(obj) {
   return defHttp.request({
-    url: `/authority/site_notifies/${obj.id}`,
+    url: `iam/site_notifies/${obj.id}`,
     method: "put",
     data: obj,
   });
@@ -25,7 +25,7 @@ export function UpdateObj(obj) {
 
 export function DelObj(id) {
   return defHttp.request({
-    url: `/authority/site_notifies/${id}`,
+    url: `iam/site_notifies/${id}`,
     method: "delete",
     data: { id },
   });
@@ -33,7 +33,7 @@ export function DelObj(id) {
 
 export function SearchReceiver(type, value) {
   return defHttp.request({
-    url: `/authority/site_notifies/${type}/receivers`,
+    url: `iam/site_notifies/${type}/receivers`,
     method: "get",
     params: { search: value },
   });
@@ -41,7 +41,7 @@ export function SearchReceiver(type, value) {
 
 export function PublishMessage(id) {
   return defHttp.request({
-    url: `/authority/site_notifies/${id}/publish`,
+    url: `iam/site_notifies/${id}/publish`,
     method: "patch",
     data: { id },
   });

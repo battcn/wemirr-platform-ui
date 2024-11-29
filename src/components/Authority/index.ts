@@ -1,4 +1,4 @@
 import { withInstall } from '@/utils';
-import authority from './src/Authority.vue';
+import authority from './srciam.vue';
 
 export const Authority = withInstall(authority);

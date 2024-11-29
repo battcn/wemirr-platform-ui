@@ -3,7 +3,7 @@ import { getMenuListResultModel } from "./model/menuModel";
 import { GetPermissionListModel } from "@/api/sys/model/roleModel";
 
 enum Api {
-  GetMenuList = "/authority/resources/router",
+  GetMenuList = "iam/resources/router",
 }
 
 /**
@@ -16,7 +16,7 @@ export const getMenuList = () => {
 
 export const GetPermissionList = (roleId: number) => {
   return defHttp.get<GetPermissionListModel>({
-    url: `/authority/roles/${roleId}/permissions`,
+    url: `iam/roles/${roleId}/permissions`,
     params: { roleId: roleId },
   });
 };

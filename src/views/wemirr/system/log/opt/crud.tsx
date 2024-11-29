@@ -13,7 +13,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.get({ url: "/authority/opt_logs", params: query }),
+          await defHttp.get({ url: "iam/opt_logs", params: query }),
       },
       table: { scroll: { fixed: true } },
       actionbar: { show: true, buttons: { add: { show: false } } },

@@ -6,13 +6,13 @@ import { EncryptionFactory } from "@/utils/cipher";
 import { UserInfo } from "#/store";
 
 enum Api {
-  Login = "/authority/oauth2/token",
-  Logout = "/authority/oauth2/logout",
-  GetUserInfo = "/authority/oauth2/userinfo",
-  GetPermCode = "/authority/resources/permissions",
-  GetCaptchaCode = "/authority/captcha",
-  ChangeUserInfo = "/authority/oauth2/change_info",
-  ChangePassword = "/authority/oauth2/change_password",
+  Login = "iam/oauth2/token",
+  Logout = "iam/oauth2/logout",
+  GetUserInfo = "iam/oauth2/userinfo",
+  GetPermCode = "iam/resources/permissions",
+  GetCaptchaCode = "iam/captcha",
+  ChangeUserInfo = "iam/oauth2/change_info",
+  ChangePassword = "iam/oauth2/change_password",
 }
 /**
  * @description: 验证码登录
