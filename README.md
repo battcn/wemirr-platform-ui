@@ -1,27 +1,3 @@
-## 演示图
-![左侧菜单混合](./images/left_mix_style.png)
-![顶部菜单混合-1](./images/top_mix.png)
-![顶部菜单混合-2](./images/top_mix_style.png)
-![顶部菜单混合-3](./images/top_mix_style2.png)
-
-![分配用户](./images/binding_user.png)
-
-![分配权限](./images/binding_res.png)
-
-![黑白名单](./images/blacklist.png)
-
-![限流配置](./images/limit.png)
-
-![菜单管理](./images/menu.png)
-
-![监控管理](./images/monitor.png)
-
-![操作日志](./images/opt_log.png)
-
-![发布消息](./images/publish_message.png)
-
-![用户列表](./images/users.png)
-
 ## 安装使用
 
 - 获取项目代码
