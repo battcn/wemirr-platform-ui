@@ -1,19 +1,20 @@
 <template>
-  <PageWrapper contentClass="flex" contentFullHeight fixedHeight>
+  <Page content-class="flex gap-2">
     <Card :bordered="false" class="w-1/3 xl:w-1/4">
-      <BasicTree
-        search
-        checkStrictly
-        @check="onTreeNodeCheck"
-        :clickRowToExpand="false"
-        ref="terrRef"
-        :treeData="terrData"
-        :fieldNames="{ key: 'id', title: 'name' }"
-        @select="handleSelect"
+      <a-tree
+          v-model:expandedKeys="expandedKeys"
+          :show-line="false"
+          :show-icon="false"
+          :autoExpandParent="true"
+          :default-expand-all="true"
+          ref="terrRef"
+          :treeData="terrData"
+          :fieldNames="{ key: 'id', title: 'name' }"
+          @select="handleSelect"
       />
     </Card>
     <Card title="用户管理" class="w-full sys-user-page-card">
-      <fs-crud ref="crudRef" v-bind="crudBinding">
+      <fs-crud ref="crudRef" v-bind="crudBinding" class="relative right-2 w-[360px] p-0">
         <template #cell_nickName="scope">
           <a-tooltip placement="top" :title="scope.row.nickName">
             {{ scope.row.nickName }}
@@ -21,39 +22,38 @@
         </template>
       </fs-crud>
     </Card>
-  </PageWrapper>
+  </Page>
 </template>
 
 <script lang="ts" setup name="UserPageList">
-import { ref, onMounted, unref } from "vue";
+import { ref, onMounted } from "vue";
 import createCrudOptions from "./crud";
-import { getOrgList } from "@/api/sys/org";
 import { useFs } from "@fast-crud/fast-crud";
-import { PageWrapper } from "@/components/Page";
-import { BasicTree, TreeActionType } from "@/components/Tree";
 import { Card } from "ant-design-vue";
+import {Page} from "@vben/common-ui";
+import {defHttp} from "#/api/request";
 
-const terrRef = ref<Nullable<TreeActionType>>(null);
+// const terrRef = ref<Nullable<TreeActionType>>(null);
 const terrData = ref();
 const nodeRef = ref();
-
+const expandedKeys = ref();
 const { crudBinding, crudRef, crudExpose } = useFs({
   createCrudOptions,
   context: { nodeRef, permission: "sys:user" },
 });
 
-// 页面打开后获取列表数据
-onMounted(() => {
-  getOrgList();
-  crudExpose.doRefresh();
+onMounted(async () => {
+  await initOrgList();
+  await crudExpose.doRefresh();
 });
 
-getOrgList().then((ret) => {
-  terrData.value = ret;
-  setTimeout(() => {
-    getTree().filterByLevel(2);
-  }, 0);
-});
+
+function initOrgList(){
+  defHttp.get("/iam/org/trees?parentId=0").then((ret)=>{
+    terrData.value = ret;
+    expandedKeys.value = ret.filter((item:any) => item.parentId === '0').map((item:any) => item.id);
+  });
+}
 function handleSelect(checkedKeys: any, event: any) {
   if (!event.selected) {
     return;
@@ -61,34 +61,19 @@ function handleSelect(checkedKeys: any, event: any) {
   nodeRef.value = event.selectedNodes[0];
   crudExpose.doRefresh();
 }
-function onTreeNodeCheck(keys, event) {
-  console.log("keys event", keys, event);
-}
-function getTree() {
-  const tree = unref(terrRef);
-  if (!tree) {
-    throw new Error("tree is null!");
-  }
-  return tree;
-}
 </script>
 
-<style lang="less">
-.sys-user-page-card {
-  margin-left: 10px;
-
-  .footer {
-    .fs-crud-footer {
-      padding-bottom: 80px;
-    }
+<style lang="less" scoped>
+/deep/.p-4{
+  padding: 8px !important;
+}
+/deep/.sys-user-page-card {
+  .fs-crud-container{
+    min-height: 740px !important;
+    max-height: 980px !important;
   }
-
-  .ant-card-body {
-    padding: 0;
-  }
-
-  .fs-search-layout-default {
-    padding-right: 10px;
+  .ant-card-body{
+    padding: 8px;
   }
 }
 </style>

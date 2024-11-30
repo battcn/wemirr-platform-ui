@@ -1,32 +1,25 @@
-import {
-  CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
-  dict,
-  UserPageQuery,
-} from "@fast-crud/fast-crud";
+import type { CreateCrudOptionsProps, CreateCrudOptionsRet, UserPageQuery } from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { SysDictCode, sysDictFunc } from "@/api/dict/dict";
+import { SysDictCode, sysDictFunc } from "#/api";
 import { defHttp } from '#/api/request';
-import { downloadByData } from "@/utils/file/download";
-import { useMessage } from "@/hooks/web/useMessage";
-import { usePermission } from "@/hooks/web/usePermission";
+import { Modal, notification } from "ant-design-vue";
+// import { downloadByData } from "@/utils/file/download";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const { notification, createConfirm } = useMessage();
-  const { hasPermission } = usePermission();
   const { nodeRef } = props.context;
   return {
     crudOptions: {
       request: {
         pageRequest: async (query: any) => {
           query.orgId = query.orgId > 0 ? null : nodeRef?.value?.id;
-          return await defHttp.post({ url: `/iam/users/page`, data: query });
+          return await defHttp.post(`/iam/users/page`, query);
         },
         addRequest: async ({ form }) =>
-          await defHttp.post({ url: `/iam/users/create`, data: form }),
+          await defHttp.post( `/iam/users/create`, form),
         editRequest: async ({ form }) =>
-          await defHttp.put({ url: `/iam/users/${form.id}`, data: form }),
-        delRequest: async ({ row }) => await defHttp.delete({ url: `/iam/users/${row.id}` }),
+          await defHttp.put(`/iam/users/${form.id}`, form ),
+        delRequest: async ({ row }) => await defHttp.delete(`/iam/users/${row.id}`),
       },
       rowHandle: {
         width: 240,
@@ -40,7 +33,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             text: "重置密码",
             size: "small",
             title: "重置密码",
-            show: hasPermission("sys:user:reset"),
+            // show: hasPermission("sys:user:reset"),
             async click({ row }) {
               Modal.confirm({
                 iconType: "warning",
@@ -48,7 +41,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                 content: `确定重置 [${row.nickName}] 密码吗 ?`,
                 onOk: () => {
                   defHttp
-                    .put({ url: `/iam/users/${row.id}/reset_password` })
+                    .put(`/iam/users/${row.id}/reset_password`)
                     .then(() => {
                       notification.success({ message: "密码重置成功", duration: 2 });
                     })
@@ -71,18 +64,16 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       toolbar: {
         export: {
           server: async (userPageQuery: UserPageQuery) => {
-            await defHttp
-              .request(
+            await defHttp.request(`/iam/users/export`,
                 {
-                  url: `/iam/users/export`,
                   method: "POST",
                   params: userPageQuery,
                   responseType: "blob",
                 },
-                { isTransformResponse: false },
+                // { isTransformResponse: false },
               )
               .then((res) => {
-                downloadByData(res, `用户列表.xlsx`);
+                // downloadByData(res, `用户列表.xlsx`);
               });
           },
         },

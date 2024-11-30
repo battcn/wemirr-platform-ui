@@ -89,12 +89,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             query.cityId = query?.area[1];
             query.districtId = query?.area[2];
           }
-          return await defHttp.post( `/iam/tenants/page`,{ data: query });
+          return await defHttp.post( `/iam/tenants/page`,query);
         },
         addRequest: async ({ form }) =>
-          await defHttp.post(`/iam/tenants`,{ data: form }),
+          await defHttp.post(`/iam/tenants`,form),
         editRequest: async ({ form }) =>
-          await defHttp.put(`/iam/tenants/${form.id}`,{ data: form }),
+          await defHttp.put(`/iam/tenants/${form.id}`,form),
         delRequest: async ({ row }) =>
           await defHttp.delete( `/iam/tenants/${row.id}` ),
       },
