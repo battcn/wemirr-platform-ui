@@ -20,13 +20,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       request: {
         pageRequest: async (query: any) => {
           query.orgId = query.orgId > 0 ? null : nodeRef?.value?.id;
-          return await defHttp.post({ url: `/authority/users/page`, data: query });
+          return await defHttp.post({ url: `/iam/users/page`, data: query });
         },
         addRequest: async ({ form }) =>
-          await defHttp.post({ url: `/authority/users/create`, data: form }),
+          await defHttp.post({ url: `/iam/users/create`, data: form }),
         editRequest: async ({ form }) =>
-          await defHttp.put({ url: `/authority/users/${form.id}`, data: form }),
-        delRequest: async ({ row }) => await defHttp.delete({ url: `/authority/users/${row.id}` }),
+          await defHttp.put({ url: `/iam/users/${form.id}`, data: form }),
+        delRequest: async ({ row }) => await defHttp.delete({ url: `/iam/users/${row.id}` }),
       },
       rowHandle: {
         width: 240,
@@ -42,13 +42,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             title: "重置密码",
             show: hasPermission("sys:user:reset"),
             async click({ row }) {
-              createConfirm({
+              Modal.confirm({
                 iconType: "warning",
                 title: "风险提示",
                 content: `确定重置 [${row.nickName}] 密码吗 ?`,
                 onOk: () => {
                   defHttp
-                    .put({ url: `/authority/users/${row.id}/reset_password` })
+                    .put({ url: `/iam/users/${row.id}/reset_password` })
                     .then(() => {
                       notification.success({ message: "密码重置成功", duration: 2 });
                     })
@@ -74,7 +74,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             await defHttp
               .request(
                 {
-                  url: `/authority/users/export`,
+                  url: `/iam/users/export`,
                   method: "POST",
                   params: userPageQuery,
                   responseType: "blob",
@@ -213,7 +213,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 180, component: { color: "auto" } },
           dict: dict({
             isTree: true,
-            url: "/authority/org/trees",
+            url: "/iam/org/trees",
             value: "id",
             label: "name",
           }),
@@ -229,7 +229,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               form.stationId = undefined;
               if (value) {
                 const targetDict = getComponentRef("stationId").getDict();
-                targetDict.url = `/authority/stations/list?orgId=${value}`;
+                targetDict.url = `/iam/stations/list?orgId=${value}`;
                 targetDict.reloadDict();
               }
             },
@@ -241,7 +241,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 150, component: { color: "auto" } },
           dict: dict({
             prototype: false,
-            url: "/authority/stations/list",
+            url: "/iam/stations/list",
             value: "id",
             label: "name",
           }),

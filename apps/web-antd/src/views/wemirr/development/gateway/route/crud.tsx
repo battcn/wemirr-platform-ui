@@ -1,10 +1,9 @@
 import * as api from "./api";
 import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { useMessage } from "@/hooks/web/useMessage";
+import { notification } from "ant-design-vue";
 
 export default function ({ expose }) {
-  console.log("router", expose);
   const pageRequest = async (query) => {
     return await api.GetList(query);
   };
@@ -19,8 +18,6 @@ export default function ({ expose }) {
   const addRequest = async ({ form }) => {
     return await api.SaveOrUpdate(form);
   };
-
-  const { notification } = useMessage();
 
   return {
     crudOptions: {

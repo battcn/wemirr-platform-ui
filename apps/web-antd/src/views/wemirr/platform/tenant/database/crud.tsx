@@ -1,4 +1,5 @@
-import { CreateCrudOptionsProps, CreateCrudOptionsRet, dict } from "@fast-crud/fast-crud";
+import type { CreateCrudOptionsProps, CreateCrudOptionsRet } from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { defHttp } from '#/api/request';
 
@@ -7,13 +8,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.get({ url: `/authority/databases`, params: query }),
+          await defHttp.get(`/iam/databases`, { params: query }),
         addRequest: async ({ form }: any) =>
-          await defHttp.post({ url: `/authority/databases`, data: form }),
+          await defHttp.post(`/iam/databases`,{ data: form }),
         editRequest: async ({ form }: any) =>
-          await defHttp.put({ url: `/authority/databases/${form.id}`, data: form }),
+          await defHttp.put(`/iam/databases/${form.id}`, { data: form }),
         delRequest: async ({ row }: any) =>
-          await defHttp.delete({ url: `/authority/databases/${row.id}` }),
+          await defHttp.delete(`/iam/databases/${row.id}`),
       },
       rowHandle: { fixed: "right" },
       columns: {

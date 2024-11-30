@@ -9,21 +9,21 @@ export function SaveOrUpdate(obj: any) {
 }
 export function AddObj(obj: any) {
   return defHttp.post({
-    url: "/authority/org",
+    url: "/iam/org",
     data: obj,
   });
 }
 
 export function UpdateObj(obj: any) {
   return defHttp.put({
-    url: `/authority/org/${obj.id}`,
+    url: `/iam/org/${obj.id}`,
     data: obj,
   });
 }
 
 export function DelObj(id: any) {
   return defHttp.delete({
-    url: `/authority/org/${id}`,
+    url: `/iam/org/${id}`,
     data: { id },
   });
 }

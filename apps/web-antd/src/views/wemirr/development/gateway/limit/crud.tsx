@@ -3,18 +3,18 @@ import { dict, utils } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 
 export default function () {
-  const pageRequest = async (query) => {
+  const pageRequest = async (query: any) => {
     return await api.GetList(query);
   };
-  const editRequest = async ({ form, row }) => {
+  const editRequest = async ({ form, row }: any) => {
     form.id = row.id;
     return await api.UpdateObj(form);
   };
-  const delRequest = async ({ row }) => {
+  const delRequest = async ({ row }: any) => {
     return await api.DelObj(row.id);
   };
 
-  const addRequest = async ({ form }) => {
+  const addRequest = async ({ form }: any) => {
     return await api.AddObj(form);
   };
   return {
@@ -132,12 +132,12 @@ export default function () {
         dateTimeRange: {
           title: "限时范围",
           type: "datetimerange",
-          valueBuilder({ row, key }) {
+          valueBuilder({ row, key }: any) {
             if (!utils.strings.hasEmpty(row.startTime, row.endTime)) {
               row[key] = [dayjs(row.startTime), dayjs(row.endTime)];
             }
           },
-          valueResolve({ form, key }) {
+          valueResolve({ form, key }: any) {
             const row = form;
             if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
               row.startTime = dayjs(row[key][0]).format();
@@ -167,7 +167,7 @@ export default function () {
           type: "datetime",
           column: { width: 180 },
           form: { show: false },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value != null) {
               row[key] = dayjs(value).format();
             }

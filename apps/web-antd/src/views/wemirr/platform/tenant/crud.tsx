@@ -1,23 +1,14 @@
-import {
-  compute,
-  dict,
-  utils,
-  asyncCompute,
-  useColumns,
-  CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
-} from "@fast-crud/fast-crud";
+import { compute, dict, utils, useColumns } from "@fast-crud/fast-crud";
+import type { CreateCrudOptionsProps, CreateCrudOptionsRet } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { notification } from "ant-design-vue";
-import { getAreaTree } from "@/api/sys/area";
+import {Modal, notification} from "ant-design-vue";
+// import { getAreaTree } from "@/api/sys/area";
 import { ref } from "vue";
 import createCrudOptionsText from "./database/crud";
 import { defHttp } from '#/api/request';
-import { SysDictCode, sysDictFunc } from "@/api/dict/dict";
 
 const tenantRow = ref();
 const { buildFormOptions } = useColumns();
-// const { notification, createConfirm } = useMessage();
 const customOptions = {
   columns: {
     datasourceId: {
@@ -27,7 +18,7 @@ const customOptions = {
         value: "id",
         label: "name",
         getNodesByValues: async (values: any[]) => {
-          return defHttp.get({ url: "/authority/databases/active", params: values });
+          return defHttp.get('/iam/databases/active',{ params: values });
         },
       }),
       form: {
@@ -72,9 +63,9 @@ const customOptions = {
   },
   form: {
     wrapper: { title: "租户配置" },
-    doSubmit({ form }) {
+    doSubmit({ form }: any): void {
       defHttp
-        .put({ url: `/authority/tenants/${tenantRow.value.id}/config`, data: form })
+        .put(`/iam/tenants/${tenantRow.value.id}/config`,{ data: form })
         .then(() => {
           notification.success({ message: "租户配置成功", duration: 2 });
         })
@@ -98,14 +89,14 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             query.cityId = query?.area[1];
             query.districtId = query?.area[2];
           }
-          return await defHttp.post({ url: `/authority/tenants/page`, data: query });
+          return await defHttp.post( `/iam/tenants/page`,{ data: query });
         },
         addRequest: async ({ form }) =>
-          await defHttp.post({ url: `/authority/tenants`, data: form }),
+          await defHttp.post(`/iam/tenants`,{ data: form }),
         editRequest: async ({ form }) =>
-          await defHttp.put({ url: `/authority/tenants/${form.id}`, data: form }),
+          await defHttp.put(`/iam/tenants/${form.id}`,{ data: form }),
         delRequest: async ({ row }) =>
-          await defHttp.delete({ url: `/authority/tenants/${row.id}` }),
+          await defHttp.delete( `/iam/tenants/${row.id}` ),
       },
       rowHandle: {
         width: 280,
@@ -140,16 +131,15 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             type: "link",
             title: "数据初始",
             text: "数据初始",
-            // icon: "bx:bx-refresh",
             size: "small",
             order: 4,
             click({ row }) {
-              createConfirm({
+              Modal.confirm({
                 iconType: "warning",
                 title: "风险提示",
                 content: `确定初始化 [${row.name}] 数据吗?`,
                 onOk: () => {
-                  defHttp.put({ url: `/authority/tenants/${row.id}/init_sql_script` }).then(() => {
+                  defHttp.put(`/iam/tenants/${row.id}/init_sql_script`).then(() => {
                     notification.success({ message: "租户数据初始化成功", duration: 2 });
                   });
                 },
@@ -264,7 +254,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: "行业",
           column: { show: true, width: 150 },
           type: "dict-select",
-          dict: sysDictFunc(SysDictCode.INDUSTRY),
+          // dict: sysDictFunc(SysDictCode.INDUSTRY),
         },
         // 目的是为了用户体验更好,打开弹窗和进入页面更快速
         areaText: {
@@ -312,15 +302,15 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               placeholder: "请选择地址",
               vModel: "value",
               // 这种异步方式比用 dict 打开页面要快，体验要好点 但是存在的问题就是 column 没值
-              options: asyncCompute({
-                asyncFn: async () => {
-                  return await getAreaTree();
-                },
-              }),
+              // options: asyncCompute({
+              //   asyncFn: async () => {
+              //     return await getAreaTree();
+              //   },
+              // }),
               showSearch: {
-                filter: (inputValue, path) => {
+                filter: (inputValue :any, path : any) => {
                   return path.some(
-                    (option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+                    (option: any) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
                   );
                 },
               },
@@ -389,7 +379,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             component: {
               uploader: {
                 type: "form", // 上传后端类型【cos,aliyun,oss,form】
-                buildUrl(res) {
+                buildUrl(res: any) {
                   return "http://www.docmirror.cn:7070/" + res.url;
                 },
               },

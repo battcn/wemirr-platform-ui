@@ -35,7 +35,7 @@ export default defineComponent({
 
     const handleBatchDelete = () => {
       if (selectedRowKeys.value?.length > 0) {
-        createConfirm({
+        Modal.confirm({
           iconType: "warning",
           title: "确认",
           content: `确定要批量删除这${selectedRowKeys.value.length}条记录吗`,

@@ -106,7 +106,7 @@ export default defineComponent({
     }
 
     function handleDelete(node: any) {
-      createConfirm({
+      Modal.confirm({
         iconType: "error",
         title: "删除",
         content: `会级联删除子节点以及相关资源数据`,

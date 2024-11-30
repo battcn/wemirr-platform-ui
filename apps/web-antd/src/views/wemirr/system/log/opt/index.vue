@@ -30,23 +30,22 @@
 import { onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useFs } from "@fast-crud/fast-crud";
-import { useMessage } from "@/hooks/web/useMessage";
+import {Modal, notification} from "ant-design-vue";
 import { defHttp } from '#/api/request';
 
-const { notification, createConfirm } = useMessage();
 const { crudBinding, crudRef, crudExpose } = useFs({ createCrudOptions });
 // 页面打开后获取列表数据
 onMounted(() => {
   crudExpose.doRefresh();
 });
 
-const handleMenuClick = (e) => {
-  createConfirm({
+const handleMenuClick = (e: any) => {
+  Modal.confirm({
     iconType: "warning",
     title: "提示",
     content: "是否批量删除",
     onOk: async () => {
-      defHttp.request({ url: `/authority/opt_logs/${e.key}`, method: "delete" }).then((ret) => {
+      defHttp.delete(`/iam/opt_logs/${e.key}`).then((ret: any) => {
         notification.success({
           message: "批量删除成功",
           duration: 3,

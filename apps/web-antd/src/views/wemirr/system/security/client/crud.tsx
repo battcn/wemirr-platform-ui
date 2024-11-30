@@ -1,4 +1,5 @@
-import { CreateCrudOptionsProps, CreateCrudOptionsRet, dict } from "@fast-crud/fast-crud";
+import type { CreateCrudOptionsProps, CreateCrudOptionsRet } from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { defHttp } from '#/api/request';
 
@@ -7,23 +8,23 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.get({ url: `/authority/registered_client_refs`, params: query }),
+          await defHttp.get(`/iam/registered_client_refs`,{ params: query }),
         addRequest: async ({ form }) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
-          await defHttp.post({ url: `/authority/registered_client_refs`, data: form });
+          await defHttp.post(`/iam/registered_client_refs`, { data: form });
         },
         editRequest: async ({ form }) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
-          await defHttp.post({ url: `/authority/registered_client_refs`, data: form });
+          await defHttp.post(`/iam/registered_client_refs`, { data: form });
         },
         delRequest: async ({ row }) =>
-          await defHttp.delete({ url: `/authority/registered_client_refs/${row.id}` }),
+          await defHttp.delete(`/iam/registered_client_refs/${row.id}`),
       },
       table: {
         rowKey: "clientId",

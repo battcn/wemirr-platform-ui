@@ -81,7 +81,7 @@ function handlePlus(node: any) {
   setFieldsValue({ parentId: node.id });
 }
 function handleDelete(node: any) {
-  createConfirm({
+  Modal.confirm({
     iconType: "warning",
     title: "确认",
     content: `确定删除 ${node.label} ？ 同时会级联删除子节点以及相关资源数据`,

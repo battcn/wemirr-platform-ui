@@ -1,6 +1,7 @@
 import * as api from "./api";
 import _ from "lodash-es";
-import { CreateCrudOptionsProps, CreateCrudOptionsRet, dict, utils } from "@fast-crud/fast-crud";
+import type { CreateCrudOptionsProps, CreateCrudOptionsRet } from "@fast-crud/fast-crud";
+import { dict, utils } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 
 export default function ({ crudExpose, context }: CreateCrudOptionsProps): CreateCrudOptionsRet {

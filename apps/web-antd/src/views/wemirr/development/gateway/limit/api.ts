@@ -1,31 +1,24 @@
 import { defHttp } from '#/api/request';
 
-export function GetList(query) {
-  return defHttp.request({
-    url: "/gateway/rules/limits",
+export function GetList(query: any) {
+  return defHttp.request("/gateway/rules/limits",{
     method: "get",
     params: query,
   });
 }
 
-export function AddObj(obj) {
-  return defHttp.request({
-    url: "/gateway/rules/limits",
-    method: "post",
-    data: obj,
-  });
+export function AddObj(obj: any) {
+  return defHttp.post("/gateway/rules/limits",{ data: obj });
 }
 
-export function UpdateObj(obj) {
-  return defHttp.request({
-    url: `/gateway/rules/limits/${obj.id}`,
+export function UpdateObj(obj: any) {
+  return defHttp.request(`/gateway/rules/limits/${obj.id}`,{
     method: "put",
     data: obj,
   });
 }
-export function DelObj(id) {
-  return defHttp.request({
-    url: `/gateway/rules/limits/${id}`,
+export function DelObj(id: any) {
+  return defHttp.request(`/gateway/rules/limits/${id}`,{
     method: "delete",
     data: { id },
   });

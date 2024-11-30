@@ -1,12 +1,12 @@
 import { defHttp } from '#/api/request';
 
 export function GetList(query: any) {
-  return defHttp.get({ url: "/authority/stations", params: query });
+  return defHttp.get({ url: "/iam/stations", params: query });
 }
 
 export function AddObj(obj: any) {
   return defHttp.request({
-    url: "/authority/stations",
+    url: "/iam/stations",
     method: "post",
     data: obj,
   });
@@ -14,14 +14,14 @@ export function AddObj(obj: any) {
 
 export function UpdateObj(obj: any) {
   return defHttp.request({
-    url: `/authority/stations/${obj.id}`,
+    url: `/iam/stations/${obj.id}`,
     method: "put",
     data: obj,
   });
 }
 export function DelObj(id: string) {
   return defHttp.request({
-    url: `/authority/stations/${id}`,
+    url: `/iam/stations/${id}`,
     method: "delete",
     data: { id },
   });

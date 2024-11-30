@@ -1,19 +1,14 @@
 import dayjs from "dayjs";
-import {
-  CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
-  dict,
-  ValueBuilderContext,
-  ValueResolveContext,
-} from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
+import type {ValueResolveContext} from "@fast-crud/fast-crud";
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function (props: any): any {
   return {
     crudOptions: {
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.get({ url: "/authority/opt_logs", params: query }),
+          await defHttp.get('/iam/opt_logs',{ params: query }),
       },
       table: { scroll: { fixed: true } },
       actionbar: { show: true, buttons: { add: { show: false } } },
@@ -118,7 +113,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: "开始时间",
           type: "datetime",
           column: { width: 180 },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key } :any) {
             if (value != null) {
               row[key] = dayjs(value);
             }
@@ -128,7 +123,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: "结束时间",
           type: "datetime",
           column: { width: 180 },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key } :any) {
             if (value != null) {
               row[key] = dayjs(value);
             }
@@ -152,7 +147,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { show: false },
           form: {
             col: { span: 24 },
-            valueBuilder({ form }: ValueBuilderContext) {
+            valueBuilder({ form } :any) {
               if (form.result == null) {
                 return;
               }

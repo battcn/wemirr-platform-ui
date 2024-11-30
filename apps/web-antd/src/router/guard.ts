@@ -102,9 +102,8 @@ function setupAccessGuard(router: Router) {
     accessStore.setAccessRoutes(accessibleRoutes);
     accessStore.setIsAccessChecked(true);
     const redirectPath = (from.query.redirect ?? to.fullPath) as string;
-    // console.log('userInfo====>>>>', userInfo, accessibleRoutes, accessRoutes)
+    console.log('userInfo====>>>>', userInfo, accessibleRoutes, accessRoutes)
     return {
-      // ...router.resolve(decodeURIComponent(redirectPath)),
       ...router.resolve(decodeURIComponent(redirectPath)),
       replace: true,
     };

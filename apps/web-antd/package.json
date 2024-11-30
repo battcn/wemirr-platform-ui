@@ -31,6 +31,9 @@
     "@fast-crud/ui-antdv4": "^1.23.3",
     "@fast-crud/ui-interface": "^1.23.3",
     "lodash-es": "^4.17.21",
+    "@ant-design/colors": "^7.0.0",
+    "@ant-design/icons-vue": "^6.1.0",
+    "@iconify/iconify": "^3.1.0",
 
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
