@@ -129,8 +129,8 @@ watch(
         :avatar
         :menus
         :text="userStore.userInfo?.realName"
-        description="ann.vben@gmail.com"
-        tag-text="Pro"
+        description="1837307557@qq.com"
+        tag-text="WP-Pro"
         @logout="handleLogout"
       />
     </template>

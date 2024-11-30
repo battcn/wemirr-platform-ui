@@ -1,4 +1,4 @@
-<div align="center"> <a href="https://github.com/anncwb/vue-vben-admin"> <img alt="VbenAdmin Logo" width="215" src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp"> </a> <br> <br>
+<div align="center"> <a href="https://github.com/battcn/wemirr-platform"> <img alt="VbenAdmin Logo" width="215" src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp"> </a> <br> <br>
 
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
@@ -83,7 +83,7 @@ pnpm build
 
 ## How to contribute
 
-You are very welcome to join！[Raise an issue](https://github.com/anncwb/vue-vben-admin/issues/new/choose) Or submit a Pull Request。
+You are very welcome to join！[Raise an issue](https://github.com/battcn/wemirr-platform/issues/new/choose) Or submit a Pull Request。
 
 **Pull Request:**
 
@@ -122,7 +122,7 @@ Support modern browsers, not IE
 
 ## Maintainer
 
-[@Vben](https://github.com/anncwb)
+[@Vben](https://github.com/battcn)
 
 ## Star History
 
@@ -145,7 +145,7 @@ If you think this project is helpful to you, you can help the author buy a cup o
 
 ## Discord
 
-- [Github Discussions](https://github.com/anncwb/vue-vben-admin/discussions)
+- [Github Discussions](https://github.com/battcn/wemirr-platform/discussions)
 
 ## License
 

@@ -11,8 +11,8 @@
   "license": "MIT",
   "author": {
     "name": "vben",
-    "email": "ann.vben@gmail.com",
-    "url": "https://github.com/anncwb"
+    "email": "1837307557@qq.com",
+    "url": "https://github.com/battcn"
   },
   "type": "module",
   "scripts": {
@@ -26,6 +26,12 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "@fast-crud/fast-crud": "^1.23.3",
+    "@fast-crud/fast-extends": "^1.23.3",
+    "@fast-crud/ui-antdv4": "^1.23.3",
+    "@fast-crud/ui-interface": "^1.23.3",
+    "lodash-es": "^4.17.21",
+
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -46,5 +52,8 @@
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.12"
   }
 }

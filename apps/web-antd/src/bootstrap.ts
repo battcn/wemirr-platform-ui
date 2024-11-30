@@ -13,6 +13,7 @@ import { $t, setupI18n } from '#/locales';
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
 import { router } from './router';
+import {registerFastCrud} from "#/plugin/fast-crud/setup-fast-crud";
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
@@ -41,6 +42,9 @@ async function bootstrap(namespace: string) {
       useTitle(pageTitle);
     }
   });
+
+  //----------- 安装fast-crud--------------
+  await registerFastCrud(app);
 
   app.mount('#app');
 }

@@ -73,7 +73,7 @@ function createRequestClient(baseURL: string) {
   client.addResponseInterceptor<HttpResponse>({
     fulfilled: (response) => {
       const { data: responseData, status } = response;
-      console.log('http response', responseData)
+
       const { code, data } = responseData;
       if (status >= 200 && status < 400 && code === 200) {
         return data;
@@ -108,6 +108,8 @@ function createRequestClient(baseURL: string) {
 
   return client;
 }
+
+export const defHttp = createRequestClient(apiURL);
 
 export const requestClient = createRequestClient(apiURL);
 

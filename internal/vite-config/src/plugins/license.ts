@@ -38,7 +38,7 @@ async function viteLicensePlugin(
   * Description: ${description}
   * Date Created: ${date}
   * Homepage: ${homepage}
-  * Contact: ann.vben@gmail.com
+  * Contact: 1837307557@qq.com
 */
               `.trim();
 
