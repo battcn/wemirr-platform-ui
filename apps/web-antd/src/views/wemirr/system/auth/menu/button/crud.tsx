@@ -65,8 +65,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               { value: 2, label: "按钮" },
             ],
           }),
-          addForm: { value: 2 },
-          form: { component: { disabled: true } },
+          // addForm: { value: 2 },
+          form: { value: 2, show: false, component: { disabled: true } },
         },
         label: {
           title: "名称",
