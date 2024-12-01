@@ -1,7 +1,8 @@
 
 import type { App } from 'vue';
 
-import FastCrud from '@fast-crud/fast-crud';
+import {FastCrud, useColumns } from '@fast-crud/fast-crud';
+import type  {ColumnCompositionProps} from '@fast-crud/fast-crud';
 import ui from '@fast-crud/ui-antdv4';
 import Antdv from 'ant-design-vue';
 
@@ -10,6 +11,8 @@ import '@fast-crud/ui-antdv4/dist/style.css';
 import './setup-fast-crud.less';
 import {computed} from "vue";
 import {defHttp} from "#/api/request";
+import {FsExtendsEditor, FsExtendsJson, FsExtendsUploader} from "@fast-crud/fast-extends";
+// import type _ from "lodash-es";
 
 export function registerFastCrud(app: App) {
     app.use(Antdv);
@@ -136,4 +139,75 @@ export function registerFastCrud(app: App) {
             return opts;
         },
     });
+
+    //安装editor
+    app.use(FsExtendsEditor, {
+        //编辑器的公共配置
+        wangEditor: {},
+        quillEditor: {},
+    });
+    app.use(FsExtendsJson);
+    //配置uploader 公共参数
+    app.use(FsExtendsUploader, {
+        defaultType: "form",
+        form: {
+            action: "/tools/files/upload",
+            name: "file",
+            withCredentials: false,
+            uploadRequest: async ({ action, file, onProgress }) => {
+                const data = new FormData();
+                data.append("file", file);
+                return await defHttp.request(action,{
+                    method: "post",
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                    timeout: 60000,
+                    data,
+                    onUploadProgress: (p) => {
+                        // @ts-ignore
+                        onProgress({ percent: Math.round((p.loaded / p.total) * 100) });
+                    },
+                });
+            },
+            successHandle(ret) {
+                console.log("ret ==> ", ret);
+                // 上传完成后的结果处理， 此处后台返回的结果应该为 ret = {code:0,msg:'',data:fileUrl}
+                if (!ret.fileId) {
+                    throw new Error("上传失败");
+                }
+
+                return {
+                    // url: GetGlobPreviewUrl(ret.fileId),
+                    fileId: ret.fileId,
+                    key: ret.fileId,
+                };
+            },
+        },
+    });
+
+    // 此处演示自定义字段合并插件
+    // const { registerMergeColumnPlugin } = useColumns();
+    // registerMergeColumnPlugin({
+    //     name: "readonly-plugin",
+    //     order: 1,
+    //     handle: (columnProps: ColumnCompositionProps) => {
+    //         // 你可以在此处做你自己的处理
+    //         // 比如你可以定义一个readonly的公共属性，处理该字段只读，不能编辑
+    //         if (columnProps.readonly) {
+    //             // 合并column配置
+    //             _.merge(columnProps, {
+    //                 form: { show: false },
+    //                 viewForm: { show: true },
+    //             });
+    //         }
+    //         if (columnProps.column?.width) {
+    //             _.merge(columnProps, {
+    //                 column: { resizable: true, ellipsis: true, showTitle: true },
+    //             });
+    //         }
+    //         //resizable: true, ellipsis: true, showTitle: true
+    //         return columnProps;
+    //     },
+    // });
 }

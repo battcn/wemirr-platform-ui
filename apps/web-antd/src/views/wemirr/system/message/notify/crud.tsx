@@ -1,13 +1,11 @@
 import * as api from "./api";
-import { useMessage } from "@/hooks/web/useMessage";
 import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { usePermission } from "@/hooks/web/usePermission";
-import { SysDictCode, sysDictFunc } from "@/api/dict/dict";
+import { SysDictCode, sysDictFunc } from "#/api";
+import {notification} from "ant-design-vue";
 
 export default function ({ searchRemote }) {
-  const { hasPermission } = usePermission();
-  const { notification } = useMessage();
+  // const { hasPermission } = usePermission();
   const { fetchReceiver, searchState } = searchRemote;
   return {
     crudOptions: {
@@ -36,7 +34,7 @@ export default function ({ searchRemote }) {
             size: "small",
             title: "消息推送",
             order: 4,
-            show: hasPermission("sys:site_notify:publish"),
+            // show: hasPermission("sys:site_notify:publish"),
             async click({ row }) {
               await api.PublishMessage(row.id).then(() => {
                 notification.success({

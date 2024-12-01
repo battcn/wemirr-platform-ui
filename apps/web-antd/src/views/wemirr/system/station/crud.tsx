@@ -42,7 +42,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         code: {
           title: "编码",
           type: "text",
-          column: { width: 70 },
+          column: { width: 100 },
         },
         sequence: {
           title: "排序",
@@ -57,7 +57,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         status: {
           title: "状态",
           type: "dict-radio",
-          column: { width: 80, align: "center" },
+          column: { width: 100, align: "center" },
           search: { show: true },
           addForm: {
             value: 1,
@@ -99,7 +99,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           form: {
             col: { span: 24 },
           },
-          column: { width: 150, ellipsis: true },
+          column: { width: 220, ellipsis: true },
         },
         createdTime: {
           title: "创建时间",

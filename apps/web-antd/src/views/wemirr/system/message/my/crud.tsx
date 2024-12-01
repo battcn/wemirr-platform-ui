@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import * as api from "./api";
-import { SysDictCode, sysDictFunc } from "@/api/dict/dict";
+import { SysDictCode, sysDictFunc } from "#/api";
 
 export default function () {
   const selectedRowKeys = ref([]);
@@ -22,7 +22,7 @@ export default function () {
       },
       request: {
         pageRequest: async (query: any) => await api.PageList(query),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        delRequest: async ({ row }: any) => await api.DelObj(row.id),
       },
       toolbar: {},
       actionbar: {
@@ -82,7 +82,7 @@ export default function () {
           type: "datetime",
           column: { show: true, width: 170 }, // 表单配置
           form: { show: false },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value != null) {
               row[key] = dayjs(value);
             }

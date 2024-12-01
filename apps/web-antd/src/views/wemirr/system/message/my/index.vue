@@ -19,14 +19,12 @@
 import { defineComponent, onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useFs } from "@fast-crud/fast-crud";
-import { useMessage } from "@/hooks/web/useMessage";
 import * as api from "./api";
+import {Modal, notification} from "ant-design-vue";
 
 export default defineComponent({
   name: "SiteMessagePage",
   setup() {
-    const { createMessage, notification, createConfirm } = useMessage();
-
     const { crudRef, crudBinding, selectedRowKeys, crudExpose } = useFs({ createCrudOptions });
     // 页面打开后获取列表数据
     onMounted(() => {
@@ -50,7 +48,7 @@ export default defineComponent({
           },
         });
       } else {
-        createMessage.error("请先勾选记录");
+        notification.error("请先勾选记录");
       }
     };
 
