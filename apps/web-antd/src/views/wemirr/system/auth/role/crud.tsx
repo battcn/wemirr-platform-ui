@@ -1,11 +1,12 @@
-import { compute, CreateCrudOptionsProps, CreateCrudOptionsRet, dict } from "@fast-crud/fast-crud";
+import type { CreateCrudOptionsProps, CreateCrudOptionsRet } from "@fast-crud/fast-crud";
+import { compute, dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import { usePermission } from "@/hooks/web/usePermission";
+// import { usePermission } from "@/hooks/web/usePermission";
 import * as api from "./api";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { distribution } = props.context;
-  const { hasPermission } = usePermission();
+  // const { hasPermission } = usePermission();
   return {
     crudOptions: {
       request: {
@@ -22,6 +23,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           atLeast: 2,
           more: {
             size: "small",
+            icon: null,
             text: "更多",
           },
         },
@@ -31,7 +33,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             size: "small",
             type: "link",
             order: 4,
-            show: hasPermission("sys:role:distribution:user"),
+            // show: hasPermission("sys:role:distribution:user"),
             async click(context: any) {
               await distribution.userModal(context.record.id);
             },
@@ -41,9 +43,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             type: "link",
             size: "small",
             order: 5,
-            show: hasPermission("sys:role:distribution:res"),
+            // show: hasPermission("sys:role:distribution:res"),
             async click(context: any) {
-              await distribution.resourceModal(context.record.id);
+              // await distribution.resourceModal(context.record.id);
             },
           },
         },

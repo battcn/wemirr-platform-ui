@@ -1,10 +1,13 @@
 <template>
-  <PageWrapper contentClass="flex">
+  <Page content-class="flex gap-2">
     <Card class="w-1/3 menu" style="width: 25%">
       <template #extra>
-        <a-button @click="resetFields" v-if="hasPermission('sys:menu:add')">新增根节点</a-button>
+<!--        <a-button @click="resetFields" v-if="hasPermission('sys:menu:add')">新增根节点</a-button>-->
       </template>
-      <BasicTree
+      asdsadasd
+      asdasd
+      sadas
+<!--      <BasicTree
         search
         title="菜单"
         checkStrictly
@@ -13,63 +16,57 @@
         :fieldNames="{ key: 'id', title: 'name' }"
         @select="handleSelect"
         :actionList="actionList"
-      />
+      />-->
     </Card>
     <Card title="菜单信息" class="w-1/2 menu" style=" width: 45%;margin-left: 5px">
-      <BasicForm @register="register" />
+<!--      <BasicForm @register="register" />-->
     </Card>
     <Card title="资源信息" class="w-1/2 menu-button-table">
       <resource-button-table ref="itemTableRef" />
     </Card>
-  </PageWrapper>
+  </Page>
 </template>
 
 <script setup lang="ts" name="SysMenuPage">
 import { onMounted, ref, unref, h } from "vue";
-import { Card } from "ant-design-vue";
-import { BasicForm, useForm } from "@/components/Form";
-import { BasicTree, TreeActionItem, TreeActionType } from "@/components/Tree/index";
-import { PageWrapper } from "@/components/Page";
-import { getMenuList } from "@/api/sys/menu";
-import { useMessage } from "@/hooks/web/useMessage";
-import { schemas } from "./data";
+import {Card, Modal, notification} from "ant-design-vue";
+import { getAllMenusApi } from "#/api";
+// import { schemas } from "./data";
 import * as api from "./api";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons-vue";
-import { usePermission } from "@/hooks/web/usePermission";
 import ResourceButtonTable from "./button/index.vue";
+import {Page} from "@vben/common-ui";
 
-const { hasPermission } = usePermission();
+// const { hasPermission } = usePermission();
 
-const { notification, createConfirm } = useMessage();
-const actionList = ref<TreeActionItem[]>([]);
-const treeRef = ref<Nullable<TreeActionType>>(null);
+const actionList = ref<any>([]);
 const treeData = ref();
 const itemTableRef = ref();
 
-const [register, { getFieldsValue, setFieldsValue, resetFields, validate, setProps }] = useForm({
-  labelCol: { span: 4 },
-  wrapperCol: { span: 19 },
-  schemas: schemas,
-  baseColProps: { lg: 24, md: 24 },
-  actionColOptions: { offset: 20 },
-  showResetButton: false,
-  submitButtonOptions: { text: "提交" },
-  submitFunc: customSubmitFunc,
-});
+// const [register, { getFieldsValue, setFieldsValue, resetFields, validate, setProps }] = useForm({
+//   labelCol: { span: 4 },
+//   wrapperCol: { span: 19 },
+//   schemas: schemas,
+//   baseColProps: { lg: 24, md: 24 },
+//   actionColOptions: { offset: 20 },
+//   showResetButton: false,
+//   submitButtonOptions: { text: "提交" },
+//   submitFunc: customSubmitFunc,
+// });
 
 async function customSubmitFunc() {
-  try {
-    await validate();
-    await setProps({ submitButtonOptions: { loading: true } });
-    await api.SaveOrUpdate(getFieldsValue()).then(() => {
-      notification.success({ message: "操作成功", duration: 3 });
-      setProps({ submitButtonOptions: { loading: false } });
-      resetFields();
-      loadMenu();
-    });
-  } catch (error) {
-    await setProps({ submitButtonOptions: { loading: false } });
-  }
+  // try {
+  //   await validate();
+  //   await setProps({ submitButtonOptions: { loading: true } });
+  //   await api.SaveOrUpdate(getFieldsValue()).then(() => {
+  //     notification.success({ message: "操作成功", duration: 3 });
+  //     setProps({ submitButtonOptions: { loading: false } });
+  //     resetFields();
+  //     loadMenu();
+  //   });
+  // } catch (error) {
+  //   await setProps({ submitButtonOptions: { loading: false } });
+  // }
 }
 
 onMounted(() => {
@@ -77,8 +74,8 @@ onMounted(() => {
 });
 
 function handlePlus(node: any) {
-  resetFields();
-  setFieldsValue({ parentId: node.id });
+  // resetFields();
+  // setFieldsValue({ parentId: node.id });
 }
 function handleDelete(node: any) {
   Modal.confirm({
@@ -98,13 +95,12 @@ function handleDelete(node: any) {
 }
 
 function loadMenu() {
-  getMenuList().then((ret) => {
+  getAllMenusApi().then((ret) => {
     treeData.value = ret;
     setTimeout(() => {
-      getTree().filterByLevel(2);
       actionList.value = [
         {
-          show: hasPermission("sys:menu:add"),
+          // show: hasPermission("sys:menu:add"),
           render: (node) => {
             return h(PlusOutlined, {
               class: "ml-2",
@@ -116,7 +112,7 @@ function loadMenu() {
           },
         },
         {
-          show: hasPermission("sys:menu:remove"),
+          // show: hasPermission("sys:menu:remove"),
           render: (node) => {
             return h(DeleteOutlined, {
               class: "ml-2",
@@ -136,23 +132,15 @@ function handleSelect(checkedKeys: any, event: any) {
   if (!event.selected) {
     return;
   }
-  resetFields();
+  // resetFields();
   const nodeRef = event.selectedNodes[0];
-  setFieldsValue({ ...nodeRef });
+  // setFieldsValue({ ...nodeRef });
   itemTableRef.value.crudBinding.search.initialForm = { parentId: nodeRef.id };
   itemTableRef.value.crudBinding.addForm.initialForm = { parentId: nodeRef.id };
   itemTableRef.value.crudBinding.actionbar.buttons.add.show = true;
   itemTableRef.value.parentId = nodeRef.id;
   itemTableRef.value.setSearchFormData({ form: { parentId: nodeRef.id } });
   itemTableRef.value.doRefresh();
-}
-
-function getTree() {
-  const tree = unref(treeRef);
-  if (!tree) {
-    throw new Error("tree is null!");
-  }
-  return tree;
 }
 </script>
 

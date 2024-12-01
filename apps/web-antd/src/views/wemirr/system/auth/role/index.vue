@@ -2,15 +2,15 @@
   <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #form_orgList="scope">
-        <BasicTree
-          v-model:value="scope.form.orgList"
-          :treeData="treeData"
-          :fieldNames="{ title: 'name', key: 'id' }"
-          checkable
-          toolbar
-          search
-          v-if="scope.form.scopeType === 20"
-          title="组织架构"
+        <a-tree
+            v-model:value="scope.form.orgList"
+            :treeData="treeData"
+            :fieldNames="{ title: 'name', key: 'id' }"
+            checkable
+            toolbar
+            search
+            v-if="scope.form.scopeType === 20"
+            title="组织架构"
         />
       </template>
       <template #cell_description="scope">
@@ -19,73 +19,72 @@
         </a-tooltip>
       </template>
     </fs-crud>
-    <distribution-user @register="registerBindUser" />
-    <distribution-resource @register="registerBindResource" />
+    <!--    <DistributionModal/>-->
+    <DistributionModal/>
+    <!--        <distribution-resource @register="registerBindResource" />-->
   </fs-page>
 </template>
 
-<script>
-import { defineComponent, ref, onMounted } from "vue";
+<script lang="ts" setup>
+import {defineComponent, ref, onMounted} from "vue";
 import createCrudOptions from "./crud";
-import { useFs } from "@fast-crud/fast-crud";
-import { BasicTree } from "@/components/Tree";
-import { useModal } from "@/components/Modal";
+import {useFs} from "@fast-crud/fast-crud";
 import DistributionUser from "./DistributionUser.vue";
-import DistributionResource from "./DistributionResource.vue";
+// import DistributionResource from "./DistributionResource.vue";
 import * as api from "./api";
+import {useVbenModal} from '@vben/common-ui';
+
+const [DistributionModal, modalApi] = useVbenModal({
+  // 连接抽离的组件
+  connectedComponent: DistributionUser,
+});
 
 function useDistribution() {
   const checkedKeys = ref();
 
   function userModal(roleId) {
+    // modalApi.open();
     api.GetUserByRoleId(roleId).then((data) => {
-      openBindUser(true, { roleId, ...data });
+      // openBindUser(true, { roleId, ...data });
+      modalApi.setData({roleId, ...data });
+      modalApi.open();
     });
-  }
-  const [registerBindUser, { openModal: openBindUser }] = useModal();
 
-  function resourceModal(roleId) {
-    openBindResource(true, roleId);
   }
-  const [registerBindResource, { openModal: openBindResource }] = useModal();
+
+  // const [registerBindUser, { openModal: openBindUser }] = useModal();
+
+  // function resourceModal(roleId) {
+  // openBindResource(true, roleId);
+  // }
+  // const [registerBindResource, { openModal: openBindResource }] = useModal();
 
   return {
     checkedKeys,
     userModal,
-    registerBindUser,
-    resourceModal,
-    registerBindResource,
+    // resourceModal,
+    // registerBindUser,
+    // registerBindResource,
   };
 }
 
-export default defineComponent({
-  name: "SysRolePage",
-  components: { DistributionUser, DistributionResource, BasicTree },
-  setup() {
-    const distribution = useDistribution();
-    const { crudRef, crudBinding, crudExpose } = useFs({
-      createCrudOptions,
-      context: { distribution, permission: "sys:role" },
-    });
+const distribution = useDistribution();
+const {crudRef, crudBinding, crudExpose} = useFs({
+  createCrudOptions,
+  context: {distribution, permission: "sys:role"},
+});
 
-    const treeData = ref([]);
-    async function initOrgList() {
-      await api.InitOrgList().then((data) => {
-        treeData.value = data;
-      });
-    }
-    // 页面打开后获取列表数据
-    onMounted(() => {
-      initOrgList();
-      crudExpose.doRefresh();
-    });
+const treeData = ref([]);
 
-    return {
-      treeData,
-      crudBinding,
-      crudRef,
-      ...distribution,
-    };
-  },
+async function initOrgList() {
+  // await api.InitOrgList().then((data) => {
+  //   treeData.value = data;
+  // });
+}
+
+// 页面打开后获取列表数据
+onMounted(() => {
+  initOrgList();
+  crudExpose.doRefresh();
 });
 </script>

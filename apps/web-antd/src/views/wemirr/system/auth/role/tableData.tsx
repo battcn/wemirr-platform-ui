@@ -1,6 +1,6 @@
-import { BasicColumn } from "@/components/Table/src/types/table";
+// import { BasicColumn } from "@/components/Table/src/types/table";
 
-export function getBasicColumns(): BasicColumn[] {
+export function getBasicColumns(): any[] {
   return [
     {
       title: "资源吗",

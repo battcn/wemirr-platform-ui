@@ -1,107 +1,100 @@
 <template>
-  <BasicModal
-    v-bind="$attrs"
-    @register="register"
-    title="绑定用户"
-    width="1000px"
-    @ok="handleSubmit"
-  >
+  <Modal>
     <a-transfer
-      :data-source="userRoleDetails"
-      :target-keys="targetKeys"
-      :show-search="showSearch"
-      :filter-option="
-        (inputValue, item) =>
+        :data-source="userRoleDetails"
+        :target-keys="targetKeys"
+        :show-search="showSearch"
+        :filter-option="
+        (inputValue: any, item: any) =>
           item.nickName.indexOf(inputValue) !== -1 || item.username.indexOf(inputValue) !== -1
       "
-      :show-select-all="false"
-      @change="onChange"
+        :show-select-all="false"
+        @change="onChange"
     >
       <template
-        #children="{ direction, filteredItems, selectedKeys, onItemSelectAll, onItemSelect }"
+          #children="{ direction, filteredItems, selectedKeys, onItemSelectAll, onItemSelect }"
       >
         <a-table
-          :row-selection="getRowSelection({ selectedKeys, onItemSelectAll, onItemSelect })"
-          :columns="direction === 'left' ? leftColumns : rightColumns"
-          :data-source="filteredItems"
-          size="small"
+            :row-selection="getRowSelection({ selectedKeys, onItemSelectAll, onItemSelect })"
+            :columns="direction === 'left' ? leftColumns : rightColumns"
+            :data-source="filteredItems"
+            size="small"
         />
       </template>
     </a-transfer>
-  </BasicModal>
+  </Modal>
 </template>
 
-<script>
-import { difference } from "lodash-es";
-import { defineComponent, ref } from "vue";
-import { BasicModal, useModalInner } from "@/components/Modal";
+<script lang="ts" setup>
+import {difference} from "lodash-es";
+import {ref} from "vue";
 import * as api from "./api";
+import {useVbenModal} from '@vben/common-ui';
 
 const tableColumns = [
-  { dataIndex: "nickName", title: "名称" },
-  { dataIndex: "username", title: "账号" },
+  {dataIndex: "nickName", title: "名称"},
+  {dataIndex: "username", title: "账号"},
 ];
-
-export default defineComponent({
-  name: "DistributionUser",
-  components: { BasicModal },
-  setup() {
-    const modelRef = ref({});
-    const showSearch = ref(true);
-    const leftColumns = ref(tableColumns);
-    const rightColumns = ref(tableColumns);
-    const userRoleDetails = ref([]);
-    const targetKeys = ref([]);
-
-    const [register, { closeModal }] = useModalInner((data) => {
-      modelRef.value = {
-        roleId: data.roleId,
-        userRoleDetails: data.userRoleDetails,
-        originTargetKeys: data.originTargetKeys,
-      };
-      userRoleDetails.value = data.userRoleDetails?.map((item) => {
-        return { key: String(item.id), title: item.nickName, ...item };
-      });
-      targetKeys.value = data.originTargetKeys?.map((key) => key.toString());
-    });
-
-    const onChange = (nextTargetKeys) => {
-      targetKeys.value = nextTargetKeys;
-    };
-
-    const getRowSelection = ({ selectedKeys, onItemSelectAll, onItemSelect }) => {
-      return {
-        onSelectAll(selected, selectedRows) {
-          const treeSelectedKeys = selectedRows.map(({ key }) => key);
-          const diffKeys = selected
-            ? difference(treeSelectedKeys, selectedKeys)
-            : difference(selectedKeys, treeSelectedKeys);
-          onItemSelectAll(diffKeys, selected);
-        },
-        onSelect({ key }, selected) {
-          onItemSelect(key, selected);
-        },
-        selectedRowKeys: selectedKeys,
-      };
-    };
-    async function handleSubmit() {
-      await api.DistributionUser({ roleId: modelRef.value.roleId, userIdList: targetKeys.value });
-      closeModal();
+// const modelRef = ref();
+const showSearch = ref(true);
+const leftColumns = ref(tableColumns);
+const rightColumns = ref(tableColumns);
+const userRoleDetails = ref([]);
+const targetKeys = ref([]);
+let modelRef = ref({
+  roleId: null,
+  userRoleDetails: [],
+  originTargetKeys: [],
+}) as Record<string, any>;
+const [Modal, modalApi] = useVbenModal({
+  title: '分配用户',
+  class: 'm-distribution-user',
+  draggable: false,
+  onCancel() {
+    modalApi.close();
+  },
+  onConfirm() {
+    api.DistributionUser({roleId: modelRef.value.roleId, userIdList: targetKeys.value})
+        .then(() => {
+          modalApi.close();
+        });
+  },
+  onOpenChange(isOpen: boolean) {
+    if (!isOpen) {
+      return
     }
-
-    return {
-      userRoleDetails,
-      targetKeys,
-      showSearch,
-      leftColumns,
-      rightColumns,
-      handleSubmit,
-      onChange,
-      getRowSelection,
-      register,
-      closeModal,
-      model: modelRef,
-    };
+    modelRef.value = modalApi.getData<Record<string, any>>();
+    userRoleDetails.value = modelRef.value.userRoleDetails?.map((item: any) => {
+      return {key: String(item.id), title: item.nickName, ...item};
+    });
+    targetKeys.value = modelRef.value.originTargetKeys?.map((key: any) => key.toString());
   },
 });
+
+
+const onChange = (nextTargetKeys: any) => {
+  targetKeys.value = nextTargetKeys;
+};
+const getRowSelection = ({selectedKeys, onItemSelectAll, onItemSelect}: any) => {
+  return {
+    onSelectAll(selected: any, selectedRows: any) {
+      const treeSelectedKeys = selectedRows.map(({key}: any) => key);
+      const diffKeys = selected
+          ? difference(treeSelectedKeys, selectedKeys)
+          : difference(selectedKeys, treeSelectedKeys);
+      onItemSelectAll(diffKeys, selected);
+    },
+    onSelect({key}: any, selected: any) {
+      onItemSelect(key, selected);
+    },
+    selectedRowKeys: selectedKeys,
+  };
+}
 </script>
+
+<style lang="less">
+.m-distribution-user {
+  width: 75%;
+  height: 75%;
+}
+</style>
