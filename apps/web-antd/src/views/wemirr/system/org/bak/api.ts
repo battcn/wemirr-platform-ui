@@ -1,10 +1,5 @@
 import { defHttp } from '#/api/request';
 
-export function GetList(query: any) {
-  return defHttp.get("/iam/org/trees",{ params :query });
-}
-
-
 export function SaveOrUpdate(obj: any) {
   if (obj.id) {
     return UpdateObj(obj);

@@ -1,37 +1,24 @@
-import { CreateCrudOptionsProps, CreateCrudOptionsRet, dict } from "@fast-crud/fast-crud";
+import type { CreateCrudOptionsProps, CreateCrudOptionsRet } from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { defHttp } from '#/api/request';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const { nodeRef } = props.context;
   return {
     crudOptions: {
       request: {
         pageRequest: async (query: any) => {
-          query.orgId = query.orgId > 0 ? null : nodeRef.value?.id;
-          return await defHttp.get({ url: `/iam/stations/page`, params: query });
+          return await defHttp.get(`/iam/stations/page`,{ params: query });
         },
         addRequest: async ({ form }) => {
-          return await defHttp.post({ url: `/iam/stations`, data: form });
+          return await defHttp.post(`/iam/stations`,{ data: form });
         },
         editRequest: async ({ form }) => {
-          return await defHttp.put({ url: `/iam/stations/${form.id}`, data: form });
+          return await defHttp.put(`/iam/stations/${form.id}`, { data: form });
         },
         delRequest: async ({ row }) => {
-          return await defHttp.delete({ url: `/iam/stations/${row.id}` });
+          return await defHttp.delete(`/iam/stations/${row.id}`);
         },
-      },
-      search: {
-        onReset() {
-          nodeRef.value = null;
-        },
-      },
-      container: {
-        is: "fs-layout-default",
-      },
-      table: {
-        scroll: { fixed: true },
-        size: "small",
       },
       columns: {
         id: {
@@ -84,6 +71,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         orgId: {
           title: "组织",
+          search: { show: true, order: 0 },
           column: { width: 200, component: { color: "auto" } },
           type: "dict-tree",
           dict: dict({

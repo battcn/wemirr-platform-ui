@@ -32,7 +32,7 @@ import createCrudOptions from "./crud";
 import { useFs } from "@fast-crud/fast-crud";
 import {Modal, notification} from "ant-design-vue";
 import { defHttp } from '#/api/request';
-
+import type { DownOutlined } from "@ant-design/icons-vue";
 const { crudBinding, crudRef, crudExpose } = useFs({ createCrudOptions });
 // 页面打开后获取列表数据
 onMounted(() => {
@@ -45,7 +45,7 @@ const handleMenuClick = (e: any) => {
     title: "提示",
     content: "是否批量删除",
     onOk: async () => {
-      defHttp.delete(`/iam/opt_logs/${e.key}`).then((ret: any) => {
+      defHttp.delete(`/iam/opt_logs/${e.key}`).then(() => {
         notification.success({
           message: "批量删除成功",
           duration: 3,

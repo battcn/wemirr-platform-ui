@@ -3,7 +3,7 @@ import { dict } from "@fast-crud/fast-crud";
 import type {ValueResolveContext} from "@fast-crud/fast-crud";
 import { defHttp } from '#/api/request';
 
-export default function (props: any): any {
+export default function (): any {
   return {
     crudOptions: {
       request: {

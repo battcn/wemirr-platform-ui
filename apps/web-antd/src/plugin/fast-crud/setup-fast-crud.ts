@@ -60,11 +60,7 @@ export function registerFastCrud(app: App) {
                         edit: { size: "small", type: "link", icon: null },
                         remove: { size: "small", type: "link", icon: null },
                     },
-                    dropdown: {
-                        more: {
-                            type: "link",
-                        },
-                    },
+                    dropdown: { more: { type: "link" } },
                 },
                 table: {
                     size: "small",
