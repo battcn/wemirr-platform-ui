@@ -1,58 +1,238 @@
 <template>
   <Page content-class="flex gap-2">
-    <Card class="w-1/3 menu" style="width: 25%">
+    <Card class="w-1/3 menu">
       <template #extra>
-<!--        <a-button @click="resetFields" v-if="hasPermission('sys:menu:add')">新增根节点</a-button>-->
+        <a-button>新增根节点</a-button>
       </template>
-      asdsadasd
-      asdasd
-      sadas
-<!--      <BasicTree
-        search
-        title="菜单"
-        checkStrictly
-        ref="treeRef"
-        :treeData="treeData"
-        :fieldNames="{ key: 'id', title: 'name' }"
-        @select="handleSelect"
-        :actionList="actionList"
-      />-->
+      <a-tree
+          v-model:expandedKeys="expandedKeys"
+          :auto-expand-parent="true"
+          :default-expand-all="true"
+          :treeData="treeData"
+          :fieldNames="{ key: 'id', title: 'name' }"
+          :actionList="actionList"
+          @select="handleSelect"
+      />
     </Card>
-    <Card title="菜单信息" class="w-1/2 menu" style=" width: 45%;margin-left: 5px">
-<!--      <BasicForm @register="register" />-->
+    <Card title="菜单信息" class="w-1/2 menu" style="">
+      <BaseForm/>
     </Card>
-    <Card title="资源信息" class="w-1/2 menu-button-table">
-      <resource-button-table ref="itemTableRef" />
+    <Card title="资源信息" class="w-1/2 res-button-table">
+      <resource-button-table ref="itemTableRef"/>
     </Card>
   </Page>
 </template>
 
 <script setup lang="ts" name="SysMenuPage">
-import { onMounted, ref, unref, h } from "vue";
+import {onMounted, ref, h} from "vue";
 import {Card, Modal, notification} from "ant-design-vue";
-import { getAllMenusApi } from "#/api";
+import {getAllMenusApi} from "#/api";
 // import { schemas } from "./data";
 import * as api from "./api";
-import { PlusOutlined, DeleteOutlined } from "@ant-design/icons-vue";
+import {PlusOutlined, DeleteOutlined} from "@ant-design/icons-vue";
 import ResourceButtonTable from "./button/index.vue";
 import {Page} from "@vben/common-ui";
+import {useVbenForm} from "#/adapter/form";
+import {defHttp} from "#/api/request";
+import { $t } from '#/locales';
 
 // const { hasPermission } = usePermission();
 
 const actionList = ref<any>([]);
 const treeData = ref();
+const expandedKeys = ref();
 const itemTableRef = ref();
 
-// const [register, { getFieldsValue, setFieldsValue, resetFields, validate, setProps }] = useForm({
-//   labelCol: { span: 4 },
-//   wrapperCol: { span: 19 },
-//   schemas: schemas,
-//   baseColProps: { lg: 24, md: 24 },
-//   actionColOptions: { offset: 20 },
-//   showResetButton: false,
-//   submitButtonOptions: { text: "提交" },
-//   submitFunc: customSubmitFunc,
-// });
+function onSubmit(values: Record<string, any>) {
+  defHttp.post('/iam/areas', values).then(() => {
+    baseFormApi.resetForm()
+    // loadAreaTree();
+    notification.success({
+      description: "提交成功",
+      duration: 3,
+      message: $t('authentication.loginSuccess'),
+    })
+  })
+}
+
+
+const [BaseForm, baseFormApi] = useVbenForm({
+  // 所有表单项共用，可单独在表单内覆盖
+  commonConfig: {
+    // 所有表单项
+    componentProps: {
+      class: 'w-full menu',
+    },
+  },
+  // 提交函数
+  handleSubmit: onSubmit,
+  layout: 'horizontal',
+  schema: [
+    {
+      fieldName: "id",
+      component: "Input",
+      label: "ID",
+      dependencies: {
+        show: false,
+        triggerFields: ['id'],
+      },
+    },
+    {
+      fieldName: "parentId",
+      component: "Input",
+      label: "上级ID",
+      defaultValue: 0,
+      dependencies: {
+        show: false,
+        triggerFields: ['id'],
+      },
+      componentProps: {
+        disabled: true,
+        placeholder: "请填写上级ID",
+      },
+      rules: 'required',
+    },
+    {
+      fieldName: "label",
+      component: "Input",
+      label: "名称",
+      componentProps: {
+        placeholder: "请输入名称",
+      },
+      rules: 'required',
+    },
+    {
+      fieldName: "permission",
+      component: "Input",
+      label: "资源编码",
+      componentProps: {
+        placeholder: "请输入名称",
+      },
+    },
+    {
+      fieldName: "icon",
+      component: "Input",
+      label: "图标",
+      // componentProps: { placeholder: "请选择图标" },
+      rules: 'required',
+    },
+    {
+      fieldName: "type",
+      component: "RadioGroup",
+      label: "类型",
+      help: "一键发布则需在开发平台中提前配置一键发布模板",
+      defaultValue: 1,
+      componentProps: {
+        options: [
+          {
+            label: "菜单",
+            value: 1,
+          },
+          // {
+          //   label: "一键发布",
+          //   value: 5,
+          // },
+        ],
+      },
+      rules: 'required',
+    },
+    {
+      fieldName: "path",
+      component: "Input",
+      label: "路径",
+      show: ({model}) => {
+        return model.type === 1;
+      },
+      componentProps: {
+        placeholder: "请填写路径",
+      },
+      itemProps: {
+        extra: "路径内容填写 http 地址则为外链网页",
+      },
+      rules: 'required',
+    },
+    {
+      fieldName: "component",
+      component: "Input",
+      label: "组件",
+      help: "填写 Layout 则为页面布局 , 填写 http 地址则为内嵌网页",
+      show: ({model}) => {
+        return model.type === 1;
+      },
+      componentProps: {
+        placeholder: "请填写组件",
+      },
+      defaultValue: "BasicLayout",
+      itemProps: {
+        extra: "填写 http 地址则为内嵌网页",
+      },
+
+    },
+    {
+      fieldName: "status",
+      component: "RadioGroup",
+      label: "状态",
+      defaultValue: true,
+      componentProps: {
+        options: [
+          {label: "启用", value: true},
+          {label: "禁用", value: false},
+        ],
+      },
+    },
+    {
+      fieldName: "display",
+      component: "RadioGroup",
+      label: "状态",
+      defaultValue: true,
+      componentProps: {
+        // placeholder: "请选择显示还是隐藏",
+        options: [
+          {label: "显示", value: true},
+          {label: "隐藏", value: false},
+        ],
+      },
+    },
+    {
+      fieldName: "global",
+      component: "RadioGroup",
+      label: "全局",
+      help: "所有人都能看到该菜单",
+      defaultValue: false,
+      componentProps: {
+        options: [
+          {label: "是", value: true},
+          {label: "否", value: false},
+        ],
+      },
+    },
+    {
+      fieldName: "sequence",
+      component: "InputNumber",
+      label: "排序",
+      defaultValue: 0,
+      componentProps: {
+        placeholder: "请填写排序",
+        min: 0,
+        max: 100,
+      },
+      componentProps: {
+        extra: "数值越小优先级越高",
+      },
+    },
+    {
+      fieldName: "description",
+      component: "Textarea",
+      label: "描述",
+      componentProps: {
+        placeholder: "请填写描述信息",
+        rows: 4,
+      },
+
+    },
+  ],
+});
+
 
 async function customSubmitFunc() {
   // try {
@@ -77,6 +257,7 @@ function handlePlus(node: any) {
   // resetFields();
   // setFieldsValue({ parentId: node.id });
 }
+
 function handleDelete(node: any) {
   Modal.confirm({
     iconType: "warning",
@@ -97,6 +278,7 @@ function handleDelete(node: any) {
 function loadMenu() {
   getAllMenusApi().then((ret) => {
     treeData.value = ret;
+    expandedKeys.value = ret.filter((item:any) => item.parentId === '0').map((item:any) => item.id);
     setTimeout(() => {
       actionList.value = [
         {
@@ -134,32 +316,29 @@ function handleSelect(checkedKeys: any, event: any) {
   }
   // resetFields();
   const nodeRef = event.selectedNodes[0];
-  // setFieldsValue({ ...nodeRef });
-  itemTableRef.value.crudBinding.search.initialForm = { parentId: nodeRef.id };
-  itemTableRef.value.crudBinding.addForm.initialForm = { parentId: nodeRef.id };
-  itemTableRef.value.crudBinding.actionbar.buttons.add.show = true;
+  console.log('==>>>', checkedKeys, nodeRef)
+  baseFormApi.setValues({
+    ...nodeRef
+  });
+  itemTableRef.value.crudBinding.search.initialForm = {parentId: nodeRef.id};
+  itemTableRef.value.crudBinding.addForm.initialForm = {parentId: nodeRef.id};
+  itemTableRef.value.crudBinding.actionbar.buttons.add.show = nodeRef.component !== 'BasicLayout' && nodeRef?.children === undefined;
   itemTableRef.value.parentId = nodeRef.id;
-  itemTableRef.value.setSearchFormData({ form: { parentId: nodeRef.id } });
+  itemTableRef.value.setSearchFormData({form: {parentId: nodeRef.id}});
   itemTableRef.value.doRefresh();
 }
 </script>
 
 <style lang="less" scoped>
-/deep/.menu {
-  .ant-card-body {
-    padding: 0;
-  }
+/deep/.p-4{
+  padding: 0.5rem;
 }
-
-/deep/.menu-button-table {
-  margin-left: 5px;
-
-  .fs-container {
-    padding-right: 5px;
+/deep/.res-button-table{
+  .ant-card-body{
+    padding: 12px;
   }
-
-  .ant-card-body {
-    padding: 5px !important;
+  .fs-container{
+    min-height: 710px;
   }
 }
 </style>

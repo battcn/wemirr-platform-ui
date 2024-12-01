@@ -1,11 +1,6 @@
 import * as api from "../api";
-import {
-  CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
-  dict,
-  UserPageQuery,
-  UserPageRes,
-} from "@fast-crud/fast-crud";
+import type { CreateCrudOptionsProps, CreateCrudOptionsRet, UserPageQuery, UserPageRes } from "@fast-crud/fast-crud";
+import { dict } from "@fast-crud/fast-crud";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { parentId } = props.context;
@@ -14,21 +9,35 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
+          query.type = 2;
           query.parentId = parentId.value;
-          return await api.GetResourceList(query);
+          return await api.GetResourceList(query) as UserPageRes;
         },
         addRequest: async ({ form }) => await api.AddObj(form),
         editRequest: async ({ form }) => await api.UpdateObj(form),
         delRequest: async ({ row }) => await api.DelObj(row.id),
       },
-      toolbar: {
-        compact: true,
-        buttons: { search: { show: false } },
-      },
+      toolbar: { show: false },
+      container: { is: "fs-layout-default" },
       actionbar: { buttons: { add: { show: false } } },
       table: { size: "small", scroll: { fixed: true } },
       search: { show: false },
       buttons: { show: false },
+      rowHandle: {
+        align: 'center',
+        width: 125,
+        dropdown: {
+          more: {
+            icon: null,
+            text: '操作',
+          }
+        },
+        buttons:{
+          // view: { dropdown: true },
+          edit: { dropdown: true },
+          remove: { dropdown: true }
+        }
+      },
       columns: {
         id: {
           title: "ID",
@@ -62,7 +71,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         label: {
           title: "名称",
           type: "text",
-          column: { width: 120, ellipsis: true },
+          column: { width: 130, ellipsis: true },
           form: {
             rules: [{ required: true, message: "请填写资源名称" }],
           },
@@ -77,7 +86,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             rules: [{ required: true, message: "请填写资源权限编码" }],
             helper: "如（user:management:add user:management:edit）",
           },
-          column: { width: 250, ellipsis: true },
+          column: { width: 200, ellipsis: true },
         },
         sequence: {
           title: "排序",

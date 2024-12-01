@@ -34,12 +34,12 @@ import {h, onMounted, ref } from 'vue';
 import { Page } from '@vben/common-ui';
 import {notification, type TreeProps} from 'ant-design-vue';
 
-import { Card, message } from 'ant-design-vue';
+import { Card } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { PlusOutlined } from "@ant-design/icons-vue";
 import {defHttp} from "#/api/request";
-import {$t} from "@vben/locales";
+import { $t } from '#/locales';
 
 const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -175,7 +175,6 @@ function handlePlus(node: any) {
 }
 const treeData = ref([] as TreeProps);
 function loadAreaTree() {
-
   defHttp.get('/iam/areas/trees').then((ret: any) => {
     treeData.value = ret;
     setTimeout(() => {

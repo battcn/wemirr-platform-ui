@@ -5,9 +5,8 @@
           v-model:expandedKeys="expandedKeys"
           :show-line="false"
           :show-icon="false"
-          :autoExpandParent="true"
+          :auto-expand-parent="true"
           :default-expand-all="true"
-          ref="terrRef"
           :treeData="terrData"
           :fieldNames="{ key: 'id', title: 'name' }"
           @select="handleSelect"
@@ -33,7 +32,6 @@ import { Card } from "ant-design-vue";
 import {Page} from "@vben/common-ui";
 import {defHttp} from "#/api/request";
 
-// const terrRef = ref<Nullable<TreeActionType>>(null);
 const terrData = ref();
 const nodeRef = ref();
 const expandedKeys = ref();
