@@ -68,12 +68,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           // addForm: { value: 2 },
           form: { value: 2, show: false, component: { disabled: true } },
         },
-        label: {
+        title: {
           title: "名称",
           type: "text",
           column: { width: 130, ellipsis: true },
           form: {
-            rules: [{ required: true, message: "请填写资源名称" }],
+            rules: [{ required: true, message: "请填写按钮名称" }],
           },
         },
         permission: {

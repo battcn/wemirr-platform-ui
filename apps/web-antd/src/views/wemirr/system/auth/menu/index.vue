@@ -32,7 +32,6 @@ import {PlusOutlined, DeleteOutlined} from "@ant-design/icons-vue";
 import ResourceButtonTable from "./button/index.vue";
 import {Page, VbenButton} from '@vben/common-ui';
 import {useVbenForm} from "#/adapter/form";
-import {defHttp} from "#/api/request";
 import {$t} from '#/locales';
 
 // const { hasPermission } = usePermission();
@@ -43,7 +42,7 @@ const expandedKeys = ref();
 const itemTableRef = ref();
 
 function onSubmit(values: Record<string, any>) {
-  defHttp.post('/iam/resources', values).then(() => {
+  api.SaveOrUpdate(values).then(() => {
     baseFormApi.resetForm()
     // loadAreaTree();
     notification.success({
@@ -93,20 +92,20 @@ const [BaseForm, baseFormApi] = useVbenForm({
       rules: 'required',
     },
     {
-      fieldName: "type",
+      fieldName: "category",
       component: "RadioGroup",
-      label: "类型",
+      label: "分类",
       dependencies: {
         trigger(values, formApi) {
-          if (values.type === 0) {
-            formApi.setValues({component: 'BasicLayout'})
-          } else if (values.type === 11 || values.type === 12) {
-            formApi.setValues({component: 'IFrameView'})
-          } else {
-            formApi.setValues({component: '' })
+          if (values?.id === undefined) {
+            if (values.category === 0) {
+              formApi.setValues({component: 'BasicLayout'})
+            } else {
+              formApi.setValues({component: ''})
+            }
           }
         },
-        triggerFields: ['type'],
+        triggerFields: ['category'],
       },
       componentProps: {
         options: [
@@ -132,30 +131,15 @@ const [BaseForm, baseFormApi] = useVbenForm({
       fieldName: "component",
       component: "Input",
       label: "组件",
-      help: "填写 Layout 则为页面布局 , 填写 http 地址则为内嵌网页",
+      help: "分类为 [菜单] 则为页面路由地址 ,  [内嵌/外链] 则打开网页",
       componentProps: {
         placeholder: "请填写组件",
       },
       dependencies: {
-        show(values) {
-          return values.type === 1;
+        disabled(values) {
+          return values.category === 0;
         },
-        triggerFields: ['type'],
-      },
-    },
-    {
-      fieldName: "url",
-      component: "Input",
-      label: "地址",
-      help: "填写 Http 地址",
-      componentProps: {
-        placeholder: "请填写链接地址",
-      },
-      dependencies: {
-        show(values) {
-          return values.type === 11 || values.type === 12;
-        },
-        triggerFields: ['type'],
+        triggerFields: ['category'],
       },
     },
     {
@@ -247,11 +231,11 @@ const [BaseForm, baseFormApi] = useVbenForm({
 onMounted(() => {
   loadMenu();
   baseFormApi.setValues({
-    type: 0,
+    category: 0,
     parentId: '0',
     component: 'BasicLayout'
   });
-  baseFormApi.setState({ showDefaultActions: false });
+  baseFormApi.setState({showDefaultActions: false});
 });
 
 function handlePlus(node: any) {
@@ -317,34 +301,36 @@ function addDirectory() {
   itemTableRef.value.parentId = '0';
   baseFormApi.resetForm()
   baseFormApi.setValues({
-    type: 0,
-    parentId: '0',
-    component: 'BasicLayout'
+    category: 0,
+    parentId: '0'
   });
   baseFormApi.resetValidate();
   itemTableRef.value.setSearchFormData({form: {parentId: '0'}});
   itemTableRef.value.doRefresh();
-  baseFormApi.setState({ showDefaultActions: true });
+  baseFormApi.setState({showDefaultActions: true});
 }
 
 function handleSelect(checkedKeys: any, event: any) {
   if (!event.selected) {
     return;
   }
+  // FIX 调用 resetForm 方法会重新验证表单
+  baseFormApi.resetForm();
   baseFormApi.resetValidate();
-  // resetFields();
-  const nodeRef = event.selectedNodes[0];
-  console.log('==>>>', checkedKeys, nodeRef)
-  baseFormApi.setValues({
-    ...nodeRef
-  });
-  itemTableRef.value.crudBinding.search.initialForm = {parentId: nodeRef.id};
-  itemTableRef.value.crudBinding.addForm.initialForm = {parentId: nodeRef.id};
-  itemTableRef.value.crudBinding.actionbar.buttons.add.show = nodeRef.component !== 'BasicLayout' && nodeRef?.children === undefined;
-  itemTableRef.value.parentId = nodeRef.id;
-  itemTableRef.value.setSearchFormData({form: {parentId: nodeRef.id}});
+  baseFormApi.setState({showDefaultActions: true});
+  const selectNode = event.selectedNodes[0];
+  let url = selectNode?.url;
+  let fields = {...selectNode, "component": url ? url : selectNode?.component};
+  console.log('fields =>>>> ', fields)
+  // FIX 字段叫 component 会赋值异常
+  baseFormApi.setValues(fields);
+  itemTableRef.value.crudBinding.search.initialForm = {parentId: selectNode.id};
+  itemTableRef.value.crudBinding.addForm.initialForm = {parentId: selectNode.id};
+  itemTableRef.value.crudBinding.actionbar.buttons.add.show = selectNode.component !== 'BasicLayout'
+      && selectNode?.children === undefined;
+  itemTableRef.value.parentId = selectNode.id;
+  itemTableRef.value.setSearchFormData({form: {parentId: selectNode.id}});
   itemTableRef.value.doRefresh();
-  baseFormApi.setState({ showDefaultActions: true });
 }
 </script>
 
