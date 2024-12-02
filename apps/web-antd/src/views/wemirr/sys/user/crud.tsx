@@ -3,7 +3,7 @@ import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { SysDictCode, sysDictFunc } from "#/api";
 import { defHttp } from '#/api/request';
-import { Modal, notification } from "ant-design-vue";
+import { Modal } from "ant-design-vue";
 // import { downloadByData } from "@/utils/file/download";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
@@ -35,7 +35,10 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             title: "重置密码",
             // show: hasPermission("sys:user:reset"),
             async click({ row }) {
+              // popconfirm
+              // Popconfirm
               Modal.confirm({
+                // placement: 'leftTop',
                 iconType: "warning",
                 title: "风险提示",
                 content: `确定重置 [${row.nickName}] 密码吗 ?`,
@@ -43,11 +46,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                   defHttp
                     .put(`/iam/users/${row.id}/reset_password`)
                     .then(() => {
-                      notification.success({ message: "密码重置成功", duration: 2 });
+                      // notification.success({ message: "密码重置成功", duration: 2 });
                     })
                     .catch((ret) => {
                       console.error("异常原因 - ", ret);
-                      notification.error({ message: "密码重置异常", duration: 2 });
+                      // notification.error({ message: "密码重置异常", duration: 2 });
                     });
                 },
               });
@@ -56,7 +59,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
       },
       search: {
-        onReset(context: any) {
+        onReset() {
           nodeRef.value = null;
         },
       },
@@ -191,7 +194,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             component: {
               uploader: {
                 type: "qiniu", // 上传后端类型【cos,aliyun,oss,form】
-                buildUrl(res) {
+                buildUrl(res: any) {
                   return res.url;
                 },
               },
@@ -212,29 +215,29 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             component: {
               fieldNames: { children: "children", title: "name", key: "id", value: "id" },
               showSearch: true,
-              filterTreeNode: (val, treeNode) => {
+              filterTreeNode: (val: any, treeNode: any) => {
                 return treeNode.props.title.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
             valueChange({ form, value, getComponentRef }) {
-              form.stationId = undefined;
+              form.positionId = undefined;
               if (value) {
-                const targetDict = getComponentRef("stationId").getDict();
-                targetDict.url = `/iam/stations/list?orgId=${value}`;
+                const targetDict = getComponentRef("positionId").getDict();
+                targetDict.url = `/iam/positions/list?orgId=${value}`;
                 targetDict.reloadDict();
               }
             },
           },
         },
-        stationId: {
+        positionId: {
           title: "岗位",
           type: "dict-select",
           column: { width: 150, component: { color: "auto" } },
           dict: dict({
             prototype: false,
-            url: "/iam/stations/list",
+            url: "/iam/positions/list",
             value: "id",
-            label: "name",
+            label: "title",
           }),
           form: {
             component: {
@@ -267,7 +270,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           form: {
             component: {
               showSearch: true,
-              filterOption: (val, form) => {
+              filterOption: (val: any, form: any) => {
                 return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
@@ -282,7 +285,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           form: {
             component: {
               showSearch: true,
-              filterOption: (val, form) => {
+              filterOption: (val: any, form: any) => {
                 return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
               },
             },
@@ -325,7 +328,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             },
             orgInfo: {
               header: "职位信息",
-              columns: ["orgId", "stationId", "positionStatus"],
+              columns: ["orgId", "positionId", "positionStatus"],
             },
             linkInfo: {
               header: "联系方式",

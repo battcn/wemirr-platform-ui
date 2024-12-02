@@ -29,7 +29,7 @@ export default function (props: any) {
           column: { show: false },
         },
         principal: {
-          title: "登录账号",
+          title: "账号",
           type: "text",
           search: { show: true },
           column: { width: 180, fixed: "left" },
@@ -61,7 +61,7 @@ export default function (props: any) {
           column: { width: 160 },
         },
         location: {
-          title: "登录地点",
+          title: "登录地",
           type: "text",
           column: { width: 180 },
         },

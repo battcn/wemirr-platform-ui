@@ -12,7 +12,7 @@ import {
 } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
 
-import { message } from 'ant-design-vue';
+import {message, notification} from 'ant-design-vue';
 
 import { useAuthStore } from '#/store';
 
@@ -76,6 +76,11 @@ function createRequestClient(baseURL: string) {
 
       const { code, data } = responseData;
       if (status >= 200 && status < 400 && code === 200) {
+        // notification.success({
+        //   placement: 'top',
+        //   message: '操作成功',
+        //   duration: 1,
+        // });
         return data;
       }
 
@@ -102,7 +107,12 @@ function createRequestClient(baseURL: string) {
       const responseData = error?.response?.data ?? {};
       const errorMessage = responseData?.error ?? responseData?.message ?? '';
       // 如果没有错误信息，则会根据状态码进行提示
-      message.error(errorMessage || msg);
+      // message.error(errorMessage || msg);
+      notification.error({
+        placement: 'top',
+        message: errorMessage || msg,
+        duration: 1,
+      });
     }),
   );
 

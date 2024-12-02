@@ -8,16 +8,16 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: any) => {
-          return await defHttp.get(`/iam/stations/page`,{ params: query });
+          return await defHttp.get(`/iam/positions/page`,{ params: query });
         },
         addRequest: async ({ form }) => {
-          return await defHttp.post(`/iam/stations`,{ data: form });
+          return await defHttp.post(`/iam/positions`,{ data: form });
         },
         editRequest: async ({ form }) => {
-          return await defHttp.put(`/iam/stations/${form.id}`, { data: form });
+          return await defHttp.put(`/iam/positions/${form.id}`, { data: form });
         },
         delRequest: async ({ row }) => {
-          return await defHttp.delete(`/iam/stations/${row.id}`);
+          return await defHttp.delete(`/iam/positions/${row.id}`);
         },
       },
       columns: {
@@ -27,7 +27,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           form: { show: false },
           column: { show: false },
         },
-        name: {
+        title: {
           title: "名称",
           type: "text",
           column: { width: 150 },

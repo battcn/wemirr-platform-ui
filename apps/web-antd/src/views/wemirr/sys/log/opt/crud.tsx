@@ -35,7 +35,7 @@ export default function (): any {
           column: { width: 140 },
         },
         location: {
-          title: "登录地点",
+          title: "登录地",
           type: "text",
           column: { width: 200 },
         },
