@@ -34,6 +34,9 @@ export function registerFastCrud(app: App) {
                         compact: {
                             show: false,
                         },
+                        export: {
+                            show: false,
+                        },
                     },
                 },
                 search: {

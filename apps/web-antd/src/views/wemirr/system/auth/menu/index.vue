@@ -1,6 +1,6 @@
 <template>
   <Page content-class="flex gap-2 sys-menu-view">
-    <Card class="w-1/3 menu">
+    <Card class="w-1/3">
       <template #extra>
         <a-button @click="addDirectory" type="primary">新增目录</a-button>
       </template>
@@ -9,7 +9,7 @@
           :auto-expand-parent="true"
           :default-expand-all="true"
           :treeData="treeData"
-          :fieldNames="{ key: 'id', title: 'name' }"
+          :fieldNames="{ key: 'id', title: 'title' }"
           :actionList="actionList"
           @select="handleSelect"
       />
@@ -190,19 +190,19 @@ const [BaseForm, baseFormApi] = useVbenForm({
     //     ],
     //   },
     // },
-    // {
-    //   fieldName: "global",
-    //   component: "RadioGroup",
-    //   label: "全局",
-    //   help: "所有人都能看到该菜单",
-    //   defaultValue: false,
-    //   componentProps: {
-    //     options: [
-    //       {label: "是", value: true},
-    //       {label: "否", value: false},
-    //     ],
-    //   },
-    // },
+    {
+      fieldName: "keepAlive",
+      component: "RadioGroup",
+      label: "缓存",
+      help: "开启后页面会缓存，不会重新加载，仅在标签页启用时有效",
+      defaultValue: false,
+      componentProps: {
+        options: [
+          {label: "是", value: true},
+          {label: "否", value: false},
+        ],
+      },
+    },
     {
       fieldName: "sequence",
       component: "InputNumber",

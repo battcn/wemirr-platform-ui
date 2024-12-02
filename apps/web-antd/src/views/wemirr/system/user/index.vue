@@ -13,7 +13,7 @@
       />
     </Card>
     <Card title="用户管理" class="w-full sys-user-page-card">
-      <fs-crud ref="crudRef" v-bind="crudBinding" class="relative right-2 w-[360px] p-0">
+      <fs-crud ref="crudRef" v-bind="crudBinding">
         <template #cell_nickName="scope">
           <a-tooltip placement="top" :title="scope.row.nickName">
             {{ scope.row.nickName }}
