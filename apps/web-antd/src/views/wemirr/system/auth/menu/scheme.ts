@@ -1,6 +1,6 @@
 import {useVbenForm} from "#/adapter/form";
 
-export function menuForm(handleSubmit: any){
+export function menuForm(handleSubmit: any) {
     return useVbenForm({
         // 所有表单项共用，可单独在表单内覆盖
         commonConfig: {
@@ -123,19 +123,19 @@ export function menuForm(handleSubmit: any){
                     ],
                 },
             },
-            // {
-            //   fieldName: "display",
-            //   component: "RadioGroup",
-            //   label: "状态",
-            //   defaultValue: true,
-            //   componentProps: {
-            //     // placeholder: "请选择显示还是隐藏",
-            //     options: [
-            //       {label: "显示", value: true},
-            //       {label: "隐藏", value: false},
-            //     ],
-            //   },
-            // },
+            {
+                label: "可见",
+                fieldName: "visible",
+                component: "RadioGroup",
+                help: "菜单是否可见,隐藏的话则可以正常路由跳转,但是菜单栏不会显示",
+                defaultValue: true,
+                componentProps: {
+                    options: [
+                        {label: "显示", value: true},
+                        {label: "隐藏", value: false},
+                    ],
+                },
+            },
             {
                 fieldName: "keepAlive",
                 component: "RadioGroup",
