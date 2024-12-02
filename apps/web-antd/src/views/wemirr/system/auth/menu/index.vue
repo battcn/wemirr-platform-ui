@@ -15,7 +15,7 @@
       />
     </Card>
     <Card title="菜单信息" class="w-1/2">
-      <BaseForm/>
+      <MenuForm/>
     </Card>
     <Card title="资源信息" class="w-1/2">
       <resource-button-table ref="itemTableRef"/>
@@ -31,8 +31,8 @@ import * as api from "./api";
 import {PlusOutlined, DeleteOutlined} from "@ant-design/icons-vue";
 import ResourceButtonTable from "./button/index.vue";
 import {Page, VbenButton} from '@vben/common-ui';
-import {useVbenForm} from "#/adapter/form";
 import {$t} from '#/locales';
+import {menuForm} from "./scheme";
 
 // const { hasPermission } = usePermission();
 
@@ -43,199 +43,28 @@ const itemTableRef = ref();
 
 function onSubmit(values: Record<string, any>) {
   api.SaveOrUpdate(values).then(() => {
-    baseFormApi.resetForm()
+    menuFormRef.resetForm()
     // loadAreaTree();
     notification.success({
       description: "提交成功",
       duration: 3,
       message: $t('authentication.loginSuccess'),
     })
-    baseFormApi.resetValidate();
+    menuFormRef.resetValidate();
   })
 }
 
 
-const [BaseForm, baseFormApi] = useVbenForm({
-  // 所有表单项共用，可单独在表单内覆盖
-  commonConfig: {
-    // 所有表单项
-    componentProps: {
-      class: 'w-full',
-    },
-  },
-  // 提交函数
-  handleSubmit: onSubmit,
-  layout: 'horizontal',
-  schema: [
-    {
-      fieldName: "id",
-      component: "Input",
-      label: "ID",
-      dependencies: {
-        show: false,
-        triggerFields: ['id'],
-      },
-    },
-    {
-      fieldName: "parentId",
-      component: "Input",
-      label: "上级ID",
-      defaultValue: 0,
-      dependencies: {
-        show: false,
-        triggerFields: ['id'],
-      },
-      componentProps: {
-        disabled: true,
-        placeholder: "请填写上级ID",
-      },
-      rules: 'required',
-    },
-    {
-      fieldName: "category",
-      component: "RadioGroup",
-      label: "分类",
-      dependencies: {
-        trigger(values, formApi) {
-          if (values?.id === undefined) {
-            if (values.category === 0) {
-              formApi.setValues({component: 'BasicLayout'})
-            } else {
-              formApi.setValues({component: ''})
-            }
-          }
-        },
-        triggerFields: ['category'],
-      },
-      componentProps: {
-        options: [
-          {label: "目录", value: 0},
-          {label: "菜单", value: 1},
-          {label: "外链", value: 11},
-          {label: "内嵌", value: 12},
-        ],
-      },
-      rules: 'required',
-    },
-    {
-      fieldName: "path",
-      component: "Input",
-      label: "路径",
-      componentProps: {
-        placeholder: "请填写路径",
-        extra: "路径内容填写 http 地址则为外链网页",
-      },
-      rules: 'required',
-    },
-    {
-      fieldName: "component",
-      component: "Input",
-      label: "组件",
-      help: "分类为 [菜单] 则为页面路由地址 ,  [内嵌/外链] 则打开网页",
-      componentProps: {
-        placeholder: "请填写组件",
-      },
-      dependencies: {
-        disabled(values) {
-          return values.category === 0;
-        },
-        triggerFields: ['category'],
-      },
-    },
-    {
-      fieldName: "title",
-      component: "Input",
-      label: "标题",
-      componentProps: {
-        placeholder: "请输入路由标题",
-      },
-      rules: 'required',
-    },
-    {
-      fieldName: "permission",
-      component: "Input",
-      label: "编码",
-      componentProps: {
-        placeholder: "请输入路由权限码",
-      },
-    },
-    {
-      fieldName: "icon",
-      component: "Input",
-      label: "图标",
-      rules: 'required',
-    },
-    {
-      fieldName: "status",
-      component: "RadioGroup",
-      label: "状态",
-      defaultValue: true,
-      componentProps: {
-        options: [
-          {label: "启用", value: true},
-          {label: "禁用", value: false},
-        ],
-      },
-    },
-    // {
-    //   fieldName: "display",
-    //   component: "RadioGroup",
-    //   label: "状态",
-    //   defaultValue: true,
-    //   componentProps: {
-    //     // placeholder: "请选择显示还是隐藏",
-    //     options: [
-    //       {label: "显示", value: true},
-    //       {label: "隐藏", value: false},
-    //     ],
-    //   },
-    // },
-    {
-      fieldName: "keepAlive",
-      component: "RadioGroup",
-      label: "缓存",
-      help: "开启后页面会缓存，不会重新加载，仅在标签页启用时有效",
-      defaultValue: false,
-      componentProps: {
-        options: [
-          {label: "是", value: true},
-          {label: "否", value: false},
-        ],
-      },
-    },
-    {
-      fieldName: "sequence",
-      component: "InputNumber",
-      label: "排序",
-      defaultValue: 0,
-      componentProps: {
-        placeholder: "请填写排序",
-        help: "数值越小优先级越高",
-        min: 0,
-        max: 100,
-      },
-    },
-    {
-      fieldName: "description",
-      component: "Textarea",
-      label: "描述",
-      componentProps: {
-        placeholder: "请填写描述信息",
-        rows: 4,
-      },
-
-    },
-  ],
-});
+const [MenuForm, menuFormRef] = menuForm(onSubmit);
 
 onMounted(() => {
   loadMenu();
-  baseFormApi.setValues({
-    category: 0,
+  menuFormRef.setValues({
+    type: 'directory',
     parentId: '0',
     component: 'BasicLayout'
   });
-  baseFormApi.setState({showDefaultActions: false});
+  menuFormRef.setState({showDefaultActions: false});
 });
 
 function handlePlus(node: any) {
@@ -292,22 +121,22 @@ function loadMenu() {
         },
       ];
     }, 0);
-    baseFormApi.resetValidate();
+    menuFormRef.resetValidate();
   });
 }
 
 function addDirectory() {
   itemTableRef.value.crudBinding.actionbar.buttons.add.show = false;
   itemTableRef.value.parentId = '0';
-  baseFormApi.resetForm()
-  baseFormApi.setValues({
-    category: 0,
+  menuFormRef.resetForm()
+  menuFormRef.setValues({
+    type: 'directory',
     parentId: '0'
   });
-  baseFormApi.resetValidate();
+  menuFormRef.resetValidate();
   itemTableRef.value.setSearchFormData({form: {parentId: '0'}});
   itemTableRef.value.doRefresh();
-  baseFormApi.setState({showDefaultActions: true});
+  menuFormRef.setState({showDefaultActions: true});
 }
 
 function handleSelect(checkedKeys: any, event: any) {
@@ -315,15 +144,15 @@ function handleSelect(checkedKeys: any, event: any) {
     return;
   }
   // FIX 调用 resetForm 方法会重新验证表单
-  baseFormApi.resetForm();
-  baseFormApi.resetValidate();
-  baseFormApi.setState({showDefaultActions: true});
+  menuFormRef.resetForm();
+  menuFormRef.resetValidate();
+  menuFormRef.setState({showDefaultActions: true});
   const selectNode = event.selectedNodes[0];
   let url = selectNode?.url;
   let fields = {...selectNode, "component": url ? url : selectNode?.component};
   console.log('fields =>>>> ', fields)
   // FIX 字段叫 component 会赋值异常
-  baseFormApi.setValues(fields);
+  menuFormRef.setValues(fields);
   itemTableRef.value.crudBinding.search.initialForm = {parentId: selectNode.id};
   itemTableRef.value.crudBinding.addForm.initialForm = {parentId: selectNode.id};
   itemTableRef.value.crudBinding.actionbar.buttons.add.show = selectNode.component !== 'BasicLayout'

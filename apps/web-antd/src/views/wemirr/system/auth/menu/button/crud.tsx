@@ -9,7 +9,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
-          query.type = 2;
+          query.type = 'button';
           query.parentId = parentId.value;
           return await api.GetResourceList(query) as UserPageRes;
         },
@@ -28,7 +28,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         width: 125,
         dropdown: {
           more: {
-            icon: null,
+            icon: false,
             text: '操作',
           }
         },
@@ -66,14 +66,14 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             ],
           }),
           // addForm: { value: 2 },
-          form: { value: 2, show: false, component: { disabled: true } },
+          form: { value: 'button', show: false, component: { disabled: true } },
         },
         title: {
-          title: "名称",
+          title: "标题",
           type: "text",
           column: { width: 130, ellipsis: true },
           form: {
-            rules: [{ required: true, message: "请填写按钮名称" }],
+            rules: [{ required: true, message: "请填写按钮标题" }],
           },
         },
         permission: {
