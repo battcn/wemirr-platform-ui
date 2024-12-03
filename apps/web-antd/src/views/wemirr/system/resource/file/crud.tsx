@@ -1,9 +1,8 @@
 import * as api from "./api";
-import { useMessage } from "@/hooks/web/useMessage";
 import dayjs from "dayjs";
+import {notification} from "ant-design-vue";
 
 export default function () {
-  const { notification } = useMessage();
   return {
     crudOptions: {
       request: {

@@ -2,13 +2,7 @@
   <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #actionbar-right>
-        <BasicUpload
-          :maxSize="20"
-          :maxNumber="10"
-          okText="确定"
-          @change="handleChange"
-          :api="uploadApi"
-        />
+        上传按钮
       </template>
       <template #cell_originName="scope">
         <a-tooltip placement="topLeft" :title="scope.row.originName">
@@ -38,15 +32,11 @@
 import { defineComponent, onMounted } from "vue";
 import createCrudOptions from "./crud";
 import { useFs } from "@fast-crud/fast-crud";
-import { useMessage } from "@/hooks/web/useMessage";
-import { BasicUpload } from "@/components/Upload";
-import { uploadApi } from "@/api/sys/upload";
+import {notification} from "ant-design-vue";
 
 export default defineComponent({
   name: "ResourceFilePage",
-  components: { BasicUpload },
   setup() {
-    const { notification } = useMessage();
     const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
     // 页面打开后获取列表数据
     onMounted(() => {
@@ -60,7 +50,6 @@ export default defineComponent({
 
     return {
       handleChange,
-      uploadApi,
       crudBinding,
       crudRef,
     };

@@ -1,6 +1,7 @@
 import * as api from "./api";
 import { dict } from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
+import {notification} from "ant-design-vue";
 
 export default function () {
   // const { hasPermission } = usePermission();
@@ -19,6 +20,14 @@ export default function () {
           add: {
             icon: "ph:plus-fill",
             text: "添加模板",
+          },
+          publish: {
+            icon: "arcticons:efa-publish",
+            type: 'primary',
+            text: "消息发布",
+            async click({ row }: any) {
+              alert('弹出');
+            },
           },
         },
       },

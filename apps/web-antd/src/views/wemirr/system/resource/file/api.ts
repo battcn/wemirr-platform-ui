@@ -1,28 +1,20 @@
 import { defHttp } from '#/api/request';
 
 export function GetList(query: any) {
-  return defHttp.get({
-    url: "/tools/files",
+  return defHttp.get("/tools/files",{
     params: query,
   });
 }
 export function AddObj(obj: any) {
-  return defHttp.post({
-    url: "/tools/files",
+  return defHttp.post("/tools/files",{
     data: obj,
   });
 }
 
 export function UpdateObj(obj: any) {
-  return defHttp.put({
-    url: `/tools/files/${obj.id}`,
-    data: obj,
-  });
+  return defHttp.put( `/tools/files/${obj.id}`,obj);
 }
 
 export function DelObj(id: string) {
-  return defHttp.delete({
-    url: `/tools/files/${id}`,
-    data: { id },
-  });
+  return defHttp.delete(`/tools/files/${id}`);
 }
