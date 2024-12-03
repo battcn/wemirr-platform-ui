@@ -1,10 +1,13 @@
 import * as api from "./api";
-import { dict } from "@fast-crud/fast-crud";
+import {dict, utils} from "@fast-crud/fast-crud";
+import type {CreateCrudOptionsProps, CreateCrudOptionsRet} from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
-import {notification} from "ant-design-vue";
+import {useRouter} from "vue-router";
 
-export default function () {
-  // const { hasPermission } = usePermission();
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+  utils.logger.info("crud props", props);
+  const router = useRouter();
+
   return {
     crudOptions: {
       request: {
@@ -21,18 +24,23 @@ export default function () {
             icon: "ph:plus-fill",
             text: "添加模板",
           },
-          publish: {
-            icon: "arcticons:efa-publish",
-            type: 'primary',
-            text: "消息发布",
-            async click({ row }: any) {
-              alert('弹出');
-            },
-          },
         },
       },
       rowHandle: {
-        buttons: {},
+        width: 230,
+        buttons: {
+          publish: {
+            // icon: "arcticons:efa-publish",
+            order: 2,
+            type: 'link',
+            text: "推送",
+            async click({ row }: any) {
+              // props.context.openPublishFormWrapper(row);
+              utils.logger.info("click publish row => ", row);
+              await router.push(`/sys/message/publish?code=${row.code}&name=${row.name}`);
+            },
+          },
+        },
       },
       columns: {
         id: {

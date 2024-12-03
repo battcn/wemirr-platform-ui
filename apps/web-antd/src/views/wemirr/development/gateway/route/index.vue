@@ -75,6 +75,7 @@
 
       <template #form_filters="scope">
         <div v-for="(scopeItem, scopeIndex) in scope.form.filters" :key="scopeIndex">
+<!--          {{scopeItem}}-->
           <a-divider
             >{{ scopeItem.name }}
             <a-button

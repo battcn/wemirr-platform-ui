@@ -26,3 +26,7 @@ export function DelObj(id) {
     data: { id },
   });
 }
+
+export function notify(obj: any) {
+  return defHttp.post("/iam/message_templates/notify",obj);
+}

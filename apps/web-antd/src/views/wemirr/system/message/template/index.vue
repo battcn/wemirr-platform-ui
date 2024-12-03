@@ -7,16 +7,40 @@
         </a-tooltip>
       </template>
     </fs-crud>
+    <fs-form-wrapper ref="publishFormWrapperRef" v-bind="formWrapperOptions">
+      <template #form_slot="scope">
+        <a-input v-model:value="scope.form.slot">
+          <template #prefix>
+            <fs-icon icon="ion:search"></fs-icon>
+          </template>
+        </a-input>
+      </template>
+    </fs-form-wrapper>
   </fs-page>
 </template>
 
 <script lang="ts" setup name="MessageTemplatePage">
-import { onMounted } from "vue";
-import { useFs } from "@fast-crud/fast-crud";
+import {onMounted, ref} from "vue";
+import {useFs} from "@fast-crud/fast-crud";
 import createCrudOptions from "./crud";
+import {createFormOptions} from "../publish/publish";
+
+const publishFormWrapperRef = ref();
+const formWrapperOptions = ref();
+
+
+function openPublishFormWrapper(row: any) {
+  formWrapperOptions.value = createFormOptions();
+  formWrapperOptions.value.initialForm = {code: row.code, name: row.name};
+  publishFormWrapperRef.value.open(formWrapperOptions.value);
+}
+
 
 //通过context传递到crud.tsx中
-const { crudBinding, crudRef, crudExpose } = useFs({ createCrudOptions });
+const {crudBinding, crudRef, crudExpose} = useFs({
+  createCrudOptions,
+  context: {openPublishFormWrapper, permission: "sys:user"},
+});
 
 // 页面打开后获取列表数据
 onMounted(() => {

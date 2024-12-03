@@ -19,7 +19,7 @@ export default function () {
             show: false,
             icon: "codicon:repo-force-push",
             text: "文件上传",
-            async click(context) {
+            async click(context: any) {
               console.log(context);
               notification.error({
                 message: "暂未实现",

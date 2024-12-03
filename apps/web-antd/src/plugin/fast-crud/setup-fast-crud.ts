@@ -1,8 +1,7 @@
+import type {App} from 'vue';
 
-import type { App } from 'vue';
-
-import { FastCrud, registerMergeColumnPlugin } from '@fast-crud/fast-crud';
-import type  {ColumnCompositionProps} from '@fast-crud/fast-crud';
+import {FastCrud, registerMergeColumnPlugin} from '@fast-crud/fast-crud';
+import type {ColumnCompositionProps} from '@fast-crud/fast-crud';
 import ui from '@fast-crud/ui-antdv4';
 import Antdv from 'ant-design-vue';
 
@@ -19,6 +18,7 @@ import {
     FsExtendsUploader
 } from "@fast-crud/fast-extends";
 import type {FsEditorWang5Config} from "@fast-crud/fast-extends/dist/d/editor/type/config";
+
 // import type _ from "lodash-es";
 
 export function registerFastCrud(app: App) {
@@ -26,11 +26,11 @@ export function registerFastCrud(app: App) {
     app.use(ui);
     app.use(FastCrud, {
         // i18n,
-        logger: { off: { tableColumns: false } },
-        async dictRequest({ url }) {
-            return await defHttp.request(url,{});
+        logger: {off: {tableColumns: false}},
+        async dictRequest({url}) {
+            return await defHttp.request(url, {});
         },
-        commonOptions(props:any) {
+        commonOptions(props: any) {
             const crudBinding = props.crudExpose?.crudBinding;
             const opts = {
                 toolbar: {
@@ -69,11 +69,11 @@ export function registerFastCrud(app: App) {
                     // 固定右侧 不建议设置成全局
                     fixed: "right",
                     buttons: {
-                        view: { size: "small", type: "link", icon: null },
-                        edit: { size: "small", type: "link", icon: null },
-                        remove: { size: "small", type: "link", icon: null },
+                        view: {order: 1, size: "small", type: "link", icon: null},
+                        edit: {order: 2, size: "small", type: "link", icon: null},
+                        remove: {order: 3, size: "small", type: "link", icon: null},
                     },
-                    dropdown: { more: { type: "link" } },
+                    dropdown: {more: {type: "link"}},
                 },
                 table: {
                     size: "small",
@@ -92,8 +92,8 @@ export function registerFastCrud(app: App) {
                     },
                 },
                 request: {
-                    transformQuery: ({ page, form, sort } : any) => {
-                        const order = sort == null ? {} : { column: sort.prop, asc: sort.asc };
+                    transformQuery: ({page, form, sort}: any) => {
+                        const order = sort == null ? {} : {column: sort.prop, asc: sort.asc};
                         const currentPage = page.currentPage ?? 1;
                         const limit = page.pageSize ?? 20;
                         const offset = limit * (currentPage - 1);
@@ -105,7 +105,7 @@ export function registerFastCrud(app: App) {
                             ...order,
                         };
                     },
-                    transformRes: ({ res } : any) => {
+                    transformRes: ({res}: any) => {
                         if (res.data != null) {
                             return {
                                 currentPage: parseInt(res.data.current),
@@ -171,10 +171,10 @@ export function registerFastCrud(app: App) {
             action: "/tools/files/upload",
             name: "file",
             withCredentials: false,
-            uploadRequest: async ({ action, file, onProgress }) => {
+            uploadRequest: async ({action, file, onProgress}) => {
                 const data = new FormData();
                 data.append("file", file);
-                return await defHttp.request(action,{
+                return await defHttp.request(action, {
                     method: "post",
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -183,7 +183,7 @@ export function registerFastCrud(app: App) {
                     data,
                     onUploadProgress: (p) => {
                         // @ts-ignore
-                        onProgress({ percent: Math.round((p.loaded / p.total) * 100) });
+                        onProgress({percent: Math.round((p.loaded / p.total) * 100)});
                     },
                 });
             },
