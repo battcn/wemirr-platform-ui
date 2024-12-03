@@ -1,8 +1,10 @@
 import * as api from "./api";
-import { compute, dict } from "@fast-crud/fast-crud";
+import {compute, dict, utils} from "@fast-crud/fast-crud";
 import dayjs from "dayjs";
 import { SysDictCode, sysDictFunc } from "#/api";
 import {notification} from "ant-design-vue";
+import type {FsUploaderFormOptions} from "@fast-crud/fast-extends";
+import "./editor.css";
 
 export default function ({ searchRemote }) {
   // const { hasPermission } = usePermission();
@@ -20,7 +22,7 @@ export default function ({ searchRemote }) {
         show: true,
         buttons: {
           add: {
-            icon: "codicon:repo-force-push",
+            icon: "icon-park-outline:email-push",
             text: "发布消息",
           },
         },
@@ -126,9 +128,58 @@ export default function ({ searchRemote }) {
             },
           },
         },
-        content: {
-          title: "消息内容",
+        content_wang: {
+          title: "内容",
+          column: {
+            width: 300,
+            show: false
+          },
+          // type: "editor-wang5", // 富文本图片上传依赖file-uploader，请先配置好file-uploader
           type: ["editor-wang"],
+          viewForm: {
+            render({ value }) {
+              return <div class={"editor-content-view"} v-html={value}></div>;
+            }
+          },
+          form: {
+            helper: "示例已升级到wangEditor5版本，原来的editor-wang目前仍然可以使用，后续fs升级可能会将其删除，请尽快升级到editor-wang5版本",
+            col: { span: 24 },
+            // 动态显隐字段
+            // show: compute(({ form }) => {
+            //   return form.change === "wang";
+            // }),
+            rules: [
+              { required: true, message: "此项必填" },
+              {
+                validator: async (rule, value) => {
+                  if (value.trim() === "<p><br></p>") {
+                    throw new Error("内容不能为空");
+                  }
+                }
+              }
+            ],
+            component: {
+              disabled: compute(({ form }) => {
+                return form.disabled;
+              }),
+              id: "1", // 当同一个页面有多个editor时，需要配置不同的id
+              toolbarConfig: {},
+              editorConfig: {},
+              onOnChange(value: any) {
+                utils.logger.info("value changed", value);
+              },
+              uploader: {
+                type: "form",
+                buildUrl(res: any) {
+                  return res.url;
+                }
+              } as FsUploaderFormOptions
+            }
+          }
+        },
+/*        content: {
+          title: "消息内容",
+          type: ["editor-wang5"],
           column: { ellipsis: true, width: 200 },
           viewForm: {
             disabled: true,
@@ -150,7 +201,7 @@ export default function ({ searchRemote }) {
               },
             },
           },
-        },
+        },*/
         description: {
           title: "描述信息",
           type: "textarea",

@@ -1,7 +1,7 @@
 
 import type { App } from 'vue';
 
-import {FastCrud, useColumns } from '@fast-crud/fast-crud';
+import { FastCrud, registerMergeColumnPlugin } from '@fast-crud/fast-crud';
 import type  {ColumnCompositionProps} from '@fast-crud/fast-crud';
 import ui from '@fast-crud/ui-antdv4';
 import Antdv from 'ant-design-vue';
@@ -11,7 +11,14 @@ import '@fast-crud/ui-antdv4/dist/style.css';
 import './setup-fast-crud.less';
 import {computed} from "vue";
 import {defHttp} from "#/api/request";
-import {FsExtendsEditor, FsExtendsJson, FsExtendsUploader} from "@fast-crud/fast-extends";
+import {
+    FsExtendsCopyable,
+    FsExtendsEditor,
+    FsExtendsInput,
+    FsExtendsJson, FsExtendsTime,
+    FsExtendsUploader
+} from "@fast-crud/fast-extends";
+import type {FsEditorWang5Config} from "@fast-crud/fast-extends/dist/d/editor/type/config";
 // import type _ from "lodash-es";
 
 export function registerFastCrud(app: App) {
@@ -146,10 +153,17 @@ export function registerFastCrud(app: App) {
     //安装editor
     app.use(FsExtendsEditor, {
         //编辑器的公共配置
-        wangEditor: {},
-        quillEditor: {},
+        wangEditor5: {
+            editorConfig: {
+                MENU_CONF: {}
+            },
+            toolbarConfig: {}
+        } as FsEditorWang5Config
     });
     app.use(FsExtendsJson);
+    app.use(FsExtendsTime);
+    app.use(FsExtendsCopyable);
+    app.use(FsExtendsInput);
     //配置uploader 公共参数
     app.use(FsExtendsUploader, {
         defaultType: "form",
@@ -187,6 +201,25 @@ export function registerFastCrud(app: App) {
                 };
             },
         },
+    });
+
+
+    //默认宽度，支持自动拖动调整列宽
+    registerMergeColumnPlugin({
+        name: "resize-column-plugin",
+        order: 2,
+        handle: (columnProps: ColumnCompositionProps) => {
+            if (!columnProps.column) {
+                columnProps.column = {};
+            }
+            if (columnProps.column.resizable == null) {
+                columnProps.column.resizable = true;
+                if (!columnProps.column.width) {
+                    columnProps.column.width = 100;
+                }
+            }
+            return columnProps;
+        }
     });
 
     // 此处演示自定义字段合并插件

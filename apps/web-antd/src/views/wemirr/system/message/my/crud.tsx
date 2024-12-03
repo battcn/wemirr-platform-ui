@@ -71,7 +71,7 @@ export default function () {
         },
         content: {
           title: "消息内容",
-          type: "editor-wang",
+          type: "editor-wang5",
           column: { ellipsis: true },
           form: {
             col: { span: 24 },
