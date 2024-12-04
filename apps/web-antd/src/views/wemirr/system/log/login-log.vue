@@ -7,7 +7,7 @@
 <script lang="ts" setup name="LoginLogPage">
 import { onMounted } from "vue";
 import { useFs } from "@fast-crud/fast-crud";
-import createCrudOptions from "./crud";
+import createCrudOptions from "./login-log";
 
 //通过context传递到crud.tsx中
 const { crudBinding, crudRef, crudExpose } = useFs({ createCrudOptions });

@@ -28,7 +28,7 @@
 
 <script lang="ts" setup name="OptLogPage">
 import { onMounted } from "vue";
-import createCrudOptions from "./crud";
+import createCrudOptions from "./opt-log";
 import { useFs } from "@fast-crud/fast-crud";
 import {Modal, notification} from "ant-design-vue";
 import { defHttp } from '#/api/request';
