@@ -11,7 +11,7 @@
 //             {
 //                 name: '消息推送',
 //                 path: '/sys/message/template/publish',
-//                 component: () => import('#/views/wemirr/system/message/template/index.vue'),
+//                 component: () => import('#/views/wemirr/system/message/template/subscribe-list.vue'),
 //                 meta: {
 //                     // affixTab: true,
 //                     icon: 'arcticons:efa-publish',

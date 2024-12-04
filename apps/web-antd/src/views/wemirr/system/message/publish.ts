@@ -1,11 +1,9 @@
-import {compute, dict, useColumns, utils, useUi} from "@fast-crud/fast-crud";
-import {message} from "ant-design-vue";
-import * as api from "../template/api";
-import createCrudOptionsText from "../../user/crud";
+import {compute, dict, useColumns, useUi} from "@fast-crud/fast-crud";
+import createCrudOptionsText from "../user/crud";
 import {defHttp} from "#/api/request";
 
 export function createFormOptions() {
-    const { ui } = useUi();
+    const {ui} = useUi();
     // 自定义表单配置
     const {buildFormOptions} = useColumns();
     //使用crudOptions结构来构建自定义表单配置
@@ -15,22 +13,22 @@ export function createFormOptions() {
                 title: "编码",
                 type: "text",
                 form: {
-                    component: { disabled: true },
+                    component: {disabled: true},
                 },
             },
             name: {
                 title: "名称",
                 type: "text",
                 form: {
-                    component: { disabled: true },
+                    component: {disabled: true},
                 },
             },
-            context: {
+            content: {
                 title: "消息内容",
                 type: "textarea",
                 form: {
                     col: {span: 24},
-                    component: { disabled: true },
+                    component: {disabled: true},
                 },
             },
             type: {
@@ -38,12 +36,13 @@ export function createFormOptions() {
                 type: "dict-select",
                 dict: dict({
                     data: [
-                        { value: 0, label: "用户", color: "success" },
+                        {value: 0, label: "用户", color: "success"},
                         // { value: 1, label: "角色", color: "error" },
                     ],
                 }),
-                form:{
+                form: {
                     value: 0,
+                    rules: [{required: true, message: "订阅类型不能为空"}],
                 }
             },
             subscriberIdList: {
@@ -54,12 +53,12 @@ export function createFormOptions() {
                     label: "nickName",
                     //重要，根据value懒加载数据
                     getNodesByValues: async (values: any[]) => {
-                        // return await textTableApi.GetByIds(values);
-                        return defHttp.post('/iam/users/ids',values);
+                        return defHttp.post('/iam/users/ids', values);
                     }
                 }),
                 form: {
-                    show: compute(({ form }) => {
+                    rules: [{required: true, message: "订阅人不能为空"}],
+                    show: compute(({form}) => {
                         return form.type === 0;
                     }),
                     component: {
@@ -74,10 +73,23 @@ export function createFormOptions() {
                             placeholder: "点击选择"
                         },
                         createCrudOptions: createCrudOptionsText,
-                        // crudOptionsOverride,
+                        crudOptionsOverride: {
+                            toolbar: {show: false},
+                            actionbar: {buttons: {add: {show: false}}},
+                            rowHandle: {
+                                show: false,
+                            },
+                            columns: {
+                                username: {column: {show: false}},
+                                status: {column: {show: false}},
+                                nation: {column: {show: false}},
+                                education: {column: {show: false}},
+                                positionId: {column: {show: false}},
+                            },
+                        },
                         on: {
-                            selectedChange({ $event }) {
-                                // console.log("selectedChange", $event);
+                            selectedChange({$event}) {
+                                console.log("selectedChange", $event);
                                 // ui.notification.success(`你选择了${JSON.stringify($event)}`)
                             }
                         }
@@ -89,27 +101,17 @@ export function createFormOptions() {
                 type: ["text"],
                 column: {
                     show: false,
-                    component: { name: "fs-values-format" },
+                    component: {name: "fs-values-format"},
                 },
                 form: {
-                    col: { span: 24 },
+                    col: {span: 24},
                 },
             },
-            // variables: {
-            //     title: "变量",
-            //     type: "textarea",
-            //     form: {
-            //         col: {span: 24},
-            //         rules: [{required: true, message: "变量不能为空必填"}]
-            //     }
-            // }
         },
         form: {
             doSubmit({form}) {
-                api.notify(form).then(() => {
-                    utils.logger.log("form submit:", form);
-                    message.info("自定义表单提交:" + JSON.stringify(form));
-                    message.success("保存成功");
+                defHttp.post("/iam/message-template/notify", form).then(() => {
+                    ui.notification.success("消息推送成功")
                 })
             }
         }

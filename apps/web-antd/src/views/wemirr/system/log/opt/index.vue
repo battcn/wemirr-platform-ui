@@ -9,7 +9,7 @@
       <template #actionbar-right>
         <a-dropdown type="primary" class="ml-1">
           <template #overlay>
-            <a-menu @click="handleMenuClick">
+            <a-menu @click="handleBatchDelete">
               <a-menu-item key="1">一天前</a-menu-item>
               <a-menu-item key="7">七天前</a-menu-item>
               <a-menu-item key="15">十五天前</a-menu-item>
@@ -39,7 +39,7 @@ onMounted(() => {
   crudExpose.doRefresh();
 });
 
-const handleMenuClick = (e: any) => {
+const handleBatchDelete = (e: any) => {
   Modal.confirm({
     iconType: "warning",
     title: "提示",

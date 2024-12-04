@@ -22,8 +22,8 @@
 <script lang="ts" setup name="MessageTemplatePage">
 import {onMounted, ref} from "vue";
 import {useFs} from "@fast-crud/fast-crud";
-import createCrudOptions from "./crud";
-import {createFormOptions} from "../publish/publish";
+import createCrudOptions from "./template";
+import {createFormOptions} from "./publish";
 
 const publishFormWrapperRef = ref();
 const formWrapperOptions = ref();
