@@ -1,6 +1,6 @@
 {
   "name": "vben-admin-monorepo",
-  "version": "5.4.8",
+  "version": "5.5.0",
   "private": true,
   "keywords": [
     "monorepo",
@@ -19,7 +19,7 @@
   "repository": "vbenjs/vue-vben-admin.git",
   "license": "MIT",
   "author": {
-    "name": "vben",
+    "name": "battcn",
     "email": "1837307557@qq.com",
     "url": "https://github.com/battcn"
   },
@@ -99,7 +99,7 @@
     "node": ">=20.10.0",
     "pnpm": ">=9.12.0"
   },
-  "packageManager": "pnpm@9.14.2",
+  "packageManager": "pnpm@9.14.4",
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {

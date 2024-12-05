@@ -97,12 +97,12 @@ function setupAccessGuard(router: Router) {
       // 则会在菜单中显示，但是访问会被重定向到403
       routes: accessRoutes,
     });
+
     // 保存菜单信息和路由信息
     accessStore.setAccessMenus(accessibleMenus);
     accessStore.setAccessRoutes(accessibleRoutes);
     accessStore.setIsAccessChecked(true);
     const redirectPath = (from.query.redirect ?? to.fullPath) as string;
-    console.log('userInfo====>>>>', userInfo, accessibleRoutes, accessRoutes)
     return {
       ...router.resolve(decodeURIComponent(redirectPath)),
       replace: true,

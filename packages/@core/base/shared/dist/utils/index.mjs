@@ -1,4 +1,4 @@
-import { createJiti } from "../../../../../../node_modules/.pnpm/jiti@2.4.0/node_modules/jiti/lib/jiti.mjs";
+import { createJiti } from "../../../../../../node_modules/.pnpm/jiti@2.4.1/node_modules/jiti/lib/jiti.mjs";
 
 const jiti = createJiti(import.meta.url, {
   "interopDefault": true,
@@ -16,6 +16,8 @@ const jiti = createJiti(import.meta.url, {
 const _module = await jiti.import("/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/packages/@core/base/shared/src/utils/index.ts");
 
 export const cloneDeep = _module.cloneDeep;
+export const get = _module.get;
+export const isEqual = _module.isEqual;
 export const cn = _module.cn;
 export const formatDate = _module.formatDate;
 export const format = _module.format;
