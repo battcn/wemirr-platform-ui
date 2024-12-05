@@ -27,7 +27,7 @@ export function registerFastCrud(app: App) {
     app.use(FastCrud, {
         // i18n,
         logger: {off: {tableColumns: false}},
-        async dictRequest({url}) {
+        async dictRequest({url}: any) {
             return await defHttp.request(url, {});
         },
         commonOptions(props: any) {
@@ -38,12 +38,8 @@ export function registerFastCrud(app: App) {
                     // toolbar.compact:false 默认选择
                     compact: false,
                     buttons: {
-                        compact: {
-                            show: false,
-                        },
-                        export: {
-                            show: false,
-                        },
+                        compact: {show: false,},
+                        export: {show: false,},
                     },
                 },
                 search: {
@@ -148,7 +144,7 @@ export function registerFastCrud(app: App) {
             // return crudPermission.merge(opts);
             return opts;
         },
-    });
+    } as any);
 
     //安装editor
     app.use(FsExtendsEditor, {

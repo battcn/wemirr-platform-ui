@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
-import { dict } from "@fast-crud/fast-crud";
-import type {ValueResolveContext} from "@fast-crud/fast-crud";
+import {dict} from "@fast-crud/fast-crud";
+import type {ValueResolveContext, ValueBuilderContext} from "@fast-crud/fast-crud";
 import { defHttp } from '#/api/request';
 
 export default function (): any {
@@ -147,7 +147,7 @@ export default function (): any {
           column: { show: false },
           form: {
             col: { span: 24 },
-            valueBuilder({ form } :any) {
+            valueBuilder({ form }: ValueBuilderContext) {
               if (form.result == null) {
                 return;
               }

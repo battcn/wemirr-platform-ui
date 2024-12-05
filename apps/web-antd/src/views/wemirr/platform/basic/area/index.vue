@@ -23,7 +23,7 @@
       >
       </a-tree>
     </Card>
-    <Card title="菜单信息" class="w-full" style="margin-left: 10px">
+    <Card title="地址信息" class="w-full" style="margin-left: 10px">
       <BaseForm />
     </Card>
   </Page>

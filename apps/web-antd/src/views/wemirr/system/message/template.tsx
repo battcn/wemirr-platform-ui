@@ -27,6 +27,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                         icon: "ph:plus-fill",
                         text: "添加模板",
                     },
+                    channel: {
+                        icon: "fluent:channel-48-regular",
+                        type: 'primary',
+                        text: "消息通道",
+                    },
                 },
             },
             rowHandle: {
@@ -72,7 +77,10 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                 type: {
                     title: "类型",
                     search: {show: true},
-                    column: {show: true, align: "center", width: 160},
+                    column: {
+                        show: true, width: 160,
+                        component: { color: "auto",  defaultLabel: "-/-"},
+                    },
                     type: "dict-select",
                     dict: dict({
                         data: [
@@ -82,8 +90,22 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                             {value: 'sms', label: "短信"},
                         ],
                     }),
-                    addForm: {
-                        value: 'system',
+                    addForm: {value: 'system',},
+                    form: {
+                        title: "多选本地",
+                        component: {
+                            mode: "multiple",
+                            on: {
+                                selectedChange({form, $event}) {
+                                    // $event就是原始的事件值，也就是选中的 option对象
+                                    utils.logger.info("onSelectedChange", form, $event);
+                                    // ui.message.info(`你选择了${JSON.stringify($event)}`);
+                                    // 你还可以将选中的label值赋值给表单里其他字段
+                                    // context.form.xxxLabel = context.$event.label
+                                }
+                            }
+                        },
+                        rules: [{required: true, message: "请选择一个选项"}]
                     },
                 },
                 subject: {
