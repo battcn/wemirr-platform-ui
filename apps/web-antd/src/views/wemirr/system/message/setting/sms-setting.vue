@@ -18,6 +18,15 @@ const [BaseForm, baseFormApi] = useVbenForm({
   layout: 'horizontal',
   schema: [
     {
+      fieldName: 'title',
+      component: 'Input',
+      label: '标题',
+      componentProps: {
+        placeholder: '请输入消息渠道标题',
+      },
+      rules: 'required',
+    },
+    {
       fieldName: 'status',
       component: 'RadioGroup',
       label: '状态',

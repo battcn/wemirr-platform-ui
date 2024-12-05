@@ -18,19 +18,39 @@ const [BaseForm, baseFormApi] = useVbenForm({
   layout: 'horizontal',
   schema: [
     {
+      fieldName: 'id',
+      component: 'Input',
+      dependencies: { show: false, triggerFields: [''] },
+    },
+    {
+      fieldName: 'type',
+      component: 'Input',
+      defaultValue: 'email',
+      dependencies: { show: false, triggerFields: [''] },
+    },
+    {
+      fieldName: 'title',
+      component: 'Input',
+      label: '标题',
+      componentProps: {
+        placeholder: '请输入消息渠道标题',
+      },
+      rules: 'required',
+    },
+    {
       fieldName: 'status',
       component: 'RadioGroup',
       label: '状态',
       defaultValue: 1,
       componentProps: {
         options: [
-          { label: '启用', value: 1 },
-          { label: '禁用', value: 0 },
+          { label: '启用', value: true },
+          { label: '禁用', value: false },
         ],
       },
     },
     {
-      fieldName: 'host',
+      fieldName: 'setting.host',
       component: 'Textarea',
       label: '主机地址',
       componentProps: {
@@ -40,7 +60,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       rules: 'required',
     },
     {
-      fieldName: 'port',
+      fieldName: 'setting.port',
       component: 'Input',
       label: '服务端口',
       componentProps: {
@@ -49,7 +69,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       rules: 'required',
     },
     {
-      fieldName: 'protocol',
+      fieldName: 'setting.protocol',
       component: 'Input',
       label: '服务协议',
       componentProps: {
@@ -58,7 +78,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       rules: 'required',
     },
     {
-      fieldName: 'username',
+      fieldName: 'setting.username',
       component: 'Input',
       label: '邮箱账户',
       componentProps: {
@@ -67,7 +87,7 @@ const [BaseForm, baseFormApi] = useVbenForm({
       rules: 'required',
     },
     {
-      fieldName: 'password',
+      fieldName: 'setting.password',
       component: 'Input',
       label: '密码/授权码',
       componentProps: {
@@ -76,42 +96,28 @@ const [BaseForm, baseFormApi] = useVbenForm({
       rules: 'required',
     },
     {
-      fieldName: 'encoding',
-      component: 'Input',
-      label: '默认编码',
-      // defaultValue: 'UTF-8',
-      componentProps: {
-        placeholder: '请输入邮件默认编码',
-      },
-      rules: 'required',
-    },
-    {
-      fieldName: 'smtp.auth',
+      fieldName: 'setting.smtp.auth',
       component: 'RadioGroup',
       label: '开启 Auth',
       defaultValue: true,
       componentProps: {
-        componentProps: {
-          options: [
-            { label: '开启', value: true },
-            { label: '关闭', value: false },
-          ],
-        },
+        options: [
+          { label: '开启', value: true },
+          { label: '关闭', value: false },
+        ],
       },
       rules: 'required',
     },
     {
-      fieldName: 'smtp.ssl',
+      fieldName: 'setting.smtp.ssl',
       component: 'RadioGroup',
       label: '开启 SSL',
       defaultValue: true,
       componentProps: {
-        componentProps: {
-          options: [
-            { label: '开启', value: true },
-            { label: '关闭', value: false },
-          ],
-        },
+        options: [
+          { label: '开启', value: true },
+          { label: '关闭', value: false },
+        ],
       },
       rules: 'required',
     },
@@ -130,7 +136,6 @@ const [BaseForm, baseFormApi] = useVbenForm({
 
 function onSubmit(values: Record<string, any>) {
   defHttp.post('/iam/message-channel/setting', values).then(() => {
-    baseFormApi.resetForm();
     notification.success({
       description: '提交成功',
       duration: 3,
@@ -139,7 +144,13 @@ function onSubmit(values: Record<string, any>) {
   });
 }
 
-onMounted(async () => {});
+onMounted(async () => {
+  baseFormApi.getValues().then((form) => {
+    defHttp.get(`/iam/message-channel/detail?type=${form.type}`).then((ret) => {
+      baseFormApi.setValues(ret);
+    });
+  });
+});
 </script>
 <template>
   <BaseForm />
