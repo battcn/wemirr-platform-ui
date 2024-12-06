@@ -13,23 +13,23 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.get(`/iam/registered_client_refs`, { params: query }),
+          await defHttp.get(`/iam/registered-client`, { params: query }),
         addRequest: async ({ form }) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
-          await defHttp.post(`/iam/registered_client_refs`, { data: form });
+          await defHttp.post(`/iam/registered-client`, { data: form });
         },
         editRequest: async ({ form }) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
-          await defHttp.post(`/iam/registered_client_refs`, { data: form });
+          await defHttp.post(`/iam/registered-client`, { data: form });
         },
         delRequest: async ({ row }) =>
-          await defHttp.delete(`/iam/registered_client_refs/${row.id}`),
+          await defHttp.delete(`/iam/registered-client/${row.id}`),
       },
       table: {
         rowKey: 'clientId',

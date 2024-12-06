@@ -17,10 +17,10 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           return await defHttp.get(`/iam/positions/page`, { params: query });
         },
         addRequest: async ({ form }) => {
-          return await defHttp.post(`/iam/positions`, { data: form });
+          return await defHttp.post(`/iam/positions/create`, form);
         },
         editRequest: async ({ form }) => {
-          return await defHttp.put(`/iam/positions/${form.id}`, { data: form });
+          return await defHttp.put(`/iam/positions/${form.id}/modify`, form);
         },
         delRequest: async ({ row }) => {
           return await defHttp.delete(`/iam/positions/${row.id}`);

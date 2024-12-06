@@ -171,7 +171,7 @@ function loadAreaTree() {
 
 <template>
   <Page
-    content-class="flex flex-row gap-4"
+    content-class="flex flex-row gap-2"
     description="地区数据关系到地址库后续提供的应用能力,请勿随意篡改数据。"
     title="地区信息"
   >
@@ -188,14 +188,19 @@ function loadAreaTree() {
         </a-tooltip>
       </template>
       <a-tree
-        :height="620"
         :field-names="{ children: 'children', title: 'name', key: 'value' }"
+        :height="620"
         :tree-data="treeData"
         @select="handleSelect"
       />
     </Card>
-    <Card class="w-full" style="margin-left: 10px" title="地址信息">
+    <Card class="w-full" title="地址信息">
       <BaseForm />
     </Card>
   </Page>
 </template>
+<style lang="less" scoped>
+/deep/.p-4 {
+  padding: 8px !important;
+}
+</style>

@@ -21,6 +21,6 @@ export const sysDictFunc = (code: SysDictCode) => {
 
 export const businessDictFunc = (code: BusinessDictCode) => {
   return dict({
-    url: `/iam/tenant_dict/${code}/list`,
+    url: `/iam/tenant-dict/${code}/list`,
   });
 };

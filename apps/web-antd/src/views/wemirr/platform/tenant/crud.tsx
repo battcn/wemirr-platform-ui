@@ -98,9 +98,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           return await defHttp.post(`/iam/tenants/page`, query);
         },
         addRequest: async ({ form }) =>
-          await defHttp.post(`/iam/tenants`, form),
+          await defHttp.post(`/iam/tenants/create`, form),
         editRequest: async ({ form }) =>
-          await defHttp.put(`/iam/tenants/${form.id}`, form),
+          await defHttp.put(`/iam/tenants/${form.id}/modify`, form),
         delRequest: async ({ row }) =>
           await defHttp.delete(`/iam/tenants/${row.id}`),
       },

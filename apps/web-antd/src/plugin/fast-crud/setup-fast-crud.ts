@@ -188,7 +188,7 @@ export function registerFastCrud(app: App) {
         });
       },
       successHandle(ret) {
-        console.log('ret ==>', ret);
+        console.log('文件上传 ==>', ret);
         // 上传完成后的结果处理， 此处后台返回的结果应该为 ret = {code:0,msg:'',data:fileUrl}
         if (!ret.fileId) {
           throw new Error('上传失败');

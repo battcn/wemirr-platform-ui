@@ -56,7 +56,7 @@ export default function ({ expose }) {
               return row.dynamic && !row.status;
             }),
             async click(context) {
-              await api.ServiceStatus(context.record.id, true).then((ret) => {
+              await api.ServiceStatus(context.record.id, true).then(() => {
                 notification.success({ message: '路由发布成功', duration: 2 });
               });
               expose.doRefresh();
@@ -73,7 +73,7 @@ export default function ({ expose }) {
               return row.dynamic && row.status;
             }),
             async click(context) {
-              await api.ServiceStatus(context.record.id, false).then((ret) => {
+              await api.ServiceStatus(context.record.id, false).then(() => {
                 notification.success({ message: '路由下线成功', duration: 2 });
               });
               expose.doRefresh();

@@ -20,16 +20,21 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           if (!query.dictId) {
             return;
           }
-          return await defHttp.get(`/iam/tenant_dict/${query.dictId}/items`, {
+          return await defHttp.get(`/iam/tenant-dict/${query.dictId}/items`, {
             params: query,
           });
         },
         addRequest: async ({ form }: AddReq) =>
-          await defHttp.post(`/iam/tenant_dict/${form.dictId}/items`, form),
+          await defHttp.post(`/iam/tenant-dict/${form.dictId}/items`, form),
         editRequest: async ({ form }: EditReq) =>
-          await defHttp.put(`/iam/tenant_dict/${form.dictId}/items/${form.id}`, form),
+          await defHttp.put(
+            `/iam/tenant-dict/${form.dictId}/items/${form.id}`,
+            form,
+          ),
         delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete(`/iam/tenant_dict/${row.dictId}/items/${row.id}`),
+          await defHttp.delete(
+            `/iam/tenant-dict/${row.dictId}/items/${row.id}`,
+          ),
       },
       container: {
         is: 'fs-layout-default',

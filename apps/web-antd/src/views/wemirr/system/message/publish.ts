@@ -98,7 +98,7 @@ export function createFormOptions() {
             },
             on: {
               selectedChange({ $event }) {
-                ui.notification.success(`你选择了${JSON.stringify($event)}`);
+                // ui.notification.success(`你选择了${JSON.stringify($event)}`);
               },
             },
           },

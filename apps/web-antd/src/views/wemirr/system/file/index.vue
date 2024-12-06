@@ -7,7 +7,7 @@ import { notification } from 'ant-design-vue';
 import createCrudOptions from './crud';
 
 export default defineComponent({
-  name: 'ResourceFilePage',
+  name: 'SysFilePage',
   setup() {
     const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
     // 页面打开后获取列表数据

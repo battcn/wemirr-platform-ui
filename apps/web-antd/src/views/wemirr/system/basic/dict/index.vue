@@ -1,5 +1,4 @@
 <script lang="ts" setup name="SysDictPage">
-
 import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
@@ -53,7 +52,7 @@ function handleSelect(checkedKeys: any, event: any) {
     return;
   }
   const nodeRef = event.selectedNodes[0];
-  console.log('crudBinding', crudBinding)
+  console.log('crudBinding', crudBinding);
   crudBinding.value.search.initialForm = {
     dictId: nodeRef.id,
   };
@@ -111,14 +110,13 @@ const loadDictList = () => {
   });
 };
 
-const onContextMenuClick = (treeKey: string, menuKey: string | number) => {
+const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
   console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`);
-  if(menuKey === 'delete'){
-    api.DelObj(treeKey).then(()=>{
+  if (menuKey === 'delete') {
+    api.DelObj(treeKey).then(() => {
       loadDictList();
-    })
+    });
   }
-
 };
 </script>
 
@@ -144,7 +142,11 @@ const onContextMenuClick = (treeKey: string, menuKey: string | number) => {
           <a-dropdown :trigger="['contextmenu']">
             <span>{{ title }}</span>
             <template #overlay>
-              <a-menu @click="({ key: menuKey }) => onContextMenuClick(treeKey, menuKey)">
+              <a-menu
+                @click="
+                  ({ key: menuKey }) => onContextMenuClick(treeKey, menuKey)
+                "
+              >
                 <a-menu-item key="modify">修改</a-menu-item>
                 <a-menu-item key="delete">删除</a-menu-item>
               </a-menu>
