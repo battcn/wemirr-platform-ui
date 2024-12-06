@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import {h, onMounted, ref} from 'vue';
+import { h, onMounted, ref } from 'vue';
 
-import {Page} from '@vben/common-ui';
+import { Page } from '@vben/common-ui';
 
-import {PlusOutlined} from '@ant-design/icons-vue';
-import {notification, type TreeProps} from 'ant-design-vue';
-import {Card} from 'ant-design-vue';
+import { PlusOutlined } from '@ant-design/icons-vue';
+import { notification, type TreeProps } from 'ant-design-vue';
+import { Card } from 'ant-design-vue';
 
-import {useVbenForm} from '#/adapter/form';
-import {defHttp} from '#/api/request';
-import {$t} from '#/locales';
+import { useVbenForm } from '#/adapter/form';
+import { defHttp } from '#/api/request';
+import { $t } from '#/locales';
 
 const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -59,10 +59,10 @@ const [BaseForm, baseFormApi] = useVbenForm({
       defaultValue: 1,
       componentProps: {
         options: [
-          {label: '省份', value: 1},
-          {label: '城市', value: 2},
-          {label: '区县', value: 3},
-          {label: '乡镇', value: 4},
+          { label: '省份', value: 1 },
+          { label: '城市', value: 2 },
+          { label: '区县', value: 3 },
+          { label: '乡镇', value: 4 },
         ],
       },
     },
@@ -188,13 +188,14 @@ function loadAreaTree() {
         </a-tooltip>
       </template>
       <a-tree
+        :height="620"
         :field-names="{ children: 'children', title: 'name', key: 'value' }"
         :tree-data="treeData"
         @select="handleSelect"
       />
     </Card>
     <Card class="w-full" style="margin-left: 10px" title="地址信息">
-      <BaseForm/>
+      <BaseForm />
     </Card>
   </Page>
 </template>

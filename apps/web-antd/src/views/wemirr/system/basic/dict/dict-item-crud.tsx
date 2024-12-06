@@ -17,25 +17,22 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
-          return await defHttp.get({
-            url: `/iam/tenant_dict/${query.dictId}/items`,
+          if (!query.dictId) {
+            return;
+          }
+          return await defHttp.get(`/iam/tenant_dict/${query.dictId}/items`, {
             params: query,
           });
         },
         addRequest: async ({ form }: AddReq) =>
-          await defHttp.post({
-            url: `/iam/tenant_dict/${form.dictId}/items`,
-            data: form,
-          }),
+          await defHttp.post(`/iam/tenant_dict/${form.dictId}/items`, form),
         editRequest: async ({ form }: EditReq) =>
-          await defHttp.put({
-            url: `/iam/tenant_dict/${form.dictId}/items/${form.id}`,
-            data: form,
-          }),
+          await defHttp.put(`/iam/tenant_dict/${form.dictId}/items/${form.id}`, form),
         delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete({
-            url: `/iam/tenant_dict/${row.dictId}/items/${row.id}`,
-          }),
+          await defHttp.delete(`/iam/tenant_dict/${row.dictId}/items/${row.id}`),
+      },
+      container: {
+        is: 'fs-layout-default',
       },
       actionbar: { buttons: { add: { show: false } } },
       toolbar: { buttons: { refresh: { show: false } } },

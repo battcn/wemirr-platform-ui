@@ -1,18 +1,15 @@
 <script lang="ts" setup name="SysDictPage">
-import type { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
 
-import { h, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
+import { useFs, useUi } from '@fast-crud/fast-crud';
 import { Card, Modal } from 'ant-design-vue';
 
 import * as api from './api';
-import createFormOptions from './crud';
-// import DictItemTable from './item/index.vue';
-import { useFs, useUi } from '@fast-crud/fast-crud';
-
-import createCrudOptions from './item/crud';
+import createFormOptions from './dict';
+import createCrudOptions from './dict-item-crud';
 
 const { ui } = useUi();
 /**
@@ -36,10 +33,7 @@ function useFormWrapperUsingTag(callback) {
 }
 
 const treeData = ref();
-const actionList = ref<[]>([]);
 const treeRef = ref();
-const dictItemTableRef = ref();
-// const {hasPermission} = usePermission();
 const { formWrapperRef, openFormWrapper, formWrapperOptions } =
   useFormWrapperUsingTag(() => loadDictList());
 
@@ -59,13 +53,14 @@ function handleSelect(checkedKeys: any, event: any) {
     return;
   }
   const nodeRef = event.selectedNodes[0];
-  // dictItemTableRef.value.crudBinding.search.initialForm = {
-  //   dictId: nodeRef.id,
-  // };
-  // crudExpose.crudBinding.addForm.initialForm = {
-  //   dictId: nodeRef.id,
-  // };
-  // crudBinding.actionbar.buttons.add.show = true;
+  console.log('crudBinding', crudBinding)
+  crudBinding.value.search.initialForm = {
+    dictId: nodeRef.id,
+  };
+  crudBinding.value.addForm.initialForm = {
+    dictId: nodeRef.id,
+  };
+  crudBinding.value.actionbar.buttons.add.show = true;
   crudExpose.setSearchFormData({
     form: { dictId: nodeRef.id },
   });
@@ -113,33 +108,17 @@ const refreshDictCache = () => {
 const loadDictList = () => {
   api.GetList().then((ret) => {
     treeData.value = ret;
-    setTimeout(() => {
-      actionList.value = [
-        {
-          render: (node) => {
-            return h(EditOutlined, {
-              class: 'ml-2',
-              onClick: (e) => {
-                handleEdit(node);
-                e.stopPropagation();
-              },
-            });
-          },
-        },
-        {
-          render: (node) => {
-            return h(DeleteOutlined, {
-              class: 'ml-2',
-              onClick: (e) => {
-                handleDelete(node);
-                e.stopPropagation();
-              },
-            });
-          },
-        },
-      ];
-    }, 100);
   });
+};
+
+const onContextMenuClick = (treeKey: string, menuKey: string | number) => {
+  console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`);
+  if(menuKey === 'delete'){
+    api.DelObj(treeKey).then(()=>{
+      loadDictList();
+    })
+  }
+
 };
 </script>
 
@@ -155,15 +134,24 @@ const loadDictList = () => {
       </template>
       <a-tree
         ref="treeRef"
-        :action-list="actionList"
         :checkable="false"
         :click-row-to-expand="false"
         :tree-data="treeData"
-        search
         title="系统字典"
-        toolbar
         @select="handleSelect"
-      />
+      >
+        <template #title="{ key: treeKey, title }">
+          <a-dropdown :trigger="['contextmenu']">
+            <span>{{ title }}</span>
+            <template #overlay>
+              <a-menu @click="({ key: menuKey }) => onContextMenuClick(treeKey, menuKey)">
+                <a-menu-item key="modify">修改</a-menu-item>
+                <a-menu-item key="delete">删除</a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
+        </template>
+      </a-tree>
     </Card>
     <Card class="dict-item w-full" title="字典子项">
       <fs-crud ref="crudRef" v-bind="crudBinding" />
