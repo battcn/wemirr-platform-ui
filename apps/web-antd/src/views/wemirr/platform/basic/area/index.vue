@@ -1,15 +1,14 @@
 <script lang="ts" setup>
-import { h, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
-
-import { PlusOutlined } from '@ant-design/icons-vue';
 import { notification, type TreeProps } from 'ant-design-vue';
 import { Card } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { defHttp } from '#/api/request';
 import { $t } from '#/locales';
+import {getAreaTree} from "#/api";
 
 const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -148,23 +147,8 @@ function handlePlus(node: any) {
 const treeData = ref([] as TreeProps);
 
 function loadAreaTree() {
-  defHttp.get('/iam/areas/trees').then((ret: any) => {
+  getAreaTree().then((ret: any) => {
     treeData.value = ret;
-    setTimeout(() => {
-      actionList.value = [
-        {
-          render: (node: any) => {
-            return h(PlusOutlined, {
-              class: 'ml-2',
-              onClick: (e) => {
-                handlePlus(node);
-                e.stopPropagation();
-              },
-            });
-          },
-        },
-      ];
-    }, 100);
   });
 }
 </script>
@@ -181,10 +165,6 @@ function loadAreaTree() {
           placement="right"
           title="鉴于地址变动频率较低,切不易维护,故禁用,有需求的请 Fork 代码放开限制即可"
         >
-          <!--          <a-button color="success" disabled @click="resetFields">新增省份</a-button>
-          <a-button color="success" disabled @click="batchDelete" style="margin-left: 15px">
-            批量删除
-          </a-button>-->
         </a-tooltip>
       </template>
       <a-tree

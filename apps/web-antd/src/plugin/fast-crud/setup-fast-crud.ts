@@ -63,7 +63,7 @@ export function registerFastCrud(app: App) {
           is: 'fs-layout-card',
         },
         rowHandle: {
-          width: 180,
+          width: 170,
           align: 'left',
           // 固定右侧 不建议设置成全局
           fixed: 'right',

@@ -3,15 +3,13 @@ import type {
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
 
-import { compute, dict, useColumns, utils } from '@fast-crud/fast-crud';
+import {asyncCompute, compute, dict, useColumns, utils} from '@fast-crud/fast-crud';
 import { Modal, notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
-// import { getAreaTree } from "@/api/sys/area";
 import { ref } from 'vue';
-
 import { defHttp } from '#/api/request';
-
 import createCrudOptionsText from './database/crud';
+import {getAreaTree, SysDictCode, sysDictFunc} from "#/api";
 
 const tenantRow = ref();
 const { buildFormOptions } = useColumns();
@@ -269,7 +267,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: '行业',
           column: { show: true, width: 150 },
           type: 'dict-select',
-          // dict: sysDictFunc(SysDictCode.INDUSTRY),
+          dict: sysDictFunc(SysDictCode.INDUSTRY),
         },
         // 目的是为了用户体验更好,打开弹窗和进入页面更快速
         areaText: {
@@ -319,11 +317,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               placeholder: '请选择地址',
               vModel: 'value',
               // 这种异步方式比用 dict 打开页面要快，体验要好点 但是存在的问题就是 column 没值
-              // options: asyncCompute({
-              //   asyncFn: async () => {
-              //     return await getAreaTree();
-              //   },
-              // }),
+              options: asyncCompute({
+                asyncFn: async () => {
+                  return await getAreaTree();
+                },
+              }),
               showSearch: {
                 filter: (inputValue: any, path: any) => {
                   return path.some((option: any) =>

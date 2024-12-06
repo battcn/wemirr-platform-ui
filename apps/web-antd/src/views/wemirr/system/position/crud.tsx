@@ -87,20 +87,20 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             label: 'name',
           }),
           form: {
-            component: {
-              fieldNames: {
-                children: 'children',
-                title: 'name',
-                key: 'id',
-                value: 'id',
-              },
-              showSearch: true,
-              filterTreeNode: (val: any, treeNode: any) => {
-                return treeNode.props.title
-                  .toLowerCase()
-                  .includes(val.toLowerCase());
-              },
-            },
+            // component: {
+            //   fieldNames: {
+            //     children: 'children',
+            //     title: 'name',
+            //     key: 'id',
+            //     value: 'id',
+            //   },
+            //   showSearch: true,
+            //   filterTreeNode: (val: any, treeNode: any) => {
+            //     return treeNode.props.title
+            //       .toLowerCase()
+            //       .includes(val.toLowerCase());
+            //   },
+            // },
             col: { span: 24 },
             rules: [{ required: true, message: '组织名称不能为空' }],
           },

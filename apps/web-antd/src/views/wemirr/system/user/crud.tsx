@@ -4,7 +4,7 @@ import type {
   UserPageQuery,
 } from '@fast-crud/fast-crud';
 
-import { dict } from '@fast-crud/fast-crud';
+import {dict, useUi} from '@fast-crud/fast-crud';
 import { Modal } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
@@ -14,6 +14,7 @@ import { defHttp } from '#/api/request';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { nodeRef } = props.context;
+  const { ui } = useUi();
   return {
     crudOptions: {
       request: {
@@ -42,24 +43,20 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             title: '重置密码',
             // show: hasPermission("sys:user:reset"),
             async click({ row }) {
-              // popconfirm
-              // Popconfirm
-              Modal.confirm({
-                // placement: 'leftTop',
-                iconType: 'warning',
+              ui.messageBox.confirm({
+                type: 'warning',
                 title: '风险提示',
-                content: `确定重置 [${row.nickName}] 密码吗 ?`,
-                onOk: () => {
-                  defHttp
-                    .put(`/iam/users/${row.id}/reset_password`)
-                    .then(() => {
-                      // notification.success({ message: "密码重置成功", duration: 2 });
-                    })
-                    .catch((error) => {
-                      console.error('异常原因 -', error);
-                      // notification.error({ message: "密码重置异常", duration: 2 });
-                    });
-                },
+                message: `确定重置用户 ${row.nickName} 密码吗 ?`
+              }).then(()=>{
+                defHttp
+                  .put(`/iam/users/${row.id}/reset_password`)
+                  .then(() => {
+                    ui.notification.success({ message: "密码重置成功", duration: 2 });
+                  })
+                  .catch((error) => {
+                    console.error('异常原因 -', error);
+                    ui.notification.error({ message: "密码重置异常", duration: 2 });
+                  });
               });
             },
           },

@@ -1,4 +1,5 @@
 import { dict } from '@fast-crud/fast-crud';
+import {defHttp} from "#/api/request";
 
 export enum SysDictCode {
   EDUCATION = 'EDUCATION',
@@ -24,3 +25,8 @@ export const businessDictFunc = (code: BusinessDictCode) => {
     url: `/iam/tenant-dict/${code}/list`,
   });
 };
+
+
+export const getAreaTree = ()=>{
+  return defHttp.get(`/iam/areas/trees`,);
+}
