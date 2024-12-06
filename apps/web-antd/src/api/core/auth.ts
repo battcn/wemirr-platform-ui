@@ -1,5 +1,6 @@
-import { baseRequestClient, requestClient } from '#/api/request';
 import { cloneDeep } from '@vben/utils';
+
+import { baseRequestClient, requestClient } from '#/api/request';
 
 export namespace AuthApi {
   /** 登录接口参数 */
@@ -11,7 +12,6 @@ export namespace AuthApi {
     code?: string;
     clientId?: string;
     clientSecret?: string;
-
   }
 
   /** 登录接口返回值 */
@@ -29,8 +29,8 @@ export namespace AuthApi {
  * 登录
  */
 export async function loginApi(data: AuthApi.LoginParams) {
-  console.log('data=>',data)
-  data = cloneDeep(data)
+  console.log('data=>', data);
+  data = cloneDeep(data);
   data.tenantCode = '0000';
   data.username = 'admin';
   data.password = '123456';

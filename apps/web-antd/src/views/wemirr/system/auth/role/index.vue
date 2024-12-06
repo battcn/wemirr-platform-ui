@@ -1,38 +1,15 @@
-<template>
-  <fs-page class="page-layout-card">
-    <fs-crud ref="crudRef" v-bind="crudBinding">
-      <template #form_orgList="scope">
-        <a-tree
-            v-model:value="scope.form.orgList"
-            :treeData="treeData"
-            :fieldNames="{ title: 'name', key: 'id' }"
-            checkable
-            toolbar
-            search
-            v-if="scope.form.scopeType === 20"
-            title="组织架构"
-        />
-      </template>
-      <template #cell_description="scope">
-        <a-tooltip placement="top" :title="scope.row.description">
-          {{ scope.row.description }}
-        </a-tooltip>
-      </template>
-    </fs-crud>
-    <!--    <DistributionModal/>-->
-    <DistributionModal/>
-    <!--        <distribution-resource @register="registerBindResource" />-->
-  </fs-page>
-</template>
-
 <script lang="ts" setup>
-import {defineComponent, ref, onMounted} from "vue";
-import createCrudOptions from "./crud";
-import {useFs} from "@fast-crud/fast-crud";
-import DistributionUser from "./DistributionUser.vue";
+import { onMounted, ref } from 'vue';
+
+import { useVbenModal } from '@vben/common-ui';
+
+import { useFs } from '@fast-crud/fast-crud';
+
+import createCrudOptions from './crud';
+import DistributionUser from './DistributionUser.vue';
+
 // import DistributionResource from "./DistributionResource.vue";
-import * as api from "./api";
-import {useVbenModal} from '@vben/common-ui';
+import * as api from './api';
 
 const [DistributionModal, modalApi] = useVbenModal({
   // 连接抽离的组件
@@ -46,10 +23,9 @@ function useDistribution() {
     // modalApi.open();
     api.GetUserByRoleId(roleId).then((data) => {
       // openBindUser(true, { roleId, ...data });
-      modalApi.setData({roleId, ...data });
+      modalApi.setData({ roleId, ...data });
       modalApi.open();
     });
-
   }
 
   // const [registerBindUser, { openModal: openBindUser }] = useModal();
@@ -69,9 +45,9 @@ function useDistribution() {
 }
 
 const distribution = useDistribution();
-const {crudRef, crudBinding, crudExpose} = useFs({
+const { crudRef, crudBinding, crudExpose } = useFs({
   createCrudOptions,
-  context: {distribution, permission: "sys:role"},
+  context: { distribution, permission: 'sys:role' },
 });
 
 const treeData = ref([]);
@@ -88,3 +64,30 @@ onMounted(() => {
   crudExpose.doRefresh();
 });
 </script>
+
+<template>
+  <fs-page class="page-layout-card">
+    <fs-crud ref="crudRef" v-bind="crudBinding">
+      <template #form_orgList="scope">
+        <a-tree
+          v-if="scope.form.scopeType === 20"
+          v-model:value="scope.form.orgList"
+          :field-names="{ title: 'name', key: 'id' }"
+          :tree-data="treeData"
+          checkable
+          search
+          title="组织架构"
+          toolbar
+        />
+      </template>
+      <template #cell_description="scope">
+        <a-tooltip :title="scope.row.description" placement="top">
+          {{ scope.row.description }}
+        </a-tooltip>
+      </template>
+    </fs-crud>
+    <!--    <DistributionModal/>-->
+    <DistributionModal />
+    <!--        <distribution-resource @register="registerBindResource" />-->
+  </fs-page>
+</template>

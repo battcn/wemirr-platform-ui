@@ -1,18 +1,14 @@
 import { defHttp } from '#/api/request';
 
 export function SaveOrUpdate(obj: any) {
-  if (obj.id) {
-    return UpdateObj(obj);
-  } else {
-    return AddObj(obj);
-  }
+  return obj.id ? UpdateObj(obj) : AddObj(obj);
 }
 export function AddObj(obj: any) {
-  return defHttp.post("/iam/org",obj);
+  return defHttp.post('/iam/org', obj);
 }
 
 export function UpdateObj(obj: any) {
-  return defHttp.put( `/iam/org/${obj.id}`,obj);
+  return defHttp.put(`/iam/org/${obj.id}`, obj);
 }
 
 export function DelObj(id: any) {

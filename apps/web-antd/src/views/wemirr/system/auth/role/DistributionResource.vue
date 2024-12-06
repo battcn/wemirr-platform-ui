@@ -1,45 +1,18 @@
-<template>
-  <a-modal
-    v-bind="$attrs"
-    title="分配权限"
-    width="1000px"
-    @ok="handleSubmit"
-  >
-    <a-row class="row-res">
-      <a-col :span="8">
-        <a-tree
-          search
-          checkable
-          :checkedKeys="checkedKeys"
-          checkStrictly
-          @check="onTreeNodeCheck"
-          ref="permissionTreeRef"
-          :treeData="permissionTreeData"
-          :fieldNames="{ key: 'id', title: 'name' }"
-          @select="handleSelect"
-        />
-      </a-col>
-      <a-col :span="14">
-<!--        <BasicTable @register="registerTable" @selection-change="onTableSelectChange" />-->
-      </a-col>
-    </a-row>
-  </a-modal>
-</template>
-
 <script lang="ts">
-import { defineComponent, ref, unref } from "vue";
+import { defineComponent, ref } from 'vue';
 // import { BasicTree, TreeActionType } from "@/components/Tree";
 // import { BasicModal, useModalInner } from "@/components/Modal";
 // import { getMenuList, GetPermissionList } from "@/api/sys/menu";
 // import { BasicTable, useTable } from "@/components/Table";
-import { getBasicColumns } from "./tableData";
+import { getBasicColumns } from './tableData';
 // import { useMessage } from "@/hooks/web/useMessage";
 
-import * as api from "./api";
-import {notification} from "ant-design-vue";
+import { notification } from 'ant-design-vue';
+
+import * as api from './api';
 
 export default defineComponent({
-  name: "DistributionUser",
+  name: 'DistributionUser',
   // components: { BasicModal, BasicTree, BasicTable },
   setup() {
     // const { notification } = useMessage();
@@ -76,14 +49,11 @@ export default defineComponent({
       if (!event.selected) {
         return;
       }
-      let filterTable = tableButtons.value.filter(
+      const filterTable = tableButtons.value.filter(
         (item) => item.type === 2 && item.parentId === checkedKeys[0],
       );
-      if (filterTable && filterTable.length > 0) {
-        dataSource.value = filterTable;
-      } else {
-        dataSource.value = [];
-      }
+      dataSource.value =
+        filterTable && filterTable.length > 0 ? filterTable : [];
     }
 
     function onTreeNodeCheck(keys, event) {
@@ -104,13 +74,15 @@ export default defineComponent({
     }
     async function handleSubmit() {
       const data = [...new Set(resIdList.value.concat(checkedKeys.value))];
-      api.DistributionRoleAuthority({ roleId: roleIdRef.value, resIds: data }).then(() => {
-        notification.success({
-          message: "权限分配成功",
-          duration: 3,
+      api
+        .DistributionRoleAuthority({ roleId: roleIdRef.value, resIds: data })
+        .then(() => {
+          notification.success({
+            message: '权限分配成功',
+            duration: 3,
+          });
+          // closeModal();
         });
-        // closeModal();
-      });
     }
     // const [registerTable, { getDataSource, setSelectedRowKeys }] = useTable({
     //   canResize: false,
@@ -160,6 +132,29 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <a-modal v-bind="$attrs" title="分配权限" width="1000px" @ok="handleSubmit">
+    <a-row class="row-res">
+      <a-col :span="8">
+        <a-tree
+          ref="permissionTreeRef"
+          :checked-keys="checkedKeys"
+          :field-names="{ key: 'id', title: 'name' }"
+          :tree-data="permissionTreeData"
+          check-strictly
+          checkable
+          search
+          @check="onTreeNodeCheck"
+          @select="handleSelect"
+        />
+      </a-col>
+      <a-col :span="14">
+        <!--        <BasicTable @register="registerTable" @selection-change="onTableSelectChange" />-->
+      </a-col>
+    </a-row>
+  </a-modal>
+</template>
 
 <style lang="less">
 .row-res {

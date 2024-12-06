@@ -1,9 +1,3 @@
-<template>
-  <div>
-    <Modal />
-    <VbenButton @click="openModal">Open</VbenButton>
-  </div>
-</template>
 <script lang="ts" setup>
 import { useVbenModal, VbenButton } from '@vben/common-ui';
 
@@ -22,4 +16,9 @@ function openModal() {
   modalApi.open();
 }
 </script>
-
+<template>
+  <div>
+    <Modal />
+    <VbenButton @click="openModal">Open</VbenButton>
+  </div>
+</template>

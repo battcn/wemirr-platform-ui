@@ -1,9 +1,15 @@
-import type { CreateCrudOptionsProps, CreateCrudOptionsRet, UserPageQuery } from "@fast-crud/fast-crud";
-import { dict } from "@fast-crud/fast-crud";
-import dayjs from "dayjs";
-import { SysDictCode, sysDictFunc } from "#/api";
+import type {
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
+import { dict } from '@fast-crud/fast-crud';
+import { Modal } from 'ant-design-vue';
+import dayjs from 'dayjs';
+
+import { SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
-import { Modal } from "ant-design-vue";
 // import { downloadByData } from "@/utils/file/download";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
@@ -16,31 +22,32 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           return await defHttp.post(`/iam/users/page`, query);
         },
         addRequest: async ({ form }) =>
-          await defHttp.post( `/iam/users/create`, form),
+          await defHttp.post(`/iam/users/create`, form),
         editRequest: async ({ form }) =>
-          await defHttp.put(`/iam/users/${form.id}`, form ),
-        delRequest: async ({ row }) => await defHttp.delete(`/iam/users/${row.id}`),
+          await defHttp.put(`/iam/users/${form.id}`, form),
+        delRequest: async ({ row }) =>
+          await defHttp.delete(`/iam/users/${row.id}`),
       },
       rowHandle: {
         width: 240,
-        //固定右侧
-        fixed: "right",
+        // 固定右侧
+        fixed: 'right',
         buttons: {
           remove: { order: 2 },
           resetPassword: {
-            type: "link",
+            type: 'link',
             order: 1,
-            text: "重置密码",
-            size: "small",
-            title: "重置密码",
+            text: '重置密码',
+            size: 'small',
+            title: '重置密码',
             // show: hasPermission("sys:user:reset"),
             async click({ row }) {
               // popconfirm
               // Popconfirm
               Modal.confirm({
                 // placement: 'leftTop',
-                iconType: "warning",
-                title: "风险提示",
+                iconType: 'warning',
+                title: '风险提示',
                 content: `确定重置 [${row.nickName}] 密码吗 ?`,
                 onOk: () => {
                   defHttp
@@ -48,8 +55,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                     .then(() => {
                       // notification.success({ message: "密码重置成功", duration: 2 });
                     })
-                    .catch((ret) => {
-                      console.error("异常原因 - ", ret);
+                    .catch((error) => {
+                      console.error('异常原因 -', error);
                       // notification.error({ message: "密码重置异常", duration: 2 });
                     });
                 },
@@ -67,11 +74,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       toolbar: {
         export: {
           server: async (userPageQuery: UserPageQuery) => {
-            await defHttp.request(`/iam/users/export`,
+            await defHttp
+              .request(
+                `/iam/users/export`,
                 {
-                  method: "POST",
+                  method: 'POST',
                   params: userPageQuery,
-                  responseType: "blob",
+                  responseType: 'blob',
                 },
                 // { isTransformResponse: false },
               )
@@ -83,30 +92,30 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       },
       columns: {
         id: {
-          title: "ID",
-          type: "text",
+          title: 'ID',
+          type: 'text',
           form: { show: false },
           column: { show: false },
         },
         username: {
-          title: "账号",
-          type: "text",
+          title: '账号',
+          type: 'text',
 
           column: { width: 155, showTitle: true },
-          search: { show: true, fixed: "left" },
+          search: { show: true, fixed: 'left' },
           editForm: {
             component: { disabled: true },
           },
           form: {
             rules: [
-              { required: true, message: "请输入账号名" },
-              { min: 4, max: 30, message: "长度在 4 到 30 个字符" },
+              { required: true, message: '请输入账号名' },
+              { min: 4, max: 30, message: '长度在 4 到 30 个字符' },
             ],
           },
         },
         password: {
-          title: "密码",
-          type: "password",
+          title: '密码',
+          type: 'password',
           column: { show: false },
           viewForm: {
             show: false,
@@ -116,51 +125,51 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           },
           form: {
             rules: [
-              { required: true, message: "请输入密码" },
-              { min: 8, max: 30, message: "长度在 8 到 30 个字符" },
+              { required: true, message: '请输入密码' },
+              { min: 8, max: 30, message: '长度在 8 到 30 个字符' },
               {
                 pattern:
                   /^(?![A-Za-z0-9]+$)(?![a-z0-9\W]+$)(?![A-Za-z\W]+$)(?![A-Z0-9\W]+$)[a-zA-Z0-9\W]{8,30}$/,
-                message: "需同时包含大写字母、小写字母、数字和特殊字符",
+                message: '需同时包含大写字母、小写字母、数字和特殊字符',
               },
             ],
           },
         },
         nickName: {
-          title: "昵称",
-          type: "text",
+          title: '昵称',
+          type: 'text',
           column: { width: 155, ellipsis: true },
-          search: { show: true, fixed: "left" },
+          search: { show: true, fixed: 'left' },
           form: {
             rules: [
-              { required: true, message: "请输入昵称" },
-              { min: 2, max: 30, message: "长度在 2 到 30 个字符" },
+              { required: true, message: '请输入昵称' },
+              { min: 2, max: 30, message: '长度在 2 到 30 个字符' },
             ],
           },
         },
         mobile: {
-          title: "手机号",
-          type: "text",
+          title: '手机号',
+          type: 'text',
           search: { show: true },
-          column: { width: 155, align: "center" },
+          column: { width: 155, align: 'center' },
           form: {
             rules: [
-              { required: true, message: "请输入手机号" },
-              { pattern: /^1\d{10}$/, message: "手机号格式错误" },
+              { required: true, message: '请输入手机号' },
+              { pattern: /^1\d{10}$/, message: '手机号格式错误' },
             ],
           },
         },
         sex: {
-          title: "性别",
-          type: "dict-radio",
+          title: '性别',
+          type: 'dict-radio',
           dict: sysDictFunc(SysDictCode.SEX),
-          column: { width: 100, align: "center" },
-          addForm: { value: "1" },
+          column: { width: 100, align: 'center' },
+          addForm: { value: '1' },
         },
         status: {
-          title: "状态",
+          title: '状态',
           search: { show: true },
-          type: "dict-radio",
+          type: 'dict-radio',
           // true | false 在 渲染查询控件会有告警 antdv 问题
           valueBuilder({ value, row, key }) {
             if (value != null) {
@@ -169,31 +178,31 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           },
           dict: dict({
             data: [
-              { value: 1, label: "启用", color: "success" },
-              { value: 0, label: "停用", color: "error" },
+              { value: 1, label: '启用', color: 'success' },
+              { value: 0, label: '停用', color: 'error' },
             ],
           }),
           addForm: { value: 1 },
           column: { width: 80 },
         },
         email: {
-          title: "邮箱",
-          type: "text",
+          title: '邮箱',
+          type: 'text',
           search: { show: false },
           column: { width: 180 },
         },
         avatar: {
-          title: "头像",
-          type: "cropper-uploader",
+          title: '头像',
+          type: 'cropper-uploader',
           column: {
             width: 70,
-            align: "center",
+            align: 'center',
             show: false,
           },
           form: {
             component: {
               uploader: {
-                type: "qiniu", // 上传后端类型【cos,aliyun,oss,form】
+                type: 'qiniu', // 上传后端类型【cos,aliyun,oss,form】
                 buildUrl(res: any) {
                   return res.url;
                 },
@@ -202,27 +211,34 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           },
         },
         orgId: {
-          title: "组织",
-          type: "dict-tree",
-          column: { width: 180, component: { color: "auto" } },
+          title: '组织',
+          type: 'dict-tree',
+          column: { width: 180, component: { color: 'auto' } },
           dict: dict({
             isTree: true,
-            url: "/iam/org/trees",
-            value: "id",
-            label: "name",
+            url: '/iam/org/trees',
+            value: 'id',
+            label: 'name',
           }),
           form: {
             component: {
-              fieldNames: { children: "children", title: "name", key: "id", value: "id" },
+              fieldNames: {
+                children: 'children',
+                title: 'name',
+                key: 'id',
+                value: 'id',
+              },
               showSearch: true,
               filterTreeNode: (val: any, treeNode: any) => {
-                return treeNode.props.title.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+                return treeNode.props.title
+                  .toLowerCase()
+                  .includes(val.toLowerCase());
               },
             },
             valueChange({ form, value, getComponentRef }) {
               form.positionId = undefined;
               if (value) {
-                const targetDict = getComponentRef("positionId").getDict();
+                const targetDict = getComponentRef('positionId').getDict();
                 targetDict.url = `/iam/positions/list?orgId=${value}`;
                 targetDict.reloadDict();
               }
@@ -230,78 +246,80 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           },
         },
         positionId: {
-          title: "岗位",
-          type: "dict-select",
-          column: { width: 150, component: { color: "auto" } },
+          title: '岗位',
+          type: 'dict-select',
+          column: { width: 150, component: { color: 'auto' } },
           dict: dict({
             prototype: false,
-            url: "/iam/positions/list",
-            value: "id",
-            label: "title",
+            url: '/iam/positions/list',
+            value: 'id',
+            label: 'title',
           }),
           form: {
             component: {
               dict: { cache: false },
               showSearch: true,
               filterOption: (val: string, form: any) => {
-                return form?.label?.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+                return (
+                  form?.label?.toLowerCase().indexOf(val.toLowerCase()) >= 0
+                );
               },
             },
-            helper: "选择组织后才可以选择岗位哟~~~",
+            helper: '选择组织后才可以选择岗位哟~~~',
           },
         },
         positionStatus: {
-          title: "职位状态",
-          type: "dict-select",
+          title: '职位状态',
+          type: 'dict-select',
           column: { width: 90 },
           dict: dict({
             data: [
-              { value: "WORKING", label: "在职", color: "success" },
-              { value: "QUIT", label: "离职", color: "error" },
-              { value: "LEAVE", label: "请假", color: "warning" },
+              { value: 'WORKING', label: '在职', color: 'success' },
+              { value: 'QUIT', label: '离职', color: 'error' },
+              { value: 'LEAVE', label: '请假', color: 'warning' },
             ],
           }),
         },
         nation: {
-          title: "民族",
-          type: "dict-select",
+          title: '民族',
+          type: 'dict-select',
           column: { width: 90 },
           dict: sysDictFunc(SysDictCode.NATION),
           form: {
             component: {
               showSearch: true,
               filterOption: (val: any, form: any) => {
-                return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+                return form.label.toLowerCase().includes(val.toLowerCase());
               },
             },
           },
         },
         education: {
-          title: "学历",
+          title: '学历',
           search: { show: true },
-          type: "dict-select",
+          type: 'dict-select',
           column: { width: 90 },
           dict: sysDictFunc(SysDictCode.EDUCATION),
           form: {
             component: {
               showSearch: true,
               filterOption: (val: any, form: any) => {
-                return form.label.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+                return form.label.toLowerCase().includes(val.toLowerCase());
               },
             },
           },
         },
         description: {
-          title: "描述",
+          title: '描述',
           column: { show: false },
-          type: ["textarea"],
+          type: ['textarea'],
           form: {
             col: { span: 24 },
           },
         },
         createdTime: {
-          title: "创建时间",
-          type: "datetime",
+          title: '创建时间',
+          type: 'datetime',
           column: { width: 180, sorter: true },
           form: {
             show: false,
@@ -317,27 +335,34 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
       },
       form: {
-        display: "flex",
+        display: 'flex',
         group: {
-          type: "collapse", // tab
-          accordion: false, //手风琴模式
+          type: 'collapse', // tab
+          accordion: false, // 手风琴模式
           groups: {
             baseInfo: {
-              header: "基础信息",
-              columns: ["username", "password", "nickName", "sex", "status", "description"],
+              header: '基础信息',
+              columns: [
+                'username',
+                'password',
+                'nickName',
+                'sex',
+                'status',
+                'description',
+              ],
             },
             orgInfo: {
-              header: "职位信息",
-              columns: ["orgId", "positionId", "positionStatus"],
+              header: '职位信息',
+              columns: ['orgId', 'positionId', 'positionStatus'],
             },
             linkInfo: {
-              header: "联系方式",
-              columns: ["mobile", "email"],
+              header: '联系方式',
+              columns: ['mobile', 'email'],
             },
             otherInfo: {
-              header: "其它信息",
-              collapsed: false, //默认折叠
-              columns: ["nation", "education", "avatar", "createdTime"],
+              header: '其它信息',
+              collapsed: false, // 默认折叠
+              columns: ['nation', 'education', 'avatar', 'createdTime'],
             },
           },
         },

@@ -3,14 +3,14 @@
 export function getBasicColumns(): any[] {
   return [
     {
-      title: "资源吗",
-      dataIndex: "permission",
+      title: '资源吗',
+      dataIndex: 'permission',
       width: 150,
     },
     {
-      title: "名称",
+      title: '名称',
       width: 150,
-      dataIndex: "label",
+      dataIndex: 'label',
     },
   ];
 }

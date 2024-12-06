@@ -1,48 +1,17 @@
-<template>
-  <PageWrapper contentClass="flex">
-    <Card class="w-2/5 dict-list" style="min-height: 850px">
-      <template #extra>
-        <a-button color="success" @click="openFormWrapper" v-if="hasPermission('tenant:dict:add')"
-          >新增字典</a-button
-        >
-        <a-button
-          color="success"
-          @click="refreshDictCache"
-          v-if="hasPermission('tenant:dict:refresh')"
-          >刷新缓存</a-button
-        >
-        <fs-form-wrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
-      </template>
-      <BasicTree
-        title="租户字典"
-        search
-        toolbar
-        :checkable="false"
-        ref="treeRef"
-        :clickRowToExpand="false"
-        :treeData="treeData"
-        @select="handleSelect"
-        :actionList="actionList"
-      />
-    </Card>
-    <Card title="字典子项" class="w-full dict-item">
-      <dict-item-table ref="dictItemTableRef" />
-    </Card>
-  </PageWrapper>
-</template>
-
 <script lang="ts">
-import { defineComponent, onMounted, ref, h } from "vue";
-import { Card } from "ant-design-vue";
-import { BasicTree, TreeActionItem, TreeActionType } from "@/components/Tree";
+import { defineComponent, h, onMounted, ref } from 'vue';
 
-import { PageWrapper } from "@/components/Page";
-import { useMessage } from "@/hooks/web/useMessage";
-import * as api from "./api";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons-vue";
-import DictItemTable from "./item/index.vue";
-import createFormOptions from "./crud";
-import { usePermission } from "/@/hooks/web/usePermission";
+import { PageWrapper } from '@/components/Page';
+import { BasicTree, TreeActionItem, TreeActionType } from '@/components/Tree';
+import { useMessage } from '@/hooks/web/useMessage';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
+import { Card } from 'ant-design-vue';
+
+import * as api from './api';
+import createFormOptions from './crud';
+import DictItemTable from './item/index.vue';
+
+import { usePermission } from '/@/hooks/web/usePermission';
 
 /**
  * 表单对话框独立使用
@@ -63,7 +32,7 @@ function useFormWrapperUsingTag(callback) {
 }
 
 export default defineComponent({
-  name: "TenantDictList",
+  name: 'TenantDictList',
   components: { Card, BasicTree, PageWrapper, DictItemTable },
   setup() {
     const { notification, createConfirm } = useMessage();
@@ -72,9 +41,8 @@ export default defineComponent({
     const treeRef = ref<Nullable<TreeActionType>>(null);
     const dictItemTableRef = ref();
     const { hasPermission } = usePermission();
-    const { formWrapperRef, openFormWrapper, formWrapperOptions } = useFormWrapperUsingTag(() =>
-      loadDictList(),
-    );
+    const { formWrapperRef, openFormWrapper, formWrapperOptions } =
+      useFormWrapperUsingTag(() => loadDictList());
     // 页面打开后获取列表数据
     onMounted(() => {
       loadDictList();
@@ -92,7 +60,9 @@ export default defineComponent({
         dictId: nodeRef.id,
       };
       dictItemTableRef.value.crudBinding.actionbar.buttons.add.show = true;
-      dictItemTableRef.value.setSearchFormData({ form: { dictId: nodeRef.id } });
+      dictItemTableRef.value.setSearchFormData({
+        form: { dictId: nodeRef.id },
+      });
       dictItemTableRef.value.doRefresh();
     }
 
@@ -104,20 +74,20 @@ export default defineComponent({
         sequence: node.sequence,
         description: node.description,
       };
-      formWrapperOptions.value.columns["code"].component.disabled = true;
+      formWrapperOptions.value.columns.code.component.disabled = true;
       openFormWrapper();
     }
 
     function handleDelete(node: any) {
       Modal.confirm({
-        iconType: "error",
-        title: "删除",
+        iconType: 'error',
+        title: '删除',
         content: `会级联删除子节点以及相关资源数据`,
         onOk: async () => {
           await api.DelObj(node.id).then(() => {
             loadDictList();
             notification.success({
-              message: "删除成功",
+              message: '删除成功',
               duration: 3,
             });
           });
@@ -128,7 +98,7 @@ export default defineComponent({
     const refreshDictCache = () => {
       api.Refresh().then(() => {
         notification.success({
-          message: "字典缓存刷新成功",
+          message: '字典缓存刷新成功',
           duration: 3,
         });
       });
@@ -140,10 +110,10 @@ export default defineComponent({
         setTimeout(() => {
           actionList.value = [
             {
-              show: hasPermission("tenant:dict:edit"),
+              show: hasPermission('tenant:dict:edit'),
               render: (node) => {
                 return h(EditOutlined, {
-                  class: "ml-2",
+                  class: 'ml-2',
                   onClick: (e) => {
                     handleEdit(node);
                     e.stopPropagation();
@@ -152,10 +122,10 @@ export default defineComponent({
               },
             },
             {
-              show: hasPermission("tenant:dict:remove"),
+              show: hasPermission('tenant:dict:remove'),
               render: (node) => {
                 return h(DeleteOutlined, {
-                  class: "ml-2",
+                  class: 'ml-2',
                   onClick: (e) => {
                     handleDelete(node);
                     e.stopPropagation();
@@ -184,6 +154,44 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <PageWrapper content-class="flex">
+    <Card class="dict-list w-2/5" style="min-height: 850px">
+      <template #extra>
+        <a-button
+          v-if="hasPermission('tenant:dict:add')"
+          color="success"
+          @click="openFormWrapper"
+        >
+          新增字典
+        </a-button>
+        <a-button
+          v-if="hasPermission('tenant:dict:refresh')"
+          color="success"
+          @click="refreshDictCache"
+        >
+          刷新缓存
+        </a-button>
+        <fs-form-wrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
+      </template>
+      <BasicTree
+        ref="treeRef"
+        :action-list="actionList"
+        :checkable="false"
+        :click-row-to-expand="false"
+        :tree-data="treeData"
+        search
+        title="租户字典"
+        toolbar
+        @select="handleSelect"
+      />
+    </Card>
+    <Card class="dict-item w-full" title="字典子项">
+      <DictItemTable ref="dictItemTableRef" />
+    </Card>
+  </PageWrapper>
+</template>
 
 <style lang="less" scoped>
 /deep/.dict-list {

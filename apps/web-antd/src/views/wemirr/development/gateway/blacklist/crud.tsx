@@ -1,13 +1,21 @@
-import * as api from "./api";
-import _ from "lodash-es";
-import type { CreateCrudOptionsProps, CreateCrudOptionsRet } from "@fast-crud/fast-crud";
-import { dict, utils } from "@fast-crud/fast-crud";
-import dayjs from "dayjs";
+import type {
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+} from '@fast-crud/fast-crud';
 
-export default function ({ crudExpose, context }: CreateCrudOptionsProps): CreateCrudOptionsRet {
+import { dict, utils } from '@fast-crud/fast-crud';
+import dayjs from 'dayjs';
+import _ from 'lodash-es';
+
+import * as api from './api';
+
+export default function ({
+  crudExpose,
+  context,
+}: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const localDataRef = context.localDataRef;
   const pageRequest = async (query) => {
-    //总数据
+    // 总数据
     let data = localDataRef.value;
     const current = query.current;
     const offset = query.offset;
@@ -16,13 +24,13 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
       if (query.status && item.status !== query.status) {
         return false;
       }
-      if (query.ip && item.ip.indexOf(query.ip) === -1) {
+      if (query.ip && !item.ip.includes(query.ip)) {
         return false;
       }
-      if (query.method && item.method.indexOf(query.method) === -1) {
+      if (query.method && !item.method.includes(query.method)) {
         return false;
       }
-      if (query.path && item.path.indexOf(query.path) === -1) {
+      if (query.path && !item.path.includes(query.path)) {
         return false;
       }
       return true;
@@ -48,7 +56,7 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
   const editRequest = async ({ form, row }) => {
     form.id = row.id;
     await api.UpdateObj(form);
-    //更新本地数据
+    // 更新本地数据
     const tableData = localDataRef.value;
     for (const item of tableData) {
       if (item.id === form.id) {
@@ -59,7 +67,7 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
 
   const addRequest = async ({ form }) => {
     const id = await api.AddObj(form);
-    //本地添加
+    // 本地添加
     form.id = id;
     localDataRef.value.unshift(form);
     return id;
@@ -67,7 +75,7 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
 
   const delRequest = async ({ row }) => {
     await api.DelObj(row.id);
-    //本地删除那一条记录
+    // 本地删除那一条记录
     const tableData = localDataRef.value;
     let index = 0;
     for (const item of tableData) {
@@ -89,14 +97,14 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
       },
       columns: {
         ip: {
-          title: "IP",
-          type: "text",
+          title: 'IP',
+          type: 'text',
           column: { width: 160 },
           search: { show: true },
         },
         status: {
-          title: "状态",
-          type: "dict-radio",
+          title: '状态',
+          type: 'dict-radio',
           addForm: {
             value: true,
           },
@@ -104,20 +112,20 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           search: { show: true },
           dict: dict({
             data: [
-              { value: true, label: "启用", color: "success" },
-              { value: false, label: "禁用", color: "error" },
+              { value: true, label: '启用', color: 'success' },
+              { value: false, label: '禁用', color: 'error' },
             ],
           }),
         },
         visits: {
-          title: "访问量",
-          type: "text",
+          title: '访问量',
+          type: 'text',
           column: { width: 80 },
           form: { show: false },
         },
         path: {
-          title: "路径",
-          type: "text",
+          title: '路径',
+          type: 'text',
           search: { show: true },
           form: {
             helper: {
@@ -126,13 +134,17 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
                   <ul>
                     <li>（1）? 匹配一个字符（除过操作系统默认的文件分隔符）</li>
                     <li>（2）* 匹配0个或多个字符 </li>
-                    <li>（3）**匹配0个或多个目录 /**/token/api/query 包含 /token/api/query</li>
                     <li>
-                      （4）{"{spring:[a-z]+}"} 将正则表达式[a-z]+匹配到的值,赋值给名为 spring
-                      的路径变量
+                      （3）**匹配0个或多个目录 /**/token/api/query 包含
+                      /token/api/query
                     </li>
                     <li>
-                      （5）网关的限访里 需要去除微服务前缀。比如在访问的/xxx-service/api/query
+                      （4）{'{spring:[a-z]+}'}{' '}
+                      将正则表达式[a-z]+匹配到的值,赋值给名为 spring 的路径变量
+                    </li>
+                    <li>
+                      （5）网关的限访里
+                      需要去除微服务前缀。比如在访问的/xxx-service/api/query
                       在网关中需要填写 /api/query 或者 /**/api/query
                     </li>
                   </ul>
@@ -146,30 +158,30 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           },
         },
         method: {
-          title: "方法",
-          type: "dict-select",
+          title: '方法',
+          type: 'dict-select',
           search: { show: true },
           column: { width: 100 },
           dict: dict({
             data: [
-              { label: "ALL", value: "ALL", color: "success" },
-              { label: "GET", value: "GET", color: "success" },
-              { label: "POST", value: "POST", color: "success" },
-              { label: "PUT", value: "PUT", color: "success" },
-              { label: "DELETE", value: "DELETE", color: "error" },
-              { label: "PATCH", value: "PATCH", color: "success" },
+              { label: 'ALL', value: 'ALL', color: 'success' },
+              { label: 'GET', value: 'GET', color: 'success' },
+              { label: 'POST', value: 'POST', color: 'success' },
+              { label: 'PUT', value: 'PUT', color: 'success' },
+              { label: 'DELETE', value: 'DELETE', color: 'error' },
+              { label: 'PATCH', value: 'PATCH', color: 'success' },
             ],
           }),
           addForm: {
-            value: "ALL",
+            value: 'ALL',
           },
           form: {
-            rules: [{ required: true, message: "请选择拦截方法" }],
+            rules: [{ required: true, message: '请选择拦截方法' }],
           },
         },
         datetimerange: {
-          title: "限时范围",
-          type: "datetimerange",
+          title: '限时范围',
+          type: 'datetimerange',
           valueBuilder({ row, key }) {
             if (!utils.strings.hasEmpty(row.startTime, row.endTime)) {
               row[key] = [dayjs(row.startTime), dayjs(row.endTime)];
@@ -187,8 +199,8 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           },
         },
         description: {
-          title: "描述",
-          type: "textarea",
+          title: '描述',
+          type: 'textarea',
           search: { show: false, labelCol: { span: 4 } },
           form: {
             col: { span: 24 },
@@ -198,8 +210,8 @@ export default function ({ crudExpose, context }: CreateCrudOptionsProps): Creat
           },
         },
         createdTime: {
-          title: "创建时间",
-          type: "datetime",
+          title: '创建时间',
+          type: 'datetime',
           form: { show: false },
           column: { width: 180 },
           valueBuilder({ value, row, key }) {

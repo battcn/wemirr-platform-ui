@@ -9,11 +9,11 @@ import '@vben/styles/antd';
 import { useTitle } from '@vueuse/core';
 
 import { $t, setupI18n } from '#/locales';
+import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud';
 
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
 import { router } from './router';
-import {registerFastCrud} from "#/plugin/fast-crud/setup-fast-crud";
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
@@ -43,7 +43,7 @@ async function bootstrap(namespace: string) {
     }
   });
 
-  //----------- 安装fast-crud--------------
+  // ----------- 安装fast-crud--------------
   await registerFastCrud(app);
 
   app.mount('#app');

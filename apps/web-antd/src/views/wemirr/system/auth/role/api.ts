@@ -1,18 +1,18 @@
 import { defHttp } from '#/api/request';
 
 export function GetList(data: any) {
-  return defHttp.post( "/iam/roles/page",data);
+  return defHttp.post('/iam/roles/page', data);
 }
 export function AddObj(obj: any) {
-  return defHttp.post("/iam/roles/create",obj);
+  return defHttp.post('/iam/roles/create', obj);
 }
 
 export function UpdateObj(data: any) {
-  return defHttp.put(`/iam/roles/${data.id}`,data);
+  return defHttp.put(`/iam/roles/${data.id}`, data);
 }
 
 export function DelObj(id: string) {
-  return defHttp.delete( `/iam/roles/${id}`);
+  return defHttp.delete(`/iam/roles/${id}`);
 }
 
 export function GetUserByRoleId(roleId: string) {
@@ -20,19 +20,19 @@ export function GetUserByRoleId(roleId: string) {
 }
 
 export function DistributionUser(obj: any) {
-  return defHttp.post( `/iam/roles/${obj.roleId}/users`,obj);
+  return defHttp.post(`/iam/roles/${obj.roleId}/users`, obj);
 }
 
 export function DistributionRoleAuthority(obj: any) {
-  return defHttp.request( `/iam/roles/${obj.roleId}/authority`,{
-    method: "post",
+  return defHttp.request(`/iam/roles/${obj.roleId}/authority`, {
+    method: 'post',
     data: obj,
   });
 }
 
 export function InitOrgList() {
-  return defHttp.request("/iam/org/trees",{
-    method: "get",
+  return defHttp.request('/iam/org/trees', {
+    method: 'get',
     params: { status: true },
   });
 }

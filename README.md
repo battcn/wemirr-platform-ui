@@ -24,6 +24,17 @@ pnpm install
 pnpm run dev:antd
 ```
 
+- 代码提交
+
+``` bash
+git add .
+# 可以参考下面文件,提交格式
+# wemirr-platform-ui/internal/lint-configs/commitlint-config/index.mjs
+git commit -m '提交内容'
+# 如果未过 eslint 可以通过下面命令进行修复
+npx eslint --fix
+```
+
 - 打包
 
 ```bash

@@ -1,8 +1,37 @@
+<script lang="ts" setup name="MessageTemplatePage">
+import { onMounted, ref } from 'vue';
+
+import { useFs } from '@fast-crud/fast-crud';
+
+import { createFormOptions } from './publish';
+import createCrudOptions from './template';
+
+const publishFormWrapperRef = ref();
+const formWrapperOptions = ref();
+
+function openPublishFormWrapper(row: any) {
+  formWrapperOptions.value = createFormOptions();
+  formWrapperOptions.value.initialForm = { code: row.code, name: row.name };
+  publishFormWrapperRef.value.open(formWrapperOptions.value);
+}
+
+// 通过context传递到crud.tsx中
+const { crudBinding, crudRef, crudExpose } = useFs({
+  createCrudOptions,
+  context: { openPublishFormWrapper, permission: 'sys:user' },
+});
+
+// 页面打开后获取列表数据
+onMounted(() => {
+  crudExpose.doRefresh();
+});
+</script>
+
 <template>
   <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #cell_content="scope">
-        <a-tooltip placement="topLeft" :title="scope.row.content">
+        <a-tooltip :title="scope.row.content" placement="topLeft">
           {{ scope.row.content }}
         </a-tooltip>
       </template>
@@ -11,39 +40,10 @@
       <template #form_slot="scope">
         <a-input v-model:value="scope.form.slot">
           <template #prefix>
-            <fs-icon icon="ion:search"></fs-icon>
+            <fs-icon icon="ion:search" />
           </template>
         </a-input>
       </template>
     </fs-form-wrapper>
   </fs-page>
 </template>
-
-<script lang="ts" setup name="MessageTemplatePage">
-import {onMounted, ref} from "vue";
-import {useFs} from "@fast-crud/fast-crud";
-import createCrudOptions from "./template";
-import {createFormOptions} from "./publish";
-
-const publishFormWrapperRef = ref();
-const formWrapperOptions = ref();
-
-
-function openPublishFormWrapper(row: any) {
-  formWrapperOptions.value = createFormOptions();
-  formWrapperOptions.value.initialForm = {code: row.code, name: row.name};
-  publishFormWrapperRef.value.open(formWrapperOptions.value);
-}
-
-
-//通过context传递到crud.tsx中
-const {crudBinding, crudRef, crudExpose} = useFs({
-  createCrudOptions,
-  context: {openPublishFormWrapper, permission: "sys:user"},
-});
-
-// 页面打开后获取列表数据
-onMounted(() => {
-  crudExpose.doRefresh();
-});
-</script>

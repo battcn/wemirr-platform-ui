@@ -12,7 +12,7 @@ import {
 } from '@vben/request';
 import { useAccessStore } from '@vben/stores';
 
-import {message, notification} from 'ant-design-vue';
+import { notification } from 'ant-design-vue';
 
 import { useAuthStore } from '#/store';
 

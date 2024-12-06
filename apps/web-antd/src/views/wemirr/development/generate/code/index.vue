@@ -1,26 +1,19 @@
-<template>
-  <fs-page class="page-layout-card">
-    <fs-crud ref="crudRef" v-bind="crudBinding">
-      <template #cell_rootDir="scope">
-        <a-tooltip placement="top" :title="scope.row.rootDir">
-          {{ scope.row.rootDir }}
-        </a-tooltip>
-      </template>
-    </fs-crud>
-  </fs-page>
-</template>
-
 <script>
-import { defineComponent, onMounted } from "vue";
-import createCrudOptions from "./crud";
-import { useFs } from "@fast-crud/fast-crud";
-import { useUserStore } from "@/store/modules/user";
+import { defineComponent, onMounted } from 'vue';
+
+import { useUserStore } from '@/store/modules/user';
+import { useFs } from '@fast-crud/fast-crud';
+
+import createCrudOptions from './crud';
 
 export default defineComponent({
-  name: "GenerateCodePageList",
+  name: 'GenerateCodePageList',
   setup() {
     const userStore = useUserStore();
-    const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions, userStore });
+    const { crudRef, crudBinding, crudExpose } = useFs({
+      createCrudOptions,
+      userStore,
+    });
     // 页面打开后获取列表数据
     onMounted(() => {
       crudExpose.doRefresh();
@@ -32,3 +25,15 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <fs-page class="page-layout-card">
+    <fs-crud ref="crudRef" v-bind="crudBinding">
+      <template #cell_rootDir="scope">
+        <a-tooltip :title="scope.row.rootDir" placement="top">
+          {{ scope.row.rootDir }}
+        </a-tooltip>
+      </template>
+    </fs-crud>
+  </fs-page>
+</template>

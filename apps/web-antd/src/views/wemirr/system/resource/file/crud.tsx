@@ -1,6 +1,7 @@
-import * as api from "./api";
-import dayjs from "dayjs";
-import {notification} from "ant-design-vue";
+import { notification } from 'ant-design-vue';
+import dayjs from 'dayjs';
+
+import * as api from './api';
 
 export default function () {
   return {
@@ -17,12 +18,12 @@ export default function () {
         buttons: {
           add: {
             show: false,
-            icon: "codicon:repo-force-push",
-            text: "文件上传",
+            icon: 'codicon:repo-force-push',
+            text: '文件上传',
             async click(context: any) {
               console.log(context);
               notification.error({
-                message: "暂未实现",
+                message: '暂未实现',
                 duration: 3,
               });
             },
@@ -36,15 +37,15 @@ export default function () {
           view: { show: false },
           edit: { show: false },
           download: {
-            icon: "ant-design:cloud-download-outlined",
-            type: "link",
+            icon: 'ant-design:cloud-download-outlined',
+            type: 'link',
             text: null,
-            size: "small",
-            title: "文件下载",
+            size: 'small',
+            title: '文件下载',
             order: 1,
             async click() {
               notification.error({
-                message: "暂未实现",
+                message: '暂未实现',
                 duration: 3,
               });
             },
@@ -54,55 +55,55 @@ export default function () {
       },
       columns: {
         id: {
-          title: "ID",
-          type: "text",
+          title: 'ID',
+          type: 'text',
           form: { show: false },
           column: { show: false },
         },
         originName: {
-          title: "原始名",
-          type: "text",
+          title: '原始名',
+          type: 'text',
           column: { ellipsis: true, width: 230 },
           search: { show: true },
         },
         targetName: {
-          title: "目标名",
-          type: "text",
+          title: '目标名',
+          type: 'text',
           column: { ellipsis: true, width: 230 },
         },
         ip: {
-          title: "IP",
-          type: "text",
+          title: 'IP',
+          type: 'text',
           column: { ellipsis: true, width: 130 },
         },
         location: {
-          title: "登录地点",
-          type: "text",
+          title: '登录地点',
+          type: 'text',
           column: { ellipsis: true, width: 230 },
         },
         os: {
-          title: "操作系统",
-          type: "text",
+          title: '操作系统',
+          type: 'text',
           column: { ellipsis: true, width: 150 },
         },
         engine: {
-          title: "引擎类型",
-          type: "text",
+          title: '引擎类型',
+          type: 'text',
           column: { ellipsis: true, width: 150 },
         },
         engineVersion: {
-          title: "引擎版本",
-          type: "text",
+          title: '引擎版本',
+          type: 'text',
           column: { ellipsis: true, width: 150 },
         },
         createdName: {
-          title: "上传者",
-          type: "text",
+          title: '上传者',
+          type: 'text',
           column: { ellipsis: true, width: 180 },
         },
         createdTime: {
-          title: "上传时间",
-          type: "datetime",
+          title: '上传时间',
+          type: 'datetime',
           form: { show: false },
           column: { ellipsis: true, width: 180 },
           valueBuilder({ value, row, key }) {

@@ -28,7 +28,7 @@ export const authenticateResponseInterceptor = ({
       // 判断是否启用了 refreshToken 功能
       // 如果没有启用或者已经是重试请求了，直接跳转到重新登录
       if (!enableRefreshToken || config.__isRetryRequest) {
-        console.log('error response => ',response)
+        console.log('error response =>', response);
         await doReAuthenticate();
         throw error;
       }
