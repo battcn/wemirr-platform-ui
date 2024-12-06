@@ -71,7 +71,7 @@ export default function () {
           type: 'datetime',
           column: { show: true, width: 170 }, // 表单配置
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

@@ -17,7 +17,7 @@ export function setupFastCrudPermission({ permission }) {
   }
 
   function buildCrudPermission() {
-    if (permission == null) {
+    if (permission === null) {
       return {};
     }
 

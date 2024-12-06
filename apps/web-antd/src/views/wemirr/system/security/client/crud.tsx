@@ -69,12 +69,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 200 },
           type: 'datetime',
           valueBuilder({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
           valueResolve({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
@@ -87,12 +87,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 200 },
           type: 'datetime',
           valueBuilder({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
           valueResolve({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },

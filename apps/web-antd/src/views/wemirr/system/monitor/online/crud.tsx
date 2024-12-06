@@ -55,7 +55,7 @@ export default function (props: any) {
           type: 'datetime',
           column: { width: 160, fixed: 'left' },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

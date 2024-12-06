@@ -140,7 +140,7 @@ export default function () {
           },
           valueResolve({ form, key }: any) {
             const row = form;
-            if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
+            if (row[key] !== null && !utils.strings.hasEmpty(row[key])) {
               row.startTime = dayjs(row[key][0]).format();
               row.endTime = dayjs(row[key][1]).format();
             } else {
@@ -169,7 +169,7 @@ export default function () {
           column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format();
             }
           },

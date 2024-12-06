@@ -29,7 +29,7 @@ export namespace AuthApi {
  * 登录
  */
 export async function loginApi(data: AuthApi.LoginParams) {
-  console.log('data=>', data);
+  console.info('loginApi =>', data);
   data = cloneDeep(data);
   data.tenantCode = '0000';
   data.username = 'admin';

@@ -26,7 +26,5 @@ export default defineComponent({
 </script>
 
 <template>
-  <fs-page>
-    <fs-crud ref="crudRef" v-bind="crudBinding" />
-  </fs-page>
+  <fs-crud ref="crudRef" v-bind="crudBinding" />
 </template>

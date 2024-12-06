@@ -1,46 +1,36 @@
 import { defHttp } from '#/api/request';
 
 export function GetList() {
-  return defHttp.request({
-    url: '/iam/dict/list',
-    method: 'get',
-  });
+  return defHttp.get('/iam/dict/list');
 }
 
 export function Refresh() {
-  return defHttp.request({
-    url: '/iam/dict/refresh',
-    method: 'post',
-  });
+  return defHttp.post('/iam/dict/refresh');
 }
 
 export function BatchDelete(ids: any) {
-  return defHttp.request({
-    url: `/iam/dict`,
+  return defHttp.request(`/iam/dict`, {
     method: 'delete',
     data: ids,
   });
 }
 
 export function AddObj(obj) {
-  return defHttp.request({
-    url: '/iam/dict/create',
+  return defHttp.request('/iam/dict/create', {
     method: 'post',
     data: obj,
   });
 }
 
 export function UpdateObj(obj) {
-  return defHttp.request({
-    url: `/iam/dict/${obj.id}`,
+  return defHttp.request(`/iam/dict/${obj.id}`, {
     method: 'put',
     data: obj,
   });
 }
 
 export function DelObj(id: string) {
-  return defHttp.request({
-    url: `/iam/dict/${id}`,
+  return defHttp.request(`/iam/dict/${id}`, {
     method: 'delete',
     data: { id },
   });

@@ -112,6 +112,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           atLeast: 1,
           more: {
             size: 'small',
+            icon: null,
             text: '更多',
           },
         },
@@ -302,7 +303,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           },
           valueResolve({ form, key }) {
             const row = form;
-            if (row[key] != null && !utils.strings.hasEmpty(row[key])) {
+            if (row[key] !== null && !utils.strings.hasEmpty(row[key])) {
               row.provinceId = row[key][0];
               row.cityId = row[key][1];
               row.districtId = row[key][2];
@@ -389,7 +390,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           style: { height: 70 },
           column: { width: 70, align: 'center', show: false },
           valueBuilder({ value, row, key }) {
-            if (value != null && value.indexOf('http')) {
+            if (value !== null && value.indexOf('http')) {
               row[key] = `http://www.docmirror.cn:7070${value}`;
             }
           },
@@ -410,7 +411,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

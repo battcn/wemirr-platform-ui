@@ -9,7 +9,9 @@ export enum SysDictCode {
   STATUS = 'STATUS',
 }
 
-export const enum BusinessDictCode {}
+export const enum BusinessDictCode {
+  DEMO = 'DEMO',
+}
 
 export const sysDictFunc = (code: SysDictCode) => {
   return dict({

@@ -93,7 +93,7 @@ export function registerFastCrud(app: App) {
         request: {
           transformQuery: ({ page, form, sort }: any) => {
             const order =
-              sort == null ? {} : { column: sort.prop, asc: sort.asc };
+              sort === null ? {} : { column: sort.prop, asc: sort.asc };
             const currentPage = page.currentPage ?? 1;
             const limit = page.pageSize ?? 20;
             const offset = limit * (currentPage - 1);
@@ -106,7 +106,7 @@ export function registerFastCrud(app: App) {
             };
           },
           transformRes: ({ res }: any) => {
-            if (res.data != null) {
+            if (res.data !== null) {
               return {
                 currentPage: Number.parseInt(res.data.current),
                 pageSize: Number.parseInt(res.data.size),
@@ -211,7 +211,7 @@ export function registerFastCrud(app: App) {
       if (!columnProps.column) {
         columnProps.column = {};
       }
-      if (columnProps.column.resizable == null) {
+      if (columnProps.column.resizable === null) {
         columnProps.column.resizable = true;
         if (!columnProps.column.width) {
           columnProps.column.width = 100;

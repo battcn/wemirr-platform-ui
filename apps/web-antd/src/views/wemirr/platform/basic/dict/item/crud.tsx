@@ -17,25 +17,22 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
-          return await defHttp.get({
-            url: `/iam/dict/${query.dictId}/items`,
+          if (!query.dictId) {
+            return;
+          }
+          return await defHttp.get(`/iam/dict/${query.dictId}/items`, {
             params: query,
           });
         },
         addRequest: async ({ form }: AddReq) =>
-          await defHttp.post({
-            url: `/iam/dict/${form.dictId}/items`,
-            data: form,
-          }),
+          await defHttp.post(`/iam/dict/${form.dictId}/items`, form),
         editRequest: async ({ form }: EditReq) =>
-          await defHttp.put({
-            url: `/iam/dict/${form.dictId}/items/${form.id}`,
-            data: form,
-          }),
+          await defHttp.put(`/iam/dict/${form.dictId}/items/${form.id}`, form),
         delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete({
-            url: `/iam/dict/${row.dictId}/items/${row.id}`,
-          }),
+          await defHttp.delete(`/iam/dict/${row.dictId}/items/${row.id}`),
+      },
+      container: {
+        is: 'fs-layout-default',
       },
       actionbar: { buttons: { add: { show: false } } },
       toolbar: { buttons: { refresh: { show: false } } },
@@ -84,7 +81,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           }),
           addForm: { value: 1 },
           valueBuilder({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = value === true ? 1 : 0;
             }
           },
@@ -108,7 +105,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

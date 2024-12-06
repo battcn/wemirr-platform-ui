@@ -53,7 +53,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: 'datetime',
           column: { width: 160, fixed: 'left' },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

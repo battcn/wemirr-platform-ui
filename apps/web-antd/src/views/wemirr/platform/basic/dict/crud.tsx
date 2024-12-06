@@ -1,11 +1,9 @@
-import { useMessage } from '@/hooks/web/useMessage';
-import { useColumns } from '@fast-crud/fast-crud';
+import { useColumns, useUi } from '@fast-crud/fast-crud';
 
 import * as api from './api';
 
-const { notification } = useMessage();
-
 export default function (callbackFunc: () => void): any {
+  const { ui } = useUi();
   // 自定义表单配置
   const { buildFormOptions } = useColumns();
   // 使用crudOptions结构来构建自定义表单配置
@@ -49,7 +47,7 @@ export default function (callbackFunc: () => void): any {
         if (form.id) {
           api.UpdateObj(form).then((ret) => {
             callbackFunc();
-            notification.success({
+            ui.notification.success({
               message: '修改成功',
               duration: 3,
             });
@@ -57,7 +55,7 @@ export default function (callbackFunc: () => void): any {
         } else {
           api.AddObj(form).then((ret) => {
             callbackFunc();
-            notification.success({
+            ui.notification.success({
               message: '新增成功',
               duration: 3,
             });

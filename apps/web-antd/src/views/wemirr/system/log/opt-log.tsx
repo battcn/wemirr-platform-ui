@@ -119,7 +119,7 @@ export default function (): any {
           type: 'datetime',
           column: { width: 180 },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
@@ -129,7 +129,7 @@ export default function (): any {
           type: 'datetime',
           column: { width: 180 },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
@@ -153,13 +153,13 @@ export default function (): any {
           form: {
             col: { span: 24 },
             valueBuilder({ form }: ValueBuilderContext) {
-              if (form.result == null) {
+              if (form.result === null) {
                 return;
               }
               form.result = JSON.parse(form.result);
             },
             valueResolve({ form }: ValueResolveContext) {
-              if (form.result == null) {
+              if (form.result === null) {
                 return;
               }
               form.result = JSON.stringify(form.result);

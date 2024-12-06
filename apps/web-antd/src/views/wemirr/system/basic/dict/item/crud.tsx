@@ -84,7 +84,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           }),
           addForm: { value: 1 },
           valueBuilder({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = value === true ? 1 : 0;
             }
           },
@@ -108,7 +108,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
