@@ -106,7 +106,7 @@ export function registerFastCrud(app: App) {
             };
           },
           transformRes: ({ res }: any) => {
-            if (res.data !== null) {
+            if (res.data) {
               return {
                 currentPage: Number.parseInt(res.data.current),
                 pageSize: Number.parseInt(res.data.size),

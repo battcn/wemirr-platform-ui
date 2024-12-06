@@ -172,6 +172,9 @@ const loadDictList = () => {
 </template>
 
 <style lang="less" scoped>
+/deep/.p-4 {
+  padding: 8px !important;
+}
 /deep/ .dict-list {
   .ant-card-body {
     padding: 10px;
@@ -179,8 +182,7 @@ const loadDictList = () => {
 }
 /deep/ .dict-item {
   .fs-crud-container {
-    min-height: 720px !important;
-    //max-height: 980px !important;
+    min-height: 730px !important;
   }
   .ant-card-body {
     padding: 8px;
