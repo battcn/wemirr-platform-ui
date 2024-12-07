@@ -29,7 +29,6 @@ export namespace AuthApi {
  * 登录
  */
 export async function loginApi(data: AuthApi.LoginParams) {
-  console.info('loginApi =>', data);
   data = cloneDeep(data);
   data.loginType = 'password';
   data.clientId = 'pc-web';

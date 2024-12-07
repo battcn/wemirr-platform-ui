@@ -3,32 +3,32 @@ import type {
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
 
-import {dict} from '@fast-crud/fast-crud';
+import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
-import {defHttp} from '#/api/request';
+import { defHttp } from '#/api/request';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.get(`/iam/registered-client`, {params: query}),
-        addRequest: async ({form}) => {
+          await defHttp.get(`/iam/registered-client`, { params: query }),
+        addRequest: async ({ form }) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
           await defHttp.post(`/iam/registered-client`, form);
         },
-        editRequest: async ({form}) => {
+        editRequest: async ({ form }) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
           await defHttp.put(`/iam/registered-client/${form.id}`, form);
         },
-        delRequest: async ({row}) =>
+        delRequest: async ({ row }) =>
           await defHttp.delete(`/iam/registered-client/${row.id}`),
       },
       table: {
@@ -38,48 +38,48 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         id: {
           title: 'ID',
           type: 'text',
-          form: {show: false},
-          column: {show: false},
+          form: { show: false },
+          column: { show: false },
         },
         clientName: {
           title: '客户名称',
           type: 'text',
-          column: {ellipsis: true, width: 180},
-          search: {show: true},
+          column: { ellipsis: true, width: 180 },
+          search: { show: true },
           form: {
-            rules: [{required: true, message: '客户名称不能为空'}],
+            rules: [{ required: true, message: '客户名称不能为空' }],
           },
         },
         clientId: {
           title: '客户标识',
           type: 'text',
-          search: {show: true},
-          column: {ellipsis: true, width: 140},
-          editForm: {component: {disabled: true}},
+          search: { show: true },
+          column: { ellipsis: true, width: 140 },
+          editForm: { component: { disabled: true } },
           form: {
-            rules: [{required: true, message: 'clientId 不能为空'}],
+            rules: [{ required: true, message: 'clientId 不能为空' }],
           },
         },
         clientSecret: {
           title: '客户秘钥',
           type: 'text',
-          column: {width: 140, show: false},
-          editForm: {show: false},
+          column: { width: 140, show: false },
+          editForm: { show: false },
           form: {
-            rules: [{required: true, message: 'clientSecret 不能为空'}],
+            rules: [{ required: true, message: 'clientSecret 不能为空' }],
             helper: '注意：填写后将以密文方式存储且不允许修改',
           },
         },
         clientIdIssuedAt: {
           title: '生效时间',
-          column: {width: 200},
+          column: { width: 200 },
           type: 'datetime',
-          valueBuilder({value, row, key}) {
+          valueBuilder({ value, row, key }) {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({value, row, key}) {
+          valueResolve({ value, row, key }) {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -90,14 +90,14 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         clientSecretExpiresAt: {
           title: '过期时间',
-          column: {width: 200},
+          column: { width: 200 },
           type: 'datetime',
-          valueBuilder({value, row, key}) {
+          valueBuilder({ value, row, key }) {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({value, row, key}) {
+          valueResolve({ value, row, key }) {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -110,18 +110,18 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: '授权类型',
           type: 'dict-select',
           form: {
-            rules: [{required: true, message: '授权范围不能为空'}],
-            component: {mode: 'multiple'},
+            rules: [{ required: true, message: '授权范围不能为空' }],
+            component: { mode: 'multiple' },
           },
           dict: dict({
             data: [
-              {value: 'password', label: '密码模式'},
-              {value: 'sms', label: '短信登录'},
-              {value: 'email', label: '邮箱模式'},
-              {value: 'vc_code', label: '验证码模式'},
+              { value: 'password', label: '密码模式' },
+              { value: 'sms', label: '短信登录' },
+              { value: 'email', label: '邮箱模式' },
+              { value: 'vc_code', label: '验证码模式' },
             ],
           }),
-          column: {width: 200, component: {color: 'auto'}},
+          column: { width: 200, component: { color: 'auto' } },
         },
         status: {
           title: '状态',
@@ -144,7 +144,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         accessTokenTimeToLive: {
           title: 'AT 有效期',
           type: 'text',
-          column: {ellipsis: true, width: 180},
+          column: { ellipsis: true, width: 180 },
           addForm: {
             value: '120',
           },
@@ -152,7 +152,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             component: {
               addonAfter: '分钟',
             },
-            rules: [{required: true, message: 'Access Token有效期不能为空'}],
+            rules: [{ required: true, message: 'Access Token有效期不能为空' }],
             helper: 'Access Token有效期,默认2小时',
           },
         },
@@ -160,7 +160,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         refreshTokenTimeToLive: {
           title: 'RF 有效期',
           type: 'text',
-          column: {ellipsis: true, width: 180, show: false},
+          column: { ellipsis: true, width: 180, show: false },
           addForm: {
             value: '4320',
           },
@@ -169,16 +169,16 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               addonAfter: '分钟',
             },
             show: false,
-            rules: [{required: true, message: 'Token有效期不能为空'}],
+            rules: [{ required: true, message: 'Token有效期不能为空' }],
             helper: 'Refresh Token有效期,默认3天(4320)',
           },
         },
         redirectUris: {
           title: '回调地址',
           type: 'textarea',
-          column: {ellipsis: true, show: false},
+          column: { ellipsis: true, show: false },
           form: {
-            rules: [{required: true, message: '请填写回调地址'}],
+            rules: [{ required: true, message: '请填写回调地址' }],
             col: {
               span: 24,
             },

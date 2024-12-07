@@ -4,8 +4,7 @@ import type {
   UserPageQuery,
 } from '@fast-crud/fast-crud';
 
-import {dict, useUi} from '@fast-crud/fast-crud';
-import { Modal } from 'ant-design-vue';
+import { dict, useUi } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { SysDictCode, sysDictFunc } from '#/api';
@@ -43,21 +42,29 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             title: '重置密码',
             // show: hasPermission("sys:user:reset"),
             async click({ row }) {
-              ui.messageBox.confirm({
-                type: 'warning',
-                title: '风险提示',
-                message: `确定重置用户 ${row.nickName} 密码吗 ?`
-              }).then(()=>{
-                defHttp
-                  .put(`/iam/users/${row.id}/reset_password`)
-                  .then(() => {
-                    ui.notification.success({ message: "密码重置成功", duration: 2 });
-                  })
-                  .catch((error) => {
-                    console.error('异常原因 -', error);
-                    ui.notification.error({ message: "密码重置异常", duration: 2 });
-                  });
-              });
+              ui.messageBox
+                .confirm({
+                  type: 'warning',
+                  title: '风险提示',
+                  message: `确定重置用户 ${row.nickName} 密码吗 ?`,
+                })
+                .then(() => {
+                  defHttp
+                    .put(`/iam/users/${row.id}/reset_password`)
+                    .then(() => {
+                      ui.notification.success({
+                        message: '密码重置成功',
+                        duration: 2,
+                      });
+                    })
+                    .catch((error) => {
+                      console.error('异常原因 -', error);
+                      ui.notification.error({
+                        message: '密码重置异常',
+                        duration: 2,
+                      });
+                    });
+                });
             },
           },
         },

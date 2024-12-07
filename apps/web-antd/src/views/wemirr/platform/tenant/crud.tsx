@@ -3,13 +3,22 @@ import type {
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
 
-import {asyncCompute, compute, dict, useColumns, utils} from '@fast-crud/fast-crud';
+import { ref } from 'vue';
+
+import {
+  asyncCompute,
+  compute,
+  dict,
+  useColumns,
+  utils,
+} from '@fast-crud/fast-crud';
 import { Modal, notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
-import { ref } from 'vue';
+
+import { getAreaTree, SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
+
 import createCrudOptionsText from './database/crud';
-import {getAreaTree, SysDictCode, sysDictFunc} from "#/api";
 
 const tenantRow = ref();
 const { buildFormOptions } = useColumns();

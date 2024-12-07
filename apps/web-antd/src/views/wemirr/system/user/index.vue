@@ -10,7 +10,7 @@ import { defHttp } from '#/api/request';
 
 import createCrudOptions from './crud';
 
-const terrData = ref();
+const treeData = ref();
 const nodeRef = ref();
 const expandedKeys = ref();
 const { crudBinding, crudRef, crudExpose } = useFs({
@@ -25,7 +25,7 @@ onMounted(async () => {
 
 function initOrgList() {
   defHttp.get('/iam/org/trees?parentId=0').then((ret) => {
-    terrData.value = ret;
+    treeData.value = ret;
     expandedKeys.value = ret
       .filter((item: any) => item.parentId === '0')
       .map((item: any) => item.id);
@@ -50,7 +50,7 @@ function handleSelect(checkedKeys: any, event: any) {
         :field-names="{ key: 'id', title: 'name' }"
         :show-icon="false"
         :show-line="false"
-        :tree-data="terrData"
+        :tree-data="treeData"
         @select="handleSelect"
       />
     </Card>

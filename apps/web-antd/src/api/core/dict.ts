@@ -1,5 +1,6 @@
 import { dict } from '@fast-crud/fast-crud';
-import {defHttp} from "#/api/request";
+
+import { defHttp } from '#/api/request';
 
 export enum SysDictCode {
   EDUCATION = 'EDUCATION',
@@ -26,7 +27,6 @@ export const businessDictFunc = (code: BusinessDictCode) => {
   });
 };
 
-
-export const getAreaTree = ()=>{
-  return defHttp.get(`/iam/areas/trees`,);
-}
+export const getAreaTree = () => {
+  return defHttp.get(`/iam/areas/trees`);
+};

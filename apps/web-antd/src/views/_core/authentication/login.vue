@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { VbenFormSchema } from '@vben/common-ui';
-import type { BasicOption } from '@vben/types';
 
 import { computed, markRaw } from 'vue';
 
@@ -36,8 +35,9 @@ const formSchema = computed((): VbenFormSchema[] => {
       },
       fieldName: 'tenantCode',
       label: '租户编码',
-      rules: z.string()
-        .max(6,{ message: '租户编码不能为空' })
+      rules: z
+        .string()
+        .max(6, { message: '租户编码不能为空' })
         .min(4, { message: '租户编码不能为空' }),
     },
     {

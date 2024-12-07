@@ -133,7 +133,6 @@ function handleSelect(checkedKeys: any, event: any) {
     ...selectNode,
     component: url || selectNode?.component,
   };
-  console.log('fields =>>>>', fields);
   // FIX 字段叫 component 会赋值异常
   menuFormRef.setValues(fields);
   itemTableRef.value.crudBinding.search.initialForm = {

@@ -2,13 +2,14 @@
 import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
+
 import { notification, type TreeProps } from 'ant-design-vue';
 import { Card } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
+import { getAreaTree } from '#/api';
 import { defHttp } from '#/api/request';
 import { $t } from '#/locales';
-import {getAreaTree} from "#/api";
 
 const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -124,24 +125,14 @@ onMounted(async () => {
   await loadAreaTree();
 });
 
-// const treeData: TreeProps['treeData'] = [];
-// const treeRef = ref<Nullable<TreeActionType>>(null);
-const actionList = ref<any[]>([]);
-
 function handleSelect(checkedKeys: any, event: any) {
   if (!event.selected) {
     return;
   }
   event.selectedNodes[0].name = event.selectedNodes[0].label;
-  console.log('==>>>', checkedKeys, event.selectedNodes);
   baseFormApi.setValues({
     ...event.selectedNodes[0],
   });
-}
-
-function handlePlus(node: any) {
-  // resetFields();
-  // setFieldsValue({ parentId: node.id });
 }
 
 const treeData = ref([] as TreeProps);
@@ -164,8 +155,7 @@ function loadAreaTree() {
         <a-tooltip
           placement="right"
           title="鉴于地址变动频率较低,切不易维护,故禁用,有需求的请 Fork 代码放开限制即可"
-        >
-        </a-tooltip>
+        />
       </template>
       <a-tree
         :field-names="{ children: 'children', title: 'name', key: 'value' }"
