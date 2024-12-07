@@ -19,7 +19,7 @@ interface Props {
    * 根据content可见高度自适应
    */
   autoContentHeight?: boolean;
-  /** 头部固定 */
+  /** 头部固定（暂未实现） */
   fixedHeader?: boolean;
   headerClass?: string;
   footerClass?: string;
