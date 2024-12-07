@@ -18,7 +18,7 @@ function openPublishFormWrapper(row: any) {
 // 通过context传递到crud.tsx中
 const { crudBinding, crudRef, crudExpose } = useFs({
   createCrudOptions,
-  context: { openPublishFormWrapper, permission: 'sys:user' },
+  context: { openPublishFormWrapper, permission: 'message:template' },
 });
 
 // 页面打开后获取列表数据

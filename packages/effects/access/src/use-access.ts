@@ -33,6 +33,11 @@ function useAccess() {
     return intersection.length > 0;
   }
 
+  function hasPermission(code :string){
+    const userCodesSet = new Set(accessStore.accessCodes);
+    return userCodesSet.has(code);
+  }
+
   async function toggleAccessMode() {
     updatePreferences({
       app: {
@@ -44,6 +49,7 @@ function useAccess() {
 
   return {
     accessMode,
+    hasPermission,
     hasAccessByCodes,
     hasAccessByRoles,
     toggleAccessMode,

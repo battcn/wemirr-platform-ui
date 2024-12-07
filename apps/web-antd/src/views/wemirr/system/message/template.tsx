@@ -9,10 +9,12 @@ import { dict, utils } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
+import {useAccess} from "@vben/access";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   utils.logger.info('crud props', props);
   const router = useRouter();
+  const { hasPermission } = useAccess();
 
   return {
     crudOptions: {
@@ -48,7 +50,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         width: 230,
         buttons: {
           publish: {
-            // icon: "arcticons:efa-publish",
+            show: hasPermission("message:template:publish"),
             order: 2,
             type: 'link',
             text: '推送',

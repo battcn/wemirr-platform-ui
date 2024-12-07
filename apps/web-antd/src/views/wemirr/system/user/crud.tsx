@@ -9,10 +9,12 @@ import dayjs from 'dayjs';
 
 import { SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
+import {useAccess} from "@vben/access";
 // import { downloadByData } from "@/utils/file/download";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { nodeRef } = props.context;
+  const { hasPermission } = useAccess();
   const { ui } = useUi();
   return {
     crudOptions: {
@@ -40,7 +42,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             text: '重置密码',
             size: 'small',
             title: '重置密码',
-            // show: hasPermission("sys:user:reset"),
+            show: hasPermission("sys:user:reset"),
             async click({ row }) {
               ui.messageBox
                 .confirm({
