@@ -5,6 +5,7 @@ import type { App } from 'vue';
 import { computed } from 'vue';
 
 import { FastCrud, registerMergeColumnPlugin } from '@fast-crud/fast-crud';
+import { useCrudPermission } from "./setup-fast-crud-permission";
 import {
   FsExtendsCopyable,
   FsExtendsEditor,
@@ -143,10 +144,11 @@ export function registerFastCrud(app: App) {
           }),
         },
       };
-      // const permission = props.context?.permission || null;
-      // const crudPermission = useCrudPermission({ permission });
-      // return crudPermission.merge(opts);
-      return opts;
+      const permission = props.context?.permission || null;
+      console.log('permission', permission);
+      const crudPermission = useCrudPermission({ permission });
+      return crudPermission.merge(opts);
+      // return opts;
     },
   } as any);
 

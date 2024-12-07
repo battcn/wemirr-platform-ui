@@ -1,19 +1,19 @@
-import { usePermission } from '@/hooks/web/usePermission';
 import _ from 'lodash-es';
+import {useAccess} from "@vben/access";
 
 /**
  * 设置动作权限
  * @param permission {prefix,extra}
  */
-export function setupFastCrudPermission({ permission }) {
-  const { hasPermission } = usePermission();
+export function useCrudPermission({ permission }) {
+  const { hasAccessByCodes } = useAccess();
   const prefix = permission instanceof Object ? permission.prefix : permission;
   // 根据权限显示按钮
   function hasActionPermission(action) {
     if (!prefix) {
       return true;
     }
-    return hasPermission(`${prefix}:${action}`);
+    return hasAccessByCodes([`${prefix}:${action}`]);
   }
 
   function buildCrudPermission() {
