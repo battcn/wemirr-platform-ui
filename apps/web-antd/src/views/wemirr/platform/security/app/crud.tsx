@@ -123,6 +123,24 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           }),
           column: {width: 200, component: {color: 'auto'}},
         },
+        status: {
+          title: '状态',
+          type: 'dict-radio',
+          column: { show: true, width: 80 },
+          search: { show: true },
+          dict: dict({
+            data: [
+              { value: 1, label: '启用', color: 'success' },
+              { value: 0, label: '禁用', color: 'error' },
+            ],
+          }),
+          addForm: { value: 1 },
+          valueBuilder({ value, row, key }) {
+            if (value !== null) {
+              row[key] = value === true ? 1 : 0;
+            }
+          },
+        },
         accessTokenTimeToLive: {
           title: 'AT 有效期',
           type: 'text',

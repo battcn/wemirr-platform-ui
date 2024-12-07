@@ -31,11 +31,7 @@ export namespace AuthApi {
 export async function loginApi(data: AuthApi.LoginParams) {
   console.info('loginApi =>', data);
   data = cloneDeep(data);
-  data.tenantCode = '0000';
-  data.username = 'admin';
-  data.password = '123456';
   data.loginType = 'password';
-  data.code = '123456';
   data.clientId = 'pc-web';
   data.clientSecret = 'pc-web';
   return requestClient.post<AuthApi.LoginResult>('/iam/token/login', data);
