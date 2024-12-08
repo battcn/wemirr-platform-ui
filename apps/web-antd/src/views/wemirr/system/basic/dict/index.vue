@@ -56,6 +56,7 @@ function handleSelect(checkedKeys: any, event: any) {
   console.log('crudBinding', nodeRef);
   crudBinding.value.search.initialForm = {
     dictId: nodeRef.id,
+    dictCode: nodeRef.code,
   };
   crudBinding.value.addForm.initialForm = {
     dictId: nodeRef.id,

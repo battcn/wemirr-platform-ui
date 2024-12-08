@@ -17,24 +17,19 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
-          if (!query.dictId) {
+          if (!query.dictCode) {
             return;
           }
           return await defHttp.get(`/iam/tenant-dict-items/page`, {
-            params: {...query,code: query.dictCode},
+            params: query,
           });
         },
         addRequest: async ({ form }: AddReq) =>
-          await defHttp.post(`/iam/tenant-dict/${form.dictId}/items`, form),
+          await defHttp.post(`/iam/tenant-dict-items/create`, form),
         editRequest: async ({ form }: EditReq) =>
-          await defHttp.put(
-            `/iam/tenant-dict/${form.dictId}/items/${form.id}`,
-            form,
-          ),
+          await defHttp.put(`/iam/tenant-dict-items/${form.id}/modify`, form),
         delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete(
-            `/iam/tenant-dict/${row.dictId}/items/${row.id}`,
-          ),
+          await defHttp.delete(`/iam/tenant-dict-items/${row.id}`,),
       },
       container: {
         is: 'fs-layout-default',
@@ -51,6 +46,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         dictId: {
           title: '字典ID',
+          type: 'text',
+          form: { show: false },
+          column: { show: false },
+        },
+        dictCode: {
+          title: '字典编码',
           type: 'text',
           form: { show: false },
           column: { show: false },
