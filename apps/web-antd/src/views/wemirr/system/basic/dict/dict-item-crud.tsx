@@ -1,13 +1,13 @@
-import {
+import type {
   AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
   DelReq,
-  dict,
   EditReq,
   UserPageQuery,
   UserPageRes,
 } from '@fast-crud/fast-crud';
+import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
@@ -20,8 +20,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           if (!query.dictId) {
             return;
           }
-          return await defHttp.get(`/iam/tenant-dict/${query.dictId}/items`, {
-            params: query,
+          return await defHttp.get(`/iam/tenant-dict-items/page`, {
+            params: {...query,code: query.dictCode},
           });
         },
         addRequest: async ({ form }: AddReq) =>
@@ -58,7 +58,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         label: {
           title: '名称',
           search: { show: true },
-          column: { show: true, width: 180 },
+          column: { show: true, width: 160 },
           type: 'text',
           form: {
             rules: [{ required: true, message: '编码不能为空' }],
@@ -67,7 +67,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         value: {
           title: '值',
           search: { show: false },
-          column: { show: true, width: 180 },
+          column: { show: true, width: 160 },
           type: 'text',
           form: {
             rules: [{ required: true, message: '编码不能为空' }],
@@ -85,7 +85,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             ],
           }),
           addForm: { value: 1 },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = value === true ? 1 : 0;
             }
@@ -100,7 +100,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         description: {
           title: '描述',
-          column: { show: false, width: 100 },
+          column: { show: true, width: 180 },
           type: ['textarea'],
           form: { col: { span: 24 } },
         },
@@ -109,7 +109,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: 'datetime',
           column: { width: 180 },
           form: { show: false },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }

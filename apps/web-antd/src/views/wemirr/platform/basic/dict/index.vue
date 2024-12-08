@@ -19,6 +19,7 @@ function useFormWrapperUsingTag(callback) {
   const formWrapperRef = ref();
   const formWrapperOptions = ref();
   formWrapperOptions.value = createFormOptions(callback);
+  formWrapperOptions.value.initialForm = { type: 0 };
 
   function openFormWrapper() {
     formWrapperRef.value.open(formWrapperOptions.value);
@@ -156,7 +157,18 @@ const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
       </a-tree>
     </Card>
     <Card class="dict-item w-full" title="字典子项">
-      <fs-crud ref="crudRef" v-bind="crudBinding" />
+      <fs-crud ref="crudRef" v-bind="crudBinding" >
+        <template #cell_description="scope">
+          <a-tooltip :title="scope.row.description" placement="topLeft">
+            {{ scope.row.description }}
+          </a-tooltip>
+        </template>
+        <template #cell_label="scope">
+          <a-tooltip :title="scope.row.label" placement="topLeft">
+            {{ scope.row.label }}
+          </a-tooltip>
+        </template>
+      </fs-crud>
     </Card>
   </Page>
 </template>

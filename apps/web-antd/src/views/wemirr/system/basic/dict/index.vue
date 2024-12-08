@@ -9,6 +9,7 @@ import { Card, Modal } from 'ant-design-vue';
 import * as api from './api';
 import createFormOptions from './dict';
 import createCrudOptions from './dict-item-crud';
+import {incrSyncDict} from "./api";
 
 const { ui } = useUi();
 /**
@@ -52,16 +53,17 @@ function handleSelect(checkedKeys: any, event: any) {
     return;
   }
   const nodeRef = event.selectedNodes[0];
-  console.log('crudBinding', crudBinding);
+  console.log('crudBinding', nodeRef);
   crudBinding.value.search.initialForm = {
     dictId: nodeRef.id,
   };
   crudBinding.value.addForm.initialForm = {
     dictId: nodeRef.id,
+    dictCode: nodeRef.code,
   };
   crudBinding.value.actionbar.buttons.add.show = true;
   crudExpose.setSearchFormData({
-    form: { dictId: nodeRef.id },
+    form: { dictId: nodeRef.id,dictCode: nodeRef.code },
   });
   crudExpose.doRefresh();
 }
@@ -95,10 +97,11 @@ function handleDelete(node: any) {
   });
 }
 
-const refreshDictCache = () => {
-  api.Refresh().then(() => {
+const syncDict = () => {
+  api.incrSyncDict().then(() => {
+    loadDictList();
     ui.notification.success({
-      message: '字典缓存刷新成功',
+      message: '增量同步字典成功',
       duration: 3,
     });
   });
@@ -125,8 +128,8 @@ const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
     <Card :bordered="false" class="dict-list w-1/3 xl:w-1/4">
       <template #extra>
         <a-button color="success" @click="openFormWrapper"> 新增字典 </a-button>
-        <a-button color="success" @click="refreshDictCache">
-          刷新缓存
+        <a-button color="success" @click="syncDict">
+          同步字典
         </a-button>
         <fs-form-wrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
       </template>

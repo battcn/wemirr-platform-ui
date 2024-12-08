@@ -4,8 +4,8 @@ export function GetList() {
   return defHttp.get('/iam/tenant-dict/list');
 }
 
-export function Refresh() {
-  return defHttp.post('/iam/tenant-dict/refresh');
+export function incrSyncDict() {
+  return defHttp.post('/iam/tenant-dict/incr-sync');
 }
 
 export function BatchDelete(ids: any) {

@@ -112,7 +112,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           await defHttp.delete(`/iam/tenants/${row.id}`),
       },
       rowHandle: {
-        width: 280,
+        width: 180,
         fixed: 'right',
         dropdown: {
           // 操作列折叠
@@ -161,6 +161,30 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                     .then(() => {
                       notification.success({
                         message: '租户数据初始化成功',
+                        duration: 2,
+                      });
+                    });
+                },
+              });
+            },
+          },
+          refreshDict: {
+            type: 'link',
+            title: '字典刷新',
+            text: '字典刷新',
+            size: 'small',
+            order: 4,
+            click({ row }) {
+              Modal.confirm({
+                iconType: 'warning',
+                title: '风险提示',
+                content: `确定重新刷新租户的数据字典吗?`,
+                onOk: () => {
+                  defHttp
+                    .put(`/iam/tenants/${row.id}/refresh-dict`)
+                    .then(() => {
+                      notification.success({
+                        message: '租户字典刷新成功',
                         duration: 2,
                       });
                     });

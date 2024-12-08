@@ -63,11 +63,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         clientSecret: {
           title: '客户秘钥',
           type: 'text',
-          column: { width: 140, show: false },
-          editForm: { show: false },
+          column: { width: 140, show: true },
+          // editForm: { show: false },
           form: {
             rules: [{ required: true, message: 'clientSecret 不能为空' }],
-            helper: '注意：填写后将以密文方式存储且不允许修改',
+            // helper: '注意：填写后将以密文方式存储且不允许修改',
           },
         },
         clientIdIssuedAt: {

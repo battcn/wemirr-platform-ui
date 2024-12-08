@@ -36,7 +36,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       },
       actionbar: { buttons: { add: { show: false } } },
       toolbar: { buttons: { refresh: { show: false } } },
-      rowHandle: { width: 180, align: 'center' },
+      rowHandle: { width: 170, align: 'center' },
       columns: {
         id: {
           title: 'ID',
@@ -53,7 +53,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         label: {
           title: '名称',
           search: { show: true },
-          column: { show: true, width: 180 },
+          column: { show: true, width: 160 },
           type: 'text',
           form: {
             rules: [{ required: true, message: '编码不能为空' }],
@@ -62,7 +62,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         value: {
           title: '值',
           search: { show: false },
-          column: { show: true, width: 180 },
+          column: { show: true, width: 160 },
           type: 'text',
           form: {
             rules: [{ required: true, message: '编码不能为空' }],
@@ -71,7 +71,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         status: {
           title: '状态',
           type: 'dict-radio',
-          column: { show: true, width: 80 },
+          column: { show: true, width: 100 },
           search: { show: true },
           dict: dict({
             data: [
@@ -95,9 +95,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         description: {
           title: '描述',
-          column: { show: false, width: 100 },
-          type: ['textarea'],
-          form: { col: { span: 24 } },
+          column: { show: true, ellipsis: true, width: 180 },
+          type: 'textarea',
+          form: {
+            col: { span: 24 },
+          },
         },
         createdTime: {
           title: '创建时间',

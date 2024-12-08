@@ -1,4 +1,4 @@
-import { useColumns, useUi } from '@fast-crud/fast-crud';
+import {dict, useColumns, useUi} from '@fast-crud/fast-crud';
 
 import * as api from './api';
 
@@ -25,18 +25,17 @@ export default function (callbackFunc: () => void): any {
           rules: [{ required: true, message: '名称不能为空' }],
         },
       },
-      // avatar: {
-      //   title: "头像上传",
-      //   type: "avatar-uploader",
-      //   form: {
-      //     order: 1,
-      //     col: {
-      //       style: { gridRow: "span 3" }
-      //     },
-      //     helper: "通过grid布局，可以实现比flex更加规整的排列"
-      //   }
-      // },
-
+      type: {
+        title: '类型',
+        type: 'dict-radio',
+        column: { show: true, width: 100 },
+        dict: dict({
+          data: [
+            { value: 0, label: '平台字典', color: 'success' },
+            { value: 1, label: '租户字典', color: 'error' },
+          ],
+        }),
+      },
       code: {
         title: '编码',
         search: { show: true },
@@ -61,9 +60,9 @@ export default function (callbackFunc: () => void): any {
         is: 'a-modal',
         title: '新增字典',
       },
-      doSubmit({ form }) {
+      doSubmit({ form }: any) {
         if (form.id) {
-          api.UpdateObj(form).then((ret) => {
+          api.UpdateObj(form).then(() => {
             callbackFunc();
             ui.notification.success({
               message: '修改成功',
@@ -71,7 +70,7 @@ export default function (callbackFunc: () => void): any {
             });
           });
         } else {
-          api.AddObj(form).then((ret) => {
+          api.AddObj(form).then(() => {
             callbackFunc();
             ui.notification.success({
               message: '新增成功',
