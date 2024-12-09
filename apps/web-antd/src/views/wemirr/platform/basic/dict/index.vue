@@ -53,16 +53,17 @@ function handleSelect(checkedKeys: any, event: any) {
     return;
   }
   const nodeRef = event.selectedNodes[0];
-  console.log('crudBinding', crudBinding);
   crudBinding.value.search.initialForm = {
     dictId: nodeRef.id,
+    dictCode: nodeRef.code,
   };
   crudBinding.value.addForm.initialForm = {
     dictId: nodeRef.id,
+    dictCode: nodeRef.code,
   };
   crudBinding.value.actionbar.buttons.add.show = true;
   crudExpose.setSearchFormData({
-    form: { dictId: nodeRef.id },
+    form: { dictId: nodeRef.id, dictCode: nodeRef.code },
   });
   crudExpose.doRefresh();
 }
@@ -157,7 +158,7 @@ const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
       </a-tree>
     </Card>
     <Card class="dict-item w-full" title="字典子项">
-      <fs-crud ref="crudRef" v-bind="crudBinding" >
+      <fs-crud ref="crudRef" v-bind="crudBinding">
         <template #cell_description="scope">
           <a-tooltip :title="scope.row.description" placement="topLeft">
             {{ scope.row.description }}

@@ -50,6 +50,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           form: { show: false },
           column: { show: false },
         },
+        dictCode: {
+          title: '编码',
+          type: 'text',
+          form: { show: false },
+          column: { show: false },
+        },
         label: {
           title: '名称',
           search: { show: true },

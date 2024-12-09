@@ -33,7 +33,7 @@ function useAccess() {
     return intersection.length > 0;
   }
 
-  function hasPermission(code :string){
+  function hasPermission(code: string) {
     const userCodesSet = new Set(accessStore.accessCodes);
     return userCodesSet.has(code);
   }

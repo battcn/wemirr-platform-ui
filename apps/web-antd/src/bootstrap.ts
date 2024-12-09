@@ -9,7 +9,7 @@ import '@vben/styles/antd';
 import { useTitle } from '@vueuse/core';
 
 import { $t, setupI18n } from '#/locales';
-import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud';
+import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud.tsx';
 
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';

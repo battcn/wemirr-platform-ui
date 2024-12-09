@@ -1,13 +1,17 @@
+import { useAccess } from '@vben/access';
+
 import _ from 'lodash-es';
-import {useAccess} from "@vben/access";
 
 /**
  * 设置动作权限
- * @param permission {prefix,extra}
+ * @param {object} permission - 权限对象
+ * @param {string} permission.permission - 权限名称
+ * @param {prefix} permission.prefix - 权限前缀
  */
 export function useCrudPermission({ permission }) {
   const { hasPermission } = useAccess();
   const prefix = permission instanceof Object ? permission.prefix : permission;
+
   // 根据权限显示按钮
   function hasActionPermission(action) {
     if (!prefix) {

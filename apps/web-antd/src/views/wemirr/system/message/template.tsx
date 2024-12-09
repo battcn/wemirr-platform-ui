@@ -5,11 +5,12 @@ import type {
 
 import { useRouter } from 'vue-router';
 
+import { useAccess } from '@vben/access';
+
 import { dict, utils } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
-import {useAccess} from "@vben/access";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   utils.logger.info('crud props', props);
@@ -50,7 +51,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         width: 230,
         buttons: {
           publish: {
-            show: hasPermission("message:template:publish"),
+            show: hasPermission('message:template:publish'),
             order: 2,
             type: 'link',
             text: '推送',

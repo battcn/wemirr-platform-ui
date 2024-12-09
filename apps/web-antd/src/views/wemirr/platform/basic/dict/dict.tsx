@@ -1,4 +1,4 @@
-import {dict, useColumns, useUi} from '@fast-crud/fast-crud';
+import { dict, useColumns, useUi } from '@fast-crud/fast-crud';
 
 import * as api from './api';
 

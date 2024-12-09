@@ -4,12 +4,13 @@ import type {
   UserPageQuery,
 } from '@fast-crud/fast-crud';
 
+import { useAccess } from '@vben/access';
+
 import { dict, useUi } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
-import {useAccess} from "@vben/access";
 // import { downloadByData } from "@/utils/file/download";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
@@ -42,7 +43,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             text: '重置密码',
             size: 'small',
             title: '重置密码',
-            show: hasPermission("sys:user:reset"),
+            show: hasPermission('sys:user:reset'),
             async click({ row }) {
               ui.messageBox
                 .confirm({

@@ -4,8 +4,8 @@ import type { FsEditorWang5Config } from '@fast-crud/fast-extends/dist/d/editor/
 import type { App } from 'vue';
 import { computed } from 'vue';
 
+import { QuestionCircleOutlined } from '@ant-design/icons-vue';
 import { FastCrud, registerMergeColumnPlugin } from '@fast-crud/fast-crud';
-import { useCrudPermission } from "./setup-fast-crud-permission";
 import {
   FsExtendsCopyable,
   FsExtendsEditor,
@@ -18,6 +18,8 @@ import ui from '@fast-crud/ui-antdv4';
 import Antdv from 'ant-design-vue';
 
 import { defHttp } from '#/api/request';
+
+import { useCrudPermission } from './setup-fast-crud-permission';
 
 import '@fast-crud/fast-crud/dist/style.css';
 import '@fast-crud/ui-antdv4/dist/style.css';
@@ -35,7 +37,8 @@ export function registerFastCrud(app: App) {
       return await defHttp.request(url, {});
     },
     commonOptions(props: any) {
-      const crudBinding = props.crudExpose?.crudBinding;
+      const { crudExpose } = props;
+      const crudBinding = crudExpose?.crudBinding;
       const opts = {
         toolbar: {
           // toolbar.buttons.export.show:false 显示隐藏
@@ -64,14 +67,44 @@ export function registerFastCrud(app: App) {
           is: 'fs-layout-card',
         },
         rowHandle: {
-          width: 170,
+          width: 180,
           align: 'left',
           // 固定右侧 不建议设置成全局
           fixed: 'right',
           buttons: {
             view: { order: 1, size: 'small', type: 'link', icon: null },
             edit: { order: 2, size: 'small', type: 'link', icon: null },
-            remove: { order: 3, size: 'small', type: 'link', icon: null },
+            remove: {
+              order: 3,
+              size: 'small',
+              type: 'link',
+              icon: null,
+              // 重写 render 默认的 confirm 没有 pop-confirm 操作友好
+              render(scope: any) {
+                function confirm() {
+                  const { row, index } = scope;
+                  crudExpose.doRemove({ row, index }, { noConfirm: true });
+                }
+                return (
+                  <a-popconfirm
+                    cancel-text="取消"
+                    ok-text="确认删除"
+                    onConfirm={confirm}
+                    placement="bottom"
+                    title={'确定要删除这条记录吗'}
+                    v-slots={{
+                      icon: () => (
+                        <QuestionCircleOutlined style={{ color: 'red' }} />
+                      ),
+                    }}
+                  >
+                    <fs-button class="ant-btn-sm" danger type="link">
+                      删除
+                    </fs-button>
+                  </a-popconfirm>
+                );
+              },
+            },
           },
           dropdown: { more: { type: 'link' } },
         },
@@ -145,10 +178,8 @@ export function registerFastCrud(app: App) {
         },
       };
       const permission = props.context?.permission || null;
-      console.log('permission', permission);
       const crudPermission = useCrudPermission({ permission });
       return crudPermission.merge(opts);
-      // return opts;
     },
   } as any);
 

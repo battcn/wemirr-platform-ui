@@ -7,6 +7,7 @@ import type {
   UserPageQuery,
   UserPageRes,
 } from '@fast-crud/fast-crud';
+
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
@@ -29,7 +30,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         editRequest: async ({ form }: EditReq) =>
           await defHttp.put(`/iam/tenant-dict-items/${form.id}/modify`, form),
         delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete(`/iam/tenant-dict-items/${row.id}`,),
+          await defHttp.delete(`/iam/tenant-dict-items/${row.id}`),
       },
       container: {
         is: 'fs-layout-default',
