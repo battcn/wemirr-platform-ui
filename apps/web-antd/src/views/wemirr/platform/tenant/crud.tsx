@@ -5,6 +5,8 @@ import type {
 
 import { ref } from 'vue';
 
+import { useAccess } from '@vben/access';
+
 import {
   asyncCompute,
   compute,
@@ -93,6 +95,7 @@ const formOptions = buildFormOptions(customOptions);
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { crudExpose } = props;
+  const { hasPermission } = useAccess();
   return {
     crudOptions: {
       request: {
@@ -131,6 +134,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             text: '连接配置',
             size: 'small',
             order: 3,
+            show: hasPermission('tenant:db-config'),
             async click({ row }) {
               if (row.locked) {
                 notification.error({
@@ -150,6 +154,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             text: '数据初始',
             size: 'small',
             order: 4,
+            show: hasPermission('tenant:init-script'),
             click({ row }) {
               Modal.confirm({
                 iconType: 'warning',
@@ -174,6 +179,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             text: '字典刷新',
             size: 'small',
             order: 4,
+            show: hasPermission('tenant:refresh-dict'),
             click({ row }) {
               Modal.confirm({
                 iconType: 'warning',

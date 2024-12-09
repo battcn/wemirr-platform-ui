@@ -5,11 +5,23 @@ import type {
   UserPageRes,
 } from '@fast-crud/fast-crud';
 
-import { dict } from '@fast-crud/fast-crud';
+import { ref } from 'vue';
+
+import { dict, utils } from '@fast-crud/fast-crud';
 
 import * as api from '../api';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function ({
+  crudExpose,
+  context,
+}: CreateCrudOptionsProps): CreateCrudOptionsRet {
+  const selectedRowKeys = ref([]);
+  context.selectedRowKeys = selectedRowKeys;
+
+  const onSelectChange = (changed: any) => {
+    utils.logger.info('selection', changed);
+    selectedRowKeys.value = changed;
+  };
   return {
     crudOptions: {
       request: {
@@ -24,23 +36,18 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       toolbar: { show: false },
       container: { is: 'fs-layout-default' },
       actionbar: { buttons: { add: { show: false } } },
-      table: { size: 'small', scroll: { fixed: true } },
-      search: { show: false },
-      buttons: { show: false },
-      rowHandle: {
-        align: 'center',
-        width: 125,
-        dropdown: {
-          more: {
-            icon: false,
-            text: '操作',
-          },
-        },
-        buttons: {
-          edit: { dropdown: true },
-          remove: { dropdown: true },
+      table: {
+        size: 'small',
+        scroll: { fixed: true },
+        rowKey: 'id',
+        rowSelection: {
+          selectedRowKeys,
+          onChange: onSelectChange,
         },
       },
+      search: { show: false },
+      buttons: { show: false },
+      rowHandle: { shou: false },
       columns: {
         id: {
           title: 'ID',
@@ -87,7 +94,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               placeholder: '资源权限编码',
             },
             rules: [{ required: true, message: '请填写资源权限编码' }],
-            helper: '如（sys:user:add sys:user:edit sys:user:remove）',
+            helper: '如（user:management:add user:management:edit）',
           },
           column: { width: 200, ellipsis: true },
         },

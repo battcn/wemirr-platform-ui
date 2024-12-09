@@ -21,7 +21,7 @@ export default function (callbackFunc: () => void): any {
         type: 'text',
         column: { show: true, width: 200 },
         form: {
-          col: { span: 13 },
+          col: { span: 12 },
           rules: [{ required: true, message: '名称不能为空' }],
         },
       },
@@ -43,7 +43,7 @@ export default function (callbackFunc: () => void): any {
         column: { show: true, width: 200 },
         editForm: { component: { disabled: true } },
         form: {
-          col: { span: 13 },
+          col: { span: 12 },
           rules: [{ required: true, message: '编码不能为空' }],
         },
       },

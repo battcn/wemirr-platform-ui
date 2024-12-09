@@ -5,62 +5,48 @@ import { useVbenModal } from '@vben/common-ui';
 
 import { useFs } from '@fast-crud/fast-crud';
 
-import createCrudOptions from './crud';
-import DistributionUser from './DistributionUser.vue';
-
-// import DistributionResource from "./DistributionResource.vue";
 import * as api from './api';
+import AssignResource from './assign-resource.vue';
+import AssignUser from './assign-user.vue';
+import createCrudOptions from './crud';
 
-const [DistributionModal, modalApi] = useVbenModal({
+const [AssignUserModal, userModalApi] = useVbenModal({
   // 连接抽离的组件
-  connectedComponent: DistributionUser,
+  connectedComponent: AssignUser,
+});
+const [AssignUserResourceModal, resourceModalApi] = useVbenModal({
+  // 连接抽离的组件
+  connectedComponent: AssignResource,
 });
 
-function useDistribution() {
-  const checkedKeys = ref();
-
+function assignModal() {
   function userModal(roleId) {
-    // modalApi.open();
     api.GetUserByRoleId(roleId).then((data) => {
-      // openBindUser(true, { roleId, ...data });
-      modalApi.setData({ roleId, ...data });
-      modalApi.open();
+      userModalApi.setData({ roleId, ...data });
+      userModalApi.open();
     });
   }
 
-  // const [registerBindUser, { openModal: openBindUser }] = useModal();
-
-  // function resourceModal(roleId) {
-  // openBindResource(true, roleId);
-  // }
-  // const [registerBindResource, { openModal: openBindResource }] = useModal();
-
+  function resourceModal(roleId) {
+    resourceModalApi.setData({ roleId });
+    resourceModalApi.open();
+  }
   return {
-    checkedKeys,
     userModal,
-    // resourceModal,
-    // registerBindUser,
-    // registerBindResource,
+    resourceModal,
   };
 }
 
-const distribution = useDistribution();
+const assign = assignModal();
 const { crudRef, crudBinding, crudExpose } = useFs({
   createCrudOptions,
-  context: { distribution, permission: 'sys:role' },
+  context: { assign, permission: 'sys:role' },
 });
 
 const treeData = ref([]);
 
-async function initOrgList() {
-  // await api.InitOrgList().then((data) => {
-  //   treeData.value = data;
-  // });
-}
-
 // 页面打开后获取列表数据
 onMounted(() => {
-  initOrgList();
   crudExpose.doRefresh();
 });
 </script>
@@ -86,8 +72,7 @@ onMounted(() => {
         </a-tooltip>
       </template>
     </fs-crud>
-    <!--    <DistributionModal/>-->
-    <DistributionModal />
-    <!--        <distribution-resource @register="registerBindResource" />-->
+    <AssignUserModal />
+    <AssignUserResourceModal />
   </fs-page>
 </template>

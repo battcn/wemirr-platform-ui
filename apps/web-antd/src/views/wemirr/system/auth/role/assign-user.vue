@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup name="AssignUser">
 import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
@@ -11,7 +11,6 @@ const tableColumns = [
   { dataIndex: 'nickName', title: '名称' },
   { dataIndex: 'username', title: '账号' },
 ];
-// const modelRef = ref();
 const showSearch = ref(true);
 const leftColumns = ref(tableColumns);
 const rightColumns = ref(tableColumns);
@@ -24,14 +23,14 @@ const modelRef = ref({
 }) as Record<string, any>;
 const [Modal, modalApi] = useVbenModal({
   title: '分配用户',
-  class: 'm-distribution-user',
+  class: 'm-assign-user',
   draggable: false,
   onCancel() {
     modalApi.close();
   },
   onConfirm() {
     api
-      .DistributionUser({
+      .assignUser({
         roleId: modelRef.value.roleId,
         userIdList: targetKeys.value,
       })
@@ -114,7 +113,7 @@ const getRowSelection = ({
 </template>
 
 <style lang="less">
-.m-distribution-user {
+.m-assign-user {
   width: 75%;
   height: 75%;
 }

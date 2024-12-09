@@ -9,6 +9,7 @@ import { Card, Modal } from 'ant-design-vue';
 import * as api from './api';
 import createFormOptions from './dict';
 import createCrudOptions from './dict-item-crud';
+// import { AccessControl } from '@vben/access';
 
 const { ui } = useUi();
 /**
@@ -39,7 +40,7 @@ const { formWrapperRef, openFormWrapper, formWrapperOptions } =
 
 const { crudBinding, crudRef, crudExpose } = useFs({
   createCrudOptions,
-  context: { permission: 'sys:user' },
+  context: { permission: 'dict' },
 });
 
 // 页面打开后获取列表数据
@@ -126,8 +127,19 @@ const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
   <Page content-class="flex flex-row gap-2">
     <Card :bordered="false" class="dict-list w-1/3 xl:w-1/4">
       <template #extra>
-        <a-button color="success" @click="openFormWrapper"> 新增字典 </a-button>
-        <a-button color="success" @click="refreshDictCache">
+        <a-button
+          type="primary"
+          v-access:code="'dict:add'"
+          @click="openFormWrapper"
+        >
+          新增字典
+        </a-button>
+        <span style="margin-left: 10px"></span>
+        <a-button
+          type="primary"
+          v-access:code="'dict:refresh'"
+          @click="refreshDictCache"
+        >
           刷新缓存
         </a-button>
         <fs-form-wrapper ref="formWrapperRef" v-bind="formWrapperOptions" />

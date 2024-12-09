@@ -1,9 +1,8 @@
 <script setup lang="ts" name="SysMenuPage">
-import { h, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { Card, Modal, notification } from 'ant-design-vue';
 
 import { getAllMenusApi } from '#/api';
@@ -73,34 +72,6 @@ function loadMenu() {
     expandedKeys.value = ret
       .filter((item: any) => item.parentId === '0')
       .map((item: any) => item.id);
-    setTimeout(() => {
-      actionList.value = [
-        {
-          // show: hasPermission("sys:menu:add"),
-          render: (node: any) => {
-            return h(PlusOutlined, {
-              class: 'ml-2',
-              onClick: (e) => {
-                handlePlus(node);
-                e.stopPropagation();
-              },
-            });
-          },
-        },
-        {
-          // show: hasPermission("sys:menu:remove"),
-          render: (node: any) => {
-            return h(DeleteOutlined, {
-              class: 'ml-2',
-              onClick: (e) => {
-                handleDelete(node);
-                e.stopPropagation();
-              },
-            });
-          },
-        },
-      ];
-    }, 0);
     menuFormRef.resetValidate();
   });
 }
@@ -135,16 +106,15 @@ function handleSelect(checkedKeys: any, event: any) {
   };
   // FIX 字段叫 component 会赋值异常
   menuFormRef.setValues(fields);
-  itemTableRef.value.crudBinding.search.initialForm = {
+  itemTableRef.value.crudBinding.addForm.initialForm = {
     parentId: selectNode.id,
   };
-  itemTableRef.value.crudBinding.addForm.initialForm = {
+  itemTableRef.value.crudBinding.editForm.initialForm = {
     parentId: selectNode.id,
   };
   itemTableRef.value.crudBinding.actionbar.buttons.add.show =
     selectNode.component !== 'BasicLayout' &&
     selectNode?.children === undefined;
-  itemTableRef.value.parentId = selectNode.id;
   itemTableRef.value.setSearchFormData({ form: { parentId: selectNode.id } });
   itemTableRef.value.doRefresh();
 }

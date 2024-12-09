@@ -1,5 +1,11 @@
 import { defHttp } from '#/api/request';
 
+export function GetResourceList(query: any) {
+  return defHttp.request('/iam/resources/page', {
+    method: 'get',
+    params: query,
+  });
+}
 export function GetList(data: any) {
   return defHttp.post('/iam/roles/page', data);
 }
@@ -18,13 +24,15 @@ export function DelObj(id: string) {
 export function GetUserByRoleId(roleId: string) {
   return defHttp.get(`/iam/roles/${roleId}/users`);
 }
-
-export function DistributionUser(obj: any) {
-  return defHttp.post(`/iam/roles/${obj.roleId}/users`, obj);
+export function getRolePermissions(roleId: string) {
+  return defHttp.get(`/iam/roles/${roleId}/permissions`);
+}
+export function assignUser(obj: any) {
+  return defHttp.post(`/iam/roles/${obj.roleId}/assign-user`, obj);
 }
 
-export function DistributionRoleAuthority(obj: any) {
-  return defHttp.request(`/iam/roles/${obj.roleId}/authority`, {
+export function assignResource(obj: any) {
+  return defHttp.request(`/iam/roles/${obj.roleId}/assign-res`, {
     method: 'post',
     data: obj,
   });

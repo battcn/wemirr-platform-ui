@@ -3,14 +3,16 @@ import type {
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
 
+import { useAccess } from '@vben/access';
+
 import { compute, dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
-// import { usePermission } from "@/hooks/web/usePermission";
+
 import * as api from './api';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const { distribution } = props.context;
-  // const { hasPermission } = usePermission();
+  const { assign } = props.context;
+  const { hasPermission } = useAccess();
   return {
     crudOptions: {
       request: {
@@ -37,9 +39,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             size: 'small',
             type: 'link',
             order: 4,
-            // show: hasPermission("sys:role:distribution:user"),
-            async click(context: any) {
-              await distribution.userModal(context.record.id);
+            show: hasPermission('sys:role:assign-users'),
+            async click({ row }: any) {
+              await assign.userModal(row.id);
             },
           },
           resource: {
@@ -47,9 +49,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             type: 'link',
             size: 'small',
             order: 5,
-            // show: hasPermission("sys:role:distribution:res"),
-            async click(context: any) {
-              // await distribution.resourceModal(context.record.id);
+            show: hasPermission('sys:role:assign-resource'),
+            async click({ row }: any) {
+              await assign.resourceModal(row.id);
             },
           },
         },

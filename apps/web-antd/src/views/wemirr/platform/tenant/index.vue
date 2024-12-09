@@ -6,7 +6,10 @@ import { useFs } from '@fast-crud/fast-crud';
 import createCrudOptions from './crud';
 
 // 通过context传递到crud.tsx中
-const { crudBinding, crudRef, crudExpose } = useFs({ createCrudOptions });
+const { crudBinding, crudRef, crudExpose } = useFs({
+  createCrudOptions,
+  context: { permission: 'tenant' },
+});
 
 // 页面打开后获取列表数据
 onMounted(() => {
