@@ -32,8 +32,8 @@ export function assignUser(obj: any) {
 }
 
 export function assignResource(obj: any) {
-  return defHttp.request(`/iam/roles/${obj.roleId}/assign-res`, {
-    method: 'post',
+  return defHttp.request(`/iam/roles/${obj.roleId}/assign-resources`, {
+    method: 'put',
     data: obj,
   });
 }
