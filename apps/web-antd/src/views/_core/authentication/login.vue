@@ -1,37 +1,28 @@
 <script lang="ts" setup>
 import type { VbenFormSchema } from '@vben/common-ui';
 
-import { computed, markRaw } from 'vue';
+import { computed, markRaw, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 import { AuthenticationLogin, SliderCaptcha, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
 
+import { loadTenantSetting } from '#/api';
 import { useAuthStore } from '#/store';
 
 defineOptions({ name: 'Login' });
 
 const authStore = useAuthStore();
-
 const formSchema = computed((): VbenFormSchema[] => {
   return [
-    // {
-    //   component: 'VbenSelect',
-    //   componentProps: {
-    //     options: MOCK_USER_OPTIONS,
-    //     placeholder: $t('authentication.selectAccount'),
-    //   },
-    //   fieldName: 'selectAccount',
-    //   label: $t('authentication.selectAccount'),
-    //   rules: z
-    //     .string()
-    //     .min(1, { message: $t('authentication.selectAccount') })
-    //     .optional()
-    //     .default('vben'),
-    // },
     {
       component: 'VbenInput',
       componentProps: {
         placeholder: '租户编码',
+      },
+      dependencies: {
+        show: true,
+        triggerFields: [''],
       },
       fieldName: 'tenantCode',
       label: '租户编码',
@@ -67,12 +58,44 @@ const formSchema = computed((): VbenFormSchema[] => {
     },
   ];
 });
+const loginRef = ref();
+const loginPropsRef = ref();
+const route = useRoute();
+// const tenantCode: any = route.query.tenantCode;
+onMounted(async () => {
+  const formApi = loginRef.value.getFormApi();
+  console.log('formApi', formApi);
+  // TODO formApi 应该在提供一个显示或者隐藏某个字段
+  await loadTenantSetting().then((ret) => {
+    loginPropsRef.value = ret;
+    if (ret.tenantCode) {
+      formApi.updateSchema([
+        {
+          fieldName: 'tenantCode',
+          dependencies: {
+            show: false,
+          },
+        },
+      ]);
+      formApi.setFieldValue('tenantCode', ret.tenantCode);
+    }
+  });
+});
 </script>
 
 <template>
   <AuthenticationLogin
+    ref="loginRef"
     :form-schema="formSchema"
     :loading="authStore.loginLoading"
+    :show-code-login="loginPropsRef?.showCodeLogin"
+    :show-forget-password="loginPropsRef?.showForgetPassword"
+    :show-qrcode-login="loginPropsRef?.showQrcodeLogin"
+    :show-register="loginPropsRef?.showRegister"
+    :show-remember-me="loginPropsRef?.showRememberMe"
+    :show-third-party-login="loginPropsRef?.showThirdPartyLogin"
+    :sub-title="loginPropsRef?.subTitle"
+    :title="loginPropsRef?.title"
     @submit="authStore.authLogin"
   />
 </template>

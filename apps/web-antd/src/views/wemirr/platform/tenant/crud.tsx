@@ -270,29 +270,39 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           }),
         },
         status: {
-          title: '认证状态',
-          search: { show: true },
-          addForm: { value: 0 },
-          column: { show: true, align: 'center', width: 80 }, // 表单配置
-          type: ['dict-radio'],
-          dict: dict({
-            data: [
-              { value: 0, label: '未认证', color: 'warning' },
-              { value: 1, label: '已认证', color: 'success' },
-            ],
-          }),
-        },
-        locked: {
-          title: '使用状态',
+          title: '状态',
           addForm: { value: false },
           column: { show: true, align: 'center', width: 80 },
           type: 'dict-radio',
           dict: dict({
             data: [
-              { value: false, label: '启用', color: 'success' },
-              { value: true, label: '禁用', color: 'error' },
+              { value: false, label: '禁用', color: 'error' },
+              { value: true, label: '启用', color: 'success' },
             ],
           }),
+          form: {
+            rules: [{ required: true, message: '状态不能为空' }],
+          },
+        },
+        creditCode: {
+          title: '信用代码',
+          type: 'text',
+          column: { ellipsis: true, show: false, width: 200 },
+          form: {
+            show: compute(({ form }) => {
+              return form?.type === 1;
+            }),
+          },
+        },
+        legalPersonName: {
+          title: '法人',
+          type: 'text',
+          column: { ellipsis: true, show: false },
+          form: {
+            show: compute(({ form }) => {
+              return form?.type === 1;
+            }),
+          },
         },
         email: {
           title: '邮箱',
@@ -381,37 +391,27 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             col: { span: 24 },
           },
         },
-        creditCode: {
-          title: '信用代码',
-          type: 'text',
-          column: { ellipsis: true, show: false, width: 200 },
-          form: {
-            show: compute(({ form }) => {
-              return form?.type === 1;
-            }),
-          },
-        },
-        legalPersonName: {
-          title: '法人',
-          type: 'text',
-          column: { ellipsis: true, show: false },
-          form: {
-            show: compute(({ form }) => {
-              return form?.type === 1;
-            }),
-          },
-        },
         webSite: {
-          title: '租户网址',
+          title: '站点',
           type: ['textarea'],
           column: { ellipsis: true, show: false },
           form: {
             col: { span: 24 },
             rules: [
-              { required: true, message: '请输入租户域名' },
+              { required: true, message: '请输入租户站点' },
               { min: 2, max: 100, message: '长度在 2 到 100 个字符' },
             ],
           },
+        },
+        'setting.title': {
+          title: '标题',
+          type: ['text'],
+          column: { ellipsis: true, show: false },
+        },
+        'setting.subTitle': {
+          title: '子标题',
+          type: ['text'],
+          column: { ellipsis: true, show: false },
         },
         description: {
           title: '描述信息',
@@ -456,11 +456,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       },
       form: {
         group: {
-          type: 'collapse',
+          groupType: 'tabs',
           accordion: false,
           groups: {
             baseInfo: {
-              header: '基本信息',
+              tab: '基本信息',
               columns: [
                 'name',
                 'alias',
@@ -469,24 +469,26 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                 'type',
                 'status',
                 'locked',
+                'creditCode',
+                'legalPersonName',
               ],
             },
             linkInfo: {
-              header: '联系方式',
+              tab: '联系方式',
               columns: ['contactPerson', 'contactPhone', 'email'],
             },
             areaInfo: {
-              header: '区域信息',
+              tab: '区域信息',
               columns: ['area', 'address'],
             },
-            otherInfo: {
-              header: '其它信息',
+            siteSetting: {
+              tab: '站点设置',
               collapsed: false,
               columns: [
-                'creditCode',
-                'legalPersonName',
                 'webSite',
                 'description',
+                'setting.title',
+                'setting.subTitle',
                 'logo',
               ],
             },

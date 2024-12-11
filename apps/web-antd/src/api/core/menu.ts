@@ -7,6 +7,7 @@ import { requestClient } from '#/api/request';
  */
 export async function getAllMenusApi(params) {
   return requestClient.get<RouteRecordStringComponent[]>(
-    '/iam/resources/router',{params: params}
+    '/iam/resources/router',
+    { params },
   );
 }

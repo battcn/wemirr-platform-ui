@@ -34,7 +34,7 @@ const [Modal, modalApi] = useVbenModal({
   onOpenChange(isOpen: boolean) {
     if (!isOpen) return;
 
-    getAllMenusApi({status: true}).then((ret) => {
+    getAllMenusApi({ status: true }).then((ret) => {
       treeData.value = ret;
       expandedKeys.value = ret
         .filter((item: any) => item.parentId === '0')
