@@ -34,7 +34,9 @@ export function registerFastCrud(app: App) {
     // i18n,
     logger: { off: { tableColumns: false } },
     async dictRequest({ url }: any) {
-      return await defHttp.request(url, {});
+      return await defHttp.request(url, {}).then((ret) => {
+        return ret.data;
+      });
     },
     commonOptions(props: any) {
       const { crudExpose } = props;

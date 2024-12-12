@@ -1,7 +1,7 @@
 import { defHttp } from '#/api/request';
 
 export function GetList() {
-  return defHttp.get('/iam/dict/list');
+  return defHttp.get('/iam/dict/list').then((ret) => ret.data);
 }
 
 export function Refresh() {

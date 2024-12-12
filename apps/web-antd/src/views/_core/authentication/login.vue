@@ -64,7 +64,6 @@ const route = useRoute();
 // const tenantCode: any = route.query.tenantCode;
 onMounted(async () => {
   const formApi = loginRef.value.getFormApi();
-  console.log('formApi', formApi);
   // TODO formApi 应该在提供一个显示或者隐藏某个字段
   await loadTenantSetting().then((ret) => {
     loginPropsRef.value = ret;

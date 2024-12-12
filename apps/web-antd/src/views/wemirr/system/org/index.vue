@@ -7,6 +7,7 @@ import { notification, type TreeProps } from 'ant-design-vue';
 import { Card } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
+import { getOrgTree } from '#/api/core/org';
 
 import * as api from './api';
 
@@ -150,7 +151,7 @@ function handlePlus(node: any) {
 const treeData = ref([] as TreeProps);
 
 function loadOrgTree() {
-  api.getOrgTree().then((ret: any) => {
+  getOrgTree().then((ret: any) => {
     treeData.value = ret;
     expandedKeys.value = ret
       .filter((item: any) => item.parentId === '0')

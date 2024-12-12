@@ -6,8 +6,9 @@ import { requestClient } from '#/api/request';
  * 获取用户所有菜单
  */
 export async function getAllMenusApi(params) {
-  return requestClient.get<RouteRecordStringComponent[]>(
-    '/iam/resources/router',
-    { params },
-  );
+  return requestClient
+    .get<RouteRecordStringComponent[]>('/iam/resources/router', { params })
+    .then((ret) => {
+      return ret.data;
+    });
 }

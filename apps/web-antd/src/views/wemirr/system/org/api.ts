@@ -1,9 +1,5 @@
 import { defHttp } from '#/api/request';
 
-export function getOrgTree(query: any) {
-  return defHttp.get('/iam/org/trees', { params: query });
-}
-
 export function save(obj: any) {
   return obj.id ? UpdateObj(obj) : AddObj(obj);
 }

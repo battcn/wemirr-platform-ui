@@ -6,7 +6,7 @@ import { Page } from '@vben/common-ui';
 import { useFs } from '@fast-crud/fast-crud';
 import { Card } from 'ant-design-vue';
 
-import { defHttp } from '#/api/request';
+import { getOrgTree } from '#/api/core/org';
 
 import createCrudOptions from './crud';
 
@@ -24,7 +24,7 @@ onMounted(async () => {
 });
 
 function initOrgList() {
-  defHttp.get('/iam/org/trees?parentId=0').then((ret) => {
+  getOrgTree().then((ret) => {
     treeData.value = ret;
     expandedKeys.value = ret
       .filter((item: any) => item.parentId === '0')

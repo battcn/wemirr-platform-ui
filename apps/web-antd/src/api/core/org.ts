@@ -1,8 +1,10 @@
-import { requestClient } from '#/api/request';
+import { defHttp } from '#/api/request';
 
 /**
- * 获取用户信息
+ * 获取机构树
  */
-export async function orgTrees() {
-  return requestClient.get<any>('/iam/org/trees?parentId=0');
+export function getOrgTree(query: any) {
+  return defHttp.get('/iam/org/trees', { params: query }).then((ret) => {
+    return ret.data;
+  });
 }

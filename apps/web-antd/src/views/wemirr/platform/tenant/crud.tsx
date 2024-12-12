@@ -7,91 +7,17 @@ import { ref } from 'vue';
 
 import { useAccess } from '@vben/access';
 
-import {
-  asyncCompute,
-  compute,
-  dict,
-  useColumns,
-  utils,
-} from '@fast-crud/fast-crud';
+import { asyncCompute, compute, dict, utils } from '@fast-crud/fast-crud';
 import { Modal, notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { getAreaTree, SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
 
-import createCrudOptionsText from './database/crud';
+import * as api from './api';
+import { tenantSettingFormOptions } from './scheam';
 
 const tenantRow = ref();
-const { buildFormOptions } = useColumns();
-const customOptions = {
-  columns: {
-    datasourceId: {
-      title: '数据源',
-      type: 'table-select',
-      dict: dict({
-        value: 'id',
-        label: 'name',
-        getNodesByValues: async (values: any[]) => {
-          return defHttp.get('/iam/databases/active', { params: values });
-        },
-      }),
-      form: {
-        component: {
-          crossPage: true,
-          valuesFormat: {
-            labelFormatter: (item: any) => {
-              return `${item.id}.${item.name}`;
-            },
-          },
-          select: { placeholder: '点击选择' },
-          createCrudOptions: createCrudOptionsText,
-          crudOptionsOverride: {
-            toolbar: { show: false },
-            actionbar: { buttons: { add: { show: false } } },
-            rowHandle: { show: false },
-          },
-        },
-        rules: [{ required: true, message: '数据源不能为空' }],
-        helper: '选择数据源后,会将租户初始化到指定的数据库中',
-      },
-    },
-    description: {
-      title: '描述',
-      column: { show: false, ellipsis: true },
-      type: ['textarea'],
-      form: { col: { span: 24 } },
-    },
-    lazy: {
-      title: '懒加载',
-      search: { show: true },
-      column: { show: true, align: 'center', width: 80 }, // 表单配置
-      type: ['dict-radio'],
-      dict: dict({
-        data: [
-          { value: false, label: '立即执行', color: 'success' },
-          { value: true, label: '延迟加载', color: 'error' },
-        ],
-      }),
-      addForm: { value: true },
-    },
-  },
-  form: {
-    wrapper: { title: '租户配置' },
-    doSubmit({ form }: any): void {
-      defHttp
-        .put(`/iam/tenants/${tenantRow.value.id}/config`, { data: form })
-        .then(() => {
-          notification.success({ message: '租户配置成功', duration: 2 });
-        })
-        .catch((error) => {
-          throw new Error(error);
-        });
-    },
-  },
-};
-// 使用crudOptions结构来构建自定义表单配置
-const formOptions = buildFormOptions(customOptions);
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { crudExpose } = props;
@@ -114,6 +40,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         delRequest: async ({ row }) =>
           await defHttp.delete(`/iam/tenants/${row.id}`),
       },
+      actionbar: {
+        buttons: {},
+      },
       rowHandle: {
         width: 180,
         fixed: 'right',
@@ -128,24 +57,31 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         buttons: {
           remove: { order: 5 },
-          config: {
+          setting: {
             type: 'link',
-            title: '连接配置',
-            text: '连接配置',
+            title: '租户设置',
+            text: '租户设置',
             size: 'small',
             order: 3,
-            show: hasPermission('tenant:db-config'),
+            // show: hasPermission('tenant:db-config'),
             async click({ row }) {
-              if (row.locked) {
+              if (!row.status) {
                 notification.error({
                   message: '租户已被禁用,无法进行租户配置',
                   duration: 2,
                 });
                 return;
               }
-              tenantRow.value = row;
-              formOptions.initialForm = { lazy: true };
-              await crudExpose.getFormWrapperRef().open(formOptions);
+              await api.getTenantSetting(row.id).then((ret) => {
+                tenantSettingFormOptions.initialForm = {
+                  ...ret.data,
+                  tenantId: row.id,
+                };
+                // select.on.selectedChange
+                // tenantSettingFormOptions.columns?.dbId?.component?.on?.selectedChange;
+                // console.log('tenantSettingFormOptions', tenantSettingFormOptions);
+                crudExpose.getFormWrapperRef().open(tenantSettingFormOptions);
+              });
             },
           },
           init: {
@@ -208,18 +144,6 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           form: { show: false },
           column: { show: false },
         },
-        name: {
-          title: '名称',
-          type: 'text',
-          search: { show: true },
-          column: { ellipsis: true, width: 200 },
-          form: {
-            rules: [
-              { required: true, message: '请输入名称' },
-              { min: 2, max: 30, message: '长度在 2 到 30 个字符' },
-            ],
-          },
-        },
         code: {
           title: '编码',
           type: 'text',
@@ -232,12 +156,27 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             ],
           },
         },
+        name: {
+          title: '名称',
+          type: 'text',
+          search: { show: true },
+          column: { ellipsis: true, width: 200 },
+          form: {
+            rules: [
+              { required: true, message: '请输入名称' },
+              { min: 2, max: 30, message: '长度在 2 到 30 个字符' },
+            ],
+          },
+        },
         alias: {
           title: '简称',
           type: 'text',
           column: { width: 100 },
           form: {
-            rules: [{ min: 2, max: 8, message: '长度在 2 到 8 个字符' }],
+            rules: [
+              { required: true, message: '请输入简称' },
+              { min: 2, max: 8, message: '长度在 2 到 8 个字符' },
+            ],
           },
         },
         contactPerson: {
@@ -276,8 +215,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: 'dict-radio',
           dict: dict({
             data: [
-              { value: false, label: '禁用', color: 'error' },
               { value: true, label: '启用', color: 'success' },
+              { value: false, label: '禁用', color: 'error' },
             ],
           }),
           form: {
@@ -391,55 +330,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             col: { span: 24 },
           },
         },
-        webSite: {
-          title: '站点',
-          type: ['textarea'],
-          column: { ellipsis: true, show: false },
-          form: {
-            col: { span: 24 },
-            rules: [
-              { required: true, message: '请输入租户站点' },
-              { min: 2, max: 100, message: '长度在 2 到 100 个字符' },
-            ],
-          },
-        },
-        'setting.title': {
-          title: '标题',
-          type: ['text'],
-          column: { ellipsis: true, show: false },
-        },
-        'setting.subTitle': {
-          title: '子标题',
-          type: ['text'],
-          column: { ellipsis: true, show: false },
-        },
         description: {
-          title: '描述信息',
+          title: '描述',
           type: ['textarea'],
           column: { ellipsis: true, show: false },
           form: {
             col: { span: 24 },
-          },
-        },
-        logo: {
-          title: 'LOGO',
-          type: 'cropper-uploader',
-          style: { height: 70 },
-          column: { width: 70, align: 'center', show: false },
-          valueBuilder({ value, row, key }) {
-            if (value !== null && value.indexOf('http')) {
-              row[key] = `http://www.docmirror.cn:7070${value}`;
-            }
-          },
-          form: {
-            component: {
-              uploader: {
-                type: 'form', // 上传后端类型【cos,aliyun,oss,form】
-                buildUrl(res: any) {
-                  return `http://www.docmirror.cn:7070/${res.url}`;
-                },
-              },
-            },
           },
         },
         createdTime: {
@@ -456,41 +352,31 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       },
       form: {
         group: {
-          groupType: 'tabs',
+          groupType: 'collapse',
           accordion: false,
           groups: {
             baseInfo: {
               tab: '基本信息',
+              header: '基本信息',
               columns: [
-                'name',
-                'alias',
                 'code',
                 'industry',
+                'name',
+                'alias',
                 'type',
                 'status',
                 'locked',
                 'creditCode',
                 'legalPersonName',
+                'area',
+                'address',
+                'description',
               ],
             },
             linkInfo: {
               tab: '联系方式',
+              header: '联系方式',
               columns: ['contactPerson', 'contactPhone', 'email'],
-            },
-            areaInfo: {
-              tab: '区域信息',
-              columns: ['area', 'address'],
-            },
-            siteSetting: {
-              tab: '站点设置',
-              collapsed: false,
-              columns: [
-                'webSite',
-                'description',
-                'setting.title',
-                'setting.subTitle',
-                'logo',
-              ],
             },
           },
         },

@@ -27,14 +27,14 @@ function useAccess() {
    * @param codes
    */
   function hasAccessByCodes(codes: string[]) {
-    const userCodesSet = new Set(accessStore.accessCodes);
+    const userCodesSet = new Set(accessStore?.accessCodes);
 
     const intersection = codes.filter((item) => userCodesSet.has(item));
     return intersection.length > 0;
   }
 
   function hasPermission(code: string) {
-    const userCodesSet = new Set(accessStore.accessCodes);
+    const userCodesSet = new Set(accessStore?.accessCodes);
     return userCodesSet.has(code);
   }
 

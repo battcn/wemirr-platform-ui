@@ -13,13 +13,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.get(`/iam/databases`, { params: query }),
+          await defHttp.get(`/iam/db-setting/page`, { params: query }),
         addRequest: async ({ form }: any) =>
-          await defHttp.post(`/iam/databases/create`, form),
+          await defHttp.post(`/iam/db-setting/create`, form),
         editRequest: async ({ form }: any) =>
-          await defHttp.put(`/iam/databases/${form.id}/modify`, form),
+          await defHttp.put(`/iam/db-setting/${form.id}/modify`, form),
         delRequest: async ({ row }: any) =>
-          await defHttp.delete(`/iam/databases/${row.id}`),
+          await defHttp.delete(`/iam/db-setting/${row.id}`),
       },
       rowHandle: { fixed: 'right' },
       columns: {

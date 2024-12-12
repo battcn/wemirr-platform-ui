@@ -108,6 +108,7 @@ class RequestClient {
       });
       return response as T;
     } catch (error: any) {
+      console.log('error', error);
       throw error.response ? error.response.data : error;
     }
   }

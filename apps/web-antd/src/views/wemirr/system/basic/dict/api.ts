@@ -1,11 +1,15 @@
 import { defHttp } from '#/api/request';
 
 export function GetList() {
-  return defHttp.get('/iam/tenant-dict/list');
+  return defHttp.get('/iam/tenant-dict/list').then((ret) => {
+    return ret.data;
+  });
 }
 
 export function incrSyncDict() {
-  return defHttp.post('/iam/tenant-dict/incr-sync');
+  return defHttp.post('/iam/tenant-dict/incr-sync').then((ret) => {
+    return ret.data;
+  });
 }
 
 export function BatchDelete(ids: any) {

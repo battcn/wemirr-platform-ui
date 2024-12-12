@@ -25,7 +25,9 @@ export function GetUserByRoleId(roleId: string) {
   return defHttp.get(`/iam/roles/${roleId}/users`);
 }
 export function getRolePermissions(roleId: string) {
-  return defHttp.get(`/iam/roles/${roleId}/permissions`);
+  return defHttp
+    .get(`/iam/roles/${roleId}/permissions`)
+    .then((ret) => ret.data);
 }
 export function assignUser(obj: any) {
   return defHttp.post(`/iam/roles/${obj.roleId}/assign-user`, obj);
@@ -35,12 +37,5 @@ export function assignResource(obj: any) {
   return defHttp.request(`/iam/roles/${obj.roleId}/assign-resources`, {
     method: 'put',
     data: obj,
-  });
-}
-
-export function InitOrgList() {
-  return defHttp.request('/iam/org/trees', {
-    method: 'get',
-    params: { status: true },
   });
 }

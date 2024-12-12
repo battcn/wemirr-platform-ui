@@ -33,7 +33,9 @@ export async function loginApi(data: AuthApi.LoginParams) {
   data.loginType = 'password';
   data.clientId = 'pc-web';
   data.clientSecret = 'pc-web';
-  return requestClient.post<AuthApi.LoginResult>('/iam/token/login', data);
+  return requestClient
+    .post<AuthApi.LoginResult>('/iam/token/login', data)
+    .then((ret) => ret.data);
 }
 
 /**
@@ -49,14 +51,14 @@ export async function refreshTokenApi() {
  * 退出登录
  */
 export async function logoutApi() {
-  return baseRequestClient.post('/iam/token/logout', {
-    withCredentials: true,
-  });
+  return requestClient.delete('/iam/token/logout');
 }
 
 /**
  * 获取用户权限码
  */
 export async function getAccessCodesApi() {
-  return requestClient.get<string[]>('/iam/token/func_permissions');
+  return requestClient
+    .get<string[]>('/iam/token/func_permissions')
+    .then((ret) => ret.data);
 }
