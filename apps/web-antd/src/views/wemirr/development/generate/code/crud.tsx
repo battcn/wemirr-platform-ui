@@ -6,13 +6,13 @@ import { defHttp } from '#/api/request';
 
 export default function ({ userStore }) {
   const pageRequest = async (query: any) =>
-    await defHttp.get({ url: '/tools/generates', params: query });
+    await defHttp.get({ url: '/suite/generates', params: query });
   // eslint-disable-next-line prettier/prettier
-  const editRequest = async ({ form }:any) => await defHttp.put({url:`/tools/generates/${form.id}`,data: form});
+  const editRequest = async ({ form }:any) => await defHttp.put({url:`/suite/generates/${form.id}`,data: form});
   const delRequest = async ({ row }: any) =>
-    await defHttp.delete({ url: `/tools/generates/${row.id}` });
+    await defHttp.delete({ url: `/suite/generates/${row.id}` });
   const addRequest = async ({ form }: any) =>
-    await defHttp.post({ url: '/tools/generates', data: form });
+    await defHttp.post({ url: '/suite/generates', data: form });
   return {
     crudOptions: {
       request: {
@@ -38,7 +38,7 @@ export default function ({ userStore }) {
               await defHttp
                 .request(
                   {
-                    url: `/tools/generates/${context.row.id}/download`,
+                    url: `/suite/generates/${context.row.id}/download`,
                     method: 'POST',
                     responseType: 'blob',
                   },
@@ -63,7 +63,7 @@ export default function ({ userStore }) {
           title: '表名',
           type: 'dict-select',
           dict: dict({
-            url: '/tools/generates/tables',
+            url: '/suite/generates/tables',
           }),
           column: { width: 250, component: { color: 'auto' } },
           form: {

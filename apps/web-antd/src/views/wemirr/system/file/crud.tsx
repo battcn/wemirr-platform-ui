@@ -19,6 +19,7 @@ export default function () {
           add: {
             show: false,
             icon: 'codicon:repo-force-push',
+            type: 'primary',
             text: '文件上传',
             async click() {
               notification.error({
@@ -30,15 +31,15 @@ export default function () {
         },
       },
       rowHandle: {
-        width: 90,
+        width: 130,
         buttons: {
           add: { show: false },
           view: { show: false },
           edit: { show: false },
           download: {
-            icon: 'ant-design:cloud-download-outlined',
+            // icon: 'ant-design:cloud-download-outlined',
             type: 'link',
-            text: null,
+            text: '下载',
             size: 'small',
             title: '文件下载',
             order: 1,
@@ -62,7 +63,7 @@ export default function () {
         originName: {
           title: '原始名',
           type: 'text',
-          column: { ellipsis: true, width: 230 },
+          column: { ellipsis: true, width: 200 },
           search: { show: true },
         },
         targetName: {

@@ -31,7 +31,7 @@ export function DelObj(id: any) {
 }
 
 export function GetBuildStandardList(query: any) {
-  return defHttp.request('/tools/dynamic_release_drag', {
+  return defHttp.request('/suite/dynamic_release_drag', {
     method: 'get',
     params: query,
   });

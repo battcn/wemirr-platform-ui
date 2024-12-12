@@ -203,7 +203,7 @@ export function registerFastCrud(app: App) {
   app.use(FsExtendsUploader, {
     defaultType: 'form',
     form: {
-      action: '/tools/files/upload',
+      action: '/suite/files/upload',
       name: 'file',
       withCredentials: false,
       uploadRequest: async ({ action, file, onProgress }) => {
