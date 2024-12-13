@@ -107,7 +107,7 @@ export function menuForm(handleSubmit: any) {
       },
       {
         fieldName: 'icon',
-        component: 'Input',
+        component: 'IconPicker',
         label: '图标',
         rules: 'required',
       },

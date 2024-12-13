@@ -50,6 +50,7 @@
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
     "dayjs": "catalog:",
+    "epic-designer": "^0.9.26",
     "lodash-es": "^4.17.21",
     "pinia": "catalog:",
     "vue": "catalog:",

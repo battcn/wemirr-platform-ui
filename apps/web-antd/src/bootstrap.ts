@@ -7,6 +7,7 @@ import '@vben/styles';
 import '@vben/styles/antd';
 
 import { useTitle } from '@vueuse/core';
+import { setupAntd } from 'epic-designer/dist/ui/antd';
 
 import { $t, setupI18n } from '#/locales';
 import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud.tsx';
@@ -14,6 +15,12 @@ import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud.tsx';
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
 import { router } from './router';
+
+// 引入epic-designer样式
+import 'epic-designer/dist/style.css';
+
+// 引入antd UI 重置样式
+import 'ant-design-vue/dist/reset.css';
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器
@@ -42,7 +49,8 @@ async function bootstrap(namespace: string) {
       useTitle(pageTitle);
     }
   });
-
+  // 使用Antd UI
+  await setupAntd();
   // ----------- 安装fast-crud--------------
   await registerFastCrud(app);
 
