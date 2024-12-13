@@ -1,7 +1,7 @@
 <script>
 import { defineComponent, onMounted } from 'vue';
 
-import { useUserStore } from '@/store/modules/user';
+// import { useUserStore } from '@/store/modules/user';
 import { useFs } from '@fast-crud/fast-crud';
 
 import createCrudOptions from './crud';
@@ -9,10 +9,10 @@ import createCrudOptions from './crud';
 export default defineComponent({
   name: 'GenerateCodePageList',
   setup() {
-    const userStore = useUserStore();
+    // const userStore = useUserStore();
     const { crudRef, crudBinding, crudExpose } = useFs({
       createCrudOptions,
-      userStore,
+      // userStore,
     });
     // 页面打开后获取列表数据
     onMounted(() => {

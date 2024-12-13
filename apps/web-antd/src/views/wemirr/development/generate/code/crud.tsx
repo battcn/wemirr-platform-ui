@@ -1,4 +1,4 @@
-import { downloadByData } from '@/utils/file/download';
+// import { downloadByData } from '@/utils/file/download';
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
@@ -6,13 +6,13 @@ import { defHttp } from '#/api/request';
 
 export default function ({ userStore }) {
   const pageRequest = async (query: any) =>
-    await defHttp.get({ url: '/suite/generates', params: query });
+    await defHttp.get('/suite/generates', { params: query });
   // eslint-disable-next-line prettier/prettier
-  const editRequest = async ({ form }:any) => await defHttp.put({url:`/suite/generates/${form.id}`,data: form});
+  const editRequest = async ({ form }:any) => await defHttp.put(`/suite/generates/${form.id}`,form);
   const delRequest = async ({ row }: any) =>
-    await defHttp.delete({ url: `/suite/generates/${row.id}` });
+    await defHttp.delete(`/suite/generates/${row.id}`);
   const addRequest = async ({ form }: any) =>
-    await defHttp.post({ url: '/suite/generates', data: form });
+    await defHttp.post('/suite/generates', form);
   return {
     crudOptions: {
       request: {
@@ -36,16 +36,12 @@ export default function ({ userStore }) {
             title: '代码生成',
             async click(context) {
               await defHttp
-                .request(
-                  {
-                    url: `/suite/generates/${context.row.id}/download`,
-                    method: 'POST',
-                    responseType: 'blob',
-                  },
-                  { isTransformResponse: false },
-                )
+                .request(`/suite/generates/${context.row.id}/download`, {
+                  method: 'POST',
+                  responseType: 'blob',
+                })
                 .then((res) => {
-                  downloadByData(res, `${context.row.moduleName}.zip`);
+                  // downloadByData(res, `${context.row.moduleName}.zip`);
                 });
             },
           },
@@ -133,9 +129,9 @@ export default function ({ userStore }) {
           type: 'text',
           search: { show: true },
           column: { width: 180 },
-          addForm: {
-            value: userStore.getUserInfo?.realName,
-          },
+          // addForm: {
+          //   value: userStore.getUserInfo?.realName,
+          // },
           form: {
             rules: [{ required: true, message: '作者不能为空' }],
             helper: '默认当前登录人昵称',
