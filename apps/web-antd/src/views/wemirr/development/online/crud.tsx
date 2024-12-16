@@ -7,7 +7,7 @@ import { defHttp } from '#/api/request';
 export default function ({ userStore }) {
   const pageRequest = async (query: any) =>
     await defHttp.get('/suite/generates', { params: query });
-  // eslint-disable-next-line prettier/prettier
+
   const editRequest = async ({ form }: any) =>
     await defHttp.put(`/suite/generates/${form.id}`, form);
   const delRequest = async ({ row }: any) =>

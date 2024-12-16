@@ -1,164 +1,33 @@
-<template>
-  <Page content-class="flex gap-2">
-    <Card :bordered="false" class="custom-card w-1/5 xl:w-1/5">
-      <a-tree
-        v-model:expandedKeys="expandedKeys"
-        v-model:selectedKeys="selectedKeys"
-        :show-line="false"
-        :show-icon="false"
-        :auto-expand-parent="true"
-        :default-expand-all="true"
-        :treeData="terrData"
-        :fieldNames="{ key: 'fileType', title: 'name' }"
-        @select="handleSelect"
-        class="custom-tree"
-      >
-        <!-- 使用作用域插槽自定义节点内容 -->
-        <template #title="node">
-          <span class="tree-node-content">
-            <FileItem :data="node" class="tree-node-icon"></FileItem>
-
-            {{ node.name }}
-          </span>
-        </template>
-      </a-tree>
-    </Card>
-    <Card title="文件管理" class="sys-user-page-card w-full">
-      <fs-crud ref="crudRef" v-bind="crudBinding">
-        <template #actionbar-left>
-          <a-upload :showUploadList="false" :custom-request="handleUpload">
-            <a-button type="primary" shape="round">
-              <template #default>上传</template>
-            </a-button>
-          </a-upload>
-
-          <a-tooltip title="默认表格展示，关闭展示卡片">
-            <span class="ml-1"
-              >切换布局:<a-switch v-model:checked="showTableRef"></a-switch
-            ></span>
-          </a-tooltip>
-        </template>
-        <template #cell_url="scope">
-          <FileItem
-            @click="previewFile(scope.row)"
-            :data="scope.row"
-          ></FileItem>
-        </template>
-        <div v-if="!showTableComputed">
-          <a-row
-            v-if="crudBinding.data"
-            gutter="10"
-            style="height: 100%; width: 100%; overflow: auto"
-          >
-            <a-col
-              v-for="(item, index) of crudBinding.data"
-              :key="item.id"
-              :span="4"
-              style="margin-bottom: 10px"
-            >
-              <a-card class="square-card">
-                <div class="card-content">
-                  <FileItem :data="item" @click="previewFile(item)"></FileItem>
-                  <span class="filename" :title="item.originalFilename">{{
-                    item.originalFilename
-                  }}</span>
-                </div>
-                <template #actions>
-                  <fs-icon
-                    title="浏览"
-                    icon="ion:eye-outline"
-                    @click="previewFile(item)"
-                  ></fs-icon>
-                  <fs-icon
-                    title="重命名"
-                    icon="ion:create-outline"
-                    @click="openEdit({ index: index, row: item })"
-                  ></fs-icon>
-                  <fs-icon
-                    title="删除"
-                    icon="ion:trash-outline"
-                    @click="doRemove({ index: index, row: item })"
-                  ></fs-icon>
-                  <fs-icon
-                    title="下载"
-                    icon="ant-design:cloud-download-outlined"
-                    @click="doDownload(item)"
-                  ></fs-icon>
-                </template>
-              </a-card>
-            </a-col>
-          </a-row>
-        </div>
-      </fs-crud>
-    </Card>
-    <a-modal
-      v-model:open="filePreviewShow"
-      :width="1500"
-      :hight="1000"
-      title="文件预览"
-      @close="onClose"
-      :on-before-close="onClose"
-      :footer="false"
-      esc-to-close="esc-to-close"
-      @ok="onClose"
-      @cancel="onClose"
-    >
-      <VueOfficePdf
-        style="height: 100vh"
-        v-if="fileInfo?.ext === 'pdf'"
-        :src="fileInfo?.url"
-        @rendered="renderedHandler"
-        @error="errorHandler"
-      />
-      <VueOfficeDocx
-        v-else-if="WordTypes.includes(fileInfo?.ext || '')"
-        :src="fileInfo?.url"
-        style="height: 80vh"
-        @rendered="renderedHandler"
-        @error="errorHandler"
-      />
-      <VueOfficeExcel
-        v-else-if="ExcelTypes.includes(fileInfo?.ext || '')"
-        :src="fileInfo?.url"
-        style="height: 80vh; width: 100%"
-        :options="excelConfig"
-        @rendered="renderedHandler"
-        @error="errorHandler"
-      />
-    </a-modal>
-  </Page>
-</template>
-
 <script lang="ts" setup name="UserPageList">
-import 'viewerjs/dist/viewer.css';
-import VueViewer from 'v-viewer';
-import { api as viewerApi } from 'v-viewer';
+import { computed, onMounted, ref } from 'vue';
 
-import { message } from 'ant-design-vue';
-import { ref, onMounted, computed } from 'vue';
-import createCrudOptions from './crud';
-import * as api from './api';
+import { Page } from '@vben/common-ui';
 
 import { useFs } from '@fast-crud/fast-crud';
-import { Card } from 'ant-design-vue';
-import { Page } from '@vben/common-ui';
-import { defHttp } from '#/api/request';
-import ImgSvg from '../svg/index.vue';
-import FileItem from './FileItem.vue';
-import VueOfficePdf from '@vue-office/pdf';
 import VueOfficeDocx from '@vue-office/docx';
 import VueOfficeExcel from '@vue-office/excel';
+import VueOfficePdf from '@vue-office/pdf';
+import { Card, message } from 'ant-design-vue';
+import { api as viewerApi } from 'v-viewer';
+
+import { defHttp } from '#/api/request';
+
+import * as api from './api';
+import createCrudOptions from './crud';
+import FileItem from './FileItem.vue';
+
+import 'viewerjs/dist/viewer.css';
 /** WPS、Office文件类型 */
 const WordTypes = ['doc', 'docx'];
 const ExcelTypes = ['xls', 'xlsx'];
 
 const terrData = ref([
-  { fileType: '', name: '全部' },
-  { fileType: 'AUDIO', name: '音频' },
-  { fileType: 'VIDEO', name: '视频' },
-  { fileType: 'IMAGE', name: '图片' },
-  { fileType: 'DOCUMENT', name: '文档' },
-  { fileType: 'OTHER', name: '其它' },
+  { category: '', name: '全部' },
+  { category: 'AUDIO', name: '音频' },
+  { category: 'VIDEO', name: '视频' },
+  { category: 'IMAGE', name: '图片' },
+  { category: 'DOCUMENT', name: '文档' },
+  { category: 'OTHER', name: '其它' },
 ]);
 const nodeRef = ref();
 const expandedKeys = ref();
@@ -177,7 +46,7 @@ const { crudBinding, crudRef, crudExpose } = useFs({
 });
 
 onMounted(async () => {
-  //await initOrgList();
+  // await initOrgList();
   selectedKeys.value = [''];
   await crudExpose.doRefresh();
 });
@@ -191,12 +60,12 @@ const handleSelect = (checkedKeys: any, event: any) => {
   crudExpose.doRefresh();
 };
 const previewFile = (row: any) => {
-  //图片预览
-  if (row.fileType == 'IMAGE') {
+  // 图片预览
+  if (row.category == 'IMAGE') {
     const imageUrlsArray = crudBinding._rawValue.data
-      .filter((item) => item.fileType === 'IMAGE') // 过滤条件
+      .filter((item) => item.category === 'IMAGE') // 过滤条件
       .map((item) => item.url); // 提取 URL
-    const index = imageUrlsArray.findIndex((i) => i === row.url);
+    const index = imageUrlsArray.indexOf(row.url);
 
     viewerApi({
       options: {
@@ -205,10 +74,10 @@ const previewFile = (row: any) => {
       images: imageUrlsArray,
     });
   }
-  //offic预览
-  //pdf预览
-  //mpc预览
-  if (row.fileType == 'DOCUMENT') {
+  // offic预览
+  // pdf预览
+  // mpc预览
+  if (row.category == 'DOCUMENT') {
     excelConfig.value = {
       xls: false,
       minColLength: 0,
@@ -225,10 +94,10 @@ const previewFile = (row: any) => {
     filePreviewShow.value = true;
     fileInfo.value = row;
   }
-  if (row.fileType == 'OTHER') {
+  if (row.category == 'OTHER') {
     message.error('该格式暂不支持预览');
   }
-  //视频预览
+  // 视频预览
 };
 const renderedHandler = () => {
   // message.success('文件加载完成');
@@ -295,6 +164,139 @@ const onClose = () => {
   excelConfig.value = {};
 };
 </script>
+
+<template>
+  <Page content-class="flex gap-2">
+    <Card :bordered="false" class="w-1/4 xl:w-1/4">
+      <a-tree
+        v-model:expanded-keys="expandedKeys"
+        v-model:selected-keys="selectedKeys"
+        :auto-expand-parent="true"
+        :default-expand-all="true"
+        :field-names="{ key: 'category', title: 'name' }"
+        :show-icon="false"
+        :show-line="false"
+        :tree-data="terrData"
+        class="custom-tree"
+        @select="handleSelect"
+      >
+        <!-- 使用作用域插槽自定义节点内容 -->
+        <template #title="node">
+          <span class="tree-node-content">
+            <FileItem :data="node" class="tree-node-icon" />
+            {{ node.name }}
+          </span>
+        </template>
+      </a-tree>
+    </Card>
+    <Card class="sys-user-page-card w-full" title="文件管理">
+      <fs-crud ref="crudRef" v-bind="crudBinding">
+        <template #actionbar-left>
+          <a-upload :custom-request="handleUpload" :show-upload-list="false">
+            <a-button type="primary">
+              <upload-outlined />
+              文件上传
+            </a-button>
+          </a-upload>
+
+          <a-tooltip title="默认表格展示，关闭展示卡片">
+            <span class="ml-1"
+              >切换布局:<a-switch v-model:checked="showTableRef"
+            /></span>
+          </a-tooltip>
+        </template>
+        <template #cell_originalFilename="scope">
+          <a-tooltip :title="scope.row.originalFilename" placement="topLeft">
+            {{ scope.row.originalFilename }}
+          </a-tooltip>
+        </template>
+        <template #cell_url="scope">
+          <FileItem :data="scope.row" @click="previewFile(scope.row)" />
+        </template>
+        <div v-if="!showTableComputed">
+          <a-row
+            v-if="crudBinding.data"
+            gutter="10"
+            style="height: 100%; width: 100%; overflow: auto"
+          >
+            <a-col
+              v-for="(item, index) of crudBinding.data"
+              :key="item.id"
+              :span="4"
+              style="margin-bottom: 10px"
+            >
+              <a-card class="square-card">
+                <div class="card-content">
+                  <FileItem :data="item" @click="previewFile(item)" />
+                  <span :title="item.originalFilename" class="filename">{{
+                    item.originalFilename
+                  }}</span>
+                </div>
+                <template #actions>
+                  <fs-icon
+                    icon="ion:eye-outline"
+                    title="浏览"
+                    @click="previewFile(item)"
+                  />
+                  <fs-icon
+                    icon="ion:create-outline"
+                    title="重命名"
+                    @click="openEdit({ index, row: item })"
+                  />
+                  <fs-icon
+                    icon="ion:trash-outline"
+                    title="删除"
+                    @click="doRemove({ index, row: item })"
+                  />
+                  <fs-icon
+                    icon="ant-design:cloud-download-outlined"
+                    title="下载"
+                    @click="doDownload(item)"
+                  />
+                </template>
+              </a-card>
+            </a-col>
+          </a-row>
+        </div>
+      </fs-crud>
+    </Card>
+    <a-modal
+      v-model:open="filePreviewShow"
+      :footer="false"
+      :hight="1000"
+      :on-before-close="onClose"
+      :width="1500"
+      esc-to-close="esc-to-close"
+      title="文件预览"
+      @cancel="onClose"
+      @close="onClose"
+      @ok="onClose"
+    >
+      <VueOfficePdf
+        v-if="fileInfo?.ext === 'pdf'"
+        :src="fileInfo?.url"
+        style="height: 100vh"
+        @error="errorHandler"
+        @rendered="renderedHandler"
+      />
+      <VueOfficeDocx
+        v-else-if="WordTypes.includes(fileInfo?.ext || '')"
+        :src="fileInfo?.url"
+        style="height: 80vh"
+        @error="errorHandler"
+        @rendered="renderedHandler"
+      />
+      <VueOfficeExcel
+        v-else-if="ExcelTypes.includes(fileInfo?.ext || '')"
+        :options="excelConfig"
+        :src="fileInfo?.url"
+        style="height: 80vh; width: 100%"
+        @error="errorHandler"
+        @rendered="renderedHandler"
+      />
+    </a-modal>
+  </Page>
+</template>
 
 <style lang="less" scoped>
 /deep/.p-4 {
