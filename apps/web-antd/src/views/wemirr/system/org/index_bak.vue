@@ -3,15 +3,13 @@ import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { notification, type TreeProps } from 'ant-design-vue';
 import { Card } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { getOrgTree } from '#/api/core/org';
-import {
-  DeleteOutlined,
-  PlusOutlined,
-} from '@ant-design/icons-vue';
+
 import * as api from './api';
 
 const expandedKeys = ref();
@@ -133,7 +131,7 @@ function onSubmit(values: Record<string, any>) {
 }
 
 onMounted(async () => {
-   loadOrgTree();
+  loadOrgTree();
 });
 
 function handleSelect(checkedKeys: any, event: any) {
@@ -188,11 +186,11 @@ function loadOrgTree() {
           <div class="node-content">
             <span class="node-title">{{ node.name }}</span>
             <div class="node-actions">
-              <a-button type="link" size="small" @click="handlePlus(node)">
-                <plus-outlined />
+              <a-button size="small" type="link" @click="handlePlus(node)">
+                <PlusOutlined />
               </a-button>
-              <a-button type="link" size="small" @click="handleDelete(node)">
-                <delete-outlined />
+              <a-button size="small" type="link" @click="handleDelete(node)">
+                <DeleteOutlined />
               </a-button>
             </div>
           </div>
@@ -208,8 +206,8 @@ function loadOrgTree() {
 /deep/.p-4 {
   padding: 8px !important;
 }
-.ant-tree-node-content-wrapper .ant-tree-node-content-wrapper-normal{
-  flex:auto;
+.ant-tree-node-content-wrapper .ant-tree-node-content-wrapper-normal {
+  flex: auto;
 }
 .node-content {
   justify-content: space-between;
@@ -243,7 +241,7 @@ function loadOrgTree() {
   display: none; /* 默认隐藏 */
   gap: 4px;
   align-items: center;
-  background: linear-gradient(90deg, rgba(255,255,255,0), #fff 25%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff 25%);
   padding-left: 20px; /* 增加渐变效果的空间 */
 }
 

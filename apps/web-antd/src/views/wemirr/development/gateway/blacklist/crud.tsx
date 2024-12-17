@@ -16,10 +16,11 @@ export default function ({
   const localDataRef = context.localDataRef;
   const pageRequest = async (query) => {
     // 总数据
-    let data = localDataRef.value;
+    let data = localDataRef.value.data;
     const current = query.current;
     const offset = query.offset;
     const size = query.size;
+    debugger;
     data = data.filter((item) => {
       if (query.status && item.status !== query.status) {
         return false;
