@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Page } from '@vben/common-ui';
+// import 'epic-designer/dist/style.css';
 
 import { EDesigner } from 'epic-designer';
 </script>
