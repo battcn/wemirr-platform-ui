@@ -26,7 +26,6 @@
     "#/*": "./src/*"
   },
   "dependencies": {
-    "epic-designer": "catalog:",
     "@ant-design/colors": "catalog:",
     "@ant-design/icons-vue": "catalog:",
     "@fast-crud/fast-crud": "catalog:",
@@ -37,6 +36,7 @@
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
     "@vben/hooks": "workspace:*",
+    "epic-designer": "catalog:",
     "@vben/icons": "workspace:*",
     "@vben/layouts": "workspace:*",
     "@vben/locales": "workspace:*",
@@ -49,8 +49,8 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
-    "lodash-es": "catalog:",
     "dayjs": "catalog:",
+    "lodash-es": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:"
