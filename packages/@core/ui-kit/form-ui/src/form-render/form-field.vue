@@ -26,6 +26,7 @@ import { isEventObjectLike } from './helper';
 interface Props extends FormSchema {}
 
 const {
+  colon,
   commonComponentProps,
   component,
   componentProps,
@@ -33,6 +34,7 @@ const {
   description,
   disabled,
   disabledOnChangeListener,
+  disabledOnInputListener,
   emptyStateValue,
   fieldName,
   formFieldProps,
@@ -227,10 +229,13 @@ function fieldBindEvent(slotProps: Record<string, any>) {
 
             return onChange?.(e?.target?.[bindEventField] ?? e);
           },
-      onInput: () => {},
+      ...(disabledOnInputListener ? { onInput: undefined } : {}),
     };
   }
-  return {};
+  return {
+    ...(disabledOnInputListener ? { onInput: undefined } : {}),
+    ...(disabledOnChangeListener ? { onChange: undefined } : {}),
+  };
 }
 
 function createComponentProps(slotProps: Record<string, any>) {
@@ -296,7 +301,10 @@ function autofocus() {
         :required="shouldRequired && !hideRequiredMark"
         :style="labelStyle"
       >
-        {{ label }}
+        <template v-if="label">
+          <span>{{ label }}</span>
+          <span v-if="colon" class="ml-[2px]">:</span>
+        </template>
       </FormLabel>
       <div :class="cn('relative flex w-full items-center', wrapperClass)">
         <FormControl :class="cn(controlClass)">

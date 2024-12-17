@@ -137,6 +137,10 @@ type ComponentProps =
 
 export interface FormCommonConfig {
   /**
+   * 在Label后显示一个冒号
+   */
+  colon?: boolean;
+  /**
    * 所有表单项的props
    */
   componentProps?: ComponentProps;
@@ -151,9 +155,14 @@ export interface FormCommonConfig {
   disabled?: boolean;
   /**
    * 是否禁用所有表单项的change事件监听
-   * @default false
+   * @default true
    */
   disabledOnChangeListener?: boolean;
+  /**
+   * 是否禁用所有表单项的input事件监听
+   * @default true
+   */
+  disabledOnInputListener?: boolean;
   /**
    * 所有表单项的空状态值,默认都是undefined，naive-ui的空状态值是null
    */
@@ -371,6 +380,7 @@ export interface VbenFormAdapterOptions<
   config?: {
     baseModelPropName?: string;
     disabledOnChangeListener?: boolean;
+    disabledOnInputListener?: boolean;
     emptyStateValue?: null | undefined;
     modelPropNameMap?: Partial<Record<T, string>>;
   };
