@@ -18,12 +18,13 @@ const id: any = route.query.id;
 
 onMounted(async () => {
   defHttp.get(`/iam/message-template/${id}/detail`).then((ret) => {
-    const entries = ret.variables?.map((item: any) => [item, '1']);
+    const data = ret.data;
+    const entries = data.variables?.map((item: any) => [item, '1']);
     formRef.value.setFormData({
-      templateId: ret.id,
-      code: ret.code,
-      name: ret.name,
-      content: ret.content,
+      templateId: data.id,
+      code: data.code,
+      name: data.name,
+      content: data.content,
       variables: Object.fromEntries(entries),
     });
   });

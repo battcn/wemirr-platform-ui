@@ -40,11 +40,6 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             icon: 'ph:plus-fill',
             text: '添加模板',
           },
-          channel: {
-            icon: 'fluent:channel-48-regular',
-            type: 'primary',
-            text: '消息通道',
-          },
         },
       },
       rowHandle: {
@@ -133,7 +128,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         content: {
           title: '模板内容',
-          type: 'textarea',
+          type: 'editor-wang5',
           column: { ellipsis: true, width: 200 },
           form: {
             col: { span: 24 },

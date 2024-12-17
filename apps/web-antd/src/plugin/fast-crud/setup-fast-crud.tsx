@@ -23,6 +23,7 @@ import { useCrudPermission } from './setup-fast-crud-permission';
 
 import '@fast-crud/fast-crud/dist/style.css';
 import '@fast-crud/ui-antdv4/dist/style.css';
+import '@fast-crud/fast-extends/dist/style.css';
 import './setup-fast-crud.less';
 
 // import type _ from "lodash-es";
@@ -255,29 +256,4 @@ export function registerFastCrud(app: App) {
       return columnProps;
     },
   });
-
-  // 此处演示自定义字段合并插件
-  // const { registerMergeColumnPlugin } = useColumns();
-  // registerMergeColumnPlugin({
-  //     name: "readonly-plugin",
-  //     order: 1,
-  //     handle: (columnProps: ColumnCompositionProps) => {
-  //         // 你可以在此处做你自己的处理
-  //         // 比如你可以定义一个readonly的公共属性，处理该字段只读，不能编辑
-  //         if (columnProps.readonly) {
-  //             // 合并column配置
-  //             _.merge(columnProps, {
-  //                 form: { show: false },
-  //                 viewForm: { show: true },
-  //             });
-  //         }
-  //         if (columnProps.column?.width) {
-  //             _.merge(columnProps, {
-  //                 column: { resizable: true, ellipsis: true, showTitle: true },
-  //             });
-  //         }
-  //         //resizable: true, ellipsis: true, showTitle: true
-  //         return columnProps;
-  //     },
-  // });
 }

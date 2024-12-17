@@ -37,6 +37,7 @@ export default function (): CreateCrudOptionsRet {
           column: { show: true, width: 180, component: { color: 'auto' } },
           dict: dict({
             data: [
+              { value: 's3', label: '标准S3协议' },
               { value: 'minio', label: 'minio' },
               { value: 'aliyun', label: '阿里云' },
               { value: 'qiniu', label: '七牛云' },

@@ -139,7 +139,7 @@ function handleSelect(checkedKeys: any, event: any) {
     <Card class="w-1/2" title="菜单信息">
       <MenuForm />
     </Card>
-    <Card class="w-1/2" title="资源信息">
+    <Card class="w-1/2">
       <ResourceButtonTable ref="itemTableRef" />
     </Card>
   </Page>
