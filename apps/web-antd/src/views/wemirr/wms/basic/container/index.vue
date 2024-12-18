@@ -29,7 +29,7 @@ onMounted(() => {
       </template>
     </fs-crud>
 
-    <a-drawer v-model:visible="dialogShow" title="容器规格维护" width="70%">
+    <a-drawer v-model:open="dialogShow" title="容器规格维护" width="70%">
       <div style="height: 100%; position: relative">
         <ContainerSpec />
       </div>

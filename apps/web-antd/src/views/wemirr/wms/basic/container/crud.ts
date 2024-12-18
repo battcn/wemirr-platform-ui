@@ -1,3 +1,10 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
@@ -10,10 +17,10 @@ export default function ({ crudExpose }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.GetList(query),
-        addRequest: async ({ form }) => await api.AddObj(form),
-        editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        pageRequest: async (query: UserPageQuery) => await api.GetList(query),
+        addRequest: async ({ form }: AddReq) => await api.AddObj(form),
+        editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
+        delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
       },
       toolbar: {},
       actionbar: {
@@ -21,19 +28,6 @@ export default function ({ crudExpose }) {
         buttons: {},
       },
       rowHandle: {
-        width: 270,
-        buttons: {
-          containerLogBtn: {
-            type: 'link',
-            text: '容器日志',
-            size: 'small',
-            title: '容器日志',
-            order: 4,
-            async click({ row }) {
-              console.log('row', row);
-            },
-          },
-        },
       },
       columns: {
         id: {
@@ -71,10 +65,9 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'name',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post(
-                '/wms/basic/container-specs/ids',
-                values,
-              );
+              return await defHttp.post('/wms/container-specs/ids', values).then(ret=>{
+                return ret.data
+              });
             },
           }),
           form: {
@@ -124,8 +117,8 @@ export default function ({ crudExpose }) {
           column: { show: true, width: 170 },
           type: 'datetime',
           form: { show: false },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

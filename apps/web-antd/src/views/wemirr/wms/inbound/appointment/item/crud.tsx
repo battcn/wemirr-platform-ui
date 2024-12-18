@@ -110,13 +110,13 @@ export default function ({
               valueFormat: 'YYYY-MM-DD HH:mm:ss',
             },
           },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

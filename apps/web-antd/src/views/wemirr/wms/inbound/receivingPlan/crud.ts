@@ -271,13 +271,13 @@ export default function ({
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -291,13 +291,13 @@ export default function ({
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -311,13 +311,13 @@ export default function ({
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },

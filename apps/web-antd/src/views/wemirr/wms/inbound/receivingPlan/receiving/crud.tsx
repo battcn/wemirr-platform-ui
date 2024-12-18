@@ -156,7 +156,7 @@ export default function ({
         //     value: "id",
         //     label: "warehouseName",
         //     getNodesByValues: async (values: any[]) => {
-        //       return await defHttp.post({ url: "/wms/basic/warehouses/ids", data: values });
+        //       return await defHttp.post({ url: "/wms/warehouses/ids", data: values });
         //     },
         //   }),
         // },
@@ -194,9 +194,8 @@ export default function ({
             value: 'id',
             label: 'materialName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post({
-                url: '/wms/metadata/materials/ids',
-                data: values,
+              return await defHttp.post('/wms/metadata/materials/ids', values).then(ret=>{
+                return ret.data
               });
             },
           }),
@@ -251,13 +250,13 @@ export default function ({
           title: '生产日期',
           type: 'date',
           column: { show: true, width: 160 },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
@@ -269,13 +268,13 @@ export default function ({
           title: '失效日期',
           type: 'date',
           column: { show: true, width: 160 },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

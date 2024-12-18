@@ -3,15 +3,16 @@ import dayjs from 'dayjs';
 import { SysDictCode, sysDictFunc } from '#/api';
 
 import * as api from './api';
+import type {AddReq, DelReq, EditReq, UserPageQuery} from "@fast-crud/fast-crud";
 
 export default function ({ crudExpose }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.GetList(query),
-        addRequest: async ({ form }) => await api.AddObj(form),
-        editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        pageRequest: async (query: UserPageQuery) => await api.GetList(query),
+        addRequest: async ({ form }: AddReq) => await api.AddObj(form),
+        editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
+        delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
       },
       toolbar: {},
       actionbar: {
@@ -130,8 +131,8 @@ export default function ({ crudExpose }) {
           column: { show: true, width: 170 },
           type: 'datetime',
           form: { show: false },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

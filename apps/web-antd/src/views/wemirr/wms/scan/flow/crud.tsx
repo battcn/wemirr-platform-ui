@@ -7,7 +7,7 @@ export default function () {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.PageList(query),
+        pageRequest: async (query: UserPageQuery) => await api.PageList(query),
       },
       toolbar: {},
       search: {
@@ -114,8 +114,8 @@ export default function () {
           column: { show: true, width: 170 },
           type: 'datetime',
           form: { show: false },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

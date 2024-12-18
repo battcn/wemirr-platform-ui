@@ -65,10 +65,7 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'materialName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post({
-                url: '/wms/metadata/materials/ids',
-                data: values,
-              });
+              return await defHttp.post('/wms/metadata/materials/ids', values);
             },
           }),
           form: {
@@ -87,7 +84,9 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'locationName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post('/wms/basic/locations/ids', values);
+              return await defHttp.post('/wms/locations/ids', values).then(ret=>{
+                return ret.data
+              });
             },
           }),
           form: {
@@ -108,7 +107,7 @@ export default function ({ crudExpose }) {
           form: {
             component: { disabled: true },
             rules: [{ required: true, message: '请输入数量' }],
-            valueChange: ({ value, form, ...content }) => {
+            valueChange: ({ value, form, ...content }: any) => {
               console.log('value', value, 'form', form, 'content', content);
             },
           },
@@ -137,13 +136,13 @@ export default function ({ crudExpose }) {
           title: '生产日期',
           type: 'text',
           column: { show: true, width: 150 },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
@@ -159,25 +158,25 @@ export default function ({ crudExpose }) {
             width: 150,
             editable: {},
             component: {
-              valueResolve({ value, row, key }) {
-                if (value != null) {
+              valueResolve({ value, row, key }: any) {
+                if (value !== null) {
                   row[key] = dayjs(value).unix();
                 }
               },
-              valueBuilder({ value, row, key }) {
-                if (value != null) {
+              valueBuilder({ value, row, key }: any) {
+                if (value !== null) {
                   row[key] = dayjs(value);
                 }
               },
             },
           },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

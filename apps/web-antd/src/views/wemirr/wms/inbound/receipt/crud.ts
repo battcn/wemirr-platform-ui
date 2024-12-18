@@ -125,8 +125,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { show: true, width: 170 },
           type: 'datetime',
           form: { show: false },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

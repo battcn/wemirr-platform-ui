@@ -10,10 +10,10 @@ export default function ({ crudExpose }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.GetList(query),
-        addRequest: async ({ form }) => await api.AddObj(form),
-        editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        pageRequest: async (query: UserPageQuery) => await api.GetList(query),
+        addRequest: async ({ form }: AddReq) => await api.AddObj(form),
+        editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
+        delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
       },
       toolbar: {},
       actionbar: {
@@ -36,7 +36,9 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'symbol',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post('/wms/metadata/units/ids', values);
+              return await defHttp.post('/wms/metadata/units/ids', values).then(ret=>{
+                return ret.data
+              });
             },
           }),
           form: {
@@ -72,7 +74,9 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'symbol',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post('/wms/metadata/units/ids', values);
+              return await defHttp.post('/wms/metadata/units/ids', values).then(ret=>{
+                return ret.data
+              });
             },
           }),
           form: {
@@ -139,8 +143,8 @@ export default function ({ crudExpose }) {
           column: { show: true, width: 170 },
           type: 'datetime',
           form: { show: false },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

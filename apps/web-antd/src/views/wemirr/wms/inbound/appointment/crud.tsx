@@ -134,9 +134,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             value: 'id',
             label: 'name',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post({
-                url: '/wms/warehouses/ids',
-                data: values,
+              return await defHttp.post('/wms/warehouses/ids',values).then(ret=>{
+                return ret.data
               });
             },
           }),
@@ -233,13 +232,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             },
             rules: [{ required: true, message: '预计到货时间不能为空' }],
           },
-          valueResolve({ value, row, key }) {
-            if (value != null) {
+          valueResolve({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
@@ -288,8 +287,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { show: true, width: 170 },
           type: 'datetime',
           form: { show: false },
-          valueBuilder({ value, row, key }) {
-            if (value != null) {
+          valueBuilder({ value, row, key }: any) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

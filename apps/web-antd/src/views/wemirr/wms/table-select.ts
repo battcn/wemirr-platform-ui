@@ -22,7 +22,9 @@ export function materialTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/metadata/materials/ids', values);
+        return await defHttp.post('/wms/metadata/materials/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     column: { width: 160, component: { color: 'auto' } },
@@ -62,7 +64,9 @@ export function warehouseTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/basic/warehouses/ids', values);
+        return await defHttp.post('/wms/warehouses/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -103,7 +107,9 @@ export function storageAreaTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/basic/storage-areas/ids', values);
+        return await defHttp.post('/wms/storage-areas/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -144,7 +150,9 @@ export function aisleTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/aisles/ids', values);
+        return await defHttp.post('/wms/aisles/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -185,7 +193,9 @@ export function locationSpecTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/basic/location-specs/ids', values);
+        return await defHttp.post('/wms/location-specs/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -226,7 +236,9 @@ export function brandTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/metadata/brands/ids', values);
+        return await defHttp.post('/wms/metadata/brands/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -267,7 +279,9 @@ export function supplierTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/metadata/suppliers/ids', values);
+        return await defHttp.post('/wms/metadata/suppliers/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -308,7 +322,9 @@ export function dockTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/basic/docks/ids', values);
+        return await defHttp.post('/wms/docks/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -347,7 +363,9 @@ export function containerTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/basic/containers/ids', values);
+        return await defHttp.post('/wms/containers/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -387,7 +405,9 @@ export function locationTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/basic/locations/ids', values);
+        return await defHttp.post('/wms/locations/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {
@@ -426,7 +446,9 @@ export function carrierTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/metadata/carriers/ids', values);
+        return await defHttp.post('/wms/metadata/carriers/ids', values).then(ret=>{
+          return ret.data
+        });
       },
     }),
     form: {

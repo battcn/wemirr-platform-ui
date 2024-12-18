@@ -15,7 +15,7 @@ export default function ({ crudExpose }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.GetList(query),
+        pageRequest: async (query: UserPageQuery) => await api.GetList(query),
       },
       toolbar: {},
       actionbar: {
@@ -56,7 +56,9 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'name',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post('/wms/basic/locations/ids', values);
+              return await defHttp.post('/wms/locations/ids', values).then(ret=>{
+                return ret.data
+              });
             },
           }),
           column: {

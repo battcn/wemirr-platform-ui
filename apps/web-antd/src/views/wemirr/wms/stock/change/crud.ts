@@ -12,7 +12,7 @@ export default function ({ crudExpose }) {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.GetList(query),
+        pageRequest: async (query: UserPageQuery) => await api.GetList(query),
       },
       toolbar: {},
       actionbar: {

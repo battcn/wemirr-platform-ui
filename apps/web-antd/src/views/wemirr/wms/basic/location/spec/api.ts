@@ -1,11 +1,11 @@
 import { defHttp } from '#/api/request';
 
-const apiPrefix = '/wms/basic/location-specs';
+const apiPrefix = '/wms/location-specs';
 
-export function GetList(query) {
+export function GetList(query: any) {
   return defHttp.post(`${apiPrefix}/page`, query);
 }
-export function AddObj(obj) {
+export function AddObj(obj: any) {
   return defHttp.request({
     url: `${apiPrefix}/create`,
     method: 'post',
@@ -13,10 +13,10 @@ export function AddObj(obj) {
   });
 }
 
-export function UpdateObj(obj) {
+export function UpdateObj(obj: any) {
   return defHttp.put(`${apiPrefix}/${obj.id}`, obj);
 }
 
-export function DelObj(id) {
+export function DelObj(id: any) {
   return defHttp.delete(`${apiPrefix}/${id}`);
 }

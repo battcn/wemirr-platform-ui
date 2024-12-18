@@ -68,9 +68,8 @@ export default function ({ crudExpose, context }) {
             value: 'id',
             label: 'materialName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post({
-                url: '/wms/metadata/materials/ids',
-                data: values,
+              return await defHttp.post('/wms/metadata/materials/ids',values,).then(ret=>{
+                return ret.data
               });
             },
           }),
@@ -119,9 +118,8 @@ export default function ({ crudExpose, context }) {
             value: 'id',
             label: 'warehouseName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post({
-                url: '/wms/basic/warehouses/ids',
-                data: values,
+              return await defHttp.post('/wms/warehouses/ids',values).then(ret=>{
+                return ret.data
               });
             },
           }),
@@ -159,9 +157,8 @@ export default function ({ crudExpose, context }) {
             value: 'id',
             label: 'areaName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post({
-                url: '/wms/basic/storage-areas/ids',
-                data: values,
+              return await defHttp.post( '/wms/storage-areas/ids',values).then(ret=>{
+                return ret.data
               });
             },
           }),
@@ -208,9 +205,8 @@ export default function ({ crudExpose, context }) {
             value: 'id',
             label: 'aisleName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post({
-                url: '/wms/basic/aisles/ids',
-                data: values,
+              return await defHttp.post('/wms/aisles/ids',values).then(ret=>{
+                return ret.data
               });
             },
           }),
@@ -257,7 +253,9 @@ export default function ({ crudExpose, context }) {
             value: 'id',
             label: 'locationName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post('/wms/basic/locations/ids', values);
+              return await defHttp.post('/wms/locations/ids', values).then(ret=>{
+                return ret.data
+              });
             },
           }),
           column: {
