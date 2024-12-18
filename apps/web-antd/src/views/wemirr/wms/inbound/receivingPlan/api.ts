@@ -6,8 +6,7 @@ export function GetList(query: any) {
   return defHttp.post(`${apiPrefix}/page`, query);
 }
 export function AddObj(obj: any) {
-  return defHttp.request({
-    url: `${apiPrefix}/create`,
+  return defHttp.request( `${apiPrefix}/create`,{
     method: 'post',
     data: obj,
   });
@@ -22,24 +21,21 @@ export function DelObj(id: any) {
 }
 
 export function GetObj(id) {
-  return defHttp.request({
-    url: `${apiPrefix}/${id}/detail`,
+  return defHttp.request(`${apiPrefix}/${id}/detail`,{
     method: 'get',
-  });
+  }).then(ret=>ret.data);
 }
 
 // 提交收货计划
 export function Submit(id) {
-  return defHttp.request({
-    url: `${apiPrefix}/${id}/submit`,
+  return defHttp.request( `${apiPrefix}/${id}/submit`,{
     method: 'post',
   });
 }
 
 // 收货
 export function Receiving(id) {
-  return defHttp.request({
-    url: `${apiPrefix}/${id}/receiving`,
+  return defHttp.request( `${apiPrefix}/${id}/receiving`,{
     method: 'post',
   });
 }

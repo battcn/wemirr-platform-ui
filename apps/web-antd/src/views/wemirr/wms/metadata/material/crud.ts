@@ -87,7 +87,7 @@ export default function ({ crudExpose }) {
           title: '规格',
           type: 'textarea',
           search: { show: true },
-          column: { show: true, width: 160 },
+          column: { show: true, width: 160, ellipsis: true },
           form: {
             col: { span: 24 },
             rules: [{ required: true, message: '请输入规格' }],

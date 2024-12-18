@@ -93,7 +93,6 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             show: true,
             width: 100,
             component: { color: 'auto' },
-            fixed: 'right',
           },
           editForm: { component: { disabled: true } },
           dict: dict({

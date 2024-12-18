@@ -1,9 +1,9 @@
-import {
+import {dict,} from '@fast-crud/fast-crud';
+import type {
   AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
   DelReq,
-  dict,
   EditReq,
   UserPageQuery,
   UserPageRes,
@@ -18,7 +18,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       request: {
         pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
           if (!query.dictId) {
-            return;
+            return undefined;
           }
           return await defHttp.get(`/iam/dict/${query.dictId}/items`, {
             params: query,
