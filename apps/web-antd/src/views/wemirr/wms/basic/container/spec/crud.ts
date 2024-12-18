@@ -1,9 +1,15 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
 import dayjs from 'dayjs';
 
 import { SysDictCode, sysDictFunc } from '#/api';
 
 import * as api from './api';
-import type {AddReq, DelReq, EditReq, UserPageQuery} from "@fast-crud/fast-crud";
 
 export default function ({ crudExpose }) {
   return {

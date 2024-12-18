@@ -27,8 +27,7 @@ export default function ({ crudExpose }) {
         show: true,
         buttons: {},
       },
-      rowHandle: {
-      },
+      rowHandle: {},
       columns: {
         id: {
           title: 'ID',
@@ -65,9 +64,11 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'name',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post('/wms/container-specs/ids', values).then(ret=>{
-                return ret.data
-              });
+              return await defHttp
+                .post('/wms/container-specs/ids', values)
+                .then((ret) => {
+                  return ret.data;
+                });
             },
           }),
           form: {

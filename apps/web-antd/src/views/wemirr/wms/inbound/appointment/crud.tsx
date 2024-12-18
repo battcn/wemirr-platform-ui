@@ -134,9 +134,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             value: 'id',
             label: 'name',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.post('/wms/warehouses/ids',values).then(ret=>{
-                return ret.data
-              });
+              return await defHttp
+                .post('/wms/warehouses/ids', values)
+                .then((ret) => {
+                  return ret.data;
+                });
             },
           }),
           form: {

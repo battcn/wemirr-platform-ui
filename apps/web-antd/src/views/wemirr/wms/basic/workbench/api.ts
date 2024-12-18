@@ -1,6 +1,6 @@
 import { defHttp } from '#/api/request';
 
-const apiPrefix = '/wms/workbenchs';
+const apiPrefix = '/wms/workbench';
 
 export function GetList(query: any) {
   return defHttp.request(`${apiPrefix}/page`, {
