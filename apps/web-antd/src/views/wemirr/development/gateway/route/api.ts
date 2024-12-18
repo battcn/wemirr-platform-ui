@@ -1,6 +1,6 @@
 import { defHttp } from '#/api/request';
 
-export function GetList(query) {
+export function GetList(query: any) {
   return defHttp.request('/gateway/rules/routes', {
     method: 'get',
     params: query,
@@ -13,7 +13,7 @@ export function SaveOrUpdate(obj) {
     data: obj,
   });
 }
-export function DelObj(id) {
+export function DelObj(id: any) {
   return defHttp.request(`/gateway/rules/routes/${id}`, {
     method: 'delete',
     data: { id },

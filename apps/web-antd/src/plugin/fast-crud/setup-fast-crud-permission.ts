@@ -8,7 +8,7 @@ import _ from 'lodash-es';
  * @param {string} permission.permission - 权限名称
  * @param {prefix} permission.prefix - 权限前缀
  */
-export function useCrudPermission({ permission }) {
+export function useCrudPermission({ permission }: any) {
   const { hasPermission } = useAccess();
   const prefix = permission instanceof Object ? permission.prefix : permission;
 

@@ -16,13 +16,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         pageRequest: async (query: any) => {
           return await defHttp.get(`/iam/positions/page`, { params: query });
         },
-        addRequest: async ({ form }) => {
+        addRequest: async ({ form }: AddReq) => {
           return await defHttp.post(`/iam/positions/create`, form);
         },
-        editRequest: async ({ form }) => {
+        editRequest: async ({ form }: EditReq) => {
           return await defHttp.put(`/iam/positions/${form.id}/modify`, form);
         },
-        delRequest: async ({ row }) => {
+        delRequest: async ({ row }: DelReq) => {
           return await defHttp.delete(`/iam/positions/${row.id}`);
         },
       },
@@ -120,7 +120,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 170, sorter: true, align: 'center' },
           addForm: { show: false },
           editForm: { show: false },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }

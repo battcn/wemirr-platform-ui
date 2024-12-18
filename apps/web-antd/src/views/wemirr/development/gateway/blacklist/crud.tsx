@@ -215,7 +215,7 @@ export default function ({
           type: 'datetime',
           form: { show: false },
           column: { width: 180 },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value).format();
             }

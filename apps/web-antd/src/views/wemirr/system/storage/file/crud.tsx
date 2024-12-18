@@ -21,7 +21,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             params: query,
           });
         },
-        editRequest: async ({ form }) => {
+        editRequest: async ({ form }: EditReq) => {
           await defHttp.put(
             `/suite/file-storage/rename/${form.id}/${form.originalFilename}`,
           );
@@ -122,7 +122,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: 'datetime',
           form: { show: false },
           column: { ellipsis: true, width: 180 },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }

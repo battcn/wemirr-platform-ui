@@ -15,14 +15,14 @@ export function BatchDelete(ids: any) {
   });
 }
 
-export function AddObj(obj) {
+export function AddObj(obj: any) {
   return defHttp.request('/iam/dict/create', {
     method: 'post',
     data: obj,
   });
 }
 
-export function UpdateObj(obj) {
+export function UpdateObj(obj: any) {
   return defHttp.request(`/iam/dict/${obj.id}`, {
     method: 'put',
     data: obj,

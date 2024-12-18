@@ -17,9 +17,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           query.type = 'button';
           return (await api.GetResourceList(query)) as UserPageRes;
         },
-        addRequest: async ({ form }) => await api.AddObj(form),
-        editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        addRequest: async ({ form }: AddReq) => await api.AddObj(form),
+        editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
+        delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
       },
       toolbar: { show: false },
       container: { is: 'fs-layout-default' },

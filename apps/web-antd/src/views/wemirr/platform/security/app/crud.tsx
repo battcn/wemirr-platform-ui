@@ -14,21 +14,21 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       request: {
         pageRequest: async (query: any) =>
           await defHttp.get(`/iam/registered-client`, { params: query }),
-        addRequest: async ({ form }) => {
+        addRequest: async ({ form }: AddReq) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
           await defHttp.post(`/iam/registered-client`, form);
         },
-        editRequest: async ({ form }) => {
+        editRequest: async ({ form }: EditReq) => {
           form.tokenSettings = {
             accessTokenTimeToLive: form.accessTokenTimeToLive,
             refreshTokenTimeToLive: form.refreshTokenTimeToLive,
           };
           await defHttp.put(`/iam/registered-client/${form.id}`, form);
         },
-        delRequest: async ({ row }) =>
+        delRequest: async ({ row }: DelReq) =>
           await defHttp.delete(`/iam/registered-client/${row.id}`),
       },
       table: {
@@ -74,12 +74,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: '生效时间',
           column: { width: 200 },
           type: 'datetime',
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }) {
+          valueResolve({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -92,12 +92,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: '过期时间',
           column: { width: 200 },
           type: 'datetime',
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }) {
+          valueResolve({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -135,7 +135,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             ],
           }),
           addForm: { value: 1 },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = value === true ? 1 : 0;
             }

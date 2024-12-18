@@ -9,7 +9,7 @@ export default function (props: any) {
       request: {
         pageRequest: async (query: any) =>
           await defHttp.get<any>('/iam/token/online', { params: { ...query } }),
-        delRequest: async ({ row }) =>
+        delRequest: async ({ row }: DelReq) =>
           await defHttp.delete(`/iam/token/${row.token}`),
       },
       table: { scroll: { fixed: true } },

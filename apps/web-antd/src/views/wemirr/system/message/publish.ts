@@ -62,7 +62,9 @@ export function createFormOptions() {
           label: 'nickName',
           // 重要，根据value懒加载数据
           getNodesByValues: async (values: any[]) => {
-            return defHttp.post('/iam/users/ids', values);
+            return defHttp.post('/iam/users/ids', values).then(ret=>{
+              return ret.data
+            });
           },
         }),
         form: {

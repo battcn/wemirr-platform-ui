@@ -25,7 +25,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => {
+        pageRequest: async (query: UserPageQuery) => {
           if (query.area) {
             query.provinceId = query?.area[0];
             query.cityId = query?.area[1];
@@ -33,11 +33,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           }
           return await defHttp.post(`/iam/tenants/page`, query);
         },
-        addRequest: async ({ form }) =>
+        addRequest: async ({ form }: AddReq) =>
           await defHttp.post(`/iam/tenants/create`, form),
-        editRequest: async ({ form }) =>
+        editRequest: async ({ form }: EditReq) =>
           await defHttp.put(`/iam/tenants/${form.id}/modify`, form),
-        delRequest: async ({ row }) =>
+        delRequest: async ({ row }: DelReq) =>
           await defHttp.delete(`/iam/tenants/${row.id}`),
       },
       actionbar: {
@@ -343,7 +343,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: 'datetime',
           column: { width: 180 },
           form: { show: false },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }

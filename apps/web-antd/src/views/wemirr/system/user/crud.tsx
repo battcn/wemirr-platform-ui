@@ -24,11 +24,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           query.orgId = query.orgId > 0 ? null : nodeRef?.value?.id;
           return await defHttp.post(`/iam/users/page`, query);
         },
-        addRequest: async ({ form }) =>
+        addRequest: async ({ form }: AddReq) =>
           await defHttp.post(`/iam/users/create`, form),
-        editRequest: async ({ form }) =>
+        editRequest: async ({ form }: EditReq) =>
           await defHttp.put(`/iam/users/${form.id}`, form),
-        delRequest: async ({ row }) =>
+        delRequest: async ({ row }: DelReq) =>
           await defHttp.delete(`/iam/users/${row.id}`),
       },
       rowHandle: {
@@ -178,7 +178,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           search: { show: true },
           type: 'dict-radio',
           // true | false 在 渲染查询控件会有告警 antdv 问题
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = value ? 1 : 0;
             }
@@ -334,7 +334,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           editForm: {
             show: false,
           },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }

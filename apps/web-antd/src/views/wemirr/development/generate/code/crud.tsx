@@ -145,7 +145,7 @@ export default function ({ userStore }) {
           type: 'datetime',
           column: { width: 180 },
           form: { show: false },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }

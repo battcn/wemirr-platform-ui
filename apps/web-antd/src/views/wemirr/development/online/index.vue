@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Page } from '@vben/common-ui';
-// import 'epic-designer/dist/style.css';
 
 import { EDesigner } from 'epic-designer';
+// import 'epic-designer/dist/style.css';
 </script>
 <template>
-  <Page content-class="flex flex-row gap-2">
+  <Page content-class="flex flex-row gap-2 designer-container">
     <EDesigner
       :disabled-zoom="true"
       :hidden-header="true"
@@ -13,3 +13,7 @@ import { EDesigner } from 'epic-designer';
     />
   </Page>
 </template>
+
+<style scoped lang="less">
+@import 'epic-designer/dist/style.css';
+</style>

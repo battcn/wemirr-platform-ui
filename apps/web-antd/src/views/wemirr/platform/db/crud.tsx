@@ -116,7 +116,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { show: true, align: 'center', width: 80 },
           type: ['dict-radio'],
           // true | false 在 渲染查询控件会有告警 antdv 问题
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = value ? 1 : 0;
             }
@@ -139,7 +139,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: 'datetime',
           form: { show: false },
           column: { show: true, width: 180 },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }

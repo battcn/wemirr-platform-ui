@@ -39,7 +39,7 @@ const tenantSettingOptions = {
       type: 'cropper-uploader',
       style: { height: 70 },
       column: { width: 70, align: 'center', show: false },
-      valueBuilder({ value, row, key }) {
+      valueBuilder({ value, row, key }: any) {
         if (value !== null && value.indexOf('http')) {
           row[key] = `http://www.docmirror.cn:7070${value}`;
         }

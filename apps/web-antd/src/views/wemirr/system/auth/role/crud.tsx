@@ -17,9 +17,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     crudOptions: {
       request: {
         pageRequest: async (query: any) => await api.GetList(query),
-        addRequest: async ({ form }) => await api.AddObj(form),
-        editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        addRequest: async ({ form }: AddReq) => await api.AddObj(form),
+        editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
+        delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
       },
       table: { size: 'small', scroll: { fixed: true } },
       rowHandle: {
@@ -152,7 +152,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 180, sorter: true },
           addForm: { show: false },
           editForm: { show: false },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value !== null) {
               row[key] = dayjs(value);
             }
