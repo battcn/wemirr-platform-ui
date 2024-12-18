@@ -183,7 +183,7 @@ export default function ({
         datetimerange: {
           title: '限时范围',
           type: 'datetimerange',
-          valueBuilder({ row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (!utils.strings.hasEmpty(row.startTime, row.endTime)) {
               row[key] = [dayjs(row.startTime), dayjs(row.endTime)];
             }

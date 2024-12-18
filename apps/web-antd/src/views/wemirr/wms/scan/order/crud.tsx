@@ -1,3 +1,5 @@
+import type { dict, UserPageQuery } from '@fast-crud/fast-crud';
+
 import { BusinessDictCode, businessDictFunc } from '@/api/dict/dict';
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';

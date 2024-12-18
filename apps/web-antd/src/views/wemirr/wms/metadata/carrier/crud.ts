@@ -79,7 +79,7 @@ export default function ({ crudExpose }) {
           title: '有效日期',
           type: 'daterange',
           search: { show: true, width: 300, col: { span: 6 } },
-          valueBuilder({ row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (
               !utils.strings.hasEmpty(row.effectiveDate, row.expirationDate)
             ) {
@@ -209,7 +209,7 @@ export default function ({ crudExpose }) {
           column: { width: 200, show: false },
           search: { show: false },
           type: 'dict-cascader',
-          valueBuilder({ row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (!utils.strings.hasEmpty(row.provinceId)) {
               row[key] = [row.provinceId, row.cityId, row.districtId];
             }

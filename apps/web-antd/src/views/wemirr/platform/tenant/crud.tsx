@@ -282,7 +282,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 200, show: false },
           search: { show: true },
           type: 'dict-cascader',
-          valueBuilder({ row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (!utils.strings.hasEmpty(row.provinceId)) {
               row[key] = [row.provinceId, row.cityId, row.districtId];
             }

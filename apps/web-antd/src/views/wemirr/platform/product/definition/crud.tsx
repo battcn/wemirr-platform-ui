@@ -114,7 +114,7 @@ export default function ({ distribution }) {
           column: { width: 170, sorter: true, align: 'center' },
           addForm: { show: false },
           editForm: { show: false },
-          valueBuilder({ value, row, key }) {
+          valueBuilder({ value, row, key }: any) {
             if (value != null) {
               row[key] = dayjs(value);
             }
