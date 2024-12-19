@@ -1,17 +1,15 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
 import dayjs from 'dayjs';
 
 import { SysDictCode, sysDictFunc } from '#/api';
 
 import * as api from './api';
-import type {
-  AddReq,
-  CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
-  DelReq,
-  EditReq,
-  UserPageQuery,
-  UserPageRes,
-} from '@fast-crud/fast-crud';
 
 export default function ({ crudExpose }) {
   return {
@@ -32,7 +30,7 @@ export default function ({ crudExpose }) {
           title: '编号',
           type: 'text',
           search: { show: true },
-          column: { show: true, width: 160, fixed: 'left'  },
+          column: { show: true, width: 160, fixed: 'left' },
           form: {
             // 表单配置
             rules: [

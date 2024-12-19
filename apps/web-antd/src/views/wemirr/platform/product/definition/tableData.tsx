@@ -1,4 +1,4 @@
-import { BasicColumn } from '@/components/Table/src/types/table';
+import { BasicColumn } from '#/components/Table/src/types/table';
 
 export function getBasicColumns(): BasicColumn[] {
   return [

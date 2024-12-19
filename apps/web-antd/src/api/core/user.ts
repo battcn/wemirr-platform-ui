@@ -8,3 +8,7 @@ import { requestClient } from '#/api/request';
 export async function getUserInfoApi() {
   return requestClient.get<UserInfo>('/iam/token/userinfo');
 }
+
+export async function getUserList() {
+  return requestClient.post<any>('/iam/users/list').then((ret) => ret.data);
+}

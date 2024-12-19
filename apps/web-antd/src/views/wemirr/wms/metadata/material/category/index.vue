@@ -6,9 +6,9 @@ import { Page } from '@vben/common-ui';
 import { Card, notification } from 'ant-design-vue';
 
 import * as api from './api';
-// import {BasicForm, useForm} from "@/components/Form";
-// import {BasicTree} from "@/components/Tree";
-// import {PageWrapper} from "@/components/Page";
+// import {BasicForm, useForm} from "#/components/Form";
+// import {BasicTree} from "#/components/Tree";
+// import {PageWrapper} from "#/components/Page";
 // import {useMessage} from "@/hooks/web/useMessage";
 
 export default defineComponent({

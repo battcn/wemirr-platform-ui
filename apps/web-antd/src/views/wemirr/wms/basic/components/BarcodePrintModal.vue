@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { nextTick, ref } from 'vue';
 
-import { BasicModal, useModalInner } from '@/components/Modal';
-import { QrCode } from '@/components/Qrcode';
+import { BasicModal, useModalInner } from '#/components/Modal';
+import { QrCode } from '#/components/Qrcode';
 // 引入
 import JsBarcode from 'jsbarcode';
 

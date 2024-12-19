@@ -4,7 +4,7 @@ import { defineComponent, onMounted } from 'vue';
 import { useFs } from '@fast-crud/fast-crud';
 
 import createCrudOptions from './crud';
-// import { useModal } from "@/components/Modal";
+// import { useModal } from "#/components/Modal";
 
 // function useLogRef() {
 //   function openLogModal(taskId) {

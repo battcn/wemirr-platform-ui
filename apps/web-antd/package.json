@@ -28,6 +28,7 @@
   "dependencies": {
     "@ant-design/colors": "catalog:",
     "@ant-design/icons-vue": "catalog:",
+    "@fast-crud/fast-bpmn": "^2.1.14",
     "@fast-crud/fast-crud": "catalog:",
     "@fast-crud/fast-extends": "catalog:",
     "@fast-crud/ui-antdv4": "catalog:",

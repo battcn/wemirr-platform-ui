@@ -1,4 +1,3 @@
-import {dict,} from '@fast-crud/fast-crud';
 import type {
   AddReq,
   CreateCrudOptionsProps,
@@ -8,6 +7,8 @@ import type {
   UserPageQuery,
   UserPageRes,
 } from '@fast-crud/fast-crud';
+
+import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';

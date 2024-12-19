@@ -5,7 +5,7 @@ import { useFs } from '@fast-crud/fast-crud';
 
 import * as api from './api';
 import createCrudOptions from './crud';
-// import { useModal } from "@/components/Modal";
+// import { useModal } from "#/components/Modal";
 // import DistributionResource from "./DistributionResource.vue";
 
 function useDistribution() {

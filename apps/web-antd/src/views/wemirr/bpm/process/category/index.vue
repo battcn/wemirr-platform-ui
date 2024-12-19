@@ -1,7 +1,9 @@
-<script lang="ts" setup name="ContainerSpecPage">
+<script lang="ts" setup name="BpmProcessCategoryPage">
 import { onMounted } from 'vue';
 
 import { useFs } from '@fast-crud/fast-crud';
+
+import { IconPicker } from '#/components/Icon';
 
 import createCrudOptions from './crud';
 
@@ -17,10 +19,8 @@ onMounted(() => {
 <template>
   <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding">
-      <template #cell_description="scope">
-        <a-tooltip :title="scope.row.description" placement="top">
-          {{ scope.row.description }}
-        </a-tooltip>
+      <template #form_icon="scope">
+        <IconPicker v-model:value="scope.form.icon" />
       </template>
     </fs-crud>
   </fs-page>

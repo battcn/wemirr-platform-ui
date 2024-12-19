@@ -16,7 +16,7 @@ onMounted(() => {
 
 <template>
   <fs-page class="page-layout-card">
-    <fs-crud ref="crudRef" v-bind="crudBinding" >
+    <fs-crud ref="crudRef" v-bind="crudBinding">
       <template #cell_spec="scope">
         <a-tooltip :title="scope.row.spec" placement="top">
           {{ scope.row.spec }}

@@ -7,7 +7,7 @@ export function GetList(query: any) {
 }
 
 export function AddObj(obj: any) {
-  return defHttp.request(`${apiPrefix}/create`,{
+  return defHttp.request(`${apiPrefix}/create`, {
     method: 'post',
     data: obj,
   });
@@ -19,7 +19,7 @@ export function UpdateObj(obj: any) {
     id: item.id,
     locationId: item.locationId,
   }));
-  return defHttp.request(`${apiPrefix}/${obj.id}`,{
+  return defHttp.request(`${apiPrefix}/${obj.id}`, {
     method: 'put',
     data: { id: obj.id, items },
   });
@@ -30,14 +30,16 @@ export function DelObj(id: any) {
 }
 
 export function GetObj(id) {
-  return defHttp.request( `${apiPrefix}/${id}/detail`,{
-    method: 'get',
-  }).then(ret=>ret.data);
+  return defHttp
+    .request(`${apiPrefix}/${id}/detail`, {
+      method: 'get',
+    })
+    .then((ret) => ret.data);
 }
 
 // 确认入库
 export function Submit(id) {
-  return defHttp.request( `${apiPrefix}/${id}/submit`,{
+  return defHttp.request(`${apiPrefix}/${id}/submit`, {
     method: 'post',
   });
 }

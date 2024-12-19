@@ -2,10 +2,11 @@
 import { defineComponent, ref, unref } from 'vue';
 
 import { getMenuList } from '@/api/sys/menu';
-import { BasicModal, useModalInner } from '@/components/Modal';
-import { BasicTable, useTable } from '@/components/Table';
-import { BasicTree, TreeActionType } from '@/components/Tree';
 import { useMessage } from '@/hooks/web/useMessage';
+
+import { BasicModal, useModalInner } from '#/components/Modal';
+import { BasicTable, useTable } from '#/components/Table';
+import { BasicTree, TreeActionType } from '#/components/Tree';
 
 import * as api from './api';
 import { getBasicColumns } from './tableData';
