@@ -1,17 +1,20 @@
 <script lang="ts" setup>
-import { h, Ref, ref } from 'vue';
+import type { ApprovalStep } from './data';
 
-import * as api from '@/views/wemirr/bpm/task/complete/api';
-import createApprovalOptions from '@/views/wemirr/bpm/task/complete/approval';
-import TaskFormDetail from '@/views/wemirr/bpm/task/complete/TaskFormDetail.vue';
-import createTransferOptions from '@/views/wemirr/bpm/task/complete/transfer';
+import type { Ref } from 'vue';
+import { h, ref } from 'vue';
+
 import { CheckCircleTwoTone } from '@ant-design/icons-vue';
 import { useColumns } from '@fast-crud/fast-crud';
 import { useUi } from '@fast-crud/ui-interface';
 import { Col as ACol, Row as ARow, Step, Steps } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
-import { ApprovalStep } from './data';
+import createApprovalOptions from '#/views/wemirr/bpm/task/complete/approval';
+import TaskFormDetail from '#/views/wemirr/bpm/task/complete/TaskFormDetail.vue';
+import createTransferOptions from '#/views/wemirr/bpm/task/complete/transfer';
+
+import * as api from './api.ts';
 
 const { ui } = useUi();
 
@@ -178,11 +181,11 @@ defineExpose({
 <style lang="less" scoped>
 .result-success {
   padding: 48px 32px;
-  background-color: @component-background;
+  //background-color: @component-background;
 
   &__content {
     padding: 24px 40px;
-    background-color: @background-color-light;
+    //background-color: @background-color-light;
   }
 }
 .comment-content {

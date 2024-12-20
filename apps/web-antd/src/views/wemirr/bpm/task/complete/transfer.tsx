@@ -1,10 +1,10 @@
-import { getUserList } from '@/api/sys/user';
-import { GetGlobPreviewUrl } from '@/api/sysPrefix';
-import userCrudOptions from '@/views/wemirr/system/user/crud';
 import { dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
+import { getUserList } from '#/api/core/user';
 import { defHttp } from '#/api/request';
+// import { GetGlobPreviewUrl } from '@/api/sysPrefix';
+import userCrudOptions from '#/views/wemirr/system/user/crud';
 
 export default function ({ taskId, type, crudExposeRef, dialogShow }) {
   return {
@@ -13,10 +13,7 @@ export default function ({ taskId, type, crudExposeRef, dialogShow }) {
         labelCol: { span: null, style: { minWidth: '80px' } },
         async doSubmit({ form }) {
           await defHttp
-            .put({
-              url: `/bpm/process_tasks/${taskId}/transfer`,
-              data: form,
-            })
+            .put(`/bpm/process_tasks/${taskId}/transfer`, form)
             .then(() => {
               dialogShow.value = false;
               notification.success({ message: '转办成功', duration: 3 });
@@ -77,7 +74,7 @@ export default function ({ taskId, type, crudExposeRef, dialogShow }) {
               valueType: 'fileId',
               async buildUrl(value: string) {
                 return new Promise((resolve) => {
-                  resolve(GetGlobPreviewUrl(value));
+                  // resolve(GetGlobPreviewUrl(value));
                 });
               },
             },

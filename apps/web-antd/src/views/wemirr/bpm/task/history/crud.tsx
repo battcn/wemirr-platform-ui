@@ -1,24 +1,18 @@
 import { useRouter } from 'vue-router';
 
-import { useI18n } from '@/hooks/web/useI18n';
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
 export default function () {
-  const { t } = useI18n();
   const router = useRouter();
   return {
-    t,
     crudOptions: {
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post({
-            url: `/bpm/process_tasks/history`,
-            data: query,
-          }),
+          await defHttp.post(`/bpm/process_tasks/history`, query),
       },
       toolbar: {},
       rowHandle: {
@@ -53,7 +47,7 @@ export default function () {
           column: { show: false },
         },
         procInstName: {
-          title: t('bpm.task.table.columns.procInstName.title'),
+          title: '流程实例名',
           type: 'text',
           addForm: { show: false },
           editForm: { show: false },
@@ -61,7 +55,7 @@ export default function () {
           search: { show: true },
         },
         procTaskName: {
-          title: t('bpm.task.table.columns.taskName.title'),
+          title: '流程任务名',
           type: 'text',
           addForm: { show: false },
           editForm: { show: false },
@@ -69,12 +63,12 @@ export default function () {
           search: { show: true },
         },
         procInstCategoryName: {
-          title: t('bpm.task.table.columns.processCategoryId.title'),
+          title: '实例类别名',
           type: 'text',
           column: { width: 180, component: { color: 'auto' } },
         },
         procDefName: {
-          title: t('bpm.task.table.columns.definitionId.title'),
+          title: '流程定义名',
           type: 'dict-select',
           column: {
             width: 200,
@@ -106,7 +100,7 @@ export default function () {
           column: { width: 100 },
         },
         taskInstStartTime: {
-          title: t('bpm.task.table.columns.taskInstanceStartTime.title'),
+          title: '任务开始时间',
           type: 'datetime',
           column: { width: 170, align: 'center' },
           addForm: { show: false },
@@ -118,7 +112,7 @@ export default function () {
           },
         },
         taskInstEndTime: {
-          title: t('bpm.task.table.columns.taskInstanceEndTime.title'),
+          title: '任务完成时间',
           type: 'datetime',
           column: { width: 170, align: 'center' },
           addForm: { show: false },
@@ -130,7 +124,7 @@ export default function () {
           },
         },
         procInstStatus: {
-          title: t('bpm.task.table.columns.processInstStatus.title'),
+          title: '状态',
           type: 'dict-radio',
           column: { width: 100, fixed: 'right', component: { color: 'auto' } },
           dict: dict({

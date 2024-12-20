@@ -1,10 +1,7 @@
-import { useI18n } from '@/hooks/web/useI18n';
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
-
-const { t } = useI18n();
 
 export default function () {
   return {
@@ -12,22 +9,13 @@ export default function () {
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post({
-            url: `/bpm/process_categories/page`,
-            data: query,
-          }),
+          await defHttp.post(`/bpm/process_categories/page`, query),
         addRequest: async ({ form }: any) =>
-          await defHttp.post({
-            url: `/bpm/process_categories/create`,
-            data: form,
-          }),
+          await defHttp.post(`/bpm/process_categories/create`, form),
         editRequest: async ({ form }: any) =>
-          await defHttp.put({
-            url: `/bpm/process_categories/${form.id}`,
-            data: form,
-          }),
+          await defHttp.put(`/bpm/process_categories/${form.id}`, form),
         delRequest: async ({ row }: any) =>
-          await defHttp.delete({ url: `/bpm/process_categories/${row.id}` }),
+          await defHttp.delete(`/bpm/process_categories/${row.id}`),
       },
       toolbar: {},
       rowHandle: {},
@@ -39,7 +27,7 @@ export default function () {
           column: { show: false },
         },
         code: {
-          title: t('bpm.category.table.columns.code.title'),
+          title: '编码',
           type: 'text',
           editForm: { component: { disabled: true } },
           column: { width: 150 },
@@ -77,7 +65,7 @@ export default function () {
           },
         },
         name: {
-          title: t('bpm.category.table.columns.name.title'),
+          title: '名称',
           type: 'text',
           column: { width: 200 },
           search: { show: true },
@@ -86,7 +74,7 @@ export default function () {
           },
         },
         status: {
-          title: t('bpm.category.table.columns.state.title'),
+          title: '状态',
           type: 'dict-radio',
           column: { width: 100, align: 'center' },
           search: { show: true },
@@ -94,12 +82,12 @@ export default function () {
             data: [
               {
                 value: 1,
-                label: t('bpm.category.table.columns.state.dict.enable'),
+                label: '启用',
                 color: 'success',
               },
               {
                 value: 0,
-                label: t('bpm.category.table.columns.state.dict.disable'),
+                label: '禁用',
                 color: 'error',
               },
             ],
@@ -107,7 +95,7 @@ export default function () {
           addForm: { value: 1 },
         },
         description: {
-          title: t('bpm.category.table.columns.description.title'),
+          title: '描述',
           search: { show: false },
           column: { ellipsis: true },
           type: ['textarea'],

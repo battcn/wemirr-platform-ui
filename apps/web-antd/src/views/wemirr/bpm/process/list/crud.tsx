@@ -1,15 +1,12 @@
-import { useI18n } from '@/hooks/web/useI18n';
-import { useMessage } from '@/hooks/web/useMessage';
-import {
-  compute,
+import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
-  dict,
 } from '@fast-crud/fast-crud';
 
-import { defHttp } from '#/api/request';
+import { compute, dict } from '@fast-crud/fast-crud';
+import { Modal, notification } from 'ant-design-vue';
 
-const { t } = useI18n();
+import { defHttp } from '#/api/request';
 
 export default function ({
   crudExpose,
@@ -17,16 +14,12 @@ export default function ({
 }: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const diagramRef = context.diagramRef;
   const approvalRef = context.approvalRef;
-  const { notification, createConfirm } = useMessage();
   return {
     crudOptions: {
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post({
-            url: `/bpm/process_instances/page`,
-            data: query,
-          }),
+          await defHttp.post(`/bpm/process_instances/page`, query),
       },
       actionbar: {
         show: true,
@@ -59,18 +52,16 @@ export default function ({
           edit: { size: 'small', show: false },
           remove: {
             type: 'link',
-            text: t('bpm.process.table.buttons.cancelProcess'),
+            text: '删除',
             size: 'middle',
-            title: t('bpm.process.table.buttons.cancelProcess'),
+            title: '删除',
             order: 0,
             show: compute(({ row }) => {
               return row.procInstStatus === 1 && row.procInstActivate;
             }),
             async click({ row }) {
               await defHttp
-                .post({
-                  url: `/bpm/process_instances/${row.procInstId}/cancel`,
-                })
+                .post(`/bpm/process_instances/${row.procInstId}/cancel`)
                 .then(() => {
                   notification.success({ message: '作废成功', duration: 3 });
                   crudExpose.doRefresh();
@@ -87,19 +78,19 @@ export default function ({
           column: { show: false },
         },
         procInstId: {
-          title: t('bpm.process.table.columns.procInstId.title'),
+          title: '流程实例ID',
           type: 'text',
           form: { show: false },
           column: { show: false },
         },
         procDefName: {
-          title: t('bpm.process.table.columns.procDefName.title'),
+          title: '定义名',
           type: 'text',
           column: { width: 250, show: false },
           search: { show: false },
         },
         procDefKey: {
-          title: t('bpm.process.table.columns.procDefKey.title'),
+          title: '定义KEY',
           type: 'text',
           column: { width: 250, show: false },
           search: { show: false },
@@ -121,7 +112,7 @@ export default function ({
           column: { width: 200, ellipsis: true },
         },
         procInstName: {
-          title: t('bpm.process.table.columns.procInstName.title'),
+          title: '实例名称',
           type: 'text',
           column: { width: 200, ellipsis: true },
           addForm: { show: false },
@@ -148,15 +139,15 @@ export default function ({
                 record.procInstActivate = !value;
                 return;
               }
-              createConfirm({
+              Modal.confirm({
                 iconType: 'warning',
                 title: '提示',
                 content: `确定${row.procInstActivate ? '激活' : '挂起'}吗`,
                 onOk: () => {
                   defHttp
-                    .put({
-                      url: `/bpm/process_instances/${row.id}/status/${row.procInstActivate}`,
-                    })
+                    .put(
+                      `/bpm/process_instances/${row.id}/status/${row.procInstActivate}`,
+                    )
                     .then(() => {
                       notification.success({
                         message: row.procInstActivate ? '激活成功' : '挂起成功',
@@ -183,17 +174,17 @@ export default function ({
           column: { width: 160 },
         },
         procInstStartTime: {
-          title: t('bpm.process.table.columns.procInstStartTime.title'),
+          title: '开始时间',
           column: { width: 170 },
           type: 'datetime',
         },
         procInstEndTime: {
-          title: t('bpm.process.table.columns.procInstEndTime.title'),
+          title: '结束时间',
           column: { width: 170 },
           type: 'datetime',
         },
         duration: {
-          title: t('bpm.process.table.columns.duration.title'),
+          title: '耗时',
           type: 'text',
           column: { width: 100 },
         },
@@ -203,7 +194,7 @@ export default function ({
           column: { width: 160, align: 'center' },
         },
         procInstStatus: {
-          title: t('bpm.process.table.columns.procInstStatus.title'),
+          title: '状态',
           type: 'dict-radio',
           column: { fixed: 'right', width: 100, component: { color: 'auto' } },
           dict: dict({

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { nextTick, Ref, ref } from 'vue';
+import type { Ref } from 'vue';
+import { nextTick, ref } from 'vue';
 
-import * as api from '@/views/wemirr/bpm/task/complete/api';
 import { useUi } from '@fast-crud/ui-interface';
+
+import * as api from '#/views/wemirr/bpm/task/complete/api';
 
 const { ui } = useUi();
 const processXmlRef: Ref = ref();

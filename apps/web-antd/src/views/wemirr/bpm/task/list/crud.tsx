@@ -1,17 +1,15 @@
-import { useRouter } from 'vue-router';
-
-import { useI18n } from '@/hooks/web/useI18n';
-import {
+import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
-  dict,
 } from '@fast-crud/fast-crud';
+
+import { useRouter } from 'vue-router';
+
+import { dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
-
-const { t } = useI18n();
 
 export default function ({
   crudExpose,
@@ -25,16 +23,13 @@ export default function ({
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post({ url: `/bpm/process_tasks/page`, data: query }),
+          await defHttp.post(`/bpm/process_tasks/page`, query),
         addRequest: async ({ form }: any) =>
-          await defHttp.post({ url: `/bpm/process_tasks`, data: form }),
+          await defHttp.post(`/bpm/process_tasks`, form),
         editRequest: async ({ form }: any) =>
-          await defHttp.put({
-            url: `/bpm/process_tasks/${form.id}`,
-            data: form,
-          }),
+          await defHttp.put(`/bpm/process_tasks/${form.id}`, form),
         delRequest: async ({ row }: any) =>
-          await defHttp.delete({ url: `/bpm/process_tasks/${row.id}` }),
+          await defHttp.delete(`/bpm/process_tasks/${row.id}`),
       },
       toolbar: {},
       actionbar: {
@@ -67,7 +62,7 @@ export default function ({
             show: false,
             order: 1,
             type: 'link',
-            text: t('bpm.task.table.buttons.handle'),
+            text: '编辑',
             async click({ row }) {
               await router.push(
                 `/bpm/task/list/complete?procInstId=${row.procInstId}&taskId=${row.procTaskId}&type=complete`,
@@ -78,10 +73,10 @@ export default function ({
             order: 2,
             type: 'link',
             show: false,
-            text: t('bpm.task.table.buttons.updateAssignee'),
+            text: '转办',
             async click(context) {
               await defHttp
-                .post({ url: `/bpm/design_models/${context.row.id}/deploy` })
+                .post(`/bpm/design_models/${context.row.id}/deploy`)
                 .then(() => {
                   notification.success({ message: '任务已转办', duration: 3 });
                   crudExpose.doRefresh();
@@ -105,13 +100,13 @@ export default function ({
           column: { show: false },
         },
         procInstName: {
-          title: t('bpm.task.table.columns.procInstName.title'),
+          title: '实例名',
           type: 'text',
           column: { width: 180 },
           search: { show: false },
         },
         procTaskName: {
-          title: t('bpm.task.table.columns.taskName.title'),
+          title: '任务名',
           type: 'text',
           column: { width: 230 },
           search: { show: true },
@@ -122,7 +117,7 @@ export default function ({
           column: { width: 120, component: { color: 'auto' } },
         },
         procDefName: {
-          title: t('bpm.task.table.columns.definitionId.title'),
+          title: '流程定义名',
           type: 'dict-select',
           column: { width: 150, show: true, component: { color: 'auto' } },
           dict: dict({
@@ -144,7 +139,7 @@ export default function ({
           },
         },
         procInstStatus: {
-          title: t('bpm.task.table.columns.processInstStatus.title'),
+          title: '状态',
           type: 'dict-radio',
           column: { width: 100, component: { color: 'auto' } },
           dict: dict({

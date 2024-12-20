@@ -1,9 +1,10 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-import ApprovalHandle from '@/views/wemirr/bpm/task/complete/ApprovalHandle.vue';
-import DiagramPreview from '@/views/wemirr/bpm/task/complete/DiagramPreview.vue';
 import { useFs } from '@fast-crud/fast-crud';
+
+import ApprovalHandle from '#/views/wemirr/bpm/task/complete/ApprovalHandle.vue';
+import DiagramPreview from '#/views/wemirr/bpm/task/complete/DiagramPreview.vue';
 
 import createCrudOptions from './crud';
 

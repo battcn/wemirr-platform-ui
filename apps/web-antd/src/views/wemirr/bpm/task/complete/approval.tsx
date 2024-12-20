@@ -1,4 +1,4 @@
-import { GetGlobPreviewUrl } from '@/api/sysPrefix';
+// import { GetGlobPreviewUrl } from '#/api/sysPrefix';
 import { compute } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
@@ -11,10 +11,7 @@ export default function ({ taskId, type, crudExposeRef, dialogShow }) {
         labelCol: { span: null, style: { minWidth: '80px' } },
         async doSubmit({ form }) {
           await defHttp
-            .put({
-              url: `/bpm/process_tasks/${taskId}/complete`,
-              data: form,
-            })
+            .put(`/bpm/process_tasks/${taskId}/complete`, form)
             .then(() => {
               dialogShow.value = false;
               notification.success({ message: '审批成功', duration: 3 });
@@ -40,10 +37,7 @@ export default function ({ taskId, type, crudExposeRef, dialogShow }) {
               }),
               click: ({ form }) => {
                 defHttp
-                  .put({
-                    url: `/bpm/process_tasks/${taskId}/comment`,
-                    data: form,
-                  })
+                  .put(`/bpm/process_tasks/${taskId}/comment`, form)
                   .then(() => {
                     dialogShow.value = false;
                     notification.success({ message: '操作成功', duration: 3 });
@@ -60,10 +54,7 @@ export default function ({ taskId, type, crudExposeRef, dialogShow }) {
               }),
               click: ({ form }) => {
                 defHttp
-                  .put({
-                    url: `/bpm/process_tasks/${taskId}/reject`,
-                    data: form,
-                  })
+                  .put(`/bpm/process_tasks/${taskId}/reject`, form)
                   .then(() => {
                     dialogShow.value = false;
                     notification.success({ message: '操作成功', duration: 3 });
@@ -99,7 +90,7 @@ export default function ({ taskId, type, crudExposeRef, dialogShow }) {
               valueType: 'fileId',
               async buildUrl(value: string) {
                 return new Promise((resolve) => {
-                  resolve(GetGlobPreviewUrl(value));
+                  // resolve(GetGlobPreviewUrl(value));
                 });
               },
             },

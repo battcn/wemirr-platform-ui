@@ -61,9 +61,9 @@ export default function ({ expose, handleView }) {
           },
           deploy: {
             type: 'link',
-            text: 'bpm.process.table.buttons.deploy',
+            text: '部署',
             size: 'small',
-            title: 'bpm.process.table.buttons.deploy',
+            title: '部署',
             order: 1,
             show: compute(({ row }) => {
               return row.state !== 1;

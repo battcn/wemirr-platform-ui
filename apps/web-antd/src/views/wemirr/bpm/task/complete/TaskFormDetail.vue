@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue';
 
-import AntdGenerateForm from '#/components/FormDesigner/antd/render/AntdGenerateForm.vue';
+// import AntdGenerateForm from '#/components/FormDesigner/antd/render/AntdGenerateForm.vue';
 
-import * as api from './api';
-import { setJsonIntoFrom, WidgetFormItem } from './data';
+// import * as api from './api';
+import type { WidgetFormItem } from './data';
+// import { setJsonIntoFrom } from './data';
 
 const props = defineProps<{
   processId: string;
@@ -21,31 +22,25 @@ const state = reactive({
 const generateFormRenderKey = ref('');
 onMounted(() => {
   const procInstId = props.processId;
-  api.RenderFormByProcessInstanceId(procInstId).then((ret) => {
-    if (ret.formDesign.formConfig) {
-      state.widgetForm.config = ret?.formDesign.formConfig;
-      state.widgetForm.config.disabled = true;
-      state.widgetForm.list = setJsonIntoFrom(
-        ret?.formDesign.formFields,
-        ret?.dataJson,
-      );
-    }
-    generateFormRenderKey.value = Date.now().toString();
-  });
+  // api.RenderFormByProcessInstanceId(procInstId).then((ret) => {
+  //   if (ret.formDesign.formConfig) {
+  //     state.widgetForm.config = ret?.formDesign.formConfig;
+  //     state.widgetForm.config.disabled = true;
+  //     state.widgetForm.list = setJsonIntoFrom(
+  //       ret?.formDesign.formFields,
+  //       ret?.dataJson,
+  //     );
+  //   }
+  //   generateFormRenderKey.value = Date.now().toString();
+  // });
 });
 </script>
 <template>
-  <AntdGenerateForm
+  <div>2131231</div>
+  <!--  <AntdGenerateForm
     :key="generateFormRenderKey"
     ref="generateFormRef"
     :data="state.widgetForm"
-  />
+  />-->
 </template>
-<style lang="less" scoped>
-.result-success {
-  background-color: @component-background;
-
-  &__content {
-  }
-}
-</style>
+<style lang="less" scoped></style>
