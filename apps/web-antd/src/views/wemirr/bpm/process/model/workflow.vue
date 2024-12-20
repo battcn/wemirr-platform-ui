@@ -35,6 +35,7 @@ const FsBpmnWorkflow = defineComponent({
     const modelId = ref(route.query?.modelId as string);
     const isCopy = ref(route.query?.isCopy as string);
     const history = ref(route.query?.history as string);
+
     // const { closeCurrent } = useTabs();
 
     function goBack() {
@@ -199,8 +200,13 @@ export default FsBpmnWorkflow;
   </Page>
 </template>
 <style lang="less" scoped>
+/deep/ .p-4.p-4 {
+  padding: 8px !important;
+}
+
 .v-fs-bpmn {
   background-color: #fff;
+
   .fs-table-select {
     .ant-select-show-search {
       width: 100%;

@@ -1,49 +1,48 @@
 <script lang="ts">
 import { defineComponent, ref, unref } from 'vue';
 
-import { getMenuList } from '@/api/sys/menu';
-import { useMessage } from '@/hooks/web/useMessage';
+// import { BasicModal, useModalInner } from '#/components/Modal';
+// import { BasicTable, useTable } from '#/components/Table';
+// import { BasicTree, TreeActionType } from '#/components/Tree';
 
-import { BasicModal, useModalInner } from '#/components/Modal';
-import { BasicTable, useTable } from '#/components/Table';
-import { BasicTree, TreeActionType } from '#/components/Tree';
+import { notification } from 'ant-design-vue';
 
 import * as api from './api';
 import { getBasicColumns } from './tableData';
 
 export default defineComponent({
   name: 'DistributionUser',
-  components: { BasicModal, BasicTree, BasicTable },
+  // components: { BasicModal, BasicTree, BasicTable },
   setup() {
-    const { notification } = useMessage();
+    // const { notification } = useMessage();
     const tableButtons = ref();
     const resIdList = ref([...new Set()] as unknown as any[]);
     const modelRef = ref({});
-    const permissionTreeRef = ref<Nullable<TreeActionType>>(null);
+    const permissionTreeRef = ref<>(null);
     const productRef = ref();
     const permissionTreeData = ref();
     const checkedKeys = ref();
     const dataSource = ref();
 
-    const [register, { closeModal }] = useModalInner(async (productId) => {
-      checkedKeys.value = [];
-      productRef.value = productId;
-      await getMenuList().then((ret) => {
-        permissionTreeData.value = ret;
-        setTimeout(() => {
-          getTree().filterByLevel(1);
-        }, 0);
-      });
-      await api.GetPermissionResByProductId(productId).then((data) => {
-        resIdList.value = data.resIdList;
-        tableButtons.value = data.buttons;
-        setSelectedRowKeys(resIdList.value);
-        checkedKeys.value = data.buttons
-          ?.filter((item) => !(item.type == 2))
-          .filter((item) => data.resIdList.includes(item.id))
-          .map((item) => item.id);
-      });
-    });
+    // const [register, { closeModal }] = useModalInner(async (productId) => {
+    //   checkedKeys.value = [];
+    //   productRef.value = productId;
+    //   await getMenuList().then((ret) => {
+    //     permissionTreeData.value = ret;
+    //     setTimeout(() => {
+    //       getTree().filterByLevel(1);
+    //     }, 0);
+    //   });
+    //   await api.GetPermissionResByProductId(productId).then((data) => {
+    //     resIdList.value = data.resIdList;
+    //     tableButtons.value = data.buttons;
+    //     setSelectedRowKeys(resIdList.value);
+    //     checkedKeys.value = data.buttons
+    //       ?.filter((item) => !(item.type == 2))
+    //       .filter((item) => data.resIdList.includes(item.id))
+    //       .map((item) => item.id);
+    //   });
+    // });
 
     function handleSelect(checkedKeys, event) {
       if (!event.selected) {
@@ -88,41 +87,41 @@ export default defineComponent({
             message: '权限分配成功',
             duration: 3,
           });
-          closeModal();
+          // closeModal();
         });
     }
-    const [registerTable, { getDataSource, setSelectedRowKeys }] = useTable({
-      canResize: false,
-      size: 'small',
-      showIndexColumn: false,
-      dataSource,
-      columns: getBasicColumns(),
-      rowKey: 'id',
-      showTableSetting: true,
-      rowSelection: {
-        type: 'checkbox',
-      },
-      onColumnsChange: (data) => {
-        console.log('ColumnsChanged', data);
-      },
-    });
+    // const [registerTable, { getDataSource, setSelectedRowKeys }] = useTable({
+    //   canResize: false,
+    //   size: 'small',
+    //   showIndexColumn: false,
+    //   dataSource,
+    //   columns: getBasicColumns(),
+    //   rowKey: 'id',
+    //   showTableSetting: true,
+    //   rowSelection: {
+    //     type: 'checkbox',
+    //   },
+    //   onColumnsChange: (data) => {
+    //     console.log('ColumnsChanged', data);
+    //   },
+    // });
 
     function onTableSelectChange({ keys, rows }) {
-      const tableRowIds = new Set(getDataSource().map((item) => item.id));
-      if (rows && rows.length > 0) {
-        checkedKeys.value = checkedKeys.value.concat(
-          ...new Set(rows.map((item) => item.parentId)),
-        );
-        resIdList.value = resIdList.value
-          .filter((item) => !tableRowIds.has(item))
-          .concat(keys);
-      } else {
-        resIdList.value = resIdList.value.filter(
-          (item) => !tableRowIds.has(item),
-        );
-      }
-      resIdList.value = [...new Set(resIdList.value)];
-      checkedKeys.value = [...new Set(checkedKeys.value)];
+      // const tableRowIds = new Set(getDataSource().map((item) => item.id));
+      // if (rows && rows.length > 0) {
+      //   checkedKeys.value = checkedKeys.value.concat(
+      //     ...new Set(rows.map((item) => item.parentId)),
+      //   );
+      //   resIdList.value = resIdList.value
+      //     .filter((item) => !tableRowIds.has(item))
+      //     .concat(keys);
+      // } else {
+      //   resIdList.value = resIdList.value.filter(
+      //     (item) => !tableRowIds.has(item),
+      //   );
+      // }
+      // resIdList.value = [...new Set(resIdList.value)];
+      // checkedKeys.value = [...new Set(checkedKeys.value)];
     }
 
     function getTree() {
@@ -143,10 +142,10 @@ export default defineComponent({
       onTreeNodeCheck,
       handleSelect,
       handleSubmit,
-      register,
-      closeModal,
+      // register,
+      // closeModal,
       model: modelRef,
-      registerTable,
+      // registerTable,
     };
   },
 });

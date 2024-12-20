@@ -598,8 +598,8 @@ importers:
         specifier: 'catalog:'
         version: 6.1.0(vue@3.5.13(typescript@5.7.2))
       '@fast-crud/fast-bpmn':
-        specifier: ^2.1.14
-        version: 2.1.14(camunda-bpmn-js-behaviors@1.9.0(bpmn-js@13.2.2)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.7.0))(preact@10.25.0)(vue@3.5.13(typescript@5.7.2))(webpack@5.97.1)
+        specifier: ^2.1.15
+        version: 2.1.15(camunda-bpmn-js-behaviors@1.9.0(bpmn-js@13.2.2)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.7.0))(preact@10.25.0)(vue@3.5.13(typescript@5.7.2))(webpack@5.97.1)
       '@fast-crud/fast-crud':
         specifier: 'catalog:'
         version: 1.23.4(vue@3.5.13(typescript@5.7.2))
@@ -1542,7 +1542,7 @@ importers:
         version: 2.2.2(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
       pinia-plugin-persistedstate:
         specifier: 'catalog:'
-        version: 4.1.3(magicast@0.3.5)(pinia@2.2.2(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))(rollup@4.28.0)
+        version: 4.1.3(magicast@0.3.5)(pinia@2.2.2(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))(rollup@4.28.1)
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.7.2)
@@ -3458,8 +3458,8 @@ packages:
     resolution: {integrity: sha512-2b/g5hRmpbb1o4GnTZax9N9m0FXzz9OV42ZzI4rDDMDuHUqigAiQCEWChBWCY4ztAGVRjoWT19v0yMmc5/L5kA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fast-crud/fast-bpmn@2.1.14':
-    resolution: {integrity: sha512-bRyr6pzSGxN7Neg6rWB5jjtfsGPnnJVDvZg/0vrvhAZDiTgC1h67jPzDUhOky5d06Eh+OxeXZx6OSBaRXd/CFw==}
+  '@fast-crud/fast-bpmn@2.1.15':
+    resolution: {integrity: sha512-Lb54aRTTtTYjfSZ4179gsKZgbSeMFzerv1260wCoefgNR3yFfOfFUMjILwg8Hfs3B5e2Y2z6HucaynWhZMxBpw==}
 
   '@fast-crud/fast-crud@1.23.4':
     resolution: {integrity: sha512-VkLQxYhd3tbpeqCgebhuHqNi/gtTz/tkM+tRIwPmt40yO3zlW4OVmDDUecNY1yDZTxrCxLCQpKrstOFAu0tFfg==}
@@ -3487,12 +3487,6 @@ packages:
 
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
-
-  '@highlightjs/vue-plugin@2.1.0':
-    resolution: {integrity: sha512-E+bmk4ncca+hBEYRV2a+1aIzIV0VSY/e5ArjpuSN9IO7wBJrzUE2u4ESCwrbQD7sAy+jWQjkV5qCCWgc+pu7CQ==}
-    peerDependencies:
-      highlight.js: ^11.0.1
-      vue: ^3.5.13
 
   '@httptoolkit/websocket-stream@6.0.1':
     resolution: {integrity: sha512-A0NOZI+Glp3Xgcz6Na7i7o09+/+xm2m0UCU8gdtM2nIv6/cjLmhMZMqehSpTlgbx9omtLmV8LVqOskPEyWnmZQ==}
@@ -13746,12 +13740,11 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@fast-crud/fast-bpmn@2.1.14(camunda-bpmn-js-behaviors@1.9.0(bpmn-js@13.2.2)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.7.0))(preact@10.25.0)(vue@3.5.13(typescript@5.7.2))(webpack@5.97.1)':
+  '@fast-crud/fast-bpmn@2.1.15(camunda-bpmn-js-behaviors@1.9.0(bpmn-js@13.2.2)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.7.0))(preact@10.25.0)(vue@3.5.13(typescript@5.7.2))(webpack@5.97.1)':
     dependencies:
       '@bpmn-io/add-exporter': 0.2.0
       '@bpmn-io/element-template-chooser': 1.0.0(bpmn-js@13.2.2)(diagram-js@12.8.1)
       '@bpmn-io/properties-panel': 2.2.1(webpack@5.97.1)
-      '@highlightjs/vue-plugin': 2.1.0(highlight.js@11.11.0)(vue@3.5.13(typescript@5.7.2))
       bpmn-js: 13.2.2
       bpmn-js-bpmnlint: 0.20.1(bpmn-js@13.2.2)(bpmnlint@8.3.2)(diagram-js@12.8.1)
       bpmn-js-color-picker: 0.6.1(bpmn-js@13.2.2)
@@ -13847,11 +13840,6 @@ snapshots:
       - vue
 
   '@gar/promisify@1.1.3': {}
-
-  '@highlightjs/vue-plugin@2.1.0(highlight.js@11.11.0)(vue@3.5.13(typescript@5.7.2))':
-    dependencies:
-      highlight.js: 11.11.0
-      vue: 3.5.13(typescript@5.7.2)
 
   '@httptoolkit/websocket-stream@6.0.1':
     dependencies:
@@ -14164,9 +14152,9 @@ snapshots:
       mkdirp: 1.0.4
       rimraf: 3.0.2
 
-  '@nuxt/kit@3.14.1592(magicast@0.3.5)(rollup@4.28.0)':
+  '@nuxt/kit@3.14.1592(magicast@0.3.5)(rollup@4.28.1)':
     dependencies:
-      '@nuxt/schema': 3.14.1592(magicast@0.3.5)(rollup@4.28.0)
+      '@nuxt/schema': 3.14.1592(magicast@0.3.5)(rollup@4.28.1)
       c12: 2.0.1(magicast@0.3.5)
       consola: 3.2.3
       defu: 6.1.4
@@ -14184,14 +14172,14 @@ snapshots:
       semver: 7.6.3
       ufo: 1.5.4
       unctx: 2.3.1
-      unimport: 3.13.3(rollup@4.28.0)
+      unimport: 3.13.3(rollup@4.28.1)
       untyped: 1.5.1
     transitivePeerDependencies:
       - magicast
       - rollup
       - supports-color
 
-  '@nuxt/schema@3.14.1592(magicast@0.3.5)(rollup@4.28.0)':
+  '@nuxt/schema@3.14.1592(magicast@0.3.5)(rollup@4.28.1)':
     dependencies:
       c12: 2.0.1(magicast@0.3.5)
       compatx: 0.1.8
@@ -14204,7 +14192,7 @@ snapshots:
       std-env: 3.8.0
       ufo: 1.5.4
       uncrypto: 0.1.3
-      unimport: 3.13.3(rollup@4.28.0)
+      unimport: 3.13.3(rollup@4.28.1)
       untyped: 1.5.1
     transitivePeerDependencies:
       - magicast
@@ -20084,9 +20072,9 @@ snapshots:
 
   pify@4.0.1: {}
 
-  pinia-plugin-persistedstate@4.1.3(magicast@0.3.5)(pinia@2.2.2(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))(rollup@4.28.0):
+  pinia-plugin-persistedstate@4.1.3(magicast@0.3.5)(pinia@2.2.2(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2)))(rollup@4.28.1):
     dependencies:
-      '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.28.0)
+      '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.28.1)
       deep-pick-omit: 1.2.1
       defu: 6.1.4
       destr: 2.0.3
@@ -21948,6 +21936,24 @@ snapshots:
   unimport@3.13.3(rollup@4.28.0):
     dependencies:
       '@rollup/pluginutils': 5.1.3(rollup@4.28.0)
+      acorn: 8.14.0
+      escape-string-regexp: 5.0.0
+      estree-walker: 3.0.3
+      fast-glob: 3.3.2
+      local-pkg: 0.5.1
+      magic-string: 0.30.14
+      mlly: 1.7.3
+      pathe: 1.1.2
+      pkg-types: 1.2.1
+      scule: 1.3.0
+      strip-literal: 2.1.1
+      unplugin: 1.16.0
+    transitivePeerDependencies:
+      - rollup
+
+  unimport@3.13.3(rollup@4.28.1):
+    dependencies:
+      '@rollup/pluginutils': 5.1.3(rollup@4.28.1)
       acorn: 8.14.0
       escape-string-regexp: 5.0.0
       estree-walker: 3.0.3
