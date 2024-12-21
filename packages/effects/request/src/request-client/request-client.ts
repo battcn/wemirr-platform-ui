@@ -21,6 +21,7 @@ class RequestClient {
   public addResponseInterceptor: InterceptorManager['addResponseInterceptor'];
 
   public download: FileDownloader['download'];
+  public downloadFile: FileDownloader['downloadFile'];
   // 是否正在刷新token
   public isRefreshing = false;
   // 刷新token队列
@@ -59,6 +60,7 @@ class RequestClient {
     // 实例化文件下载器
     const fileDownloader = new FileDownloader(this);
     this.download = fileDownloader.download.bind(fileDownloader);
+    this.downloadFile = fileDownloader.downloadFile.bind(fileDownloader);
   }
 
   /**
