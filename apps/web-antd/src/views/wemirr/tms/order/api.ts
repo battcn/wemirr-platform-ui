@@ -1,13 +1,11 @@
 import { defHttp } from '#/api/request';
 
 export function GetInfo(id: any) {
-  // return defHttp.get({ url: `/tms/orders/${id}/detail` }).then((ret) => {
-  //   console.log("ret", ret);
-  //   return ret;
-  // });
-  return defHttp.request(`/tms/orders/${id}/detail`, {
-    method: 'GET',
-  });
+  return defHttp
+    .request(`/tms/orders/${id}/detail`, {
+      method: 'GET',
+    })
+    .then((ret) => ret.data);
 }
 
 export function AddObj(data: any) {

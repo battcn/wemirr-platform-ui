@@ -1,6 +1,9 @@
 import type {
+  AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
+  DelReq,
+  EditReq,
   UserPageQuery,
 } from '@fast-crud/fast-crud';
 
@@ -11,7 +14,6 @@ import dayjs from 'dayjs';
 
 import { SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
-// import { downloadByData } from "@/utils/file/download";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { nodeRef } = props.context;
@@ -58,14 +60,14 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                       ui.notification.success({
                         message: '密码重置成功',
                         duration: 2,
-                      });
+                      } as any);
                     })
                     .catch((error) => {
                       console.error('异常原因 -', error);
                       ui.notification.error({
                         message: '密码重置异常',
                         duration: 2,
-                      });
+                      } as any);
                     });
                 });
             },
@@ -80,20 +82,16 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       table: { scroll: { fixed: true } },
       toolbar: {
         export: {
-          server: async (userPageQuery: UserPageQuery) => {
-            await defHttp
-              .request(
-                `/iam/users/export`,
-                {
-                  method: 'POST',
-                  params: userPageQuery,
-                  responseType: 'blob',
-                },
-                // { isTransformResponse: false },
-              )
-              .then((res) => {
-                // downloadByData(res, `用户列表.xlsx`);
-              });
+          server: async (query: UserPageQuery) => {
+            await defHttp.downloadFile('/iam/users/export', '用户列表.xlsx', {
+              data: query,
+              method: 'POST',
+            });
+          },
+        },
+        buttons: {
+          export: {
+            show: true,
           },
         },
       },
@@ -204,12 +202,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: {
             width: 70,
             align: 'center',
-            show: false,
+            show: true,
           },
           form: {
             component: {
               uploader: {
-                type: 'qiniu', // 上传后端类型【cos,aliyun,oss,form】
+                type: 'form',
                 buildUrl(res: any) {
                   return res.url;
                 },

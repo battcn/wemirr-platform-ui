@@ -35,7 +35,7 @@ export function registerFastCrud(app: App) {
     // i18n,
     logger: { off: { tableColumns: false } },
     async dictRequest({ url }: any) {
-      return await defHttp.request(url, {}).then((ret) => {
+      return await defHttp.request(url, {}).then((ret: any) => {
         return ret.data;
       });
     },
@@ -204,10 +204,10 @@ export function registerFastCrud(app: App) {
   app.use(FsExtendsUploader, {
     defaultType: 'form',
     form: {
-      action: '/suite/files/upload',
+      action: '/suite/file-storage/upload',
       name: 'file',
       withCredentials: false,
-      uploadRequest: async ({ action, file, onProgress }) => {
+      uploadRequest: async ({ action, file, onProgress }: any) => {
         const data = new FormData();
         data.append('file', file);
         return await defHttp.request(action, {
@@ -223,21 +223,21 @@ export function registerFastCrud(app: App) {
           },
         });
       },
-      successHandle(ret) {
+      successHandle(ret: any) {
         console.log('文件上传 ==>', ret);
         // 上传完成后的结果处理， 此处后台返回的结果应该为 ret = {code:0,msg:'',data:fileUrl}
-        if (!ret.fileId) {
+        if (!ret.successful) {
           throw new Error('上传失败');
         }
-
+        const fileId = ret.data.basePath + "/" +ret.data.filename;
         return {
-          // url: GetGlobPreviewUrl(ret.fileId),
-          fileId: ret.fileId,
-          key: ret.fileId,
+          url: ret.data.url,
+          fileId,
+          key: fileId,
         };
       },
     },
-  });
+  } as any);
 
   // 默认宽度，支持自动拖动调整列宽
   registerMergeColumnPlugin({

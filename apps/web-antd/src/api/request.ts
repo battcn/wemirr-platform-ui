@@ -73,13 +73,11 @@ function createRequestClient(baseURL: string) {
   client.addResponseInterceptor<HttpResponse>({
     fulfilled: (response) => {
       const { data: responseData, status } = response;
+      if (responseData instanceof Blob) {
+        return responseData;
+      }
       const { code, data } = responseData;
       if (status >= 200 && status < 400 && code === 200) {
-        // notification.success({
-        //   placement: 'top',
-        //   message: '操作成功',
-        //   duration: 1,
-        // });
         return responseData;
       }
 

@@ -23,7 +23,7 @@ export default function () {
         buttons: {},
       },
       rowHandle: {
-        width: 200,
+        width: 180,
       },
       columns: {
         id: {
@@ -69,6 +69,7 @@ export default function () {
         remark: {
           title: '备注',
           type: ['textarea'],
+          column: { ellipsis: true, width: 230 },
           form: {
             col: {
               span: 24,
