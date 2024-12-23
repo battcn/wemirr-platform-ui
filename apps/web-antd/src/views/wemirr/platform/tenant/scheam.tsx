@@ -68,8 +68,7 @@ const tenantSettingOptions = {
         label: 'name',
         getNodesByValues: async (values: any[]) => {
           return defHttp
-            .get('/iam/db-setting/active', { params: values })
-            .then((ret) => ret.data);
+            .get('/iam/db-setting/active', { params: values });
         },
       }),
       form: {

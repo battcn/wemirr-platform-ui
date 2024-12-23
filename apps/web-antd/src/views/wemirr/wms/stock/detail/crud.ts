@@ -57,10 +57,7 @@ export default function ({ crudExpose }) {
             label: 'name',
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .post('/wms/locations/ids', values)
-                .then((ret) => {
-                  return ret.data;
-                });
+                .post('/wms/locations/ids', values);
             },
           }),
           column: {

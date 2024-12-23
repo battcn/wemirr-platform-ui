@@ -34,8 +34,7 @@ export async function loginApi(data: AuthApi.LoginParams) {
   data.clientId = 'pc-web';
   data.clientSecret = 'pc-web';
   return requestClient
-    .post<AuthApi.LoginResult>('/iam/token/login', data)
-    .then((ret) => ret.data);
+    .post<AuthApi.LoginResult>('/iam/token/login', data);
 }
 
 /**
@@ -59,6 +58,5 @@ export async function logoutApi() {
  */
 export async function getAccessCodesApi() {
   return requestClient
-    .get<string[]>('/iam/token/func_permissions')
-    .then((ret) => ret.data);
+    .get<string[]>('/iam/token/func_permissions');
 }

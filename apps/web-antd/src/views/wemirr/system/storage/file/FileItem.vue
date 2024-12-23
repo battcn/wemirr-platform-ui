@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 
-defineOptions({ name: 'FielItem' });
+defineOptions({ name: 'FileItem' });
 
 const props = defineProps({
   data: {

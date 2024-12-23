@@ -73,7 +73,7 @@ export default function () {
           title: '推送人员',
           type: 'text',
           search: { show: false },
-          column: { width: 160, fixed: 'left' },
+          column: { width: 160 },
         },
         createdTime: {
           title: '推送时间',

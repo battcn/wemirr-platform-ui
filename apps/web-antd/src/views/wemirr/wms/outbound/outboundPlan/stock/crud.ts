@@ -69,10 +69,7 @@ export default function ({ crudExpose, context }) {
             label: 'materialName',
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .post('/wms/metadata/materials/ids', values)
-                .then((ret) => {
-                  return ret.data;
-                });
+                .post('/wms/metadata/materials/ids', values);
             },
           }),
           column: {
@@ -121,10 +118,7 @@ export default function ({ crudExpose, context }) {
             label: 'warehouseName',
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .post('/wms/warehouses/ids', values)
-                .then((ret) => {
-                  return ret.data;
-                });
+                .post('/wms/warehouses/ids', values);
             },
           }),
           form: {
@@ -162,10 +156,7 @@ export default function ({ crudExpose, context }) {
             label: 'areaName',
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .post('/wms/storage-areas/ids', values)
-                .then((ret) => {
-                  return ret.data;
-                });
+                .post('/wms/storage-areas/ids', values);
             },
           }),
           column: {
@@ -212,10 +203,7 @@ export default function ({ crudExpose, context }) {
             label: 'aisleName',
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .post('/wms/aisles/ids', values)
-                .then((ret) => {
-                  return ret.data;
-                });
+                .post('/wms/aisles/ids', values);
             },
           }),
           column: {
@@ -262,10 +250,7 @@ export default function ({ crudExpose, context }) {
             label: 'locationName',
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .post('/wms/locations/ids', values)
-                .then((ret) => {
-                  return ret.data;
-                });
+                .post('/wms/locations/ids', values);
             },
           }),
           column: {

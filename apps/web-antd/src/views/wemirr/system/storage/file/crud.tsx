@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import { defHttp } from '#/api/request';
 
 import { downloadFile } from './api';
+import * as api from "#/views/wemirr/wms/inbound/receivingPlan/api";
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { showTableComputed, nodeRef } = props.context;
@@ -114,7 +115,6 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         url: {
           title: '预览',
           column: { ellipsis: true, width: 150 },
-
           form: { show: false },
         },
         createdTime: {

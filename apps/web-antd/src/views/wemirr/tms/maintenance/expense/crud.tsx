@@ -69,8 +69,7 @@ export default function () {
           dict: dict({
             getNodesByValues: async (values: any[]) => {
               return defHttp
-                .get('/tms/trucks/dict_list', { params: values })
-                .then((ret) => ret.data);
+                .get('/tms/trucks/dict_list', { params: values });
             },
           }),
           form: {

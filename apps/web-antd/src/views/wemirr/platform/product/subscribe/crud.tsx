@@ -54,8 +54,7 @@ export default function () {
             label: 'name',
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .post('/iam/tenants/ids', values)
-                .then((ret) => ret.data);
+                .post('/iam/tenants/ids', values);
             },
           }),
           form: {

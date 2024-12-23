@@ -37,5 +37,5 @@ export const businessDictFunc = (code: BusinessDictCode) => {
 };
 
 export const getAreaTree = () => {
-  return defHttp.get(`/iam/areas/trees`).then((ret) => ret.data);
+  return defHttp.get(`/iam/areas/trees`);
 };

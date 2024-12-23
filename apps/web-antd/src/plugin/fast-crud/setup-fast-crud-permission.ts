@@ -12,7 +12,6 @@ export function useCrudPermission({ permission }: any) {
   const { hasPermission } = useAccess();
   // 直接检查 permission 是否为对象，并获取 prefix
   const prefix = permission && typeof permission === 'object' ? permission.prefix : permission;
-
   // 根据权限显示按钮
   function hasActionPermission(action) {
     if (!prefix) {

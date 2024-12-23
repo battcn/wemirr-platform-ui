@@ -23,10 +23,7 @@ export function materialTable() {
       label: 'name',
       getNodesByValues: async (values: any[]) => {
         return await defHttp
-          .post('/wms/metadata/materials/ids', values)
-          .then((ret) => {
-            return ret.data;
-          });
+          .post('/wms/metadata/materials/ids', values);
       },
     }),
     column: { width: 160, component: { color: 'auto' } },
@@ -66,9 +63,7 @@ export function warehouseTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/warehouses/ids', values).then((ret) => {
-          return ret.data;
-        });
+        return await defHttp.post('/wms/warehouses/ids', values);
       },
     }),
     form: {
@@ -110,10 +105,7 @@ export function storageAreaTable() {
       label: 'name',
       getNodesByValues: async (values: any[]) => {
         return await defHttp
-          .post('/wms/storage-areas/ids', values)
-          .then((ret) => {
-            return ret.data;
-          });
+          .post('/wms/storage-areas/ids', values);
       },
     }),
     form: {
@@ -154,9 +146,7 @@ export function aisleTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/aisles/ids', values).then((ret) => {
-          return ret.data;
-        });
+        return await defHttp.post('/wms/aisles/ids', values);
       },
     }),
     form: {
@@ -198,10 +188,7 @@ export function locationSpecTable() {
       label: 'name',
       getNodesByValues: async (values: any[]) => {
         return await defHttp
-          .post('/wms/location-specs/ids', values)
-          .then((ret) => {
-            return ret.data;
-          });
+          .post('/wms/location-specs/ids', values);
       },
     }),
     form: {
@@ -243,10 +230,7 @@ export function brandTable() {
       label: 'name',
       getNodesByValues: async (values: any[]) => {
         return await defHttp
-          .post('/wms/metadata/brands/ids', values)
-          .then((ret) => {
-            return ret.data;
-          });
+          .post('/wms/metadata/brands/ids', values);
       },
     }),
     form: {
@@ -288,10 +272,7 @@ export function supplierTable() {
       label: 'name',
       getNodesByValues: async (values: any[]) => {
         return await defHttp
-          .post('/wms/metadata/suppliers/ids', values)
-          .then((ret) => {
-            return ret.data;
-          });
+          .post('/wms/metadata/suppliers/ids', values);
       },
     }),
     form: {
@@ -332,9 +313,7 @@ export function dockTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/docks/ids', values).then((ret) => {
-          return ret.data;
-        });
+        return await defHttp.post('/wms/docks/ids', values);
       },
     }),
     form: {
@@ -373,9 +352,7 @@ export function containerTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/containers/ids', values).then((ret) => {
-          return ret.data;
-        });
+        return await defHttp.post('/wms/containers/ids', values);
       },
     }),
     form: {
@@ -415,9 +392,7 @@ export function locationTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp.post('/wms/locations/ids', values).then((ret) => {
-          return ret.data;
-        });
+        return await defHttp.post('/wms/locations/ids', values);
       },
     }),
     form: {
@@ -457,10 +432,7 @@ export function carrierTable() {
       label: 'name',
       getNodesByValues: async (values: any[]) => {
         return await defHttp
-          .post('/wms/metadata/carriers/ids', values)
-          .then((ret) => {
-            return ret.data;
-          });
+          .post('/wms/metadata/carriers/ids', values);
       },
     }),
     form: {

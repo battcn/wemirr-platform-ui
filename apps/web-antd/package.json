@@ -54,6 +54,7 @@
     "lodash-es": "catalog:",
     "pinia": "catalog:",
     "vue": "catalog:",
+    "vue-files-preview": "^1.0.37",
     "vue-router": "catalog:"
   }
 }

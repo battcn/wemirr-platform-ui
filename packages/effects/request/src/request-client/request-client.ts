@@ -108,9 +108,12 @@ class RequestClient {
         url,
         ...config,
       });
-      return response as T;
+      // debugger
+      if(config?.fetchOptions?.mode === 'full'){
+        return response as T;
+      }
+      return response.data as T;
     } catch (error: any) {
-      console.log('error', error);
       throw error.response ? error.response.data : error;
     }
   }

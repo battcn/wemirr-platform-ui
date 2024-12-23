@@ -97,10 +97,7 @@ export default function ({ crudExpose, context }) {
             label: 'name',
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .post('/wms/metadata/units/ids', values)
-                .then((ret) => {
-                  return ret.data;
-                });
+                .post('/wms/metadata/units/ids', values);
             },
           }),
           column: { show: true, width: 60 },

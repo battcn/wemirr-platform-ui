@@ -5,9 +5,6 @@ import dayjs from 'dayjs';
 import { BusinessDictCode, businessDictFunc } from '#/api';
 
 import * as api from './api';
-// import { useMessage } from "@/hooks/web/useMessage";
-// import { useI18n } from "@/hooks/web/useI18n";
-// import { GetGlobPreviewUrl } from "@/api/sysPrefix";
 import { defHttp } from '#/api/request';
 
 import fleetCrudOptionsText from '../fleet/crud';
@@ -419,8 +416,7 @@ export default function () {
           dict: dict({
             getNodesByValues: async (values: any[]) => {
               return await defHttp
-                .get('/tms/fleets/dict_list', { params: values })
-                .then((ret) => ret.data);
+                .get('/tms/fleets/dict_list', { params: values });
             },
           }),
           form: {

@@ -10,6 +10,5 @@ export * from './user';
  */
 export async function loadTenantSetting(params) {
   return requestClient
-    .get<any>('/iam/plat/site-setting', { params })
-    .then((ret) => ret.data);
+    .get<any>('/iam/plat/site-setting', { params });
 }
