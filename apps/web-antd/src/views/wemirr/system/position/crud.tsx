@@ -1,6 +1,7 @@
 import type {
+  AddReq,
   CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
+  CreateCrudOptionsRet, DelReq, EditReq,
 } from '@fast-crud/fast-crud';
 
 import { dict, utils } from '@fast-crud/fast-crud';

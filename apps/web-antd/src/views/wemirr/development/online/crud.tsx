@@ -1,4 +1,4 @@
-// import { downloadByData } from '@/utils/file/download';
+// import { downloadToFile } from '@/utils/file/download';
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
@@ -42,7 +42,7 @@ export default function ({ userStore }) {
                   responseType: 'blob',
                 })
                 .then((res) => {
-                  // downloadByData(res, `${context.row.moduleName}.zip`);
+                  // downloadToFile(res, `${context.row.moduleName}.zip`);
                 });
             },
           },

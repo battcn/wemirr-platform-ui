@@ -33,7 +33,7 @@ export function downloadByBase64(
   bom?: BlobPart,
 ) {
   const base64Buf = dataURLtoBlob(buf);
-  downloadByData(base64Buf, filename, mime, bom);
+  blobToFile(base64Buf, filename, mime, bom);
 }
 
 /**
@@ -43,7 +43,7 @@ export function downloadByBase64(
  * @param {*} mime
  * @param {*} bom
  */
-export function downloadByData(
+export function blobToFile(
   data: BlobPart,
   filename: string,
   mime?: string,

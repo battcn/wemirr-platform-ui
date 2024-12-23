@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 
 import * as api from './api';
 
-// import { downloadByData } from "@/utils/file/download";
+// import { downloadToFile } from "@/utils/file/download";
 import OutboundPlanItem from '#/views/wemirr/wms/outbound/outboundPlan/item/index.vue';
 import {
   carrierTable,
@@ -100,7 +100,7 @@ export default function ({
               //     { isTransformResponse: false },
               //   )
               //   .then((res) => {
-              //     downloadByData(res, `${context.row.planNum}.pdf`);
+              //     downloadToFile(res, `${context.row.planNum}.pdf`);
               //   });
             },
             show: compute<boolean>(({ row }) => {

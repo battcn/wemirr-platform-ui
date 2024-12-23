@@ -19,12 +19,12 @@ const { crudBinding, crudRef, crudExpose } = useFs({
 });
 
 onMounted(async () => {
-  await initOrgList();
+  initOrgList();
   await crudExpose.doRefresh();
 });
 
 function initOrgList() {
-  getOrgTree().then((ret) => {
+  getOrgTree({}).then((ret) => {
     treeData.value = ret;
     expandedKeys.value = ret
       .filter((item: any) => item.parentId === '0')

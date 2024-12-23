@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 
 import * as api from './api';
 
-// import { downloadByData } from "@/utils/file/download";
+// import { downloadToFile } from "@/utils/file/download";
 import ReceivingPlanItem from '#/views/wemirr/wms/inbound/receivingPlan/item/index.vue';
 
 // import { useMessage } from "/@/hooks/web/useMessage";
@@ -103,7 +103,7 @@ export default function ({
               //     { isTransformResponse: false },
               //   )
               //   .then((res) => {
-              //     downloadByData(res, `${context.row.planNum}.pdf`);
+              //     downloadToFile(res, `${context.row.planNum}.pdf`);
               //   });
             },
           },

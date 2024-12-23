@@ -1,9 +1,7 @@
 import type { AxiosRequestConfig } from 'axios';
 
 import type { RequestClient } from '../request-client';
-import type { RequestResponse } from '../types';
-
-import { downloadByData } from '@vben/utils';
+import {blobToFile} from '@vben/utils';
 
 class FileDownloader {
   private client: RequestClient;
@@ -15,29 +13,20 @@ class FileDownloader {
   public async download(
     url: string,
     config?: AxiosRequestConfig,
-  ): Promise<RequestResponse<Blob>> {
+  ): Promise<Blob> {
     const finalConfig: AxiosRequestConfig = {
       ...config,
       responseType: 'blob',
     };
 
-    return await this.client.request<RequestResponse<Blob>>(url, finalConfig);
+    return await this.client.request<Blob>(url, {...finalConfig, fetchOptions:{mode: 'full'}});
   }
   public async downloadFile(
     url: string,
     fileName: string,
     config?: AxiosRequestConfig,
   ): Promise<void> {
-    const finalConfig: AxiosRequestConfig = {
-      ...config,
-      responseType: 'blob',
-    };
-
-    await this.client
-      .request<RequestResponse<Blob>>(url, finalConfig)
-      .then((ret) => {
-        downloadByData(ret, fileName);
-      });
+    await this.download(url,config).then(blob=>blobToFile(blob,fileName));
   }
 }
 
