@@ -44,20 +44,20 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         buttons: {
           view: {
             show: compute<boolean>(({ row }) => {
-              return row.status != 0;
+              return row.status !== 0;
             }),
           },
           edit: {
             size: 'small',
             text: '入库',
             show: compute<boolean>(({ row }) => {
-              return row.status == 0;
+              return row.status === 0;
             }),
           },
           // 删除
           remove: {
             show: compute(({ row }) => {
-              return row.status == 0;
+              return row.status === 0;
             }),
           },
         },

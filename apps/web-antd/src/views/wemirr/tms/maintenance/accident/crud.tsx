@@ -174,7 +174,7 @@ export default function () {
             rules: [{ required: true, message: '事故日期不能为空' }],
           },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -209,7 +209,7 @@ export default function () {
           column: { show: false, width: 170 },
           form: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

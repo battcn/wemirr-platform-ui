@@ -91,7 +91,7 @@ export default function () {
           column: { width: 180 },
           form: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

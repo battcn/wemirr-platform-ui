@@ -239,7 +239,7 @@ export default function () {
             rules: [{ required: true, message: '请选择违章日期' }],
           },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -255,7 +255,7 @@ export default function () {
             },
           },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -291,7 +291,7 @@ export default function () {
           type: 'datetime',
           form: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

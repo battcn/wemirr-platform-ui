@@ -17,6 +17,8 @@ import { notification } from 'ant-design-vue';
 import { useAuthStore } from '#/store';
 
 import { refreshTokenApi } from './core';
+import {useUi} from "@fast-crud/fast-crud";
+const {ui} = useUi()
 
 const { apiURL } = useAppConfig(import.meta.env, import.meta.env.PROD);
 
@@ -105,7 +107,7 @@ function createRequestClient(baseURL: string) {
       const errorMessage = responseData?.error ?? responseData?.message ?? '';
       // 如果没有错误信息，则会根据状态码进行提示
       // message.error(errorMessage || msg);
-      notification.error({
+      ui.notification.error({
         placement: 'top',
         message: errorMessage || msg,
         duration: 1,

@@ -165,7 +165,7 @@ export default function ({
           addForm: { show: false },
           editForm: { show: false },
           valueBuilder({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

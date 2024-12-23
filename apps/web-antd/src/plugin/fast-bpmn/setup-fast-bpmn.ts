@@ -81,7 +81,6 @@ const fsBpmnOpts: FsBpmnSetupOptions = {
   },
 
   // 自定义重写contextPad
-  // @ts-ignore
   createRewriteContextPadActions(provider: any, element: Element) {
     const actions: Record<string, any> = {};
 
@@ -91,7 +90,6 @@ const fsBpmnOpts: FsBpmnSetupOptions = {
       className: 'enhancement-op',
       title: '扩展操作1',
       action: {
-        // @ts-ignore
         click(e: Event) {
           alert('点击 扩展操作1');
         },
@@ -104,7 +102,6 @@ const fsBpmnOpts: FsBpmnSetupOptions = {
       className: 'enhancement-op',
       title: '扩展操作2',
       action: {
-        // @ts-ignore
         click(e: Event) {
           alert('点击 扩展操作2');
         },

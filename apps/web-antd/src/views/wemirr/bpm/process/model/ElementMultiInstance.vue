@@ -143,7 +143,6 @@ modelerStore.onElementUpdate(async () => {
       : assigneeProperty.split(',');
   }
   assigneeList.value = assigneeProperty;
-  console.log('onElementUpdate assigneeList', assigneeList.value);
   await nextTick();
   that.$forceUpdate();
 });

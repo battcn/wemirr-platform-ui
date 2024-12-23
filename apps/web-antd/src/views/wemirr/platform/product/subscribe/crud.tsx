@@ -209,12 +209,12 @@ export default function () {
           title: '结束时间',
           type: 'date',
           valueResolve({ value, row, key }) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
@@ -268,7 +268,7 @@ export default function () {
           addForm: { show: false },
           editForm: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

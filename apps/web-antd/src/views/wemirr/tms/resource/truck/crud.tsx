@@ -349,7 +349,7 @@ export default function () {
             },
           },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },

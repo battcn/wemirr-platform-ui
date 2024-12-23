@@ -20,7 +20,6 @@ export default function ({
     const current = query.current;
     const offset = query.offset;
     const size = query.size;
-    debugger;
     data = data.filter((item) => {
       if (query.status && item.status !== query.status) {
         return false;

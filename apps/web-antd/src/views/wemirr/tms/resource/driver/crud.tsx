@@ -198,7 +198,7 @@ export default function () {
             col: { span: 12 },
           },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -212,7 +212,7 @@ export default function () {
             col: { span: 12 },
           },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -269,7 +269,7 @@ export default function () {
           search: { show: false },
           column: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -286,7 +286,7 @@ export default function () {
           type: 'date',
           column: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
           },
@@ -485,7 +485,7 @@ export default function () {
             col: { span: 12 },
           },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
@@ -495,7 +495,7 @@ export default function () {
           type: 'date',
           column: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },
@@ -525,7 +525,7 @@ export default function () {
           type: 'datetime',
           form: { show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null) {
+            if (value !== null) {
               row[key] = dayjs(value);
             }
           },

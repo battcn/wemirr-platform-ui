@@ -10,8 +10,8 @@ import { useTitle } from '@vueuse/core';
 import { setupAntd } from 'epic-designer/dist/ui/antd';
 
 import { $t, setupI18n } from '#/locales';
-import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud.tsx';
-import registerFastBpmn from '#/plugin/setup-fast-bpmn';
+import registerFastBpmn from '#/plugin/fast-bpmn/setup-fast-bpmn';
+import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud';
 
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
@@ -53,10 +53,10 @@ async function bootstrap(namespace: string) {
     }
   });
   // 使用Antd UI
-  await setupAntd();
+  setupAntd();
   // ----------- 安装fast-crud--------------
-  await registerFastCrud(app);
-  await registerFastBpmn(app, i18n);
+  registerFastCrud(app);
+  registerFastBpmn(app, i18n);
 
   app.mount('#app');
 }

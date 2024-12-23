@@ -53,7 +53,7 @@ export default defineComponent({
           return props.modelValue;
         },
         (value: any) => {
-          if (value == null) {
+          if (value === null) {
             crudBinding.value.data = [];
             emit(crudBinding.value.data);
           } else {

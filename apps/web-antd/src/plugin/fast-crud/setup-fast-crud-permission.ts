@@ -6,11 +6,12 @@ import _ from 'lodash-es';
  * 设置动作权限
  * @param {object} permission - 权限对象
  * @param {string} permission.permission - 权限名称
- * @param {prefix} permission.prefix - 权限前缀
+ * @param {string} permission.prefix - 权限前缀
  */
 export function useCrudPermission({ permission }: any) {
   const { hasPermission } = useAccess();
-  const prefix = permission instanceof Object ? permission.prefix : permission;
+  // 直接检查 permission 是否为对象，并获取 prefix
+  const prefix = permission && typeof permission === 'object' ? permission.prefix : permission;
 
   // 根据权限显示按钮
   function hasActionPermission(action) {
@@ -25,10 +26,11 @@ export function useCrudPermission({ permission }: any) {
       return {};
     }
 
+    // 判断 permission 是否为对象并提取额外配置
     let extra = {};
-    if (permission instanceof Object) {
+    if (permission && typeof permission === 'object') {
       extra = permission.extra;
-      if (permission.extra && permission.extra instanceof Function) {
+      if (typeof permission.extra === 'function') {
         extra = permission.extra({ hasActionPermission });
       }
     }

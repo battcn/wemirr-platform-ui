@@ -218,7 +218,6 @@ export function registerFastCrud(app: App) {
           timeout: 60_000,
           data,
           onUploadProgress: (p) => {
-            // @ts-ignore
             onProgress({ percent: Math.round((p.loaded / p.total) * 100) });
           },
         });
@@ -229,7 +228,7 @@ export function registerFastCrud(app: App) {
         if (!ret.successful) {
           throw new Error('上传失败');
         }
-        const fileId = ret.data.basePath + "/" +ret.data.filename;
+        const fileId = `${ret.data.basePath}/${ret.data.filename}`;
         return {
           url: ret.data.url,
           fileId,

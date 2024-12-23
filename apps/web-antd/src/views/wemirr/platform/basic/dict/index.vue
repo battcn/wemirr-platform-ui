@@ -9,12 +9,17 @@ import { Card, Modal } from 'ant-design-vue';
 import * as api from './api';
 import createFormOptions from './dict';
 import createCrudOptions from './dict-item-crud';
-// import { AccessControl } from '@vben/access';
 
 const { ui } = useUi();
+
 /**
  * 表单对话框独立使用
- * @returns {{formWrapperRef, formWrapperOptions, openFormWrapper: openFormWrapper}}
+ * @param {Function} callback - 用于创建表单选项的回调函数
+ * @returns {{
+ *   formWrapperRef: Ref,          // 表单包装器的引用
+ *   openFormWrapper: Function,    // 打开表单的函数
+ *   formWrapperOptions: Ref      // 表单选项的引用
+ * }} 返回一个对象，包含表单包装器的引用、打开表单的函数和表单选项
  */
 function useFormWrapperUsingTag(callback) {
   const formWrapperRef = ref();
