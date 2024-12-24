@@ -155,7 +155,10 @@ export default function ({
               vModel: 'value',
               on: {
                 selectedChange({ $event, key, form }) {
-                  if (form[key] !== null && !utils.strings.hasEmpty(form[key])) {
+                  if (
+                    form[key] !== null &&
+                    !utils.strings.hasEmpty(form[key])
+                  ) {
                     form.provinceId = $event[0]?.value;
                     form.provinceName = $event[0]?.label;
                     form.cityId = $event[1]?.value;

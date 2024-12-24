@@ -51,8 +51,6 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             type: 'link',
             text: '推送',
             async click({ row }: any) {
-              // props.context.openPublishFormWrapper(row);
-              utils.logger.info('click publish row => ', row);
               await router.push(`/sys/message/publish?id=${row.id}`);
             },
           },

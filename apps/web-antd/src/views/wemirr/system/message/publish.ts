@@ -62,9 +62,7 @@ export function createFormOptions() {
           label: 'nickName',
           // 重要，根据value懒加载数据
           getNodesByValues: async (values: any[]) => {
-            return defHttp.post('/iam/users/ids', values).then((ret) => {
-              return ret.data;
-            });
+            return defHttp.post('/iam/users/ids', values);
           },
         }),
         form: {
@@ -120,6 +118,7 @@ export function createFormOptions() {
     },
     form: {
       doSubmit({ form }) {
+        //
         defHttp.post('/iam/message-notify/publish', form).then(() => {
           ui.notification.success('消息推送成功');
         });

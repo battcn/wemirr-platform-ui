@@ -9,9 +9,10 @@ import dayjs from 'dayjs';
 import { defHttp } from '#/api/request';
 
 import { downloadFile } from './api';
-import * as api from "#/views/wemirr/wms/inbound/receivingPlan/api";
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const { showTableComputed, nodeRef } = props.context;
   return {
     crudOptions: {

@@ -53,8 +53,7 @@ export default function () {
             value: 'id',
             label: 'name',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp
-                .post('/iam/tenants/ids', values);
+              return await defHttp.post('/iam/tenants/ids', values);
             },
           }),
           form: {

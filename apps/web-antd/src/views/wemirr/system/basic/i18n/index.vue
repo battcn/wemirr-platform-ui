@@ -36,15 +36,15 @@ export default defineComponent({
     }
 
     function addFilterParams(scopeForm) {
-      if (scopeForm.languages === null) {
-        scopeForm.languages = [];
-        temp.languages.forEach((lang) => {
-          scopeForm.languages.push(lang);
-        });
-      } else {
+      if (scopeForm.languages) {
         scopeForm.languages.push({
           locale: '',
           message: '',
+        });
+      } else {
+        scopeForm.languages = [];
+        temp.languages.forEach((lang) => {
+          scopeForm.languages.push(lang);
         });
       }
     }

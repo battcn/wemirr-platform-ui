@@ -109,7 +109,7 @@ class RequestClient {
         ...config,
       });
       // debugger
-      if(config?.fetchOptions?.mode === 'full'){
+      if (config?.fetchOptions?.mode === 'full') {
         return response as T;
       }
       return response.data as T;

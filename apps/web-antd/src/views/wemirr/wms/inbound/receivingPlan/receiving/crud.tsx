@@ -194,8 +194,7 @@ export default function ({
             value: 'id',
             label: 'materialName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp
-                .post('/wms/metadata/materials/ids', values);
+              return await defHttp.post('/wms/metadata/materials/ids', values);
             },
           }),
           form: {

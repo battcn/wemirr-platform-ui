@@ -3,10 +3,8 @@ import { computed, onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
+import { UploadOutlined } from '@ant-design/icons-vue';
 import { useFs } from '@fast-crud/fast-crud';
-import VueOfficeDocx from '@vue-office/docx';
-import VueOfficeExcel from '@vue-office/excel';
-import VueOfficePdf from '@vue-office/pdf';
 import { Card, message } from 'ant-design-vue';
 import { api as viewerApi } from 'v-viewer';
 
@@ -15,11 +13,9 @@ import { defHttp } from '#/api/request';
 import * as api from './api';
 import createCrudOptions from './crud';
 import FileItem from './FileItem.vue';
+import FilePreview from './FilePreview.vue';
 
 import 'viewerjs/dist/viewer.css';
-/** WPS、Office文件类型 */
-const WordTypes = ['doc', 'docx'];
-const ExcelTypes = ['xls', 'xlsx'];
 
 const terrData = ref([
   { category: '', name: '全部' },
@@ -31,14 +27,15 @@ const terrData = ref([
 ]);
 const nodeRef = ref();
 const expandedKeys = ref();
+const showTableRef = ref(true);
+const selectedKeys = ref([]);
+
+const filePreviewShow = ref(false);
+const fileInfo = ref();
+
 const showTableComputed = computed(() => {
   return showTableRef.value;
 });
-const selectedKeys = ref([]);
-const showTableRef = ref(true);
-const filePreviewShow = ref(false);
-const fileInfo = ref();
-const excelConfig = ref();
 
 const { crudBinding, crudRef, crudExpose } = useFs({
   createCrudOptions,
@@ -61,10 +58,10 @@ const handleSelect = (checkedKeys: any, event: any) => {
 };
 const previewFile = (row: any) => {
   // 图片预览
-  if (row.category == 'IMAGE') {
+  if (row.category === 'IMAGE') {
     const imageUrlsArray = crudBinding._rawValue.data
-      .filter((item) => item.category === 'IMAGE') // 过滤条件
-      .map((item) => item.url); // 提取 URL
+      .filter((item) => item.category === 'IMAGE')
+      .map((item) => item.url);
     const index = imageUrlsArray.indexOf(row.url);
 
     viewerApi({
@@ -74,51 +71,21 @@ const previewFile = (row: any) => {
       images: imageUrlsArray,
     });
   }
-  // offic预览
-  // pdf预览
-  // mpc预览
-  if (row.category == 'DOCUMENT') {
-    excelConfig.value = {
-      xls: false,
-      minColLength: 0,
-      minRowLength: 0,
-      widthOffset: 10,
-      heightOffset: 10,
-      beforeTransformData: (workbookData: any) => {
-        return workbookData;
-      },
-      transformData: (workbookData: any) => {
-        return workbookData;
-      },
-    };
+  // 文档预览
+  if (row.category === 'DOCUMENT') {
     filePreviewShow.value = true;
     fileInfo.value = row;
   }
-  if (row.category == 'OTHER') {
+  if (row.category === 'OTHER') {
     message.error('该格式暂不支持预览');
   }
-  // 视频预览
-};
-const renderedHandler = () => {
-  // message.success('文件加载完成');
-};
-const errorHandler = () => {
-  message.error('文件加载失败');
 };
 
 // 上传
-const handleUpload = (options: RequestOption) => {
+const handleUpload = (options: any) => {
   const controller = new AbortController();
   (async function requestWrap() {
     const { onProgress, onError, onSuccess, file, name = 'file' } = options;
-
-    let percent = 0;
-    const interval = setInterval(() => {
-      if (percent < 100) {
-        percent += 10;
-        onProgress({ percent });
-      }
-    }, 200);
     const formData = new FormData();
     formData.append(name as string, file as File);
     try {
@@ -126,7 +93,7 @@ const handleUpload = (options: RequestOption) => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        onUploadProgress: (progressEvent) => {
+        onUploadProgress: (progressEvent: any) => {
           const complete = (progressEvent.loaded / progressEvent.total) * 100;
           onProgress({ percent: Math.round(complete) });
         },
@@ -156,12 +123,6 @@ const doDownload = (item: any) => {
     duration: 3,
   });
   api.downloadFile(item.url, item.originalFilename);
-};
-// 关闭弹框
-const onClose = () => {
-  fileInfo.value = {};
-  filePreviewShow.value = false;
-  excelConfig.value = {};
 };
 </script>
 
@@ -194,15 +155,15 @@ const onClose = () => {
         <template #actionbar-left>
           <a-upload :custom-request="handleUpload" :show-upload-list="false">
             <a-button type="primary">
-              <upload-outlined />
+              <UploadOutlined />
               文件上传
             </a-button>
           </a-upload>
 
-          <a-tooltip title="默认表格展示，关闭展示卡片">
-            <span class="ml-1"
-              >切换布局:<a-switch v-model:checked="showTableRef"
-            /></span>
+          <a-tooltip title="默认表格展,关闭展示卡片">
+            <span class="ml-1">
+              切换布局:<a-switch v-model:checked="showTableRef" />
+            </span>
           </a-tooltip>
         </template>
         <template #cell_originalFilename="scope">
@@ -260,41 +221,11 @@ const onClose = () => {
         </div>
       </fs-crud>
     </Card>
-    <a-modal
-      v-model:open="filePreviewShow"
-      :footer="false"
-      :hight="1000"
-      :on-before-close="onClose"
-      :width="1500"
-      esc-to-close="esc-to-close"
-      title="文件预览"
-      @cancel="onClose"
-      @close="onClose"
-      @ok="onClose"
-    >
-      <VueOfficePdf
-        v-if="fileInfo?.ext === 'pdf'"
-        :src="fileInfo?.url"
-        style="height: 100vh"
-        @error="errorHandler"
-        @rendered="renderedHandler"
-      />
-      <VueOfficeDocx
-        v-else-if="WordTypes.includes(fileInfo?.ext || '')"
-        :src="fileInfo?.url"
-        style="height: 80vh"
-        @error="errorHandler"
-        @rendered="renderedHandler"
-      />
-      <VueOfficeExcel
-        v-else-if="ExcelTypes.includes(fileInfo?.ext || '')"
-        :options="excelConfig"
-        :src="fileInfo?.url"
-        style="height: 80vh; width: 100%"
-        @error="errorHandler"
-        @rendered="renderedHandler"
-      />
-    </a-modal>
+    <FilePreview
+      v-model:show="filePreviewShow"
+      :file-info="fileInfo"
+      @close="fileInfo = {}"
+    />
   </Page>
 </template>
 
@@ -361,7 +292,7 @@ const onClose = () => {
 }
 
 .file-item {
-  margin-bottom: 8px; /* 调整间距 */
+  margin-bottom: 8px; /* 调整间�� */
 }
 
 .filename {

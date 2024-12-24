@@ -3,11 +3,10 @@ import { Modal, notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { BusinessDictCode, businessDictFunc } from '#/api';
-
-import * as api from './api';
 import { defHttp } from '#/api/request';
 
 import fleetCrudOptionsText from '../fleet/crud';
+import * as api from './api';
 
 export default function () {
   return {
@@ -415,8 +414,9 @@ export default function () {
           type: 'table-select',
           dict: dict({
             getNodesByValues: async (values: any[]) => {
-              return await defHttp
-                .get('/tms/fleets/dict_list', { params: values });
+              return await defHttp.get('/tms/fleets/dict_list', {
+                params: values,
+              });
             },
           }),
           form: {

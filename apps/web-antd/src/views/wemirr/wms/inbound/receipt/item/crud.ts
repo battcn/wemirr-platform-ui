@@ -65,8 +65,7 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'materialName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp
-                .post('/wms/metadata/materials/ids', values);
+              return await defHttp.post('/wms/metadata/materials/ids', values);
             },
           }),
           form: {
@@ -85,8 +84,7 @@ export default function ({ crudExpose }) {
             value: 'id',
             label: 'locationName',
             getNodesByValues: async (values: any[]) => {
-              return await defHttp
-                .post('/wms/locations/ids', values);
+              return await defHttp.post('/wms/locations/ids', values);
             },
           }),
           form: {

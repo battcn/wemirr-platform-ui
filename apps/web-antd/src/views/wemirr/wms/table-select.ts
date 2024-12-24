@@ -22,8 +22,7 @@ export function materialTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp
-          .post('/wms/metadata/materials/ids', values);
+        return await defHttp.post('/wms/metadata/materials/ids', values);
       },
     }),
     column: { width: 160, component: { color: 'auto' } },
@@ -104,8 +103,7 @@ export function storageAreaTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp
-          .post('/wms/storage-areas/ids', values);
+        return await defHttp.post('/wms/storage-areas/ids', values);
       },
     }),
     form: {
@@ -187,8 +185,7 @@ export function locationSpecTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp
-          .post('/wms/location-specs/ids', values);
+        return await defHttp.post('/wms/location-specs/ids', values);
       },
     }),
     form: {
@@ -229,8 +226,7 @@ export function brandTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp
-          .post('/wms/metadata/brands/ids', values);
+        return await defHttp.post('/wms/metadata/brands/ids', values);
       },
     }),
     form: {
@@ -271,8 +267,7 @@ export function supplierTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp
-          .post('/wms/metadata/suppliers/ids', values);
+        return await defHttp.post('/wms/metadata/suppliers/ids', values);
       },
     }),
     form: {
@@ -431,8 +426,7 @@ export function carrierTable() {
       value: 'id',
       label: 'name',
       getNodesByValues: async (values: any[]) => {
-        return await defHttp
-          .post('/wms/metadata/carriers/ids', values);
+        return await defHttp.post('/wms/metadata/carriers/ids', values);
       },
     }),
     form: {

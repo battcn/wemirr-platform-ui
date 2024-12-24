@@ -1,6 +1,7 @@
 import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
+import { i18n } from '@vben/locales';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
 import '@vben/styles';
@@ -18,9 +19,7 @@ import App from './app.vue';
 import { router } from './router';
 
 // 引入epic-designer样式
-// import 'epic-designer/dist/style.css';
-
-import { i18n } from '@vben/locales';
+import 'epic-designer/dist/style.css';
 
 // 引入antd UI 重置样式
 import 'ant-design-vue/dist/reset.css';
