@@ -4,7 +4,7 @@ import { defHttp } from '#/api/request';
 import unitCrudOptions from '#/views/wemirr/wms/metadata/unit/crud';
 import { materialTable } from '#/views/wemirr/wms/table-select';
 
-export default function ({ crudExpose, context }) {
+export default function crud({ crudExpose, context }) {
   const isShowLine = context.isShowLine;
   return {
     crudOptions: {
@@ -54,7 +54,6 @@ export default function ({ crudExpose, context }) {
               size: 'small',
               title: '手动分配库存',
               order: 1,
-              async click(context) {},
             },
           },
         },
@@ -81,7 +80,7 @@ export default function ({ crudExpose, context }) {
           column: {
             show: true,
             width: 80,
-            formatter({ value, row }) {
+            formatter({ value }) {
               return value;
             },
           },

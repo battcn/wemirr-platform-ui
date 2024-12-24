@@ -82,7 +82,7 @@ export function downloadByUrl({
   const isChrome = window.navigator.userAgent.toLowerCase().includes('chrome');
   const isSafari = window.navigator.userAgent.toLowerCase().includes('safari');
 
-  if (/(iP)/.test(window.navigator.userAgent)) {
+  if (/iP/.test(window.navigator.userAgent)) {
     console.error('Your browser does not support download!');
     return false;
   }
@@ -92,8 +92,7 @@ export function downloadByUrl({
     link.target = target;
 
     if (link.download !== undefined) {
-      link.download =
-        fileName || url.substring(url.lastIndexOf('/') + 1, url.length);
+      link.download = fileName || url.slice(url.lastIndexOf('/') + 1);
     }
 
     if (document.createEvent) {

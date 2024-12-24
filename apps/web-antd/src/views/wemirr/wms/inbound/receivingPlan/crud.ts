@@ -44,7 +44,7 @@ const receivingPlanType = [
   { value: 'OUTSOURCING_INVENTORY', label: '委外加工入库' },
   { value: 'REPAIR_INVENTORY', label: '维修入库' },
 ];
-export default function ({
+export default function crud({
   crudExpose,
   context,
 }: CreateCrudOptionsProps): CreateCrudOptionsRet {
@@ -121,7 +121,7 @@ export default function ({
               });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status == 0;
+              return row.status === 0;
             }),
           },
           setDock: {
@@ -134,7 +134,7 @@ export default function ({
               receivingItemRef.value.open({ receivingRow: row });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status == 10 && row.dockId === null;
+              return row.status === 10 && row.dockId === null;
             }),
           },
           setContainer: {
@@ -148,7 +148,7 @@ export default function ({
             },
             show: compute<boolean>(({ row }) => {
               return (
-                row.status == 10 &&
+                row.status === 10 &&
                 row.containerId === null &&
                 row.dockId !== null
               );
@@ -165,10 +165,10 @@ export default function ({
             },
             show: compute<boolean>(({ row }) => {
               return (
-                (row.status == 10 &&
+                (row.status === 10 &&
                   row.dockId !== null &&
                   row.containeId !== null) ||
-                row.status == 20
+                row.status === 20
               );
             }),
           },
@@ -185,7 +185,7 @@ export default function ({
               });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status == 20;
+              return row.status === 20;
             }),
           },
           // 提交
@@ -202,19 +202,19 @@ export default function ({
               });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status == 10;
+              return row.status === 10;
             }),
           },
           // 编辑
           edit: {
             show: compute<boolean>(({ row }) => {
-              return row.status == 0;
+              return row.status === 0;
             }),
           },
           // 删除
           remove: {
             show: compute(({ row }) => {
-              return row.status == 0;
+              return row.status === 0;
             }),
           },
         },

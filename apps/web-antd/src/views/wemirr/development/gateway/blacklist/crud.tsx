@@ -9,7 +9,7 @@ import _ from 'lodash-es';
 
 import * as api from './api';
 
-export default function ({
+export default function crud({
   crudExpose,
   context,
 }: CreateCrudOptionsProps): CreateCrudOptionsRet {
@@ -53,7 +53,7 @@ export default function ({
       records,
     };
   };
-  const editRequest = async ({ form, row }) => {
+  const editRequest = async ({ form, row }: any) => {
     form.id = row.id;
     await api.UpdateObj(form);
     // 更新本地数据
@@ -65,7 +65,7 @@ export default function ({
     }
   };
 
-  const addRequest = async ({ form }) => {
+  const addRequest = async ({ form }: any) => {
     const id = await api.AddObj(form);
     // 本地添加
     form.id = id;
@@ -73,7 +73,7 @@ export default function ({
     return id;
   };
 
-  const delRequest = async ({ row }) => {
+  const delRequest = async ({ row }: any) => {
     await api.DelObj(row.id);
     // 本地删除那一条记录
     const tableData = localDataRef.value;

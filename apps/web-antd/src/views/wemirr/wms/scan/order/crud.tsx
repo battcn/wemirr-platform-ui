@@ -1,4 +1,4 @@
-import type { dict, UserPageQuery } from '@fast-crud/fast-crud';
+import type { UserPageQuery } from '@fast-crud/fast-crud';
 
 import { BusinessDictCode, businessDictFunc } from '@/api/dict/dict';
 import { dict } from '@fast-crud/fast-crud';
@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import createFlowCrudOptions from '../flow/crud';
 import * as api from './api';
 
-export default function ({ expose }) {
+export default function crud({ expose }) {
   return {
     crudOptions: {
       request: {

@@ -6,11 +6,7 @@ export function GetList(query: any) {
   return defHttp.post(`${apiPrefix}/page`, query);
 }
 export function AddObj(obj: any) {
-  return defHttp.request({
-    url: `${apiPrefix}/create`,
-    method: 'post',
-    data: obj,
-  });
+  return defHttp.post(`${apiPrefix}/create`, obj);
 }
 
 export function UpdateObj(obj: any) {

@@ -1,9 +1,11 @@
 import type {
+  AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
+  DelReq,
+  EditReq,
+  UserPageQuery,
 } from '@fast-crud/fast-crud';
-
-import { ref } from 'vue';
 
 import { useAccess } from '@vben/access';
 
@@ -17,9 +19,9 @@ import { defHttp } from '#/api/request';
 import * as api from './api';
 import { tenantSettingFormOptions } from './scheam';
 
-const tenantRow = ref();
-
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const { crudExpose } = props;
   const { hasPermission } = useAccess();
   return {
@@ -51,7 +53,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           atLeast: 1,
           more: {
             size: 'small',
-            icon: null,
+            icon: '',
             text: '更多',
           },
         },
@@ -282,7 +284,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { width: 200, show: false },
           search: { show: true },
           type: 'dict-cascader',
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ row, key }: any) {
             if (!utils.strings.hasEmpty(row.provinceId)) {
               row[key] = [row.provinceId, row.cityId, row.districtId];
             }

@@ -89,7 +89,9 @@ function vModeler(key: string) {
     </edit-item>
     <edit-item :label-width="80" label="模型图标">
       <!--      <IconPicker v-bind="vModeler('diagramIcon')" v-model:value="formData.diagramIcon" />-->
-      <a href="https://iconify.design/icon-sets/ion/" target="_blank">无满意的 ICON ? 请点我</a>
+      <a href="https://iconify.design/icon-sets/ion/" target="_blank">
+        无满意的 ICON ? 请点我
+      </a>
     </edit-item>
   </component>
 </template>

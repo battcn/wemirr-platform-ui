@@ -12,13 +12,11 @@ import * as api from './api';
 import ResourceButtonTable from './button/index.vue';
 import { menuForm } from './scheme';
 
-// const { hasPermission } = usePermission();
-
 const actionList = ref<any>([]);
 const treeData = ref();
 const expandedKeys = ref();
 const itemTableRef = ref();
-
+const [MenuForm, menuFormRef] = menuForm(onSubmit);
 function onSubmit(values: Record<string, any>) {
   api.SaveOrUpdate(values).then(() => {
     menuFormRef.resetForm();
@@ -31,8 +29,6 @@ function onSubmit(values: Record<string, any>) {
     menuFormRef.resetValidate();
   });
 }
-
-const [MenuForm, menuFormRef] = menuForm(onSubmit);
 
 onMounted(() => {
   loadMenu();

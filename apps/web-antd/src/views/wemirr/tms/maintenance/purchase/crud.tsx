@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 import * as api from './api';
 
-export default function () {
+export default function crud() {
   return {
     crudOptions: {
       request: {

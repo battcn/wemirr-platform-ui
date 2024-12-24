@@ -11,7 +11,9 @@ import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   utils.logger.debug('crud props', props);
   return {
     crudOptions: {

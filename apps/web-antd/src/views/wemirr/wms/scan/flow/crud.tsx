@@ -1,9 +1,12 @@
-import { BusinessDictCode, businessDictFunc } from '@/api/dict/dict';
+import type { UserPageQuery } from '@fast-crud/fast-crud';
+
 import dayjs from 'dayjs';
+
+import { BusinessDictCode, businessDictFunc } from '#/api/core/dict';
 
 import * as api from './api';
 
-export default function () {
+export default function crud() {
   return {
     crudOptions: {
       request: {

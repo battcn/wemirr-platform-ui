@@ -1,3 +1,10 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
 import { dict, utils } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
@@ -15,7 +22,7 @@ const serviceTypeDict = [
   { value: 'AIR', label: '空运' },
 ];
 
-export default function ({ crudExpose }) {
+export default function crud({ crudExpose }) {
   return {
     crudOptions: {
       request: {
@@ -79,15 +86,15 @@ export default function ({ crudExpose }) {
           title: '有效日期',
           type: 'daterange',
           search: { show: true, width: 300, col: { span: 6 } },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ row, key }: any) {
             if (
               !utils.strings.hasEmpty(row.effectiveDate, row.expirationDate)
             ) {
               row[key] = [dayjs(row.effectiveDate), dayjs(row.expirationDate)];
             }
           },
-          valueResolve({ form, key }) {
-            if (form[key] != null && !utils.strings.hasEmpty(form[key])) {
+          valueResolve({ form, key }: any) {
+            if (form[key] !== null && !utils.strings.hasEmpty(form[key])) {
               form.effectiveDate = dayjs(form[key][0]).unix();
               form.expirationDate = dayjs(form[key][1]).unix();
             } else {
@@ -160,7 +167,7 @@ export default function ({ crudExpose }) {
           style: { height: 70 },
           column: { width: 70, align: 'center', show: false },
           valueBuilder({ value, row, key }: any) {
-            if (value != null && value.indexOf('http')) {
+            if (value !== null && value.indexOf('http')) {
               row[key] = `http://www.docmirror.cn:7070${value}`;
             }
           },
@@ -209,7 +216,7 @@ export default function ({ crudExpose }) {
           column: { width: 200, show: false },
           search: { show: false },
           type: 'dict-cascader',
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ row, key }: any) {
             if (!utils.strings.hasEmpty(row.provinceId)) {
               row[key] = [row.provinceId, row.cityId, row.districtId];
             }
@@ -228,8 +235,11 @@ export default function ({ crudExpose }) {
               placeholder: '请选择地址',
               vModel: 'value',
               on: {
-                selectedChange({ $event, key, form }) {
-                  if (form[key] != null && !utils.strings.hasEmpty(form[key])) {
+                selectedChange({ $event, key, form }: any) {
+                  if (
+                    form[key] !== null &&
+                    !utils.strings.hasEmpty(form[key])
+                  ) {
                     form.provinceId = $event[0].value;
                     form.provinceName = $event[0].label;
                     form.cityId = $event[1].value;

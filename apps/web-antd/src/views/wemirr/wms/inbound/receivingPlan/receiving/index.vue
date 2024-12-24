@@ -39,7 +39,7 @@ const batchReceivingHandler = () => {
       .map((row) => {
         return { itemId: row.id, qty: row.platQty };
       });
-    if (rows?.length == 0) {
+    if (rows?.length === 0) {
       return message.error('请先勾选记录');
     }
     Modal.confirm({
@@ -47,10 +47,10 @@ const batchReceivingHandler = () => {
       content: `确定要进行批量收货操作吗？`,
       async onOk() {
         await defHttp
-          .post({
-            url: `/wms/inbound/receiving-plans/${receivingRef.value.id}/receiving`,
-            data: rows,
-          })
+          .post(
+            `/wms/inbound/receiving-plans/${receivingRef.value.id}/receiving`,
+            rows,
+          )
           .then((ret) => {
             message.info('收货成功');
           });
@@ -69,14 +69,14 @@ const allReceivingHandler = () => {
     content: `确定要进行全量收货操作吗？`,
     async onOk() {
       await defHttp
-        .post({
-          url: `/wms/inbound/receiving-plans/${receivingRef.value.id}/all_receiving`,
-        })
-        .then((ret) => {
+        .post(
+          `/wms/inbound/receiving-plans/${receivingRef.value.id}/all_receiving`,
+        )
+        .then(() => {
           message.info('收货成功');
         });
-      crudExpose.doRefresh();
       selectedRowKeys.value = [];
+      await crudExpose.doRefresh();
     },
   });
 };

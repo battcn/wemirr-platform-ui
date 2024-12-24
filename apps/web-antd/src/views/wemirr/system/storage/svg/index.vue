@@ -39,7 +39,7 @@ const svgClass = computed(() => {
     v-bind="$attrs"
     :style="{ color, fill: color, width: iconSize, height: iconSize }"
   >
-    <use :xlink:href="iconName" />
+    <use :href="iconName" />
   </svg>
 </template>
 

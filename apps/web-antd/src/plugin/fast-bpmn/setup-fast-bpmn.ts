@@ -12,7 +12,6 @@ import './setup-fast-bpmn.less';
 
 const fsBpmnOpts: FsBpmnSetupOptions = {
   // 注册panel公共组件
-  // @ts-ignore
   registerPanelComponents(
     element: Element,
   ): Record<string, PanelComponentItem> {
@@ -31,8 +30,7 @@ const fsBpmnOpts: FsBpmnSetupOptions = {
     };
 
     const append = provider.autoPlace
-      ? // @ts-ignore
-        (event: Event, element: Shape) => {
+      ? (event: Event, element: Shape) => {
           const shape = provider.elementFactory.createShape({
             type: 'bpmn:UserTask',
           });
@@ -90,9 +88,7 @@ const fsBpmnOpts: FsBpmnSetupOptions = {
       className: 'enhancement-op',
       title: '扩展操作1',
       action: {
-        click(e: Event) {
-          alert('点击 扩展操作1');
-        },
+        click(e: Event) {},
       },
     };
 
@@ -102,9 +98,7 @@ const fsBpmnOpts: FsBpmnSetupOptions = {
       className: 'enhancement-op',
       title: '扩展操作2',
       action: {
-        click(e: Event) {
-          alert('点击 扩展操作2');
-        },
+        click(e: Event) {},
       },
     };
 

@@ -42,9 +42,8 @@ const deliveryMode = [
   { value: 'SELF_PICKUP', label: '自提' },
   { value: 'DELIVERY', label: '送达' },
 ];
-export default function ({
+export default function crud({
   crudExpose,
-  context,
 }: CreateCrudOptionsProps): CreateCrudOptionsRet {
   // const { crudBinding, crudRef } = props.crudExpose;
   // const { notification } = useMessage();
@@ -79,7 +78,7 @@ export default function ({
         buttons: {
           view: {
             show: compute<boolean>(({ row }) => {
-              return row.status != 10;
+              return row.status !== 10;
             }),
           },
           // 导出
@@ -104,7 +103,7 @@ export default function ({
               //   });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status != 10;
+              return row.status !== 10;
             }),
           },
           // 提交
@@ -121,7 +120,7 @@ export default function ({
               });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status == 10;
+              return row.status === 10;
             }),
           },
           confirm: {
@@ -137,7 +136,7 @@ export default function ({
               });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status == 20;
+              return row.status === 20;
             }),
           },
           close: {
@@ -153,7 +152,7 @@ export default function ({
               });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status == 20;
+              return row.status === 20;
             }),
           },
           cancel: {
@@ -169,19 +168,19 @@ export default function ({
               });
             },
             show: compute<boolean>(({ row }) => {
-              return row.status == 20;
+              return row.status === 20;
             }),
           },
           // 编辑
           edit: {
             show: compute<boolean>(({ row }) => {
-              return row.status == 10;
+              return row.status === 10;
             }),
           },
           // 删除
           remove: {
             show: compute(({ row }) => {
-              return row.status == 10;
+              return row.status === 10;
             }),
           },
         },

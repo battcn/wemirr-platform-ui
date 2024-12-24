@@ -14,7 +14,6 @@ export function AddObj(obj: any) {
 }
 
 export function UpdateObj(obj: any) {
-  console.log(obj.items);
   const items = obj.items.map((item: any) => ({
     id: item.id,
     locationId: item.locationId,
@@ -30,11 +29,9 @@ export function DelObj(id: any) {
 }
 
 export function GetObj(id) {
-  return defHttp
-    .request(`${apiPrefix}/${id}/detail`, {
-      method: 'get',
-    })
-    .then((ret) => ret.data);
+  return defHttp.request(`${apiPrefix}/${id}/detail`, {
+    method: 'get',
+  });
 }
 
 // 确认入库

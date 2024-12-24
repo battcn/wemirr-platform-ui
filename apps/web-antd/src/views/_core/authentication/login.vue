@@ -2,7 +2,6 @@
 import type { VbenFormSchema } from '@vben/common-ui';
 
 import { computed, markRaw, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
 
 import { AuthenticationLogin, SliderCaptcha, z } from '@vben/common-ui';
 import { $t } from '@vben/locales';
@@ -60,12 +59,11 @@ const formSchema = computed((): VbenFormSchema[] => {
 });
 const loginRef = ref();
 const loginPropsRef = ref();
-const route = useRoute();
-// const tenantCode: any = route.query.tenantCode;
+// const route = useRoute();
 onMounted(async () => {
   const formApi = loginRef.value.getFormApi();
   // TODO formApi 应该在提供一个显示或者隐藏某个字段
-  await loadTenantSetting().then((ret) => {
+  await loadTenantSetting({}).then((ret) => {
     loginPropsRef.value = ret;
     if (ret.tenantCode) {
       formApi.updateSchema([

@@ -5,7 +5,7 @@ import { defHttp } from '#/api/request';
 import createLocationCrudOptions from '#/views/wemirr/wms/basic/location/crud';
 import createMaterialCrudOptions from '#/views/wemirr/wms/metadata/material/crud';
 
-export default function ({ crudExpose }) {
+export default function crud({ crudExpose }) {
   return {
     crudOptions: {
       actionbar: {

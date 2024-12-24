@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function (): any {
+export default function crud(): any {
   return {
     crudOptions: {
       request: {

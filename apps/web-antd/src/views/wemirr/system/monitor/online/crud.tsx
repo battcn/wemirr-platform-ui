@@ -1,9 +1,11 @@
+import type { DelReq } from '@fast-crud/fast-crud';
+
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function (props: any) {
+export default function crud(props: any) {
   return {
     crudOptions: {
       request: {

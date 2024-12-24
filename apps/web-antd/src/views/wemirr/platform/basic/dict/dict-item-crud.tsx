@@ -13,11 +13,15 @@ import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query: UserPageQuery): Promise<UserPageRes> => {
+        pageRequest: async (
+          query: UserPageQuery,
+        ): Promise<UserPageRes> | undefined => {
           if (!query.dictId) {
             return undefined;
           }

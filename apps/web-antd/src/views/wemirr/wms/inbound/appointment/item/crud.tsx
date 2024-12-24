@@ -1,14 +1,14 @@
-import {
+import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
-  dict,
 } from '@fast-crud/fast-crud';
+
+import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
-export default function ({
-  crudExpose,
-}: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  // const { crudBinding } = crudExpose;
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   return {
     crudOptions: {
       actionbar: {

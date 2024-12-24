@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function ({ userStore }) {
+export default function crud({ userStore }) {
   const pageRequest = async (query: any) =>
     await defHttp.get('/suite/generates', { params: query });
 
@@ -35,9 +35,9 @@ export default function ({ userStore }) {
             text: '代码生成',
             size: 'small',
             title: '代码生成',
-            async click(context) {
+            async click({ row }: any) {
               await defHttp
-                .request(`/suite/generates/${context.row.id}/download`, {
+                .request(`/suite/generates/${row.id}/download`, {
                   method: 'POST',
                   responseType: 'blob',
                 })

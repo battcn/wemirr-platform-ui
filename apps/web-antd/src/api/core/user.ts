@@ -10,5 +10,5 @@ export async function getUserInfoApi() {
 }
 
 export async function getUserList() {
-  return requestClient.postThen<any>('/iam/users/list');
+  return requestClient.post<any>('/iam/users/list');
 }

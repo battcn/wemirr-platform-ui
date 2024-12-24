@@ -1,6 +1,10 @@
 import type {
+  AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
+  DelReq,
+  EditReq,
+  UserPageQuery,
 } from '@fast-crud/fast-crud';
 
 import { dict, utils } from '@fast-crud/fast-crud';
@@ -10,7 +14,7 @@ import { SysDictCode, sysDictFunc } from '#/api';
 
 import * as api from './api';
 
-export default function ({
+export default function crud({
   crudExpose,
   context,
 }: CreateCrudOptionsProps): CreateCrudOptionsRet {

@@ -11,7 +11,7 @@ import {
 
 import * as api from './api';
 
-export default function ({ crudExpose }) {
+export default function crud({ crudExpose }) {
   return {
     crudOptions: {
       request: {
