@@ -21,13 +21,11 @@ export function DelObj(id: string) {
   return defHttp.delete(`/iam/roles/${id}`);
 }
 
-export function GetUserByRoleId(roleId: string) {
+export function getUserByRoleId(roleId: string) {
   return defHttp.get(`/iam/roles/${roleId}/users`);
 }
 export function getRolePermissions(roleId: string) {
-  return defHttp
-    .get(`/iam/roles/${roleId}/permissions`)
-    .then((ret) => ret.data);
+  return defHttp.get(`/iam/roles/${roleId}/permissions`);
 }
 export function assignUser(obj: any) {
   return defHttp.post(`/iam/roles/${obj.roleId}/assign-user`, obj);

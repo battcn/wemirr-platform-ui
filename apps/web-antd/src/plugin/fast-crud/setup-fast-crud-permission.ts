@@ -16,7 +16,7 @@ export function useCrudPermission({ permission }: any) {
       ? permission.prefix
       : permission;
   // 根据权限显示按钮
-  function hasActionPermission(action) {
+  function hasActionPermission(action: any) {
     if (!prefix) {
       return true;
     }
@@ -51,12 +51,19 @@ export function useCrudPermission({ permission }: any) {
             // view: { show: hasActionPermission('view') },
           },
         },
+        toolbar: {
+          buttons: {
+            export: {
+              show: hasActionPermission('export'),
+            },
+          },
+        },
       },
       extra,
     );
   }
 
-  function merge(userOptions) {
+  function merge(userOptions: any) {
     const permissionOptions = buildCrudPermission();
     _.merge(permissionOptions, userOptions);
     return permissionOptions;

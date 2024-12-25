@@ -1,6 +1,6 @@
 import { defHttp } from '#/api/request';
 
-export function getTenantSetting(tenantId) {
+export function getTenantSetting(tenantId: any) {
   return defHttp.get(`/iam/tenants/${tenantId}/setting`);
 }
 export function setTenantSetting(data: any) {

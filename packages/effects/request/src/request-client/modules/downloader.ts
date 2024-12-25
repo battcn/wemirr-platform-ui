@@ -2,7 +2,7 @@ import type { AxiosRequestConfig } from 'axios';
 
 import type { RequestClient } from '../request-client';
 
-import { blobToFile } from '@vben/utils';
+import { downloadFileFromBlob } from '@vben/utils';
 
 class FileDownloader {
   private client: RequestClient;
@@ -30,7 +30,9 @@ class FileDownloader {
     fileName: string,
     config?: AxiosRequestConfig,
   ): Promise<void> {
-    await this.download(url, config).then((blob) => blobToFile(blob, fileName));
+    await this.download(url, config).then((blob) =>
+      downloadFileFromBlob({ fileName, source: blob }),
+    );
   }
 }
 

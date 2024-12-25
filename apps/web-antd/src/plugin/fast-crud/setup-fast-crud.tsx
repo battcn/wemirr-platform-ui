@@ -15,7 +15,7 @@ import {
   FsExtendsUploader,
 } from '@fast-crud/fast-extends';
 import ui from '@fast-crud/ui-antdv4';
-import Antdv from 'ant-design-vue';
+import Antdv, { notification } from 'ant-design-vue';
 
 import { defHttp } from '#/api/request';
 
@@ -35,7 +35,7 @@ export function registerFastCrud(app: App) {
     // i18n,
     logger: { off: { tableColumns: false } },
     async dictRequest({ url }: any) {
-      return await defHttp.request(url);
+      return await defHttp.request(url, {});
     },
     commonOptions(props: any) {
       const { crudExpose } = props;
@@ -47,7 +47,6 @@ export function registerFastCrud(app: App) {
           compact: false,
           buttons: {
             compact: { show: false },
-            export: { show: false },
           },
         },
         search: {
@@ -162,6 +161,13 @@ export function registerFastCrud(app: App) {
           wrapper: {
             is: 'a-drawer',
           },
+          async afterSubmit({ mode }) {
+            if (mode === 'add') {
+              notification.success({ message: '添加成功' });
+            } else if (mode === 'edit') {
+              notification.success({ message: '保存成功' });
+            }
+          },
           wrapperCol: {
             span: null,
           },
@@ -215,19 +221,19 @@ export function registerFastCrud(app: App) {
           },
           timeout: 60_000,
           data,
-          onUploadProgress: (p) => {
+          onUploadProgress: (p: any) => {
             onProgress({ percent: Math.round((p.loaded / p.total) * 100) });
           },
         });
       },
       successHandle(ret: any) {
         // 上传完成后的结果处理， 此处后台返回的结果应该为 ret = {code:0,msg:'',data:fileUrl}
-        if (!ret.successful) {
+        if (!ret.id) {
           throw new Error('上传失败');
         }
-        const fileId = `${ret.data.basePath}/${ret.data.filename}`;
+        const fileId = `${ret.basePath}/${ret.filename}`;
         return {
-          url: ret.data.url,
+          url: ret.url,
           fileId,
           key: fileId,
         };

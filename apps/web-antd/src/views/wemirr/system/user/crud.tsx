@@ -89,11 +89,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             });
           },
         },
-        buttons: {
-          export: {
-            show: true,
-          },
-        },
+        buttons: {},
       },
       columns: {
         id: {

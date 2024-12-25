@@ -27,7 +27,7 @@ const pagination = ref({
   pageSize: 10,
 });
 
-const modelRef = ref({ roleId: null });
+const modelRef = ref({ productId: null });
 const getAllSelectedIds = computed(() => {
   const treeIds = checkedTreeKeys.value || [];
   const tableIds = selectedTableKeys.value || [];
@@ -45,7 +45,7 @@ const [Modal, modalApi] = useVbenModal({
   onConfirm() {
     api
       .assignResource({
-        roleId: modelRef.value.roleId,
+        productId: modelRef.value.productId,
         resIdList: getAllSelectedIds.value,
       })
       .then(() => {
@@ -65,7 +65,7 @@ const [Modal, modalApi] = useVbenModal({
         .filter((item: any) => item.parentId === '0')
         .map((item: any) => item.id);
       modelRef.value = modalApi.getData<Record<string, any>>();
-      api.getRolePermissions(modelRef.value.roleId).then((ret) => {
+      api.getPermResByProductId(modelRef.value.productId).then((ret) => {
         if (!ret) {
           return;
         }

@@ -1,3 +1,12 @@
+import type {
+  AddReq,
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
 import { useAccess } from '@vben/access';
 
 import { dict } from '@fast-crud/fast-crud';
@@ -5,28 +14,32 @@ import dayjs from 'dayjs';
 
 import * as api from './api';
 
-export default function ({ distribution }) {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
+  const { assign } = props.context;
   const { hasPermission } = useAccess();
   return {
     crudOptions: {
       table: {},
       request: {
-        pageRequest: async (query: any) => await api.GetList(query),
-        addRequest: async ({ form }) => await api.AddObj(form),
-        editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        pageRequest: async (query: UserPageQuery) => await api.GetList(query),
+        addRequest: async ({ form }: AddReq) => await api.AddObj(form),
+        editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
+        delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
       },
       toolbar: {},
       rowHandle: {
+        width: 230,
         buttons: {
           resource: {
-            text: '分配权限',
+            text: '授权',
             type: 'link',
             size: 'small',
-            order: 5,
-            show: hasPermission('sys:role:distribution:res'),
-            async click({ row }) {
-              await distribution.resourceModal(row.id);
+            order: 2,
+            // show: hasPermission('sys:role:distribution:res'),
+            async click({ row }: any) {
+              await assign.resourceModal(row.id);
             },
           },
         },
@@ -49,7 +62,7 @@ export default function ({ distribution }) {
         name: {
           title: '产品名称',
           type: 'text',
-          column: { width: 180 },
+          column: { width: 200 },
           search: { show: true },
           form: {
             rules: [{ required: true, message: '名称不能为空' }],
@@ -59,16 +72,13 @@ export default function ({ distribution }) {
         logo: {
           title: 'LOGO',
           type: 'cropper-uploader',
-          column: {
-            width: 130,
-            align: 'center',
-          },
+          column: { width: 120, align: 'center' },
           form: {
             rules: [{ required: false, message: 'LOGO不能为空' }],
             component: {
               uploader: {
-                type: 'qiniu',
-                buildUrl(res) {
+                type: 'form',
+                buildUrl(res: any) {
                   return res.url;
                 },
               },
@@ -92,7 +102,7 @@ export default function ({ distribution }) {
         },
         description: {
           title: '产品描述',
-          column: { show: false },
+          column: { width: 200, show: true, ellipsis: true },
           type: ['textarea'],
           form: {
             rules: [{ required: true, message: '描述不能为空' }],

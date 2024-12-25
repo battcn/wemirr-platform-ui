@@ -13,7 +13,7 @@ packages:
   - docs
   - playground
 catalog:
-  "epic-designer": "^0.9.27"
+  "epic-designer": "^0.9.28"
   "@ant-design/colors": "^7.0.0"
   "@ant-design/icons-vue": "^6.1.0"
   "@fast-crud/fast-crud": "^1.23.4"

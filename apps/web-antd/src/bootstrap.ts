@@ -17,12 +17,11 @@ import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud';
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
 import { router } from './router';
-
 // 引入epic-designer样式
-import 'epic-designer/dist/style.css';
+// import 'epic-designer/dist/style.css';
 
 // 引入antd UI 重置样式
-import 'ant-design-vue/dist/reset.css';
+// import 'ant-design-vue/dist/reset.css';
 
 async function bootstrap(namespace: string) {
   // 初始化组件适配器

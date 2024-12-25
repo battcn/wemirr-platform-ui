@@ -2,7 +2,6 @@
 import { Page } from '@vben/common-ui';
 
 import { EDesigner } from 'epic-designer';
-// import 'epic-designer/dist/style.css';
 </script>
 <template>
   <Page content-class="flex flex-row gap-2 designer-container">
@@ -14,6 +13,4 @@ import { EDesigner } from 'epic-designer';
   </Page>
 </template>
 
-<style scoped lang="less">
-@import 'epic-designer/dist/style.css';
-</style>
+<style scoped lang="less"></style>

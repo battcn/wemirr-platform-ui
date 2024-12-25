@@ -38,27 +38,17 @@ const tenantSettingOptions = {
       title: 'LOGO',
       type: 'cropper-uploader',
       style: { height: 70 },
-      column: { width: 70, align: 'center', show: false },
-      valueBuilder({ value, row, key }: any) {
-        if (value !== null && value.indexOf('http')) {
-          row[key] = `http://www.docmirror.cn:7070${value}`;
-        }
-      },
+      column: { width: 70, align: 'center', show: true },
       form: {
-        col: {
-          span: 24,
+        component: {
+          uploader: {
+            type: 'form',
+            buildUrl(res: any) {
+              return res.url;
+            },
+          },
         },
       },
-      // form: {
-      //   component: {
-      //     uploader: {
-      //       type: 'form', // 上传后端类型【cos,aliyun,oss,form】
-      //       buildUrl(res: any) {
-      //         return `http://www.docmirror.cn:7070/${res.url}`;
-      //       },
-      //     },
-      //   },
-      // },
     },
     dbId: {
       title: 'DB配置',
@@ -86,7 +76,7 @@ const tenantSettingOptions = {
             rowHandle: { show: false },
           },
           on: {
-            selectedChange({ form, $event }) {
+            selectedChange({ form, $event }: any) {
               form.dbConfig = `${$event[0].host},${$event[0].username},${
                 $event[0].password
               }`;
@@ -124,14 +114,14 @@ const tenantSettingOptions = {
     },
     wrapper: { title: '租户设置' },
     doSubmit({ form }: any): void {
-      return defHttp
+      void defHttp
         .put(`/iam/tenants/${form.tenantId}/setting`, form)
         .then((ret) => {
           return ret;
         });
     },
     afterSubmit(ctx: any) {
-      if (!ctx.res.successful) {
+      if (!ctx.successful) {
         return false;
       }
     },

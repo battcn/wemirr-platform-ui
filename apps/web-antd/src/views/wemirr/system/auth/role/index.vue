@@ -14,14 +14,14 @@ const [AssignUserModal, userModalApi] = useVbenModal({
   // 连接抽离的组件
   connectedComponent: AssignUser,
 });
-const [AssignUserResourceModal, resourceModalApi] = useVbenModal({
+const [AssignResourceModal, resourceModalApi] = useVbenModal({
   // 连接抽离的组件
   connectedComponent: AssignResource,
 });
 
 function assignModal() {
   function userModal(roleId) {
-    api.GetUserByRoleId(roleId).then((data) => {
+    api.getUserByRoleId(roleId).then((data) => {
       userModalApi.setData({ roleId, ...data });
       userModalApi.open();
     });
@@ -73,6 +73,6 @@ onMounted(() => {
       </template>
     </fs-crud>
     <AssignUserModal />
-    <AssignUserResourceModal />
+    <AssignResourceModal />
   </fs-page>
 </template>

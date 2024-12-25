@@ -270,6 +270,7 @@ const doDownload = (item: any) => {
 .tree-node-content {
   display: flex;
   align-items: center;
+  width: 150px;
 }
 .tree-node-icon {
   width: 40px;

@@ -90,7 +90,7 @@ export default function () {
           type: 'dict-select',
           search: { show: true },
           dict: dict({
-            url: '/iam/product_definitions/list',
+            url: '/iam/product-definitions/list',
           }),
           form: {
             rules: [{ required: true, message: '请选择订阅的产品' }],

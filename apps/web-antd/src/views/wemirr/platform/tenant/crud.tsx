@@ -74,14 +74,11 @@ export default function crud(
                 });
                 return;
               }
-              await api.getTenantSetting(row.id).then((ret) => {
+              await api.getTenantSetting(row.id).then((data) => {
                 tenantSettingFormOptions.initialForm = {
-                  ...ret.data,
+                  ...data,
                   tenantId: row.id,
                 };
-                // select.on.selectedChange
-                // tenantSettingFormOptions.columns?.dbId?.component?.on?.selectedChange;
-                // console.log('tenantSettingFormOptions', tenantSettingFormOptions);
                 crudExpose.getFormWrapperRef().open(tenantSettingFormOptions);
               });
             },
