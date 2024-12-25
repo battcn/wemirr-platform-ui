@@ -1,13 +1,21 @@
 import { useRouter } from 'vue-router';
 
-import { compute, dict } from '@fast-crud/fast-crud';
+import {
+  compute,
+  type CreateCrudOptionsProps,
+  type CreateCrudOptionsRet,
+  dict,
+} from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { DelObj, Deploy, PageList } from './api';
 
-export default function ({ expose, handleView }) {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const router = useRouter();
+  const { openBpmnModal, diagramRef } = props.context;
   return {
     crudOptions: {
       table: {},
@@ -39,7 +47,7 @@ export default function ({ expose, handleView }) {
           },
           view: {
             async click({ row }) {
-              await handleView(row.id);
+              await diagramRef.value.openPreview({ modelId: row.id });
             },
           },
           remove: {

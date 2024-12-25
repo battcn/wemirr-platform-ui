@@ -15,7 +15,9 @@ import dayjs from 'dayjs';
 import { SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const { nodeRef } = props.context;
   const { hasPermission } = useAccess();
   const { ui } = useUi();

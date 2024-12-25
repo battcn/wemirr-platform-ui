@@ -1,6 +1,6 @@
 import { defHttp } from '#/api/request';
 
-export function CurrentApprovalDetail(taskId: any) {
+export function getApprovalDetail(taskId: any) {
   return defHttp.get(`/bpm/process_instances/${taskId}/detail`);
 }
 

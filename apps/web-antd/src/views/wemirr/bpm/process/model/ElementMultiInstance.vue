@@ -9,7 +9,7 @@ import { dict } from '@fast-crud/fast-crud';
 import { useUi } from '@fast-crud/ui-interface';
 import { isArray } from 'ant-design-vue/es/_util/util';
 
-import { getUserList } from '#/api/core/user';
+import { getUserMap } from '#/api/core/user';
 import {
   comparisonOptions,
   completionConditionOptions,
@@ -164,7 +164,7 @@ const loadDict = ref(
   dict({
     immediate: true,
     getNodesByValues: async (values: any[]) => {
-      return await getUserList(values);
+      return await getUserMap(values);
     },
   }),
 );

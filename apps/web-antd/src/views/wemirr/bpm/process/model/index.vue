@@ -1,76 +1,42 @@
-<script>
-import { defineComponent, nextTick, onMounted, ref } from 'vue';
+<script setup lang="ts">
+import { nextTick, onMounted, ref } from 'vue';
+
+import { useVbenModal } from '@vben/common-ui';
 
 import { useFs } from '@fast-crud/fast-crud';
-import { useUi } from '@fast-crud/ui-interface';
 
-import createCrudOptions from './crud';
-// import { BasicModal, useModal } from "#/components/Modal";
+import DiagramPreview from '#/views/wemirr/bpm/task/complete/DiagramPreview.vue';
+
 import * as api from './api';
+import createCrudOptions from './crud';
 
-export default defineComponent({
-  name: 'BpmProcessList',
-  // components: { BasicModal },
-  setup() {
-    const { ui } = useUi();
-    // const [registerPreviewModal, { openModal: openPreviewModal }] = useModal();
-    const bpmnPreviewTitle = ref('');
-    const bpmnPreviewDomRef = ref();
-    const processXmlRef = ref();
-    const highlightRef = ref([]);
+const bpmnPreviewTitle = ref('');
+const processXmlRef = ref();
+const [BpmnPreviewModal, modalApi] = useVbenModal();
+const diagramRef = ref();
+const { crudRef, crudBinding, crudExpose } = useFs({
+  createCrudOptions,
+  context: { diagramRef, openBpmnModal },
+});
 
-    const { crudRef, crudBinding, crudExpose } = useFs({
-      createCrudOptions,
-      handleView,
+async function openBpmnModal(modelId) {
+  await api.GetById(modelId).then((data) => {
+    bpmnPreviewTitle.value = data?.diagramName;
+    nextTick(() => {
+      processXmlRef.value = data?.diagramData;
     });
+    modalApi.open();
+  });
+}
 
-    async function handleView(modelId) {
-      const data = await api.GetById(modelId);
-      bpmnPreviewTitle.value = data?.diagramName;
-      // openPreviewModal(true);
-      await nextTick(() => {
-        processXmlRef.value = data?.diagramData;
-      });
-    }
-
-    onMounted(() => {
-      crudExpose.doRefresh();
-    });
-
-    return {
-      ui,
-      processXmlRef,
-      highlightRef,
-      bpmnPreviewDomRef,
-      bpmnPreviewTitle,
-      // registerPreviewModal,
-      handleView,
-      crudBinding,
-      crudRef,
-    };
-  },
+onMounted(() => {
+  crudExpose.doRefresh();
 });
 </script>
 
 <template>
   <fs-page class="page-layout-card">
     <fs-crud ref="crudRef" v-bind="crudBinding" />
-    <!--    <BasicModal
-      @register="registerPreviewModal"
-      v-bind="$attrs"
-      :canFullscreen="false"
-      :title="bpmnPreviewTitle"
-      :showCancelBtn="false"
-      :showOkBtn="false"
-      :height="680"
-      width="70%"
-    >
-      <fs-bpmn-preview
-        v-if="processXmlRef"
-        :highlight="highlightRef"
-        :xml="processXmlRef"
-        style="height: 600px"
-      />
-    </BasicModal>-->
+    <DiagramPreview ref="diagramRef" />
   </fs-page>
 </template>

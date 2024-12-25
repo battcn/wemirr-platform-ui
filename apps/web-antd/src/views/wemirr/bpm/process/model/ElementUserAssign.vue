@@ -2,17 +2,13 @@
 import { computed, getCurrentInstance, nextTick, ref } from 'vue';
 import type { Ref } from 'vue';
 
+import { UserOutlined } from '@ant-design/icons-vue';
 import { useModelerStore } from '@fast-crud/fast-bpmn';
 import { dict } from '@fast-crud/fast-crud';
 import { useUi } from '@fast-crud/ui-interface';
 
-// import userCrudOptions from "./user";
+import { getUserMap } from '#/api';
 import userCrudOptions from '#/views/wemirr/system/user/crud';
-// import { isArray } from "@/utils/is";
-import { UserOutlined } from '@ant-design/icons-vue';
-import { isArray } from 'ant-design-vue/es/_util/util';
-
-import { getUserList } from '#/api/core/user';
 
 const { ui } = useUi();
 
@@ -30,7 +26,7 @@ async function reload() {
     true,
   );
   if (assigneeList) {
-    assigneeList = isArray(assigneeList)
+    assigneeList = Array.isArray(assigneeList)
       ? assigneeList
       : assigneeList.split(',');
   }
@@ -55,16 +51,10 @@ const loadDict = ref(
   dict({
     immediate: true,
     getNodesByValues: async (values: any[]) => {
-      return await getUserList(values);
+      return await getUserMap(values);
     },
   }),
 );
-
-const valuesFormat = {
-  labelFormatter: (item: any) => {
-    return `${item.label}`;
-  },
-};
 </script>
 
 <template>
@@ -87,7 +77,11 @@ const valuesFormat = {
         }"
         :model-value="assignee"
         :multiple="false"
-        :values-format="valuesFormat"
+        :values-format="
+          (item) => {
+            return `${item.nickName}`;
+          }
+        "
         @update:model-value="(value) => (assignee = value)"
       />
     </edit-item>

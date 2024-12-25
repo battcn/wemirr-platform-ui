@@ -8,7 +8,7 @@ import { Modal, notification } from 'ant-design-vue';
 
 import { defHttp } from '#/api/request';
 
-export default function ({
+export default function crud({
   crudExpose,
   context,
 }: CreateCrudOptionsProps): CreateCrudOptionsRet {
@@ -38,7 +38,9 @@ export default function ({
             type: 'link',
             text: '流程图',
             async click({ row }) {
-              await diagramRef.value.openPreview(row.procInstId);
+              await diagramRef.value.openPreview({
+                procInstId: row.procInstId,
+              });
             },
           },
           preview: {

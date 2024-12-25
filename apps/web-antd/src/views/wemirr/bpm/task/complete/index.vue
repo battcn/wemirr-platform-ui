@@ -32,7 +32,7 @@ function goBack() {
 }
 
 onMounted(() => {
-  api.CurrentApprovalDetail(procInstId).then((ret) => {
+  api.getApprovalDetail(procInstId).then((ret) => {
     title.value = ret?.startTitle;
     processXmlRef.value = ret?.diagramData;
   });

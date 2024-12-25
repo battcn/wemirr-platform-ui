@@ -1,14 +1,18 @@
 import type { UserInfo } from '@vben/types';
 
-import { requestClient } from '#/api/request';
+import { defHttp } from '#/api/request';
 
 /**
  * 获取用户信息
  */
 export async function getUserInfoApi() {
-  return requestClient.get<UserInfo>('/iam/token/userinfo');
+  return defHttp.get<UserInfo>('/iam/token/userinfo');
 }
 
 export async function getUserList() {
-  return requestClient.post<any>('/iam/users/list');
+  return defHttp.post<any>('/iam/users/list');
+}
+export async function getUserMap(values) {
+  const data = Array.isArray(values[0]) ? values[0] : values;
+  return defHttp.post<any>('/iam/users/ids', data);
 }

@@ -1,12 +1,12 @@
 import { dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
-import { getUserList } from '#/api/core/user';
+import { getUserMap } from '#/api/core/user';
 import { defHttp } from '#/api/request';
 // import { GetGlobPreviewUrl } from '@/api/sysPrefix';
 import userCrudOptions from '#/views/wemirr/system/user/crud';
 
-export default function ({ taskId, type, crudExposeRef, dialogShow }) {
+export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
   return {
     crudOptions: {
       form: {
@@ -35,7 +35,7 @@ export default function ({ taskId, type, crudExposeRef, dialogShow }) {
           type: 'table-select',
           dict: dict({
             getNodesByValues: async (values: any[]) => {
-              return await getUserList(values);
+              return await getUserMap(values);
             },
           }),
           column: { width: 180, component: { color: 'auto' } },

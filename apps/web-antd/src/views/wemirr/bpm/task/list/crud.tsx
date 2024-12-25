@@ -47,7 +47,9 @@ export default function ({
             type: 'link',
             text: '流程图',
             async click({ row }) {
-              await diagramRef.value.openPreview(row.procInstId);
+              await diagramRef.value.openPreview({
+                procInstId: row.procInstId,
+              });
             },
           },
           handle: {

@@ -130,7 +130,7 @@ export default defineComponent({
               <a-col :span="6">
                 <a>
                   <span class="flex flex-col items-center">
-                    <Icon class="icon" icon="ic:outline-pending" size="36" />
+                    <fs-icon class="icon" icon="ic:outline-pending" />
                     <span class="text-md mt-2 truncate">待处理</span>
                   </span>
                 </a>
@@ -138,11 +138,7 @@ export default defineComponent({
               <a-col :span="6">
                 <a>
                   <span class="flex flex-col items-center">
-                    <Icon
-                      class="icon"
-                      icon="mdi:success-circle-outline"
-                      size="36"
-                    />
+                    <fs-icon class="icon" icon="mdi:success-circle-outline" />
                     <span class="text-md mt-2 truncate">已处理</span>
                   </span>
                 </a>
@@ -150,7 +146,7 @@ export default defineComponent({
               <a-col :span="6">
                 <a>
                   <span class="flex flex-col items-center">
-                    <Icon class="icon" icon="bi:send" size="36" />
+                    <fs-icon class="icon" icon="bi:send" />
                     <span class="text-md mt-2 truncate">已发起</span>
                   </span>
                 </a>
@@ -158,7 +154,7 @@ export default defineComponent({
               <a-col :span="6">
                 <a>
                   <span class="flex flex-col items-center">
-                    <!--                    <Icon class="icon" icon="mdi:email-receive-outline" size="36" />-->
+                    <fs-icon class="icon" icon="mdi:email-receive-outline" />
                     <span class="text-md mt-2 truncate">我收到的</span>
                   </span>
                 </a>
@@ -194,7 +190,7 @@ export default defineComponent({
                       @click="initProcessForm(item)"
                     >
                       <div :class="`${prefixCls}__card-title`">
-                        <Icon
+                        <fs-icon
                           v-if="item.diagramIcon"
                           :icon="item.diagramIcon"
                           class="icon"
@@ -251,7 +247,11 @@ export default defineComponent({
     border-block-end: none !important;
   }
 }
-
+/deep/.icon {
+  color: #006be6;
+  margin-right: 10px;
+  font-size: 34px !important;
+}
 .list-card {
   .ant-list-item {
     padding: 10px;
@@ -285,11 +285,6 @@ export default defineComponent({
       //color: @text-color;
       font-size: 18px;
       font-weight: 500;
-
-      .icon {
-        margin-right: 10px;
-        font-size: 34px !important;
-      }
     }
 
     &-detail {
