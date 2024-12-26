@@ -75,7 +75,7 @@ export default function crud() {
             },
           },
           dict: dict({
-            url: '/bpm/process_models/list',
+            url: '/bpm/process-models/list',
             label: 'diagramName',
             value: 'diagramName',
           }),

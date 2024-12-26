@@ -22,7 +22,7 @@ import {
   FsExtendsUploader,
 } from '@fast-crud/fast-extends';
 import ui from '@fast-crud/ui-antdv4';
-import Antdv from 'ant-design-vue';
+import Antdv, { notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';

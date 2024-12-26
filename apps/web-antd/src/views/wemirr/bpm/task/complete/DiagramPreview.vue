@@ -67,7 +67,7 @@ function openPreview({ procInstId, modelId }) {
     });
   }
   if (modelId) {
-    defHttp.get(`/bpm/process_models/${modelId}`).then((ret) => {
+    defHttp.get(`/bpm/process-models/${modelId}`).then((ret) => {
       processXmlRef.value = ret?.diagramData;
       popoverTitle.value = ret?.diagramName;
       dialogShow.value = true;

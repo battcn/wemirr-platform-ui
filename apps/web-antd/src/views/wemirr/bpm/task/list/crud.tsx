@@ -123,7 +123,7 @@ export default function ({
           type: 'dict-select',
           column: { width: 150, show: true, component: { color: 'auto' } },
           dict: dict({
-            url: '/bpm/process_models/list',
+            url: '/bpm/process-models/list',
             label: 'diagramName',
             value: 'diagramName',
           }),
