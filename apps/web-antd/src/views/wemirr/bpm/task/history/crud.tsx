@@ -1,12 +1,11 @@
-import { useRouter } from 'vue-router';
-
-import { dict } from '@fast-crud/fast-crud';
+import { dict, useUi } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function () {
-  const router = useRouter();
+export default function crud() {
+  const { ui } = useUi();
+  // const router = useRouter();
   return {
     crudOptions: {
       table: {},
@@ -24,9 +23,8 @@ export default function () {
           view: {
             type: 'link',
             async click({ row }) {
-              await router.push(
-                `/bpm/task/list/complete?procInstId=${row.procInstId}&taskId=${row.procTaskId}&type=view`,
-              );
+              ui.notification.error('暂未实现');
+              // await router.push(`/bpm/task/list/complete?procInstId=${row.procInstId}&taskId=${row.procTaskId}&type=view`,);
             },
           },
         },

@@ -4,30 +4,33 @@ import { notification } from 'ant-design-vue';
 
 import { defHttp } from '#/api/request';
 
-export default function ({ taskId, type, crudExposeRef, dialogShow }) {
+export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
   return {
     crudOptions: {
       form: {
         labelCol: { span: null, style: { minWidth: '80px' } },
-        async doSubmit({ form }) {
-          await defHttp
-            .put(`/bpm/process_tasks/${taskId}/complete`, form)
-            .then(() => {
-              dialogShow.value = false;
-              notification.success({ message: '审批成功', duration: 3 });
-              crudExposeRef.value.doRefresh();
-            });
-        },
         wrapper: {
           is: 'a-drawer',
           buttons: {
             reset: { show: false },
             cancel: { show: true, text: '关闭' },
-            ok: {
+            ok: { show: false },
+            success: {
               text: '审批通过',
+              type: 'primary',
               show: compute(({ row }) => {
                 return type === 1;
               }),
+              click: ({ form }) => {
+                defHttp
+                  .put(`/bpm/process_tasks/${taskId}/complete`, form)
+                  .then(() => {
+                    dialogShow.value = false;
+                    // TODO 应该用 ui.notification 同时应该忽略通用的
+                    notification.success({ message: '审批成功', duration: 3 });
+                    crudExposeRef.value.doRefresh();
+                  });
+              },
             },
             comment: {
               text: '评论',

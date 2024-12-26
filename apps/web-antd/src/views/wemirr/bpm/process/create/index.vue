@@ -1,23 +1,17 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref, toRefs, watch } from 'vue';
 
-import * as api from './api';
-// import AntdGenerateForm from "#/components/FormDesigner/antd/render/AntdGenerateForm.vue";
-// import { useMessage } from "@/hooks/web/useMessage";
-// import { CollapseContainer } from "#/components/Container";
-// import Icon from "#/components/Icon/Icon.vue";
+import { useUi } from '@fast-crud/fast-crud';
 import { Card, notification } from 'ant-design-vue';
+
+import * as api from './api';
 
 export default defineComponent({
   name: 'BpmProcessCreate',
   components: {
-    // AntdGenerateForm,
-    // CollapseContainer,
-    // Icon,
     Card,
   },
   setup() {
-    // const { notification } = useMessage();
     const state = reactive({
       generateFormRef: null as any,
       dataJsonTemplate: '',
@@ -39,7 +33,7 @@ export default defineComponent({
         list: [],
       },
     });
-
+    const { ui } = useUi();
     // 打开Form预览modal时，重新渲染modal
     // const generateFormRenderKey = ref("");
     watch(
@@ -70,24 +64,7 @@ export default defineComponent({
 
     const handleReset = () => state.generateFormRef.reset();
     const submitProcessInstance = () => {
-      state.generateFormRef.getData().then((res: any) => {
-        state.dataJsonTemplate = JSON.stringify(res, null, 2);
-        state.dataJsonVisible = true;
-        console.log('res', state, res);
-        api
-          .StartProcessInstance(state.widgetForm.designModelId, {
-            formData: { ...res },
-            designModelId: state.widgetForm.designModelId,
-            businessKey: Date.now(),
-            businessGroup: 'DEFAULT',
-            instanceName: state.widgetForm.title,
-          })
-          .then(() => {
-            handleReset();
-            state.widgetForm.previewOpen = false;
-            notification.success({ message: '创建成功', duration: 2 });
-          });
-      });
+      ui.notification.error('暂未找到合适的表单渲染插件');
     };
     const groupList = ref([
       {
@@ -223,14 +200,7 @@ export default defineComponent({
       :z-index="1000"
       wrap-class-name="preview-modal-style"
     >
-      <section id="printContent" ref="print">
-        <!--        <AntdGenerateForm
-          :key="generateFormRenderKey"
-          ref="generateFormRef"
-          :data="widgetForm"
-          :disabled="true"
-        />-->
-      </section>
+      <section id="printContent" ref="print"></section>
 
       <template #footer>
         <a-button @click="handleReset">重置</a-button>
@@ -282,7 +252,6 @@ export default defineComponent({
       display: flex;
       align-items: center;
       margin-bottom: 5px;
-      //color: @text-color;
       font-size: 18px;
       font-weight: 500;
     }
@@ -290,7 +259,6 @@ export default defineComponent({
     &-detail {
       padding-top: 10px;
       padding-left: 30px;
-      //color: @text-color-secondary;
       font-size: 14px;
     }
   }

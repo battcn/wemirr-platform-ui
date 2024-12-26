@@ -59,11 +59,9 @@ export default function crud(): CreateCrudOptionsRet {
         },
         content: {
           title: '消息内容',
-          type: 'textarea',
+          type: ['textarea'],
           column: { ellipsis: true, width: 300 },
-          form: {
-            col: { span: 24 },
-          },
+          form: { col: { span: 24 } },
         },
         nickname: {
           title: '订阅人',

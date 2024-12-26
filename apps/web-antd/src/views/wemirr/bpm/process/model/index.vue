@@ -29,8 +29,8 @@ async function openBpmnModal(modelId) {
   });
 }
 
-onMounted(() => {
-  crudExpose.doRefresh();
+onMounted(async () => {
+  await crudExpose.doRefresh();
 });
 </script>
 

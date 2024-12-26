@@ -22,7 +22,7 @@ import {
   FsExtendsUploader,
 } from '@fast-crud/fast-extends';
 import ui from '@fast-crud/ui-antdv4';
-import Antdv, { notification } from 'ant-design-vue';
+import Antdv from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
@@ -169,7 +169,7 @@ export function registerFastCrud(app: App) {
           wrapper: {
             is: 'a-drawer',
           },
-          async afterSubmit({ mode }: any) {
+          async afterSubmit({ mode }) {
             if (mode === 'add') {
               notification.success({ message: '添加成功' });
             } else if (mode === 'edit') {

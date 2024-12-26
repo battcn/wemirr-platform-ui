@@ -33,8 +33,8 @@ const { crudRef, crudBinding, crudExpose } = useFs({
 });
 
 // 页面打开后获取列表数据
-onMounted(() => {
-  crudExpose.doRefresh();
+onMounted(async () => {
+  await crudExpose.doRefresh();
 });
 </script>
 
