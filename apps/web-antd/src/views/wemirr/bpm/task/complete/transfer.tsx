@@ -1,7 +1,7 @@
 import { dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
-import { getUserMap } from '#/api/core/user';
+import { getUserByIds } from '#/api/core/user';
 import { defHttp } from '#/api/request';
 // import { GetGlobPreviewUrl } from '@/api/sysPrefix';
 import userCrudOptions from '#/views/wemirr/system/user/crud';
@@ -30,17 +30,19 @@ export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
       },
       columns: {
         userId: {
-          title: '操作人',
+          title: '代办人员',
           search: { show: true },
           type: 'table-select',
           dict: dict({
+            value: 'id',
+            label: 'nickName',
             getNodesByValues: async (values: any[]) => {
-              return await getUserMap(values);
+              return await getUserByIds(values);
             },
           }),
           column: { width: 180, component: { color: 'auto' } },
           form: {
-            rules: [{ required: true, message: '请选择操作人' }],
+            rules: [{ required: true, message: '请选择代办人员' }],
             component: {
               crossPage: true,
               createCrudOptions: userCrudOptions,

@@ -9,10 +9,10 @@ export async function getUserInfoApi() {
   return defHttp.get<UserInfo>('/iam/token/userinfo');
 }
 
-export async function getUserList() {
-  return defHttp.post<any>('/iam/users/list');
-}
-export async function getUserMap(values) {
+// export async function getUserList() {
+//   return defHttp.post<any>('/iam/users/list');
+// }
+export async function getUserByIds(values) {
   const data = Array.isArray(values[0]) ? values[0] : values;
   return defHttp.post<any>('/iam/users/ids', data);
 }

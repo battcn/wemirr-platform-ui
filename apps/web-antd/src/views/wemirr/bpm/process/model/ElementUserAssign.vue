@@ -7,7 +7,7 @@ import { useModelerStore } from '@fast-crud/fast-bpmn';
 import { dict } from '@fast-crud/fast-crud';
 import { useUi } from '@fast-crud/ui-interface';
 
-import { getUserMap } from '#/api';
+import { getUserByIds } from '#/api';
 import userCrudOptions from '#/views/wemirr/system/user/crud';
 
 const { ui } = useUi();
@@ -50,8 +50,10 @@ function vModeler(key: string) {
 const loadDict = ref(
   dict({
     immediate: true,
+    value: 'id',
+    label: 'nickName',
     getNodesByValues: async (values: any[]) => {
-      return await getUserMap(values);
+      return await getUserByIds(values);
     },
   }),
 );

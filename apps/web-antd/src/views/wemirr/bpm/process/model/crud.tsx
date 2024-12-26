@@ -38,7 +38,7 @@ export default function crud(
       },
       rowHandle: {
         align: 'left',
-        width: 300,
+        width: 240,
         buttons: {
           edit: {
             async click({ row }) {
@@ -50,15 +50,13 @@ export default function crud(
               await diagramRef.value.openPreview({ modelId: row.id });
             },
           },
-          remove: {
-            order: 2,
-          },
           form: {
             type: 'link',
             text: '表单设计',
             size: 'small',
             title: '表单设计',
             order: 1,
+            show: false,
             async click({ row }) {
               const routeUrl = router.resolve({
                 path: `/design/form?modelId=${row.id}`,
@@ -72,7 +70,7 @@ export default function crud(
             text: '部署',
             size: 'small',
             title: '部署',
-            order: 1,
+            order: 5,
             show: compute(({ row }) => {
               return row.state !== 1;
             }),

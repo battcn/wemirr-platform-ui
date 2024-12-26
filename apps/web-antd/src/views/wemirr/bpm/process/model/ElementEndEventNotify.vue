@@ -7,7 +7,7 @@ import { dict } from '@fast-crud/fast-crud';
 import { useUi } from '@fast-crud/ui-interface';
 import { isArray } from 'ant-design-vue/es/_util/util';
 
-import { getUserMap } from '#/api/core/user';
+import { getUserByIds } from '#/api/core/user';
 
 // import { isArray } from "@/utils/is";
 // import userCrudOptions from "./user";
@@ -84,8 +84,10 @@ function addNotifyContent() {
 const loadUserDict = ref(
   dict({
     immediate: true,
+    value: 'id',
+    label: 'nickName',
     getNodesByValues: async (values: any[]) => {
-      return await getUserMap(values);
+      return await getUserByIds(values);
     },
   }),
 );

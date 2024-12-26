@@ -1,5 +1,6 @@
 import { compute, dict, useColumns, useUi } from '@fast-crud/fast-crud';
 
+import { getUserByIds } from '#/api';
 import { defHttp } from '#/api/request';
 
 import createCrudOptionsText from '../user/crud';
@@ -60,9 +61,8 @@ export function createFormOptions() {
         dict: dict({
           value: 'id',
           label: 'nickName',
-          // 重要，根据value懒加载数据
           getNodesByValues: async (values: any[]) => {
-            return defHttp.post('/iam/users/ids', values);
+            return getUserByIds(values);
           },
         }),
         form: {
