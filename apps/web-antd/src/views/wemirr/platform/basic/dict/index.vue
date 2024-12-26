@@ -12,16 +12,7 @@ import createCrudOptions from './dict-item-crud';
 
 const { ui } = useUi();
 
-/**
- * 表单对话框独立使用
- * @param {Function} callback - 用于创建表单选项的回调函数
- * @returns {{
- *   formWrapperRef: Ref,          // 表单包装器的引用
- *   openFormWrapper: Function,    // 打开表单的函数
- *   formWrapperOptions: Ref      // 表单选项的引用
- * }} 返回一个对象，包含表单包装器的引用、打开表单的函数和表单选项
- */
-function useFormWrapperUsingTag(callback) {
+function useFormWrapperUsingTag(callback: any) {
   const formWrapperRef = ref();
   const formWrapperOptions = ref();
   formWrapperOptions.value = createFormOptions(callback);
@@ -40,6 +31,12 @@ function useFormWrapperUsingTag(callback) {
 
 const treeData = ref();
 const treeRef = ref();
+
+const loadDictList = () => {
+  api.GetList().then((ret) => {
+    treeData.value = ret;
+  });
+};
 const { formWrapperRef, openFormWrapper, formWrapperOptions } =
   useFormWrapperUsingTag(() => loadDictList());
 
@@ -48,10 +45,17 @@ const { crudBinding, crudRef, crudExpose } = useFs({
   context: { permission: 'dict' },
 });
 
+const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
+  if (menuKey === 'delete') {
+    api.DelObj(treeKey).then(() => {
+      loadDictList();
+    });
+  }
+};
+
 // 页面打开后获取列表数据
 onMounted(async () => {
-  await loadDictList();
-  // await crudExpose.doRefresh();
+  loadDictList();
 });
 
 function handleSelect(checkedKeys: any, event: any) {
@@ -111,21 +115,6 @@ const refreshDictCache = () => {
     });
   });
 };
-
-const loadDictList = () => {
-  api.GetList().then((ret) => {
-    treeData.value = ret;
-  });
-};
-
-const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
-  console.log(`treeKey: ${treeKey}, menuKey: ${menuKey}`);
-  if (menuKey === 'delete') {
-    api.DelObj(treeKey).then(() => {
-      loadDictList();
-    });
-  }
-};
 </script>
 
 <template>
@@ -163,7 +152,8 @@ const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
             <template #overlay>
               <a-menu
                 @click="
-                  ({ key: menuKey }) => onContextMenuClick(treeKey, menuKey)
+                  ({ key: menuKey }: any) =>
+                    onContextMenuClick(treeKey, menuKey)
                 "
               >
                 <a-menu-item key="modify">修改</a-menu-item>

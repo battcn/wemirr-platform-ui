@@ -1,6 +1,7 @@
 import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
+  EditReq,
 } from '@fast-crud/fast-crud';
 
 import { notification } from 'ant-design-vue';
@@ -39,7 +40,7 @@ export default function crud(
             show: false,
             icon: 'codicon:repo-force-push',
             text: '文件上传',
-            async click(context: any) {
+            async click() {
               notification.error({
                 message: '暂未实现',
                 duration: 3,
@@ -123,7 +124,7 @@ export default function crud(
           type: 'datetime',
           form: { show: false },
           column: { ellipsis: true, width: 180 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }

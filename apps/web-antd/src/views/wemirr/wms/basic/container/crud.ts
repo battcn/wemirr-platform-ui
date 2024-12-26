@@ -6,7 +6,6 @@ import type {
 } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
@@ -111,14 +110,7 @@ export default function ({ crudExpose }) {
         },
         createdTime: {
           title: '创建时间',
-          column: { show: true, width: 170 },
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

@@ -271,12 +271,12 @@ export default function crud({
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -291,12 +291,12 @@ export default function crud({
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -311,12 +311,12 @@ export default function crud({
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }

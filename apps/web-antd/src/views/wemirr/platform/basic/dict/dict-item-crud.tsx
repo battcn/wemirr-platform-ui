@@ -5,11 +5,10 @@ import type {
   DelReq,
   EditReq,
   UserPageQuery,
-  UserPageRes,
+  ValueBuilderContext,
 } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
@@ -19,9 +18,7 @@ export default function crud(
   return {
     crudOptions: {
       request: {
-        pageRequest: async (
-          query: UserPageQuery,
-        ): Promise<UserPageRes> | undefined => {
+        pageRequest: async (query: UserPageQuery) => {
           if (!query.dictId) {
             return undefined;
           }
@@ -91,7 +88,7 @@ export default function crud(
             ],
           }),
           addForm: { value: 1 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = value === true ? 1 : 0;
             }
@@ -114,14 +111,7 @@ export default function crud(
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 180 },
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

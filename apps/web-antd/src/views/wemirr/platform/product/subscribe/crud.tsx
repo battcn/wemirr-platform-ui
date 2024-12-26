@@ -1,24 +1,33 @@
-import { dict, ScopeContext } from '@fast-crud/fast-crud';
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  ScopeContext,
+  UserPageQuery,
+  ValueBuilderContext,
+} from '@fast-crud/fast-crud';
+
+import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
 import createCrudOptionsTenant from '../../tenant/crud';
 
-export default function () {
+export default function crud() {
   return {
     crudOptions: {
       table: {},
       request: {
-        pageRequest: async (query) =>
+        pageRequest: async (query: UserPageQuery) =>
           await defHttp.get(`/iam/product_subscriptions/page`, {
             params: query,
           }),
-        addRequest: async ({ form }) =>
+        addRequest: async ({ form }: AddReq) =>
           await defHttp.post(`/iam/product_subscriptions`, form),
-        editRequest: async ({ form }) =>
+        editRequest: async ({ form }: EditReq) =>
           await defHttp.put(`/iam/product_subscriptions/${form.id}`, form),
-        delRequest: async ({ row }) =>
+        delRequest: async ({ row }: DelReq) =>
           await defHttp.delete(`/iam/product_subscriptions/${row.id}`),
       },
       toolbar: {},
@@ -28,7 +37,7 @@ export default function () {
         },
       },
       form: {
-        watch({ form }) {
+        watch({ form }: any): void {
           form.totalAmount = form.users * form.months * form.licensePrice;
           form.statementAmount = form.totalAmount - form.discountAmount;
           form.statementPrice = form.statementAmount / form.months / form.users;
@@ -61,7 +70,7 @@ export default function () {
             component: {
               crossPage: true,
               valuesFormat: {
-                labelFormatter: (item) => {
+                labelFormatter: (item: any) => {
                   return item.name;
                 },
               },
@@ -181,12 +190,12 @@ export default function () {
         startTime: {
           title: '开始时间',
           type: 'date',
-          valueResolve({ value, row, key }) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
@@ -206,12 +215,12 @@ export default function () {
         endTime: {
           title: '结束时间',
           type: 'date',
-          valueResolve({ value, row, key }) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
@@ -261,15 +270,15 @@ export default function () {
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 170, sorter: true, align: 'center' },
-          addForm: { show: false },
-          editForm: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
+          // column: { width: 170, align: 'center' },
+          // addForm: { show: false },
+          // editForm: { show: false },
+          // valueBuilder({ value, row, key }: ValueBuilderContext): void {
+          //   if (value !== null) {
+          //     row[key] = dayjs(value);
+          //   }
+          // },
         },
       },
     },

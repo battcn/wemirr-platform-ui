@@ -1,6 +1,10 @@
 import type {
+  AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
+  DelReq,
+  EditReq,
+  ValueBuilderContext,
 } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
@@ -8,7 +12,9 @@ import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -74,12 +80,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: '生效时间',
           column: { width: 200 },
           type: 'datetime',
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -92,12 +98,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: '过期时间',
           column: { width: 200 },
           type: 'datetime',
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -135,7 +141,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             ],
           }),
           addForm: { value: 1 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = value === true ? 1 : 0;
             }

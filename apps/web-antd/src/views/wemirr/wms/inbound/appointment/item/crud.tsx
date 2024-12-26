@@ -110,12 +110,12 @@ export default function crud(
               valueFormat: 'YYYY-MM-DD HH:mm:ss',
             },
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }

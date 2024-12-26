@@ -1,14 +1,16 @@
 import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
+  ValueBuilderContext,
 } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -116,7 +118,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { show: true, align: 'center', width: 80 },
           type: ['dict-radio'],
           // true | false 在 渲染查询控件会有告警 antdv 问题
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = value ? 1 : 0;
             }
@@ -136,14 +138,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          form: { show: false },
-          column: { show: true, width: 180 },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

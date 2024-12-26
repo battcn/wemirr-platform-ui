@@ -1,5 +1,11 @@
-import { BusinessDictCode, businessDictFunc } from '@/api/dict/dict';
-import dayjs from 'dayjs';
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
+import { BusinessDictCode, businessDictFunc } from '#/api/core/dict';
 
 import * as api from './api';
 
@@ -97,14 +103,7 @@ export default function crud() {
         },
         createdTime: {
           title: '创建时间',
-          column: { show: true, width: 170 },
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

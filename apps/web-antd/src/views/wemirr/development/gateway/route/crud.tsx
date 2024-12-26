@@ -1,6 +1,5 @@
 import { compute, dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
 import * as api from './api';
 
@@ -183,14 +182,7 @@ export default function ({ expose }) {
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 180 },
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

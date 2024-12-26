@@ -1,22 +1,27 @@
 import type {
+  AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
+  DelReq,
+  EditReq,
+  UserPageQuery,
 } from '@fast-crud/fast-crud';
 
 import { useAccess } from '@vben/access';
 
 import { compute, dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import * as api from './api';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const { assign } = props.context;
   const { hasPermission } = useAccess();
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query: any) => await api.GetList(query),
+        pageRequest: async (query: UserPageQuery) => await api.GetList(query),
         addRequest: async ({ form }: AddReq) => await api.AddObj(form),
         editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
         delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
@@ -29,7 +34,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           atLeast: 2,
           more: {
             size: 'small',
-            icon: null,
+            icon: '',
             text: '更多',
           },
         },
@@ -122,9 +127,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           form: {
             rules: [{ required: true, message: '请输入编码' }],
             component: { radioName: 'a-radio-button' },
-            valueChange: ({ value, form, ...content }) => {
-              console.log('value', value, 'form', form, 'content', content);
-            },
+            // valueChange: ({ value, form, ...content }) => {},
           },
         },
         description: {
@@ -148,15 +151,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 180, sorter: true },
-          addForm: { show: false },
-          editForm: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

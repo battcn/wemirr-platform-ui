@@ -1,10 +1,8 @@
 import type { CreateCrudOptionsRet } from '@fast-crud/fast-crud';
 
-import dayjs from 'dayjs';
-
 import { defHttp } from '#/api/request';
 
-export default function (): CreateCrudOptionsRet {
+export default function crud(): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -59,15 +57,7 @@ export default function (): CreateCrudOptionsRet {
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { show: true, width: 180 },
-          addForm: { show: false },
-          editForm: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

@@ -11,7 +11,6 @@ import { useAccess } from '@vben/access';
 
 import { asyncCompute, compute, dict, utils } from '@fast-crud/fast-crud';
 import { Modal, notification } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
 import { getAreaTree, SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
@@ -339,14 +338,7 @@ export default function crud(
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 180 },
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
       form: {
@@ -364,12 +356,12 @@ export default function crud(
                 'alias',
                 'type',
                 'status',
-                'locked',
                 'creditCode',
                 'legalPersonName',
                 'area',
                 'address',
                 'description',
+                'createdTime',
               ],
             },
             linkInfo: {

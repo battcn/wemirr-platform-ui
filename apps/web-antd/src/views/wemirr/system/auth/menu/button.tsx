@@ -1,15 +1,20 @@
 import type {
+  AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
+  DelReq,
+  EditReq,
   UserPageQuery,
   UserPageRes,
 } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
 
-import * as api from '../api';
+import * as api from './api';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -64,11 +69,10 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           column: { show: false },
           dict: dict({
             data: [
-              { value: 1, label: '菜单' },
-              { value: 2, label: '按钮' },
+              { value: 'menu', label: '菜单' },
+              { value: 'button', label: '按钮' },
             ],
           }),
-          // addForm: { value: 2 },
           form: { value: 'button', show: false, component: { disabled: true } },
         },
         title: {

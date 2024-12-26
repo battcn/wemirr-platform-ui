@@ -20,14 +20,14 @@ const [AssignResourceModal, resourceModalApi] = useVbenModal({
 });
 
 function assignModal() {
-  function userModal(roleId) {
+  function userModal(roleId: string) {
     api.getUserByRoleId(roleId).then((data) => {
       userModalApi.setData({ roleId, ...data });
       userModalApi.open();
     });
   }
 
-  function resourceModal(roleId) {
+  function resourceModal(roleId: string) {
     resourceModalApi.setData({ roleId });
     resourceModalApi.open();
   }

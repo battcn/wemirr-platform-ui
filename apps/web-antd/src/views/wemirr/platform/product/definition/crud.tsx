@@ -10,7 +10,6 @@ import type {
 import { useAccess } from '@vben/access';
 
 import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import * as api from './api';
 
@@ -37,7 +36,7 @@ export default function crud(
             type: 'link',
             size: 'small',
             order: 2,
-            // show: hasPermission('sys:role:distribution:res'),
+            show: hasPermission('product:definition:assign'),
             async click({ row }: any) {
               await assign.resourceModal(row.id);
             },
@@ -120,15 +119,7 @@ export default function crud(
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 170, sorter: true, align: 'center' },
-          addForm: { show: false },
-          editForm: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

@@ -130,7 +130,7 @@ function onSubmit(values: Record<string, any>) {
 }
 
 onMounted(async () => {
-  await loadOrgTree();
+  loadOrgTree();
 });
 
 function handleSelect(checkedKeys: any, event: any) {
@@ -151,7 +151,7 @@ function handlePlus(node: any) {
 const treeData = ref([] as TreeProps);
 
 function loadOrgTree() {
-  getOrgTree().then((ret: any) => {
+  getOrgTree({}).then((ret: any) => {
     treeData.value = ret;
     expandedKeys.value = ret
       .filter((item: any) => item.parentId === '0')

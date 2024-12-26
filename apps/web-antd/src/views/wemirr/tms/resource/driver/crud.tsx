@@ -166,7 +166,7 @@ export default function () {
           type: 'daterange',
           column: { show: true },
           search: { show: true, width: 300 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (
               !utils.strings.hasEmpty(row.idCardStartDate, row.idCardEndDate)
             ) {
@@ -195,7 +195,7 @@ export default function () {
             show: false,
             col: { span: 12 },
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -209,7 +209,7 @@ export default function () {
             show: false,
             col: { span: 12 },
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -234,7 +234,7 @@ export default function () {
           title: '驾照有效期',
           type: 'daterange',
           search: { show: false, width: 300 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (
               !utils.strings.hasEmpty(
                 row.driverLicenseStart,
@@ -266,7 +266,7 @@ export default function () {
           type: 'date',
           search: { show: false },
           column: { show: false },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -283,7 +283,7 @@ export default function () {
           title: '驾照有效期',
           type: 'date',
           column: { show: false },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -450,7 +450,7 @@ export default function () {
           title: '从业资格有效期',
           type: 'daterange',
           search: { show: false, width: 300 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (
               !utils.strings.hasEmpty(row.adaptIdIssueDate, row.adaptIdDueDate)
             ) {
@@ -482,7 +482,7 @@ export default function () {
             show: false,
             col: { span: 12 },
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
@@ -492,7 +492,7 @@ export default function () {
           title: '从业资格证件有效期至',
           type: 'date',
           column: { show: false },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
@@ -518,15 +518,8 @@ export default function () {
           column: { ellipsis: true, width: 160 },
         },
         createdTime: {
-          column: { show: false, width: 170 },
           title: '创建时间',
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
       form: {

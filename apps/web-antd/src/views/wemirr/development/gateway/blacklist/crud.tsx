@@ -182,7 +182,7 @@ export default function crud({
         datetimerange: {
           title: '限时范围',
           type: 'datetimerange',
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (!utils.strings.hasEmpty(row.startTime, row.endTime)) {
               row[key] = [dayjs(row.startTime), dayjs(row.endTime)];
             }
@@ -211,14 +211,7 @@ export default function crud({
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          form: { show: false },
-          column: { width: 180 },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value).format();
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

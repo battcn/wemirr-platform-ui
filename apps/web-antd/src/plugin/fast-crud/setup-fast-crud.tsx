@@ -1,11 +1,18 @@
-import type { ColumnCompositionProps } from '@fast-crud/fast-crud';
+import type {
+  ColumnCompositionProps,
+  ValueBuilderContext,
+} from '@fast-crud/fast-crud';
 import type { FsEditorWang5Config } from '@fast-crud/fast-extends/dist/d/editor/type/config';
 
 import type { App } from 'vue';
 import { computed } from 'vue';
 
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';
-import { FastCrud, registerMergeColumnPlugin } from '@fast-crud/fast-crud';
+import {
+  FastCrud,
+  registerMergeColumnPlugin,
+  useTypes,
+} from '@fast-crud/fast-crud';
 import {
   FsExtendsCopyable,
   FsExtendsEditor,
@@ -16,6 +23,7 @@ import {
 } from '@fast-crud/fast-extends';
 import ui from '@fast-crud/ui-antdv4';
 import Antdv, { notification } from 'ant-design-vue';
+import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
@@ -78,7 +86,7 @@ export function registerFastCrud(app: App) {
               order: 3,
               size: 'small',
               type: 'link',
-              icon: null,
+              icon: '',
               // 重写 render 默认的 confirm 没有 pop-confirm 操作友好
               render(scope: any) {
                 function confirm() {
@@ -161,7 +169,7 @@ export function registerFastCrud(app: App) {
           wrapper: {
             is: 'a-drawer',
           },
-          async afterSubmit({ mode }) {
+          async afterSubmit({ mode }: any) {
             if (mode === 'add') {
               notification.success({ message: '添加成功' });
             } else if (mode === 'edit') {
@@ -240,7 +248,27 @@ export function registerFastCrud(app: App) {
       },
     },
   } as any);
+  initColumnSetting();
+  function initColumnSetting() {
+    // 修改官方字段类型
+    // 不要写在页面里，这个是全局的，要写在vue.use(FastCrud)之后
+    const { getType, addTypes } = useTypes();
+    const selectType = getType('dict-select');
+    selectType.column.component.color = 'auto'; // 修改官方的字段类型，设置为支持自动染色
 
+    addTypes({
+      'wp-readonly-time': {
+        column: { width: 170, align: 'center' },
+        addForm: { show: false },
+        editForm: { show: false },
+        valueBuilder({ value, row, key }: ValueBuilderContext): void {
+          if (value !== null) {
+            row[key] = dayjs(value);
+          }
+        },
+      },
+    });
+  }
   // 默认宽度，支持自动拖动调整列宽
   registerMergeColumnPlugin({
     name: 'resize-column-plugin',

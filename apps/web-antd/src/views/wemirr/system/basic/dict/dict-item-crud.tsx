@@ -9,7 +9,6 @@ import type {
 } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
@@ -87,7 +86,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             ],
           }),
           addForm: { value: 1 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = value === true ? 1 : 0;
             }
@@ -108,14 +107,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 180 },
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

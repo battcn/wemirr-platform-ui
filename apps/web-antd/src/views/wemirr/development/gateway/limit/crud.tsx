@@ -165,14 +165,7 @@ export default function () {
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 180 },
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value).format();
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

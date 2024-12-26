@@ -2,7 +2,7 @@ import { dict, useColumns, useUi } from '@fast-crud/fast-crud';
 
 import * as api from './api';
 
-export default function (callbackFunc: () => void): any {
+export default function crud(callbackFunc: () => void): any {
   const { ui } = useUi();
   // 自定义表单配置
   const { buildFormOptions } = useColumns();
@@ -66,7 +66,7 @@ export default function (callbackFunc: () => void): any {
             callbackFunc();
             ui.notification.success({
               message: '修改成功',
-              duration: 3,
+              // duration: 3,
             });
           });
         } else {
@@ -74,7 +74,7 @@ export default function (callbackFunc: () => void): any {
             callbackFunc();
             ui.notification.success({
               message: '新增成功',
-              duration: 3,
+              // duration: 3,
             });
           });
         }

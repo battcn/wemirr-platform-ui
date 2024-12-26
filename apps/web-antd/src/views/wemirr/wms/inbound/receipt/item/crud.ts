@@ -134,12 +134,12 @@ export default function crud({ crudExpose }) {
           title: '生产日期',
           type: 'text',
           column: { show: true, width: 150 },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
@@ -156,24 +156,24 @@ export default function crud({ crudExpose }) {
             width: 150,
             editable: {},
             component: {
-              valueResolve({ value, row, key }: any) {
+              valueResolve({ value, row, key }: ValueBuilderContext): void {
                 if (value !== null) {
                   row[key] = dayjs(value).unix();
                 }
               },
-              valueBuilder({ value, row, key }: any) {
+              valueBuilder({ value, row, key }: ValueBuilderContext): void {
                 if (value !== null) {
                   row[key] = dayjs(value);
                 }
               },
             },
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }

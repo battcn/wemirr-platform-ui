@@ -92,7 +92,7 @@ export default function ({ crudExpose }) {
           type: 'cropper-uploader',
           style: { height: 70 },
           column: { width: 70, align: 'center', show: false },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value != null && value.indexOf('http')) {
               row[key] = `http://www.docmirror.cn:7070${value}`;
             }
@@ -123,12 +123,12 @@ export default function ({ crudExpose }) {
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -143,12 +143,12 @@ export default function ({ crudExpose }) {
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -163,12 +163,12 @@ export default function ({ crudExpose }) {
           type: 'date',
           search: { show: false },
           column: { show: true, width: 160 },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -203,7 +203,7 @@ export default function ({ crudExpose }) {
           column: { width: 200, show: false },
           search: { show: false },
           type: 'dict-cascader',
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (!utils.strings.hasEmpty(row.provinceId)) {
               row[key] = [row.provinceId, row.cityId, row.districtId];
             }
@@ -319,14 +319,7 @@ export default function ({ crudExpose }) {
         },
         createdTime: {
           title: '创建时间',
-          column: { show: true, width: 170 },
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

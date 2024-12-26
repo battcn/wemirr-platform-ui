@@ -1,4 +1,5 @@
 import type {
+  CreateCrudOptionsRet,
   ValueBuilderContext,
   ValueResolveContext,
 } from '@fast-crud/fast-crud';
@@ -8,7 +9,7 @@ import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function crud(): any {
+export default function crud(): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -150,7 +151,7 @@ export default function crud(): any {
               title: '开始时间',
               type: 'datetime',
               column: { width: 180 },
-              valueBuilder({ value, row, key }: any) {
+              valueBuilder({ value, row, key }: ValueBuilderContext): void {
                 if (value !== null) {
                   row[key] = dayjs(value);
                 }
@@ -160,7 +161,7 @@ export default function crud(): any {
               title: '结束时间',
               type: 'datetime',
               column: { width: 180 },
-              valueBuilder({ value, row, key }: any) {
+              valueBuilder({ value, row, key }: ValueBuilderContext): void {
                 if (value !== null) {
                   row[key] = dayjs(value);
                 }

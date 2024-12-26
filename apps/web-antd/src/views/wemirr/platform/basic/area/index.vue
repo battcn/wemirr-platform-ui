@@ -122,7 +122,7 @@ function onSubmit(values: Record<string, any>) {
 }
 
 onMounted(async () => {
-  await loadAreaTree();
+  loadAreaTree();
 });
 
 function handleSelect(checkedKeys: any, event: any) {

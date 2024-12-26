@@ -9,7 +9,7 @@ import { getAllMenusApi } from '#/api';
 import { $t } from '#/locales';
 
 import * as api from './api';
-import ResourceButtonTable from './button/index.vue';
+import ResourceButtonTable from './button.vue';
 import { menuForm } from './scheme';
 
 const actionList = ref<any>([]);

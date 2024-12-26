@@ -2,7 +2,6 @@ import type { UserPageQuery } from '@fast-crud/fast-crud';
 
 import { BusinessDictCode, businessDictFunc } from '@/api/dict/dict';
 import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import createFlowCrudOptions from '../flow/crud';
 import * as api from './api';
@@ -134,14 +133,7 @@ export default function crud({ expose }) {
         },
         createdTime: {
           title: '创建时间',
-          column: { show: true, width: 170 },
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

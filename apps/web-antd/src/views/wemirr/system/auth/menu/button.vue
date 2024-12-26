@@ -3,7 +3,7 @@ import { defineComponent, onMounted, ref } from 'vue';
 
 import { useFs } from '@fast-crud/fast-crud';
 
-import createCrudOptions from './crud.js';
+import createCrudOptions from './button';
 
 export default defineComponent({
   name: 'ResourceButtonTable',

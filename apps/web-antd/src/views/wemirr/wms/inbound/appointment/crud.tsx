@@ -230,12 +230,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             },
             rules: [{ required: true, message: '预计到货时间不能为空' }],
           },
-          valueResolve({ value, row, key }: any) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
@@ -282,14 +282,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         createdTime: {
           title: '创建时间',
-          column: { show: true, width: 170 },
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
       form: {

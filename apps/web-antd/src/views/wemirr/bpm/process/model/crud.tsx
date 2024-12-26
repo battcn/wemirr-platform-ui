@@ -7,7 +7,6 @@ import {
   dict,
 } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
-import dayjs from 'dayjs';
 
 import { DelObj, Deploy, PageList } from './api';
 
@@ -15,7 +14,8 @@ export default function crud(
   props: CreateCrudOptionsProps,
 ): CreateCrudOptionsRet {
   const router = useRouter();
-  const { openBpmnModal, diagramRef } = props.context;
+  const { crudExpose } = props;
+  const { diagramRef } = props.context;
   return {
     crudOptions: {
       table: {},
@@ -28,7 +28,7 @@ export default function crud(
         show: true,
         buttons: {
           add: {
-            icon: null,
+            icon: '',
             text: '创建模型',
             async click() {
               await router.push('/bpm/process/design');
@@ -79,7 +79,7 @@ export default function crud(
             async click({ row }) {
               await Deploy(row.id).then(() => {
                 notification.success({ message: '部署成功', duration: 3 });
-                expose.doRefresh();
+                crudExpose.doRefresh();
               });
             },
           },
@@ -153,15 +153,7 @@ export default function crud(
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 180, sorter: true, align: 'center' },
-          addForm: { show: false },
-          editForm: { show: false },
-          valueBuilder({ value, row, key }) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

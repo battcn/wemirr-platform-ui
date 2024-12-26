@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 import * as api from './api';
 
 export default function () {
@@ -83,14 +81,7 @@ export default function () {
         },
         createdTime: {
           title: '创建时间',
-          column: { show: false, width: 170 },
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

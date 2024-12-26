@@ -2,7 +2,7 @@ import { useColumns, useUi } from '@fast-crud/fast-crud';
 
 import * as api from './api';
 
-export default function (callbackFunc: () => void): any {
+export default function crudFunc(callbackFunc: () => void): any {
   const { ui } = useUi();
   // 自定义表单配置
   const { buildFormOptions } = useColumns();
@@ -61,21 +61,21 @@ export default function (callbackFunc: () => void): any {
         is: 'a-modal',
         title: '新增字典',
       },
-      doSubmit({ form }) {
+      doSubmit({ form }: any) {
         if (form.id) {
-          api.UpdateObj(form).then((ret) => {
+          api.UpdateObj(form).then(() => {
             callbackFunc();
             ui.notification.success({
               message: '修改成功',
-              duration: 3,
+              // duration: 3,
             });
           });
         } else {
-          api.AddObj(form).then((ret) => {
+          api.AddObj(form).then(() => {
             callbackFunc();
             ui.notification.success({
               message: '新增成功',
-              duration: 3,
+              // duration: 3,
             });
           });
         }

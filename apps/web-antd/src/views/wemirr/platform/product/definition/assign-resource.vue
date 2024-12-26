@@ -7,7 +7,7 @@ import { notification } from 'ant-design-vue';
 
 import { getAllMenusApi } from '#/api';
 
-import * as api from './api.ts';
+import * as api from './api';
 
 const treeData = ref([]);
 const columns = [
@@ -19,7 +19,7 @@ const columns = [
 const selectedTreeKeys = ref([]);
 const checkedTreeKeys = ref([]);
 const expandedKeys = ref([]);
-const selectedTableKeys = ref([]);
+const selectedTableKeys = ref<string[]>([]);
 const tableData = ref([]);
 const pagination = ref({
   total: 0,
@@ -27,11 +27,11 @@ const pagination = ref({
   pageSize: 10,
 });
 
-const modelRef = ref({ productId: null });
+const modelRef = ref({ productId: null } as Record<string, any>);
 const getAllSelectedIds = computed(() => {
   const treeIds = checkedTreeKeys.value || [];
   const tableIds = selectedTableKeys.value || [];
-  const currentTableIds = new Set(tableData.value.map((item) => item.id));
+  const currentTableIds = new Set(tableData.value.map((item: any) => item.id));
   const filteredTreeIds = treeIds.filter((id) => !currentTableIds.has(id));
   return [...new Set([...filteredTreeIds, ...tableIds])];
 });
@@ -59,7 +59,7 @@ const [Modal, modalApi] = useVbenModal({
   onOpenChange(isOpen: boolean) {
     if (!isOpen) return;
 
-    getAllMenusApi({ status: true }).then((ret) => {
+    getAllMenusApi({ status: true }).then((ret: any) => {
       treeData.value = ret;
       expandedKeys.value = ret
         .filter((item: any) => item.parentId === '0')
@@ -84,17 +84,18 @@ const rowSelection = reactive({
   },
 });
 
-const loadTableData = async (parentId) => {
+const loadTableData = async (parentId: any) => {
   try {
-    const ret = await api.GetResourceList({ type: 'button', parentId });
-    tableData.value = ret.records;
-    pagination.value.total = Number(ret.total);
+    api.GetResourceList({ type: 'button', parentId }).then((ret: any) => {
+      tableData.value = ret.records;
+      pagination.value.total = Number(ret.total);
+    });
   } catch (error) {
     console.error('加载数据失败:', error);
   }
 };
 
-const handleTreeSelect = async (selectedKeys, event) => {
+const handleTreeSelect = async (selectedKeys: any, event: any) => {
   if (!event.selected) return;
   const selectNode = event.selectedNodes[0];
   if (selectedKeys.length > 0) {
@@ -102,7 +103,7 @@ const handleTreeSelect = async (selectedKeys, event) => {
   }
 };
 
-const handleTableChange = (pag) => {
+const handleTableChange = (pag: any) => {
   pagination.value = pag;
   loadTableData(selectedTreeKeys.value[0]);
 };
@@ -129,7 +130,7 @@ const handleTableChange = (pag) => {
           :columns="columns.filter((column) => !column.hidden)"
           :data-source="tableData"
           :pagination="pagination"
-          :row-key="(record) => record.id"
+          :row-key="(record: any) => record.id"
           :row-selection="rowSelection"
           bordered
           @change="handleTableChange"

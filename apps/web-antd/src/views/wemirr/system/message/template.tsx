@@ -8,12 +8,12 @@ import { useRouter } from 'vue-router';
 import { useAccess } from '@vben/access';
 
 import { dict, utils } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  utils.logger.info('crud props', props);
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const router = useRouter();
   const { hasPermission } = useAccess();
 
@@ -141,14 +141,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         createdTime: {
           title: '通知时间',
-          type: 'datetime',
-          column: { show: true, width: 180 },
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

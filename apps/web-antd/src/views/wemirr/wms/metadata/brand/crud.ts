@@ -6,7 +6,6 @@ import type {
 } from '@fast-crud/fast-crud';
 
 import { dict, utils } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { SysDictCode, sysDictFunc } from '#/api';
 
@@ -100,7 +99,7 @@ export default function crud({ crudExpose }) {
           type: 'cropper-uploader',
           style: { height: 70 },
           column: { width: 70, align: 'center', show: false },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value != null && value.indexOf('http')) {
               row[key] = `http://www.docmirror.cn:7070${value}`;
             }
@@ -160,7 +159,7 @@ export default function crud({ crudExpose }) {
           column: { width: 200, show: false },
           search: { show: false },
           type: 'dict-cascader',
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (!utils.strings.hasEmpty(row.provinceId)) {
               row[key] = [row.provinceId, row.cityId, row.districtId];
             }
@@ -243,14 +242,7 @@ export default function crud({ crudExpose }) {
         },
         createdTime: {
           title: '创建时间',
-          column: { show: true, width: 170 },
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

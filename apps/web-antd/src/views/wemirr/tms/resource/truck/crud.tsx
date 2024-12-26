@@ -117,7 +117,7 @@ export default function () {
           form: {
             show: false,
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             row[key] = `${row.truckModel || '-'}/${row.truckLength || '-'}/${
               row.truckWidth || '-'
             }`;
@@ -344,7 +344,7 @@ export default function () {
               valueFormat: 'YYYY-MM-DD',
             },
           },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).format('YYYY-MM-DD');
             }
@@ -467,14 +467,7 @@ export default function () {
         },
         createdTime: {
           title: '创建时间',
-          column: { show: true, width: 170 },
-          type: 'datetime',
-          form: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
       form: {

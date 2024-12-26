@@ -1,9 +1,10 @@
+import type { CreateCrudOptionsRet } from '@fast-crud/fast-crud';
+
 import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function () {
+export default function crud(): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -77,13 +78,7 @@ export default function () {
         },
         createdTime: {
           title: '推送时间',
-          type: 'datetime',
-          column: { show: true, width: 170 }, // 表单配置
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

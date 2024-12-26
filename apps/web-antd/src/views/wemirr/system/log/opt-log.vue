@@ -1,8 +1,7 @@
 <script lang="ts" setup name="OptLogPage">
-import type { DownOutlined } from '@ant-design/icons-vue';
-
 import { onMounted } from 'vue';
 
+import { DownOutlined } from '@ant-design/icons-vue';
 import { useFs } from '@fast-crud/fast-crud';
 import { Modal, notification } from 'ant-design-vue';
 

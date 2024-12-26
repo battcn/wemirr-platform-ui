@@ -1,11 +1,18 @@
-import type { DelReq } from '@fast-crud/fast-crud';
+import type {
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+  DelReq,
+  ValueBuilderContext,
+} from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function crud(props: any) {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -56,7 +63,7 @@ export default function crud(props: any) {
           title: '登录时间',
           type: 'datetime',
           column: { width: 160, fixed: 'left' },
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }

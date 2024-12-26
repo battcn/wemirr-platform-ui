@@ -5,12 +5,12 @@ import type {
   DelReq,
   EditReq,
   UserPageQuery,
+  ValueBuilderContext,
 } from '@fast-crud/fast-crud';
 
 import { useAccess } from '@vben/access';
 
 import { dict, useUi } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { SysDictCode, sysDictFunc } from '#/api';
 import { defHttp } from '#/api/request';
@@ -174,7 +174,7 @@ export default function crud(
           search: { show: true },
           type: 'dict-radio',
           // true | false 在 渲染查询控件会有告警 antdv 问题
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = value ? 1 : 0;
             }
@@ -316,25 +316,11 @@ export default function crud(
           title: '描述',
           column: { show: false },
           type: ['textarea'],
-          form: {
-            col: { span: 24 },
-          },
+          form: { col: { span: 24 } },
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 180, sorter: true },
-          form: {
-            show: false,
-          },
-          editForm: {
-            show: false,
-          },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
       form: {

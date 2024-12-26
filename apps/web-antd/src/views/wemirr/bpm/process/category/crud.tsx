@@ -1,5 +1,4 @@
 import { dict } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
@@ -116,15 +115,7 @@ export default function () {
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 170, sorter: true, align: 'center' },
-          addForm: { show: false },
-          editForm: { show: false },
-          valueBuilder({ value, row, key }) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

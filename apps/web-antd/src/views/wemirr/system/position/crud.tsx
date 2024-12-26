@@ -7,7 +7,6 @@ import type {
 } from '@fast-crud/fast-crud';
 
 import { dict, utils } from '@fast-crud/fast-crud';
-import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
@@ -92,20 +91,6 @@ export default function crud(
             label: 'name',
           }),
           form: {
-            // component: {
-            //   fieldNames: {
-            //     children: 'children',
-            //     title: 'name',
-            //     key: 'id',
-            //     value: 'id',
-            //   },
-            //   showSearch: true,
-            //   filterTreeNode: (val: any, treeNode: any) => {
-            //     return treeNode.props.title
-            //       .toLowerCase()
-            //       .includes(val.toLowerCase());
-            //   },
-            // },
             col: { span: 24 },
             rules: [{ required: true, message: '组织名称不能为空' }],
           },
@@ -121,15 +106,7 @@ export default function crud(
         },
         createdTime: {
           title: '创建时间',
-          type: 'datetime',
-          column: { width: 170, sorter: true, align: 'center' },
-          addForm: { show: false },
-          editForm: { show: false },
-          valueBuilder({ value, row, key }: any) {
-            if (value !== null) {
-              row[key] = dayjs(value);
-            }
-          },
+          type: ['datetime', 'wp-readonly-time'],
         },
       },
     },

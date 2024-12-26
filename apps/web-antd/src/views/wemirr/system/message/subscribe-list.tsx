@@ -1,9 +1,14 @@
+import type {
+  CreateCrudOptionsRet,
+  ValueBuilderContext,
+} from '@fast-crud/fast-crud';
+
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function () {
+export default function crud(): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
@@ -70,7 +75,7 @@ export default function () {
           title: '通知时间',
           type: 'datetime',
           column: { show: true, width: 170 }, // 表单配置
-          valueBuilder({ value, row, key }: any) {
+          valueBuilder({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value);
             }
