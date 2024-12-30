@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { useFs, useUi } from '@fast-crud/fast-crud';
+import { FsButton, FsFormWrapper, useFs, useUi } from '@fast-crud/fast-crud';
 import { Card, Modal } from 'ant-design-vue';
 
 import * as api from './api';
@@ -16,9 +16,15 @@ function useFormWrapperUsingTag(callback: any) {
   const formWrapperRef = ref();
   const formWrapperOptions = ref();
   formWrapperOptions.value = createFormOptions(callback);
-  formWrapperOptions.value.initialForm = { type: 0 };
-
-  function openFormWrapper() {
+  const initData = {
+    type: 0,
+    sequence: 99,
+    dictId: undefined,
+    dictCode: undefined,
+  };
+  function openFormWrapper(form: any) {
+    formWrapperOptions.value.initialForm = form || initData;
+    formWrapperOptions.value.columns.code.component.disabled = false;
     formWrapperRef.value.open(formWrapperOptions.value);
   }
 
@@ -45,14 +51,6 @@ const { crudBinding, crudRef, crudExpose } = useFs({
   context: { permission: 'dict' },
 });
 
-const onContextMenuClick = (treeKey: string, menuKey: number | string) => {
-  if (menuKey === 'delete') {
-    api.DelObj(treeKey).then(() => {
-      loadDictList();
-    });
-  }
-};
-
 // 页面打开后获取列表数据
 onMounted(async () => {
   loadDictList();
@@ -63,34 +61,29 @@ function handleSelect(checkedKeys: any, event: any) {
     return;
   }
   const nodeRef = event.selectedNodes[0];
-  crudBinding.value.search.initialForm = {
-    dictId: nodeRef.id,
-    dictCode: nodeRef.code,
-  };
-  crudBinding.value.addForm.initialForm = {
-    dictId: nodeRef.id,
-    dictCode: nodeRef.code,
-  };
-  crudBinding.value.actionbar.buttons.add.show = true;
-  crudExpose.setSearchFormData({
-    form: { dictId: nodeRef.id, dictCode: nodeRef.code },
-  });
+  const crudBindRef = crudBinding.value as any;
+  const initialForm = { dictId: nodeRef.id, dictCode: nodeRef.code };
+  crudBindRef.search.initialForm = initialForm;
+  crudBindRef.addForm.initialForm = initialForm;
+  crudBindRef.actionbar.buttons.add.show = true;
+  crudExpose.setSearchFormData({ form: { ...initialForm } });
   crudExpose.doRefresh();
 }
 
-function handleEdit(node: any) {
-  formWrapperOptions.value.initialForm = {
+const handleEdit = (node: any) => {
+  const initForm = {
     id: node.id,
     code: node.code,
+    type: node.type,
     name: node.name,
     sequence: node.sequence,
     description: node.description,
   };
   formWrapperOptions.value.columns.code.component.disabled = true;
-  openFormWrapper();
-}
+  openFormWrapper(initForm);
+};
 
-function handleDelete(node: any) {
+const handleDelete = (node: any) => {
   Modal.confirm({
     iconType: 'error',
     title: '删除',
@@ -100,18 +93,16 @@ function handleDelete(node: any) {
         loadDictList();
         ui.notification.success({
           message: '删除成功',
-          duration: 3,
         });
       });
     },
   });
-}
+};
 
 const refreshDictCache = () => {
   api.Refresh().then(() => {
     ui.notification.success({
       message: '字典缓存刷新成功',
-      duration: 3,
     });
   });
 };
@@ -124,7 +115,7 @@ const refreshDictCache = () => {
         <a-button
           type="primary"
           v-access:code="'dict:add'"
-          @click="openFormWrapper"
+          @click="openFormWrapper('')"
         >
           新增字典
         </a-button>
@@ -136,31 +127,37 @@ const refreshDictCache = () => {
         >
           刷新缓存
         </a-button>
-        <fs-form-wrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
+        <FsFormWrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
       </template>
       <a-tree
         ref="treeRef"
         :checkable="false"
         :click-row-to-expand="false"
         :tree-data="treeData"
+        block-node
         title="系统字典"
         @select="handleSelect"
       >
-        <template #title="{ key: treeKey, title }">
-          <a-dropdown :trigger="['contextmenu']">
-            <span>{{ title }}</span>
-            <template #overlay>
-              <a-menu
-                @click="
-                  ({ key: menuKey }: any) =>
-                    onContextMenuClick(treeKey, menuKey)
-                "
-              >
-                <a-menu-item key="modify">修改</a-menu-item>
-                <a-menu-item key="delete">删除</a-menu-item>
-              </a-menu>
-            </template>
-          </a-dropdown>
+        <template #title="node">
+          <span>{{ node.name }}</span>
+          <div style="float: right">
+            <FsButton
+              size="small"
+              type="link"
+              v-access:code="'dict:edit'"
+              @click="handleEdit(node)"
+            >
+              编辑
+            </FsButton>
+            <FsButton
+              size="small"
+              type="link"
+              v-access:code="'dict:remove'"
+              @click="handleDelete(node)"
+            >
+              删除
+            </FsButton>
+          </div>
         </template>
       </a-tree>
     </Card>

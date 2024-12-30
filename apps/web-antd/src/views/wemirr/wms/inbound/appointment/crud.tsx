@@ -1,14 +1,16 @@
-import { useMessage } from '@/hooks/web/useMessage';
-import {
+import type {
   AddReq,
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
   DelReq,
-  dict,
   EditReq,
   UserPageQuery,
   UserPageRes,
+  ValueBuilderContext,
 } from '@fast-crud/fast-crud';
+
+import { dict } from '@fast-crud/fast-crud';
+import { Modal, notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
@@ -17,9 +19,10 @@ import createCrudOptionsTenant from '#/views/wemirr/wms/basic/warehouse/crud';
 import * as api from './api';
 import EditableItemSub from './item/index.vue';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const { crudExpose } = props;
-  const { notification, createConfirm } = useMessage();
   return {
     crudOptions: {
       request: {
@@ -61,15 +64,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             order: 4,
             // show: hasPermission("wms:receiving_appointment:cancel"),
             async click({ row }) {
-              createConfirm({
+              Modal.confirm({
                 iconType: 'info',
                 title: '提示',
                 content: `您确定要取消预约吗？`,
                 onOk: () => {
                   defHttp
-                    .put({
-                      url: `/wms/receiving_appointments/${row.id}/status/-10`,
-                    })
+                    .put(`/wms/receiving_appointments/${row.id}/status/-10`)
                     .then(() => {
                       notification.success({
                         message: '取消成功',
@@ -88,15 +89,13 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             order: 5,
             // show: hasPermission("sys:role:distribution:reject"),
             async click({ row }) {
-              createConfirm({
+              Modal.confirm({
                 iconType: 'info',
                 title: '提示',
                 content: `您确定要取消预约吗？`,
                 onOk: () => {
                   defHttp
-                    .put({
-                      url: `/wms/receiving_appointments/${row.id}/status/-20`,
-                    })
+                    .put(`/wms/receiving_appointments/${row.id}/status/-20`)
                     .then(() => {
                       notification.success({
                         message: '取消成功',

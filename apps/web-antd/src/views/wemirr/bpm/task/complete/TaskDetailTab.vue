@@ -2,13 +2,13 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import AntdGenerateForm from '#/components/FormDesigner/antd/render/AntdGenerateForm.vue';
+// import AntdGenerateForm from '#/components/FormDesigner/antd/render/AntdGenerateForm.vue';
 
 import * as api from './api';
 
 export default defineComponent({
   components: {
-    AntdGenerateForm,
+    // AntdGenerateForm,
   },
   setup() {
     const state = reactive({ widgetForm: { config: {}, list: [] } });
@@ -66,15 +66,16 @@ export default defineComponent({
 });
 </script>
 <template>
-  <AntdGenerateForm
+  <div>asdasdas</div>
+  <!--  <AntdGenerateForm
     :key="generateFormRenderKey"
     ref="generateFormRef"
     :data="widgetForm"
-  />
+  />-->
 </template>
 <style lang="less" scoped>
 .result-success {
-  background-color: @component-background;
+  //background-color: @component-background;
 
   &__content {
   }

@@ -47,6 +47,12 @@ export default function crud(callbackFunc: () => void): any {
           rules: [{ required: true, message: '编码不能为空' }],
         },
       },
+      sequence: {
+        title: '排序',
+        type: 'number',
+        column: { show: true, width: 80 },
+        form: { component: { min: 0, max: 1000 } },
+      },
       description: {
         title: '描述',
         type: ['textarea'],
@@ -66,7 +72,6 @@ export default function crud(callbackFunc: () => void): any {
             callbackFunc();
             ui.notification.success({
               message: '修改成功',
-              // duration: 3,
             });
           });
         } else {
@@ -74,7 +79,6 @@ export default function crud(callbackFunc: () => void): any {
             callbackFunc();
             ui.notification.success({
               message: '新增成功',
-              // duration: 3,
             });
           });
         }

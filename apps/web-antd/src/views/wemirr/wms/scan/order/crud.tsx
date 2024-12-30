@@ -1,7 +1,8 @@
 import type { UserPageQuery } from '@fast-crud/fast-crud';
 
-import { BusinessDictCode, businessDictFunc } from '@/api/dict/dict';
 import { dict } from '@fast-crud/fast-crud';
+
+import { BusinessDictCode, businessDictFunc } from '#/api/core/dict';
 
 import createFlowCrudOptions from '../flow/crud';
 import * as api from './api';

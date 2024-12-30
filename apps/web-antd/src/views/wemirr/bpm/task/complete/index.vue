@@ -2,19 +2,14 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { useTabs } from '@/hooks/web/useTabs';
-import { CheckOutlined } from '@ant-design/icons-vue';
-import { useColumns } from '@fast-crud/fast-crud';
-import { TabPane, Tabs } from 'ant-design-vue';
+import { Page } from '@vben/common-ui';
 
-import { PageWrapper } from '#/components/Page';
+import { useColumns } from '@fast-crud/fast-crud';
 
 import * as api from './api';
 import createApprovalOptions from './approval';
-import ApprovalHistory from './ApprovalHistory.vue';
-import TaskDetailModal from './TaskDetailTab.vue';
 
-const { closeCurrent } = useTabs();
+// const { closeCurrent } = useTabs();
 const router = useRouter();
 const approvalHistoryRef = ref();
 const title = ref();
@@ -27,7 +22,7 @@ const processXmlRef = ref();
 const activeKey = ref('diagram');
 
 function goBack() {
-  closeCurrent();
+  // closeCurrent();
   router.push('/bpm/task/list');
 }
 
@@ -60,8 +55,8 @@ function openFormWrapper() {
 </script>
 
 <template>
-  <PageWrapper :title="title" @back="goBack">
-    <div class="bpm-task-complete-tabs">
+  <Page :title="title" @back="goBack">
+    <!--    <div class="bpm-task-complete-tabs">
       <Tabs
         v-model:active-key="activeKey"
         style="padding: 10px"
@@ -98,8 +93,8 @@ function openFormWrapper() {
       <div v-show="activeKey === 'approvalNode'">
         <ApprovalHistory ref="approvalHistoryRef" />
       </div>
-    </div>
-  </PageWrapper>
+    </div>-->
+  </Page>
 </template>
 
 <style lang="less" scoped>

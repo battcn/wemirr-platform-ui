@@ -92,7 +92,7 @@ const panelProps = ref<FsBpmnPanelProps>({
     };
   },
   // 重新设置组件配置
-  resetComponents(elements, components) {
+  resetComponents(elements: any, components: any) {
     // console.log("elements", elements);
     // components.ElementExtensionAttribute.show = false
     // 是否显示生成

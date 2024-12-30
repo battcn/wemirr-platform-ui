@@ -11,7 +11,7 @@ import {
 import { useModelerStore } from '@fast-crud/fast-bpmn';
 import { useUi } from '@fast-crud/ui-interface';
 
-import { GetActiveProcessCategory } from './api';
+import { getActiveProcessCategory } from './api';
 // import { IconPicker } from "#/components/Icon";
 
 const { ui } = useUi();
@@ -45,7 +45,7 @@ async function reload() {
 }
 
 onMounted(async () => {
-  categoryList.value = await GetActiveProcessCategory();
+  categoryList.value = await getActiveProcessCategory();
 });
 
 modelerStore.onElementUpdate(reload);

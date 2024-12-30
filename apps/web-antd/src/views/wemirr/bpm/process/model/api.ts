@@ -11,13 +11,10 @@ export function AddProcessModel(data: any) {
   });
 }
 
-export function GetActiveProcessCategory() {
-  return defHttp
-    .request(`/bpm/process_categories/list`, {
-      method: 'get',
-      params: { state: 1 },
-    })
-    .then((ret) => ret.data);
+export function getActiveProcessCategory() {
+  return defHttp.get(`/bpm/process_categories/list`, {
+    params: { state: 1 },
+  });
 }
 
 export function ModifyProcessModel(data: any) {

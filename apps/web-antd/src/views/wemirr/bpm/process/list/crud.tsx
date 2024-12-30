@@ -19,7 +19,7 @@ export default function crud({
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post(`/bpm/process_instances/page`, query),
+          await defHttp.post(`/bpm/process-instances/page`, query),
       },
       actionbar: {
         show: true,
@@ -63,7 +63,7 @@ export default function crud({
             }),
             async click({ row }) {
               await defHttp
-                .post(`/bpm/process_instances/${row.procInstId}/cancel`)
+                .post(`/bpm/process-instances/${row.procInstId}/cancel`)
                 .then(() => {
                   notification.success({ message: '作废成功', duration: 3 });
                   crudExpose.doRefresh();
@@ -148,7 +148,7 @@ export default function crud({
                 onOk: () => {
                   defHttp
                     .put(
-                      `/bpm/process_instances/${row.id}/status/${row.procInstActivate}`,
+                      `/bpm/process-instances/${row.id}/status/${row.procInstActivate}`,
                     )
                     .then(() => {
                       notification.success({
