@@ -11,5 +11,7 @@ export function GetTaskApprovalRecord(processInstanceId: any) {
 }
 
 export function RenderFormByProcessInstanceId(processInstanceId: any) {
-  return defHttp.get(`/bpm/process-instances/${processInstanceId}/render_form`);
+  return defHttp.get(
+    `/bpm/process-instances/${processInstanceId}/form-preview`,
+  );
 }

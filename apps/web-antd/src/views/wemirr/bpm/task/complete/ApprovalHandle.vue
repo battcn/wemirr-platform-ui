@@ -14,7 +14,7 @@ import createApprovalOptions from '#/views/wemirr/bpm/task/complete/approval';
 import TaskFormDetail from '#/views/wemirr/bpm/task/complete/TaskFormDetail.vue';
 import createTransferOptions from '#/views/wemirr/bpm/task/complete/transfer';
 
-import * as api from './api.ts';
+import * as api from './api';
 
 const { ui } = useUi();
 

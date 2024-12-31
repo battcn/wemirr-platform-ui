@@ -56,13 +56,12 @@ export default function crud(
             size: 'small',
             title: '表单设计',
             order: 1,
-            show: false,
             async click({ row }) {
               const routeUrl = router.resolve({
-                path: `/design/form?modelId=${row.id}`,
+                path: `/bpm/process/form-design?modelId=${row.id}`,
                 query: { modelId: `${row.id}` },
               });
-              window.open(routeUrl.href, '_blank');
+              await router.push(routeUrl);
             },
           },
           deploy: {
@@ -72,7 +71,7 @@ export default function crud(
             title: '部署',
             order: 5,
             show: compute(({ row }) => {
-              return row.state !== 1;
+              return row.status !== 1;
             }),
             async click({ row }) {
               await Deploy(row.id).then(() => {
@@ -123,7 +122,7 @@ export default function crud(
           type: 'text',
           column: { width: 160 },
         },
-        state: {
+        status: {
           title: '状态',
           search: { show: true },
           column: { width: 120, show: true, align: 'center' },

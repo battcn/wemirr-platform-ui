@@ -1,100 +1,89 @@
-<script lang="ts">
-import { defineComponent, onMounted, reactive, ref, toRefs, watch } from 'vue';
+<script lang="ts" setup>
+import { onMounted, reactive, ref, watch } from 'vue';
 
-import { useUi } from '@fast-crud/fast-crud';
+import { FsIcon, useUi } from '@fast-crud/fast-crud';
 import { Card, notification } from 'ant-design-vue';
+import { EBuilder, type PageSchema } from 'epic-designer';
 
 import * as api from './api';
 
-export default defineComponent({
-  name: 'BpmProcessCreate',
-  components: {
-    Card,
+const prefixCls = 'list-card';
+const state = reactive({
+  generateFormRenderKey: '',
+  previewOpen: false,
+  title: null,
+  modelId: '',
+  generateFormRef: null,
+  pageSchema: ref<PageSchema>({
+    schemas: [],
+    script: '',
+  }),
+});
+const { ui } = useUi();
+watch(
+  () => state.previewOpen,
+  () => {
+    if (state.previewOpen) {
+      state.generateFormRenderKey = Date.now().toString();
+    }
   },
-  setup() {
-    const state = reactive({
-      generateFormRef: null as any,
-      dataJsonTemplate: '',
-      dataCodeTemplate: '',
-      dataJsonVisible: false,
-      generateFormRenderKey: '',
-      widgetForm: {
-        previewOpen: false,
-        title: null,
-        designModelId: null,
-        config: {
-          paddingLeft: null,
-          paddingRight: null,
-          paddingTop: null,
-          paddingBottom: null,
-          windowTop: null,
-          windowWidth: null,
-        },
-        list: [],
-      },
-    });
-    const { ui } = useUi();
-    // 打开Form预览modal时，重新渲染modal
-    // const generateFormRenderKey = ref("");
-    watch(
-      () => state.widgetForm.previewOpen,
-      () => {
-        if (state.widgetForm.previewOpen) {
-          state.generateFormRenderKey = Date.now().toString();
-        }
-      },
-      {
-        deep: true,
-      },
-    );
+  {
+    deep: true,
+  },
+);
 
-    const initProcessForm = (item) => {
-      api.GetFormConfigByModelId(item.id).then((ret) => {
-        if (!ret) {
-          notification.error({ message: '未配置表单', duration: 2 });
-          return;
-        }
-        state.widgetForm.previewOpen = true;
-        state.widgetForm.config = ret.formConfig;
-        state.widgetForm.list = ret.formFields;
-        state.widgetForm.designModelId = item.id;
-        state.widgetForm.title = item.diagramName;
+const initProcessForm = (item: any) => {
+  api.GetFormConfigByModelId(item.id).then((ret) => {
+    if (!ret) {
+      notification.error({ message: '未配置表单', duration: 2 });
+      return;
+    }
+    state.title = item.diagramName;
+    state.previewOpen = true;
+    state.modelId = item.id;
+    state.pageSchema = { schemas: ret.schemas, script: ret.script };
+  });
+};
+const ebRef = ref<any>(null);
+
+async function handleReset() {
+  // 获取表单实例
+  const form = await ebRef.value?.getFormInstance();
+  // 调用组件实例方法，参考ui from 提供的重置方法，本案例以Ant Design Vue为基础UI
+  form?.resetFields();
+}
+const submitProcessInstance = () => {
+  ebRef.value.getData().then((data: any) => {
+    api
+      .startProcessInstance(state.modelId, {
+        formData: data,
+        businessKey: Date.now(),
+        businessGroup: 'DEFAULT',
+        instanceName: state.title,
+      })
+      .then(() => {
+        ui.notification.success('流程发布成功');
+        state.previewOpen = false;
       });
-    };
-
-    const handleReset = () => state.generateFormRef.reset();
-    const submitProcessInstance = () => {
-      ui.notification.error('暂未找到合适的表单渲染插件');
-    };
-    const groupList = ref([
+  });
+};
+const groupList = ref([
+  {
+    categoryId: '',
+    categoryName: '',
+    modelList: [
       {
-        categoryId: '',
-        categoryName: '',
-        modelList: [
-          {
-            id: '',
-            diagramName: '',
-            diagramIcon: '',
-            definitionId: '',
-          },
-        ],
+        id: '',
+        diagramName: '',
+        diagramIcon: '',
+        definitionId: '',
       },
-    ]);
-    // 自动请求并暴露内部方法
-    onMounted(async () => {
-      groupList.value = await api.ProcessModelGroupList();
-    });
-
-    return {
-      prefixCls: 'list-card',
-      groupList,
-      api,
-      ...toRefs(state),
-      handleReset,
-      initProcessForm,
-      submitProcessInstance,
-    };
+    ],
   },
+]);
+// 自动请求并暴露内部方法
+onMounted(async () => {
+  groupList.value = await api.ProcessModelGroupList();
 });
 </script>
 <template>
@@ -107,7 +96,7 @@ export default defineComponent({
               <a-col :span="6">
                 <a>
                   <span class="flex flex-col items-center">
-                    <fs-icon class="icon" icon="ic:outline-pending" />
+                    <FsIcon class="icon" icon="ic:outline-pending" />
                     <span class="text-md mt-2 truncate">待处理</span>
                   </span>
                 </a>
@@ -115,7 +104,7 @@ export default defineComponent({
               <a-col :span="6">
                 <a>
                   <span class="flex flex-col items-center">
-                    <fs-icon class="icon" icon="mdi:success-circle-outline" />
+                    <FsIcon class="icon" icon="mdi:success-circle-outline" />
                     <span class="text-md mt-2 truncate">已处理</span>
                   </span>
                 </a>
@@ -123,7 +112,7 @@ export default defineComponent({
               <a-col :span="6">
                 <a>
                   <span class="flex flex-col items-center">
-                    <fs-icon class="icon" icon="bi:send" />
+                    <FsIcon class="icon" icon="bi:send" />
                     <span class="text-md mt-2 truncate">已发起</span>
                   </span>
                 </a>
@@ -131,7 +120,7 @@ export default defineComponent({
               <a-col :span="6">
                 <a>
                   <span class="flex flex-col items-center">
-                    <fs-icon class="icon" icon="mdi:email-receive-outline" />
+                    <FsIcon class="icon" icon="mdi:email-receive-outline" />
                     <span class="text-md mt-2 truncate">我收到的</span>
                   </span>
                 </a>
@@ -167,7 +156,7 @@ export default defineComponent({
                       @click="initProcessForm(item)"
                     >
                       <div :class="`${prefixCls}__card-title`">
-                        <fs-icon
+                        <FsIcon
                           v-if="item.diagramIcon"
                           :icon="item.diagramIcon"
                           class="icon"
@@ -186,21 +175,13 @@ export default defineComponent({
     </template>
 
     <a-modal
-      v-model:open="widgetForm.previewOpen"
-      :body-style="{
-        paddingLeft: `${widgetForm.config.paddingLeft}px`,
-        paddingRight: `${widgetForm.config.paddingRight}px`,
-        paddingTop: `${widgetForm.config.paddingTop}px`,
-        paddingBottom: `${widgetForm.config.paddingBottom}px`,
-      }"
+      v-model:open="state.previewOpen"
       :destroy-on-close="true"
-      :style="{ top: `${widgetForm.config.windowTop}px` }"
-      :title="widgetForm.title"
-      :width="widgetForm.config.windowWidth"
-      :z-index="1000"
+      :title="state.title"
+      width="800px"
       wrap-class-name="preview-modal-style"
     >
-      <section id="printContent" ref="print"></section>
+      <EBuilder ref="ebRef" :page-schema="state.pageSchema" />
 
       <template #footer>
         <a-button @click="handleReset">重置</a-button>

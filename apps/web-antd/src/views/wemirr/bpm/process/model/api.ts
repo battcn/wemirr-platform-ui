@@ -37,3 +37,9 @@ export function DelObj(id: string, data: any) {
 export function Deploy(id: any) {
   return defHttp.post(`/bpm/process-models/${id}/deploy`);
 }
+export function saveFormDesign(id: any, data: any) {
+  return defHttp.post(`/bpm/process-models/${id}/form-designs`, data);
+}
+export const getFormByModelId = (modelId: string) => {
+  return defHttp.get(`/bpm/process-models/${modelId}/form-designs`);
+};

@@ -76,6 +76,12 @@ const loadDict = ref(
           toolbar: { show: false },
           actionbar: { buttons: { add: { show: false } } },
           rowHandle: { show: false },
+          columns: {
+            avatar: { column: { show: false } },
+            orgId: { search: { show: false }, column: { show: false } },
+            positionId: { column: { show: false } },
+            education: { search: { show: false }, column: { show: false } },
+          },
         }"
         :model-value="assignee"
         :multiple="false"

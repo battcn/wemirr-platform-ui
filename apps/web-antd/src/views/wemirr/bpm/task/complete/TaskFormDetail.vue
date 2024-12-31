@@ -1,23 +1,34 @@
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue';
-// import * as api from './api';
-import type { WidgetFormItem } from './data';
+import { onMounted, reactive, ref } from 'vue';
+
+import { EBuilder, type PageSchema } from 'epic-designer';
+
+import * as api from './api';
 
 const props = defineProps<{
   processId: string;
 }>();
-
+const ebRef = ref<any>(null);
 const state = reactive({
-  widgetForm: {
-    config: { disabled: true },
-    list: [] as undefined | WidgetFormItem[],
-  },
+  formData: {},
+  pageSchema: ref<PageSchema>({
+    schemas: [],
+    script: '',
+  }),
 });
 onMounted(() => {
   const procInstId = props.processId;
+  api.RenderFormByProcessInstanceId(procInstId).then((ret) => {
+    state.formData = ret.dataJson;
+    state.pageSchema = { ...ret.formDesign };
+  });
 });
 </script>
 <template>
-  <div>正在开发中......</div>
+  <EBuilder
+    ref="ebRef"
+    :form-data="state.formData"
+    :page-schema="state.pageSchema"
+  />
 </template>
 <style lang="less" scoped></style>

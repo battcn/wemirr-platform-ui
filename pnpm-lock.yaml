@@ -211,8 +211,8 @@ catalogs:
       specifier: ^5.6.0
       version: 5.6.0
     epic-designer:
-      specifier: ^0.9.28
-      version: 0.9.28
+      specifier: 0.9.29-beta.1
+      version: 0.9.29-beta.1
     eslint:
       specifier: ^9.17.0
       version: 9.17.0
@@ -675,7 +675,7 @@ importers:
         version: 1.11.13
       epic-designer:
         specifier: 'catalog:'
-        version: 0.9.28(ant-design-vue@4.2.6(vue@3.5.13(typescript@5.7.2)))(dayjs@1.11.13)(element-plus@2.9.1(vue@3.5.13(typescript@5.7.2)))(monaco-editor@0.52.2)(naive-ui@2.40.4(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))
+        version: 0.9.29-beta.1(ant-design-vue@4.2.6(vue@3.5.13(typescript@5.7.2)))(dayjs@1.11.13)(element-plus@2.9.1(vue@3.5.13(typescript@5.7.2)))(monaco-editor@0.52.2)(naive-ui@2.40.4(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2))
       lodash-es:
         specifier: 'catalog:'
         version: 4.17.21
@@ -6385,8 +6385,8 @@ packages:
     resolution: {integrity: sha512-xUtoPkMggbz0MPyPiIWr1Kp4aeWJjDZ6SMvURhimjdZgsRuDplF5/s9hcgGhyXMhs+6vpnuoiZ2kFiu3FMnS8Q==}
     engines: {node: '>=18'}
 
-  epic-designer@0.9.28:
-    resolution: {integrity: sha512-zu14eD1xTQY5OgxsaJAA1aHRQazBhcCCngiIKUAmyPNhOJ4DX4qWSw1K/6CBFsltlocOXtJCxzIs+AeUMXy4DA==}
+  epic-designer@0.9.29-beta.1:
+    resolution: {integrity: sha512-Z2x0sGZBDkasWza6p7xcIgGgoenpJB8jYidy/9I2tPlvYW4FXbhfaChchlxYdVraE++AyVQ8i08GznuRfJEefg==}
     peerDependencies:
       ant-design-vue: '>=3.2.20'
       dayjs: '>=1.0.0'
@@ -17351,7 +17351,7 @@ snapshots:
 
   environment@1.1.0: {}
 
-  epic-designer@0.9.28(ant-design-vue@4.2.6(vue@3.5.13(typescript@5.7.2)))(dayjs@1.11.13)(element-plus@2.9.1(vue@3.5.13(typescript@5.7.2)))(monaco-editor@0.52.2)(naive-ui@2.40.4(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2)):
+  epic-designer@0.9.29-beta.1(ant-design-vue@4.2.6(vue@3.5.13(typescript@5.7.2)))(dayjs@1.11.13)(element-plus@2.9.1(vue@3.5.13(typescript@5.7.2)))(monaco-editor@0.52.2)(naive-ui@2.40.4(vue@3.5.13(typescript@5.7.2)))(vue@3.5.13(typescript@5.7.2)):
     dependencies:
       ant-design-vue: 4.2.6(vue@3.5.13(typescript@5.7.2))
       dayjs: 1.11.13

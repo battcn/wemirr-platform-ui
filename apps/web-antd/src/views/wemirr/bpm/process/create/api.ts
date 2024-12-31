@@ -5,7 +5,7 @@ export const GetFormConfigByModelId = (modelId: string) => {
 };
 
 export const startProcessInstance = (modelId: string, data: any) => {
-  return defHttp.post(`/bpm/process-models/${modelId}/start_instance`, data);
+  return defHttp.post(`/bpm/process-models/${modelId}/start-instance`, data);
 };
 
 export const ProcessModelGroupList = () => {
