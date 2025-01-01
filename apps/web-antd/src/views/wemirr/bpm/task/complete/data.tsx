@@ -12,6 +12,7 @@ export interface WidgetFormItem {
 export interface ApprovalStep {
   taskName: string;
   remark: string;
+  attachments: string[];
   approverTime: string;
   approverName: string;
   taskStatus: string;

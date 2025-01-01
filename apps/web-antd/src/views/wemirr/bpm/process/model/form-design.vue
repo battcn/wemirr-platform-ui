@@ -3,16 +3,21 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { Page } from '@vben/common-ui';
+import { useTabs } from '@vben/hooks';
 
+import { useUi } from '@fast-crud/fast-crud';
 import { EDesigner, type PageSchema } from 'epic-designer';
 
 import * as api from './api';
 
+const { ui } = useUi();
+
+const { closeCurrentTab } = useTabs();
 const route = useRoute();
 const modelId: any = route.query.modelId;
 const designerRef = ref<InstanceType<typeof EDesigner>>();
 onMounted(async () => {
-  api.getFormByModelId(modelId).then((data) => {
+  await api.getFormByModelId(modelId).then((data) => {
     designerRef.value?.setData(data);
   });
 });
@@ -21,7 +26,10 @@ onMounted(async () => {
  * @param e
  */
 function handleSubmit(e: PageSchema) {
-  api.saveFormDesign(modelId, e);
+  api.saveFormDesign(modelId, e).then(() => {
+    closeCurrentTab();
+    ui.notification.success('表单设计成功');
+  });
 }
 </script>
 <template>

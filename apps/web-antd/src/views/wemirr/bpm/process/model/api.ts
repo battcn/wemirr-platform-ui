@@ -13,7 +13,7 @@ export function AddProcessModel(data: any) {
 
 export function getActiveProcessCategory() {
   return defHttp.get(`/bpm/process_categories/list`, {
-    params: { state: 1 },
+    params: { status: 1 },
   });
 }
 

@@ -1,10 +1,10 @@
-// import { GetGlobPreviewUrl } from '#/api/sysPrefix';
-import { compute } from '@fast-crud/fast-crud';
+import { compute, type FormWrapperContext } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
 import { defHttp } from '#/api/request';
 
-export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
+export default function crud({ context }: any) {
+  const { taskId, type, crudExposeRef, dialogShow } = context;
   return {
     crudOptions: {
       form: {
@@ -18,10 +18,10 @@ export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
             success: {
               text: '审批通过',
               type: 'primary',
-              show: compute(({ row }) => {
+              show: compute(({ row }: any) => {
                 return type === 1;
               }),
-              click: ({ form }) => {
+              click: ({ form }: any) => {
                 defHttp
                   .put(`/bpm/process_tasks/${taskId}/complete`, form)
                   .then(() => {
@@ -35,10 +35,11 @@ export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
             comment: {
               text: '评论',
               type: 'primary',
-              show: compute(({ row }) => {
+              show: compute(({ row }: any) => {
                 return type === 0;
               }),
-              click: ({ form }) => {
+              click: async (context: FormWrapperContext) => {
+                const { form }: any = context;
                 defHttp
                   .put(`/bpm/process_tasks/${taskId}/comment`, form)
                   .then(() => {
@@ -52,10 +53,10 @@ export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
               text: '审批拒绝',
               type: 'primary',
               danger: true,
-              show: compute(({ row }) => {
+              show: compute(({ row }: any) => {
                 return type === 1;
               }),
-              click: ({ form }) => {
+              click: ({ form }: any) => {
                 defHttp
                   .put(`/bpm/process_tasks/${taskId}/reject`, form)
                   .then(() => {
@@ -70,10 +71,11 @@ export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
       },
       columns: {
         remark: {
-          title: '内容',
+          title: '备注',
           type: 'textarea',
           column: { ellipsis: true, width: 300 },
           form: {
+            rules: [{ required: true, message: '审核备注不能为空' }],
             col: { span: 24 },
           },
         },
@@ -82,19 +84,16 @@ export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
           type: 'file-uploader',
           column: { show: false },
           form: {
-            show: compute(({ row }) => {
+            show: compute(({ row }: any) => {
               return type === 1;
             }),
             component: {
               sizeLimit: 1024 * 1024 * 5,
               uploader: {
                 type: 'form',
-              },
-              valueType: 'fileId',
-              async buildUrl(value: string) {
-                return new Promise((resolve) => {
-                  // resolve(GetGlobPreviewUrl(value));
-                });
+                buildUrl(res: any) {
+                  return res.url;
+                },
               },
             },
             helper: '大小不能超过5M',

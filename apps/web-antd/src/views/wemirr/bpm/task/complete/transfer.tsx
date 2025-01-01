@@ -3,15 +3,14 @@ import { notification } from 'ant-design-vue';
 
 import { getUserByIds } from '#/api/core/user';
 import { defHttp } from '#/api/request';
-// import { GetGlobPreviewUrl } from '@/api/sysPrefix';
 import userCrudOptions from '#/views/wemirr/system/user/crud';
 
-export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
+export default function crud({ taskId, type, crudExposeRef, dialogShow }: any) {
   return {
     crudOptions: {
       form: {
         labelCol: { span: null, style: { minWidth: '80px' } },
-        async doSubmit({ form }) {
+        async doSubmit({ form }: any) {
           await defHttp
             .put(`/bpm/process_tasks/${taskId}/transfer`, form)
             .then(() => {
@@ -69,18 +68,14 @@ export default function crud({ taskId, type, crudExposeRef, dialogShow }) {
           form: {
             show: false,
             component: {
-              sizeLimit: 1024 * 1024 * 5,
               uploader: {
                 type: 'form',
-              },
-              valueType: 'fileId',
-              async buildUrl(value: string) {
-                return new Promise((resolve) => {
-                  // resolve(GetGlobPreviewUrl(value));
-                });
+                buildUrl(res: any) {
+                  return res.url;
+                },
               },
             },
-            helper: '大小不能超过5M',
+            helper: '附件请勿上传过大,否则时间会比较忙',
           },
         },
       },

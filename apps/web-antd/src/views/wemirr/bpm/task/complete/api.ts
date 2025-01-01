@@ -4,7 +4,7 @@ export function getApprovalDetail(taskId: any) {
   return defHttp.get(`/bpm/process-instances/${taskId}/detail`);
 }
 
-export function GetTaskApprovalRecord(processInstanceId: any) {
+export function getTaskApprovalDetail(processInstanceId: any) {
   return defHttp.get(
     `/bpm/process-instances/${processInstanceId}/approval_infos`,
   );

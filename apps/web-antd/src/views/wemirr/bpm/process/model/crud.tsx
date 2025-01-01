@@ -38,7 +38,7 @@ export default function crud(
       },
       rowHandle: {
         align: 'left',
-        width: 240,
+        width: 300,
         buttons: {
           edit: {
             async click({ row }) {
