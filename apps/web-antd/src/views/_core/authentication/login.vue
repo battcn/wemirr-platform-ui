@@ -17,6 +17,17 @@ const formSchema = computed((): VbenFormSchema[] => {
     {
       component: 'VbenInput',
       componentProps: {
+        placeholder: '租户编码 0000 或 8888 账号 admin 密码 123456 ',
+      },
+      dependencies: {
+        disabled: true,
+        triggerFields: [''],
+      },
+      fieldName: 'desc',
+    },
+    {
+      component: 'VbenInput',
+      componentProps: {
         placeholder: '租户编码',
       },
       dependencies: {

@@ -66,10 +66,6 @@ export default function crud(
                     })
                     .catch((error) => {
                       console.error('异常原因 -', error);
-                      ui.notification.error({
-                        message: '密码重置异常',
-                        duration: 2,
-                      } as any);
                     });
                 });
             },
