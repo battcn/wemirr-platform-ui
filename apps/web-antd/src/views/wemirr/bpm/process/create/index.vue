@@ -53,7 +53,7 @@ async function handleReset() {
   form?.resetFields();
 }
 const submitProcessInstance = () => {
-  ebRef.value.getData().then((data: any) => {
+  ebRef.value.validate().then((data: any) => {
     api
       .startProcessInstance(state.modelId, {
         formData: data,

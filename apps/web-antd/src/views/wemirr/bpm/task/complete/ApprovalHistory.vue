@@ -12,7 +12,7 @@ const router = useRouter();
 const procInstId = router.currentRoute.value.query.procInstId;
 const stepNodes = ref([]) as any;
 onMounted(() => {
-  api.getTaskApprovalDetail(procInstId).then((ret) => {
+  api.getProcessInstanceComments(procInstId).then((ret) => {
     stepNodes.value = ret || [];
   });
 });

@@ -18,8 +18,8 @@ const state = reactive({
 });
 onMounted(() => {
   const procInstId = props.processId;
-  api.RenderFormByProcessInstanceId(procInstId).then((ret) => {
-    state.formData = ret.dataJson;
+  api.getFormPreviewByInstanceId(procInstId).then((ret) => {
+    state.formData = ret.formData;
     state.pageSchema = { ...ret.formDesign };
   });
 });

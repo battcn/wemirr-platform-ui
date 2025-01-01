@@ -32,8 +32,9 @@ function openPreview(row: any, crudExpose: any, preview: boolean) {
   title.value = row.procInstName;
   crudExposeRef.value = crudExpose;
   isPreview.value = preview;
-  api.getTaskApprovalDetail(row.procInstId).then((ret) => {
+  api.getProcessInstanceComments(row.procInstId).then((ret) => {
     stepNodes.value = ret || [];
+    console.log('stepNodes', stepNodes);
   });
 }
 

@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { type Ref } from 'vue';
+import { reactive, type Ref } from 'vue';
 import { ref } from 'vue';
 
 import { useUi } from '@fast-crud/ui-interface';
+import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 import * as api from '#/views/wemirr/bpm/task/complete/api';
@@ -10,23 +11,23 @@ import * as api from '#/views/wemirr/bpm/task/complete/api';
 const { ui } = useUi();
 const processXmlRef: Ref = ref();
 const highlightRef: Ref<any[]> = ref([]);
-const dialogShow = ref(false);
-
-const popoverTitle = ref('');
-const popoverVisible = ref(false);
-const popoverOverlayStyle = ref();
 const previewContainerRef = ref();
-const popoverContent = `
-        <div class="custom-popover-content">
-          <p>审批人员: 易炸千釜</p>
-          <p>节点状态: 已处理</p>
-          <p>开始时间: 2024-08-12 16:12:57</p>
-          <p>结束时间: 2024-08-12 16:12:57</p>
-          <p>审批耗时: 0秒</p>
-        </div>
-      `;
 
-async function handleElementClick(element) {
+const state = reactive({
+  processStartTime: '',
+  dialogTitle: '',
+  dialogShow: false,
+  commentList: [
+    { taskDefinitionKey: '', approverName: '', approverTime: '', remark: '' },
+  ],
+  popoverContent: '',
+  popover: {
+    visible: false,
+    overlayStyle: {},
+  },
+});
+
+async function handleElementClick(element: any) {
   // 忽略开始节点、结束节点和连线的点击
   if (
     !element ||
@@ -37,7 +38,8 @@ async function handleElementClick(element) {
     element.type === 'bpmn:ExclusiveGateway' ||
     element.type === 'bpmn:SequenceFlow'
   ) {
-    popoverVisible.value = false;
+    // popoverVisible.value = false;
+    state.popover.visible = false;
     return;
   }
 
@@ -45,32 +47,47 @@ async function handleElementClick(element) {
   if (bbox && previewContainerRef.value) {
     const canvas = element.diagram.get('canvas');
     const zoom = canvas.zoom();
-
     // 设置弹窗位置
-    popoverOverlayStyle.value = {
+    state.popover.overlayStyle = {
       position: 'absolute',
-      top: `${bbox.y * zoom + 280}px`,
-      left: `${bbox.x * zoom}px`,
+      top: `${bbox.y * zoom + 330}px`,
+      left: `${bbox.x * zoom + 100}px`,
     };
-
-    popoverVisible.value = true;
+    const comment = state.commentList.find(
+      (item) => item.taskDefinitionKey === element.id,
+    );
+    const startTime = dayjs(state?.processStartTime);
+    const endTime = dayjs(comment?.approverTime);
+    const duration = endTime.diff(startTime, 'second');
+    state.popoverContent = `
+            <div class="custom-popover-content">
+              <p>审批人员: ${comment?.approverName}</p>
+              <p>开始时间: ${startTime.format('YYYY-MM-DD HH:mm:ss')}</p>
+              <p>结束时间: ${endTime.format('YYYY-MM-DD HH:mm:ss')}</p>
+              <p>审批耗时: ${duration} 秒</p>
+            </div>
+          `;
+    state.popover.visible = true;
   }
 }
 
-function openPreview({ procInstId, modelId }) {
+function openPreview({ procInstId, modelId }: any) {
   if (procInstId) {
-    api.getApprovalDetail(procInstId).then((ret) => {
-      processXmlRef.value = ret?.diagramData;
-      popoverTitle.value = ret?.diagramName;
+    api.getInstanceDetailByTaskId(procInstId).then((ret) => {
+      state.dialogTitle = ret?.diagramName;
+      state.commentList = ret?.commentList;
+      state.processStartTime = ret?.processStartTime;
+      state.dialogShow = true;
       highlightRef.value = ret?.nodeList;
-      dialogShow.value = true;
+      processXmlRef.value = ret?.diagramData;
     });
   }
   if (modelId) {
     defHttp.get(`/bpm/process-models/${modelId}`).then((ret) => {
+      state.dialogTitle = ret?.diagramName;
+      state.processStartTime = ret?.processStartTime;
+      state.dialogShow = true;
       processXmlRef.value = ret?.diagramData;
-      popoverTitle.value = ret?.diagramName;
-      dialogShow.value = true;
     });
   }
 }
@@ -82,19 +99,19 @@ defineExpose({
 <template>
   <component
     :is="ui.dialog.name"
-    v-if="dialogShow"
-    v-model:[ui.dialog.visible]="dialogShow"
-    :title="popoverTitle"
+    v-if="state.dialogShow"
+    v-model:[ui.dialog.visible]="state.dialogShow"
+    :title="state.dialogTitle"
     :width="1300"
     cancel-text="关闭"
   >
     <div ref="previewContainerRef" class="preview-container">
       <div
-        v-if="popoverVisible"
-        :style="popoverOverlayStyle"
+        v-if="state.popover.visible"
+        :style="state.popover.overlayStyle"
         class="custom-tooltip"
       >
-        <div class="tooltip-content" v-html="popoverContent"></div>
+        <div class="tooltip-content" v-html="state.popoverContent"></div>
       </div>
 
       <fs-bpmn-preview

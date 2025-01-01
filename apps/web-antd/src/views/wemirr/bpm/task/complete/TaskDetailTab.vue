@@ -49,7 +49,7 @@ export default defineComponent({
     // 打开Form预览modal时，重新渲染modal
     const generateFormRenderKey = ref('');
     onMounted(() => {
-      api.RenderFormByProcessInstanceId(procInstId).then((ret) => {
+      api.getFormPreviewByInstanceId(procInstId).then((ret) => {
         if (ret.formDesign.formConfig) {
           state.widgetForm.config = ret?.formDesign.formConfig;
           state.widgetForm.list = setJsonIntoFrom(

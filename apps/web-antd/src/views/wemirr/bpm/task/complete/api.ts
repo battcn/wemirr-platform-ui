@@ -1,16 +1,14 @@
 import { defHttp } from '#/api/request';
 
-export function getApprovalDetail(taskId: any) {
+export function getInstanceDetailByTaskId(taskId: any) {
   return defHttp.get(`/bpm/process-instances/${taskId}/detail`);
 }
 
-export function getTaskApprovalDetail(processInstanceId: any) {
-  return defHttp.get(
-    `/bpm/process-instances/${processInstanceId}/approval_infos`,
-  );
+export function getProcessInstanceComments(processInstanceId: any) {
+  return defHttp.get(`/bpm/process-instances/${processInstanceId}/comments`);
 }
 
-export function RenderFormByProcessInstanceId(processInstanceId: any) {
+export function getFormPreviewByInstanceId(processInstanceId: any) {
   return defHttp.get(
     `/bpm/process-instances/${processInstanceId}/form-preview`,
   );
