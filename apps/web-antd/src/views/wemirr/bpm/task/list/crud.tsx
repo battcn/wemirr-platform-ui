@@ -3,19 +3,15 @@ import type {
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
 
-import { useRouter } from 'vue-router';
-
 import { dict } from '@fast-crud/fast-crud';
-import { notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
 
-export default function ({
+export default function crud({
   crudExpose,
   context,
 }: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const router = useRouter();
   const diagramRef = context.diagramRef;
   const approvalRef = context.approvalRef;
   return {
@@ -23,13 +19,13 @@ export default function ({
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post(`/bpm/process_tasks/page`, query),
+          await defHttp.post(`/bpm/process-tasks/page`, query),
         addRequest: async ({ form }: any) =>
-          await defHttp.post(`/bpm/process_tasks`, form),
+          await defHttp.post(`/bpm/process-tasks`, form),
         editRequest: async ({ form }: any) =>
-          await defHttp.put(`/bpm/process_tasks/${form.id}`, form),
+          await defHttp.put(`/bpm/process-tasks/${form.id}`, form),
         delRequest: async ({ row }: any) =>
-          await defHttp.delete(`/bpm/process_tasks/${row.id}`),
+          await defHttp.delete(`/bpm/process-tasks/${row.id}`),
       },
       toolbar: {},
       actionbar: {
@@ -60,31 +56,7 @@ export default function ({
               await approvalRef.value.openPreview(row, crudExpose);
             },
           },
-          edit: {
-            show: false,
-            order: 1,
-            type: 'link',
-            text: '编辑',
-            async click({ row }) {
-              await router.push(
-                `/bpm/task/list/complete?procInstId=${row.procInstId}&taskId=${row.procTaskId}&type=complete`,
-              );
-            },
-          },
-          updateAssignee: {
-            order: 2,
-            type: 'link',
-            show: false,
-            text: '转办',
-            async click(context) {
-              await defHttp
-                .post(`/bpm/design_models/${context.row.id}/deploy`)
-                .then(() => {
-                  notification.success({ message: '任务已转办', duration: 3 });
-                  crudExpose.doRefresh();
-                });
-            },
-          },
+          edit: { show: false },
           remove: { show: false },
         },
       },

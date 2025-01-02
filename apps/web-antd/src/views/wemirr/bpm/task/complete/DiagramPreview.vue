@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { reactive, type Ref } from 'vue';
-import { ref } from 'vue';
+import type { Ref } from 'vue';
+
+import { reactive, ref } from 'vue';
 
 import { useUi } from '@fast-crud/ui-interface';
 import dayjs from 'dayjs';

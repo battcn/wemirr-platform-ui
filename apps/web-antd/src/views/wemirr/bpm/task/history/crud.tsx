@@ -11,7 +11,7 @@ export default function crud() {
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post(`/bpm/process_tasks/history`, query),
+          await defHttp.post(`/bpm/process-tasks/history`, query),
       },
       toolbar: {},
       rowHandle: {

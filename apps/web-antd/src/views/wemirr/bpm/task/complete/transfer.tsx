@@ -12,7 +12,7 @@ export default function crud({ taskId, type, crudExposeRef, dialogShow }: any) {
         labelCol: { span: null, style: { minWidth: '80px' } },
         async doSubmit({ form }: any) {
           await defHttp
-            .put(`/bpm/process_tasks/${taskId}/transfer`, form)
+            .post(`/bpm/process-tasks/${taskId}/transfer`, form)
             .then(() => {
               dialogShow.value = false;
               notification.success({ message: '转办成功', duration: 3 });

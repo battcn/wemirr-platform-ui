@@ -157,7 +157,6 @@ const config = {
     enterAnimationPlugin
   ],
   prefix: "",
-  safelist: ["dark"],
   theme: {
     container: {
       center: true,
@@ -227,7 +226,8 @@ const config = {
         "1000": "1000"
       }
     }
-  }
+  },
+  safelist: ["dark"]
 };
 function createColorsPalette(name) {
   return {

@@ -1,4 +1,6 @@
-import { compute, type FormWrapperContext } from '@fast-crud/fast-crud';
+import type { FormWrapperContext } from '@fast-crud/fast-crud';
+
+import { compute } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
 import { defHttp } from '#/api/request';
@@ -23,7 +25,7 @@ export default function crud({ context }: any) {
               }),
               click: ({ form }: any) => {
                 defHttp
-                  .put(`/bpm/process_tasks/${taskId}/complete`, form)
+                  .post(`/bpm/process-tasks/${taskId}/complete`, form)
                   .then(() => {
                     dialogShow.value = false;
                     // TODO 应该用 ui.notification 同时应该忽略通用的
@@ -41,7 +43,7 @@ export default function crud({ context }: any) {
               click: async (context: FormWrapperContext) => {
                 const { form }: any = context;
                 defHttp
-                  .put(`/bpm/process_tasks/${taskId}/comment`, form)
+                  .post(`/bpm/process-tasks/${taskId}/comment`, form)
                   .then(() => {
                     dialogShow.value = false;
                     notification.success({ message: '操作成功', duration: 3 });
@@ -58,7 +60,7 @@ export default function crud({ context }: any) {
               }),
               click: ({ form }: any) => {
                 defHttp
-                  .put(`/bpm/process_tasks/${taskId}/reject`, form)
+                  .post(`/bpm/process-tasks/${taskId}/reject`, form)
                   .then(() => {
                     dialogShow.value = false;
                     notification.success({ message: '操作成功', duration: 3 });
