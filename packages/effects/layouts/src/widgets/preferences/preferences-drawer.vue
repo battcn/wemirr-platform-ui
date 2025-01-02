@@ -11,6 +11,7 @@ import type {
   PreferencesButtonPositionType,
   ThemeModeType,
 } from '@vben/types';
+
 import type { SegmentedItem } from '@vben-core/shadcn-ui';
 
 import { computed, ref } from 'vue';
@@ -23,6 +24,7 @@ import {
   resetPreferences,
   usePreferences,
 } from '@vben/preferences';
+
 import { useVbenDrawer } from '@vben-core/popup-ui';
 import {
   VbenButton,
@@ -162,6 +164,7 @@ const {
   isDark,
   isFullContent,
   isHeaderNav,
+  isHeaderSidebarNav,
   isMixedNav,
   isSideMixedNav,
   isSideMode,
@@ -344,7 +347,8 @@ async function handleReset() {
                 v-model:breadcrumb-show-icon="breadcrumbShowIcon"
                 v-model:breadcrumb-style-type="breadcrumbStyleType"
                 :disabled="
-                  !showBreadcrumbConfig || !(isSideNav || isSideMixedNav)
+                  !showBreadcrumbConfig ||
+                  !(isSideNav || isSideMixedNav || isHeaderSidebarNav)
                 "
               />
             </Block>
