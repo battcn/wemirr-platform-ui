@@ -74,13 +74,15 @@ const formSchema = computed((): VbenFormSchema[] => {
 const loginRef = ref();
 const loginPropsRef = ref();
 const route = useRoute();
+const urlParams = new URLSearchParams(window.location.search);
 
 const thirdAuth = reactive({
-  accountId: route.query.accountId as string,
-  platform: route.query.platform as string,
-  tenantCode: route.query.tenantCode as string,
+  accountId: route.query.accountId || urlParams.get('accountId'),
+  platform: route.query.platform || urlParams.get('platform'),
+  tenantCode: route.query.tenantCode || urlParams.get('tenantCode'),
 });
 onMounted(async () => {
+  console.log('thirdAuth', thirdAuth);
   if (thirdAuth.accountId && thirdAuth.platform) {
     authStore.authLogin({
       tenantCode: thirdAuth.tenantCode,
@@ -114,8 +116,9 @@ function handleSubmit(params: any, onSuccess?: () => Promise<void> | void) {
     thirdAuthGitee().then((ret: any) => {
       window.location.href = ret.authorizeUrl;
     });
+  } else {
+    authStore.authLogin(params, onSuccess);
   }
-  authStore.authLogin(params, onSuccess);
 }
 </script>
 

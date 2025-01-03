@@ -30,7 +30,7 @@ export namespace AuthApi {
  */
 export async function loginApi(data: AuthApi.LoginParams) {
   data = cloneDeep(data);
-  data.loginType = 'password';
+  data.loginType = data.loginType || 'password';
   data.clientId = 'pc-web';
   data.clientSecret = 'pc-web';
   return requestClient.post<AuthApi.LoginResult>('/iam/token/login', data);
