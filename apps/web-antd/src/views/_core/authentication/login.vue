@@ -82,14 +82,23 @@ const thirdAuth = reactive({
   tenantCode: route.query.tenantCode || urlParams.get('tenantCode'),
 });
 onMounted(async () => {
-  console.log('thirdAuth', thirdAuth);
   if (thirdAuth.accountId && thirdAuth.platform) {
-    authStore.authLogin({
-      tenantCode: thirdAuth.tenantCode,
-      username: thirdAuth.accountId,
-      password: thirdAuth.platform,
-      loginType: thirdAuth.platform,
-    });
+    await authStore.authLogin(
+      {
+        tenantCode: thirdAuth.tenantCode,
+        username: thirdAuth.accountId,
+        password: thirdAuth.platform,
+        loginType: thirdAuth.platform,
+      },
+      () => {
+        const newUrl =
+          window.location.origin +
+          window.location.pathname +
+          window.location.hash;
+        window.history.replaceState({}, '', newUrl);
+        window.location.href = newUrl;
+      },
+    );
     return;
   }
   const formApi = loginRef.value.getFormApi();
