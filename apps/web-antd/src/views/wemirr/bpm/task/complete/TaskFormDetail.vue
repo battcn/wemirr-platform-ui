@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import type { PageSchema } from 'epic-designer';
+
 import { onMounted, reactive, ref } from 'vue';
 
-import { EBuilder, type PageSchema } from 'epic-designer';
+import { EBuilder } from 'epic-designer';
 
 import * as api from './api';
 

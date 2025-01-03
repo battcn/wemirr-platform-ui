@@ -1,6 +1,7 @@
 <script lang="ts" setup name="ElementUserAssign">
-import { computed, getCurrentInstance, nextTick, ref } from 'vue';
 import type { Ref } from 'vue';
+
+import { computed, getCurrentInstance, nextTick, ref } from 'vue';
 
 import { UserOutlined } from '@ant-design/icons-vue';
 import { useModelerStore } from '@fast-crud/fast-bpmn';

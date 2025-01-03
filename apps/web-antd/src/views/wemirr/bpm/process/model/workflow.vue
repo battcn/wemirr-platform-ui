@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { FsBpmnPanelProps } from '@fast-crud/fast-bpmn';
 
-import { onMounted, ref } from 'vue';
 import type { Ref } from 'vue';
+
+import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Page } from '@vben/common-ui';

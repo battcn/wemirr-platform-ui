@@ -7,7 +7,7 @@ import { BusinessDictCode, businessDictFunc } from '#/api/core/dict';
 import createFlowCrudOptions from '../flow/crud';
 import * as api from './api';
 
-export default function crud({ expose }) {
+export default function crud() {
   return {
     crudOptions: {
       request: {

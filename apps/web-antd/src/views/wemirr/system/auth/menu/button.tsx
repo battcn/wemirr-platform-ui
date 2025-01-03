@@ -95,13 +95,6 @@ export default function crud(
           },
           column: { width: 200, ellipsis: true },
         },
-        sequence: {
-          title: '排序',
-          type: 'number',
-          column: { width: 50, align: 'center', show: false },
-          addForm: { value: 0 },
-          form: { component: { min: 0, max: 100 } },
-        },
         description: {
           title: '描述',
           column: { show: false, ellipsis: true },

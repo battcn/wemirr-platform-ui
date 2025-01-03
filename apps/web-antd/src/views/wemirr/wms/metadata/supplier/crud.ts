@@ -1,9 +1,17 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+  ValueBuilderContext,
+} from '@fast-crud/fast-crud';
+
 import { dict, utils } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import * as api from './api';
 
-export default function ({ crudExpose }) {
+export default function crud() {
   return {
     crudOptions: {
       request: {
@@ -93,7 +101,7 @@ export default function ({ crudExpose }) {
           style: { height: 70 },
           column: { width: 70, align: 'center', show: false },
           valueBuilder({ value, row, key }: ValueBuilderContext): void {
-            if (value != null && value.indexOf('http')) {
+            if (value !== null && value.indexOf('http')) {
               row[key] = `http://www.docmirror.cn:7070${value}`;
             }
           },
@@ -223,7 +231,10 @@ export default function ({ crudExpose }) {
               vModel: 'value',
               on: {
                 selectedChange({ $event, key, form }) {
-                  if (form[key] != null && !utils.strings.hasEmpty(form[key])) {
+                  if (
+                    form[key] !== null &&
+                    !utils.strings.hasEmpty(form[key])
+                  ) {
                     form.provinceId = $event[0].value;
                     form.provinceName = $event[0].label;
                     form.cityId = $event[1].value;

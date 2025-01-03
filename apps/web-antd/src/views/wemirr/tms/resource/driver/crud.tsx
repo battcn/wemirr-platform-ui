@@ -2,8 +2,6 @@ import { dict, utils } from '@fast-crud/fast-crud';
 import { Modal, notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
-import * as api from './api';
-
 // import { useMessage } from "@/hooks/web/useMessage";
 // import { useI18n } from "@/hooks/web/useI18n";
 // import { GetGlobPreviewUrl } from "@/api/sysPrefix";
@@ -11,6 +9,7 @@ import * as api from './api';
 import { defHttp } from '#/api/request';
 
 import truckCrudOptionsText from '../truck/crud';
+import * as api from './api';
 
 export default function () {
   return {

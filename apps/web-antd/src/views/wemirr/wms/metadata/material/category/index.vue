@@ -1,5 +1,5 @@
 <script>
-import { defineComponent, onMounted, ref, unref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
@@ -117,17 +117,7 @@ export default defineComponent({
       setFieldsValue({ ...event.selectedNodes[0], name: node.label });
     }
 
-    function onTreeNodeCheck(keys, event) {
-      console.log('keys event', keys, event);
-    }
-
-    function getTree() {
-      const tree = unref(treeRef);
-      if (!tree) {
-        throw new Error('tree is null!');
-      }
-      return tree;
-    }
+    function onTreeNodeCheck(keys, event) {}
 
     return {
       // register,

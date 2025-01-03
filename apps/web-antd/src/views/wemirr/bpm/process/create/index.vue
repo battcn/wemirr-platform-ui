@@ -1,9 +1,11 @@
 <script lang="ts" setup>
+import type { PageSchema } from 'epic-designer';
+
 import { onMounted, reactive, ref, watch } from 'vue';
 
 import { FsIcon, useUi } from '@fast-crud/fast-crud';
 import { Card, notification } from 'ant-design-vue';
-import { EBuilder, type PageSchema } from 'epic-designer';
+import { EBuilder } from 'epic-designer';
 
 import * as api from './api';
 

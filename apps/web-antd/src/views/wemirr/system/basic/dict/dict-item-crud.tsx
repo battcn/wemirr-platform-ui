@@ -6,13 +6,16 @@ import type {
   EditReq,
   UserPageQuery,
   UserPageRes,
+  ValueBuilderContext,
 } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
 
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {

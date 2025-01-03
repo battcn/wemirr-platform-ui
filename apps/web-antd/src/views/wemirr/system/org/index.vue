@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import type { TreeProps } from 'ant-design-vue';
+
 import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { notification, type TreeProps } from 'ant-design-vue';
-import { Card } from 'ant-design-vue';
+import { Card, notification } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
 import { getOrgTree } from '#/api/core/org';

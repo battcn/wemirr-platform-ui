@@ -17,6 +17,7 @@ import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud';
 import { initComponentAdapter } from './adapter/component';
 import App from './app.vue';
 import { router } from './router';
+
 // 引入epic-designer样式
 import 'epic-designer/dist/style.css';
 

@@ -7,7 +7,7 @@ import areaCrudOptionsTenant from '#/views/wemirr/wms/basic/storage-area/crud';
 import warehouseCrudOptionsTenant from '#/views/wemirr/wms/basic/warehouse/crud';
 import materialCrudOptions from '#/views/wemirr/wms/metadata/material/crud';
 
-export default function crud({ crudExpose }) {
+export default function crud() {
   return {
     crudOptions: {
       actionbar: {

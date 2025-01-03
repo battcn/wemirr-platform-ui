@@ -4,7 +4,6 @@ import { onMounted } from 'vue';
 import { useFs } from '@fast-crud/fast-crud';
 
 // import { IconPicker } from '#/components/Icon';
-
 import createCrudOptions from './crud';
 
 // 通过context传递到crud.tsx中

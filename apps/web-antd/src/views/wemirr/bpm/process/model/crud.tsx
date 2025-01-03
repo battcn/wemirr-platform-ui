@@ -1,11 +1,11 @@
+import type {
+  CreateCrudOptionsProps,
+  CreateCrudOptionsRet,
+} from '@fast-crud/fast-crud';
+
 import { useRouter } from 'vue-router';
 
-import {
-  compute,
-  type CreateCrudOptionsProps,
-  type CreateCrudOptionsRet,
-  dict,
-} from '@fast-crud/fast-crud';
+import { compute, dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
 import { DelObj, Deploy, PageList } from './api';

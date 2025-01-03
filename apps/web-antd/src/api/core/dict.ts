@@ -11,7 +11,7 @@ export enum SysDictCode {
   STATUS = 'STATUS',
 }
 
-export const enum BusinessDictCode {
+export enum BusinessDictCode {
   // 能源类型
   TMS_ENERGY_TYPE = 'TMS_ENERGY_TYPE',
   // 能源类型

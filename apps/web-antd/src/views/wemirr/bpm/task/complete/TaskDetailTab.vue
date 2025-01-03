@@ -3,7 +3,6 @@ import { defineComponent, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 // import AntdGenerateForm from '#/components/FormDesigner/antd/render/AntdGenerateForm.vue';
-
 import * as api from './api';
 
 export default defineComponent({

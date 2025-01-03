@@ -28,12 +28,9 @@ export function getRolePermissions(roleId: string) {
   return defHttp.get(`/iam/roles/${roleId}/permissions`);
 }
 export function assignUser(obj: any) {
-  return defHttp.post(`/iam/roles/${obj.roleId}/assign-user`, obj);
+  return defHttp.put(`/iam/roles/${obj.roleId}/assign-users`, obj);
 }
 
 export function assignResource(obj: any) {
-  return defHttp.request(`/iam/roles/${obj.roleId}/assign-resources`, {
-    method: 'put',
-    data: obj,
-  });
+  return defHttp.put(`/iam/roles/${obj.roleId}/assign-resources`, obj);
 }

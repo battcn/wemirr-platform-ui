@@ -2,7 +2,7 @@ import { dict } from '@fast-crud/fast-crud';
 
 import { defHttp } from '#/api/request';
 
-export default function () {
+export default function crud() {
   return {
     crudOptions: {
       table: {},

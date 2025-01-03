@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { ModelerStore } from '@fast-crud/fast-bpmn';
 
-import { computed, getCurrentInstance, nextTick, ref } from 'vue';
 import type { Ref } from 'vue';
+
+import { computed, getCurrentInstance, nextTick, ref } from 'vue';
 
 import { useModelerStore } from '@fast-crud/fast-bpmn';
 import { dict } from '@fast-crud/fast-crud';

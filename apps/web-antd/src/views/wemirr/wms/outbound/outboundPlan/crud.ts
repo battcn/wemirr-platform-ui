@@ -12,8 +12,6 @@ import { compute, dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
-import * as api from './api';
-
 // import { downloadToFile } from "@/utils/file/download";
 import OutboundPlanItem from '#/views/wemirr/wms/outbound/outboundPlan/item/index.vue';
 import {
@@ -22,6 +20,8 @@ import {
   supplierTable,
   warehouseTable,
 } from '#/views/wemirr/wms/table-select';
+
+import * as api from './api';
 
 const status = [
   { value: 10, label: '草稿' },

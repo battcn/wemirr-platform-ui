@@ -1,4 +1,6 @@
-import { dict, type UserPageQuery } from '@fast-crud/fast-crud';
+import type { UserPageQuery } from '@fast-crud/fast-crud';
+
+import { dict } from '@fast-crud/fast-crud';
 
 import { defHttp } from '#/api/request';
 import locationCrudOptionsTenant from '#/views/wemirr/wms/basic/location/crud';

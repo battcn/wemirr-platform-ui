@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import type { Ref } from 'vue';
+
 import type { ApprovalStep } from './data';
 
-import type { Ref } from 'vue';
 import { h, ref } from 'vue';
 
 import { CheckCircleTwoTone } from '@ant-design/icons-vue';

@@ -1,3 +1,10 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
 import { dict } from '@fast-crud/fast-crud';
 
 import { defHttp } from '#/api/request';
@@ -5,7 +12,7 @@ import unitCrudOptionsTenant from '#/views/wemirr/wms/metadata/unit/crud';
 
 import * as api from './api';
 
-export default function ({ crudExpose }) {
+export default function crud() {
   return {
     crudOptions: {
       request: {

@@ -5,6 +5,7 @@ import type {
 import type { FsEditorWang5Config } from '@fast-crud/fast-extends/dist/d/editor/type/config';
 
 import type { App } from 'vue';
+
 import { computed } from 'vue';
 
 import { QuestionCircleOutlined } from '@ant-design/icons-vue';

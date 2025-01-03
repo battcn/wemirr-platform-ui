@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { PageSchema } from 'epic-designer';
+
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -6,7 +8,7 @@ import { Page } from '@vben/common-ui';
 import { useTabs } from '@vben/hooks';
 
 import { useUi } from '@fast-crud/fast-crud';
-import { EDesigner, type PageSchema } from 'epic-designer';
+import { EDesigner } from 'epic-designer';
 
 import * as api from './api';
 
