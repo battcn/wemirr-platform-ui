@@ -17,6 +17,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm vite build --mode production",
+    "build:demo": "pnpm vite build --mode demo",
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
     "preview": "vite preview",
@@ -33,6 +34,7 @@
     "@fast-crud/fast-extends": "catalog:",
     "@fast-crud/ui-antdv4": "catalog:",
     "@fast-crud/ui-interface": "catalog:",
+    "@sv-print/vue3": "^0.1.18",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -47,19 +49,16 @@
     "@vben/styles": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/utils": "workspace:*",
-    "@vue-office/docx": "^1.6.2",
-    "@vue-office/excel": "^1.7.11",
-    "@vue-office/pdf": "^2.0.9",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
     "dayjs": "catalog:",
     "epic-designer": "catalog:",
     "lodash-es": "catalog:",
     "pinia": "catalog:",
-    "v-viewer": "^3.0.11",
-    "viewerjs": "^1.11.7",
     "vue": "catalog:",
     "vue-files-preview": "^1.0.37",
+    "vue-json-pretty": "^2.4.0",
+    "vue-plugin-hiprint": "^0.0.58-fix",
     "vue-router": "catalog:"
   }
 }

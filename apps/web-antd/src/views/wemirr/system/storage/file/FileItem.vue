@@ -34,7 +34,12 @@ const getIconName = computed(() => {
 <template>
   <div class="file-preview">
     <!-- 如果是图片，则显示图片 -->
-    <img v-if="isImage" :src="props.data.url" alt="alt" class="file-image" />
+    <a-image
+      v-if="isImage"
+      :src="props.data.url"
+      alt="alt"
+      class="file-image"
+    />
     <!-- 如果不是图片，则显示对应的图标 -->
     <svg v-else aria-hidden="true" class="file-icon">
       <use :href="`#${getIconName}`" />

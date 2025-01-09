@@ -53,12 +53,12 @@ export default function crud(
         show: showTableComputed,
       },
       rowHandle: {
-        width: 200,
+        width: 130,
         buttons: {
           add: { show: false },
           view: { show: false },
           edit: {
-            show: true,
+            show: false,
             text: '重命名',
             title: '重命名',
           },
@@ -77,7 +77,6 @@ export default function crud(
               downloadFile(context.row.url, context.row.originalFilename);
             },
           },
-
           remove: { order: 2 },
         },
       },

@@ -169,6 +169,7 @@ export function registerFastCrud(app: App) {
           display: 'flex',
           wrapper: {
             is: 'a-drawer',
+            saveRemind: true,
           },
           async afterSubmit({ mode }) {
             if (mode === 'add') {
@@ -177,15 +178,11 @@ export function registerFastCrud(app: App) {
               notification.success({ message: '保存成功' });
             }
           },
-          wrapperCol: {
-            span: null,
-          },
+          wrapperCol: { span: null },
           labelCol: {
             // 固定label宽度
             span: null,
-            style: {
-              minWidth: '90px',
-            },
+            style: { minWidth: '110px' },
           },
           layout: computed(() => {
             // return getLocale.value === LOCALE.ZH_CN ? "horizontal" : "vertical";

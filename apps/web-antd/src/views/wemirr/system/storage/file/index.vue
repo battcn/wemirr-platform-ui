@@ -4,18 +4,14 @@ import { computed, onMounted, ref } from 'vue';
 import { Page } from '@vben/common-ui';
 
 import { UploadOutlined } from '@ant-design/icons-vue';
-import { useFs } from '@fast-crud/fast-crud';
+import { FsIcon, useFs } from '@fast-crud/fast-crud';
 import { Card, message } from 'ant-design-vue';
-import { api as viewerApi } from 'v-viewer';
 
 import { defHttp } from '#/api/request';
 
 import * as api from './api';
 import createCrudOptions from './crud';
 import FileItem from './FileItem.vue';
-import FilePreview from './FilePreview.vue';
-
-import 'viewerjs/dist/viewer.css';
 
 const terrData = ref([
   { category: '', name: '全部' },
@@ -30,9 +26,6 @@ const expandedKeys = ref();
 const showTableRef = ref(true);
 const selectedKeys = ref([]);
 
-const filePreviewShow = ref(false);
-const fileInfo = ref();
-
 const showTableComputed = computed(() => {
   return showTableRef.value;
 });
@@ -43,8 +36,7 @@ const { crudBinding, crudRef, crudExpose } = useFs({
 });
 
 onMounted(async () => {
-  // await initOrgList();
-  selectedKeys.value = [''];
+  selectedKeys.value = [];
   await crudExpose.doRefresh();
 });
 
@@ -58,25 +50,8 @@ const handleSelect = (checkedKeys: any, event: any) => {
 };
 const previewFile = (row: any) => {
   // 图片预览
-  if (row.category === 'IMAGE') {
-    const imageUrlsArray = crudBinding._rawValue.data
-      .filter((item) => item.category === 'IMAGE')
-      .map((item) => item.url);
-    const index = imageUrlsArray.indexOf(row.url);
-
-    viewerApi({
-      options: {
-        initialViewIndex: index,
-      },
-      images: imageUrlsArray,
-    });
-  }
-  // 文档预览
-  if (row.category === 'DOCUMENT') {
-    filePreviewShow.value = true;
-    fileInfo.value = row;
-  }
-  if (row.category === 'OTHER') {
+  // if (row.category === 'IMAGE') {}
+  if (row.category === 'DOCUMENT' || row.category === 'OTHER') {
     message.error('该格式暂不支持预览');
   }
 };
@@ -177,7 +152,7 @@ const doDownload = (item: any) => {
         <div v-if="!showTableComputed">
           <a-row
             v-if="crudBinding.data"
-            gutter="10"
+            :gutter="10"
             style="height: 100%; width: 100%; overflow: auto"
           >
             <a-col
@@ -194,22 +169,17 @@ const doDownload = (item: any) => {
                   }}</span>
                 </div>
                 <template #actions>
-                  <fs-icon
+                  <FsIcon
                     icon="ion:eye-outline"
                     title="浏览"
                     @click="previewFile(item)"
                   />
-                  <fs-icon
-                    icon="ion:create-outline"
-                    title="重命名"
-                    @click="openEdit({ index, row: item })"
-                  />
-                  <fs-icon
+                  <FsIcon
                     icon="ion:trash-outline"
                     title="删除"
                     @click="doRemove({ index, row: item })"
                   />
-                  <fs-icon
+                  <FsIcon
                     icon="ant-design:cloud-download-outlined"
                     title="下载"
                     @click="doDownload(item)"
@@ -221,11 +191,11 @@ const doDownload = (item: any) => {
         </div>
       </fs-crud>
     </Card>
-    <FilePreview
+    <!--    <FilePreview
       v-model:show="filePreviewShow"
       :file-info="fileInfo"
       @close="fileInfo = {}"
-    />
+    />-->
   </Page>
 </template>
 
