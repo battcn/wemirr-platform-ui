@@ -15,9 +15,7 @@ import {
   useTypes,
 } from '@fast-crud/fast-crud';
 import {
-  FsExtendsCopyable,
   FsExtendsEditor,
-  FsExtendsInput,
   FsExtendsJson,
   FsExtendsTime,
   FsExtendsUploader,
@@ -208,8 +206,8 @@ export function registerFastCrud(app: App) {
   });
   app.use(FsExtendsJson);
   app.use(FsExtendsTime);
-  app.use(FsExtendsCopyable);
-  app.use(FsExtendsInput);
+  // app.use(FsExtendsCopyable);
+  // app.use(FsExtendsInput);
   // 配置uploader 公共参数
   app.use(FsExtendsUploader, {
     defaultType: 'form',

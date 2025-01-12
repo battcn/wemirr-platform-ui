@@ -425,20 +425,12 @@ onMounted(() => {
 <style lang="less" scoped>
 // build 拖拽
 /deep/ .hiprint-printElement-type > li > ul > li > a {
-  padding: 4px 4px;
-  color: #1296db;
-  line-height: 1;
-  height: auto;
-  text-overflow: ellipsis;
+  //padding: 4px 4px;
+  //color: #1296db;
+  //line-height: 1;
+  height: auto !important;
+  //text-overflow: ellipsis;
 }
-
-// 默认图片
-/deep/ .hiprint-printElement-image-content {
-  img {
-    content: url('#/assets/logo.png');
-  }
-}
-
 // 设计容器
 .card-design {
   overflow: hidden;
