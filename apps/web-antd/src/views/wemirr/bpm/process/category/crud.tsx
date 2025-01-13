@@ -37,7 +37,7 @@ export default function crud() {
         },
         icon: {
           title: 'ICON',
-          type: 'text',
+          type: 'icon',
           column: {
             width: 100,
             align: 'center',
