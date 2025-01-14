@@ -11,10 +11,13 @@ import { FsButton, FsIcon } from '@fast-crud/fast-crud';
 import { useLocalStorage } from '@vueuse/core';
 import { message } from 'ant-design-vue';
 
+import LeftLayout from '#/views/wemirr/develop/print/PrintDesigner/left-layout.vue';
 import PrintPreview from '#/views/wemirr/develop/print/PrintDesigner/preview.vue';
 
+import printData from './print-data.ts';
 import providers from './providers.ts';
 
+const activeKeyRightPrint = ['1', '2'];
 let hiprintTemplate;
 hiPrintPlugin.disAutoConnect();
 // 初始化 provider
@@ -156,7 +159,7 @@ const changeScale = (isAdd) => {
   }
 };
 const preview = ref();
-const printData = { name: 'CcSimple' };
+// const printData = { name: 'CcSimple' };
 /**
  * 获取打印html
  */
@@ -177,7 +180,7 @@ const setElsAlign = (e) => {
  */
 const print = () => {
   // 打印数据，key 对应 元素的 字段名
-  const printData = { name: 'CcSimple' };
+  // const printData = { name: 'CcSimple' };
   // 参数: 打印时设置 左偏移量，上偏移量
   const options = { leftOffset: -1, topOffset: -1 };
   // 扩展
@@ -224,8 +227,9 @@ onMounted(() => {
 <template>
   <a-card>
     <a-row :gutter="[8, 0]" style="margin-bottom: 10px">
-      <a-col :span="4">
-        <!-- 模板选择 -->
+      <a-col :span="4" />
+      <!--      <a-col :span="4">
+        &lt;!&ndash; 模板选择 &ndash;&gt;
         <a-select
           size="small"
           v-model:value="mode"
@@ -242,7 +246,7 @@ onMounted(() => {
             {{ opt.name }}
           </a-select-option>
         </a-select>
-      </a-col>
+      </a-col>-->
       <a-col :span="14">
         <a-space>
           <!-- 纸张设置 -->
@@ -320,7 +324,7 @@ onMounted(() => {
             </template>
           </a-button>
 
-          <a-radio-group size="small">
+          <!--          <a-radio-group size="small">
             <a-radio-button @click="setElsAlign('left')" title="左对齐">
               <FsIcon icon="gravity-ui:object-align-left" />
             </a-radio-button>
@@ -351,7 +355,7 @@ onMounted(() => {
             >
               <FsIcon icon="mdi:resize-vertical" />
             </a-radio-button>
-          </a-radio-group>
+          </a-radio-group>-->
         </a-space>
       </a-col>
       <a-col :span="6">
@@ -396,14 +400,15 @@ onMounted(() => {
       </a-col>
     </a-row>
     <a-row :gutter="[8, 0]">
-      <a-col :span="4">
-        <a-card style="height: 100vh">
-          <a-row>
+      <a-col :span="5">
+        <a-card style="height: 100vh" class="print-layout-left">
+          <!--          <a-row>
             <a-col
               :span="24"
               class="rect-printElement-types hiprintEpContainer"
             />
-          </a-row>
+          </a-row>-->
+          <LeftLayout :hiprint-template="hiprintTemplate" />
         </a-card>
       </a-col>
       <a-col :span="14">
@@ -411,11 +416,43 @@ onMounted(() => {
           <div id="hiprint-printTemplate" class="hiprint-printTemplate"></div>
         </a-card>
       </a-col>
-      <a-col :span="6" class="params_setting_container">
-        <a-card>
+      <a-col :span="5" class="params_setting_container">
+        <!--        <a-card>
           <a-row class="hinnn-layout-sider">
             <div id="PrintElementOptionSetting"></div>
           </a-row>
+        </a-card>-->
+        <a-card>
+          <a-tabs
+            default-active-key="properties"
+            tab-position="top"
+            type="line"
+          >
+            <a-tab-pane key="properties" tab="控件属性">
+              <!-- 元素参数的 容器 -->
+              <a-row class="hinnn-layout-sider">
+                <div id="PrintElementOptionSetting"></div>
+              </a-row>
+            </a-tab-pane>
+            <a-tab-pane key="print" tab="打印设置">
+              <a-collapse v-model:active-key="activeKeyRightPrint" ghost>
+                <a-collapse-panel
+                  key="1"
+                  header="基础属性"
+                  style="font-weight: bold"
+                >
+                  <a-form layout="vertical" style="font-weight: lighter">
+                    <a-form-item label="模板编号">
+                      <a-input placeholder="请输入" />
+                    </a-form-item>
+                    <a-form-item label="模板名称">
+                      <a-input placeholder="请输入" />
+                    </a-form-item>
+                  </a-form>
+                </a-collapse-panel>
+              </a-collapse>
+            </a-tab-pane>
+          </a-tabs>
         </a-card>
       </a-col>
     </a-row>
@@ -436,5 +473,13 @@ onMounted(() => {
   overflow: hidden;
   overflow-x: auto;
   overflow-y: auto;
+}
+/deep/ .ant-card-body {
+  padding: 12px;
+}
+.print-layout-left {
+  /deep/ .ant-card-body {
+    //padding: 8px;
+  }
 }
 </style>

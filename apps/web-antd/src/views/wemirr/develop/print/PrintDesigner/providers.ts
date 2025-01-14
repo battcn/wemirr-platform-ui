@@ -187,47 +187,7 @@ export const wmsProvider = function (ops) {
               return '<td style="padding:0 10px" colspan="100">应收金额大写: </td>'
             },
           },
-          {tid: 'wmsProviderModule.customText', title: '文本', customText: '自定义文本', custom: true, type: 'text'},
-          {
-            tid: 'wmsProviderModule.longText', title: '长文本', type: 'longText', options: {
-              field: 'test.longText',
-              width: 200,
-              testData: '长文本分页/不分页测试'
-            },
-          }
         ]),
-        new hiprint.PrintElementTypeGroup("辅助", [
-          {
-            tid: 'wmsProviderModule.hline',
-            title: '横线',
-            type: 'hline'
-          },
-          {
-            tid: 'wmsProviderModule.vline',
-            title: '竖线',
-            type: 'vline'
-          },
-          {
-            tid: 'wmsProviderModule.rect',
-            title: '矩形',
-            type: 'rect'
-          },
-          {
-            tid: 'wmsProviderModule.oval',
-            title: '椭圆',
-            type: 'oval'
-          },
-          {
-            tid: 'wmsProviderModule.barcode',
-            title: '条形码',
-            type: 'barcode',
-          },
-          {
-            tid: 'wmsProviderModule.qrcode',
-            title: '二维码',
-            type: 'qrcode',
-          }
-        ])
       ]
     );
   };
@@ -350,77 +310,6 @@ export const tmsProvider = function (ops) {
               textContentVerticalAlign: "middle"
             }
           },
-        ]),
-        new hiprint.PrintElementTypeGroup("表格/其他", [
-          {
-            tid: 'tmsProviderModule.table', title: '订单数据',
-            type: 'table',
-            options: {
-              field: 'table',
-              fields: [
-                {text: '名称', field: 'NAME'},
-                {text: '数量', field: 'SL'},
-                {text: '规格', field: 'GG'},
-                {text: '条码', field: 'TM'},
-                {text: '单价', field: 'DJ'},
-                {text: '金额', field: 'JE'},
-                {text: '备注', field: 'DETAIL'},
-              ],
-            },
-            editable: true,
-            columnDisplayEditable: true,//列显示是否能编辑
-            columnDisplayIndexEditable: true,//列顺序显示是否能编辑
-            columnTitleEditable: true,//列标题是否能编辑
-            columnResizable: true, //列宽是否能调整
-            columnAlignEditable: true,//列对齐是否调整
-            columns: [
-              [
-                {title: '名称', align: 'center', field: 'NAME', width: 100},
-                {title: '数量', align: 'center', field: 'SL', width: 100},
-                {title: '条码', align: 'center', field: 'TM', width: 100},
-                {title: '规格', align: 'center', field: 'GG', width: 100},
-                {title: '单价', align: 'center', field: 'DJ', width: 100},
-                {title: '金额', align: 'center', field: 'JE', width: 100},
-                {title: '备注', align: 'center', field: 'DETAIL', width: 100},
-              ]
-            ],
-            footerFormatter: function (options, rows, data, currentPageGridRowsData) {
-              if (data && data['totalCap']) {
-                return `<td style="padding:0 10px" colspan="100">${'应收金额大写: ' + data['totalCap']}</td>`
-              }
-              return '<td style="padding:0 10px" colspan="100">应收金额大写: </td>'
-            },
-          },
-          {tid: 'tmsProviderModule.customText', title: '文本', customText: '自定义文本', custom: true, type: 'text'},
-          {
-            tid: 'tmsProviderModule.longText', title: '长文本', type: 'longText', options: {
-              field: 'test.longText',
-              width: 200,
-              testData: '长文本分页/不分页测试'
-            },
-          }
-        ]),
-        new hiprint.PrintElementTypeGroup("辅助", [
-          {
-            tid: 'tmsProviderModule.hline',
-            title: '横线',
-            type: 'hline'
-          },
-          {
-            tid: 'tmsProviderModule.vline',
-            title: '竖线',
-            type: 'vline'
-          },
-          {
-            tid: 'tmsProviderModule.rect',
-            title: '矩形',
-            type: 'rect'
-          },
-          {
-            tid: 'tmsProviderModule.oval',
-            title: '椭圆',
-            type: 'oval'
-          }
         ])
       ]
     );
