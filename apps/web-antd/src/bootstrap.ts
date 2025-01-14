@@ -1,7 +1,6 @@
 import { createApp, watchEffect } from 'vue';
 
 import { registerAccessDirective } from '@vben/access';
-import { initTippy } from '@vben/common-ui';
 import { i18n } from '@vben/locales';
 import { preferences } from '@vben/preferences';
 import { initStores } from '@vben/stores';
@@ -38,7 +37,7 @@ async function bootstrap(namespace: string) {
   registerAccessDirective(app);
 
   // 初始化 tippy
-  initTippy(app);
+  // initTippy(app);
 
   // 配置路由及路由守卫
   app.use(router);
