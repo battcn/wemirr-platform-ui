@@ -114,14 +114,12 @@ const tenantSettingOptions = {
     },
     wrapper: { title: '租户设置' },
     doSubmit({ form }: any): void {
-      void defHttp
-        .put(`/iam/tenants/${form.tenantId}/setting`, form)
-        .then((ret) => {
-          return ret;
-        });
+      return defHttp.put(`/iam/tenants/${form.tenantId}/setting`, form, {
+        fetchOptions: { mode: 'full' },
+      });
     },
     afterSubmit(ctx: any) {
-      if (!ctx.successful) {
+      if (!ctx.res.successful) {
         return false;
       }
     },
