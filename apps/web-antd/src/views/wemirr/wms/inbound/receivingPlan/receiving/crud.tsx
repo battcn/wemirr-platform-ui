@@ -30,7 +30,7 @@ export default function ({
     return await api.PageList(query);
   };
   const editRequest = async ({ form, row }: EditReq) => {
-    if (form.id == null) {
+    if (form.id === null) {
       form.id = row.id;
     }
     return await api.UpdateObj(form);

@@ -6,6 +6,7 @@ import type {
   EditReq,
   UserPageQuery,
   UserPageRes,
+  ValueBuilderContext,
 } from '@fast-crud/fast-crud';
 
 import { compute, dict } from '@fast-crud/fast-crud';
@@ -88,7 +89,7 @@ export default function crud({
             size: 'small',
             title: '导出',
             order: 5,
-            async click(context) {
+            async click() {
               // await defHttp
               //   .request(
               //     {
@@ -114,7 +115,7 @@ export default function crud({
             title: '确认出库单',
             order: 0,
             async click(context) {
-              api.Submit(context.row.id).then((res) => {
+              api.Submit(context.row.id).then(() => {
                 notification.success({ message: '成功', duration: 3 });
                 crudExpose.doRefresh();
               });
@@ -130,7 +131,7 @@ export default function crud({
             title: '确认出库',
             order: 0,
             async click({ row }) {
-              api.Confirm(row.id).then((res) => {
+              api.Confirm(row.id).then(() => {
                 notification.success({ message: '成功', duration: 3 });
                 crudExpose.doRefresh();
               });
@@ -146,7 +147,7 @@ export default function crud({
             title: '关闭',
             order: 0,
             async click(context) {
-              api.Close(context.row.id).then((res) => {
+              api.Close(context.row.id).then(() => {
                 notification.success({ message: '成功', duration: 3 });
                 crudExpose.doRefresh();
               });
@@ -162,7 +163,7 @@ export default function crud({
             title: '撤回',
             order: 0,
             async click(context) {
-              api.Cancel(context.row.id).then((res) => {
+              api.Cancel(context.row.id).then(() => {
                 notification.success({ message: '成功', duration: 3 });
                 crudExpose.doRefresh();
               });

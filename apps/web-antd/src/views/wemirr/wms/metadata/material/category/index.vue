@@ -3,7 +3,7 @@ import { defineComponent, onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { Card, notification } from 'ant-design-vue';
+import { Card, Modal, notification } from 'ant-design-vue';
 
 import * as api from './api';
 // import {BasicForm, useForm} from "#/components/Form";

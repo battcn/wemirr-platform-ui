@@ -7,7 +7,7 @@ import { notification } from 'ant-design-vue';
 
 import { getAllMenusApi } from '#/api';
 
-import * as api from './api.ts';
+import * as api from './api';
 
 const treeData = ref([]);
 const columns = [
@@ -18,6 +18,7 @@ const columns = [
 ];
 const selectedTreeKeys = ref([]);
 const checkedTreeKeys = ref([]);
+const halfCheckedKeys = ref([]);
 const expandedKeys = ref([]);
 const selectedTableKeys = ref([]);
 const tableData = ref([]);
@@ -28,12 +29,19 @@ const pagination = ref({
 });
 
 const modelRef = ref({ roleId: null });
+
+const handleTreeCheck = (checkedKeys, info) => {
+  checkedTreeKeys.value = checkedKeys;
+  halfCheckedKeys.value = info.halfCheckedKeys; // 从 info 中获取半选节点
+};
 const getAllSelectedIds = computed(() => {
-  const treeIds = checkedTreeKeys.value || [];
+  const treeIds = checkedTreeKeys.value || { checked: [], halfChecked: [] };
   const tableIds = selectedTableKeys.value || [];
-  const currentTableIds = new Set(tableData.value.map((item) => item.id));
-  const filteredTreeIds = treeIds.filter((id) => !currentTableIds.has(id));
-  return [...new Set([...filteredTreeIds, ...tableIds])];
+  // const currentTableIds = new Set(tableData.value.map((item: any) => item.id));
+  // const filteredTreeIds = treeIds?.checked?.filter(
+  //   (id) => !currentTableIds.has(id),
+  // );
+  return [...new Set([...(treeIds?.checked || []), ...tableIds])];
 });
 const [Modal, modalApi] = useVbenModal({
   title: '功能权限',
@@ -79,14 +87,17 @@ const [Modal, modalApi] = useVbenModal({
 const rowSelection = reactive({
   selectedRowKeys: selectedTableKeys,
   preserveSelectedRowKeys: true,
-  onChange: (selectedRowKeys: string[], selectedRows: any[]) => {
+  onChange: (selectedRowKeys: any[], selectedRows: any[]) => {
     selectedTableKeys.value = selectedRowKeys;
   },
 });
 
-const loadTableData = async (parentId) => {
+const loadTableData = async (parentId: any) => {
   try {
-    const ret = await api.GetResourceList({ type: 'button', parentId });
+    const ret = (await api.GetResourceList({
+      type: 'button',
+      parentId,
+    })) as any;
     tableData.value = ret.records;
     pagination.value.total = Number(ret.total);
   } catch (error) {
@@ -94,7 +105,7 @@ const loadTableData = async (parentId) => {
   }
 };
 
-const handleTreeSelect = async (selectedKeys, event) => {
+const handleTreeSelect = async (selectedKeys: any, event: any) => {
   if (!event.selected) return;
   const selectNode = event.selectedNodes[0];
   if (selectedKeys.length > 0) {
@@ -102,7 +113,7 @@ const handleTreeSelect = async (selectedKeys, event) => {
   }
 };
 
-const handleTableChange = (pag) => {
+const handleTableChange = (pag: any) => {
   pagination.value = pag;
   loadTableData(selectedTreeKeys.value[0]);
 };
@@ -120,8 +131,10 @@ const handleTableChange = (pag) => {
           :default-expand-all="true"
           :field-names="{ key: 'id', title: 'title' }"
           :tree-data="treeData"
+          :check-strictly="true"
           checkable
           @select="handleTreeSelect"
+          @check="handleTreeCheck"
         />
       </a-col>
       <a-col :span="18">
@@ -129,7 +142,7 @@ const handleTableChange = (pag) => {
           :columns="columns.filter((column) => !column.hidden)"
           :data-source="tableData"
           :pagination="pagination"
-          :row-key="(record) => record.id"
+          :row-key="(record: any) => record.id"
           :row-selection="rowSelection"
           bordered
           @change="handleTableChange"

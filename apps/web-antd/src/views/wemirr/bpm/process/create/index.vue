@@ -207,7 +207,7 @@ onMounted(async () => {
 }
 .list-card {
   .ant-list-item {
-    padding: 10px;
+    padding: 0;
   }
 
   &__link {

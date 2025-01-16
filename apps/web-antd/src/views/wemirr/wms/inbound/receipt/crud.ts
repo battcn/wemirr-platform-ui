@@ -15,8 +15,9 @@ import { supplierTable, warehouseTable } from '#/views/wemirr/wms/table-select';
 
 import * as api from './api';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  // const { crudBinding, crudRef } = props.crudExpose;
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const { crudExpose } = props;
   return {
     crudOptions: {

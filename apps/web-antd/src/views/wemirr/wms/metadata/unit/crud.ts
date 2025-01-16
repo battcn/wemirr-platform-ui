@@ -1,8 +1,15 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
 import { SysDictCode, sysDictFunc } from '#/api';
 
 import * as api from './api';
 
-export default function ({ crudExpose }) {
+export default function crud() {
   return {
     crudOptions: {
       request: {

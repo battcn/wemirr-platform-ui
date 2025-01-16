@@ -24,14 +24,13 @@ hiPrintPlugin.disAutoConnect();
 hiprint.init({
   providers: [defaultElementTypeProvider()],
 });
-hiPrintPlugin.disAutoConnect();
 // 响应式状态
 const mode = ref(0);
 const modeList = ref([]);
 const paperPopVisible = ref(false);
 const paperWidth = ref('220');
 const paperHeight = ref('80');
-const template = ref();
+// const template = ref();
 const scaleValue = ref(1);
 const scaleMax = 5;
 const scaleMin = 0.5;
@@ -50,7 +49,7 @@ const buildLeftElement = () => {
  */
 const buildDesigner = () => {
   $('#hiprint-printTemplate').empty(); // 先清空, 避免重复构建
-  template.value = hiprintTemplate = new hiprint.PrintTemplate({
+  hiprintTemplate = new hiprint.PrintTemplate({
     settingContainer: '#PrintElementOptionSetting', // 元素参数容器
   });
   // 构建 并填充到 容器中
@@ -99,13 +98,12 @@ const changeMode = () => {
   const templateData = templates.value[provider.value]
     ? templates.value[provider.value]
     : {};
-  template.value = hiprintTemplate = new hiprint.PrintTemplate({
+  hiprintTemplate = new hiprint.PrintTemplate({
     template: templateData,
     dataMode: 1,
     history: false,
     onDataChanged: (type, json) => {
-      console.log(type);
-      console.log(json);
+      console.log(type, json);
     },
     settingContainer: '#PrintElementOptionSetting',
     paginationContainer: '.hiprint-printPagination',
@@ -164,7 +162,7 @@ const preview = ref();
  * 获取打印html
  */
 const openPreview = () => {
-  const html = hiprintTemplate.getHtml(printData);
+  // const html = hiprintTemplate.getHtml(printData);
   preview.value.showModal(hiprintTemplate, printData);
 };
 const exportPdf = () => {
@@ -172,7 +170,7 @@ const exportPdf = () => {
 };
 
 const setElsAlign = (e) => {
-  template.value.setElsAlign(e);
+  hiprintTemplate.setElsAlign(e);
 };
 
 /**
@@ -215,13 +213,7 @@ onMounted(() => {
   buildLeftElement();
   buildDesigner();
   init();
-  // otherPaper();
 });
-
-// onMounted(() => {
-//   init();
-//   otherPaper();
-// });
 </script>
 
 <template>
@@ -402,12 +394,6 @@ onMounted(() => {
     <a-row :gutter="[8, 0]">
       <a-col :span="5">
         <a-card style="height: 100vh" class="print-layout-left">
-          <!--          <a-row>
-            <a-col
-              :span="24"
-              class="rect-printElement-types hiprintEpContainer"
-            />
-          </a-row>-->
           <LeftLayout :hiprint-template="hiprintTemplate" />
         </a-card>
       </a-col>
@@ -417,11 +403,6 @@ onMounted(() => {
         </a-card>
       </a-col>
       <a-col :span="5" class="params_setting_container">
-        <!--        <a-card>
-          <a-row class="hinnn-layout-sider">
-            <div id="PrintElementOptionSetting"></div>
-          </a-row>
-        </a-card>-->
         <a-card>
           <a-tabs
             default-active-key="properties"
@@ -462,11 +443,7 @@ onMounted(() => {
 <style lang="less" scoped>
 // build 拖拽
 /deep/ .hiprint-printElement-type > li > ul > li > a {
-  //padding: 4px 4px;
-  //color: #1296db;
-  //line-height: 1;
   height: auto !important;
-  //text-overflow: ellipsis;
 }
 // 设计容器
 .card-design {
@@ -479,7 +456,6 @@ onMounted(() => {
 }
 .print-layout-left {
   /deep/ .ant-card-body {
-    //padding: 8px;
   }
 }
 </style>

@@ -3,6 +3,7 @@ import type {
   DelReq,
   EditReq,
   UserPageQuery,
+  ValueBuilderContext,
 } from '@fast-crud/fast-crud';
 
 import { dict, utils } from '@fast-crud/fast-crud';
@@ -11,7 +12,7 @@ import { SysDictCode, sysDictFunc } from '#/api';
 
 import * as api from './api';
 
-export default function crud({ crudExpose }) {
+export default function crud() {
   return {
     crudOptions: {
       request: {
@@ -100,7 +101,7 @@ export default function crud({ crudExpose }) {
           style: { height: 70 },
           column: { width: 70, align: 'center', show: false },
           valueBuilder({ value, row, key }: ValueBuilderContext): void {
-            if (value != null && value.indexOf('http')) {
+            if (value !== null && value.indexOf('http')) {
               row[key] = `http://www.docmirror.cn:7070${value}`;
             }
           },
@@ -140,7 +141,7 @@ export default function crud({ crudExpose }) {
           column: { width: 200, show: true },
           form: { show: false },
           type: 'text',
-          valueBuilder({ row }) {
+          valueBuilder({ row }: ValueBuilderContext) {
             if (!utils.strings.hasEmpty(row.provinceName)) {
               row.areaText = row.provinceName;
             }
@@ -178,8 +179,11 @@ export default function crud({ crudExpose }) {
               placeholder: '请选择地址',
               vModel: 'value',
               on: {
-                selectedChange({ $event, key, form }) {
-                  if (form[key] != null && !utils.strings.hasEmpty(form[key])) {
+                selectedChange({ $event, key, form }: any) {
+                  if (
+                    form[key] !== null &&
+                    !utils.strings.hasEmpty(form[key])
+                  ) {
                     form.provinceId = $event[0]?.value;
                     form.provinceName = $event[0]?.label;
                     form.cityId = $event[1]?.value;

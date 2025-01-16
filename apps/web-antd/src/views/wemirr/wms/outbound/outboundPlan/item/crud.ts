@@ -4,7 +4,7 @@ import { defHttp } from '#/api/request';
 import unitCrudOptions from '#/views/wemirr/wms/metadata/unit/crud';
 import { materialTable } from '#/views/wemirr/wms/table-select';
 
-export default function crud({ crudExpose, context }) {
+export default function crud({ context }) {
   const isShowLine = context.isShowLine;
   return {
     crudOptions: {
@@ -80,7 +80,7 @@ export default function crud({ crudExpose, context }) {
           column: {
             show: true,
             width: 80,
-            formatter({ value }) {
+            formatter({ value }: any) {
               return value;
             },
           },
@@ -123,7 +123,7 @@ export default function crud({ crudExpose, context }) {
             show: true,
             width: 110,
             column: { show: isShowLine, width: 80 },
-            formatter({ row }) {
+            formatter({ row }: any) {
               return `${row.completeQty + row.progressQty} (${row.unit})`;
             },
           },
@@ -138,7 +138,7 @@ export default function crud({ crudExpose, context }) {
             show: true,
             width: 140,
             column: { show: isShowLine, width: 80 },
-            formatter({ row }) {
+            formatter({ row }: any) {
               return `${row.qty - (row.completeQty + row.progressQty)} / ${
                 row.progressQty
               } / ${row.completeQty} (${row.unit})`;

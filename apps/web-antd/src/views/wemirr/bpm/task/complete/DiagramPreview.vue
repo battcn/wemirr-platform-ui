@@ -13,7 +13,7 @@ const { ui } = useUi();
 const processXmlRef: Ref = ref();
 const highlightRef: Ref<any[]> = ref([]);
 const previewContainerRef = ref();
-
+const componentRef = ref();
 const state = reactive({
   processStartTime: '',
   dialogTitle: '',
@@ -24,11 +24,15 @@ const state = reactive({
   popoverContent: '',
   popover: {
     visible: false,
-    overlayStyle: {},
+    overlayStyle: {
+      left: '',
+      top: '',
+    },
   },
 });
 
 async function handleElementClick(element: any) {
+  // TODO 存在问题， 不知道为什么拿不到具体坐标去弹
   // 忽略开始节点、结束节点和连线的点击
   if (
     !element ||
@@ -43,29 +47,35 @@ async function handleElementClick(element: any) {
     state.popover.visible = false;
     return;
   }
-
   const bbox = element.di.bounds;
   if (bbox && previewContainerRef.value) {
-    const canvas = element.diagram.get('canvas');
-    const zoom = canvas.zoom();
     // 设置弹窗位置
-    state.popover.overlayStyle = {
-      position: 'absolute',
-      top: `${bbox.y * zoom + 330}px`,
-      left: `${bbox.x * zoom + 100}px`,
-    };
+    state.popover.overlayStyle.top = `${bbox.y + bbox.height + 130}px`;
+    if (bbox.x < 300) {
+      state.popover.overlayStyle.left = `${bbox.x + bbox.width + 140}px`;
+    } else if (bbox.x < 550) {
+      state.popover.overlayStyle.left = `${bbox.x + bbox.width + 50}px`;
+    } else {
+      state.popover.overlayStyle.left = `${bbox.x + bbox.width}px`;
+    }
     const comment = state.commentList.find(
       (item) => item.taskDefinitionKey === element.id,
     );
     const startTime = dayjs(state?.processStartTime);
     const endTime = dayjs(comment?.approverTime);
     const duration = endTime.diff(startTime, 'second');
-    state.popoverContent = `
+    state.popoverContent = comment?.approverName
+      ? `
             <div class="custom-popover-content">
-              <p>审批人员: ${comment?.approverName}</p>
+              <p>审批人员: ${comment.approverName}</p>
               <p>开始时间: ${startTime.format('YYYY-MM-DD HH:mm:ss')}</p>
               <p>结束时间: ${endTime.format('YYYY-MM-DD HH:mm:ss')}</p>
               <p>审批耗时: ${duration} 秒</p>
+            </div>
+          `
+      : `
+            <div class="custom-popover-content">
+              <p>开始时间: ${startTime.format('YYYY-MM-DD HH:mm:ss')}</p>
             </div>
           `;
     state.popover.visible = true;
@@ -99,6 +109,7 @@ defineExpose({
 
 <template>
   <component
+    ref="componentRef"
     :is="ui.dialog.name"
     v-if="state.dialogShow"
     v-model:[ui.dialog.visible]="state.dialogShow"
@@ -106,6 +117,13 @@ defineExpose({
     :width="1300"
     cancel-text="关闭"
   >
+    <fs-bpmn-preview
+      v-if="processXmlRef"
+      :highlight="highlightRef"
+      :on-element-click="handleElementClick"
+      :xml="processXmlRef"
+      style="height: 600px"
+    />
     <div ref="previewContainerRef" class="preview-container">
       <div
         v-if="state.popover.visible"
@@ -114,25 +132,11 @@ defineExpose({
       >
         <div class="tooltip-content" v-html="state.popoverContent"></div>
       </div>
-
-      <fs-bpmn-preview
-        v-if="processXmlRef"
-        :highlight="highlightRef"
-        :on-element-click="handleElementClick"
-        :xml="processXmlRef"
-        style="height: 600px"
-      />
     </div>
   </component>
 </template>
 
 <style scoped>
-.preview-container {
-  position: relative;
-  height: 600px;
-  overflow: hidden;
-}
-
 .custom-tooltip {
   position: absolute;
   z-index: 1000;
@@ -143,19 +147,6 @@ defineExpose({
   padding: 8px 12px;
   max-width: 300px;
   transform: translateY(-50%);
-}
-
-.custom-tooltip::before {
-  content: '';
-  position: absolute;
-  left: -6px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-right: 6px solid white;
 }
 
 .tooltip-content {

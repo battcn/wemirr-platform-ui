@@ -182,7 +182,10 @@ export default function crud(
           type: 'text',
           column: { show: true, width: 120 },
           form: {
-            rules: [{ min: 2, max: 30, message: '长度在 2 到 30 个字符' }],
+            rules: [
+              { required: true, message: '联系人不能为空' },
+              { min: 2, max: 30, message: '长度在 2 到 30 个字符' },
+            ],
           },
         },
         contactPhone: {
@@ -190,7 +193,10 @@ export default function crud(
           type: 'text',
           column: { show: true, width: 150 },
           form: {
-            rules: [{ min: 2, max: 30, message: '长度在 2 到 30 个字符' }],
+            rules: [
+              { required: true, message: '联系方式不能为空' },
+              { min: 2, max: 30, message: '长度在 2 到 30 个字符' },
+            ],
           },
         },
         type: {

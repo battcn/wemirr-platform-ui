@@ -41,13 +41,12 @@ export default function crud() {
           column: {
             width: 100,
             align: 'center',
-            component: {
-              name: 'fs-icon',
-              vModel: 'icon',
-              style: 'font-size:20px',
-            },
           },
           form: {
+            component: {
+              dialog: { title: 'ICON 选择' },
+              tabs: { type: 'line' },
+            },
             rules: [{ required: true, message: 'ICON 不能为空' }],
             helper: {
               render() {

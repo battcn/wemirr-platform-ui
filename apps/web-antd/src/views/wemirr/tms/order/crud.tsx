@@ -1,22 +1,31 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  InfoReq,
+  UserPageQuery,
+  ValueBuilderContext,
+} from '@fast-crud/fast-crud';
+
 import { dict, utils } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
 import * as api from './api';
 // import { GetGlobPreviewUrl } from "@/api/sysPrefix";
-export default function () {
+export default function crud() {
   return {
     crudOptions: {
       request: {
-        pageRequest: async (query) => await api.PageList(query),
-        infoRequest: async ({ mode, row }) => {
+        pageRequest: async (query: UserPageQuery) => await api.PageList(query),
+        infoRequest: async ({ mode, row }: InfoReq) => {
           if (mode !== 'add') {
             return await api.GetInfo(row.id);
           }
           return row;
         },
-        addRequest: async ({ form }) => await api.AddObj(form),
-        editRequest: async ({ form }) => await api.UpdateObj(form),
-        delRequest: async ({ row }) => await api.DelObj(row.id),
+        addRequest: async ({ form }: AddReq) => await api.AddObj(form),
+        editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
+        delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
       },
       toolbar: {},
       search: {
@@ -153,7 +162,7 @@ export default function () {
               valueFormat: 'YYYY-MM-DD HH:mm:ss',
             },
           },
-          valueResolve({ value, row, key }) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -186,7 +195,7 @@ export default function () {
               valueFormat: 'YYYY-MM-DD HH:mm:ss',
             },
           },
-          valueResolve({ value, row, key }) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -232,7 +241,7 @@ export default function () {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -255,7 +264,7 @@ export default function () {
               row[key] = dayjs(value);
             }
           },
-          valueResolve({ value, row, key }) {
+          valueResolve({ value, row, key }: ValueBuilderContext): void {
             if (value !== null) {
               row[key] = dayjs(value).unix();
             }
@@ -376,9 +385,9 @@ export default function () {
           column: { width: 200, show: false },
           search: { show: false },
           type: 'dict-cascader',
-          valueResolve({ form }) {
+          valueResolve({ form }: ValueBuilderContext): void {
             if (
-              form.senderInfo.area != null &&
+              form.senderInfo.area !== null &&
               !utils.strings.hasEmpty(form.senderInfo.area)
             ) {
               form.senderInfo.provinceId = form.senderInfo.area[0];
@@ -398,7 +407,7 @@ export default function () {
             label: 'name',
           }),
           form: {
-            valueBuilder({ row, form }) {
+            valueBuilder({ row, form }: ValueBuilderContext): void {
               if (!utils.strings.hasEmpty(row.senderInfo?.provinceId)) {
                 form.senderInfo.area = [
                   row.senderInfo.provinceId,
@@ -458,9 +467,9 @@ export default function () {
           column: { width: 200, show: false },
           search: { show: false },
           type: 'dict-cascader',
-          valueResolve({ form }) {
+          valueResolve({ form }: ValueBuilderContext): void {
             if (
-              form.receiverInfo.area != null &&
+              form.receiverInfo.area !== null &&
               !utils.strings.hasEmpty(form.receiverInfo.area)
             ) {
               form.receiverInfo.provinceId = form.receiverInfo.area[0];
@@ -480,7 +489,7 @@ export default function () {
             label: 'name',
           }),
           form: {
-            valueBuilder({ row, form }) {
+            valueBuilder({ row, form }: ValueBuilderContext): void {
               if (!utils.strings.hasEmpty(row.receiverInfo?.provinceId)) {
                 form.receiverInfo.area = [
                   row.receiverInfo.provinceId,
