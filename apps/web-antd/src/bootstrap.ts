@@ -25,6 +25,15 @@ async function bootstrap(namespace: string) {
   // 初始化组件适配器
   await initComponentAdapter();
 
+  // // 设置弹窗的默认配置
+  // setDefaultModalProps({
+  //   fullscreenButton: false,
+  // });
+  // // 设置抽屉的默认配置
+  // setDefaultDrawerProps({
+  //   zIndex: 1020,
+  // });
+
   const app = createApp(App);
 
   // 国际化 i18n 配置
