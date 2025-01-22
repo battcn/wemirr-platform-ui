@@ -111,11 +111,7 @@ class RequestClient {
         url,
         ...config,
       });
-      // debugger
-      if (config?.fetchOptions?.mode === 'full') {
-        return response as T;
-      }
-      return response.data as T;
+      return response as T;
     } catch (error: any) {
       throw error.response ? error.response.data : error;
     }

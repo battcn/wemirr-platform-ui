@@ -1,5 +1,9 @@
+import type { AxiosRequestConfig } from 'axios';
+
 import type { RequestClient } from '../request-client';
 import type { RequestClientConfig } from '../types';
+
+import { downloadFileFromBlob } from '@vben/utils';
 
 type DownloadRequestConfig = {
   /**
@@ -9,8 +13,6 @@ type DownloadRequestConfig = {
    */
   responseReturn?: 'body' | 'raw';
 } & Omit<RequestClientConfig, 'responseReturn'>;
-
-import { downloadFileFromBlob } from '@vben/utils';
 
 class FileDownloader {
   private client: RequestClient;
@@ -34,10 +36,10 @@ class FileDownloader {
       responseType: 'blob',
     };
 
-    const response = await this.client.get<T>(url, finalConfig);
+    // const response = await this.client.get<T>(url, finalConfig);
 
-    return response;
-    return await this.client.request<Blob>(url, {
+    // return response;
+    return await this.client.request<T>(url, {
       ...finalConfig,
       fetchOptions: { mode: 'full' },
     });
