@@ -27,6 +27,8 @@
     "#/*": "./src/*"
   },
   "dependencies": {
+    "md-editor-v3": "^4.13.2",
+    "sse.js": "^2.4.1",
     "@ant-design/colors": "catalog:",
     "@ant-design/icons-vue": "catalog:",
     "@fast-crud/fast-bpmn": "^2.1.15",
