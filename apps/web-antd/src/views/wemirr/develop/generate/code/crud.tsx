@@ -1,9 +1,8 @@
-// import { downloadToFile } from '@/utils/file/download';
 import { dict } from '@fast-crud/fast-crud';
 
 import { defHttp } from '#/api/request';
 
-export default function ({ userStore }) {
+export default function crud() {
   const pageRequest = async (query: any) =>
     await defHttp.get('/suite/generates', { params: query });
 
@@ -29,20 +28,18 @@ export default function ({ userStore }) {
         fixed: 'right',
         buttons: {
           download: {
-            // icon: "ant-design:cloud-download-outlined",
             type: 'link',
             text: '代码生成',
             size: 'small',
             title: '代码生成',
-            async click(context) {
-              await defHttp
-                .request(`/suite/generates/${context.row.id}/download`, {
+            async click({ row }: any) {
+              await defHttp.downloadFile(
+                `/suite/generates/${row.id}/download`,
+                `${row.moduleName}.zip`,
+                {
                   method: 'POST',
-                  responseType: 'blob',
-                })
-                .then((res) => {
-                  // downloadToFile(res, `${context.row.moduleName}.zip`);
-                });
+                },
+              );
             },
           },
           remove: { order: 2 },
