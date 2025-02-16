@@ -113,8 +113,8 @@ const tenantSettingOptions = {
       },
     },
     wrapper: { title: '租户设置' },
-    doSubmit({ form }: any): void {
-      return defHttp.put(`/iam/tenants/${form.tenantId}/setting`, form, {
+    async doSubmit({ form }: any) {
+      return await defHttp.put(`/iam/tenants/${form.tenantId}/setting`, form, {
         fetchOptions: { mode: 'full' },
       });
     },
