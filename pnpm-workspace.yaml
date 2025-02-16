@@ -13,14 +13,15 @@ packages:
   - docs
   - playground
 catalog:
+  "lodash-es": ^4.17.21
   '@ast-grep/napi': ^0.32.3
   "epic-designer": ^0.9.30
   "@ant-design/colors": ^7.0.0
   "@ant-design/icons-vue": ^6.1.0
-  "@fast-crud/fast-crud": ^1.25.0
-  "@fast-crud/fast-extends": ^1.25.0
-  "@fast-crud/ui-antdv4": ^1.25.0
-  "@fast-crud/ui-interface": ^1.25.0
+  "@fast-crud/fast-crud": ^1.25.1
+  "@fast-crud/fast-extends": ^1.25.1
+  "@fast-crud/ui-antdv4": ^1.25.1
+  "@fast-crud/ui-interface": ^1.25.1
   '@changesets/changelog-github': ^0.5.0
   '@changesets/cli': ^2.27.12
   '@changesets/git': ^3.0.2
