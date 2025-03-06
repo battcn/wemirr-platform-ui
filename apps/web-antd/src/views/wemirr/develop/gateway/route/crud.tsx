@@ -1,38 +1,38 @@
+import type {
+  AddReq,
+  DelReq,
+  EditReq,
+  UserPageQuery,
+} from '@fast-crud/fast-crud';
+
 import { compute, dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
 import * as api from './api';
 
-export default function ({ expose }) {
-  const pageRequest = async (query) => {
-    return await api.GetList(query);
-  };
-  const editRequest = async ({ form, row }) => {
-    form.id = row.id;
-    return await api.SaveOrUpdate(form);
-  };
-  const delRequest = async ({ row }) => {
-    return await api.DelObj(row.id);
-  };
-
-  const addRequest = async ({ form }) => {
-    return await api.SaveOrUpdate(form);
-  };
-
+export default function crud({ expose }) {
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        addRequest,
-        editRequest,
-        delRequest,
+        pageRequest: async (query: UserPageQuery) => {
+          return await api.GetList(query);
+        },
+        addRequest: async ({ form }: AddReq) => {
+          return await api.SaveOrUpdate(form);
+        },
+        editRequest: async ({ form }: EditReq) => {
+          return await api.SaveOrUpdate(form);
+        },
+        delRequest: async ({ row }: DelReq) => {
+          return await api.DelObj(row.id);
+        },
       },
       table: {
         scroll: { fixed: true },
       },
       rowHandle: {
         fixed: 'right',
-        width: 170,
+        width: 230,
         buttons: {
           edit: {
             show: compute(({ row }) => {
@@ -46,16 +46,16 @@ export default function ({ expose }) {
           },
           up: {
             type: 'link',
-            text: null,
+            text: '上线',
             title: '上线',
-            icon: 'bi:cloud-arrow-up',
+            icon: null,
             size: 'small',
-            order: 4,
+            order: 2,
             show: compute(({ row }) => {
               return row.dynamic && !row.status;
             }),
-            async click(context) {
-              await api.ServiceStatus(context.record.id, true).then(() => {
+            async click({ row }: any) {
+              await api.ServiceStatus(row.id, true).then(() => {
                 notification.success({ message: '路由发布成功', duration: 2 });
               });
               expose.doRefresh();
@@ -71,15 +71,14 @@ export default function ({ expose }) {
             show: compute(({ row }) => {
               return row.dynamic && row.status;
             }),
-            async click(context) {
-              await api.ServiceStatus(context.record.id, false).then(() => {
+            async click({ row }: any) {
+              await api.ServiceStatus(row.id, false).then(() => {
                 notification.success({ message: '路由下线成功', duration: 2 });
               });
               expose.doRefresh();
             },
           },
         },
-        // bi-cloud-arrow-up
       },
       search: { show: false },
       columns: {
@@ -87,11 +86,6 @@ export default function ({ expose }) {
           title: '路由ID',
           type: 'text',
           column: { ellipsis: true, width: 280 },
-          // dict: dict({
-          //   url: '/gateway/discoveries/dict',
-          //   label: 'serviceId',
-          //   value: 'serviceId',
-          // }),
           editForm: {
             component: {
               disabled: true,

@@ -16,10 +16,7 @@ export default defineComponent({
   name: 'GatewayRouteForm',
   components: { DeleteOutlined, PlusSquareOutlined, DownOutlined },
   setup() {
-    // const crudRef = ref();
-    // const crudBinding = ref();
     const inputValue = '';
-    // const { expose } = useExpose({ crudRef, crudBinding });
     const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
 
     const router = reactive({
@@ -28,8 +25,6 @@ export default defineComponent({
     });
     const cloneDeepRouter = cloneDeep(router);
 
-    // const { crudOptions } = createCrudOptions({ crudExpose });
-    // useCrud({ crudExpose, crudOptions });
     onMounted(() => {
       crudExpose.doRefresh();
     });
@@ -62,7 +57,7 @@ export default defineComponent({
 
     function handlePredicateChange(name, scopeForm, scopeKey) {
       router.predicates.splice(router.predicates.indexOf(name), 1);
-      if (scopeForm[scopeKey] === null) {
+      if (!scopeForm[scopeKey]) {
         scopeForm[scopeKey] = [];
       }
       const args = [];
@@ -101,7 +96,7 @@ export default defineComponent({
         router.filters.findIndex((item) => item.name === filter.name),
         1,
       );
-      if (scopeForm[scopeKey] === null) {
+      if (!scopeForm[scopeKey]) {
         scopeForm[scopeKey] = [];
       }
       scopeForm[scopeKey].push(filter);
@@ -123,9 +118,6 @@ export default defineComponent({
       });
     }
 
-    const log = (tag) => {
-      // console.log(tag);
-    };
     return {
       removeFilterParams,
       removeFilter,
@@ -135,7 +127,6 @@ export default defineComponent({
       inputValue,
       showInput,
       router,
-      log,
       handleFilterChange,
       handlePredicateChange,
       handleInputConfirm,
