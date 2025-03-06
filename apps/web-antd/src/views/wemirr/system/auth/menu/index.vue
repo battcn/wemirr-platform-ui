@@ -3,10 +3,10 @@ import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { Card, Modal, notification } from 'ant-design-vue';
 
 import { getAllMenusApi } from '#/api';
-import { $t } from '#/locales';
 
 import * as api from './api';
 import ResourceButtonTable from './button.vue';
@@ -17,14 +17,15 @@ const treeData = ref();
 const expandedKeys = ref();
 const itemTableRef = ref();
 const [MenuForm, menuFormRef] = menuForm(onSubmit);
+const hoveredNodeId = ref<string>('');
+
 function onSubmit(values: Record<string, any>) {
   api.SaveOrUpdate(values).then(() => {
     menuFormRef.resetForm();
-    // loadAreaTree();
+    loadMenu();
     notification.success({
-      description: '提交成功',
       duration: 3,
-      message: $t('authentication.loginSuccess'),
+      message: '提交成功',
     });
     menuFormRef.resetValidate();
   });
@@ -41,8 +42,17 @@ onMounted(() => {
 });
 
 function handlePlus(node: any) {
-  // resetFields();
-  // setFieldsValue({ parentId: node.id });
+  menuFormRef.resetValidate();
+  itemTableRef.value.crudBinding.actionbar.buttons.add.show = false;
+  itemTableRef.value.parentId = '0';
+  menuFormRef.resetForm();
+  menuFormRef.setValues({
+    type: 'menu',
+    parentId: node.id,
+  });
+  itemTableRef.value.setSearchFormData({ form: { parentId: '0' } });
+  itemTableRef.value.doRefresh();
+  menuFormRef.setState({ showDefaultActions: true });
 }
 
 function handleDelete(node: any) {
@@ -62,8 +72,8 @@ function handleDelete(node: any) {
   });
 }
 
-function loadMenu() {
-  getAllMenusApi().then((ret) => {
+async function loadMenu() {
+  await getAllMenusApi({}).then((ret) => {
     treeData.value = ret;
     expandedKeys.value = ret
       .filter((item: any) => item.parentId === '0')
@@ -114,6 +124,14 @@ function handleSelect(checkedKeys: any, event: any) {
   itemTableRef.value.setSearchFormData({ form: { parentId: selectNode.id } });
   itemTableRef.value.doRefresh();
 }
+
+function handleMouseEnter(nodeId: string) {
+  hoveredNodeId.value = nodeId;
+}
+
+function handleMouseLeave() {
+  hoveredNodeId.value = '';
+}
 </script>
 
 <template>
@@ -127,10 +145,36 @@ function handleSelect(checkedKeys: any, event: any) {
         :action-list="actionList"
         :auto-expand-parent="true"
         :default-expand-all="true"
-        :field-names="{ key: 'id', title: 'title' }"
+        block-node
         :tree-data="treeData"
         @select="handleSelect"
-      />
+      >
+        <template #title="{ title, id }">
+          <div
+            class="tree-node-title"
+            @mouseenter="handleMouseEnter(id)"
+            @mouseleave="handleMouseLeave"
+          >
+            <span>{{ title }}</span>
+            <div v-show="hoveredNodeId === id" class="operation-buttons">
+              <a-button
+                type="link"
+                size="small"
+                @click.stop="handlePlus({ id, title })"
+              >
+                <template #icon><PlusOutlined /></template>
+              </a-button>
+              <a-button
+                type="link"
+                size="small"
+                @click.stop="handleDelete({ id, label: title })"
+              >
+                <template #icon><DeleteOutlined /></template>
+              </a-button>
+            </div>
+          </div>
+        </template>
+      </a-tree>
     </Card>
     <Card class="w-1/2" title="菜单信息">
       <MenuForm />
@@ -153,6 +197,32 @@ function handleSelect(checkedKeys: any, event: any) {
 
   .fs-container {
     min-height: 720px;
+  }
+}
+
+.tree-node-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 8px;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  .operation-buttons {
+    display: flex;
+    gap: 4px;
+
+    .ant-btn {
+      padding: 0 4px;
+      color: #1890ff;
+
+      &:hover {
+        color: #40a9ff;
+      }
+    }
   }
 }
 </style>
