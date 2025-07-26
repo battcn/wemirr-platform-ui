@@ -50,6 +50,7 @@ export default function crud(callbackFunc: () => void): any {
       sequence: {
         title: '排序',
         type: 'number',
+        addForm: { value: 0 },
         column: { show: true, width: 80 },
         form: { component: { min: 0, max: 1000 } },
       },
@@ -67,6 +68,7 @@ export default function crud(callbackFunc: () => void): any {
         title: '新增字典',
       },
       doSubmit({ form }: any) {
+        form.parentId = 0;
         if (form.id) {
           api.UpdateObj(form).then(() => {
             callbackFunc();

@@ -62,7 +62,7 @@ function handleSelect(checkedKeys: any, event: any) {
   }
   const nodeRef = event.selectedNodes[0];
   const crudBindRef = crudBinding.value as any;
-  const initialForm = { dictId: nodeRef.id, dictCode: nodeRef.code };
+  const initialForm = { parentId: nodeRef.id, parentCode: nodeRef.code };
   crudBindRef.search.initialForm = initialForm;
   crudBindRef.addForm.initialForm = initialForm;
   crudBindRef.actionbar.buttons.add.show = true;

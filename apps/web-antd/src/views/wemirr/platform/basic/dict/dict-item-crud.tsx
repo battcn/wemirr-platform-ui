@@ -19,17 +19,20 @@ export default function crud(
     crudOptions: {
       request: {
         pageRequest: async (query: UserPageQuery) => {
-          if (!query.dictId) {
+          if (!query.parentId) {
             return undefined;
           }
-          return await defHttp.get(`/iam/dict/${query.dictId}/items`, {
-            params: query,
-          });
+          return await defHttp.get(
+            `/iam/dict/items?parentId=${query.parentId}`,
+            {
+              params: query,
+            },
+          );
         },
         addRequest: async ({ form }: AddReq) =>
-          await defHttp.post(`/iam/dict/${form.dictId}/items`, form),
+          await defHttp.post(`/iam/dict/create`, form),
         editRequest: async ({ form }: EditReq) =>
-          await defHttp.put(`/iam/dict/${form.dictId}/items/${form.id}`, form),
+          await defHttp.put(`/iam/dict/${form.id}`, form),
         delRequest: async ({ row }: DelReq) =>
           await defHttp.delete(`/iam/dict/${row.dictId}/items/${row.id}`),
       },
@@ -46,19 +49,13 @@ export default function crud(
           form: { show: false },
           column: { show: false },
         },
-        dictId: {
-          title: '字典ID',
+        parentId: {
+          title: '上级字典ID',
           type: 'text',
           form: { show: false },
           column: { show: false },
         },
-        dictCode: {
-          title: '编码',
-          type: 'text',
-          form: { show: false },
-          column: { show: false },
-        },
-        label: {
+        name: {
           title: '名称',
           search: { show: true },
           column: { show: true, width: 160 },
@@ -67,8 +64,8 @@ export default function crud(
             rules: [{ required: true, message: '编码不能为空' }],
           },
         },
-        value: {
-          title: '值',
+        code: {
+          title: '编码',
           search: { show: false },
           column: { show: true, width: 160 },
           type: 'text',
