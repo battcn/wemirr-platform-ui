@@ -183,6 +183,7 @@ const refreshDictCache = () => {
   padding: 8px !important;
 }
 /deep/ .dict-list {
+  min-width: 300px;
   .ant-card-body {
     padding: 10px;
   }
