@@ -1,3 +1,5 @@
+import type { VxeGridPropTypes } from '@vben/plugins/vxe-table';
+
 import { h } from 'vue';
 
 import { setupVbenVxeTable, useVbenVxeGrid } from '@vben/plugins/vxe-table';
@@ -65,3 +67,33 @@ setupVbenVxeTable({
 export { useVbenVxeGrid };
 
 export type * from '@vben/plugins/vxe-table';
+/**
+ * 判断vxe-table的复选框是否选中
+ * @param tableApi api
+ * @returns boolean
+ */
+export function vxeCheckboxChecked(
+  tableApi: ReturnType<typeof useVbenVxeGrid>[1],
+) {
+  return tableApi?.grid?.getCheckboxRecords?.()?.length > 0;
+}
+
+/**
+ * 通用的 排序参数添加到请求参数中
+ * @param params 请求参数
+ * @param sortList vxe-table的排序参数
+ */
+export function addSortParams(
+  params: Record<string, any>,
+  sortList: VxeGridPropTypes.ProxyAjaxQuerySortCheckedParams[],
+) {
+  // 这里是排序取消 length为0 就不添加参数了
+  if (sortList.length === 0) {
+    return;
+  }
+  // 支持单/多字段排序
+  const orderByColumn = sortList.map((item) => item.field).join(',');
+  const isAsc = sortList.map((item) => item.order).join(',');
+  params.orderByColumn = orderByColumn;
+  params.isAsc = isAsc;
+}

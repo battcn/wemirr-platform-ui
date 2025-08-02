@@ -3,7 +3,7 @@ import { createJiti } from "../../../node_modules/.pnpm/jiti@2.4.2/node_modules/
 const jiti = createJiti(import.meta.url, {
   "interopDefault": true,
   "alias": {
-    "@vben/vite-config": "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/vite-config"
+    "@vben/vite-config": "D:/batch/wemirr-platform-ui/internal/vite-config"
   },
   "transformOptions": {
     "babel": {
@@ -12,8 +12,8 @@ const jiti = createJiti(import.meta.url, {
   }
 })
 
-/** @type {import("/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/vite-config/src/index.js")} */
-const _module = await jiti.import("/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/vite-config/src/index.ts");
+/** @type {import("D:/batch/wemirr-platform-ui/internal/vite-config/src/index.js")} */
+const _module = await jiti.import("D:/batch/wemirr-platform-ui/internal/vite-config/src/index.ts");
 
 export const loadAndConvertEnv = _module.loadAndConvertEnv;
 export const defineConfig = _module.defineConfig;

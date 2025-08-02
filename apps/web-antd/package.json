@@ -66,6 +66,8 @@
     "vue-files-preview": "^1.0.37",
     "vue-json-pretty": "^2.4.0",
     "vue-plugin-hiprint": "^0.0.58-fix",
-    "vue-router": "catalog:"
+    "vue-router": "catalog:",
+    "@tinymce/tinymce-vue": "^6.0.1",
+    "vue3-colorpicker": "^2.3.0"
   }
 }
