@@ -18,7 +18,7 @@ const EXECUTION_LISTENER_ITEM = {
 export const TASK_NOTIFY_CONTENT = {
   name: 'notifyContent',
   stringValue:
-    '亲爱的 {approveName} 您好，您于 {notifyTime} 收到一条待审批的数据 {taskName} 请及时处理。',
+    '亲爱的 {approverName} 您好，您于 {notifyTime} 收到一条待审批的数据 {taskName} 请及时处理。',
 };
 export const TASK_NOTIFY_LISTENERS = {
   'ding-talk': {

@@ -8,7 +8,7 @@ import { computed, ref, unref } from 'vue';
  * @param pageNo The current page number (1-based)
  * @param pageSize Number of items per page
  * @returns Paginated array slice
- * @throws {Error} If pageNo or pageSize are invalid
+ * @throws {Error} If pageNo or size are invalid
  */
 function pagination<T = any>(list: T[], pageNo: number, pageSize: number): T[] {
   if (pageNo < 1) throw new Error('Page number must be positive');

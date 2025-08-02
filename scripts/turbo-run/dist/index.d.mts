@@ -1,2 +1,2 @@
-export * from "D:/batch/wemirr-platform-ui/scripts/turbo-run/src/index.js";
-export { default } from "D:/batch/wemirr-platform-ui/scripts/turbo-run/src/index.js";
+export * from "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/scripts/turbo-run/src/index.js";
+export { default } from "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/scripts/turbo-run/src/index.js";

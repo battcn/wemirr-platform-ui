@@ -29,9 +29,8 @@ import {
 
 import { Tag } from 'ant-design-vue';
 
+import { LocalDictCode, localDictList } from '#/api';
 import { DictTag } from '#/components/dict';
-
-import { getDictOptions } from './dict';
 
 /**
  * 渲染标签
@@ -148,7 +147,19 @@ export function renderDictTags(
     </div>
   );
 }
-
+/**
+ * 显示字典标签 一般是table使用
+ * @param value 值
+ * @param dictName dictName
+ * @returns tag
+ */
+export function renderLocalDict(
+  value: number | string,
+  dictName: LocalDictCode,
+) {
+  const dictInfo = localDictList(dictName);
+  return renderDictTag(value, dictInfo);
+}
 /**
  * 显示字典标签 一般是table使用
  * @param value 值
@@ -156,9 +167,11 @@ export function renderDictTags(
  * @returns tag
  */
 export function renderDict(value: number | string, dictName: string) {
-  const dictInfo = getDictOptions(dictName);
+  // todo
+  const dictInfo = [];
   return renderDictTag(value, dictInfo);
 }
+
 export function renderIconSpan(
   icon: ComponentType,
   value: string,

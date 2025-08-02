@@ -37,11 +37,7 @@ const handleTreeCheck = (checkedKeys, info) => {
 const getAllSelectedIds = computed(() => {
   const treeIds = checkedTreeKeys.value || { checked: [], halfChecked: [] };
   const tableIds = selectedTableKeys.value || [];
-  // const currentTableIds = new Set(tableData.value.map((item: any) => item.id));
-  // const filteredTreeIds = treeIds?.checked?.filter(
-  //   (id) => !currentTableIds.has(id),
-  // );
-  return [...new Set([...(treeIds?.checked || []), ...tableIds])];
+  return [...new Set([...(treeIds?.checked || treeIds), ...tableIds])];
 });
 const [Modal, modalApi] = useVbenModal({
   title: '功能权限',

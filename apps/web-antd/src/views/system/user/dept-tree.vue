@@ -8,7 +8,8 @@ import { onMounted, ref } from 'vue';
 import { SyncOutlined } from '@ant-design/icons-vue';
 import { Empty, InputSearch, Skeleton, Tree } from 'ant-design-vue';
 
-import { getDeptTree } from '#/api/system/user';
+// import { getDeptTree } from '#/api/system/user';
+import { getOrgTree } from '#/api/core/org';
 
 defineOptions({ inheritAttrs: false });
 
@@ -46,7 +47,7 @@ async function loadTree() {
   searchValue.value = '';
   selectDeptId.value = [];
 
-  const ret = await getDeptTree();
+  const ret = await getOrgTree();
 
   deptTreeArray.value = ret;
   showTreeSkeleton.value = false;
@@ -102,7 +103,7 @@ onMounted(loadTree);
             @select="$emit('select')"
           >
             <template #title="{ label }">
-              <span v-if="label.indexOf(searchValue) > -1">
+              <span v-if="label.includes(searchValue)">
                 {{ label.substring(0, label.indexOf(searchValue)) }}
                 <span style="color: #f50">{{ searchValue }}</span>
                 {{

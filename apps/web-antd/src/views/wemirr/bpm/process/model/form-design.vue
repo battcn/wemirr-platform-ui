@@ -16,10 +16,10 @@ const { ui } = useUi();
 
 const { closeCurrentTab } = useTabs();
 const route = useRoute();
-const modelId: any = route.query.modelId;
+const defId: any = route.query.defId;
 const designerRef = ref<InstanceType<typeof EDesigner>>();
 onMounted(async () => {
-  await api.getFormByModelId(modelId).then((data) => {
+  await api.getFormByModelId(defId).then((data) => {
     designerRef.value?.setData(data);
   });
 });
@@ -28,7 +28,7 @@ onMounted(async () => {
  * @param e
  */
 function handleSubmit(e: PageSchema) {
-  api.saveFormDesign(modelId, e).then(() => {
+  api.saveFormDesign(defId, e).then(() => {
     closeCurrentTab();
     ui.notification.success('表单设计成功');
   });

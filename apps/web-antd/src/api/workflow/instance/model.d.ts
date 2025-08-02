@@ -17,7 +17,10 @@ export interface Flow {
   targetNodeCode: string;
   targetNodeName: string;
   approver: string;
-  approveName: string;
+  approverName: string;
+  approvalTime: string;
+  approvalActionName: string;
+  approvalAction: string;
   collaborator?: any;
   permissionList?: any;
   skipType: string;

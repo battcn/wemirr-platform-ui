@@ -44,6 +44,7 @@ export class ModalApi {
       confirmDisabled: false,
       confirmLoading: false,
       contentClass: '',
+      destroyOnClose: true,
       draggable: false,
       footer: true,
       footerClass: '',
@@ -58,6 +59,7 @@ export class ModalApi {
       showCancelButton: true,
       showConfirmButton: true,
       title: '',
+      animationType: 'slide',
     };
 
     this.store = new Store<ModalState>(
@@ -124,6 +126,16 @@ export class ModalApi {
   }
 
   /**
+   * loading和lock的区别
+   * loading允许关闭窗口
+   * lock不允许关闭窗口
+   * @param loading 是否loading
+   */
+  modalLoading(loading: boolean) {
+    this.setState({ confirmLoading: loading, loading });
+  }
+
+  /**
    * 取消操作
    */
   onCancel() {
@@ -179,5 +191,13 @@ export class ModalApi {
       this.store.setState((prev) => ({ ...prev, ...stateOrFn }));
     }
     return this;
+  }
+
+  /**
+   * 解除弹窗的锁定状态
+   * @description 解除由lock方法设置的锁定状态，是lock(false)的别名
+   */
+  unlock() {
+    return this.lock(false);
   }
 }

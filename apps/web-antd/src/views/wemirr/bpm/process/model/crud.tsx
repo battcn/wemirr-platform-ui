@@ -8,7 +8,7 @@ import { useRouter } from 'vue-router';
 import { compute, dict } from '@fast-crud/fast-crud';
 import { notification } from 'ant-design-vue';
 
-import { DelObj, Deploy, PageList } from './api';
+import { DelObj, PageList, Publish, UnPublish } from './api';
 
 export default function crud(
   props: CreateCrudOptionsProps,
@@ -42,12 +42,12 @@ export default function crud(
         buttons: {
           edit: {
             async click({ row }) {
-              await router.push(`/bpm/process/design?modelId=${row.id}`);
+              await router.push(`/bpm/process/design?defId=${row.id}`);
             },
           },
           view: {
             async click({ row }) {
-              await diagramRef.value.openPreview({ modelId: row.id });
+              await diagramRef.value.openPreview({ defId: row.id });
             },
           },
           form: {
@@ -58,24 +58,40 @@ export default function crud(
             order: 1,
             async click({ row }) {
               const routeUrl = router.resolve({
-                path: `/bpm/process/form-design?modelId=${row.id}`,
-                query: { modelId: `${row.id}` },
+                path: `/bpm/process/form-design?defId=${row.id}`,
+                query: { defId: `${row.id}` },
               });
               await router.push(routeUrl);
             },
           },
-          deploy: {
+          publish: {
             type: 'link',
-            text: '部署',
+            text: '发布',
             size: 'small',
-            title: '部署',
+            title: '发布',
             order: 5,
             show: compute(({ row }) => {
-              return row.status !== 1;
+              return row.isPublish === 0;
             }),
             async click({ row }) {
-              await Deploy(row.id).then(() => {
-                notification.success({ message: '部署成功', duration: 3 });
+              await Publish(row.id).then(() => {
+                notification.success({ message: '发布成功', duration: 3 });
+                crudExpose.doRefresh();
+              });
+            },
+          },
+          unPublish: {
+            type: 'link',
+            text: '取消发布',
+            size: 'small',
+            title: '发布',
+            order: 5,
+            show: compute(({ row }) => {
+              return row.isPublish !== 0;
+            }),
+            async click({ row }) {
+              await UnPublish(row.id).then(() => {
+                notification.success({ message: '取消成功', duration: 3 });
                 crudExpose.doRefresh();
               });
             },
@@ -89,66 +105,58 @@ export default function crud(
           form: { show: false },
           column: { show: false },
         },
-        definitionKey: {
-          title: '流程定义KEY',
+        flowCode: {
+          title: '编码',
           type: 'text',
           column: { width: 230 },
         },
-        diagramName: {
-          title: '流程定义名',
+        flowName: {
+          title: '名称',
           type: 'text',
           search: { show: true },
           column: { width: 230 },
-        },
-        categoryId: {
-          title: '模型类别',
-          type: 'dict-select',
-          search: { show: true },
-          dict: dict({
-            url: '/bpm/process_categories/list',
-            label: 'name',
-            value: 'id',
-          }),
-          column: { show: false },
-        },
-        categoryCode: {
-          title: '分类编码',
-          type: 'text',
-          search: { show: false },
-          column: { width: 100 },
         },
         categoryName: {
-          title: '分类名称',
+          title: '分类',
           type: 'text',
           column: { width: 160 },
         },
-        status: {
+        isPublish: {
           title: '状态',
           search: { show: true },
           column: { width: 120, show: true, align: 'center' },
           type: 'dict-radio',
           dict: dict({
             data: [
-              { value: 2, label: '新版本待部署', color: 'warning' },
-              { value: 1, label: '已经部署', color: 'success' },
-              { value: 0, label: '未部署', color: 'error' },
+              { value: 9, label: '已失效', color: 'error' },
+              { value: 1, label: '已发布', color: 'success' },
+              { value: 0, label: '未发布', color: 'warning' },
+            ],
+          }),
+        },
+        activityStatus: {
+          title: '状态',
+          search: { show: true },
+          column: { width: 120, show: true, align: 'center' },
+          type: 'dict-radio',
+          dict: dict({
+            data: [
+              { value: 1, label: '激活', color: 'success' },
+              { value: 0, label: '挂起', color: 'error' },
             ],
           }),
         },
         version: {
           title: '版本',
-          type: 'text',
-          column: { width: 100, show: true, align: 'center' },
+          type: 'dict-radio',
+          column: {
+            width: 100,
+            show: true,
+            align: 'center',
+            component: { color: 'auto' },
+          },
         },
-        createdName: {
-          title: '创建人',
-          search: { show: false },
-          type: 'text',
-          addForm: { show: false },
-          editForm: { show: false },
-          column: { width: 170, ellipsis: true },
-        },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

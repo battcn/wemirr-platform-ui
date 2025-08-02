@@ -54,9 +54,8 @@ const gridOptions: VxeGridProps = {
     ajax: {
       query: async () => {
         const resp = await dictTypeList();
-
         total.value = resp.total;
-        tableAllData.value = resp.rows;
+        tableAllData.value = resp.records;
         return resp;
       },
     },

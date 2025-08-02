@@ -1,7 +1,6 @@
 import type {
   CompleteTaskReqData,
   NextNodeInfo,
-  StartWorkFlowReqData,
   TaskInfo,
   TaskOperationData,
   TaskOperationType,
@@ -10,33 +9,21 @@ import type {
 import type { ID, IDS, PageQuery, PageResult } from '#/api/common';
 
 import { requestClient } from '#/api/request';
-
-/**
- * 启动任务
- * @param data
- */
-export function startWorkFlow(data: StartWorkFlowReqData) {
-  return requestClient.post<{
-    processInstanceId: string;
-    taskId: string;
-  }>('/workflow/task/startWorkFlow', data);
-}
-
 /**
  * 办理任务
  * @param data
  */
 export function completeTask(data: CompleteTaskReqData) {
-  return requestClient.postWithMsg<void>('/workflow/task/completeTask', data);
+  return requestClient.post(`/workflow/flow-tasks/${data.taskId}/pass`, data);
 }
 
 /**
  * 查询当前用户的待办任务
  * @param params
  */
-export function pageByTaskWait(params?: PageQuery) {
-  return requestClient.get<PageResult<TaskInfo>>(
-    '/workflow/task/pageByTaskWait',
+export function meTodoTaskPage(params?: PageQuery) {
+  return requestClient.post<PageResult<TaskInfo>>(
+    '/workflow/flow-tasks/me-todo-page',
     { params },
   );
 }
@@ -45,10 +32,10 @@ export function pageByTaskWait(params?: PageQuery) {
  * 查询当前用户的已办任务
  * @param params
  */
-export function pageByTaskFinish(params?: PageQuery) {
-  return requestClient.get<PageResult<TaskInfo>>(
-    '/workflow/task/pageByTaskFinish',
-    { params },
+export function currentUserDonePage(params?: PageQuery) {
+  return requestClient.post<PageResult<TaskInfo>>(
+    '/workflow/flow-tasks/me-done-page',
+    params,
   );
 }
 
@@ -57,9 +44,9 @@ export function pageByTaskFinish(params?: PageQuery) {
  * @param params
  */
 export function pageByAllTaskWait(params?: PageQuery) {
-  return requestClient.get<PageResult<TaskInfo>>(
-    '/workflow/task/pageByAllTaskWait',
-    { params },
+  return requestClient.post<PageResult<TaskInfo>>(
+    '/workflow/flow-tasks/me-todo-page',
+    params,
   );
 }
 
@@ -97,9 +84,9 @@ export function getTaskByTaskId(taskId: string) {
 /**
  * 终止任务
  */
-export function terminationTask(data: { comment?: string; taskId: string }) {
-  return requestClient.postWithMsg<void>(
-    '/workflow/task/terminationTask',
+export function terminationTask(data: { message?: string; taskId: string }) {
+  return requestClient.post(
+    `/workflow/flow-tasks/${data.taskId}/termination`,
     data,
   );
 }
@@ -113,7 +100,7 @@ export function taskOperation(
   taskOperationData: TaskOperationData,
   taskOperation: TaskOperationType,
 ) {
-  return requestClient.postWithMsg<void>(
+  return requestClient.post(
     `/workflow/task/taskOperation/${taskOperation}`,
     taskOperationData,
   );
@@ -125,7 +112,7 @@ export function taskOperation(
  * @param userId 办理人id
  */
 export function updateAssignee(taskIdList: IDS, userId: ID) {
-  return requestClient.putWithMsg<void>(
+  return requestClient.put(
     `/workflow/task/updateAssignee/${userId}`,
     taskIdList,
   );
@@ -136,7 +123,7 @@ export function updateAssignee(taskIdList: IDS, userId: ID) {
  * @param data 参数
  */
 export function backProcess(data: any) {
-  return requestClient.postWithMsg<void>('/workflow/task/backProcess', data);
+  return requestClient.post('/workflow/task/backProcess', data);
 }
 
 /**
@@ -149,15 +136,6 @@ export function getBackTaskNode(definitionId: string, nodeCode: string) {
     `/workflow/task/getBackTaskNode/${definitionId}/${nodeCode}`,
   );
 }
-
-/**
- * 获取当前任务的所有办理人
- * @param taskId 任务id
- */
-export function currentTaskAllUser(taskId: ID) {
-  return requestClient.get<any>(`/workflow/task/currentTaskAllUser/${taskId}`);
-}
-
 /**
  * 获取下一节点
  * @param data data

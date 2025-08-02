@@ -15,8 +15,6 @@ import createApprovalOptions from '#/views/wemirr/bpm/task/complete/approval';
 import TaskFormDetail from '#/views/wemirr/bpm/task/complete/TaskFormDetail.vue';
 import createTransferOptions from '#/views/wemirr/bpm/task/complete/transfer';
 
-import * as api from './api';
-
 const { ui } = useUi();
 
 const dialogShow = ref(false);
@@ -28,15 +26,15 @@ const crudExposeRef = ref();
 const title = ref();
 function openPreview(row: any, crudExpose: any, preview: boolean) {
   dialogShow.value = true;
-  processId.value = row.procInstId;
+  processId.value = row.instanceId;
   rowRef.value = row;
   title.value = row.procInstName;
   crudExposeRef.value = crudExpose;
   isPreview.value = preview;
-  api.getProcessInstanceComments(row.procInstId).then((ret) => {
-    stepNodes.value = ret || [];
-    console.log('stepNodes', stepNodes);
-  });
+  // api.getProcessInstanceComments(row.instanceId).then((ret) => {
+  //   stepNodes.value = ret || [];
+  //   console.log('stepNodes', stepNodes);
+  // });
 }
 
 const formApprovalWrapperRef = ref();
@@ -200,11 +198,12 @@ defineExpose({
     padding: 24px 40px;
   }
 }
+
 .comment-content {
-  user-select: none;
-  margin-top: 4px;
   padding: 8px;
-  border-radius: 4px;
+  margin-top: 4px;
+  user-select: none;
   background-color: var(--el-bg-color-page);
+  border-radius: 4px;
 }
 </style>

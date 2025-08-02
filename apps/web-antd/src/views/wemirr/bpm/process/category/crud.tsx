@@ -8,13 +8,16 @@ export default function crud() {
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post(`/bpm/process_categories/page`, query),
+          await defHttp.post(`/workflow/flow-categories/page`, query),
         addRequest: async ({ form }: any) =>
-          await defHttp.post(`/bpm/process_categories/create`, form),
+          await defHttp.post(`/workflow/flow-categories/create`, form),
         editRequest: async ({ form }: any) =>
-          await defHttp.put(`/bpm/process_categories/${form.id}`, form),
+          await defHttp.put(
+            `/workflow/flow-categories/${form.id}/modify`,
+            form,
+          ),
         delRequest: async ({ row }: any) =>
-          await defHttp.delete(`/bpm/process_categories/${row.id}`),
+          await defHttp.delete(`/workflow/flow-categories/${row.id}`),
       },
       toolbar: {},
       rowHandle: {},
@@ -24,16 +27,6 @@ export default function crud() {
           type: 'text',
           form: { show: false },
           column: { show: false },
-        },
-        code: {
-          title: '编码',
-          type: 'text',
-          editForm: { component: { disabled: true } },
-          column: { width: 150 },
-          search: { show: true },
-          form: {
-            rules: [{ required: true, message: '编码不能为空' }],
-          },
         },
         icon: {
           title: 'ICON',
@@ -79,18 +72,18 @@ export default function crud() {
           dict: dict({
             data: [
               {
-                value: 1,
+                value: true,
                 label: '启用',
                 color: 'success',
               },
               {
-                value: 0,
+                value: false,
                 label: '禁用',
                 color: 'error',
               },
             ],
           }),
-          addForm: { value: 1 },
+          addForm: { value: true },
         },
         description: {
           title: '描述',
@@ -104,7 +97,7 @@ export default function crud() {
             },
           },
         },
-        createdName: {
+        createName: {
           title: '创建人',
           search: { show: false },
           type: 'text',
@@ -112,7 +105,7 @@ export default function crud() {
           editForm: { show: false },
           column: { width: 150, ellipsis: true },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

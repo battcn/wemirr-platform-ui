@@ -32,7 +32,7 @@ const formOptions: VbenFormProps = {
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
   handleReset: async () => {
     selectDeptId.value = [];
-    // eslint-disable-next-line no-use-before-define
+
     const { formApi, reload } = tableApi;
     await formApi.resetForm();
     const formValues = formApi.form.values;
@@ -64,8 +64,8 @@ const gridOptions: VxeGridProps = {
         }
 
         return await postList({
-          pageNum: page.currentPage,
-          pageSize: page.pageSize,
+          current: page.currentPage,
+          size: page.pageSize,
           ...formValues,
         });
       },

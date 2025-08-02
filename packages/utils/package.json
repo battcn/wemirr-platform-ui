@@ -1,6 +1,6 @@
 {
   "name": "@vben/utils",
-  "version": "5.5.3",
+  "version": "5.5.8",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -22,6 +22,7 @@
   "dependencies": {
     "@vben-core/shared": "workspace:*",
     "@vben-core/typings": "workspace:*",
+    "file-type": "^19.5.0",
     "vue-router": "catalog:"
   }
 }

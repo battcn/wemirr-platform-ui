@@ -71,8 +71,8 @@ const gridOptions: VxeGridProps = {
     ajax: {
       query: async ({ page }, formValues = {}) => {
         return await roleList({
-          pageNum: page.currentPage,
-          pageSize: page.pageSize,
+          current: page.currentPage,
+          size: page.pageSize,
           ...formValues,
         });
       },

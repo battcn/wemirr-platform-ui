@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const color = computed<string>(() => {
-  const current = props.dicts.find((item) => item.dictValue == props.value);
+  const current = props.dicts.find((item) => item.value == props.value);
   const listClass = current?.listClass ?? '';
   // 是否为默认的颜色
   const isDefault = Reflect.has(tagTypes, listClass);
@@ -31,13 +31,13 @@ const color = computed<string>(() => {
 });
 
 const cssClass = computed<string>(() => {
-  const current = props.dicts.find((item) => item.dictValue == props.value);
+  const current = props.dicts.find((item) => item.value == props.value);
   return current?.cssClass ?? '';
 });
 
 const label = computed<number | string>(() => {
-  const current = props.dicts.find((item) => item.dictValue == props.value);
-  return current?.dictLabel ?? 'unknown';
+  const current = props.dicts.find((item) => item.value == props.value);
+  return current?.label ?? 'unknown';
 });
 
 const tagComponent = computed(() => (color.value ? Tag : 'div'));

@@ -6,6 +6,7 @@ export interface ButtonWithPermission {
 
 export interface TaskInfo {
   id: string;
+  taskId: string;
   categoryName: string;
   createTime: string;
   updateTime: string;
@@ -13,6 +14,7 @@ export interface TaskInfo {
   delFlag?: any;
   definitionId: string;
   instanceId: string;
+  businessTitle: string;
   flowName: string;
   businessId: string;
   nodeCode: string;
@@ -32,7 +34,7 @@ export interface TaskInfo {
   type: string;
   nodeRatio?: string;
   createBy: string;
-  createByName: string;
+  createName: string;
   targetNodeName?: string;
   buttonList: ButtonWithPermission[];
 }

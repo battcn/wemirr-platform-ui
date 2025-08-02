@@ -25,7 +25,7 @@ import {
 import { useVbenVxeGrid, vxeCheckboxChecked } from '#/adapter/vxe-table';
 import {
   userExport,
-  userList,
+  userList1,
   userRemove,
   userStatusChange,
 } from '#/api/system/user';
@@ -105,7 +105,7 @@ const gridOptions: VxeGridProps = {
           Reflect.deleteProperty(formValues, 'deptId');
         }
 
-        return await userList({
+        return await userList1({
           pageNum: page.currentPage,
           pageSize: page.pageSize,
           ...formValues,

@@ -15,6 +15,7 @@ import {
   useTypes,
 } from '@fast-crud/fast-crud';
 import {
+  FsExtendsCopyable,
   FsExtendsEditor,
   FsExtendsJson,
   FsExtendsTime,
@@ -25,6 +26,7 @@ import Antdv, { notification } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
 import { defHttp } from '#/api/request';
+import { columnSizeSaver } from '#/plugin/fast-crud/column-size-saver';
 
 import { useCrudPermission } from './setup-fast-crud-permission';
 
@@ -92,6 +94,7 @@ export function registerFastCrud(app: App) {
                   const { row, index } = scope;
                   crudExpose.doRemove({ row, index }, { noConfirm: true });
                 }
+
                 return (
                   <a-popconfirm
                     cancel-text="取消"
@@ -128,6 +131,7 @@ export function registerFastCrud(app: App) {
               crudBinding.value?.table?.columnsMap[col.key]
             ) {
               crudBinding.value.table.columnsMap[col.key].width = w;
+              columnSizeSaver.save(col.key, w);
             }
           },
         },
@@ -180,7 +184,7 @@ export function registerFastCrud(app: App) {
           labelCol: {
             // 固定label宽度
             span: null,
-            style: { minWidth: '110px' },
+            style: { minWidth: '100px' },
           },
           layout: computed(() => {
             // return getLocale.value === LOCALE.ZH_CN ? "horizontal" : "vertical";
@@ -206,7 +210,7 @@ export function registerFastCrud(app: App) {
   });
   app.use(FsExtendsJson);
   app.use(FsExtendsTime);
-  // app.use(FsExtendsCopyable);
+  app.use(FsExtendsCopyable);
   // app.use(FsExtendsInput);
   // 配置uploader 公共参数
   app.use(FsExtendsUploader, {
@@ -245,6 +249,7 @@ export function registerFastCrud(app: App) {
     },
   } as any);
   initColumnSetting();
+
   function initColumnSetting() {
     // 修改官方字段类型
     // 不要写在页面里，这个是全局的，要写在vue.use(FastCrud)之后
@@ -265,6 +270,7 @@ export function registerFastCrud(app: App) {
       },
     });
   }
+
   // 默认宽度，支持自动拖动调整列宽
   registerMergeColumnPlugin({
     name: 'resize-column-plugin',
@@ -273,12 +279,19 @@ export function registerFastCrud(app: App) {
       if (!columnProps.column) {
         columnProps.column = {};
       }
-      if (columnProps.column.resizable === null) {
+      if (
+        columnProps.column?.resizable === undefined ||
+        columnProps.column.resizable === null
+      ) {
         columnProps.column.resizable = true;
-        if (!columnProps.column.width) {
-          columnProps.column.width = 100;
+        const savedColumnWidth = columnSizeSaver.get(columnProps.key as string);
+        if (savedColumnWidth) {
+          columnProps.column.width = savedColumnWidth;
+        } else if (!columnProps.column.width) {
+          columnProps.column.width = 200;
         }
       }
+
       return columnProps;
     },
   });

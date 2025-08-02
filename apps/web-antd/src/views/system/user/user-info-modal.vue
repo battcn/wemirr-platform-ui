@@ -100,7 +100,7 @@ const diffLoginTime = computed(() => {
         {{ mixInfo }}
       </DescriptionsItem>
       <DescriptionsItem label="手机号">
-        {{ currentUser.phonenumber || '-' }}
+        {{ currentUser.mobile || '-' }}
       </DescriptionsItem>
       <DescriptionsItem label="邮箱">
         {{ currentUser.email || '-' }}

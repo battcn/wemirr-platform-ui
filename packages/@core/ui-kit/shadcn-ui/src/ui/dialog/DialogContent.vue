@@ -20,9 +20,11 @@ import DialogOverlay from './DialogOverlay.vue';
 const props = withDefaults(
   defineProps<
     DialogContentProps & {
+      animationType?: 'scale' | 'slide';
       appendTo?: HTMLElement | string;
       class?: ClassType;
       closeClass?: ClassType;
+      closeDisabled?: boolean;
       modal?: boolean;
       open?: boolean;
       overlayBlur?: number;
@@ -30,7 +32,12 @@ const props = withDefaults(
       zIndex?: number;
     }
   >(),
-  { appendTo: 'body', showClose: true },
+  {
+    appendTo: 'body',
+    animationType: 'slide',
+    closeDisabled: false,
+    showClose: true,
+  },
 );
 const emits = defineEmits<
   DialogContentEmits & { close: []; closed: []; opened: [] }
@@ -42,6 +49,7 @@ const delegatedProps = computed(() => {
     modal: _modal,
     open: _open,
     showClose: __,
+    animationType: ___,
     ...delegated
   } = props;
 
@@ -99,7 +107,11 @@ defineExpose({
       v-bind="forwarded"
       :class="
         cn(
-          'z-popup bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%] w-full p-6 shadow-lg outline-none sm:rounded-xl',
+          'z-popup bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 w-full p-6 shadow-lg outline-none sm:rounded-xl',
+          {
+            'data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%]':
+              animationType === 'slide',
+          },
           props.class,
         )
       "
@@ -108,6 +120,7 @@ defineExpose({
 
       <DialogClose
         v-if="showClose"
+        :disabled="closeDisabled"
         :class="
           cn(
             'data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hover:bg-accent hover:text-accent-foreground text-foreground/80 flex-center absolute right-3 top-3 h-6 w-6 rounded-full px-1 text-lg opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none',

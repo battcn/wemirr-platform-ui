@@ -11,7 +11,7 @@ export default function crud() {
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post(`/bpm/process-tasks/history`, query),
+          await defHttp.post(`/workflow/process-tasks/history`, query),
       },
       toolbar: {},
       rowHandle: {
@@ -24,7 +24,7 @@ export default function crud() {
             type: 'link',
             async click({ row }) {
               ui.notification.error('暂未实现');
-              // await router.push(`/bpm/task/list/complete?procInstId=${row.procInstId}&taskId=${row.procTaskId}&type=view`,);
+              // await router.push(`/workflow/task/list/complete?procInstId=${row.procInstId}&taskId=${row.procTaskId}&type=view`,);
             },
           },
         },
@@ -75,7 +75,7 @@ export default function crud() {
             },
           },
           dict: dict({
-            url: '/bpm/process-models/list',
+            url: '/workflow/process-models/list',
             label: 'diagramName',
             value: 'diagramName',
           }),

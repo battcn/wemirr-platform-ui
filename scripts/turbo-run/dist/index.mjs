@@ -3,7 +3,7 @@ import { createJiti } from "../../../node_modules/.pnpm/jiti@2.4.2/node_modules/
 const jiti = createJiti(import.meta.url, {
   "interopDefault": true,
   "alias": {
-    "@vben/turbo-run": "D:/batch/wemirr-platform-ui/scripts/turbo-run"
+    "@vben/turbo-run": "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/scripts/turbo-run"
   },
   "transformOptions": {
     "babel": {
@@ -12,7 +12,7 @@ const jiti = createJiti(import.meta.url, {
   }
 })
 
-/** @type {import("D:/batch/wemirr-platform-ui/scripts/turbo-run/src/index.js")} */
-const _module = await jiti.import("D:/batch/wemirr-platform-ui/scripts/turbo-run/src/index.ts");
+/** @type {import("/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/scripts/turbo-run/src/index.js")} */
+const _module = await jiti.import("/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/scripts/turbo-run/src/index.ts");
 
 export default _module?.default ?? _module;

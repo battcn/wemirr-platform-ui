@@ -54,8 +54,8 @@ const gridOptions: VxeGridProps = {
     ajax: {
       query: async ({ page }, formValues = {}) => {
         const params: PageQuery = {
-          pageNum: page.currentPage,
-          pageSize: page.pageSize,
+          current: page.currentPage,
+          size: page.pageSize,
           ...formValues,
         };
         if (dictType.value) {
@@ -89,19 +89,19 @@ function handleAdd() {
 async function handleEdit(record: DictData) {
   drawerApi.setData({
     dictType: dictType.value,
-    dictCode: record.dictCode,
+    dictCode: record.value,
   });
   drawerApi.open();
 }
 
 async function handleDelete(row: DictData) {
-  await dictDataRemove([row.dictCode]);
+  await dictDataRemove([row.value]);
   await tableApi.query();
 }
 
 function handleMultiDelete() {
   const rows = tableApi.grid.getCheckboxRecords();
-  const ids = rows.map((row: DictData) => row.dictCode);
+  const ids = rows.map((row: DictData) => row.value);
   Modal.confirm({
     title: '提示',
     okType: 'danger',

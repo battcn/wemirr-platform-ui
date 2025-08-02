@@ -19,13 +19,13 @@ export default function crud({
       table: {},
       request: {
         pageRequest: async (query: any) =>
-          await defHttp.post(`/bpm/process-tasks/page`, query),
+          await defHttp.post(`/workflow/process-tasks/page`, query),
         addRequest: async ({ form }: any) =>
-          await defHttp.post(`/bpm/process-tasks`, form),
+          await defHttp.post(`/workflow/process-tasks`, form),
         editRequest: async ({ form }: any) =>
-          await defHttp.put(`/bpm/process-tasks/${form.id}`, form),
+          await defHttp.put(`/workflow/process-tasks/${form.id}`, form),
         delRequest: async ({ row }: any) =>
-          await defHttp.delete(`/bpm/process-tasks/${row.id}`),
+          await defHttp.delete(`/workflow/process-tasks/${row.id}`),
       },
       toolbar: {},
       actionbar: {
@@ -95,7 +95,7 @@ export default function crud({
           type: 'dict-select',
           column: { width: 150, show: true, component: { color: 'auto' } },
           dict: dict({
-            url: '/bpm/process-models/list',
+            url: '/workflow/process-models/list',
             label: 'diagramName',
             value: 'diagramName',
           }),
