@@ -56,20 +56,16 @@ const { crudBinding, crudRef, crudExpose } = useFs({
 onMounted(async () => {
   loadDictList();
 });
-
-function handleSelect(checkedKeys: any, event: any) {
-  if (!event.selected) {
-    return;
-  }
-  const nodeRef = event.selectedNodes[0];
+// 菜单点击事件
+const handleMenuClick = (node: any) => {
   const crudBindRef = crudBinding.value as any;
-  const initialForm = { parentId: nodeRef.id, parentCode: nodeRef.code };
+  const initialForm = { parentId: node.id, parentCode: node.code };
   crudBindRef.search.initialForm = initialForm;
   crudBindRef.addForm.initialForm = initialForm;
   crudBindRef.actionbar.buttons.add.show = true;
   crudExpose.setSearchFormData({ form: { ...initialForm } });
   crudExpose.doRefresh();
-}
+};
 
 const handleEdit = (node: any) => {
   const initForm = {
@@ -122,10 +118,6 @@ const handleMenuMouseEnter = (key) => {
 const handleMenuMouseLeave = () => {
   hoveredKey.value = '';
 };
-// 菜单点击事件
-const handleMenuClick = ({ key }) => {
-  selectedKeys.value = [key];
-};
 
 // 搜索事件
 const handleSearch = () => {
@@ -168,13 +160,13 @@ const handleSearch = () => {
               v-model:selected-keys="selectedKeys"
               mode="inline"
               style="border: none"
-              @click="handleMenuClick"
             >
               <!-- 动态生成分类菜单项 -->
               <a-menu-item
                 v-for="node in treeData"
                 :key="node.id"
                 class="menu-item-with-actions"
+                @click="handleMenuClick(node)"
                 @mouseenter="handleMenuMouseEnter(node)"
                 @mouseleave="handleMenuMouseLeave"
               >
@@ -202,70 +194,6 @@ const handleSearch = () => {
             </a-menu>
           </div>
         </div>
-
-        <!--      <a-tree
-        ref="treeRef"
-        :checkable="false"
-        :click-row-to-expand="false"
-        :tree-data="treeData"
-        block-node
-        title="系统字典"
-        @select="handleSelect"
-      >
-        <template #title="node">
-          <span>{{ node.name }}</span>
-          <div style="float: right">
-            <FsButton
-              size="small"
-              type="link"
-              v-access:code="'dict:edit'"
-              @click="handleEdit(node)"
-            >
-              编辑
-            </FsButton>
-            <FsButton
-              size="small"
-              type="link"
-              v-access:code="'dict:remove'"
-              @click="handleDelete(node)"
-            >
-              删除
-            </FsButton>
-          </div>
-        </template>
-      </a-tree>-->
-
-        <!--      <a-tree
-        ref="treeRef"
-        :checkable="false"
-        :click-row-to-expand="false"
-        :tree-data="treeData"
-        block-node
-        title="系统字典"
-        @select="handleSelect"
-        class="dict-tree"
-      >
-        <template #title="node">
-          <a-row :gutter="8" align="middle">
-            <a-col flex="1"> {{ node.name }} </a-col>
-            <a-col class="lh-1">
-              <a-dropdown :trigger="['click']" @click.stop>
-                <a-button size="small" type="text">
-                  <template #icon>
-                    <MoreOutlined />
-                  </template>
-                </a-button>
-                <template #overlay>
-                  <a-menu>
-                    <a-menu-item> 编辑 </a-menu-item>
-                    <a-menu-item @click="handleDelete">删除</a-menu-item>
-                  </a-menu>
-                </template>
-              </a-dropdown>
-            </a-col>
-          </a-row>
-        </template>
-      </a-tree>-->
       </div>
     </Card>
     <Card class="dict-item w-full" title="字典子项">

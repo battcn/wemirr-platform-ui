@@ -34,7 +34,7 @@ export default function crud(
         editRequest: async ({ form }: EditReq) =>
           await defHttp.put(`/iam/dict/${form.id}`, form),
         delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete(`/iam/dict/${row.dictId}/items/${row.id}`),
+          await defHttp.delete(`/iam/dict/${row.id}`),
       },
       container: {
         is: 'fs-layout-default',
