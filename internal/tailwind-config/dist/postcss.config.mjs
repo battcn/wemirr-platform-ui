@@ -1,23 +1,18 @@
-import config from './index.mjs';
-import 'node:path';
-import '@iconify/tailwind';
-import '@manypkg/get-packages';
-import '@tailwindcss/typography';
-import 'tailwindcss-animate';
-import 'tailwindcss/plugin.js';
+import { createJiti } from "../../../node_modules/.pnpm/jiti@2.4.2/node_modules/jiti/lib/jiti.mjs";
 
-const postcss_config = {
-  plugins: {
-    ...process.env.NODE_ENV === "production" ? { cssnano: {} } : {},
-    // Specifying the config is not necessary in most cases, but it is included
-    autoprefixer: {},
-    // 修复 element-plus 和 ant-design-vue 的样式和tailwindcss冲突问题
-    "postcss-antd-fixes": { prefixes: ["ant", "el"] },
-    "postcss-import": {},
-    "postcss-preset-env": {},
-    tailwindcss: { config },
-    "tailwindcss/nesting": {}
+const jiti = createJiti(import.meta.url, {
+  "interopDefault": true,
+  "alias": {
+    "@vben/tailwind-config": "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/tailwind-config"
+  },
+  "transformOptions": {
+    "babel": {
+      "plugins": []
+    }
   }
-};
+})
 
-export { postcss_config as default };
+/** @type {import("/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/tailwind-config/src/postcss.config.js")} */
+const _module = await jiti.import("/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/tailwind-config/src/postcss.config.ts");
+
+export default _module?.default ?? _module;

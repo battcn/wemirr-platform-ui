@@ -25,18 +25,6 @@ export default function crudFunc(callbackFunc: () => void): any {
           rules: [{ required: true, message: '名称不能为空' }],
         },
       },
-      // avatar: {
-      //   title: "头像上传",
-      //   type: "avatar-uploader",
-      //   form: {
-      //     order: 1,
-      //     col: {
-      //       style: { gridRow: "span 3" }
-      //     },
-      //     helper: "通过grid布局，可以实现比flex更加规整的排列"
-      //   }
-      // },
-
       code: {
         title: '编码',
         search: { show: true },
@@ -47,6 +35,13 @@ export default function crudFunc(callbackFunc: () => void): any {
           col: { span: 13 },
           rules: [{ required: true, message: '编码不能为空' }],
         },
+      },
+      sequence: {
+        title: '排序',
+        type: 'number',
+        addForm: { value: 0 },
+        column: { show: true, width: 80 },
+        form: { col: { span: 13 }, component: { min: 0, max: 1000 } },
       },
       description: {
         title: '描述',
@@ -67,7 +62,6 @@ export default function crudFunc(callbackFunc: () => void): any {
             callbackFunc();
             ui.notification.success({
               message: '修改成功',
-              // duration: 3,
             });
           });
         } else {
@@ -75,7 +69,6 @@ export default function crudFunc(callbackFunc: () => void): any {
             callbackFunc();
             ui.notification.success({
               message: '新增成功',
-              // duration: 3,
             });
           });
         }

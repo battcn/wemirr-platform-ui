@@ -1,4 +1,4 @@
-import type { VxeGridPropTypes } from '@vben/plugins/vxe-table';
+import type { VxeTableGridOptions, VxeGridPropTypes } from '@vben/plugins/vxe-table';
 
 import { h } from 'vue';
 
@@ -35,7 +35,7 @@ setupVbenVxeTable({
         round: true,
         showOverflow: true,
         size: 'small',
-      },
+      } as VxeTableGridOptions,
     });
 
     // 表格配置项可以用 cellRender: { name: 'CellImage' },

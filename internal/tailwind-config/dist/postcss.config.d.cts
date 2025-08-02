@@ -1,19 +1,2 @@
-import * as tailwindcss_types_config from 'tailwindcss/types/config';
-
-declare const _default: {
-    plugins: {
-        autoprefixer: {};
-        'postcss-antd-fixes': {
-            prefixes: string[];
-        };
-        'postcss-import': {};
-        'postcss-preset-env': {};
-        tailwindcss: {
-            config: tailwindcss_types_config.Config;
-        };
-        'tailwindcss/nesting': {};
-        cssnano?: {} | undefined;
-    };
-};
-
-export = _default;
+export * from "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/tailwind-config/src/postcss.config.js";
+export { default } from "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/tailwind-config/src/postcss.config.js";

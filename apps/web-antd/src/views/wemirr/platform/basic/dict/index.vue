@@ -3,7 +3,8 @@ import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
-import { FsButton, FsFormWrapper, useFs, useUi } from '@fast-crud/fast-crud';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
+import { FsFormWrapper, useFs, useUi } from '@fast-crud/fast-crud';
 import { Card, Modal } from 'ant-design-vue';
 
 import * as api from './api';
@@ -55,20 +56,16 @@ const { crudBinding, crudRef, crudExpose } = useFs({
 onMounted(async () => {
   loadDictList();
 });
-
-function handleSelect(checkedKeys: any, event: any) {
-  if (!event.selected) {
-    return;
-  }
-  const nodeRef = event.selectedNodes[0];
+// 菜单点击事件
+const handleMenuClick = (node: any) => {
   const crudBindRef = crudBinding.value as any;
-  const initialForm = { dictId: nodeRef.id, dictCode: nodeRef.code };
+  const initialForm = { parentId: node.id, parentCode: node.code };
   crudBindRef.search.initialForm = initialForm;
   crudBindRef.addForm.initialForm = initialForm;
   crudBindRef.actionbar.buttons.add.show = true;
   crudExpose.setSearchFormData({ form: { ...initialForm } });
   crudExpose.doRefresh();
-}
+};
 
 const handleEdit = (node: any) => {
   const initForm = {
@@ -106,6 +103,26 @@ const refreshDictCache = () => {
     });
   });
 };
+
+const searchText = ref('');
+const selectedKeys = ref(['all']);
+
+const hoveredKey = ref('');
+
+// 菜单项鼠标进入事件
+const handleMenuMouseEnter = (key) => {
+  hoveredKey.value = key;
+};
+
+// 菜单项鼠标离开事件
+const handleMenuMouseLeave = () => {
+  hoveredKey.value = '';
+};
+
+// 搜索事件
+const handleSearch = () => {
+  // 搜索逻辑已经在computed属性中处理
+};
 </script>
 
 <template>
@@ -129,37 +146,55 @@ const refreshDictCache = () => {
         </a-button>
         <FsFormWrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
       </template>
-      <a-tree
-        ref="treeRef"
-        :checkable="false"
-        :click-row-to-expand="false"
-        :tree-data="treeData"
-        block-node
-        title="系统字典"
-        @select="handleSelect"
-      >
-        <template #title="node">
-          <span>{{ node.name }}</span>
-          <div style="float: right">
-            <FsButton
-              size="small"
-              type="link"
-              v-access:code="'dict:edit'"
-              @click="handleEdit(node)"
+
+      <div class="">
+        <div class="">
+          <a-input-search
+            v-model:value="searchText"
+            placeholder="请输入关键词搜索"
+            style="margin-bottom: 16px"
+            @search="handleSearch"
+          />
+          <div class="scrollable-menu-container">
+            <a-menu
+              v-model:selected-keys="selectedKeys"
+              mode="inline"
+              style="border: none"
             >
-              编辑
-            </FsButton>
-            <FsButton
-              size="small"
-              type="link"
-              v-access:code="'dict:remove'"
-              @click="handleDelete(node)"
-            >
-              删除
-            </FsButton>
+              <!-- 动态生成分类菜单项 -->
+              <a-menu-item
+                v-for="node in treeData"
+                :key="node.id"
+                class="menu-item-with-actions"
+                @click="handleMenuClick(node)"
+                @mouseenter="handleMenuMouseEnter(node)"
+                @mouseleave="handleMenuMouseLeave"
+              >
+                <div class="menu-item-content">
+                  <span>{{ node.name }}</span>
+                  <div class="menu-actions">
+                    <a-button
+                      type="text"
+                      size="small"
+                      @click.stop="handleEdit(node)"
+                    >
+                      <template #icon><EditOutlined /></template>
+                    </a-button>
+                    <a-button
+                      type="text"
+                      size="small"
+                      danger
+                      @click.stop="handleDelete(node)"
+                    >
+                      <template #icon><DeleteOutlined /></template>
+                    </a-button>
+                  </div>
+                </div>
+              </a-menu-item>
+            </a-menu>
           </div>
-        </template>
-      </a-tree>
+        </div>
+      </div>
     </Card>
     <Card class="dict-item w-full" title="字典子项">
       <fs-crud ref="crudRef" v-bind="crudBinding">
@@ -182,17 +217,52 @@ const refreshDictCache = () => {
 /deep/.p-4 {
   padding: 8px !important;
 }
+
 /deep/ .dict-list {
+  min-width: 300px;
+
   .ant-card-body {
     padding: 10px;
   }
 }
+
 /deep/ .dict-item {
   .fs-crud-container {
     min-height: 730px !important;
   }
+
   .ant-card-body {
     padding: 8px;
   }
+}
+
+.menu-item-with-actions {
+  position: relative;
+}
+
+.menu-item-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* 添加滚动容器样式 */
+.scrollable-menu-container {
+  height: 600px;
+  overflow-y: auto;
+  border-right: 0 solid #f0f0f0;
+}
+
+.menu-actions {
+  display: flex;
+  margin-left: 28px;
+}
+
+/* 操作按钮样式 */
+.operation-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 </style>

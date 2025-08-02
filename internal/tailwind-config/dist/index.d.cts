@@ -1,5 +1,2 @@
-import { Config } from 'tailwindcss';
-
-declare const _default: Config;
-
-export = _default;
+export * from "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/tailwind-config/src/index.js";
+export { default } from "/Users/battcn/Work/Company/WEMIRR/webstorm-workspace/wemirr-platform-ui/internal/tailwind-config/src/index.js";

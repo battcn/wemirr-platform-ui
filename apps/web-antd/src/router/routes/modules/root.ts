@@ -8,12 +8,6 @@ import { $t } from '#/locales';
 const routes: RouteRecordRaw[] = [
   {
     component: BasicLayout,
-    meta: {
-      icon: 'lucide:layout-dashboard',
-      order: -1,
-      title: 'Root',
-    },
-    name: 'Root',
     path: '/',
     redirect: DEFAULT_HOME_PATH,
     children: [
