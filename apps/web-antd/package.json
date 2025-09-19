@@ -38,6 +38,7 @@
     "@fast-crud/ui-antdv4": "catalog:",
     "@fast-crud/ui-interface": "catalog:",
     "@sv-print/vue3": "^0.1.18",
+    "@tinymce/tinymce-vue": "^6.0.1",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -65,9 +66,11 @@
     "vue-codemirror": "^6.1.1",
     "vue-files-preview": "^1.0.37",
     "vue-json-pretty": "^2.4.0",
-    "vue-plugin-hiprint": "^0.0.58-fix",
+    "vue-plugin-hiprint": "^0.0.60",
     "vue-router": "catalog:",
-    "@tinymce/tinymce-vue": "^6.0.1",
     "vue3-colorpicker": "^2.3.0"
+  },
+  "devDependencies": {
+    "less": "^4.4.1"
   }
 }
