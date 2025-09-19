@@ -71,7 +71,7 @@ export default function crud(): CreateCrudOptionsRet {
             col: { span: 24 },
           },
         },
-        createdTime: {
+        createTime: {
           title: '通知时间',
           type: 'datetime',
           column: { show: true, width: 170 }, // 表单配置

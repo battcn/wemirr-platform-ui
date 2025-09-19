@@ -209,7 +209,7 @@ export default function crud({
             ellipsis: true,
           },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

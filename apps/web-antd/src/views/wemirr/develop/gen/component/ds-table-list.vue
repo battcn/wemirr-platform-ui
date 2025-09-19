@@ -29,9 +29,9 @@ const columns = [
     key: 'comment',
   },
   {
-    title: 'createdTime',
-    dataIndex: 'createdTime',
-    key: 'createdTime',
+    title: 'createTime',
+    dataIndex: 'createTime',
+    key: 'createTime',
   },
 ];
 

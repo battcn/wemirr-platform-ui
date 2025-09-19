@@ -174,7 +174,7 @@ export default function crud({ expose }) {
             col: { span: 24 },
           },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

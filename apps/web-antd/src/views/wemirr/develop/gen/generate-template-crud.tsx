@@ -3,21 +3,19 @@ import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
+
 import dayjs from 'dayjs';
-import *  as  api  from './generate-template-api';
+
+import * as api from './generate-template-api';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const { showEditModal,showViewModal } = props.context;
+  const { showEditModal, showViewModal } = props.context;
 
-  const pageRequest = async (query: any) =>
-    await api.pageObj(query);
+  const pageRequest = async (query: any) => await api.pageObj(query);
 
-  const editRequest = async ({ form }: any) =>
-    await api.editObj(form);
-  const delRequest = async ({ row }: any) =>
-    await api.delObj(row);
-  const addRequest = async ({ form }: any) =>
-    await api.createObj( form);
+  const editRequest = async ({ form }: any) => await api.editObj(form);
+  const delRequest = async ({ row }: any) => await api.delObj(row);
+  const addRequest = async ({ form }: any) => await api.createObj(form);
   return {
     crudOptions: {
       request: {
@@ -29,27 +27,27 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       table: {
         scroll: { fixed: true },
       },
-      actionbar:{
-        buttons:{
-          add:{
-            show:false
-          }
-        }
+      actionbar: {
+        buttons: {
+          add: {
+            show: false,
+          },
+        },
       },
       rowHandle: {
         width: 260,
         fixed: 'right',
         buttons: {
-          view :{
+          view: {
             async click(context) {
-              showViewModal(context.row.id)
+              showViewModal(context.row.id);
             },
           },
-          edit :{
-                 async click(context) {
-                  showEditModal(context.row.id)
-                    console.log('点击编辑',context)
-                },
+          edit: {
+            async click(context) {
+              showEditModal(context.row.id);
+              console.log('点击编辑', context);
+            },
           },
           // download: {
           //   // icon: "ant-design:cloud-download-outlined",
@@ -112,12 +110,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: 'text',
           column: { width: 160, ellipsis: true },
         },
-        createdName: {
+        createName: {
           title: '创建人',
           type: 'text',
           column: { width: 160, ellipsis: true },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: 'datetime',
           column: { width: 180 },
@@ -132,6 +130,3 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     },
   };
 }
-
-
-

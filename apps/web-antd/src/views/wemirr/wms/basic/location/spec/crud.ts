@@ -96,13 +96,13 @@ export default function ({ crudExpose }) {
             rules: [{ required: true, message: '请输入承重' }],
           },
         },
-        createdName: {
+        createName: {
           title: '创建人',
           type: 'text',
           form: { show: false },
           column: { ellipsis: true, width: 160 },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

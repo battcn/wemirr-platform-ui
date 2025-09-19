@@ -89,8 +89,8 @@ export default function () {
                   ownerIdCardNo: { column: { show: false } },
                   isAffiliation: { column: { show: false } },
                   trailerId: { column: { show: false } },
-                  createdName: { column: { show: false } },
-                  createdTime: { column: { show: false } },
+                  createName: { column: { show: false } },
+                  createTime: { column: { show: false } },
                 },
               },
             },
@@ -126,8 +126,8 @@ export default function () {
                   remark: { column: { show: false } },
                   driverLicenseIssueOrg: { column: { show: false } },
                   adaptIdNo: { column: { show: false } },
-                  createdName: { column: { show: false } },
-                  createdTime: { column: { show: false } },
+                  createName: { column: { show: false } },
+                  createTime: { column: { show: false } },
                 },
               },
             },
@@ -193,13 +193,13 @@ export default function () {
             rules: [{ required: true, message: '经办人不能为空' }],
           },
         },
-        createdName: {
+        createName: {
           title: '创建人',
           type: 'text',
           form: { show: false },
           column: { ellipsis: true, width: 160 },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

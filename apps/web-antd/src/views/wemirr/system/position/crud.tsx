@@ -104,7 +104,7 @@ export default function crud(
           },
           column: { width: 220, ellipsis: true },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

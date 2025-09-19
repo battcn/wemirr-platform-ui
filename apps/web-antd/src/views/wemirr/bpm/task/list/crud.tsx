@@ -124,7 +124,7 @@ export default function crud({
             ],
           }),
         },
-        createdName: {
+        createName: {
           title: '发起人',
           search: { show: false },
           type: 'text',
@@ -132,7 +132,7 @@ export default function crud({
           editForm: { show: false },
           column: { width: 170, ellipsis: true },
         },
-        createdTime: {
+        createTime: {
           title: '发起时间',
           type: 'datetime',
           column: { width: 170, align: 'center' },

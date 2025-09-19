@@ -48,14 +48,14 @@ export default function crud(): CreateCrudOptionsRet {
           column: { show: true, width: 180 },
           form: { col: { span: 24 } },
         },
-        createdName: {
+        createName: {
           title: '创建人',
           type: 'text',
           column: { show: true, width: 180 },
           addForm: { show: false },
           editForm: { show: false },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

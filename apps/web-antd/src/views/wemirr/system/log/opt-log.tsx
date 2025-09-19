@@ -142,7 +142,7 @@ export default function crud(): CreateCrudOptionsRet {
         'opt-info': {
           title: '操作信息',
           children: {
-            createdName: {
+            createName: {
               title: '操作人',
               type: 'text',
               column: { width: 180 },
@@ -220,7 +220,7 @@ export default function crud(): CreateCrudOptionsRet {
                 'startTime',
                 'endTime',
                 'duration',
-                'createdName',
+                'createName',
                 'response',
               ],
             },

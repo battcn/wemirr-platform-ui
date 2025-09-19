@@ -314,7 +314,7 @@ export default function crud(
           type: ['textarea'],
           form: { col: { span: 24 } },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },
@@ -347,7 +347,7 @@ export default function crud(
             otherInfo: {
               header: '其它信息',
               collapsed: false, // 默认折叠
-              columns: ['nation', 'education', 'avatar', 'createdTime'],
+              columns: ['nation', 'education', 'avatar', 'createTime'],
             },
           },
         },

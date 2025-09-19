@@ -3,47 +3,53 @@ import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
+
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
+
 import { defHttp } from '#/api/request';
+
 import createCrudOptionsTemplate from './generate-template-crud';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const { } = props.context;
+  const {} = props.context;
 
   const pageRequest = async (query: any) =>
-    await defHttp.get('/suite/gennerate-template-group/page', { params: query });;
+    await defHttp.get('/suite/gennerate-template-group/page', {
+      params: query,
+    });
 
   const editRequest = async ({ form }: any) =>
-    await defHttp.put(`/suite/gennerate-template-group/${form.id}/modify`, form);
+    await defHttp.put(
+      `/suite/gennerate-template-group/${form.id}/modify`,
+      form,
+    );
   const delRequest = async ({ row }: any) =>
     await defHttp.delete(`/suite/gennerate-template-group/${row.id}`);
   const addRequest = async ({ form }: any) =>
     await defHttp.post('/suite/gennerate-template-group/create', form);
-  
+
   const crudOptionsOverride = {
     table: {
       scroll: {
-        x: 2000
+        x: 2000,
       },
-     
     },
     rowHandle: {
-      show :false,
+      show: false,
       // width: 260,
       // fixed: 'right',
       buttons: {
-        view :{
-          show:false
+        view: {
+          show: false,
         },
-        edit :{
-          show:false  
+        edit: {
+          show: false,
         },
 
-        remove: { show:false   },
+        remove: { show: false },
       },
     },
-   
   };
   return {
     crudOptions: {
@@ -56,23 +62,18 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
       table: {
         scroll: { fixed: true },
       },
-      actionbar:{
-        buttons:{
-          add:{
-          }
-        }
+      actionbar: {
+        buttons: {
+          add: {},
+        },
       },
       rowHandle: {
         width: 260,
         fixed: 'right',
         buttons: {
-          view :{
-            
-          },
-          edit :{
-                
-          },
-  
+          view: {},
+          edit: {},
+
           remove: { order: 2 },
         },
       },
@@ -88,26 +89,29 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: 'text',
           column: { width: 160, ellipsis: true },
           search: { show: true },
-          form:{
+          form: {
             rules: [{ required: true, message: '分组名称不能为空' }],
-          }
+          },
         },
         desciption: {
           title: '分组描述',
           type: 'text',
           column: { width: 160, ellipsis: true },
         },
-        templateIds:{
-          title: "模板",
+        templateIds: {
+          title: '模板',
           search: { show: false },
-          type: "table-select",
+          type: 'table-select',
           dict: dict({
-            value: "id",
-            label: "name",
+            value: 'id',
+            label: 'name',
             getNodesByValues: async (values: any[]) => {
-              console.log("getNodesByValues", values);
-              return await defHttp.get("/suite/gennerate-template/list-all", {});
-            }
+              console.log('getNodesByValues', values);
+              return await defHttp.get(
+                '/suite/gennerate-template/list-all',
+                {},
+              );
+            },
           }),
           form: {
             component: {
@@ -116,25 +120,23 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               valuesFormat: {
                 labelFormatter: (item: any) => {
                   return `${item.name}`;
-                }
+                },
               },
               select: {
-                placeholder: "点击选择"
+                placeholder: '点击选择',
               },
               createCrudOptions: createCrudOptionsTemplate,
-              crudOptionsOverride: crudOptionsOverride
+              crudOptionsOverride,
             },
             rules: [{ required: true, message: '模板不能为空' }],
-
           },
           column: {
             component: {
               labelFormatter: (item: any) => {
                 return `${item.name}`;
-              }
-            }
-          }
-        
+              },
+            },
+          },
         },
         isDefault: {
           title: '是否默认模板组',
@@ -147,7 +149,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             ],
           }),
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: 'datetime',
           column: { width: 180 },

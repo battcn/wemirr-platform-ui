@@ -110,14 +110,14 @@ export default function crud(
             },
           },
         },
-        createdName: {
+        createName: {
           title: '创建人',
           type: 'text',
           addForm: { show: false },
           editForm: { show: false },
           column: { width: 150, ellipsis: true },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

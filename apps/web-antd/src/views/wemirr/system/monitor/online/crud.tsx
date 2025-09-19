@@ -53,13 +53,13 @@ export default function crud(
           search: { show: true },
           column: { width: 180, fixed: 'left' },
         },
-        createdName: {
+        createName: {
           title: '登录人',
           type: 'text',
           search: { show: false },
           column: { width: 160, fixed: 'left' },
         },
-        createdTime: {
+        createTime: {
           title: '登录时间',
           type: 'datetime',
           column: { width: 160, fixed: 'left' },
@@ -134,8 +134,8 @@ export default function crud(
                 'token',
                 'principal',
                 'loginType',
-                'createdName',
-                'createdTime',
+                'createName',
+                'createTime',
                 'ip',
                 'location',
               ],

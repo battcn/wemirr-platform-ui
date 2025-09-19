@@ -2,9 +2,12 @@ import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
-import {  dict } from '@fast-crud/fast-crud';
+
+import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
+
 import { defHttp } from '#/api/request';
+
 import createCrudOptionsGroup from './generate-template-group-crud';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
@@ -80,8 +83,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                   method: 'POST',
                 },
               );
+            },
           },
-        },
           preview: {
             // icon: "ant-design:cloud-download-outlined",
             type: 'link',
@@ -211,7 +214,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
                 placeholder: '点击选择',
               },
               createCrudOptions: createCrudOptionsGroup,
-              crudOptionsOverride: crudOptionsOverride,
+              crudOptionsOverride,
               on: {
                 selectedChange({ $event }) {
                   console.log('selectedChange', $event);
@@ -229,7 +232,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             },
           },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: 'datetime',
           column: { width: 180 },
@@ -244,5 +247,3 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
     },
   };
 }
-
-

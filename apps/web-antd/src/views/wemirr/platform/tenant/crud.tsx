@@ -342,7 +342,7 @@ export default function crud(
             col: { span: 24 },
           },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },
@@ -367,7 +367,7 @@ export default function crud(
                 'area',
                 'address',
                 'description',
-                'createdTime',
+                'createTime',
               ],
             },
             linkInfo: {

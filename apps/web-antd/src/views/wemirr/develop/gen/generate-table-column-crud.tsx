@@ -3,22 +3,22 @@ import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
 } from '@fast-crud/fast-crud';
+
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
-import *  as  api  from './generate-template-api';
+
 import { defHttp } from '#/api/request';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+import * as api from './generate-template-api';
 
+export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const pageRequest = async (query: any) =>
     await defHttp.get('/suite/gennerate-table-column/page', { params: query });
 
   const editRequest = async ({ row }: any) =>
     await defHttp.put(`/suite/gennerate-template/${row.id}/modify`, row);
-  const delRequest = async ({ row }: any) =>
-    await api.delObj(row);
-  const addRequest = async ({ form }: any) =>
-    await api.createObj( form);
+  const delRequest = async ({ row }: any) => await api.delObj(row);
+  const addRequest = async ({ form }: any) => await api.createObj(form);
   return {
     crudOptions: {
       request: {
@@ -28,40 +28,39 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         addRequest,
       },
       mode: {
-        name: "local",
+        name: 'local',
         isMergeWhenUpdate: true,
-        isAppendWhenAdd: true
+        isAppendWhenAdd: true,
       },
       table: {
         scroll: { fixed: true },
         editable: {
           enabled: false,
-          mode: "free",
+          mode: 'free',
           activeDefault: true,
-          showAction: false
-        }
+          showAction: false,
+        },
       },
-      actionbar:{
-        buttons:{
-          add:{
-            show:false
-          }
-        }
+      actionbar: {
+        buttons: {
+          add: {
+            show: false,
+          },
+        },
       },
       rowHandle: {
         width: 50,
         fixed: 'right',
         buttons: {
-          view :{
-            show:false
+          view: {
+            show: false,
           },
-          edit :{
-            show:false
+          edit: {
+            show: false,
           },
-          remove :{
-            show:false
-          }
-          
+          remove: {
+            show: false,
+          },
         },
       },
       columns: {
@@ -74,22 +73,18 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         tableName: {
           title: '表名称',
           type: 'text',
-          column: { width: 100, ellipsis: true,            fixed: "left",
-          },
+          column: { width: 100, ellipsis: true, fixed: 'left' },
           search: {
-             show: true },
+            show: true,
+          },
         },
         name: {
           title: '字段名称',
           type: 'text',
-          column: { width: 100, ellipsis: true,            fixed: "left",
-          },
+          column: { width: 100, ellipsis: true, fixed: 'left' },
           form: {
-            rules: [
-              { required: true, message: "请输入名称" },
-            ]
+            rules: [{ required: true, message: '请输入名称' }],
           },
-        
         },
         sort: {
           title: '排序',
@@ -123,7 +118,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         pk: {
           title: '是否主键',
-          column: { width: 120, ellipsis: true},
+          column: { width: 120, ellipsis: true },
           type: ['dict-radio'],
           dict: dict({
             data: [
@@ -134,7 +129,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
         increment: {
           title: '是否自增',
-          column: { width: 120, ellipsis: true},
+          column: { width: 120, ellipsis: true },
           type: ['dict-radio'],
           dict: dict({
             data: [
@@ -154,9 +149,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           }),
           column: { width: 120, ellipsis: true },
           form: {
-            rules: [
-              { required: true, message: "必选" },
-            ]
+            rules: [{ required: true, message: '必选' }],
           },
         },
         inserted: {
@@ -170,9 +163,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           }),
           column: { width: 140, ellipsis: true },
           form: {
-            rules: [
-              { required: true, message: "必选" },
-            ]
+            rules: [{ required: true, message: '必选' }],
           },
         },
         edit: {
@@ -184,11 +175,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               { value: false, label: '否', color: 'error' },
             ],
           }),
-          column: { width: 120, ellipsis: true},
+          column: { width: 120, ellipsis: true },
           form: {
-            rules: [
-              { required: true, message: "必选" },
-            ]
+            rules: [{ required: true, message: '必选' }],
           },
         },
         list: {
@@ -200,11 +189,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               { value: false, label: '否', color: 'error' },
             ],
           }),
-          column: { width: 120, ellipsis: true},
+          column: { width: 120, ellipsis: true },
           form: {
-            rules: [
-              { required: true, message: "必选" },
-            ]
+            rules: [{ required: true, message: '必选' }],
           },
         },
         search: {
@@ -216,11 +203,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               { value: false, label: '否', color: 'error' },
             ],
           }),
-          column: { width: 120, ellipsis: true},
+          column: { width: 120, ellipsis: true },
           form: {
-            rules: [
-              { required: true, message: "必选" },
-            ]
+            rules: [{ required: true, message: '必选' }],
           },
         },
         searchCondition: {
@@ -228,8 +213,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           type: ['dict-select'],
           dict: dict({
             data: [
-              { value: "EQ", label: '精准', color: 'success' },
-              { value: "Like", label: '模糊', color: 'error' },
+              { value: 'EQ', label: '精准', color: 'success' },
+              { value: 'Like', label: '模糊', color: 'error' },
             ],
           }),
           column: { width: 120, ellipsis: true },
@@ -245,8 +230,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           }),
           column: { width: 120, ellipsis: true },
         },
-      
-        createdTime: {
+
+        createTime: {
           title: '创建时间',
           type: 'datetime',
           column: { width: 180 },

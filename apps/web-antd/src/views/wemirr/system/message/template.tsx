@@ -133,13 +133,13 @@ export default function crud(
             rules: [{ required: true, message: '模板内容不能为空' }],
           },
         },
-        createdName: {
+        createName: {
           title: '发布人',
           type: 'text',
           column: { show: false, width: 180 },
           form: { show: false },
         },
-        createdTime: {
+        createTime: {
           title: '通知时间',
           type: ['datetime', 'wp-readonly-time'],
         },

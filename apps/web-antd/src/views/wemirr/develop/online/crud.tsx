@@ -90,7 +90,7 @@ export default function crud() {
             rules: [{ required: true, message: '描述不能为空' }],
           },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

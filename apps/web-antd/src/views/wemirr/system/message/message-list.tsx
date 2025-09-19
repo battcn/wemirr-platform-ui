@@ -68,13 +68,13 @@ export default function crud(): CreateCrudOptionsRet {
           type: 'text',
           column: { show: true, width: 170 },
         },
-        createdName: {
+        createName: {
           title: '推送人员',
           type: 'text',
           search: { show: false },
           column: { width: 160 },
         },
-        createdTime: {
+        createTime: {
           title: '推送时间',
           type: ['datetime', 'wp-readonly-time'],
         },

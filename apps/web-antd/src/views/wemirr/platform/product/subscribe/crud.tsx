@@ -86,7 +86,7 @@ export default function crud() {
                   type: { column: { show: false } },
                   email: { column: { show: false } },
                   industry: { column: { show: false } },
-                  createdTime: { column: { show: false } },
+                  createTime: { column: { show: false } },
                 },
               },
             },
@@ -261,14 +261,14 @@ export default function crud() {
             },
           },
         },
-        createdName: {
+        createName: {
           title: '创建人',
           type: 'text',
           addForm: { show: false },
           editForm: { show: false },
           column: { width: 150, ellipsis: true },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
           // column: { width: 170, align: 'center' },

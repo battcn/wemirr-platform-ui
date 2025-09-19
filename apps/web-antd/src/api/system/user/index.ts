@@ -15,7 +15,6 @@ enum Api {
   deptTree = '/system/user/deptTree',
   listDeptUsers = '/system/user/list/dept',
   root = '/system/user',
-  userAuthRole = '/system/user/authRole',
   userExport = '/system/user/export',
   userImport = '/system/user/importData',
   userImportTemplate = '/system/user/importTemplate',
@@ -92,7 +91,7 @@ export function findUserInfo(userId?: ID) {
  * @returns void
  */
 export function userAdd(data: Partial<User>) {
-  return requestClient.postWithMsg<void>(Api.root, data);
+  return requestClient.post(Api.root, data);
 }
 
 /**
@@ -101,7 +100,7 @@ export function userAdd(data: Partial<User>) {
  * @returns void
  */
 export function userUpdate(data: Partial<User>) {
-  return requestClient.putWithMsg<void>(Api.root, data);
+  return requestClient.put(Api.root, data);
 }
 
 /**
@@ -114,7 +113,7 @@ export function userStatusChange(data: Partial<User>) {
     userId: data.userId,
     status: data.status,
   };
-  return requestClient.putWithMsg<void>(Api.userStatusChange, requestData);
+  return requestClient.put(Api.userStatusChange, requestData);
 }
 
 /**
@@ -123,7 +122,7 @@ export function userStatusChange(data: Partial<User>) {
  * @returns void
  */
 export function userRemove(userIds: IDS) {
-  return requestClient.deleteWithMsg<void>(`${Api.root}/${userIds}`);
+  return requestClient.delete(`${Api.root}/${userIds}`);
 }
 
 /**
@@ -132,27 +131,9 @@ export function userRemove(userIds: IDS) {
  * @returns void
  */
 export function userResetPassword(data: ResetPwdParam) {
-  return requestClient.putWithMsg<void>(Api.userResetPassword, data, {
+  return requestClient.put(Api.userResetPassword, data, {
     encrypt: true,
   });
-}
-
-/**
- * 这个方法未调用过
- * @param userId
- * @returns void
- */
-export function getUserAuthRole(userId: ID) {
-  return requestClient.get(`${Api.userAuthRole}/${userId}`);
-}
-
-/**
- * 这个方法未调用过
- * @param userId
- * @returns void
- */
-export function userAuthRoleUpdate(userId: ID, roleIds: number[]) {
-  return requestClient.putWithMsg(Api.userAuthRole, { roleIds, userId });
 }
 
 /**

@@ -105,7 +105,7 @@ export default function crud(
           form: { show: false },
           column: { ellipsis: true, width: 150, show: true },
         },
-        createdName: {
+        createName: {
           title: '上传者',
           type: 'text',
           form: { show: false },
@@ -118,7 +118,7 @@ export default function crud(
           column: { ellipsis: true, width: 150 },
           form: { show: false },
         },
-        createdTime: {
+        createTime: {
           title: '上传时间',
           type: 'datetime',
           form: { show: false },

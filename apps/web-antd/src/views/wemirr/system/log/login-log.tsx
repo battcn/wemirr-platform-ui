@@ -17,7 +17,7 @@ export default function crud(
       request: {
         pageRequest: async (query: any) =>
           await defHttp.get<any>('/iam/login_logs', {
-            params: { ...query, nickName: query?.createdName },
+            params: { ...query, nickName: query?.createName },
           }),
       },
       table: { scroll: { fixed: true } },
@@ -45,13 +45,13 @@ export default function crud(
           search: { show: true },
           column: { width: 180, fixed: 'left' },
         },
-        createdName: {
+        createName: {
           title: '登录人',
           type: 'text',
           search: { show: true },
           column: { width: 160, fixed: 'left' },
         },
-        createdTime: {
+        createTime: {
           title: '登录时间',
           type: 'datetime',
           column: { width: 160, fixed: 'left' },
@@ -124,8 +124,8 @@ export default function crud(
               columns: [
                 'principal',
                 'loginType',
-                'createdName',
-                'createdTime',
+                'createName',
+                'createTime',
                 'ip',
                 'location',
               ],

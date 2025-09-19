@@ -163,7 +163,7 @@ export default function () {
             ellipsis: true,
           },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },

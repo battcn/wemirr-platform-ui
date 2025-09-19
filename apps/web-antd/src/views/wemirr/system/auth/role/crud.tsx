@@ -149,7 +149,7 @@ export default function crud(
           },
           column: { show: false },
         },
-        createdTime: {
+        createTime: {
           title: '创建时间',
           type: ['datetime', 'wp-readonly-time'],
         },
