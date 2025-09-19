@@ -1,4 +1,4 @@
-const { createJiti } = require("../../../node_modules/.pnpm/jiti@2.4.2/node_modules/jiti/lib/jiti.cjs")
+const { createJiti } = require("../../../node_modules/.pnpm/jiti@2.5.1/node_modules/jiti/lib/jiti.cjs")
 
 const jiti = createJiti(__filename, {
   "interopDefault": true,
