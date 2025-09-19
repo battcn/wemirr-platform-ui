@@ -1,4 +1,4 @@
-import type { VxeGridPropTypes } from '@vben/plugins/vxe-table';
+import type { VxeTableGridOptions, VxeGridPropTypes } from '@vben/plugins/vxe-table';
 
 import { h } from 'vue';
 
@@ -73,7 +73,7 @@ setupVbenVxeTable({
           // 必须存在id参数才能使用
           storage: false,
         },
-      },
+      } as VxeTableGridOptions,
     });
 
     // 表格配置项可以用 cellRender: { name: 'CellImage' },

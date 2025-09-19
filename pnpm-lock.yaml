@@ -516,10 +516,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      vue-json-pretty:
-        specifier: ^2.4.0
-        version: 2.4.0(vue@3.5.17(typescript@5.8.3))
     devDependencies:
       '@changesets/changelog-github':
         specifier: 'catalog:'
@@ -653,9 +649,6 @@ importers:
       '@sv-print/vue3':
         specifier: ^0.1.18
         version: 0.1.18(sv-print@0.1.20)(vue@3.5.17(typescript@5.8.3))
-      '@tinymce/tinymce-vue':
-        specifier: ^6.0.1
-        version: 6.3.0(vue@3.5.17(typescript@5.8.3))
       '@vben/access':
         specifier: workspace:*
         version: link:../../packages/effects/access
@@ -743,9 +736,6 @@ importers:
       vue-router:
         specifier: 'catalog:'
         version: 4.5.1(vue@3.5.17(typescript@5.8.3))
-      vue3-colorpicker:
-        specifier: ^2.3.0
-        version: 2.3.0(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@13.5.0(vue@3.5.17(typescript@5.8.3)))(gradient-parser@1.1.1)(lodash-es@4.17.21)(tinycolor2@1.6.0)(vue-types@3.0.2(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
 
   internal/lint-configs/commitlint-config:
     dependencies:
@@ -1602,115 +1592,6 @@ importers:
       '@vben-core/icons':
         specifier: workspace:*
         version: link:../@core/base/icons
-      '@vben-core/shadcn-ui':
-        specifier: workspace:^
-        version: link:../@core/ui-kit/shadcn-ui
-    devDependencies:
-      '@iconify/icons-akar-icons':
-        specifier: ^1.2.19
-        version: 1.2.19
-      '@iconify/icons-ant-design':
-        specifier: ^1.2.7
-        version: 1.2.7
-      '@iconify/icons-arcticons':
-        specifier: ^1.2.77
-        version: 1.2.77
-      '@iconify/icons-bi':
-        specifier: ^1.2.19
-        version: 1.2.19
-      '@iconify/icons-bx':
-        specifier: ^1.2.6
-        version: 1.2.6
-      '@iconify/icons-carbon':
-        specifier: ^1.2.20
-        version: 1.2.20
-      '@iconify/icons-devicon':
-        specifier: ^1.2.17
-        version: 1.2.17
-      '@iconify/icons-emojione':
-        specifier: ^1.2.6
-        version: 1.2.6
-      '@iconify/icons-eos-icons':
-        specifier: ^1.2.6
-        version: 1.2.6
-      '@iconify/icons-fa-brands':
-        specifier: ^1.2.4
-        version: 1.2.4
-      '@iconify/icons-fe':
-        specifier: ^1.2.5
-        version: 1.2.5
-      '@iconify/icons-flat-color-icons':
-        specifier: ^1.2.5
-        version: 1.2.5
-      '@iconify/icons-fluent':
-        specifier: ^1.2.38
-        version: 1.2.38
-      '@iconify/icons-fluent-mdl2':
-        specifier: ^1.2.1
-        version: 1.2.1
-      '@iconify/icons-ic':
-        specifier: ^1.2.13
-        version: 1.2.13
-      '@iconify/icons-icon-park-outline':
-        specifier: ^1.2.11
-        version: 1.2.11
-      '@iconify/icons-icon-park-twotone':
-        specifier: ^1.2.8
-        version: 1.2.8
-      '@iconify/icons-la':
-        specifier: ^1.2.3
-        version: 1.2.3
-      '@iconify/icons-logos':
-        specifier: ^1.2.36
-        version: 1.2.36
-      '@iconify/icons-lucide':
-        specifier: ^1.2.135
-        version: 1.2.135
-      '@iconify/icons-majesticons':
-        specifier: ^1.2.6
-        version: 1.2.6
-      '@iconify/icons-material-symbols':
-        specifier: ^1.2.58
-        version: 1.2.58
-      '@iconify/icons-mdi':
-        specifier: ^1.2.48
-        version: 1.2.48
-      '@iconify/icons-mingcute':
-        specifier: ^1.2.9
-        version: 1.2.9
-      '@iconify/icons-noto':
-        specifier: ^1.2.10
-        version: 1.2.10
-      '@iconify/icons-ph':
-        specifier: ^1.2.5
-        version: 1.2.5
-      '@iconify/icons-ri':
-        specifier: ^1.2.10
-        version: 1.2.10
-      '@iconify/icons-simple-icons':
-        specifier: ^1.2.74
-        version: 1.2.74
-      '@iconify/icons-skill-icons':
-        specifier: ^1.2.1
-        version: 1.2.1
-      '@iconify/icons-solar':
-        specifier: ^1.2.3
-        version: 1.2.3
-      '@iconify/icons-streamline':
-        specifier: ^1.2.3
-        version: 1.2.3
-      '@iconify/icons-tabler':
-        specifier: ^1.2.95
-        version: 1.2.95
-      '@iconify/icons-uiw':
-        specifier: ^1.2.6
-        version: 1.2.6
-      '@iconify/icons-vscode-icons':
-        specifier: ^1.2.29
-        version: 1.2.29
-      '@iconify/icons-wpf':
-        specifier: ^1.2.3
-        version: 1.2.3
 
   packages/locales:
     dependencies:
@@ -1789,9 +1670,6 @@ importers:
       '@vben-core/typings':
         specifier: workspace:*
         version: link:../@core/base/typings
-      file-type:
-        specifier: ^19.5.0
-        version: 19.6.0
       vue-router:
         specifier: 'catalog:'
         version: 4.5.1(vue@3.5.17(typescript@5.8.3))
@@ -1827,9 +1705,6 @@ importers:
         version: 0.3.12
 
 packages:
-
-  '@aesoper/normal-utils@0.1.5':
-    resolution: {integrity: sha512-LFF/6y6h5mfwhnJaWqqxuC8zzDaHCG62kMRkd8xhDtq62TQj9dM17A9DhE87W7DhiARJsHLgcina/9P4eNCN1w==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -2763,9 +2638,6 @@ packages:
   '@babel/types@7.28.0':
     resolution: {integrity: sha512-jYnje+JyZG5YThjHiF28oT4SIZLnYOcSBb6+SDaFIyzDVSkXQmQQYclJ2R+YxcdmK0AX6x1E5OQNtuh3jHDrUg==}
     engines: {node: '>=6.9.0'}
-
-  '@borewit/text-codec@0.1.1':
-    resolution: {integrity: sha512-5L/uBxmjaCIX5h8Z+uu+kA9BQLkc/Wl06UGR5ajNRxu+/XjonB5i8JpgFMrPj3LXTCPA0pv8yxUvbUi+QthGGA==}
 
   '@bpmn-io/add-exporter@0.2.0':
     resolution: {integrity: sha512-NryBsKfNIWo7iAHOIXv2y81UCAoHaB6O7zLrGgX1ocIUHHZWtUl6RPOgBx35aCdElWKHwtMAY7xZVhRhtxUorg==}
@@ -3852,111 +3724,6 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@iconify/icons-akar-icons@1.2.19':
-    resolution: {integrity: sha512-q5gOZ+qFh1winAZ6M2Bcz06y5+/sKCbwzMbYVus62JmxURxIE1MKxJyklpTnQc+ZRZ0k12/+2ysPtSEpH6777w==}
-
-  '@iconify/icons-ant-design@1.2.7':
-    resolution: {integrity: sha512-X5OaFEhBroyUZru7aYi30q1EkLcAtqQqTdsq4g8oJUJOuVL8CxS43naaJVlFFgHj+F9QnuCT65yTpTIW3mdQEg==}
-
-  '@iconify/icons-arcticons@1.2.77':
-    resolution: {integrity: sha512-N7RoFR/YmOgKj96kkU+DFxghkrxvaJo5huKW/CsBk1Di94CLRQSwVy8AXa6hKh04q3ThfpO89zgeeWhp1VlC9g==}
-
-  '@iconify/icons-bi@1.2.19':
-    resolution: {integrity: sha512-P3enKEBR83a4fcK6vOsSueYpldYS3OdtSSto58bYU0sWThlxl+YXcmXY6Pu0ORKuMHK/hQagpwXPb+hT4vaO2g==}
-
-  '@iconify/icons-bx@1.2.6':
-    resolution: {integrity: sha512-2gm96RIQ+ieWTV/GgbkQMet9N9rsYbA+6WAmTO7+7FxlR5STpy+biNQZtwvok9OgTWiyTH6niS64o0npzQxMtQ==}
-
-  '@iconify/icons-carbon@1.2.20':
-    resolution: {integrity: sha512-GaBRDebrshFfiRu11ktyBvm/Ez72UXvZUsHG3WPqddokTp3auOT4cLch+2JSEzeVXSGbopzU2Fhpv8vE2I0XCw==}
-
-  '@iconify/icons-devicon@1.2.17':
-    resolution: {integrity: sha512-F1f8y8PEBGgDKyisCDuJ++8yeNkvQ5mUKxH0Ts1GJDY5Htv39wQXEgXvwIEltkBH/tb0G0oqGNwAz0WrKG3o/A==}
-
-  '@iconify/icons-emojione@1.2.6':
-    resolution: {integrity: sha512-dGohnEQzSeMtYjDD8/4kKMPaM+xHnt+QQ3O26qnIR5kjqWstoU8NMyBiJFzz7Q0Zsx1AbtNyPUXXtSH81ufoBA==}
-
-  '@iconify/icons-eos-icons@1.2.6':
-    resolution: {integrity: sha512-8Nk3/q2SN1qwi36w0S/CeAD55yoLfVix+85iwwVgyqz2VkILBAYUjVusfQXKIHW9KD8Vtymwz/512TXQ1GfM8Q==}
-
-  '@iconify/icons-fa-brands@1.2.4':
-    resolution: {integrity: sha512-MnUUfPhKJ6ECvVNxipBCmyuvJPDgRJcJ1f9nfgv0obikp6D9d6dGtMrR+bw4Gku6Gr/WCnS1e/Qd5gdmXlE84w==}
-
-  '@iconify/icons-fe@1.2.5':
-    resolution: {integrity: sha512-rSi8V/PEKk5vNbPC1/2QVLCKZn6lB6/HE2mMdWc+DF/x/99d3J8Y7aMMaisMqrolXlCaEy11ezhH7VF9lFqnqQ==}
-
-  '@iconify/icons-flat-color-icons@1.2.5':
-    resolution: {integrity: sha512-tlvRMTNVE006O1FFEb59TbseADRSeiDIg7tvZdPpCo7aRIzGyaeoI3A4SUl7ufdmKR8W36Sm4J3v0LccLVOfGA==}
-
-  '@iconify/icons-fluent-mdl2@1.2.1':
-    resolution: {integrity: sha512-yD1NiFhpOBTQUfT8t2pXSC7NmTTZEuzefYUMgVDcPnZt7P2E+Mty41TWDJ7jYQ1N3STTdzQgbooDjsIYR4Nmkw==}
-
-  '@iconify/icons-fluent@1.2.38':
-    resolution: {integrity: sha512-nwCCUD3GLl/0xUDFnNIFYDhOr00mUTBToDBZaspFeXAaCnfHklMRtf0uHevBjKgGVqwlaV5c8zer7aNjwyRBGQ==}
-
-  '@iconify/icons-ic@1.2.13':
-    resolution: {integrity: sha512-TphrhwOvgd7CTmUhz6jgXF+SPnMtvTm03bZsAYbny2kwq4zlkhr9e16YEyPGMvKhjtTqNooA3iZ9Wa+pZ8moXQ==}
-
-  '@iconify/icons-icon-park-outline@1.2.11':
-    resolution: {integrity: sha512-LB59OvoR33oEHho3RY+O1n52k1qI+ZSrPyh3kJ9+GXX7uZKhT/0qNMjo0tY3Xjl1K60haX7BCShprZsQDZAjbA==}
-
-  '@iconify/icons-icon-park-twotone@1.2.8':
-    resolution: {integrity: sha512-osbRpulFdwsc/38ZtA+iywwjhj7y2aRNeO6uPnOCOihP4EqbZWCRdvCTzP1yfkyr6QvKDFXWKdv8ZrFiEehdWA==}
-
-  '@iconify/icons-la@1.2.3':
-    resolution: {integrity: sha512-CD/7X9NXRPV0Ow7OKlBWBLvfQQPoBmJx/v4UWWX0LVMbwu1Mfftfg2hb4EeIjxbWaE5dBMkWGoc88YhV3K1vrA==}
-
-  '@iconify/icons-logos@1.2.36':
-    resolution: {integrity: sha512-RVdZE9figuWmd8HeVmM8oQvOdv/4YzXV6lZ+G9QJgzCB/VBLV0inPltZxOt939oj4GbKbr7PF6J4bADMua/GPw==}
-
-  '@iconify/icons-lucide@1.2.135':
-    resolution: {integrity: sha512-odjb/fGnKGIw3aNwZV8n4lTmpPN9LR2nHa3hjmZGrHNK3y1gHhiaU4H1XlCrSeQxkEN6TOB+l/falLwRo1rGRw==}
-
-  '@iconify/icons-majesticons@1.2.6':
-    resolution: {integrity: sha512-glJKKRuHbruf0nKs3hK+UPhhaFMal1YxCJTiDXUu4xxM+rYFHyJLOvON8kxvGfX4fR1rpCFWDcr933NpdbdXaQ==}
-
-  '@iconify/icons-material-symbols@1.2.58':
-    resolution: {integrity: sha512-EFBflkqoJmk8FJqA5U8xgJub3a3IaIX4hZVEY4nTnCr8XM4Qopu8H5DRRI9qStF8K3t7XQIJz3AeWmSZrF3+7w==}
-
-  '@iconify/icons-mdi@1.2.48':
-    resolution: {integrity: sha512-1Tiq+iX1d2MzrdDiw45Tc9HuhNgg8H4vvaKNV+kF+jmr/kPG+YyeLMyXUKp4bwv+gheIAgNpZPjuqAPRkmMieA==}
-
-  '@iconify/icons-mingcute@1.2.9':
-    resolution: {integrity: sha512-+iP9NhTM7WFtPDVb1jTgXJYApwDx7dNjOjmAJ4QG5mw3o1fu8/lQCdQ/3DgrVPt+GM2C/KQ+uPFyRh976VnZLQ==}
-
-  '@iconify/icons-noto@1.2.10':
-    resolution: {integrity: sha512-tTaBjHwW8MadgqcunNztkWLbACDkuebeJTSfEMNxJihJtXCLe2wz0x4ILvF2bnftU8K21sfi4sBOJXgf1Ia+Mw==}
-
-  '@iconify/icons-ph@1.2.5':
-    resolution: {integrity: sha512-ewrnpL0u3MAP0wLDnXb/39W9W71ObyY8DNig6rYj7NEwcndWWlrGHt1RxEGYE3eqILl/IUcNIQQF1CXZAhwr/w==}
-
-  '@iconify/icons-ri@1.2.10':
-    resolution: {integrity: sha512-w/Xu177artcK7P1LPUMq85WcRbqFE8sKYQEuNfEkuex/47DOaCgW6oBFdjlFBAmBczKlsJPdcy2pAGBGZvXdYw==}
-
-  '@iconify/icons-simple-icons@1.2.74':
-    resolution: {integrity: sha512-bsmbvwO8hauz49z740CYg70IDevOgshUoq4q1IKt6NnElnn+N2F6AseO3Uti82yUU4OHyQqkWjjUwoPTazlNnA==}
-
-  '@iconify/icons-skill-icons@1.2.1':
-    resolution: {integrity: sha512-863jRF5JMV2vZmOnNpf+oTbjGAZ0BSsUTu2r9Fkk1rWG53iRCWGteuAKIaMbK8EsRiCSzbQUTb55T0HzzXn9oQ==}
-
-  '@iconify/icons-solar@1.2.3':
-    resolution: {integrity: sha512-dots93IzoaOrJ8aUD2YGZ4+Jy+yf5D87CmzSeBkEi/m+WX1klvHqWuw5kyZvVroLOlaIaJXb5nZVaDnhc8XJyQ==}
-
-  '@iconify/icons-streamline@1.2.3':
-    resolution: {integrity: sha512-rtbtFIXjDsuBu4xSasz3db+GCgy+HUJrEW+N+u5M4DATQ8lc5NajWKxUFTXnrS5lyZOczZmfH1cinKUKqWd83g==}
-
-  '@iconify/icons-tabler@1.2.95':
-    resolution: {integrity: sha512-m4O1iTXJZasEZJudWHDAhrGnVEsTHmX8G3pk4Ag8IjPwLh77y5a0ek+zU+8xEd0+9APUV7SubK+GVd/WepMbbA==}
-
-  '@iconify/icons-uiw@1.2.6':
-    resolution: {integrity: sha512-y6LCoHQ3o1/C5cYipQ5/kt6I4h15JOS5YzBvv2INpj4kSEdUuZ4u9SF4gsLxKqLMxDlTE+mF9skF+Qaypputpw==}
-
-  '@iconify/icons-vscode-icons@1.2.29':
-    resolution: {integrity: sha512-EwmcXfDO6iAbM8+0KlMV/akAxzN5GBS61cjuEy/blqUZ9+RU7jOyfHRV1AXXPisGMsB1fbOLoUoTTrhu1fXLnw==}
-
-  '@iconify/icons-wpf@1.2.3':
-    resolution: {integrity: sha512-6GaVJCmqqDrg01LbyOywgCWcOAUWFhHh9vNqdJsd7S30afd47yzSqgJ06mdlJ0mFQGBE6R/QoBU+ydDKst9dsQ==}
-
   '@iconify/json@2.2.354':
     resolution: {integrity: sha512-I7sYXaLfvGw0msuc5p2VdQJ4nthbsqLW8IF9j1jaekUcs/xwGVgs3SHO5lEiFglv0odlkCu26CMbboZMvwkTcw==}
 
@@ -4956,18 +4723,6 @@ packages:
     resolution: {integrity: sha512-y0b1p1FTlzxcSt/ZdGWY1AZ52ddwSU69pvFRYAELUSdLLxV8QOPe9dyT/KATO43UCb3DAwiyzi96h2IoYstBOQ==}
     peerDependencies:
       vue: ^3.5.17
-
-  '@tinymce/tinymce-vue@6.3.0':
-    resolution: {integrity: sha512-DSP8Jhd3XqCCliTnusfbmz3D8GqQ4iRzkc4aadYHDcJPVjkaqopJ61McOdH82CSy599vGLkPjGzqJYWJkRMiUA==}
-    peerDependencies:
-      tinymce: ^8.0.0 || ^7.0.0 || ^6.0.0 || ^5.5.1
-      vue: ^3.5.17
-    peerDependenciesMeta:
-      tinymce:
-        optional: true
-
-  '@tokenizer/token@0.3.0':
-    resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
 
   '@tootallnate/once@1.1.2':
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
@@ -7941,10 +7696,6 @@ packages:
   file-saver@2.0.5:
     resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
 
-  file-type@19.6.0:
-    resolution: {integrity: sha512-VZR5I7k5wkD0HgFnMsq5hOsSc710MJMu5Nc5QYsbe38NN5iPV/XTObYLc/cpttRTf6lX538+5uO1ZQRhYibiZQ==}
-    engines: {node: '>=18'}
-
   file-uri-to-path@1.0.0:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
 
@@ -8283,10 +8034,6 @@ packages:
 
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
-
-  gradient-parser@1.1.1:
-    resolution: {integrity: sha512-Hu0YfNU+38EsTmnUfLXUKFMXq9yz7htGYpF4x+dlbBhUCvIvzLt0yVLT/gJRmvLKFJdqNFrz4eKkIUjIXSr7Tw==}
-    engines: {node: '>=0.10.0'}
 
   graph-cycles@3.0.0:
     resolution: {integrity: sha512-9qxd8BQK0tZJ3cRUW0Yn2q6P/9h+bgz/4UYuscpdxPz6851NNBA1IwoYDRHDpKzCqmr1UHlGHcp5+0WzpY9F7A==}
@@ -10154,10 +9901,6 @@ packages:
   pause-stream@0.0.11:
     resolution: {integrity: sha512-e3FBlXLmN/D1S+zHzanP4E/4Z60oFAa3O051qt1pxa7DEJWKAyil6upYVXCWadEnuoqa4Pkc9oUx9zsxYeRv8A==}
 
-  peek-readable@5.4.2:
-    resolution: {integrity: sha512-peBp3qZyuS6cNIJ2akRNG1uo1WJ1d0wTxg/fxMdZ0BqCVhx242bSFHM9eNqflfJVS9SsgkzgT/1UgnsurBOTMg==}
-    engines: {node: '>=14.16'}
-
   pend@1.2.0:
     resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
 
@@ -11582,7 +11325,6 @@ packages:
   source-map@0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
-    deprecated: The work that was done in this beta branch won't be included in future versions
 
   sourcemap-codec@1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
@@ -11778,10 +11520,6 @@ packages:
 
   strnum@1.0.5:
     resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
-
-  strtok3@9.1.1:
-    resolution: {integrity: sha512-FhwotcEqjr241ZbjFzjlIYg6c5/L/s4yBGWSMvJ9UoExiSqL+FnFA/CaeZx17WGaZMS/4SOZp8wH18jSS4R4lw==}
-    engines: {node: '>=16'}
 
   stubborn-fs@1.2.5:
     resolution: {integrity: sha512-H2N9c26eXjzL/S/K+i/RHHcFanE74dptvvjM8iwzwbVcWY/zjBbgRqF3K0DY4+OD+uTTASTBvDoxPDaPN02D7g==}
@@ -12066,9 +11804,6 @@ packages:
   tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
 
-  tinycolor2@1.6.0:
-    resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
-
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
 
@@ -12122,10 +11857,6 @@ packages:
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
-
-  token-types@6.1.1:
-    resolution: {integrity: sha512-kh9LVIWH5CnL63Ipf0jhlBIy0UsrMj/NJDfpsy1SqOXlLKEVyXXYrnFxFT1yOOYVGBSApeVnjPw/sBz5BfEjAQ==}
-    engines: {node: '>=14.16'}
 
   toml@3.0.0:
     resolution: {integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==}
@@ -12278,10 +12009,6 @@ packages:
 
   ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
-
-  uint8array-extras@1.5.0:
-    resolution: {integrity: sha512-rvKSBiC5zqCCiDZ9kAOszZcDvdAHwwIKJG33Ykj43OKcWsnmcBRL09YTU4nOeHZ8Y2a7l1MgTd08SBe9A8Qj6A==}
-    engines: {node: '>=18'}
 
   ultrahtml@1.6.0:
     resolution: {integrity: sha512-R9fBn90VTJrqqLDwyMph+HGne8eqY1iPfYhPzZrvKpIfwkWZbcYlfpsb8B9dTvBfpy1/hqAD7Wi8EKfP9e8zdw==}
@@ -12783,18 +12510,6 @@ packages:
     peerDependencies:
       vue: ^3.5.17
 
-  vue3-colorpicker@2.3.0:
-    resolution: {integrity: sha512-e3lLmBcy7mkRrNQVeUny1DjOd6E11L8H5ok5Bx4MdXmrG+RzyacRF7KkhrEWmRYPhKAsaoUrWsFkmpPAaYnE5A==}
-    peerDependencies:
-      '@aesoper/normal-utils': ^0.1.5
-      '@popperjs/core': ^2.11.8
-      '@vueuse/core': ^10.1.2
-      gradient-parser: ^1.0.2
-      lodash-es: ^4.17.21
-      tinycolor2: ^1.4.2
-      vue: ^3.5.17
-      vue-types: ^4.1.0
-
   vue@3.5.17:
     resolution: {integrity: sha512-LbHV3xPN9BeljML+Xctq4lbz2lVHCR6DtbpTf5XIO6gugpXUN49j2QQPcMj086r9+AkJ0FfUT8xjulKKBkkr9g==}
     peerDependencies:
@@ -13214,8 +12929,6 @@ packages:
     hasBin: true
 
 snapshots:
-
-  '@aesoper/normal-utils@0.1.5': {}
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -14748,8 +14461,6 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@borewit/text-codec@0.1.1': {}
-
   '@bpmn-io/add-exporter@0.2.0': {}
 
   '@bpmn-io/cm-theme@0.1.0-alpha.2':
@@ -16170,146 +15881,6 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iconify/icons-akar-icons@1.2.19':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-ant-design@1.2.7':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-arcticons@1.2.77':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-bi@1.2.19':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-bx@1.2.6':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-carbon@1.2.20':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-devicon@1.2.17':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-emojione@1.2.6':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-eos-icons@1.2.6':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-fa-brands@1.2.4':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-fe@1.2.5':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-flat-color-icons@1.2.5':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-fluent-mdl2@1.2.1':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-fluent@1.2.38':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-ic@1.2.13':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-icon-park-outline@1.2.11':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-icon-park-twotone@1.2.8':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-la@1.2.3':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-logos@1.2.36':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-lucide@1.2.135':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-majesticons@1.2.6':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-material-symbols@1.2.58':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-mdi@1.2.48':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-mingcute@1.2.9':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-noto@1.2.10':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-ph@1.2.5':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-ri@1.2.10':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-simple-icons@1.2.74':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-skill-icons@1.2.1':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-solar@1.2.3':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-streamline@1.2.3':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-tabler@1.2.95':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-uiw@1.2.6':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-vscode-icons@1.2.29':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify/icons-wpf@1.2.3':
-    dependencies:
-      '@iconify/types': 2.0.0
-
   '@iconify/json@2.2.354':
     dependencies:
       '@iconify/types': 2.0.0
@@ -17600,12 +17171,6 @@ snapshots:
     dependencies:
       '@tanstack/virtual-core': 3.11.2
       vue: 3.5.17(typescript@5.8.3)
-
-  '@tinymce/tinymce-vue@6.3.0(vue@3.5.17(typescript@5.8.3))':
-    dependencies:
-      vue: 3.5.17(typescript@5.8.3)
-
-  '@tokenizer/token@0.3.0': {}
 
   '@tootallnate/once@1.1.2': {}
 
@@ -21243,13 +20808,6 @@ snapshots:
 
   file-saver@2.0.5: {}
 
-  file-type@19.6.0:
-    dependencies:
-      get-stream: 9.0.1
-      strtok3: 9.1.1
-      token-types: 6.1.1
-      uint8array-extras: 1.5.0
-
   file-uri-to-path@1.0.0: {}
 
   filelist@1.0.4:
@@ -21639,8 +21197,6 @@ snapshots:
   graceful-fs@4.2.10: {}
 
   graceful-fs@4.2.11: {}
-
-  gradient-parser@1.1.1: {}
 
   graph-cycles@3.0.0:
     dependencies:
@@ -23560,8 +23116,6 @@ snapshots:
     dependencies:
       through: 2.3.8
 
-  peek-readable@5.4.2: {}
-
   pend@1.2.0: {}
 
   perfect-debounce@1.0.0: {}
@@ -25211,11 +24765,6 @@ snapshots:
 
   strnum@1.0.5: {}
 
-  strtok3@9.1.1:
-    dependencies:
-      '@tokenizer/token': 0.3.0
-      peek-readable: 5.4.2
-
   stubborn-fs@1.2.5: {}
 
   style-mod@4.1.2: {}
@@ -25585,8 +25134,6 @@ snapshots:
 
   tinybench@2.9.0: {}
 
-  tinycolor2@1.6.0: {}
-
   tinyexec@0.3.2: {}
 
   tinyexec@1.0.1: {}
@@ -25630,12 +25177,6 @@ snapshots:
   toggle-selection@1.0.6: {}
 
   toidentifier@1.0.1: {}
-
-  token-types@6.1.1:
-    dependencies:
-      '@borewit/text-codec': 0.1.1
-      '@tokenizer/token': 0.3.0
-      ieee754: 1.2.1
 
   toml@3.0.0: {}
 
@@ -25762,8 +25303,6 @@ snapshots:
     optional: true
 
   ufo@1.6.1: {}
-
-  uint8array-extras@1.5.0: {}
 
   ultrahtml@1.6.0: {}
 
@@ -26406,17 +25945,6 @@ snapshots:
     dependencies:
       is-plain-object: 3.0.1
       vue: 3.5.17(typescript@5.8.3)
-
-  vue3-colorpicker@2.3.0(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@13.5.0(vue@3.5.17(typescript@5.8.3)))(gradient-parser@1.1.1)(lodash-es@4.17.21)(tinycolor2@1.6.0)(vue-types@3.0.2(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3)):
-    dependencies:
-      '@aesoper/normal-utils': 0.1.5
-      '@popperjs/core': 2.11.8
-      '@vueuse/core': 13.5.0(vue@3.5.17(typescript@5.8.3))
-      gradient-parser: 1.1.1
-      lodash-es: 4.17.21
-      tinycolor2: 1.6.0
-      vue: 3.5.17(typescript@5.8.3)
-      vue-types: 3.0.2(vue@3.5.17(typescript@5.8.3))
 
   vue@3.5.17(typescript@5.7.3):
     dependencies:
