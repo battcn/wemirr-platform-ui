@@ -1,12 +1,12 @@
 <!-- eslint-disable no-use-before-define -->
 <script setup lang="ts">
-import type { User } from '#/api/system/user/model';
 import type { TaskInfo } from '#/api/workflow/task/model';
 
 import { computed, onMounted, ref, useTemplateRef } from 'vue';
 
 import { Page } from '@vben/common-ui';
-import { addFullName, getPopupContainer } from '@vben/utils';
+import { useTabs } from '@vben/hooks';
+import { getPopupContainer } from '@vben/utils';
 
 import { FilterOutlined, RedoOutlined } from '@ant-design/icons-vue';
 import {
@@ -18,15 +18,13 @@ import {
   Popover,
   Spin,
   Tooltip,
-  TreeSelect,
 } from 'ant-design-vue';
 import { cloneDeep, debounce } from 'lodash-es';
 
-import { categoryTree } from '#/api/workflow/category';
-import { pageByTaskCopy } from '#/api/workflow/task';
+import { meInstancePage } from '#/api/workflow/instance';
 
-import { ApprovalCard, ApprovalPanel, CopyComponent } from '../components';
-import { bottomOffset } from './constant';
+import { ApprovalCard, ApprovalPanel } from '../components';
+import { bottomOffset } from './list/constant';
 
 const emptyImage = Empty.PRESENTED_IMAGE_SIMPLE;
 
@@ -39,7 +37,6 @@ const defaultFormData = {
   flowName: '', // 流程定义名称
   nodeName: '', // 任务名称
   flowCode: '', // 流程定义编码
-  createByIds: [] as string[], // 创建人
   category: null as null | number, // 流程分类
 };
 const formData = ref(cloneDeep(defaultFormData));
@@ -68,16 +65,15 @@ async function reload(resetFields: boolean = false) {
 
   if (resetFields) {
     formData.value = cloneDeep(defaultFormData);
-    selectedUserList.value = [];
   }
 
   loading.value = true;
-  const resp = await pageByTaskCopy({
-    pageSize: 10,
-    pageNum: page.value,
+  const resp = await meInstancePage({
+    size: 10,
+    current: page.value,
     ...formData.value,
   });
-  taskList.value = resp.rows.map((item) => ({ ...item, active: false }));
+  taskList.value = resp.records.map((item) => ({ ...item, active: false }));
   taskTotal.value = resp.total;
 
   loading.value = false;
@@ -106,13 +102,13 @@ const handleScroll = debounce(async (e: Event) => {
   if (isBottom && !isLoadComplete.value) {
     loading.value = true;
     page.value += 1;
-    const resp = await pageByTaskCopy({
-      pageSize: 10,
-      pageNum: page.value,
+    const resp = await meInstancePage({
+      size: 10,
+      current: page.value,
       ...formData.value,
     });
     taskList.value.push(
-      ...resp.rows.map((item) => ({ ...item, active: false })),
+      ...resp.records.map((item) => ({ ...item, active: false })),
     );
     loading.value = false;
   }
@@ -134,22 +130,7 @@ async function handleCardClick(item: TaskInfo) {
   lastSelectId.value = id;
 }
 
-// 由于失去焦点浮层会消失 使用v-model选择人员完毕后强制显示
-const popoverOpen = ref(false);
-const selectedUserList = ref<User[]>([]);
-function handleFinish(userList: User[]) {
-  popoverOpen.value = true;
-  selectedUserList.value = userList;
-  formData.value.createByIds = userList.map((item) => item.userId);
-}
-
-const treeData = ref<any[]>([]);
-onMounted(async () => {
-  // menu
-  const tree = await categoryTree();
-  addFullName(tree, 'label', ' / ');
-  treeData.value = tree;
-});
+const { refreshTab } = useTabs();
 </script>
 
 <template>
@@ -174,7 +155,6 @@ onMounted(async () => {
               </a-button>
             </Tooltip>
             <Popover
-              v-model:open="popoverOpen"
               :get-popup-container="getPopupContainer"
               placement="rightTop"
               trigger="click"
@@ -191,28 +171,6 @@ onMounted(async () => {
                   class="w-[300px]"
                   @finish="() => reload(false)"
                 >
-                  <FormItem label="申请人">
-                    <!-- 弹窗关闭后仍然显示表单浮层 -->
-                    <CopyComponent
-                      v-model:user-list="selectedUserList"
-                      @cancel="() => (popoverOpen = true)"
-                      @finish="handleFinish"
-                    />
-                  </FormItem>
-                  <FormItem label="流程分类">
-                    <TreeSelect
-                      v-model:value="formData.category"
-                      :allow-clear="true"
-                      :field-names="{ label: 'label', value: 'id' }"
-                      :get-popup-container="getPopupContainer"
-                      :tree-data="treeData"
-                      :tree-default-expand-all="true"
-                      :tree-line="{ showLeafIcon: false }"
-                      placeholder="请选择"
-                      tree-node-filter-prop="label"
-                      tree-node-label-prop="fullName"
-                    />
-                  </FormItem>
                   <FormItem label="任务名称">
                     <Input
                       v-model:value="formData.nodeName"
@@ -281,7 +239,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <ApprovalPanel :task="currentTask" type="readonly" />
+      <ApprovalPanel :task="currentTask" type="myself" @reload="refreshTab" />
     </div>
   </Page>
 </template>
