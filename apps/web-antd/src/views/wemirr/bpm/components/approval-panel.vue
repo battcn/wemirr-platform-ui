@@ -181,12 +181,9 @@ async function handleLoadInfo(task: TaskInfo | undefined) {
     if (!task) return null;
     loading.value = true;
     iframeLoaded.value = false;
-    const resp = await flowInfo(task.instanceId || task.id);
-    console.log('resp', resp);
-    currentFlowInfo.value = resp;
-
-    // const taskResp = await getTaskByTaskId(props.task!.id);
-    // currentTask.value = taskResp;
+    const info = await flowInfo(task.instanceId);
+    console.log('info', info);
+    currentFlowInfo.value = info;
   } catch (error) {
     console.error(error);
   } finally {

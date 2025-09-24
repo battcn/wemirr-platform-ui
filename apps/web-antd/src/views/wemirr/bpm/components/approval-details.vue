@@ -8,6 +8,8 @@ import type { TaskInfo } from '#/api/workflow/task/model';
 
 import { Divider } from 'ant-design-vue';
 
+import TaskFormDetail from '#/views/wemirr/bpm/task/complete/TaskFormDetail.vue';
+
 import { ApprovalTimeline } from '.';
 // import { flowComponentsMap } from '../register';
 
@@ -30,12 +32,14 @@ defineProps<{
      动态渲染要显示的内容 需要再flowDescripionsMap先定义好组件
      business-id为业务ID 必传
     -->
-    <div>详情</div>
+    <div>
+      <TaskFormDetail :process-id="currentFlowInfo.instanceId" />
+    </div>
     <!--    <component
       :is="flowComponentsMap[task.formPath as FlowComponentsMapMapKey]"
       :business-id="task.businessId"
     />-->
     <Divider />
-    <ApprovalTimeline :list="currentFlowInfo.list" />
+    <ApprovalTimeline :list="currentFlowInfo.taskList" />
   </div>
 </template>

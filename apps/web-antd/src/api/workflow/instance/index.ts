@@ -58,11 +58,9 @@ export function meInstancePage(params?: PageQuery) {
  * @returns 流程图，流程记录
  */
 export function flowInfo(instanceId: string) {
-  return requestClient
-    .get<FlowInfoResponse>(`/workflow/flow-instances/${instanceId}/all-tasks`)
-    .then((ret) => {
-      return { list: ret, instanceId };
-    });
+  return requestClient.get<FlowInfoResponse>(
+    `/workflow/flow-instances/${instanceId}/ext-info`,
+  );
 }
 
 /**

@@ -31,6 +31,7 @@ onMounted(() => {
     ref="ebRef"
     :form-data="state.formData"
     :page-schema="state.pageSchema"
+    :disabled="true"
   />
 </template>
 <style lang="less" scoped></style>

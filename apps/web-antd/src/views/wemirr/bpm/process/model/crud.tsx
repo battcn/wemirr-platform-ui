@@ -56,6 +56,9 @@ export default function crud(
             size: 'small',
             title: '表单设计',
             order: 1,
+            show: compute(({ row }) => {
+              return row.isPublish === 0;
+            }),
             async click({ row }) {
               const routeUrl = router.resolve({
                 path: `/bpm/process/form-design?defId=${row.id}`,

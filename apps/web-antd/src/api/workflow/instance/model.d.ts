@@ -40,5 +40,5 @@ export interface Flow {
 
 export interface FlowInfoResponse {
   instanceId: string;
-  list: Flow[];
+  taskList: Flow[];
 }
