@@ -31,10 +31,13 @@ defineProps<{
     <!--
      动态渲染要显示的内容 需要再flowDescripionsMap先定义好组件
      business-id为业务ID 必传
+
+
     -->
     <div>
-      <TaskFormDetail :process-id="currentFlowInfo.instanceId" />
+      <TaskFormDetail :form-preview="currentFlowInfo.formPreview" />
     </div>
+
     <!--    <component
       :is="flowComponentsMap[task.formPath as FlowComponentsMapMapKey]"
       :business-id="task.businessId"

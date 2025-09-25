@@ -100,26 +100,6 @@ const buttonPermissions = computed(() => {
     file: false,
     back: false,
   };
-  // return [
-  //   { code: 'pop', value: null, show: false },
-  //   { code: 'trust', value: null, show: false },
-  //   { code: 'transfer', value: null, show: false },
-  //   { code: 'copy', value: null, show: false },
-  //   { code: 'back', value: null, show: true },
-  //   { code: 'addSign', value: null, show: false },
-  //   { code: 'subSign', value: null, show: false },
-  //   { termination: { code: 'termination', value: null, show: true } },
-  //   { code: 'file', value: null, show: true },
-  // ];
-  // if (!currentTask.value) {
-  //   return record;
-  // }
-  // currentTask.value.buttonList.forEach((item) => {
-  //   record[item.code] = item.show;
-  // });
-  //
-  // // termination
-  // return record;
 });
 
 // 是否显示 `其他` 按钮
@@ -181,9 +161,7 @@ async function handleLoadInfo(task: TaskInfo | undefined) {
     if (!task) return null;
     loading.value = true;
     iframeLoaded.value = false;
-    const info = await flowInfo(task.instanceId);
-    console.log('info', info);
-    currentFlowInfo.value = info;
+    currentFlowInfo.value = await flowInfo(task.instanceId);
   } catch (error) {
     console.error(error);
   } finally {
