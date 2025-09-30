@@ -31,7 +31,7 @@ export default function crud({
       },
       toolbar: {},
       rowHandle: {
-        width: 200,
+        width: 130,
         buttons: {
           view: {
             order: 1,
@@ -43,6 +43,8 @@ export default function crud({
           },
           preview: {
             order: 0,
+            // 暂时没想好怎么做交互
+            show: false,
             type: 'link',
             text: '审核预览',
             async click({ row }) {

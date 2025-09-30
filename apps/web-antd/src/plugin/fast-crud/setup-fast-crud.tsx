@@ -173,7 +173,7 @@ export function registerFastCrud(app: App) {
             is: 'a-drawer',
             saveRemind: true,
           },
-          async afterSubmit({ mode }) {
+          async afterSubmit({ mode }: any) {
             if (mode === 'add') {
               notification.success({ message: '添加成功' });
             } else if (mode === 'edit') {
@@ -255,8 +255,10 @@ export function registerFastCrud(app: App) {
     // 不要写在页面里，这个是全局的，要写在vue.use(FastCrud)之后
     const { getType, addTypes } = useTypes();
     const selectType = getType('dict-select');
-    selectType.column.component.color = 'auto'; // 修改官方的字段类型，设置为支持自动染色
-
+    if (selectType && selectType.column && selectType.column.component) {
+      // 修改官方的字段类型，设置为支持自动染色
+      selectType.column.component.color = 'auto';
+    }
     addTypes({
       'wp-readonly-time': {
         column: { width: 170, align: 'center' },
