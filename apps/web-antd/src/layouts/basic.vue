@@ -133,9 +133,9 @@ watch(
       <UserDropdown
         :avatar
         :menus
-        :text="userStore.userInfo?.realName"
-        description="1837307557@qq.com"
-        tag-text="WP-Pro"
+        :text="userStore.userInfo?.nickName"
+        :description="userStore.userInfo?.description"
+        :tag-text="userStore.userInfo?.tenantCode"
         @logout="handleLogout"
       />
     </template>
