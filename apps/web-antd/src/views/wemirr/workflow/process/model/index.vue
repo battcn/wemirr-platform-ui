@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 
 import { useFs } from '@fast-crud/fast-crud';
 
-import DiagramPreview from '#/views/wemirr/bpm/task/complete/DiagramPreview.vue';
+import DiagramPreview from '#/views/wemirr/workflow/task/complete/DiagramPreview.vue';
 
 import createCrudOptions from './crud';
 

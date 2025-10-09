@@ -11,9 +11,9 @@ import { useUi } from '@fast-crud/ui-interface';
 import { Col as ACol, Row as ARow, Step, Steps } from 'ant-design-vue';
 import dayjs from 'dayjs';
 
-import createApprovalOptions from '#/views/wemirr/bpm/task/complete/approval';
-import TaskFormDetail from '#/views/wemirr/bpm/task/complete/TaskFormDetail.vue';
-import createTransferOptions from '#/views/wemirr/bpm/task/complete/transfer';
+import createApprovalOptions from '#/views/wemirr/workflow/task/complete/approval';
+import TaskFormDetail from '#/views/wemirr/workflow/task/complete/TaskFormDetail.vue';
+import createTransferOptions from '#/views/wemirr/workflow/task/complete/transfer';
 
 const { ui } = useUi();
 

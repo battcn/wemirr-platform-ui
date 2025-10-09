@@ -28,7 +28,7 @@ function messageHandler(event: MessageEvent) {
       // 关闭当前tab
       closeCurrentTab();
       // 跳转到流程定义列表
-      router.push('/bpm/process/model');
+      router.push('/workflow/process/model');
       break;
     }
   }

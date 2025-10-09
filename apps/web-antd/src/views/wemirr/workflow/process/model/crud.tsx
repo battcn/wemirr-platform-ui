@@ -31,7 +31,7 @@ export default function crud(
             icon: '',
             text: '创建模型',
             async click() {
-              await router.push('/bpm/process/design');
+              await router.push('/workflow/process/design');
             },
           },
         },
@@ -42,7 +42,7 @@ export default function crud(
         buttons: {
           edit: {
             async click({ row }) {
-              await router.push(`/bpm/process/design?defId=${row.id}`);
+              await router.push(`/workflow/process/design?defId=${row.id}`);
             },
           },
           view: {
@@ -61,7 +61,7 @@ export default function crud(
             }),
             async click({ row }) {
               const routeUrl = router.resolve({
-                path: `/bpm/process/form-design?defId=${row.id}`,
+                path: `/workflow/process/form-design?defId=${row.id}`,
                 query: { defId: `${row.id}` },
               });
               await router.push(routeUrl);
