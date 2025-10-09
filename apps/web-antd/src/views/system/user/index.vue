@@ -31,9 +31,9 @@ import {
 } from '#/api/system/user';
 import { TableSwitch } from '#/components/table';
 import { commonDownloadExcel } from '#/utils/file/download';
+import DeptTree from '#/views/wemirr/system/org/dept-tree.vue';
 
 import { columns, querySchema } from './data';
-import DeptTree from './dept-tree.vue';
 import userDrawer from './user-drawer.vue';
 import userImportModal from './user-import-modal.vue';
 import userInfoModal from './user-info-modal.vue';

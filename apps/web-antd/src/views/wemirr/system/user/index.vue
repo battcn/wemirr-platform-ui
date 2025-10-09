@@ -20,7 +20,7 @@ const { crudBinding, crudRef, crudExpose } = useFs({
 
 onMounted(async () => {
   initOrgList();
-  await crudExpose.doRefresh();
+  await crudExpose?.doRefresh();
 });
 
 function initOrgList() {
@@ -41,7 +41,7 @@ function handleSelect(checkedKeys: any, event: any) {
 </script>
 
 <template>
-  <Page content-class="flex gap-2">
+  <Page content-class="flex flex-row gap-2" :auto-content-height="true">
     <Card :bordered="false" class="w-1/3 xl:w-1/4">
       <a-tree
         v-model:expanded-keys="expandedKeys"
@@ -70,11 +70,12 @@ function handleSelect(checkedKeys: any, event: any) {
 /deep/.p-4 {
   padding: 8px !important;
 }
+
 /deep/.sys-user-page-card {
   .fs-crud-container {
-    min-height: 740px !important;
-    max-height: 980px !important;
+    height: calc(100vh - 250px);
   }
+
   .ant-card-body {
     padding: 8px;
   }

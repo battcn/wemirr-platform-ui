@@ -11,7 +11,7 @@ import { useVbenModal, VbenAvatar } from '@vben/common-ui';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { userList } from '#/api/system/user';
-import DeptTree from '#/views/system/user/dept-tree.vue';
+import DeptTree from '#/views/wemirr/system/org/dept-tree.vue';
 
 defineOptions({
   name: 'UserSelectModal',
@@ -278,7 +278,6 @@ async function handleDeptQuery() {
 
 function handleSubmit() {
   const records = rightTableApi.grid.getData();
-  console.log(records);
   emit('finish', records);
   modalApi.close();
 }

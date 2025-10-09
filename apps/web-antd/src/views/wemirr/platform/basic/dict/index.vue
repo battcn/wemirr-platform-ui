@@ -37,7 +37,6 @@ function useFormWrapperUsingTag(callback: any) {
 }
 
 const treeData = ref();
-const treeRef = ref();
 
 const loadDictList = () => {
   api.GetList().then((ret) => {
@@ -126,8 +125,8 @@ const handleSearch = () => {
 </script>
 
 <template>
-  <Page content-class="flex flex-row gap-2">
-    <Card :bordered="false" class="dict-list w-1/3 xl:w-1/4">
+  <Page content-class="flex flex-row gap-2" :auto-content-height="true">
+    <Card :bordered="false" class="w-1/3 xl:w-1/4">
       <template #extra>
         <a-button
           type="primary"
@@ -219,7 +218,7 @@ const handleSearch = () => {
 }
 
 /deep/ .dict-list {
-  min-width: 300px;
+  //min-width: 300px;
 
   .ant-card-body {
     padding: 10px;
@@ -228,7 +227,7 @@ const handleSearch = () => {
 
 /deep/ .dict-item {
   .fs-crud-container {
-    min-height: 730px !important;
+    height: calc(100vh - 250px);
   }
 
   .ant-card-body {
@@ -249,8 +248,8 @@ const handleSearch = () => {
 
 /* 添加滚动容器样式 */
 .scrollable-menu-container {
-  height: 600px;
-  overflow-y: auto;
+  //height: 600px;
+  //overflow-y: auto;
   border-right: 0 solid #f0f0f0;
 }
 

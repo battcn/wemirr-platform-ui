@@ -8,7 +8,7 @@ import { EBuilder } from 'epic-designer';
 import * as api from './api';
 
 const props = defineProps<{
-  formPreview: {
+  formPreview?: {
     formData: {};
     formDesign: {
       schemas: [];
