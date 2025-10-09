@@ -5,7 +5,10 @@ import { useAccessStore } from '@vben/stores';
 
 import { useUi } from '@fast-crud/ui-interface';
 
-import { GetById, GetInstanceById } from '#/views/wemirr/bpm/process/model/api';
+import {
+  GetById,
+  GetInstanceById,
+} from '#/views/wemirr/workflow/process/model/api';
 
 const url = ref('');
 const height = ref('');

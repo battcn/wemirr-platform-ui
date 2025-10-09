@@ -3,8 +3,8 @@ import { onMounted, ref } from 'vue';
 
 import { useFs } from '@fast-crud/fast-crud';
 
-import ApprovalHandle from '#/views/wemirr/bpm/task/complete/ApprovalHandle.vue';
-import DiagramPreview from '#/views/wemirr/bpm/task/complete/DiagramPreview.vue';
+import ApprovalHandle from '#/views/wemirr/workflow/task/complete/ApprovalHandle.vue';
+import DiagramPreview from '#/views/wemirr/workflow/task/complete/DiagramPreview.vue';
 
 import createCrudOptions from './crud';
 

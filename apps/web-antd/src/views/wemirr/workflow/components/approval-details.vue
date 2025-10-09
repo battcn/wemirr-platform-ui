@@ -8,7 +8,7 @@ import type { TaskInfo } from '#/api/workflow/task/model';
 
 import { Divider } from 'ant-design-vue';
 
-import TaskFormDetail from '#/views/wemirr/bpm/task/complete/TaskFormDetail.vue';
+import TaskFormDetail from '#/views/wemirr/workflow/task/complete/TaskFormDetail.vue';
 
 import { ApprovalTimeline } from '.';
 // import { flowComponentsMap } from '../register';
