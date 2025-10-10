@@ -160,7 +160,7 @@ function loadAreaTree() {
       </template>
       <a-tree
         :field-names="{ children: 'children', title: 'name', key: 'value' }"
-        :height="620"
+        :height="600"
         :tree-data="treeData"
         @select="handleSelect"
       />

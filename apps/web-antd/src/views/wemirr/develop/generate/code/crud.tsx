@@ -4,14 +4,14 @@ import { defHttp } from '#/api/request';
 
 export default function crud() {
   const pageRequest = async (query: any) =>
-    await defHttp.get('/suite/generates', { params: query });
+    await defHttp.get('/suite/generate-tables/page', { params: query });
 
   const editRequest = async ({ form }: any) =>
-    await defHttp.put(`/suite/generates/${form.id}`, form);
+    await defHttp.put(`/suite/generate-tables/${form.id}`, form);
   const delRequest = async ({ row }: any) =>
-    await defHttp.delete(`/suite/generates/${row.id}`);
+    await defHttp.delete(`/suite/generate-tables/${row.id}`);
   const addRequest = async ({ form }: any) =>
-    await defHttp.post('/suite/generates', form);
+    await defHttp.post('/suite/generate-tables', form);
   return {
     crudOptions: {
       request: {
@@ -34,7 +34,7 @@ export default function crud() {
             title: '代码生成',
             async click({ row }: any) {
               await defHttp.downloadFile(
-                `/suite/generates/${row.id}/download`,
+                `/suite/generate-tables/${row.id}/download`,
                 `${row.moduleName}.zip`,
                 {
                   method: 'POST',
@@ -56,7 +56,7 @@ export default function crud() {
           title: '表名',
           type: 'dict-select',
           dict: dict({
-            url: '/suite/generates/tables',
+            url: '/suite/generate/tables',
           }),
           column: { width: 160, component: { color: 'auto' } },
           form: {

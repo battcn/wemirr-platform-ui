@@ -35,8 +35,7 @@ function useFormWrapperUsingTag(callback: any) {
   };
 }
 
-const treeData = ref();
-const treeRef = ref();
+const treeData = ref<any[]>([]);
 
 const syncDict = () => {
   api.incrSyncDict().then(() => {
@@ -135,8 +134,14 @@ const handleSearch = () => {
 </script>
 
 <template>
-  <Page content-class="flex flex-row gap-2">
-    <Card :bordered="false" class="dict-list w-1/3 xl:w-1/4">
+  <Page
+    content-class="flex flex-row gap-2 overflow-hidden"
+    :auto-content-height="true"
+  >
+    <Card
+      :bordered="false"
+      class="flex h-[calc(100vh-140px)] w-1/3 flex-col xl:w-1/4"
+    >
       <template #extra>
         <a-button
           type="primary"
@@ -150,53 +155,49 @@ const handleSearch = () => {
         <FsFormWrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
       </template>
 
-      <div class="">
-        <div class="">
-          <a-input-search
-            v-model:value="searchText"
-            placeholder="请输入关键词搜索"
-            style="margin-bottom: 16px"
-            @search="handleSearch"
-          />
-          <div class="scrollable-menu-container">
-            <a-menu
-              v-model:selected-keys="selectedKeys"
-              mode="inline"
-              style="border: none"
-            >
-              <!-- 动态生成分类菜单项 -->
-              <a-menu-item
-                v-for="node in treeData"
-                :key="node.id"
-                class="menu-item-with-actions"
-                @click="handleMenuClick(node)"
-                @mouseenter="handleMenuMouseEnter(node)"
-                @mouseleave="handleMenuMouseLeave"
-              >
-                <div class="menu-item-content">
-                  <span>{{ node.name }}</span>
-                  <div class="menu-actions">
-                    <a-button
-                      type="text"
-                      size="small"
-                      @click.stop="handleEdit(node)"
-                    >
-                      <template #icon><EditOutlined /></template>
-                    </a-button>
-                    <a-button
-                      type="text"
-                      size="small"
-                      danger
-                      @click.stop="handleDelete(node)"
-                    >
-                      <template #icon><DeleteOutlined /></template>
-                    </a-button>
-                  </div>
-                </div>
-              </a-menu-item>
-            </a-menu>
-          </div>
-        </div>
+      <a-input-search
+        v-model:value="searchText"
+        placeholder="请输入关键词搜索"
+        style="margin-bottom: 16px"
+        @search="handleSearch"
+      />
+      <div class="dict-scroll-container">
+        <a-menu
+          v-model:selected-keys="selectedKeys"
+          mode="inline"
+          style="border: none"
+        >
+          <!-- 动态生成分类菜单项 -->
+          <a-menu-item
+            v-for="node in treeData"
+            :key="node.id"
+            class="menu-item-with-actions"
+            @click="handleMenuClick(node)"
+            @mouseenter="handleMenuMouseEnter(node)"
+            @mouseleave="handleMenuMouseLeave"
+          >
+            <div class="menu-item-content">
+              <span>{{ node.name }}</span>
+              <div class="menu-actions">
+                <a-button
+                  type="text"
+                  size="small"
+                  @click.stop="handleEdit(node)"
+                >
+                  <template #icon><EditOutlined /></template>
+                </a-button>
+                <a-button
+                  type="text"
+                  size="small"
+                  danger
+                  @click.stop="handleDelete(node)"
+                >
+                  <template #icon><DeleteOutlined /></template>
+                </a-button>
+              </div>
+            </div>
+          </a-menu-item>
+        </a-menu>
       </div>
     </Card>
     <Card class="dict-item w-full" title="字典子项">
@@ -221,51 +222,47 @@ const handleSearch = () => {
   padding: 8px !important;
 }
 
-/deep/ .dict-list {
-  min-width: 300px;
-
-  .ant-card-body {
-    padding: 10px;
-  }
-}
-
 /deep/ .dict-item {
   .fs-crud-container {
-    min-height: 730px !important;
+    height: calc(100vh - 250px);
   }
-
   .ant-card-body {
     padding: 8px;
   }
 }
 
+/* 固定左侧菜单内部滚动，不影响外层 */
+.dict-scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+  height: calc(100vh - 280px);
+}
+
+/* 菜单项布局 */
 .menu-item-with-actions {
   position: relative;
 }
-
 .menu-item-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
-
-/* 添加滚动容器样式 */
-.scrollable-menu-container {
-  height: 600px;
-  overflow-y: auto;
-  border-right: 0 solid #f0f0f0;
-}
-
 .menu-actions {
   display: flex;
   margin-left: 28px;
 }
 
-/* 操作按钮样式 */
-.operation-buttons {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+/* 优化滚动条样式 */
+.dict-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+.dict-scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.dict-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
 }
 </style>
