@@ -52,7 +52,7 @@ export default function crud() {
           form: { show: false },
           column: { show: false },
         },
-        tableName: {
+        name: {
           title: '表名',
           type: 'dict-select',
           dict: dict({
