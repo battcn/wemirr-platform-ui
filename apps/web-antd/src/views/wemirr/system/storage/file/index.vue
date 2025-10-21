@@ -153,7 +153,7 @@ const doDownload = (item: any) => {
           <a-row
             v-if="crudBinding.data"
             :gutter="10"
-            style="height: 100%; width: 100%; overflow: auto"
+            style=" width: 100%;height: 100%; overflow: auto"
           >
             <a-col
               v-for="(item, index) of crudBinding.data"
@@ -203,20 +203,24 @@ const doDownload = (item: any) => {
 /deep/.p-4 {
   padding: 8px !important;
 }
+
 /deep/.sys-user-page-card {
   .fs-crud-container {
     min-height: 740px !important;
     max-height: 980px !important;
   }
+
   .ant-card-body {
     padding: 8px;
   }
 }
+
 .file-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 /deep/.custom-card {
   width: 20%;
   max-width: 300px;
@@ -224,9 +228,9 @@ const doDownload = (item: any) => {
 }
 
 /deep/.custom-tree .ant-tree-node-content-wrapper {
+  padding: 8px;
   font-size: 16px;
   text-align: center;
-  padding: 8px;
   transition: background-color 0.3s;
 }
 
@@ -235,13 +239,15 @@ const doDownload = (item: any) => {
 }
 
 /deep/.custom-tree .ant-tree-node-selected .ant-tree-node-content-wrapper {
-  --node-color: #ff0000;
+  --node-color: #f00;
 }
+
 .tree-node-content {
   display: flex;
   align-items: center;
   width: 150px;
 }
+
 .tree-node-icon {
   width: 40px;
   height: 40px;
@@ -253,13 +259,13 @@ const doDownload = (item: any) => {
 }
 
 .card-content {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100%;
   padding: 16px; /* 调整根据需要 */
-  box-sizing: border-box;
 }
 
 .file-item {
@@ -267,10 +273,10 @@ const doDownload = (item: any) => {
 }
 
 .filename {
-  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%; /* 确保不会超出容器 */
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%; /* 确保不会超出容器 */
-  display: inline-block;
+  white-space: nowrap;
 }
 </style>

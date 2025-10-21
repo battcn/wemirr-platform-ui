@@ -85,7 +85,7 @@ export default {
 <style>
 .print-preview-modal {
   .ant-modal-content {
-    padding: 20px 0 20px 0;
+    padding: 20px 0;
   }
 }
 </style>

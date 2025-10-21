@@ -31,7 +31,7 @@ onMounted(async () => {
     </fs-crud>
 
     <a-drawer v-model:open="dialogShow" title="储位规格维护" width="70%">
-      <div style="height: 100%; position: relative">
+      <div style=" position: relative;height: 100%">
         <LocationSpec />
       </div>
     </a-drawer>

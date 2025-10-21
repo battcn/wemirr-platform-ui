@@ -31,7 +31,7 @@ onMounted(async () => {
     </fs-crud>
 
     <a-drawer v-model:open="dialogShow" title="计量单位维护" width="70%">
-      <div style="height: 100%; position: relative">
+      <div style=" position: relative;height: 100%">
         <MetadataUnit />
       </div>
     </a-drawer>

@@ -151,12 +151,12 @@ const getIconName = computed(() => {
 <style scoped>
 .file-preview {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 50px;
   height: 50px;
-  text-align: center;
   padding: 0;
+  text-align: center;
 }
 
 .file-image {

@@ -126,15 +126,11 @@ const handleSearch = () => {};
 </script>
 
 <template>
-  <Page
-    content-class="flex flex-row gap-2 overflow-hidden"
-    :auto-content-height="true"
-  >
-    <!-- 左侧字典列表 -->
-    <Card
-      :bordered="false"
-      class="flex h-[calc(100vh-140px)] w-1/3 flex-col xl:w-1/4"
-    >
+  <Page class="page-layout-card flex h-full flex-row gap-2 overflow-hidden">
+    <div class="layout-row flex h-full min-h-0 flex-row gap-2 overflow-hidden">
+
+      <!-- 左侧字典列表 -->
+      <Card :bordered="false" class="dict-left flex flex-col" style=" flex: 0 0 33.333%;width: 33.333%;">
       <template #extra>
         <div class="flex gap-2">
           <a-button
@@ -202,8 +198,8 @@ const handleSearch = () => {};
       </div>
     </Card>
 
-    <!-- 右侧字典子项 -->
-    <Card class="dict-item w-full" title="字典子项">
+      <!-- 右侧字典子项 -->
+      <Card class="dict-item flex-1 min-h-0" title="字典子项">
       <fs-crud ref="crudRef" v-bind="crudBinding">
         <template #cell_description="scope">
           <a-tooltip :title="scope.row.description" placement="topLeft">
@@ -216,7 +212,8 @@ const handleSearch = () => {};
           </a-tooltip>
         </template>
       </fs-crud>
-    </Card>
+      </Card>
+    </div>
   </Page>
 </template>
 
@@ -227,44 +224,71 @@ const handleSearch = () => {};
 
 /deep/ .dict-item {
   .fs-crud-container {
-    height: calc(100vh - 250px);
+    height: 100%;
   }
+
   .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     padding: 8px;
+    overflow: hidden;
   }
 }
 
 /* 固定左侧菜单内部滚动，不影响外层 */
 .dict-scroll-container {
   flex: 1;
-  overflow-y: auto;
+  min-height: 0;
   padding-right: 8px;
-  height: calc(100vh - 280px);
+  overflow-y: auto;
 }
 
 /* 菜单项布局 */
 .menu-item-with-actions {
   position: relative;
 }
+
 .menu-item-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
+
 .menu-actions {
   display: flex;
-  margin-left: 28px;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.menu-item-with-actions:hover .menu-actions {
+  opacity: 1;
+}
+
+.menu-actions .ant-btn {
+  height: auto;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.menu-actions .ant-btn:hover {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  transform: translateY(-1px);
 }
 
 /* 优化滚动条样式 */
 .dict-scroll-container::-webkit-scrollbar {
   width: 6px;
 }
+
 .dict-scroll-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgb(0 0 0 / 20%);
   border-radius: 3px;
 }
+
 .dict-scroll-container::-webkit-scrollbar-track {
   background: transparent;
 }

@@ -428,31 +428,34 @@ const changeMode = () => {
 
 <style lang="less" scoped>
 /deep/ .ant-collapse-header {
-  padding: 8px 0 8px 0 !important;
+  padding: 8px 0 !important;
 }
+
 /deep/ .ant-collapse-content-box {
-  padding: 8px 0 8px 0 !important;
+  padding: 8px 0 !important;
 }
+
 .control-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-top: 10px;
 }
+
 .control-item {
   display: flex;
-  justify-content: center; /* 水平居中 */
+  flex-direction: column;
   align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  min-height: 60px;
   padding: 8px;
+  font-size: 12px;
   text-align: center;
+  cursor: pointer;
   background: #fff;
   border: 1px solid #e5e5e5;
   border-radius: 4px;
-  cursor: pointer;
   transition: all 0.3s;
-  font-size: 12px;
-  min-height: 60px;
-  flex-direction: column;
 }
 
 .control-item:hover {
@@ -462,10 +465,10 @@ const changeMode = () => {
 
 svg.icon {
   display: flex;
-  vertical-align: middle; /* 保证图标与文本对齐 */
-  fill: currentColor;
-  height: 28px;
   width: 28px;
+  height: 28px;
+  vertical-align: middle; /* 保证图标与文本对齐 */
+  fill: currentcolor;
 }
 </style>
 <style scoped>

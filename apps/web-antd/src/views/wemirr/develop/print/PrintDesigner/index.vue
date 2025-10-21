@@ -257,7 +257,7 @@ onMounted(() => {
               trigger="click"
             >
               <template #content>
-                <a-input-group compact style="margin: 10px 10px">
+                <a-input-group compact style="margin: 10px">
                   <a-input-number
                     v-model:value="paperWidth"
                     style="width: 100px; text-align: center"
@@ -266,9 +266,9 @@ onMounted(() => {
                   <a-input
                     style="
                       width: 30px;
-                      border-left: 0;
                       pointer-events: none;
                       background-color: #fff;
+                      border-left: 0;
                     "
                     placeholder="~"
                     disabled
@@ -448,12 +448,13 @@ onMounted(() => {
 // 设计容器
 .card-design {
   overflow: hidden;
-  overflow-x: auto;
-  overflow-y: auto;
+  overflow: auto;
 }
+
 /deep/ .ant-card-body {
   padding: 12px;
 }
+
 .print-layout-left {
   /deep/ .ant-card-body {
   }

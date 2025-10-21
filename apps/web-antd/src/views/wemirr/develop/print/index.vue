@@ -22,6 +22,7 @@ import PrintDesigner from '#/views/wemirr/develop/print/PrintDesigner/index.vue'
 /deep/.p-4 {
   padding: 8px !important;
 }
+
 /deep/ .ant-card-body {
   //padding: 12px;
 }

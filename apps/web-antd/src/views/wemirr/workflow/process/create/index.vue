@@ -200,11 +200,13 @@ onMounted(async () => {
     border-block-end: none !important;
   }
 }
+
 /deep/.icon {
-  color: #006be6;
   margin-right: 10px;
   font-size: 34px !important;
+  color: #006be6;
 }
+
 .list-card {
   .ant-list-item {
     padding: 0;

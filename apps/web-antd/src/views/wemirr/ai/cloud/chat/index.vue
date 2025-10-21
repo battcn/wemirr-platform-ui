@@ -460,33 +460,48 @@ const handleSettingsSave = () => {
 </template>
 
 <style scoped lang="less">
+
+
+@keyframes messageIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /deep/ .ant-list-item {
   border-block-end: 0 !important;
 }
+
 .chat-layout {
   height: calc(100vh - 250px);
   background: #fff;
 }
 
 .chat-sider {
-  border-right: 1px solid #f0f0f0;
-  background: #fff;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 250px);
   overflow: hidden;
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
 }
 
 .sider-header {
+  flex-shrink: 0;
   padding: 16px;
   border-bottom: 1px solid #f0f0f0;
-  flex-shrink: 0;
 }
 
 .back-button {
-  color: #1890ff;
-  padding: 0;
   height: auto;
+  padding: 0;
+  color: #1890ff;
 
   :deep(.anticon) {
     margin-right: 8px;
@@ -494,22 +509,22 @@ const handleSettingsSave = () => {
 }
 
 .new-chat-container {
+  flex-shrink: 0;
   padding: 8px 16px;
   margin-bottom: 4px;
-  flex-shrink: 0;
 }
 
 .new-chat-button {
-  height: 44px;
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  color: #595959;
-  background: transparent;
-  transition: all 0.3s;
   display: flex;
+  gap: 8px;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  height: 44px;
+  color: #595959;
+  background: transparent;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.3s;
 
   &:hover {
     color: #40a9ff;
@@ -522,29 +537,29 @@ const handleSettingsSave = () => {
 }
 
 .chat-list {
-  padding: 8px 16px;
   height: 100%;
+  padding: 8px 16px;
 }
 
 .chat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 44px;
   padding: 0 12px !important;
   margin: 4px 0;
   cursor: pointer;
-  transition: all 0.3s;
+  background: #fff;
   border: 1px solid #d9d9d9 !important;
   border-radius: 6px;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  transition: all 0.3s;
 }
 
 .chat-item-content {
   display: flex;
-  align-items: center;
-  gap: 8px;
   flex: 1;
+  gap: 8px;
+  align-items: center;
   min-width: 0;
   padding-right: 8px;
 }
@@ -562,18 +577,18 @@ const handleSettingsSave = () => {
 
 .chat-title {
   flex: 1;
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   min-width: 0;
   max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 .chat-item-actions {
   display: none;
-  gap: 4px;
   flex-shrink: 0;
+  gap: 4px;
 }
 
 .chat-item:hover .chat-item-actions,
@@ -586,7 +601,7 @@ const handleSettingsSave = () => {
   border-radius: 4px;
 
   &:focus {
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
   }
 }
 
@@ -615,17 +630,6 @@ const handleSettingsSave = () => {
   animation: messageIn 0.3s ease forwards;
 }
 
-@keyframes messageIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .ai-message {
   margin-right: auto;
   animation-delay: 0.1s;
@@ -637,21 +641,21 @@ const handleSettingsSave = () => {
 }
 
 .message-content {
-  background: #f5f5f5;
   padding: 12px;
+  background: #f5f5f5;
   border-radius: 8px;
   transition: all 0.3s ease;
 
   &:hover {
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
     transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
 .message-time {
+  margin-bottom: 4px;
   font-size: 12px;
   color: #999;
-  margin-bottom: 4px;
 }
 
 .input-container {
@@ -661,14 +665,14 @@ const handleSettingsSave = () => {
 
 .input-wrapper {
   position: relative;
+  background: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
-  background: #fff;
 
   :deep(.ant-input) {
-    border: none;
-    resize: none;
     padding-bottom: 40px;
+    resize: none;
+    border: none;
 
     &:focus {
       box-shadow: none;
@@ -678,17 +682,17 @@ const handleSettingsSave = () => {
 
 .input-toolbar {
   position: absolute;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  padding: 8px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 8px;
   background: #fff;
   border-top: 1px solid #f0f0f0;
-  border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 .send-button {
@@ -701,10 +705,15 @@ const handleSettingsSave = () => {
 
 /* 自定义滚动条样式 */
 .custom-scrollbar {
+  scrollbar-color: #d9d9d9 #f5f5f5;
+
+  /* Firefox */
+  scrollbar-width: thin;
+
   &::-webkit-scrollbar {
+    display: block;
     width: 6px;
     height: 6px;
-    display: block;
   }
 
   &::-webkit-scrollbar-track {
@@ -720,10 +729,6 @@ const handleSettingsSave = () => {
       background: #bfbfbf;
     }
   }
-
-  /* Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: #d9d9d9 #f5f5f5;
 }
 
 .search-input {
@@ -737,8 +742,8 @@ const handleSettingsSave = () => {
   }
 
   :deep(.ant-input-prefix) {
-    color: #999;
     margin-right: 8px;
+    color: #999;
   }
 
   :deep(.ant-input) {
@@ -770,35 +775,35 @@ const handleSettingsSave = () => {
 
 /* 修改示例链接样式 */
 .message-text :deep(.example-item) {
-  color: #1890ff;
-  margin: 8px 0;
-  padding-left: 8px;
   position: relative;
+  padding-left: 8px;
+  margin: 8px 0;
+  color: #1890ff;
 }
 
 .message-text :deep(.example-text) {
-  color: #1890ff;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
   padding: 8px 12px;
-  background: #fff;
-  border-radius: 4px;
-  border: 1px solid #e8e8e8;
+  color: #1890ff;
   text-decoration: none;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
+    box-shadow: 0 2px 8px rgb(24 144 255 / 10%);
     transform: translateX(8px);
-    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
   }
 }
 
 .message-text :deep(.example-text:hover) {
   color: #40a9ff;
+  text-decoration: none;
   background: #f0f7ff;
   border-color: #40a9ff;
   transform: translateX(4px);
-  text-decoration: none;
 }
 
 /* 确保链接样式不被覆盖 */
@@ -821,8 +826,8 @@ const handleSettingsSave = () => {
 
 .setting-label {
   display: flex;
-  align-items: center;
   gap: 8px;
+  align-items: center;
   margin-bottom: 12px;
 }
 
@@ -832,8 +837,8 @@ const handleSettingsSave = () => {
   }
 
   :deep(.ant-slider-mark-text) {
-    color: #666;
     font-size: 12px;
+    color: #666;
   }
 
   :deep(.ant-slider-track) {
@@ -852,8 +857,8 @@ const handleSettingsSave = () => {
 .slider-info {
   display: flex;
   justify-content: space-between;
-  color: #666;
   font-size: 12px;
+  color: #666;
 }
 
 :deep(.ant-popover-message-title) {

@@ -139,9 +139,9 @@ const sendMessage = async () => {
 <style scoped>
 .chat-messages {
   height: 550px;
-  overflow-y: auto;
   padding: 20px;
   margin-bottom: 20px;
+  overflow-y: auto;
   background: #f5f5f5;
   border-radius: 4px;
 }
@@ -166,8 +166,8 @@ const sendMessage = async () => {
 :deep(.ant-space) {
   max-width: 80%;
   padding: 8px 12px;
-  border-radius: 8px;
   background: white;
+  border-radius: 8px;
 }
 
 .user-message :deep(.ant-space) {
@@ -185,8 +185,8 @@ const sendMessage = async () => {
 
 /* 自定义滚动条样式 */
 .custom-scrollbar {
-  scrollbar-width: thin;
   scrollbar-color: #d9d9d9 #f5f5f5;
+  scrollbar-width: thin;
 }
 
 .custom-scrollbar::-webkit-scrollbar {

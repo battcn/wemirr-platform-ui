@@ -112,7 +112,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div style="height: 500px; position: relative">
+  <div style=" position: relative;height: 500px">
     <fs-crud ref="crudRef" v-bind="crudBinding" />
   </div>
 </template>
