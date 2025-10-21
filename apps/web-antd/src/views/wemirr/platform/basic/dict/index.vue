@@ -128,90 +128,95 @@ const handleSearch = () => {};
 <template>
   <Page class="page-layout-card flex h-full flex-row gap-2 overflow-hidden">
     <div class="layout-row flex h-full min-h-0 flex-row gap-2 overflow-hidden">
-
       <!-- 左侧字典列表 -->
-      <Card :bordered="false" class="dict-left flex flex-col" style=" flex: 0 0 33.333%;width: 33.333%;">
-      <template #extra>
-        <div class="flex gap-2">
-          <a-button
-            type="primary"
-            v-access:code="'dict:add'"
-            @click="openFormWrapper('')"
-          >
-            新增字典
-          </a-button>
-          <a-button
-            type="primary"
-            v-access:code="'dict:refresh'"
-            @click="refreshDictCache"
-          >
-            刷新缓存
-          </a-button>
-          <FsFormWrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
-        </div>
-      </template>
+      <Card
+        :bordered="false"
+        class="dict-left flex flex-col"
+        style="width: 33.333%; flex: 0 0 33.333%"
+      >
+        <template #extra>
+          <div class="flex gap-2">
+            <a-button
+              type="primary"
+              v-access:code="'dict:add'"
+              @click="openFormWrapper('')"
+            >
+              新增字典
+            </a-button>
+            <a-button
+              type="primary"
+              v-access:code="'dict:refresh'"
+              @click="refreshDictCache"
+            >
+              刷新缓存
+            </a-button>
+            <FsFormWrapper ref="formWrapperRef" v-bind="formWrapperOptions" />
+          </div>
+        </template>
 
-      <a-input-search
-        v-model:value="searchText"
-        placeholder="请输入关键词搜索"
-        style="margin-bottom: 16px"
-        @search="handleSearch"
-      />
+        <a-input-search
+          v-model:value="searchText"
+          placeholder="请输入关键词搜索"
+          style="margin-bottom: 16px"
+          @search="handleSearch"
+        />
 
-      <!-- 独立滚动区 -->
-      <div class="dict-scroll-container">
-        <a-menu
-          v-model:selected-keys="selectedKeys"
-          mode="inline"
-          style="border: none"
-        >
-          <a-menu-item
-            v-for="node in treeData"
-            :key="node.id"
-            class="menu-item-with-actions"
-            @click="handleMenuClick(node)"
-            @mouseenter="handleMenuMouseEnter(node)"
-            @mouseleave="handleMenuMouseLeave"
+        <!-- 独立滚动区 -->
+        <div class="dict-scroll-container">
+          <a-menu
+            v-model:selected-keys="selectedKeys"
+            mode="inline"
+            style="border: none"
           >
-            <div class="menu-item-content">
-              <span>{{ node.name }}</span>
-              <div class="menu-actions">
-                <a-button
-                  type="text"
-                  size="small"
-                  @click.stop="handleEdit(node)"
-                >
-                  <template #icon><EditOutlined /></template>
-                </a-button>
-                <a-button
-                  type="text"
-                  size="small"
-                  danger
-                  @click.stop="handleDelete(node)"
-                >
-                  <template #icon><DeleteOutlined /></template>
-                </a-button>
+            <a-menu-item
+              v-for="node in treeData"
+              :key="node.id"
+              class="menu-item-with-actions"
+              @click="handleMenuClick(node)"
+              @mouseenter="handleMenuMouseEnter(node)"
+              @mouseleave="handleMenuMouseLeave"
+            >
+              <div class="menu-item-content">
+                <span>{{ node.name }}</span>
+                <div class="menu-actions">
+                  <a-button
+                    type="text"
+                    size="small"
+                    @click.stop="handleEdit(node)"
+                  >
+                    <template #icon><EditOutlined /></template>
+                  </a-button>
+                  <a-button
+                    type="text"
+                    size="small"
+                    danger
+                    @click.stop="handleDelete(node)"
+                  >
+                    <template #icon><DeleteOutlined /></template>
+                  </a-button>
+                </div>
               </div>
-            </div>
-          </a-menu-item>
-        </a-menu>
-      </div>
-    </Card>
+            </a-menu-item>
+          </a-menu>
+        </div>
+      </Card>
 
       <!-- 右侧字典子项 -->
-      <Card class="dict-item flex-1 min-h-0" title="字典子项">
-      <fs-crud ref="crudRef" v-bind="crudBinding">
-        <template #cell_description="scope">
-          <a-tooltip :title="scope.row.description" placement="topLeft">
-            {{ scope.row.description }}
-          </a-tooltip>
-        </template>
-        <template #cell_label="scope">
-          <a-tooltip :title="scope.row.label" placement="topLeft">
-            {{ scope.row.label }}
-          </a-tooltip>
-        </template>
-      </fs-crud>
+      <Card class="dict-item flex-1" title="字典子项">
+        <div style="height: calc(100vh - 280px)">
+          <fs-crud ref="crudRef" v-bind="crudBinding">
+            <template #cell_description="scope">
+              <a-tooltip :title="scope.row.description" placement="topLeft">
+                {{ scope.row.description }}
+              </a-tooltip>
+            </template>
+            <template #cell_label="scope">
+              <a-tooltip :title="scope.row.label" placement="topLeft">
+                {{ scope.row.label }}
+              </a-tooltip>
+            </template>
+          </fs-crud>
+        </div>
       </Card>
     </div>
   </Page>
@@ -226,12 +231,11 @@ const handleSearch = () => {};
   .fs-crud-container {
     height: 100%;
   }
-
   .ant-card-body {
+    padding: 8px;
     display: flex;
     flex-direction: column;
     min-height: 0;
-    padding: 8px;
     overflow: hidden;
   }
 }
@@ -240,55 +244,33 @@ const handleSearch = () => {};
 .dict-scroll-container {
   flex: 1;
   min-height: 0;
-  padding-right: 8px;
   overflow-y: auto;
+  padding-right: 8px;
 }
 
 /* 菜单项布局 */
 .menu-item-with-actions {
   position: relative;
 }
-
 .menu-item-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
-
 .menu-actions {
   display: flex;
-  gap: 4px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.menu-item-with-actions:hover .menu-actions {
-  opacity: 1;
-}
-
-.menu-actions .ant-btn {
-  height: auto;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.menu-actions .ant-btn:hover {
-  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
-  transform: translateY(-1px);
+  margin-left: 28px;
 }
 
 /* 优化滚动条样式 */
 .dict-scroll-container::-webkit-scrollbar {
   width: 6px;
 }
-
 .dict-scroll-container::-webkit-scrollbar-thumb {
-  background-color: rgb(0 0 0 / 20%);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
 }
-
 .dict-scroll-container::-webkit-scrollbar-track {
   background: transparent;
 }
