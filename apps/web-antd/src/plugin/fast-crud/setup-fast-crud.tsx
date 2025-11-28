@@ -175,7 +175,7 @@ export function registerFastCrud(app: App) {
           },
           async afterSubmit({ mode }: any) {
             if (mode === 'add') {
-              notification.success({ message: '添加成功' });
+              // notification.success({ message: '添加成功' });
             } else if (mode === 'edit') {
               notification.success({ message: '保存成功' });
             }
