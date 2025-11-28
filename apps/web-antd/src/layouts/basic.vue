@@ -60,9 +60,7 @@ watch(
   },
 );
 
-onMounted(() => {
-  notifyStore.connect();
-});
+onMounted(() => {});
 
 onUnmounted(() => {
   notifyStore.close();
