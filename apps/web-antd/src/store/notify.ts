@@ -1,8 +1,10 @@
 import { ref } from 'vue';
 
-import { useUserStore } from '@vben/stores';
+import { useAccessStore, useUserStore } from '@vben/stores';
 
 import { defineStore } from 'pinia';
+
+const accessStore = useAccessStore();
 
 export const useNotifyStore = defineStore('notify', () => {
   const userStore = useUserStore();
@@ -39,12 +41,11 @@ export const useNotifyStore = defineStore('notify', () => {
       const host = window.location.host;
       wsUrl = `${protocol}//${host}${wsUrl}`;
     }
-
     // 移除末尾斜杠
     if (wsUrl.endsWith('/')) {
       wsUrl = wsUrl.slice(0, -1);
     }
-    const url = `${wsUrl}/iam/message/${tenantCode}/${identifier}`;
+    const url = `${wsUrl}/iam/message/${tenantCode}/${identifier}?accessToken=${accessStore.accessToken}`;
     try {
       // console.log('WebSocket connecting to:', url);
       const ws = new WebSocket(url);
