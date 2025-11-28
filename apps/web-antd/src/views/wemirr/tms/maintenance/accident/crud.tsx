@@ -54,7 +54,7 @@ export default function () {
           type: 'table-select',
           dict: dict({
             getNodesByValues: async (values: any[]) => {
-              return defHttp.get('/tms/trucks/dict_list', { params: values });
+              return defHttp.get('/tms/trucks/dict-list', { params: values });
             },
           }),
           form: {
@@ -103,7 +103,7 @@ export default function () {
           type: 'table-select',
           dict: dict({
             getNodesByValues: async (values: any[]) => {
-              return defHttp.get('/tms/drivers/dict_list', { params: values });
+              return defHttp.get('/tms/drivers/dict-list', { params: values });
             },
           }),
           form: {

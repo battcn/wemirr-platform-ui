@@ -414,7 +414,7 @@ export default function () {
           type: 'table-select',
           dict: dict({
             getNodesByValues: async (values: any[]) => {
-              return await defHttp.get('/tms/fleets/dict_list', {
+              return await defHttp.get('/tms/fleets/dict-list', {
                 params: values,
               });
             },
