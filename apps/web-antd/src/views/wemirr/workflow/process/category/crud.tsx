@@ -71,16 +71,8 @@ export default function crud() {
           search: { show: true },
           dict: dict({
             data: [
-              {
-                value: true,
-                label: '启用',
-                color: 'success',
-              },
-              {
-                value: false,
-                label: '禁用',
-                color: 'error',
-              },
+              { value: true, label: '启用', color: 'success' },
+              { value: false, label: '禁用', color: 'error' },
             ],
           }),
           addForm: { value: true },

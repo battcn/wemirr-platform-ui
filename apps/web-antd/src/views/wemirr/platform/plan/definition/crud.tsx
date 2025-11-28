@@ -36,7 +36,7 @@ export default function crud(
             type: 'link',
             size: 'small',
             order: 2,
-            show: hasPermission('product:definition:assign'),
+            show: hasPermission('plan:definition:assign'),
             async click({ row }: any) {
               await assign.resourceModal(row.id);
             },

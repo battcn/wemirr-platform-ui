@@ -20,15 +20,15 @@ export default function crud() {
       table: {},
       request: {
         pageRequest: async (query: UserPageQuery) =>
-          await defHttp.get(`/iam/product_subscriptions/page`, {
+          await defHttp.get(`/iam/plan-subscriptions/page`, {
             params: query,
           }),
         addRequest: async ({ form }: AddReq) =>
-          await defHttp.post(`/iam/product_subscriptions`, form),
+          await defHttp.post(`/iam/plan-subscriptions`, form),
         editRequest: async ({ form }: EditReq) =>
-          await defHttp.put(`/iam/product_subscriptions/${form.id}`, form),
+          await defHttp.put(`/iam/plan-subscriptions/${form.id}`, form),
         delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete(`/iam/product_subscriptions/${row.id}`),
+          await defHttp.delete(`/iam/plan-subscriptions/${row.id}`),
       },
       toolbar: {},
       rowHandle: {
@@ -38,12 +38,10 @@ export default function crud() {
       },
       form: {
         watch({ form }: any): void {
-          form.totalAmount = form.users * form.months * form.licensePrice;
+          form.totalAmount = form.userNum * form.monthNum * form.licensePrice;
           form.statementAmount = form.totalAmount - form.discountAmount;
-          form.statementPrice = form.statementAmount / form.months / form.users;
-          // if (form.months && form.startTime) {
-          //   form.endTime = dayjs(form.startTime).add(form.months, "month");
-          // }
+          form.statementPrice =
+            form.statementAmount / form.monthNum / form.userNum;
         },
       },
       columns: {
@@ -93,13 +91,13 @@ export default function crud() {
           },
         },
 
-        productId: {
+        planId: {
           title: '产品',
           column: { width: 150, component: { color: 'auto' } },
           type: 'dict-select',
           search: { show: true },
           dict: dict({
-            url: '/iam/product-definitions/list',
+            url: '/iam/plan-definitions/list',
           }),
           form: {
             rules: [{ required: true, message: '请选择订阅的产品' }],
@@ -114,7 +112,7 @@ export default function crud() {
             },
           },
         },
-        users: {
+        userNum: {
           title: '用户数量',
           type: 'number',
           column: { width: 120 },
@@ -123,7 +121,7 @@ export default function crud() {
             rules: [{ required: true, message: '用户数量不能为空' }],
           },
         },
-        months: {
+        monthNum: {
           title: '月数',
           type: 'number',
           column: { width: 100 },
@@ -132,7 +130,10 @@ export default function crud() {
             rules: [{ required: true, message: '采购月数不能为空' }],
             valueChange({ value, form }: ScopeContext) {
               if (value && form.startTime) {
-                form.endTime = dayjs(form.startTime).add(form.months, 'month');
+                form.endTime = dayjs(form.startTime).add(
+                  form.monthNum,
+                  'month',
+                );
               }
             },
           },
@@ -206,8 +207,11 @@ export default function crud() {
               format: 'YYYY-MM-DD',
             },
             valueChange({ value, form }: ScopeContext) {
-              if (value && form.months) {
-                form.endTime = dayjs(form.startTime).add(form.months, 'month');
+              if (value && form.monthNum) {
+                form.endTime = dayjs(form.startTime).add(
+                  form.monthNum,
+                  'month',
+                );
               }
             },
           },

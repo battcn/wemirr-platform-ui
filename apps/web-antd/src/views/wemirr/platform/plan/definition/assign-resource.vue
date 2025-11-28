@@ -27,7 +27,7 @@ const pagination = ref({
   pageSize: 10,
 });
 
-const modelRef = ref({ productId: null } as Record<string, any>);
+const modelRef = ref({ planId: null } as Record<string, any>);
 const getAllSelectedIds = computed(() => {
   const treeIds = checkedTreeKeys.value || [];
   const tableIds = selectedTableKeys.value || [];
@@ -45,7 +45,7 @@ const [Modal, modalApi] = useVbenModal({
   onConfirm() {
     api
       .assignResource({
-        productId: modelRef.value.productId,
+        planId: modelRef.value.planId,
         resIdList: getAllSelectedIds.value,
       })
       .then(() => {
@@ -65,7 +65,7 @@ const [Modal, modalApi] = useVbenModal({
         .filter((item: any) => item.parentId === '0')
         .map((item: any) => item.id);
       modelRef.value = modalApi.getData<Record<string, any>>();
-      api.getPermResByProductId(modelRef.value.productId).then((ret) => {
+      api.getPermResByplanId(modelRef.value.planId).then((ret) => {
         if (!ret) {
           return;
         }

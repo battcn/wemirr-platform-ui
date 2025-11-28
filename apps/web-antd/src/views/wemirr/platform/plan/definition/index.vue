@@ -14,8 +14,8 @@ const [AssignResourceModal, resourceModalApi] = useVbenModal({
 });
 
 function assignModal() {
-  function resourceModal(productId: string) {
-    resourceModalApi.setData({ productId });
+  function resourceModal(planId: string) {
+    resourceModalApi.setData({ planId });
     resourceModalApi.open();
   }
   return {
@@ -28,7 +28,7 @@ const { crudRef, crudBinding, crudExpose } = useFs({
   createCrudOptions,
   context: {
     assign,
-    permission: 'product:definition',
+    permission: 'plan:definition',
   },
 });
 

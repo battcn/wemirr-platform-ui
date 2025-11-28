@@ -7,7 +7,7 @@ import createCrudOptions from './crud';
 
 // 此处为组件定义
 export default defineComponent({
-  name: 'PlatProductSubscribe',
+  name: 'PlatPlanSubscribe',
   setup() {
     const { crudRef, crudBinding, crudExpose } = useFs({ createCrudOptions });
 
