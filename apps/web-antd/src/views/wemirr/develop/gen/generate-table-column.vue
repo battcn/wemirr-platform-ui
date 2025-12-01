@@ -44,12 +44,10 @@ export default defineComponent({
           return;
         }
         await defHttp.put(
-          '/suite/gennerate-table-column//batch/modify',
+          '/suite/generate-table-column//batch/modify',
           crudBinding.value.data,
         );
-        message.success(
-          `保存成功`,
-        );
+        message.success(`保存成功`);
         await crudExpose.doRefresh();
       },
       async editRestore() {

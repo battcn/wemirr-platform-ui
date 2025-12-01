@@ -15,19 +15,16 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const {} = props.context;
 
   const pageRequest = async (query: any) =>
-    await defHttp.get('/suite/gennerate-template-group/page', {
+    await defHttp.get('/suite/generate-template-group/page', {
       params: query,
     });
 
   const editRequest = async ({ form }: any) =>
-    await defHttp.put(
-      `/suite/gennerate-template-group/${form.id}/modify`,
-      form,
-    );
+    await defHttp.put(`/suite/generate-template-group/${form.id}/modify`, form);
   const delRequest = async ({ row }: any) =>
-    await defHttp.delete(`/suite/gennerate-template-group/${row.id}`);
+    await defHttp.delete(`/suite/generate-template-group/${row.id}`);
   const addRequest = async ({ form }: any) =>
-    await defHttp.post('/suite/gennerate-template-group/create', form);
+    await defHttp.post('/suite/generate-template-group/create', form);
 
   const crudOptionsOverride = {
     table: {
@@ -107,10 +104,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             label: 'name',
             getNodesByValues: async (values: any[]) => {
               console.log('getNodesByValues', values);
-              return await defHttp.get(
-                '/suite/gennerate-template/list-all',
-                {},
-              );
+              return await defHttp.get('/suite/generate-template/list-all', {});
             },
           }),
           form: {

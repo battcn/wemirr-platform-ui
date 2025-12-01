@@ -38,7 +38,7 @@ const columns = [
 const fetchData = async (tableName = '') => {
   loading.value = true;
   try {
-    const res = await defHttp.get('/suite/gennerate-table/ds/list', {
+    const res = await defHttp.get('/suite/generate-table/ds/list', {
       params: { tableName },
     });
     dataSource.value = res;
@@ -61,7 +61,7 @@ const executeImport = async () => {
     message.warning('请至少选择一个表');
     return;
   }
-  await defHttp.post('/suite/gennerate-table/ds/import', tables);
+  await defHttp.post('/suite/generate-table/ds/import', tables);
   props.onCloseDD();
 };
 

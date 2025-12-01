@@ -13,10 +13,10 @@ import * as api from './generate-template-api';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const pageRequest = async (query: any) =>
-    await defHttp.get('/suite/gennerate-table-column/page', { params: query });
+    await defHttp.get('/suite/generate-table-column/page', { params: query });
 
   const editRequest = async ({ row }: any) =>
-    await defHttp.put(`/suite/gennerate-template/${row.id}/modify`, row);
+    await defHttp.put(`/suite/generate-template/${row.id}/modify`, row);
   const delRequest = async ({ row }: any) => await api.delObj(row);
   const addRequest = async ({ form }: any) => await api.createObj(form);
   return {

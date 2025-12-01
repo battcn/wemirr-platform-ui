@@ -14,14 +14,14 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { showModalPre } = props.context;
 
   const pageRequest = async (query: any) =>
-    await defHttp.get('/suite/gennerate-table/page', { params: query });
+    await defHttp.get('/suite/generate-table/page', { params: query });
 
   const editRequest = async ({ form }: any) =>
-    await defHttp.put(`/suite/gennerate-table/${form.id}/modify`, form);
+    await defHttp.put(`/suite/generate-table/${form.id}/modify`, form);
   const delRequest = async ({ row }: any) =>
-    await defHttp.delete(`/suite/gennerate-table/${row.id}`);
+    await defHttp.delete(`/suite/generate-table/${row.id}`);
   const addRequest = async ({ form }: any) =>
-    await defHttp.post('/suite/gennerate-table', form);
+    await defHttp.post('/suite/generate-table', form);
   const crudOptionsOverride = {
     table: {
       scroll: {
@@ -77,7 +77,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             title: '代码生成',
             async click(context) {
               await defHttp.downloadFile(
-                `/suite/gennerate-table/${context.row.id}/generate`,
+                `/suite/generate-table/${context.row.id}/generate`,
                 `generated-table.zip`,
                 {
                   method: 'POST',
@@ -93,7 +93,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             title: '代码预览',
             async click(context) {
               await defHttp
-                .request(`/suite/gennerate-table/${context.row.id}/preview`, {
+                .request(`/suite/generate-table/${context.row.id}/preview`, {
                   method: 'GET',
                 })
                 .then((res) => {
@@ -192,7 +192,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             getNodesByValues: async (values: any[]) => {
               console.log('templateIds', values);
               const res = await defHttp.get(
-                '/suite/gennerate-template-group/list-all',
+                '/suite/generate-template-group/list-all',
                 {},
               );
               console.log('templateIds', res);

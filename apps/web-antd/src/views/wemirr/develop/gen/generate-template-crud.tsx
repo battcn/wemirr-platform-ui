@@ -57,7 +57,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           //   title: '代码生成',
           //   async click(context) {
           //     await defHttp
-          //       .request(`/suite/gennerate-table/${context.row.id}/generate`, {
+          //       .request(`/suite/generate-table/${context.row.id}/generate`, {
           //         method: 'POST',
           //         responseType: 'blob',
           //       })
@@ -74,7 +74,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           //   title: '代码预览',
           //   async click(context) {
           //     await defHttp
-          //       .request(`/suite/gennerate-table/${context.row.id}/preview`, {
+          //       .request(`/suite/generate-table/${context.row.id}/preview`, {
           //         method: 'GET',
           //       })
           //       .then((res) => {

@@ -1,12 +1,16 @@
 <script lang="ts" setup>
-import { ref, watch, defineProps } from 'vue';
-import { Modal, Tree, Spin } from 'ant-design-vue';
+import { defineProps, ref, watch } from 'vue';
+
+import { Modal, Spin, Tree } from 'ant-design-vue';
+
 import { defHttp } from '#/api/request';
-import  CdeEditorMi from './code-edtior-mi.vue'
+
+import CdeEditorMi from './code-edtior-mi.vue';
+
 const props = defineProps<{
-  visible: boolean;
-  preId: string;
   onClose: () => void;
+  preId: string;
+  visible: boolean;
 }>();
 
 const treeData = ref([]);
@@ -44,20 +48,22 @@ const convertToTreeData = (data: Record<string, string>): Array<any> => {
 };
 // 压缩路径的处理函数
 const compressPath = (node: any) => {
-    if (node.children.length === 1 && !codeMap.value[node.key]) {
-      const child = node.children[0];
-      node.title = `${node.title}.${child.title}`;
-      node.key = child.key;
-      node.children = child.children;
-      compressPath(node);
-    } else {
-      node.children.forEach(compressPath);
-    }
-  };
+  if (node.children.length === 1 && !codeMap.value[node.key]) {
+    const child = node.children[0];
+    node.title = `${node.title}.${child.title}`;
+    node.key = child.key;
+    node.children = child.children;
+    compressPath(node);
+  } else {
+    node.children.forEach(compressPath);
+  }
+};
 const fetchCodeData = async () => {
   loading.value = true;
   try {
-    const res = await defHttp.get(`/suite/gennerate-table/${props.preId}/preview`);
+    const res = await defHttp.get(
+      `/suite/generate-table/${props.preId}/preview`,
+    );
     const data = res;
     treeData.value = convertToTreeData(data);
     codeMap.value = data;
@@ -80,18 +86,16 @@ const handleClose = () => {
   props.onClose();
 };
 
-watch(() => props.visible, (newVal) => {
-  if (newVal) {
-    fetchCodeData();
-  }
-});
+watch(
+  () => props.visible,
+  (newVal) => {
+    if (newVal) {
+      fetchCodeData();
+    }
+  },
+);
 </script>
 
-<style scoped>
-.ant-spin-nested-loading > div > .ant-spin {
-  max-height: 100%;
-}
-</style>
 <template>
   <Modal
     :open="visible"
@@ -102,19 +106,28 @@ watch(() => props.visible, (newVal) => {
     @update:open="handleClose"
   >
     <Spin :spinning="loading">
-      <div style="display: flex; height: 100%;">
-        <div style="width: 30%; overflow: auto;">
+      <div style="display: flex; height: 100%">
+        <div style="width: 30%; overflow: auto">
           <Tree
-            :treeData="treeData"
+            :tree-data="treeData"
             @select="handleSelect"
-            defaultExpandAll
+            default-expand-all
           />
         </div>
-        <div style="width: 70%; padding: 16px; overflow: auto;">
+        <div style="width: 70%; padding: 16px; overflow: auto">
           <!-- <pre>{{ codeContent }}</pre> -->
-          <CdeEditorMi v-model:command="codeContent" :readOnly=true :height="700" />
+          <CdeEditorMi
+            v-model:command="codeContent"
+            :read-only="true"
+            :height="700"
+          />
         </div>
       </div>
     </Spin>
   </Modal>
 </template>
+<style scoped>
+.ant-spin-nested-loading > div > .ant-spin {
+  max-height: 100%;
+}
+</style>
