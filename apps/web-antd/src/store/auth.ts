@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 
 import { LOGIN_PATH } from '@vben/constants';
 import { preferences } from '@vben/preferences';
-import { resetAllStores, useAccessStore, useUserStore } from '@vben/stores';
+import { useAccessStore, useUserStore } from '@vben/stores';
 
 import { notification } from 'ant-design-vue';
 import { defineStore } from 'pinia';
@@ -83,9 +83,9 @@ export const useAuthStore = defineStore('auth', () => {
     } catch {
       // 不做任何处理
     }
-    resetAllStores();
+    // resetAllStores();
     accessStore.setLoginExpired(false);
-
+    console.info('要进行重定向才行', LOGIN_PATH);
     // 回登录页带上当前路由地址
     await router.replace({
       path: LOGIN_PATH,

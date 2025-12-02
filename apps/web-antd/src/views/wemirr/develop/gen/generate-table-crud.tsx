@@ -77,7 +77,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             title: '代码生成',
             async click(context) {
               await defHttp.downloadFile(
-                `/suite/generate-table/${context.row.id}/generate`,
+                `/suite/generate-table/${context.row.id}/download`,
                 `generated-table.zip`,
                 {
                   method: 'POST',
