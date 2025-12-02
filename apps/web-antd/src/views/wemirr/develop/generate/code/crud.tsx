@@ -56,7 +56,7 @@ export default function crud() {
           title: '表名',
           type: 'dict-select',
           dict: dict({
-            url: '/suite/generate/tables',
+            url: '/suite/generate-tables/ds/list',
           }),
           column: { width: 160, component: { color: 'auto' } },
           form: {

@@ -4,8 +4,6 @@ import { useAccessStore, useUserStore } from '@vben/stores';
 
 import { defineStore } from 'pinia';
 
-const accessStore = useAccessStore();
-
 export const useNotifyStore = defineStore('notify', () => {
   const userStore = useUserStore();
   const socket = ref<null | WebSocket>(null);
@@ -45,6 +43,7 @@ export const useNotifyStore = defineStore('notify', () => {
     if (wsUrl.endsWith('/')) {
       wsUrl = wsUrl.slice(0, -1);
     }
+    const accessStore = useAccessStore();
     const url = `${wsUrl}/iam/message/${tenantCode}/${identifier}?accessToken=${accessStore.accessToken}`;
     try {
       // console.log('WebSocket connecting to:', url);
