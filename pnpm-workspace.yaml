@@ -14,6 +14,14 @@ packages:
   - playground
 
 catalog:
+  "lodash-es": ^4.17.21
+  "epic-designer": ^0.9.30
+  "@ant-design/colors": ^7.0.0
+  "@ant-design/icons-vue": ^6.1.0
+  "@fast-crud/fast-crud": ^1.27.0
+  "@fast-crud/fast-extends": ^1.27.0
+  "@fast-crud/ui-antdv4": ^1.27.0
+  "@fast-crud/ui-interface": ^1.27.0
   '@ast-grep/napi': ^0.39.9
   '@changesets/changelog-github': ^0.5.1
   '@changesets/cli': ^2.29.7

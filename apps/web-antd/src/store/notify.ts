@@ -87,7 +87,15 @@ export const useNotifyStore = defineStore('notify', () => {
     }
   }
 
+  function $reset() {
+    close();
+    socket.value = null;
+    isConnected.value = false;
+    lastMessage.value = null;
+  }
+
   return {
+    $reset,
     close,
     connect,
     isConnected,
