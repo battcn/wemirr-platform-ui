@@ -34,16 +34,16 @@ catalogs:
       specifier: ^9.39.1
       version: 9.39.1
     '@fast-crud/fast-crud':
-      specifier: ^1.27.0
+      specifier: ^1.27.1
       version: 1.27.4
     '@fast-crud/fast-extends':
-      specifier: ^1.27.0
+      specifier: ^1.27.1
       version: 1.27.4
     '@fast-crud/ui-antdv4':
-      specifier: ^1.27.0
+      specifier: ^1.27.1
       version: 1.27.4
     '@fast-crud/ui-interface':
-      specifier: ^1.27.0
+      specifier: ^1.27.1
       version: 1.27.4
     '@iconify/json':
       specifier: ^2.2.406
