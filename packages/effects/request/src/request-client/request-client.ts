@@ -92,7 +92,6 @@ class RequestClient {
     const sse = new SSE(this);
     this.postSSE = sse.postSSE.bind(sse);
     this.requestSSE = sse.requestSSE.bind(sse);
-    this.downloadFile = fileDownloader.downloadFile.bind(fileDownloader);
   }
 
   /**

@@ -23,3 +23,5 @@ export const VBEN_ELE_PREVIEW_URL = 'https://cloud.battcn.com';
 export const VBEN_NAIVE_PREVIEW_URL = 'https://cloud.battcn.com';
 
 export const VBEN_ANT_PREVIEW_URL = 'https://cloud.battcn.com';
+
+export const VBEN_TD_PREVIEW_URL = 'https://tdesign.vben.pro';

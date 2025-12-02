@@ -69,6 +69,13 @@ onUnmounted(() => {
 const menus = computed(() => [
   {
     handler: () => {
+      router.push({ name: 'Profile' });
+    },
+    icon: 'lucide:user',
+    text: $t('page.auth.profile'),
+  },
+  {
+    handler: () => {
       openWindow(VBEN_DOC_URL, {
         target: '_blank',
       });
@@ -106,6 +113,17 @@ async function handleLogout() {
 
 function handleNoticeClear() {
   notifications.value = [];
+}
+
+function markRead(id: number | string) {
+  const item = notifications.value.find((item) => item.id === id);
+  if (item) {
+    item.isRead = true;
+  }
+}
+
+function remove(id: number | string) {
+  notifications.value = notifications.value.filter((item) => item.id !== id);
 }
 
 function handleMakeAll() {
@@ -153,6 +171,8 @@ watch(
         :dot="showDot"
         :notifications="notifications"
         @clear="handleNoticeClear"
+        @read="(item) => item.id && markRead(item.id)"
+        @remove="(item) => item.id && remove(item.id)"
         @make-all="handleMakeAll"
         @view-all="handleViewAll"
       />

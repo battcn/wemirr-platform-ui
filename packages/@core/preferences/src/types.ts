@@ -59,6 +59,10 @@ interface AppPreferences {
    * @zh_CN 是否开启refreshToken
    */
   enableRefreshToken: boolean;
+  /**
+   * @zh_CN 是否开启首选项导航栏吸顶效果
+   */
+  enableStickyPreferencesNavigationBar: boolean;
   /** 是否移动端 */
   isMobile: boolean;
   /** 布局方式 */
@@ -142,6 +146,8 @@ interface LogoPreferences {
   fit: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   /** logo地址 */
   source: string;
+  /** 暗色主题logo地址 (可选，若不设置则使用 source) */
+  sourceDark?: string;
 }
 
 interface NavigationPreferences {
@@ -233,6 +239,8 @@ interface ThemePreferences {
   colorSuccess: string;
   /** 警告色 */
   colorWarning: string;
+  /** 字体大小（单位：px） */
+  fontSize: number;
   /** 当前主题 */
   mode: ThemeModeType;
   /** 圆角 */
@@ -271,6 +279,8 @@ interface WidgetPreferences {
   sidebarToggle: boolean;
   /** 是否显示主题切换部件 */
   themeToggle: boolean;
+  /** 是否显示时区部件 */
+  timezone: boolean;
 }
 
 interface Preferences {
