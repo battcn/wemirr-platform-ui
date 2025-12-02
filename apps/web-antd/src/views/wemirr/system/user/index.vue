@@ -6,36 +6,24 @@ import { Page } from '@vben/common-ui';
 import { useFs } from '@fast-crud/fast-crud';
 import { Card } from 'ant-design-vue';
 
-import { getOrgTree } from '#/api/core/org';
-
+import DeptTree from '../org/dept-tree.vue';
 import createCrudOptions from './crud';
 
-const treeData = ref();
 const nodeRef = ref();
-const expandedKeys = ref();
+const selectDeptId = ref<string[]>([]);
 const { crudBinding, crudRef, crudExpose } = useFs({
   createCrudOptions,
   context: { nodeRef, permission: 'sys:user' },
 });
 
 onMounted(async () => {
-  initOrgList();
   await crudExpose?.doRefresh();
 });
 
-function initOrgList() {
-  getOrgTree({}).then((ret) => {
-    treeData.value = ret;
-    expandedKeys.value = ret
-      .filter((item: any) => item.parentId === '0')
-      .map((item: any) => item.id);
-  });
-}
-function handleSelect(checkedKeys: any, event: any) {
-  if (!event.selected) {
-    return;
-  }
-  nodeRef.value = event.selectedNodes[0];
+function onTreeSelect() {
+  nodeRef.value = {
+    id: selectDeptId.value?.[0] ?? null,
+  };
   crudExpose.doRefresh();
 }
 </script>
@@ -43,16 +31,7 @@ function handleSelect(checkedKeys: any, event: any) {
 <template>
   <Page content-class="flex flex-row gap-2" :auto-content-height="true">
     <Card :bordered="false" class="w-1/3 xl:w-1/4">
-      <a-tree
-        v-model:expanded-keys="expandedKeys"
-        :auto-expand-parent="true"
-        :default-expand-all="true"
-        :field-names="{ key: 'id', title: 'name' }"
-        :show-icon="false"
-        :show-line="false"
-        :tree-data="treeData"
-        @select="handleSelect"
-      />
+      <DeptTree v-model:select-dept-id="selectDeptId" @select="onTreeSelect" />
     </Card>
     <Card class="sys-user-page-card w-full" title="用户管理">
       <fs-crud ref="crudRef" v-bind="crudBinding">
@@ -67,11 +46,11 @@ function handleSelect(checkedKeys: any, event: any) {
 </template>
 
 <style lang="less" scoped>
-/deep/.p-4 {
+:deep(.p-4) {
   padding: 8px !important;
 }
 
-/deep/.sys-user-page-card {
+:deep(.sys-user-page-card) {
   .fs-crud-container {
     height: calc(100vh - 250px);
   }

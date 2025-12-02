@@ -1,4 +1,6 @@
 <script setup lang="ts" name="SysMenuPage">
+import type { TreeProps } from 'ant-design-vue';
+
 import { onMounted, ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
@@ -12,9 +14,9 @@ import * as api from './api';
 import ResourceButtonTable from './button.vue';
 import { menuForm } from './scheme';
 
-const actionList = ref<any>([]);
-const treeData = ref();
-const expandedKeys = ref();
+const actionList = ref<any[]>([]);
+const treeData = ref<TreeProps['treeData']>();
+const expandedKeys = ref<string[]>();
 const itemTableRef = ref();
 const [MenuForm, menuFormRef] = menuForm(onSubmit);
 const hoveredNodeId = ref<string>('');
@@ -44,7 +46,7 @@ onMounted(() => {
 function handlePlus(node: any) {
   menuFormRef.resetValidate();
   itemTableRef.value.crudBinding.actionbar.buttons.add.show = false;
-  itemTableRef.value.parentId = '0';
+  itemTableRef.value.setParentId('0');
   menuFormRef.resetForm();
   menuFormRef.setValues({
     type: 'menu',
@@ -74,7 +76,7 @@ function handleDelete(node: any) {
 
 async function loadMenu() {
   await getAllMenusApi({}).then((ret) => {
-    treeData.value = ret;
+    treeData.value = ret as any;
     expandedKeys.value = ret
       .filter((item: any) => item.parentId === '0')
       .map((item: any) => item.id);
@@ -84,7 +86,7 @@ async function loadMenu() {
 
 function addDirectory() {
   itemTableRef.value.crudBinding.actionbar.buttons.add.show = false;
-  itemTableRef.value.parentId = '0';
+  itemTableRef.value.setParentId('0');
   menuFormRef.resetForm();
   menuFormRef.setValues({
     type: 'directory',
@@ -96,7 +98,7 @@ function addDirectory() {
   menuFormRef.setState({ showDefaultActions: true });
 }
 
-function handleSelect(checkedKeys: any, event: any) {
+function handleSelect(_: any, event: any) {
   if (!event.selected) {
     return;
   }
@@ -145,6 +147,7 @@ function handleMouseLeave() {
         :action-list="actionList"
         :auto-expand-parent="true"
         :default-expand-all="true"
+        :field-names="{ key: 'id', title: 'title' }"
         block-node
         :tree-data="treeData"
         @select="handleSelect"

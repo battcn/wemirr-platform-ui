@@ -1,18 +1,17 @@
 <script lang="ts" setup>
-import type { TreeProps } from 'ant-design-vue';
-
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 import { Page } from '@vben/common-ui';
 
 import { Card, notification } from 'ant-design-vue';
 
 import { useVbenForm } from '#/adapter/form';
-import { getOrgTree } from '#/api/core/org';
 
 import * as api from './api';
+import DeptTree from './dept-tree.vue';
 
-const expandedKeys = ref();
+const deptTreeRef = ref();
+const selectDeptId = ref<string[]>([]);
 
 const [BaseForm, baseFormApi] = useVbenForm({
   // 所有表单项共用，可单独在表单内覆盖
@@ -125,38 +124,18 @@ const [BaseForm, baseFormApi] = useVbenForm({
 function onSubmit(values: Record<string, any>) {
   api.save(values).then(() => {
     baseFormApi.resetForm();
-    loadOrgTree();
+    deptTreeRef.value?.loadTree();
     notification.success({ duration: 3, message: '保存成功' });
   });
 }
 
-onMounted(async () => {
-  loadOrgTree();
-});
-
-function handleSelect(checkedKeys: any, event: any) {
+function handleSelect(_: any, event: any) {
   if (!event.selected) {
     return;
   }
   event.selectedNodes[0].name = event.selectedNodes[0].label;
   baseFormApi.setValues({
     ...event.selectedNodes[0],
-  });
-}
-
-function handlePlus(node: any) {
-  // resetFields();
-  // setFieldsValue({ parentId: node.id });
-}
-
-const treeData = ref([] as TreeProps);
-
-function loadOrgTree() {
-  getOrgTree({}).then((ret: any) => {
-    treeData.value = ret;
-    expandedKeys.value = ret
-      .filter((item: any) => item.parentId === '0')
-      .map((item: any) => item.id);
   });
 }
 </script>
@@ -168,15 +147,9 @@ function loadOrgTree() {
     title="机构管理"
   >
     <Card class="w-2/5" title="机构列表">
-      <a-tree
-        v-model:expanded-keys="expandedKeys"
-        :auto-expand-parent="true"
-        :default-expand-all="true"
-        :field-names="{ key: 'id', title: 'name' }"
-        :height="620"
-        :show-icon="false"
-        :show-line="false"
-        :tree-data="treeData"
+      <DeptTree
+        ref="deptTreeRef"
+        v-model:select-dept-id="selectDeptId"
         @select="handleSelect"
       />
     </Card>
@@ -186,7 +159,7 @@ function loadOrgTree() {
   </Page>
 </template>
 <style lang="less" scoped>
-/deep/.p-4 {
+:deep(.p-4) {
   padding: 8px !important;
 }
 </style>

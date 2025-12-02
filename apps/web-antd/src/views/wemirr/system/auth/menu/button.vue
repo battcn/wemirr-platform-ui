@@ -1,29 +1,27 @@
-<script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+<script lang="ts" setup name="ResourceButtonTable">
+import { ref } from 'vue';
 
 import { useFs } from '@fast-crud/fast-crud';
 
 import createCrudOptions from './button';
 
-export default defineComponent({
-  name: 'ResourceButtonTable',
-  setup() {
-    const parentId = ref();
-    const { crudRef, crudBinding, crudExpose } = useFs({
-      createCrudOptions,
-      context: { parentId, permission: 'sys:menu' },
-    });
-    // 页面打开后获取列表数据
-    onMounted(() => {});
+const parentId = ref();
+const { crudRef, crudBinding, crudExpose } = useFs({
+  createCrudOptions,
+  context: { parentId, permission: 'sys:menu' },
+});
 
-    return {
-      crudBinding,
-      crudRef,
-      parentId,
-      setSearchFormData: crudExpose.setSearchFormData,
-      doRefresh: crudExpose.doRefresh,
-    };
-  },
+function setParentId(id: string) {
+  parentId.value = id;
+}
+
+defineExpose({
+  crudBinding,
+  crudExpose,
+  doRefresh: crudExpose.doRefresh,
+  parentId,
+  setParentId,
+  setSearchFormData: crudExpose.setSearchFormData,
 });
 </script>
 

@@ -13,7 +13,8 @@ import { useAccess } from '@vben/access';
 import { dict, useUi } from '@fast-crud/fast-crud';
 
 import { SysDictCode, sysDictFunc } from '#/api';
-import { defHttp } from '#/api/request';
+
+import * as api from './api';
 
 export default function crud(
   props: CreateCrudOptionsProps,
@@ -26,14 +27,11 @@ export default function crud(
       request: {
         pageRequest: async (query: any) => {
           query.orgId = query.orgId > 0 ? null : nodeRef?.value?.id;
-          return await defHttp.post(`/iam/users/page`, query);
+          return await api.GetList(query);
         },
-        addRequest: async ({ form }: AddReq) =>
-          await defHttp.post(`/iam/users/create`, form),
-        editRequest: async ({ form }: EditReq) =>
-          await defHttp.put(`/iam/users/${form.id}`, form),
-        delRequest: async ({ row }: DelReq) =>
-          await defHttp.delete(`/iam/users/${row.id}`),
+        addRequest: async ({ form }: AddReq) => await api.AddObj(form),
+        editRequest: async ({ form }: EditReq) => await api.UpdateObj(form),
+        delRequest: async ({ row }: DelReq) => await api.DelObj(row.id),
       },
       rowHandle: {
         width: 240,
@@ -49,25 +47,20 @@ export default function crud(
             title: '重置密码',
             show: hasPermission('sys:user:reset'),
             async click({ row }) {
-              ui.messageBox
-                .confirm({
+              try {
+                await ui.messageBox.confirm({
                   type: 'warning',
                   title: '风险提示',
                   message: `确定重置用户 ${row.nickName} 密码吗 ?`,
-                })
-                .then(() => {
-                  defHttp
-                    .put(`/iam/users/${row.id}/reset_password`)
-                    .then(() => {
-                      ui.notification.success({
-                        message: '密码重置成功',
-                        duration: 2,
-                      } as any);
-                    })
-                    .catch((error) => {
-                      console.error('异常原因 -', error);
-                    });
                 });
+                await api.ResetPassword(row.id);
+                ui.notification.success({
+                  message: '密码重置成功',
+                  duration: 2,
+                } as any);
+              } catch (error) {
+                console.error('重置密码失败', error);
+              }
             },
           },
         },
@@ -81,10 +74,7 @@ export default function crud(
       toolbar: {
         export: {
           server: async (query: UserPageQuery) => {
-            await defHttp.downloadFile('/iam/users/export', '用户列表.xlsx', {
-              data: query,
-              method: 'POST',
-            });
+            await api.ExportUser(query);
           },
         },
         buttons: {},
