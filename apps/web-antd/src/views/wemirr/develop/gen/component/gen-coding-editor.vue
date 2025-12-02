@@ -1,32 +1,18 @@
 <script lang="ts" setup>
-import { defineProps, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 import { Button, Form, Input, Modal } from 'ant-design-vue';
 
-import { defHttp } from '#/api/request';
-
+import * as api from '../generate-template-api';
 import CdeEditorMi from './code-edtior-mi.vue';
 
 const props = defineProps<{
   isViewMode?: boolean;
-  onClose: () => void;
-  onEdit: (form: {
-    content: string;
-    description: string;
-    id: number;
-    name: string;
-    path: string;
-  }) => void;
-  onSave: (form: {
-    content: string;
-    description: string;
-    id: number;
-    name: string;
-    path: string;
-  }) => void;
-  templateId?: string;
+  templateId?: string | null;
   visible: boolean;
 }>();
+
+const emit = defineEmits(['close', 'save', 'edit', 'update:visible']);
 
 const form = ref({
   id: '',
@@ -40,16 +26,13 @@ const isViewMode = ref(props.isViewMode || false);
 
 const fetchTemplateData = async (templateId: string) => {
   try {
-    const res = await defHttp.get(
-      `/suite/generate-template/${templateId}/detail`,
-    );
-    const data = res;
+    const res = await api.GetDetail(templateId);
     form.value = {
-      id: data.id,
-      generatePath: data.generatePath,
-      name: data.name,
-      description: data.description,
-      code: data.code,
+      id: res.id,
+      generatePath: res.generatePath,
+      name: res.name,
+      description: res.description,
+      code: res.code,
     };
   } catch (error) {
     console.error('Failed to fetch template data:', error);
@@ -61,11 +44,11 @@ const handleSave = () => {
     .validate()
     .then(() => {
       if (props.templateId) {
-        props.onEdit(form.value);
+        emit('edit', form.value);
       } else {
-        props.onSave(form.value);
+        emit('save', form.value);
       }
-      // 重置表单 【解决代码编辑器内容清空异常问题】
+      // 重置表单
       form.value = {
         id: '',
         generatePath: '',
@@ -87,7 +70,8 @@ const handleCancel = () => {
     description: '',
     code: '',
   };
-  props.onClose();
+  emit('close');
+  emit('update:visible', false);
 };
 
 watch(
@@ -115,13 +99,13 @@ watch(
     title="代码生成模板配置"
     :footer="null"
     width="80%"
-    height="100%"
+    :destroy-on-close="true"
+    style="top: 20px"
     @cancel="handleCancel"
-    @update:open="handleCancel"
   >
-    <div style="display: flex; height: 100%">
+    <div style="display: flex; height: 75vh">
       <div style="width: 30%; padding: 16px">
-        <Form :model="form" layout="vertical" ref="formRef">
+        <Form ref="formRef" :model="form" layout="vertical">
           <Form.Item
             label="模板路径"
             name="generatePath"
@@ -154,12 +138,6 @@ watch(
         </Form>
       </div>
       <div style="width: 70%; padding: 16px; overflow: auto">
-        <!-- <CodeEditor
-          v-model="form.code"
-          theme="darcula"
-          mode="velocity"
-          height="700"
-        ></CodeEditor> -->
         <CdeEditorMi
           v-model:command="form.code"
           :read-only="props.isViewMode"
@@ -167,8 +145,8 @@ watch(
         />
       </div>
     </div>
-    <div>
-      <Button type="primary" @click="handleSave" v-if="!props.isViewMode">
+    <div class="footer-button">
+      <Button v-if="!props.isViewMode" type="primary" @click="handleSave">
         提交
       </Button>
     </div>
@@ -178,5 +156,11 @@ watch(
 <style scoped>
 .ant-modal-body {
   padding: 0;
+}
+
+.footer-button {
+  padding: 10px 16px;
+  text-align: right;
+  border-top: 1px solid #f0f0f0;
 }
 </style>

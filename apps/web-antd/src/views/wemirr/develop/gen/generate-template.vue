@@ -1,14 +1,16 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { useFs } from '@fast-crud/fast-crud';
+
 import GenCodingEditor from './component/gen-coding-editor.vue';
+import * as api from './generate-template-api';
+import createCrudOptions from './generate-template-crud';
+
 const isModalVisible = ref(false);
 const isViewEditor = ref(false);
-const currentTemplateId = ref<string | null>(null);
-import createCrudOptions from './generate-template-crud';
-import * as api from './generate-template-api';
+const currentTemplateId = ref<null | string>(null);
+
 const showAddModal = () => {
   currentTemplateId.value = null;
   isModalVisible.value = true;
@@ -28,26 +30,23 @@ const handleClose = () => {
   isModalVisible.value = false;
   isViewEditor.value = false;
 };
-// const userStore = useUserStore();
+
 const { crudRef, crudBinding, crudExpose } = useFs({
   createCrudOptions,
   context: { showEditModal, showViewModal },
 });
+
 const handleSave = async (val: any) => {
-  //保存数据
-  console.log('保存数据', val);
-  await api.createObj(val);
+  await api.AddObj(val);
   crudExpose.doRefresh();
   handleClose();
 };
 const handleEdit = async (row: any) => {
-  await api.editObj(row);
-  //编辑数据
-  console.log('编辑数据', row);
+  await api.UpdateObj(row);
   crudExpose.doRefresh();
   handleClose();
 };
-// 页面打开后获取列表数据
+
 onMounted(() => {
   crudExpose.doRefresh();
 });
@@ -66,12 +65,12 @@ onMounted(() => {
       </template>
     </fs-crud>
     <GenCodingEditor
-      :visible="isModalVisible"
-      :templateId="currentTemplateId"
-      :onClose="handleClose"
-      :onEdit="handleEdit"
-      :onSave="handleSave"
-      :isViewMode="isViewEditor"
+      v-model:visible="isModalVisible"
+      :template-id="currentTemplateId"
+      :is-view-mode="isViewEditor"
+      @close="handleClose"
+      @edit="handleEdit"
+      @save="handleSave"
     />
   </fs-page>
 </template>

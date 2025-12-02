@@ -1,60 +1,25 @@
-// import { downloadByData } from '@/utils/file/download';
-import type {
-  CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
-} from '@fast-crud/fast-crud';
+import type { CreateCrudOptionsRet } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
-import { defHttp } from '#/api/request';
-
+import * as templateApi from './generate-template-api';
 import createCrudOptionsTemplate from './generate-template-crud';
+import * as api from './generate-template-group-api';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const {} = props.context;
-
-  const pageRequest = async (query: any) =>
-    await defHttp.get('/suite/generate-template-group/page', {
-      params: query,
-    });
-
-  const editRequest = async ({ form }: any) =>
-    await defHttp.put(`/suite/generate-template-group/${form.id}/modify`, form);
-  const delRequest = async ({ row }: any) =>
-    await defHttp.delete(`/suite/generate-template-group/${row.id}`);
-  const addRequest = async ({ form }: any) =>
-    await defHttp.post('/suite/generate-template-group/create', form);
-
+export default function crud(): CreateCrudOptionsRet {
   const crudOptionsOverride = {
-    table: {
-      scroll: {
-        x: 2000,
-      },
-    },
-    rowHandle: {
-      show: false,
-      // width: 260,
-      // fixed: 'right',
-      buttons: {
-        view: {
-          show: false,
-        },
-        edit: {
-          show: false,
-        },
-
-        remove: { show: false },
-      },
-    },
+    rowHandle: { show: false },
+    table: { scroll: { x: 2000 } },
   };
+
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        editRequest,
-        delRequest,
-        addRequest,
+        pageRequest: api.GetPage,
+        addRequest: api.AddObj,
+        editRequest: api.UpdateObj,
+        delRequest: api.DelObj,
       },
       table: {
         scroll: { fixed: true },
@@ -65,12 +30,10 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
       },
       rowHandle: {
-        width: 260,
+        width: 150,
+        align: 'center',
         fixed: 'right',
         buttons: {
-          view: {},
-          edit: {},
-
           remove: { order: 2 },
         },
       },
@@ -90,10 +53,10 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             rules: [{ required: true, message: '分组名称不能为空' }],
           },
         },
-        desciption: {
+        description: {
           title: '分组描述',
           type: 'text',
-          column: { width: 160, ellipsis: true },
+          column: { width: 200, ellipsis: true },
         },
         templateIds: {
           title: '模板',
@@ -102,9 +65,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           dict: dict({
             value: 'id',
             label: 'name',
-            getNodesByValues: async (values: any[]) => {
-              console.log('getNodesByValues', values);
-              return await defHttp.get('/suite/generate-template/list-all', {});
+            getNodesByValues: async (_values: any[]) => {
+              return await templateApi.GetList();
             },
           }),
           form: {
@@ -125,6 +87,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
             rules: [{ required: true, message: '模板不能为空' }],
           },
           column: {
+            width: 450,
             component: {
               labelFormatter: (item: any) => {
                 return `${item.name}`;
@@ -133,8 +96,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           },
         },
         isDefault: {
-          title: '是否默认模板组',
-          column: { width: 160, ellipsis: true },
+          title: '是否默认',
+          column: { width: 100, ellipsis: true },
           type: ['dict-radio'],
           dict: dict({
             data: [
@@ -146,7 +109,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         createTime: {
           title: '创建时间',
           type: 'datetime',
-          column: { width: 180 },
+          column: { width: 170 },
           form: { show: false },
           valueBuilder({ value, row, key }: any) {
             if (value !== null) {

@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import type { Key } from 'ant-design-vue/es/table/interface';
 
-import { defineProps, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 import { Button, Input, message, Modal, Table } from 'ant-design-vue';
 
-import { defHttp } from '#/api/request';
+import * as api from '../generate-table-api';
 
 const props = defineProps<{
-  onCloseDD: () => void;
   visible: boolean;
 }>();
+
+const emit = defineEmits(['close', 'update:visible', 'success']);
 
 const dataSource = ref([]);
 const loading = ref(false);
@@ -38,9 +39,7 @@ const columns = [
 const fetchData = async (tableName = '') => {
   loading.value = true;
   try {
-    const res = await defHttp.get('/suite/generate-table/ds/list', {
-      params: { tableName },
-    });
+    const res = await api.GetDsList({ tableName });
     dataSource.value = res;
   } catch (error) {
     console.error('Failed to fetch data:', error);
@@ -61,17 +60,15 @@ const executeImport = async () => {
     message.warning('请至少选择一个表');
     return;
   }
-  await defHttp.post('/suite/generate-table/ds/import', tables);
-  props.onCloseDD();
+  await api.ImportDs(tables);
+  emit('success');
+  handleClose();
 };
 
 const handleClose = () => {
   selectedRowKeys.value = [];
-  if (typeof props.onCloseDD === 'function') {
-    props.onCloseDD();
-  } else {
-    console.error('props.onCloseDD is not a function');
-  }
+  emit('close');
+  emit('update:visible', false);
 };
 
 watch(
@@ -91,7 +88,6 @@ watch(
     title="未配置可导入的表信息"
     width="70%"
     @cancel="handleClose"
-    @update:open="handleClose"
   >
     <div style="margin-bottom: 16px">
       <Input.Search

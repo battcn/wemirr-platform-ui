@@ -1,4 +1,3 @@
-// import { downloadByData } from '@/utils/file/download';
 import type {
   CreateCrudOptionsProps,
   CreateCrudOptionsRet,
@@ -8,21 +7,18 @@ import dayjs from 'dayjs';
 
 import * as api from './generate-template-api';
 
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
   const { showEditModal, showViewModal } = props.context;
 
-  const pageRequest = async (query: any) => await api.pageObj(query);
-
-  const editRequest = async ({ form }: any) => await api.editObj(form);
-  const delRequest = async ({ row }: any) => await api.delObj(row);
-  const addRequest = async ({ form }: any) => await api.createObj(form);
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        editRequest,
-        delRequest,
-        addRequest,
+        pageRequest: api.GetPage,
+        addRequest: api.AddObj,
+        editRequest: api.UpdateObj,
+        delRequest: api.DelObj,
       },
       table: {
         scroll: { fixed: true },
@@ -35,8 +31,9 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
       },
       rowHandle: {
-        width: 260,
+        width: 150,
         fixed: 'right',
+        align: 'center',
         buttons: {
           view: {
             async click(context) {
@@ -46,44 +43,8 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           edit: {
             async click(context) {
               showEditModal(context.row.id);
-              console.log('点击编辑', context);
             },
           },
-          // download: {
-          //   // icon: "ant-design:cloud-download-outlined",
-          //   type: 'link',
-          //   text: '代码生成',
-          //   size: 'small',
-          //   title: '代码生成',
-          //   async click(context) {
-          //     await defHttp
-          //       .request(`/suite/generate-table/${context.row.id}/generate`, {
-          //         method: 'POST',
-          //         responseType: 'blob',
-          //       })
-          //       .then((res) => {
-          //         // downloadByData(res, `${context.row.moduleName}.zip`);
-          //       });
-          //   },
-          // },
-          // preview: {
-          //   // icon: "ant-design:cloud-download-outlined",
-          //   type: 'link',
-          //   text: '代码预览',
-          //   size: 'small',
-          //   title: '代码预览',
-          //   async click(context) {
-          //     await defHttp
-          //       .request(`/suite/generate-table/${context.row.id}/preview`, {
-          //         method: 'GET',
-          //       })
-          //       .then((res) => {
-          //         showModalPre(context.row.id)
-          //         // downloadByData(res, `${context.row.moduleName}.zip`);
-          //         console.log('预览结果',res)
-          //       });
-          //   },
-          // },
           remove: { order: 2 },
         },
       },

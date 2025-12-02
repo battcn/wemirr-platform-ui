@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import { useFs } from '@fast-crud/fast-crud';
 
-import createCrudOptions from './generate-table-crud';
 import DsTableList from './component/ds-table-list.vue';
 import PreviewCode from './component/preview-code.vue';
+import createCrudOptions from './generate-table-crud';
+
 const isModalVisible = ref(false);
 const isModalVisiblePre = ref(false);
 const previewId = ref('');
@@ -15,21 +15,11 @@ const showModal = () => {
   isModalVisible.value = true;
 };
 
-const handleClose = () => {
-  crudExpose.doRefresh();
-  isModalVisible.value = false;
-};
 const showModalPre = (tableId: string) => {
-  console.log('tableId:', tableId);
   previewId.value = tableId;
   isModalVisiblePre.value = true;
 };
 
-const handleClosePre = () => {
-  previewId.value = '';
-  isModalVisiblePre.value = false;
-};
-// const userStore = useUserStore();
 const { crudRef, crudBinding, crudExpose } = useFs({
   createCrudOptions,
   context: { showModalPre },
@@ -58,11 +48,10 @@ onMounted(() => {
         </a-tooltip>
       </template>
     </fs-crud>
-    <DsTableList :visible="isModalVisible" :onCloseDD="handleClose" />
-    <PreviewCode
-      :visible="isModalVisiblePre"
-      :onClose="handleClosePre"
-      :preId="previewId"
+    <DsTableList
+      v-model:visible="isModalVisible"
+      @success="crudExpose.doRefresh"
     />
+    <PreviewCode v-model:visible="isModalVisiblePre" :pre-id="previewId" />
   </fs-page>
 </template>

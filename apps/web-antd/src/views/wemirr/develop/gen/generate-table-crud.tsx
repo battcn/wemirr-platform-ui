@@ -6,51 +6,25 @@ import type {
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
-import { defHttp } from '#/api/request';
-
+import * as api from './generate-table-api';
+import * as groupApi from './generate-template-group-api';
 import createCrudOptionsGroup from './generate-template-group-crud';
 
 export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
   const { showModalPre } = props.context;
 
-  const pageRequest = async (query: any) =>
-    await defHttp.get('/suite/generate-table/page', { params: query });
-
-  const editRequest = async ({ form }: any) =>
-    await defHttp.put(`/suite/generate-table/${form.id}/modify`, form);
-  const delRequest = async ({ row }: any) =>
-    await defHttp.delete(`/suite/generate-table/${row.id}`);
-  const addRequest = async ({ form }: any) =>
-    await defHttp.post('/suite/generate-table', form);
   const crudOptionsOverride = {
-    table: {
-      scroll: {
-        x: 2000,
-      },
-    },
-    rowHandle: {
-      show: false,
-      // width: 260,
-      // fixed: 'right',
-      buttons: {
-        view: {
-          show: false,
-        },
-        edit: {
-          show: false,
-        },
-
-        remove: { show: false },
-      },
-    },
+    rowHandle: { show: false },
+    table: { scroll: { x: 2000 } },
   };
+
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        editRequest,
-        delRequest,
-        addRequest,
+        pageRequest: api.GetPage,
+        addRequest: api.AddObj,
+        editRequest: api.UpdateObj,
+        delRequest: api.DelObj,
       },
       table: {
         scroll: { fixed: true },
@@ -63,43 +37,26 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
       },
       rowHandle: {
-        width: 260,
+        width: 300,
         fixed: 'right',
         buttons: {
-          view: {
-            show: false,
-          },
+          view: { show: false },
           download: {
-            // icon: "ant-design:cloud-download-outlined",
             type: 'link',
             text: '代码生成',
             size: 'small',
             title: '代码生成',
             async click(context) {
-              await defHttp.downloadFile(
-                `/suite/generate-table/${context.row.id}/download`,
-                `generated-table.zip`,
-                {
-                  method: 'POST',
-                },
-              );
+              await api.DownloadFile(context.row.id);
             },
           },
           preview: {
-            // icon: "ant-design:cloud-download-outlined",
             type: 'link',
             text: '代码预览',
             size: 'small',
             title: '代码预览',
-            async click(context) {
-              await defHttp
-                .request(`/suite/generate-table/${context.row.id}/preview`, {
-                  method: 'GET',
-                })
-                .then((res) => {
-                  showModalPre(context.row.id);
-                  console.log('预览结果', res);
-                });
+            click(context) {
+              showModalPre(context.row.id);
             },
           },
           remove: { order: 2 },
@@ -126,12 +83,12 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         comment: {
           title: '表描述',
           type: 'text',
-          column: { width: 160, ellipsis: true },
+          column: { width: 200, ellipsis: true },
         },
         packageName: {
           title: '包名',
           type: 'text',
-          column: { width: 120 },
+          column: { width: 200 },
           form: {
             rules: [{ required: true, message: '包名不能为空' }],
           },
@@ -139,7 +96,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         moduleName: {
           title: '模块名',
           type: 'text',
-          column: { width: 120 },
+          column: { width: 200 },
           form: {
             rules: [{ required: true, message: '模块名不能为空' }],
           },
@@ -157,7 +114,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         businessName: {
           title: '业务名',
           type: 'text',
-          column: { width: 120 },
+          column: { width: 200 },
           form: {
             rules: [{ required: true, message: '业务名不能为空' }],
           },
@@ -189,20 +146,11 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           dict: dict({
             value: 'id',
             label: 'name',
-            getNodesByValues: async (values: any[]) => {
-              console.log('templateIds', values);
-              const res = await defHttp.get(
-                '/suite/generate-template-group/list-all',
-                {},
-              );
-              console.log('templateIds', res);
-              return res;
+            getNodesByValues: async (_values: any[]) => {
+              return await groupApi.GetList();
             },
           }),
           form: {
-            // show: compute(({ form }) => {
-            //   return form.dynamicShow;
-            // }),
             component: {
               crossPage: true,
               valuesFormat: {
@@ -215,16 +163,10 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
               },
               createCrudOptions: createCrudOptionsGroup,
               crudOptionsOverride,
-              on: {
-                selectedChange({ $event }) {
-                  console.log('selectedChange', $event);
-                  console.log(`你选择了${JSON.stringify($event)}`);
-                },
-              },
             },
           },
           column: {
-            width: 120,
+            width: 150,
             component: {
               labelFormatter: (item: any) => {
                 return `${item.name}`;

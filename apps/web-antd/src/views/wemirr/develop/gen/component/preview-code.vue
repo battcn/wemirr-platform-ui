@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { defineProps, ref, watch } from 'vue';
+import { ref, watch, defineProps, defineEmits } from 'vue';
 
 import { Modal, Spin, Tree } from 'ant-design-vue';
 
-import { defHttp } from '#/api/request';
-
+import * as api from '../generate-table-api';
 import CdeEditorMi from './code-edtior-mi.vue';
 
 const props = defineProps<{
-  onClose: () => void;
   preId: string;
   visible: boolean;
 }>();
+
+const emit = defineEmits(['close', 'update:visible']);
 
 const treeData = ref([]);
 const codeContent = ref('');
@@ -41,12 +41,11 @@ const convertToTreeData = (data: Record<string, string>): Array<any> => {
     });
   });
 
-  // return tree;
   const result = tree;
   result.forEach(compressPath);
   return result;
 };
-// 压缩路径的处理函数
+
 const compressPath = (node: any) => {
   if (node.children.length === 1 && !codeMap.value[node.key]) {
     const child = node.children[0];
@@ -58,12 +57,11 @@ const compressPath = (node: any) => {
     node.children.forEach(compressPath);
   }
 };
+
 const fetchCodeData = async () => {
   loading.value = true;
   try {
-    const res = await defHttp.get(
-      `/suite/generate-table/${props.preId}/preview`,
-    );
+    const res = await api.PreviewCode(props.preId);
     const data = res;
     treeData.value = convertToTreeData(data);
     codeMap.value = data;
@@ -83,7 +81,8 @@ const handleSelect = (selectedKeys: string[]) => {
 };
 
 const handleClose = () => {
-  props.onClose();
+  emit('close');
+  emit('update:visible', false);
 };
 
 watch(
@@ -103,7 +102,6 @@ watch(
     :footer="null"
     width="80%"
     @cancel="handleClose"
-    @update:open="handleClose"
   >
     <Spin :spinning="loading">
       <div style="display: flex; height: 100%">

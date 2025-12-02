@@ -1,31 +1,18 @@
-// import { downloadByData } from '@/utils/file/download';
-import type {
-  CreateCrudOptionsProps,
-  CreateCrudOptionsRet,
-} from '@fast-crud/fast-crud';
+import type { CreateCrudOptionsRet } from '@fast-crud/fast-crud';
 
 import { dict } from '@fast-crud/fast-crud';
 import dayjs from 'dayjs';
 
-import { defHttp } from '#/api/request';
+import * as api from './generate-table-column-api';
 
-import * as api from './generate-template-api';
-
-export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
-  const pageRequest = async (query: any) =>
-    await defHttp.get('/suite/generate-table-column/page', { params: query });
-
-  const editRequest = async ({ row }: any) =>
-    await defHttp.put(`/suite/generate-template/${row.id}/modify`, row);
-  const delRequest = async ({ row }: any) => await api.delObj(row);
-  const addRequest = async ({ form }: any) => await api.createObj(form);
+export default function crud(): CreateCrudOptionsRet {
   return {
     crudOptions: {
       request: {
-        pageRequest,
-        editRequest,
-        delRequest,
-        addRequest,
+        pageRequest: api.GetPage,
+        addRequest: api.AddObj,
+        editRequest: api.UpdateObj,
+        delRequest: api.DelObj,
       },
       mode: {
         name: 'local',
@@ -42,25 +29,16 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
         },
       },
       actionbar: {
-        buttons: {
-          add: {
-            show: false,
-          },
-        },
+        buttons: { add: { show: false } },
       },
       rowHandle: {
         width: 50,
         fixed: 'right',
+        show: false,
         buttons: {
-          view: {
-            show: false,
-          },
-          edit: {
-            show: false,
-          },
-          remove: {
-            show: false,
-          },
+          view: { show: false },
+          edit: { show: false },
+          remove: { show: false },
         },
       },
       columns: {
@@ -74,9 +52,7 @@ export default function (props: CreateCrudOptionsProps): CreateCrudOptionsRet {
           title: '表名称',
           type: 'text',
           column: { width: 100, ellipsis: true, fixed: 'left' },
-          search: {
-            show: true,
-          },
+          search: { show: true },
         },
         name: {
           title: '字段名称',
