@@ -20,6 +20,7 @@ class FileDownloader {
   constructor(client: RequestClient) {
     this.client = client;
   }
+
   /**
    * 下载文件
    * @param url 文件的完整链接
@@ -57,6 +58,16 @@ class FileDownloader {
 
     throw new Error(
       `RequestClient does not support method "${method}". Please ensure the method is properly implemented in your RequestClient instance.`,
+    );
+  }
+
+  public async downloadFile(
+    url: string,
+    fileName: string,
+    config?: AxiosRequestConfig,
+  ): Promise<void> {
+    await this.download(url, config).then((blob) =>
+      downloadFileFromBlob({ fileName, source: blob }),
     );
   }
 }

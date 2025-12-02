@@ -20,9 +20,6 @@ export function DownloadFile(id: string) {
   return defHttp.downloadFile(
     `/suite/generate-table/${id}/download`,
     `generated-table.zip`,
-    {
-      method: 'POST',
-    },
   );
 }
 

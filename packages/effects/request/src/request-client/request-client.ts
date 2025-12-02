@@ -88,6 +88,7 @@ class RequestClient {
     // 实例化文件下载器
     const fileDownloader = new FileDownloader(this);
     this.download = fileDownloader.download.bind(fileDownloader);
+    this.downloadFile = fileDownloader.downloadFile.bind(fileDownloader);
     // 实例化SSE模块
     const sse = new SSE(this);
     this.postSSE = sse.postSSE.bind(sse);
