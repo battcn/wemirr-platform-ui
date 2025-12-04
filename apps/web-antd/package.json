@@ -57,6 +57,7 @@
     "ant-design-vue": "catalog:",
     "dayjs": "catalog:",
     "epic-designer": "catalog:",
+    "@epic-designer/antd": "catalog:",
     "lodash-es": "catalog:",
     "md-editor-v3": "^4.13.2",
     "pinia": "catalog:",

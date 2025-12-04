@@ -16,6 +16,7 @@ packages:
 catalog:
   "lodash-es": ^4.17.21
   "epic-designer": ^1.1.0
+  "@epic-designer/antd": ^1.1.0
   "@ant-design/colors": ^7.0.0
   "@ant-design/icons-vue": ^6.1.0
   "@fast-crud/fast-crud": ^1.27.1

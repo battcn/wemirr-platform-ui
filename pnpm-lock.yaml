@@ -30,6 +30,9 @@ catalogs:
     '@commitlint/config-conventional':
       specifier: ^19.8.1
       version: 19.8.1
+    '@epic-designer/antd':
+      specifier: ^1.1.0
+      version: 1.1.0
     '@eslint/js':
       specifier: ^9.39.1
       version: 9.39.1
@@ -630,6 +633,9 @@ importers:
       '@codemirror/theme-one-dark':
         specifier: ^6.1.2
         version: 6.1.3
+      '@epic-designer/antd':
+        specifier: 'catalog:'
+        version: 1.1.0(ant-design-vue@4.2.6(vue@3.5.24(typescript@5.9.3)))(epic-designer@1.1.0(monaco-editor@0.55.1)(vue@3.5.24(typescript@5.9.3)))(vue@3.5.24(typescript@5.9.3))
       '@fast-crud/fast-bpmn':
         specifier: ^2.1.15
         version: 2.1.15(camunda-bpmn-js-behaviors@1.11.3(bpmn-js@13.2.2)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.11.0))(preact@10.27.2)(vue@3.5.24(typescript@5.9.3))(webpack@5.103.0)
@@ -3469,6 +3475,13 @@ packages:
 
   '@emotion/unitless@0.8.1':
     resolution: {integrity: sha512-KOEGMu6dmJZtpadb476IsZBclKvILjopjUii3V+7MnXIQCYh8W3NgNcgwo21n9LXZX6EDIKvqfjYxXebDwxKmQ==}
+
+  '@epic-designer/antd@1.1.0':
+    resolution: {integrity: sha512-ZCFRtrDILGlAEvroDO2FRMAqzcVzi4HG0cWYnhRc8yuOnnMuqvR6TnqWlyouvKFguDxF0/sjsTsg8Uow1ZEvzA==}
+    peerDependencies:
+      ant-design-vue: '>=3.2.20'
+      epic-designer: '>=1.0.5'
+      vue: ^3.5.24
 
   '@es-joy/jsdoccomment@0.50.2':
     resolution: {integrity: sha512-YAdE/IJSpwbOTiaURNCKECdAwqrJuFiZhylmesBcIRawtYKnBR2wxPhoIewMg+Yu+QuYvHfJNReWpoxGBKOChA==}
@@ -14629,6 +14642,12 @@ snapshots:
   '@emotion/hash@0.9.2': {}
 
   '@emotion/unitless@0.8.1': {}
+
+  '@epic-designer/antd@1.1.0(ant-design-vue@4.2.6(vue@3.5.24(typescript@5.9.3)))(epic-designer@1.1.0(monaco-editor@0.55.1)(vue@3.5.24(typescript@5.9.3)))(vue@3.5.24(typescript@5.9.3))':
+    dependencies:
+      ant-design-vue: 4.2.6(vue@3.5.24(typescript@5.9.3))
+      epic-designer: 1.1.0(monaco-editor@0.55.1)(vue@3.5.24(typescript@5.9.3))
+      vue: 3.5.24(typescript@5.9.3)
 
   '@es-joy/jsdoccomment@0.50.2':
     dependencies:

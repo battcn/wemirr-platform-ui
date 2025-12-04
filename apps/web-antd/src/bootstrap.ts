@@ -7,8 +7,8 @@ import { initStores } from '@vben/stores';
 import '@vben/styles';
 import '@vben/styles/antd';
 
+import { setupAntd } from '@epic-designer/antd';
 import { useTitle } from '@vueuse/core';
-import { setupAntd } from 'epic-designer/dist/ui/antd';
 
 import { $t, setupI18n } from '#/locales';
 import { registerFastCrud } from '#/plugin/fast-crud/setup-fast-crud';
