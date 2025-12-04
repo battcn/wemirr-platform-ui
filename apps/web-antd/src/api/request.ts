@@ -14,7 +14,7 @@ import {
 import { useAccessStore } from '@vben/stores';
 
 import { useUi } from '@fast-crud/fast-crud';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 
 import { useAuthStore } from '#/store';
 
@@ -67,7 +67,7 @@ function createRequestClient(baseURL: string, options?: RequestClientOptions) {
       const accessStore = useAccessStore();
 
       config.headers.Authorization = formatToken(accessStore.accessToken);
-      config.headers['x-request-id'] = nanoid();
+      // config.headers['x-request-id'] = nanoid();
       config.headers['Accept-Language'] = preferences.app.locale;
       return config;
     },
