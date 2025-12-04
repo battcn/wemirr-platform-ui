@@ -220,8 +220,8 @@ catalogs:
       specifier: ^6.0.0
       version: 6.0.0
     epic-designer:
-      specifier: ^0.9.30
-      version: 0.9.30
+      specifier: ^1.1.0
+      version: 1.1.0
     es-toolkit:
       specifier: ^1.41.0
       version: 1.41.0
@@ -423,9 +423,6 @@ catalogs:
     tailwindcss-animate:
       specifier: ^1.0.7
       version: 1.0.7
-    tdesign-vue-next:
-      specifier: ^1.17.1
-      version: 1.17.3
     theme-colors:
       specifier: ^0.1.0
       version: 0.1.0
@@ -707,7 +704,7 @@ importers:
         version: 1.11.19
       epic-designer:
         specifier: 'catalog:'
-        version: 0.9.30(ant-design-vue@4.2.6(vue@3.5.24(typescript@5.9.3)))(dayjs@1.11.19)(element-plus@2.11.8(vue@3.5.24(typescript@5.9.3)))(monaco-editor@0.55.1)(naive-ui@2.43.2(vue@3.5.24(typescript@5.9.3)))(vue@3.5.24(typescript@5.9.3))
+        version: 1.1.0(monaco-editor@0.55.1)(vue@3.5.24(typescript@5.9.3))
       lodash-es:
         specifier: 'catalog:'
         version: 4.17.21
@@ -748,72 +745,6 @@ importers:
       less:
         specifier: ^4.4.1
         version: 4.4.2
-
-  apps/web-tdesign:
-    dependencies:
-      '@vben/access':
-        specifier: workspace:*
-        version: link:../../packages/effects/access
-      '@vben/common-ui':
-        specifier: workspace:*
-        version: link:../../packages/effects/common-ui
-      '@vben/constants':
-        specifier: workspace:*
-        version: link:../../packages/constants
-      '@vben/hooks':
-        specifier: workspace:*
-        version: link:../../packages/effects/hooks
-      '@vben/icons':
-        specifier: workspace:*
-        version: link:../../packages/icons
-      '@vben/layouts':
-        specifier: workspace:*
-        version: link:../../packages/effects/layouts
-      '@vben/locales':
-        specifier: workspace:*
-        version: link:../../packages/locales
-      '@vben/plugins':
-        specifier: workspace:*
-        version: link:../../packages/effects/plugins
-      '@vben/preferences':
-        specifier: workspace:*
-        version: link:../../packages/preferences
-      '@vben/request':
-        specifier: workspace:*
-        version: link:../../packages/effects/request
-      '@vben/stores':
-        specifier: workspace:*
-        version: link:../../packages/stores
-      '@vben/styles':
-        specifier: workspace:*
-        version: link:../../packages/styles
-      '@vben/types':
-        specifier: workspace:*
-        version: link:../../packages/types
-      '@vben/utils':
-        specifier: workspace:*
-        version: link:../../packages/utils
-      '@vueuse/core':
-        specifier: 'catalog:'
-        version: 13.9.0(vue@3.5.24(typescript@5.9.3))
-      dayjs:
-        specifier: 'catalog:'
-        version: 1.11.19
-      es-toolkit:
-        specifier: 'catalog:'
-        version: 1.41.0
-      pinia:
-        specifier: ^3.0.3
-        version: 3.0.4(typescript@5.9.3)(vue@3.5.24(typescript@5.9.3))
-      tdesign-vue-next:
-        specifier: 'catalog:'
-        version: 1.17.3(vue@3.5.24(typescript@5.9.3))
-      vue:
-        specifier: ^3.5.24
-        version: 3.5.24(typescript@5.9.3)
-      vue-router:
-        specifier: 'catalog:'
-        version: 4.6.3(vue@3.5.24(typescript@5.9.3))
 
   internal/lint-configs/commitlint-config:
     dependencies:
@@ -5002,14 +4933,8 @@ packages:
   '@types/sortablejs@1.15.9':
     resolution: {integrity: sha512-7HP+rZGE2p886PKV9c9OJzLBI6BBJu1O7lJGYnPyG3fS4/duUCcngkNCjsLwIMV+WMqANe3tt4irrXHSIe68OQ==}
 
-  '@types/tinycolor2@1.4.6':
-    resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
-
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
-
-  '@types/validator@13.15.9':
-    resolution: {integrity: sha512-9ENIuq9PUX45M1QRtfJDprgfErED4fBiMPmjlPci4W9WiBelVtHYCjF3xkQNcSnmUeuruLS1kH6hSl5M1vz4Sw==}
 
   '@types/web-bluetooth@0.0.16':
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
@@ -7085,14 +7010,10 @@ packages:
     resolution: {integrity: sha512-xUtoPkMggbz0MPyPiIWr1Kp4aeWJjDZ6SMvURhimjdZgsRuDplF5/s9hcgGhyXMhs+6vpnuoiZ2kFiu3FMnS8Q==}
     engines: {node: '>=18'}
 
-  epic-designer@0.9.30:
-    resolution: {integrity: sha512-wGOK14px5Q+cQcjDjjkjxbXwPpu+uSyyLrU6Lkq120p6VkHqkAp5oK1djp47E7m5MF6jeRZou+53ooRl/AsqCg==}
+  epic-designer@1.1.0:
+    resolution: {integrity: sha512-FgRq24idKEbCkJ9EQc88ZxZmf5Ikfc35IWJKaBk9+eFwVTw5ZaElY4PUYf/b+plcW9azizKXlY07PH89Q2Zmeg==}
     peerDependencies:
-      ant-design-vue: '>=3.2.20'
-      dayjs: '>=1.0.0'
-      element-plus: '>=2.6.0'
       monaco-editor: '>=0.48.0'
-      naive-ui: '>=2.30.0'
       vue: ^3.5.24
 
   errno@0.1.8:
@@ -11090,17 +11011,6 @@ packages:
     resolution: {integrity: sha512-7NyxrTE4Anh8km8iEy7o0QYPs+0JKBTj5ZaqHg6B39erLg0qYXN3BijtShwbsNSvQ+LN75+KV+C4QR/f6Gwnpg==}
     engines: {node: '>=18'}
 
-  tdesign-icons-vue-next@0.4.1:
-    resolution: {integrity: sha512-uDPuTLRORnGcTyVGNoentNaK4V+ZcBmhYwcY3KqDaQQ5rrPeLMxu0ZVmgOEf0JtF2QZiqAxY7vodNEiLUdoRKA==}
-    peerDependencies:
-      vue: ^3.5.24
-
-  tdesign-vue-next@1.17.3:
-    resolution: {integrity: sha512-4x1E5qfcE+rROjfozJz0g3Prc2tSCmoXtZ/Q7BG4rW37FqDborcPd+G9wE3E8Rht2z84/kuzK/SZur0tMjIshQ==}
-    engines: {node: '>= 18'}
-    peerDependencies:
-      vue: ^3.5.24
-
   temp-dir@2.0.0:
     resolution: {integrity: sha512-aoBAniQmmwtcKp/7BzsH8Cxzv8OL736p7v1ihGb5e9DJ9kTwGWHrQrVB5+lfVDzfGrdRzXch+ig7LHaY1JTOrg==}
     engines: {node: '>=8'}
@@ -11579,10 +11489,6 @@ packages:
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
-
-  validator@13.15.23:
-    resolution: {integrity: sha512-4yoz1kEWqUjzi5zsPbAS/903QXSYp0UOtHsPpp7p9rHAw/W+dkInskAE386Fat3oKRROwO98d9ZB0G4cObgUyw==}
-    engines: {node: '>= 0.10'}
 
   vanilla-picker@2.12.3:
     resolution: {integrity: sha512-qVkT1E7yMbUsB2mmJNFmaXMWE2hF8ffqzMMwe9zdAikd8u2VfnsVY2HQcOUi2F38bgbxzlJBEdS1UUhOXdF9GQ==}
@@ -14392,10 +14298,12 @@ snapshots:
   '@css-render/plugin-bem@0.15.14(css-render@0.15.14)':
     dependencies:
       css-render: 0.15.14
+    optional: true
 
   '@css-render/vue3-ssr@0.15.14(vue@3.5.24(typescript@5.9.3))':
     dependencies:
       vue: 3.5.24(typescript@5.9.3)
+    optional: true
 
   '@csstools/cascade-layer-name-parser@2.0.5(@csstools/css-parser-algorithms@3.0.5(@csstools/css-tokenizer@3.0.4))(@csstools/css-tokenizer@3.0.4)':
     dependencies:
@@ -14697,6 +14605,7 @@ snapshots:
   '@element-plus/icons-vue@2.3.2(vue@3.5.24(typescript@5.9.3))':
     dependencies:
       vue: 3.5.24(typescript@5.9.3)
+    optional: true
 
   '@emnapi/core@1.7.1':
     dependencies:
@@ -14714,7 +14623,8 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@emotion/hash@0.8.0': {}
+  '@emotion/hash@0.8.0':
+    optional: true
 
   '@emotion/hash@0.9.2': {}
 
@@ -15294,7 +15204,8 @@ snapshots:
 
   '@jspm/import-map@1.2.2': {}
 
-  '@juggle/resize-observer@3.4.0': {}
+  '@juggle/resize-observer@3.4.0':
+    optional: true
 
   '@keyv/bigmap@1.2.0(keyv@5.5.4)':
     dependencies:
@@ -16303,7 +16214,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@sxzz/popperjs-es@2.11.7': {}
+  '@sxzz/popperjs-es@2.11.7':
+    optional: true
 
   '@tailwindcss/nesting@0.0.0-insiders.565cd3e(postcss@8.5.6)':
     dependencies:
@@ -16382,13 +16294,15 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/katex@0.16.7': {}
+  '@types/katex@0.16.7':
+    optional: true
 
   '@types/linkify-it@5.0.0': {}
 
   '@types/lodash-es@4.17.12':
     dependencies:
       '@types/lodash': 4.17.20
+    optional: true
 
   '@types/lodash.clonedeep@4.5.9':
     dependencies:
@@ -16447,13 +16361,10 @@ snapshots:
 
   '@types/sortablejs@1.15.9': {}
 
-  '@types/tinycolor2@1.4.6': {}
-
   '@types/trusted-types@2.0.7': {}
 
-  '@types/validator@13.15.9': {}
-
-  '@types/web-bluetooth@0.0.16': {}
+  '@types/web-bluetooth@0.0.16':
+    optional: true
 
   '@types/web-bluetooth@0.0.21': {}
 
@@ -16977,6 +16888,7 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
+    optional: true
 
   '@vueuse/integrations@14.0.0(async-validator@4.2.5)(axios@1.13.2)(change-case@5.4.4)(focus-trap@7.6.6)(nprogress@0.2.0)(qrcode@1.5.4)(sortablejs@1.15.6)(vue@3.5.24(typescript@5.9.3))':
     dependencies:
@@ -16998,7 +16910,8 @@ snapshots:
 
   '@vueuse/metadata@14.0.0': {}
 
-  '@vueuse/metadata@9.13.0': {}
+  '@vueuse/metadata@9.13.0':
+    optional: true
 
   '@vueuse/motion@3.0.3(magicast@0.5.1)(vue@3.5.24(typescript@5.9.3))':
     dependencies:
@@ -17034,6 +16947,7 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
+    optional: true
 
   '@vxe-ui/core@4.2.14(vue@3.5.24(typescript@5.9.3))':
     dependencies:
@@ -18380,6 +18294,7 @@ snapshots:
     dependencies:
       '@emotion/hash': 0.8.0
       csstype: 3.0.11
+    optional: true
 
   css-select@4.3.0:
     dependencies:
@@ -18463,7 +18378,8 @@ snapshots:
     dependencies:
       css-tree: 2.2.1
 
-  csstype@3.0.11: {}
+  csstype@3.0.11:
+    optional: true
 
   csstype@3.2.2: {}
 
@@ -18503,8 +18419,10 @@ snapshots:
   date-fns-tz@3.2.0(date-fns@4.1.0):
     dependencies:
       date-fns: 4.1.0
+    optional: true
 
-  date-fns@4.1.0: {}
+  date-fns@4.1.0:
+    optional: true
 
   dateformat@2.2.0: {}
 
@@ -18807,6 +18725,7 @@ snapshots:
       vue: 3.5.24(typescript@5.9.3)
     transitivePeerDependencies:
       - '@vue/composition-api'
+    optional: true
 
   emoji-regex@10.6.0: {}
 
@@ -18863,15 +18782,17 @@ snapshots:
 
   environment@1.1.0: {}
 
-  epic-designer@0.9.30(ant-design-vue@4.2.6(vue@3.5.24(typescript@5.9.3)))(dayjs@1.11.19)(element-plus@2.11.8(vue@3.5.24(typescript@5.9.3)))(monaco-editor@0.55.1)(naive-ui@2.43.2(vue@3.5.24(typescript@5.9.3)))(vue@3.5.24(typescript@5.9.3)):
+  epic-designer@1.1.0(monaco-editor@0.55.1)(vue@3.5.24(typescript@5.9.3)):
     dependencies:
-      ant-design-vue: 4.2.6(vue@3.5.24(typescript@5.9.3))
-      dayjs: 1.11.19
-      element-plus: 2.11.8(vue@3.5.24(typescript@5.9.3))
       monaco-editor: 0.55.1
-      naive-ui: 2.43.2(vue@3.5.24(typescript@5.9.3))
       vue: 3.5.24(typescript@5.9.3)
       vuedraggable: 4.1.0(vue@3.5.24(typescript@5.9.3))
+    optionalDependencies:
+      ant-design-vue: 4.2.6(vue@3.5.24(typescript@5.9.3))
+      element-plus: 2.11.8(vue@3.5.24(typescript@5.9.3))
+      naive-ui: 2.43.2(vue@3.5.24(typescript@5.9.3))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
 
   errno@0.1.8:
     dependencies:
@@ -19358,7 +19279,8 @@ snapshots:
 
   events@3.3.0: {}
 
-  evtd@0.2.4: {}
+  evtd@0.2.4:
+    optional: true
 
   execa@8.0.1:
     dependencies:
@@ -20674,6 +20596,7 @@ snapshots:
       '@types/lodash-es': 4.17.12
       lodash: 4.17.21
       lodash-es: 4.17.21
+    optional: true
 
   lodash.camelcase@4.3.0: {}
 
@@ -20834,7 +20757,8 @@ snapshots:
 
   medium-zoom@1.1.0: {}
 
-  memoize-one@6.0.0: {}
+  memoize-one@6.0.0:
+    optional: true
 
   meow@12.1.1: {}
 
@@ -21067,6 +20991,7 @@ snapshots:
       vooks: 0.2.12(vue@3.5.24(typescript@5.9.3))
       vue: 3.5.24(typescript@5.9.3)
       vueuc: 0.4.65(vue@3.5.24(typescript@5.9.3))
+    optional: true
 
   namespace-emitter@2.0.1: {}
 
@@ -21253,7 +21178,8 @@ snapshots:
 
   normalize-range@0.1.2: {}
 
-  normalize-wheel-es@1.2.0: {}
+  normalize-wheel-es@1.2.0:
+    optional: true
 
   npm-run-path@5.3.0:
     dependencies:
@@ -22534,7 +22460,8 @@ snapshots:
       crypto-js: 4.2.0
       lz-string: 1.5.0
 
-  seemly@0.3.10: {}
+  seemly@0.3.10:
+    optional: true
 
   select@1.1.2: {}
 
@@ -23200,28 +23127,6 @@ snapshots:
       minizlib: 3.1.0
       yallist: 5.0.0
 
-  tdesign-icons-vue-next@0.4.1(vue@3.5.24(typescript@5.9.3)):
-    dependencies:
-      '@babel/runtime': 7.28.4
-      vue: 3.5.24(typescript@5.9.3)
-
-  tdesign-vue-next@1.17.3(vue@3.5.24(typescript@5.9.3)):
-    dependencies:
-      '@babel/runtime': 7.28.4
-      '@popperjs/core': 2.11.8
-      '@types/lodash-es': 4.17.12
-      '@types/sortablejs': 1.15.9
-      '@types/tinycolor2': 1.4.6
-      '@types/validator': 13.15.9
-      dayjs: 1.11.19
-      lodash-es: 4.17.21
-      mitt: 3.0.1
-      sortablejs: 1.15.6
-      tdesign-icons-vue-next: 0.4.1(vue@3.5.24(typescript@5.9.3))
-      tinycolor2: 1.6.0
-      validator: 13.15.23
-      vue: 3.5.24(typescript@5.9.3)
-
   temp-dir@2.0.0: {}
 
   tempy@0.6.0:
@@ -23344,7 +23249,8 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  treemate@0.3.11: {}
+  treemate@0.3.11:
+    optional: true
 
   ts-api-utils@1.4.3(typescript@5.9.3):
     dependencies:
@@ -23701,8 +23607,6 @@ snapshots:
 
   uuid@9.0.1: {}
 
-  validator@13.15.23: {}
-
   vanilla-picker@2.12.3:
     dependencies:
       '@sphinxxxx/color-conversion': 2.2.2
@@ -23711,6 +23615,7 @@ snapshots:
     dependencies:
       evtd: 0.2.4
       vue: 3.5.24(typescript@5.9.3)
+    optional: true
 
   vee-validate@4.15.1(vue@3.5.24(typescript@5.9.3)):
     dependencies:
@@ -23918,6 +23823,7 @@ snapshots:
     dependencies:
       evtd: 0.2.4
       vue: 3.5.24(typescript@5.9.3)
+    optional: true
 
   vscode-languageserver-textdocument@1.0.12: {}
 
@@ -24056,6 +23962,7 @@ snapshots:
       vdirs: 0.1.8(vue@3.5.24(typescript@5.9.3))
       vooks: 0.2.12(vue@3.5.24(typescript@5.9.3))
       vue: 3.5.24(typescript@5.9.3)
+    optional: true
 
   vxe-pc-ui@4.10.27(vue@3.5.24(typescript@5.9.3)):
     dependencies:
