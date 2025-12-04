@@ -163,16 +163,7 @@ export default function crud({
           type: 'dict-select',
           column: { width: 180 },
           dict: embeddingModelDict,
-        },
-        createdTime: {
-          title: '创建时间',
-          type: ['datetime', 'wp-readonly-time'],
-          column: { width: 180 },
-        },
-        updatedTime: {
-          title: '更新时间',
-          type: ['datetime', 'wp-readonly-time'],
-          column: { width: 180 },
+          editForm: { show: false },
         },
       },
       rowHandle: {

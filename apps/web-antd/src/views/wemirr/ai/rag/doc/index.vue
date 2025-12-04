@@ -193,10 +193,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="page-container">
+  <div>
     <div class="flex gap-2" style="height: calc(100vh - 40px); padding: 20px">
       <!-- 左侧知识库列表 -->
-      <Card :bordered="false" class="w-1/4 xl:w-1/4" style="height: 100%">
+      <Card :bordered="false" class="w-1/4">
         <template #title>
           <div class="flex items-center">
             <DatabaseOutlined class="mr-2 text-blue-500" />
@@ -261,7 +261,7 @@ onUnmounted(() => {
       </Card>
 
       <!-- 右侧文档管理 -->
-      <Card class="rag-document-page-card w-full" style="height: 100%">
+      <Card class="page-card w-full">
         <template #title>
           <div v-if="selectedKnowledgeBase" class="flex items-center">
             <BookOutlined class="mr-2 text-blue-500" />
@@ -269,19 +269,20 @@ onUnmounted(() => {
           </div>
           <div v-else>请选择知识库</div>
         </template>
-
-        <fs-crud ref="crudRef" v-bind="crudBinding">
-          <template #actionbar-left>
-            <a-button
-              v-if="selectedKnowledgeBase"
-              type="primary"
-              @click="openUploadModal"
-            >
-              <UploadOutlined />
-              上传文档
-            </a-button>
-          </template>
-        </fs-crud>
+        <div class="flex-grow" style="min-height: 0">
+          <fs-crud ref="crudRef" v-bind="crudBinding" style="height: 100%">
+            <template #actionbar-left>
+              <a-button
+                v-if="selectedKnowledgeBase"
+                type="primary"
+                @click="openUploadModal"
+              >
+                <UploadOutlined />
+                上传文档
+              </a-button>
+            </template>
+          </fs-crud>
+        </div>
       </Card>
     </div>
 
@@ -296,19 +297,19 @@ onUnmounted(() => {
 </template>
 
 <style lang="less" scoped>
-.page-container {
-  height: 100vh;
-  background: #f0f2f5;
-}
-
-/deep/ .rag-document-page-card {
+/deep/.page-card {
   .fs-crud-container {
-    min-height: 740px !important;
-    max-height: 980px !important;
+    height: calc(100vh - 150px) !important;
   }
+
   .ant-card-body {
     padding: 8px;
   }
+}
+
+.page-container {
+  height: 100vh;
+  // background: #f0f2f5;
 }
 
 .knowledge-base-list {
@@ -352,7 +353,7 @@ onUnmounted(() => {
 }
 
 .kb-meta {
-  margin-bottom: 6px;
+  // margin-bottom: 6px;
 }
 
 .kb-time {
