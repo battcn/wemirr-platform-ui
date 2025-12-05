@@ -6,7 +6,11 @@ import type {
 
 import { h } from 'vue';
 
-import { ThunderboltOutlined } from '@ant-design/icons-vue';
+import {
+  EyeOutlined,
+  FileTextOutlined,
+  ThunderboltOutlined,
+} from '@ant-design/icons-vue';
 import { dict } from '@fast-crud/fast-crud';
 import { message } from 'ant-design-vue';
 
@@ -19,6 +23,8 @@ export default function crud(
     selectedKnowledgeBase,
     vectorizeDocument,
     startVectorizeStatusPolling,
+    openPreviewModal,
+    openPreviewChunkModal,
   } = props.context;
 
   // 格式化文件大小
@@ -71,12 +77,7 @@ export default function crud(
             type: 'text',
             search: { show: true },
           },
-          originalFilename: {
-            title: '原始文件名',
-            type: 'text',
-            search: { show: true },
-          },
-          ext: {
+          contentType: {
             title: '文件类型',
             type: 'text',
             search: { show: true },
@@ -90,7 +91,7 @@ export default function crud(
         },
       },
       rowHandle: {
-        width: 200,
+        width: 300,
         buttons: {
           edit: {
             show: true,
@@ -101,6 +102,32 @@ export default function crud(
             show: true,
             text: '删除',
             title: '删除文档',
+          },
+          preview: {
+            type: 'link',
+            text: '预览',
+            size: 'small',
+            icon: h(EyeOutlined),
+            title: '预览文档完整内容',
+            show: true,
+            click(context: any) {
+              if (openPreviewModal) {
+                openPreviewModal(context.row.id, context.row.title);
+              }
+            },
+          },
+          previewChunk: {
+            type: 'link',
+            text: '分块',
+            size: 'small',
+            icon: h(FileTextOutlined),
+            title: '预览文档分块内容',
+            show: true,
+            click(context: any) {
+              if (openPreviewChunkModal) {
+                openPreviewChunkModal(context.row.id, context.row.title);
+              }
+            },
           },
           vectorize: {
             type: 'link',
@@ -149,12 +176,6 @@ export default function crud(
           search: { show: true },
           column: { ellipsis: true, width: 200 },
         },
-        originalFilename: {
-          title: '原始文件名',
-          type: 'text',
-          search: { show: true },
-          column: { ellipsis: true, width: 200 },
-        },
         fileSize: {
           title: '文件大小',
           type: 'text',
@@ -164,7 +185,7 @@ export default function crud(
             formatter: ({ value }) => formatFileSize(value),
           },
         },
-        ext: {
+        contentType: {
           title: '文件类型',
           type: 'text',
           search: { show: true },
@@ -181,19 +202,8 @@ export default function crud(
           title: '内容摘要',
           type: 'textarea',
           column: { show: false },
-        },
-        createdTime: {
-          title: '上传时间',
-          type: 'datetime',
-          form: { show: false },
-          column: { width: 180 },
-        },
-        updatedTime: {
-          title: '更新时间',
-          type: 'datetime',
-          form: { show: false },
-          column: { width: 180 },
-        },
+        }
+       
       },
     },
   };

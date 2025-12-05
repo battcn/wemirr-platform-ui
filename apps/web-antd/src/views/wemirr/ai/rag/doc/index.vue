@@ -20,6 +20,10 @@ import * as documentApi from './api';
 import createCrudOptions from './crud';
 
 const UploadModal = defineAsyncComponent(() => import('./UploadModal.vue'));
+const PreviewModal = defineAsyncComponent(() => import('./PreviewModal.vue'));
+const PreviewChunkModal = defineAsyncComponent(
+  () => import('./PreviewChunkModal.vue'),
+);
 
 // 知识库数据
 const knowledgeBaseData = ref<any[]>([]);
@@ -28,9 +32,13 @@ const selectedKeys = ref<number[]>([]);
 const loading = ref(false);
 const searchText = ref('');
 const uploadModalVisible = ref(false);
+const previewModalVisible = ref(false);
+const previewChunkModalVisible = ref(false);
+const previewDocumentId = ref<number | null>(null);
+const previewDocumentTitle = ref<string>('');
 
 // 轮询状态管理
-const pollingMap = ref<Map<number, NodeJS.Timeout>>(new Map());
+const pollingMap = ref<Map<number, ReturnType<typeof setTimeout>>>(new Map());
 const pollingDocuments = ref<Set<number>>(new Set());
 
 // 过滤后的知识库列表
@@ -105,6 +113,20 @@ const stopAllPolling = () => {
   pollingDocuments.value.clear();
 };
 
+// 打开预览弹窗
+const openPreviewModal = (documentId: number, documentTitle?: string) => {
+  previewDocumentId.value = documentId;
+  previewDocumentTitle.value = documentTitle || '';
+  previewModalVisible.value = true;
+};
+
+// 打开分块预览弹窗
+const openPreviewChunkModal = (documentId: number, documentTitle?: string) => {
+  previewDocumentId.value = documentId;
+  previewDocumentTitle.value = documentTitle || '';
+  previewChunkModalVisible.value = true;
+};
+
 // 初始化fast-crud
 const { crudBinding, crudRef, crudExpose } = useFs({
   createCrudOptions,
@@ -120,6 +142,8 @@ const { crudBinding, crudRef, crudExpose } = useFs({
       await documentApi.VectorizeDocument(documentId);
     },
     startVectorizeStatusPolling,
+    openPreviewModal,
+    openPreviewChunkModal,
   },
 });
 
@@ -293,6 +317,22 @@ onUnmounted(() => {
       :knowledge-base="selectedKnowledgeBase"
       @success="handleUploadSuccess"
     />
+
+    <!-- 文档预览弹窗 -->
+    <PreviewModal
+      :visible="previewModalVisible"
+      @update:visible="previewModalVisible = $event"
+      :document-id="previewDocumentId"
+      :document-title="previewDocumentTitle"
+    />
+
+    <!-- 文档分块预览弹窗 -->
+    <PreviewChunkModal
+      :visible="previewChunkModalVisible"
+      @update:visible="previewChunkModalVisible = $event"
+      :document-id="previewDocumentId"
+      :document-title="previewDocumentTitle"
+    />
   </div>
 </template>
 
@@ -353,7 +393,7 @@ onUnmounted(() => {
 }
 
 .kb-meta {
-  // margin-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 .kb-time {

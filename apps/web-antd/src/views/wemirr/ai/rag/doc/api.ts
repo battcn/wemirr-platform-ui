@@ -102,3 +102,17 @@ export const GetVectorizeStatus = (documentId: number) =>
 // 批量向量化文档
 export const BatchVectorizeDocuments = (documentIds: number[]) =>
   defHttp.post('/ai/rag-documents/batch-vectorize', { documentIds });
+
+// 文档分块预览响应
+export interface PreviewChunkResp {
+  id: number;
+  content: string;
+}
+
+// 文档完整内容预览
+export const PreviewDocument = (itemId: number) =>
+  defHttp.post<string>(`/ai/rag-documents/preview/${itemId}`);
+
+// 文档分块预览
+export const PreviewDocumentChunk = (itemId: number) =>
+  defHttp.post<PreviewChunkResp[]>(`/ai/rag-documents/preview-chunk/${itemId}/`);
