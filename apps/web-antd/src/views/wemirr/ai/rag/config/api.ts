@@ -89,3 +89,17 @@ export const GetEmbeddingModels = () =>
   defHttp.get('/ai/models-config/page', {
     params: { current: 1, size: 1000, modelType: 'EMBEDDING' },
   });
+
+// 语义搜索响应
+export interface EmbeddingMatchRep {
+  content: string;
+  score: number;
+  metadata: Record<string, any>;
+  searchType: string;
+}
+
+// 语义搜索
+export const SemanticSearch = (kbId: number, query: string, topK: number = 5) =>
+  defHttp.get<EmbeddingMatchRep[]>('/ai/knowledge-search/semantic-search', {
+    params: { kbId, query, topK },
+  });

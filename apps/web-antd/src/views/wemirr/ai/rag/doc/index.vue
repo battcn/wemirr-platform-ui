@@ -6,6 +6,7 @@ import {
   onUnmounted,
   ref,
 } from 'vue';
+import { useRoute } from 'vue-router';
 
 import {
   BookOutlined,
@@ -25,6 +26,9 @@ const PreviewChunkModal = defineAsyncComponent(
   () => import('./PreviewChunkModal.vue'),
 );
 
+// 路由
+const route = useRoute();
+
 // 知识库数据
 const knowledgeBaseData = ref<any[]>([]);
 const selectedKnowledgeBase = ref<any>(null);
@@ -34,7 +38,7 @@ const searchText = ref('');
 const uploadModalVisible = ref(false);
 const previewModalVisible = ref(false);
 const previewChunkModalVisible = ref(false);
-const previewDocumentId = ref<number | null>(null);
+const previewDocumentId = ref<null | number>(null);
 const previewDocumentTitle = ref<string>('');
 
 // 轮询状态管理
@@ -204,7 +208,19 @@ const handleUploadSuccess = () => {
 // 页面初始化
 onMounted(async () => {
   await getKnowledgeBases();
-  // 默认选择第一个知识库
+
+  // 从路由查询参数中获取知识库ID
+  const kbIdFromQuery = route.query.kbId;
+  if (kbIdFromQuery) {
+    const kbId = Number(kbIdFromQuery);
+    const targetKb = knowledgeBaseData.value.find((kb) => kb.id === kbId);
+    if (targetKb) {
+      handleSelectKnowledgeBase(targetKb);
+      return;
+    }
+  }
+
+  // 如果没有查询参数或找不到对应的知识库，默认选择第一个知识库
   if (knowledgeBaseData.value.length > 0) {
     handleSelectKnowledgeBase(knowledgeBaseData.value[0]);
   }

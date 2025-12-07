@@ -6,16 +6,20 @@ import type {
   EditReq,
 } from '@fast-crud/fast-crud';
 
-import { ref } from 'vue';
+import { h, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+import { SearchOutlined } from '@ant-design/icons-vue';
 import { dict } from '@fast-crud/fast-crud';
 import { message } from 'ant-design-vue';
 
 import * as api from './api';
 
-export default function crud({
-  crudExpose,
-}: CreateCrudOptionsProps): CreateCrudOptionsRet {
+export default function crud(
+  props: CreateCrudOptionsProps,
+): CreateCrudOptionsRet {
+  const { openSemanticSearchModal } = props.context || {};
+  const router = useRouter();
   const chatModels = ref<any[]>([]);
   const embeddingModels = ref<any[]>([]);
 
@@ -168,7 +172,7 @@ export default function crud({
       },
       rowHandle: {
         fixed: 'right',
-        width: 280,
+        width: 360,
         buttons: {
           edit: {
             show: true,
@@ -180,21 +184,30 @@ export default function crud({
             text: '文档管理',
             type: 'link',
             size: 'small',
-            click: ({ row }: any) => {
-              // TODO: 跳转到文档管理页面
-              message.info(`跳转到知识库"${row.name}"的文档管理页面`);
+            click: async ({ row }: any) => {
+              // 跳转到文档管理页面，并传递知识库ID
+              await router.push({
+                path: '/ai/rag/doc',
+              });
             },
             order: 10,
           },
-          // upload: {
-          //   text: '上传文档',
-          //   type: 'primary',
-          //   size: 'small',
-          //   click: ({ row }: any) => {
-          //     // TODO: 打开文档上传对话框
-          //     message.info(`为知识库"${row.name}"上传文档`);
-          //   },
-          // },
+          semanticSearch: {
+            text: '召回测试',
+            type: 'link',
+            size: 'small',
+            icon: h(SearchOutlined),
+            title: '语义召回测试',
+            show: true,
+            click: ({ row }: any) => {
+              if (openSemanticSearchModal) {
+                openSemanticSearchModal(row);
+              } else {
+                message.warning('召回测试功能暂不可用');
+              }
+            },
+            order: 5,
+          },
         },
       },
     },

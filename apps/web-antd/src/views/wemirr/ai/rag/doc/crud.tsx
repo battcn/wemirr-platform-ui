@@ -42,7 +42,7 @@ export default function crud(
       { value: 'PENDING', label: '未向量化', color: 'default' },
       { value: 'PROCESSED', label: '已向量化', color: 'success' },
       { value: 'PROCESSING', label: '向量化中', color: 'processing' },
-      { value: 'PROCESSED', label: '向量化失败', color: 'error' },
+      { value: 'FAILED', label: '向量化失败', color: 'error' },
     ],
   });
 
@@ -202,8 +202,7 @@ export default function crud(
           title: '内容摘要',
           type: 'textarea',
           column: { show: false },
-        }
-       
+        },
       },
     },
   };
